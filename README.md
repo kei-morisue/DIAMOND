@@ -1,2 +1,2 @@
 # diamond
-diagram drawer
+Origami Diagram Editor
