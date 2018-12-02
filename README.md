@@ -1,2 +1,2 @@
-# diamond
+# DIAMOND
 Origami Diagram Editor
