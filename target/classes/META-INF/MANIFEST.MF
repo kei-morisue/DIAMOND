@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: diamond
+Implementation-Version: 0.01
+Built-By: long_
+Specification-Title: diamond
+Implementation-Vendor-Id: diamond
+Build-Jdk: 1.8.0_181
+Specification-Version: 0.01
+Created-By: Maven Integration for Eclipse
+
