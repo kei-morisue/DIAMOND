@@ -39,7 +39,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollBar;
 
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.doc.exporter.Exporter;
@@ -52,6 +51,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.resource.Constants;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.view.main.MainFrame;
 import diamond.viewsetting.model.ModelFrameSettingDB;
 
 /**
@@ -168,7 +168,7 @@ implements ActionListener, AdjustmentListener, Observer{
                 screen.recalcCrossLine();
             } else {
                 screen.repaint();
-                DIAMOND.mainFrame.repaint();
+                MainFrame.getInstance().repaint();
             }
         } else if (e.getSource() == menuItemExportDXF) {
             exportFile("dxf");

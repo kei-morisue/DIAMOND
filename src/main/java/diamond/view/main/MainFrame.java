@@ -25,7 +25,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
@@ -37,16 +36,11 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 
 import diamond.Config;
 import diamond.DIAMOND;
-import diamond.bind.ButtonFactory;
-import diamond.bind.PaintActionButtonFactory;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.doc.exporter.ExporterXML;
@@ -64,264 +58,93 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
-import diamond.paint.util.DeleteSelectedLines;
 import diamond.resource.Constants;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
+import diamond.view.main.menubar.MenuEdit;
+import diamond.view.main.menubar.MenuFile;
+import diamond.view.main.menubar.MenuHelp;
 import diamond.viewsetting.main.MainFrameSettingDB;
 import diamond.viewsetting.main.MainScreenSettingDB;
 
 public class MainFrame extends JFrame implements ActionListener,
         ComponentListener, WindowListener, Observer {
 
-    /**
-     *
-     */
-    public static String iniFilePath = System.getProperty("user.home")
-            + File.separator + "oripa.ini";
-    public static final String infoString = "DIAMOND @Kei Morisue";
-    private static final long serialVersionUID = 272369294032419950L;
+    private static MainFrame instance = null;
 
-    private MainFrameSettingDB setting = MainFrameSettingDB.getInstance();
+    public static MainFrame getInstance() {
+        if (instance == null) {
+            instance = new MainFrame();
+        }
+        return instance;
+    }
+
+
+
     private MainScreenSettingDB screenSetting = MainScreenSettingDB
             .getInstance();
-    private PaintContext mouseContext = PaintContext.getInstance();
 
-    PainterScreen mainScreen;
-    private JMenu menuFile = new JMenu(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    StringID.Main.FILE_ID));
-    private JMenu menuEdit = new JMenu(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "Edit"));
-    private JMenu menuHelp = new JMenu(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "Help"));
-    private JMenuItem menuItemClear = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "New"));
-    private JMenuItem menuItemOpen = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "Open"));
+    private PainterScreen mainScreen;
 
-    private JMenuItem menuItemSave = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "Save"));
-    private JMenuItem menuItemSaveAs = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "SaveAs"));
-    private JMenuItem menuItemSaveAsImage = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "SaveAsImage"));
-
-    private JMenuItem menuItemExportDXF = new JMenuItem("Export DXF");
-    private JMenuItem menuItemExportOBJ = new JMenuItem("Export OBJ");
-    private JMenuItem menuItemExportCP = new JMenuItem("Export CP");
-    private JMenuItem menuItemExportSVG = new JMenuItem("Export SVG");
-
-    // -----------------------------------------------------------------------------------------------------------
-    // Create paint button
-
-    ButtonFactory buttonFactory = new PaintActionButtonFactory();
-
-    /**
-     * For changing outline
-     */
-    private JMenuItem menuItemChangeOutline = (JMenuItem) buttonFactory.create(
-            this, JMenuItem.class, StringID.EDIT_CONTOUR_ID);
-
-    /**
-     * For selecting all lines
-     */
-    private JMenuItem menuItemSelectAll = (JMenuItem) buttonFactory.create(
-            this, JMenuItem.class, StringID.SELECT_ALL_LINE_ID);
-
-    /**
-     * For starting copy-and-paste
-     */
-    private JMenuItem menuItemCopyAndPaste = (JMenuItem) buttonFactory.create(
-            this, JMenuItem.class, StringID.COPY_PASTE_ID);
-
-    /**
-     * For starting cut-and-paste
-     */
-    private JMenuItem menuItemCutAndPaste = (JMenuItem) buttonFactory.create(
-            this, JMenuItem.class, StringID.CUT_PASTE_ID);
-
-    // -----------------------------------------------------------------------------------------------------------
-
-
-    private ResourceHolder resourceHolder = ResourceHolder.getInstance();
-    private JMenuItem menuItemProperty = new JMenuItem(
-            resourceHolder.getString(ResourceKey.LABEL,
-                    StringID.Main.PROPERTY_ID));
-
-    private JMenuItem menuItemExit = new JMenuItem(resourceHolder.getString(
-            ResourceKey.LABEL, StringID.Main.EXIT_ID));
-    private JMenuItem menuItemUndo = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "Undo"));
-    private JMenuItem menuItemAbout = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "About"));
-    private JMenuItem menuItemRepeatCopy = new JMenuItem("Array Copy");
-    private JMenuItem menuItemCircleCopy = new JMenuItem("Circle Copy");
-    private JMenuItem menuItemUnSelectAll = new JMenuItem("UnSelect All");
-
-    private JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
-            "Delete Selected Lines");
-    private JMenuItem[] MRUFilesMenuItem = new JMenuItem[Config.MRUFILE_NUM];
+    private JMenuBar menuBar = new JMenuBar();
+    private MenuFile menuFile;
+    private MenuEdit menuEdit;
 
     private RepeatCopyDialog arrayCopyDialog;
     private CircleCopyDialog circleCopyDialog;
+
     public static JLabel hintLabel = new JLabel();
     public UIPanel uiPanel;
 
-    private FileHistory fileHistory = new FileHistory(Config.MRUFILE_NUM);
 
-    private FilterDB filterDB = FilterDB.getInstance();
+    private static FilterDB filterDB = FilterDB.getInstance();
     private FileFilterEx[] fileFilters = new FileFilterEx[] {
 
             filterDB.getFilter("opx"), filterDB.getFilter("pict") };
 
-    private void buildMenuItems() {
-        menuItemCopyAndPaste.setText(resourceHolder.getString(
-                ResourceKey.LABEL, StringID.COPY_PASTE_ID));
-        menuItemCutAndPaste.setText(resourceHolder.getString(
-                ResourceKey.LABEL, StringID.CUT_PASTE_ID));
-
-        menuItemOpen.addActionListener(this);
-        menuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
-                ActionEvent.CTRL_MASK));
-
-        menuItemSave.addActionListener(this);
-        menuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                ActionEvent.CTRL_MASK));
-
-        menuItemSaveAs.addActionListener(this);
-        menuItemSaveAsImage.addActionListener(this);
-
-        menuItemExit.addActionListener(this);
-        // menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-        // ActionEvent.CTRL_MASK));
-
-        menuItemUndo.addActionListener(this);
-        menuItemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-                ActionEvent.CTRL_MASK));
-
-        menuItemClear.addActionListener(this);
-        menuItemClear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                ActionEvent.CTRL_MASK));
-
-        menuItemAbout.addActionListener(this);
-        menuItemExportDXF.addActionListener(this);
-        menuItemExportOBJ.addActionListener(this);
-        menuItemExportCP.addActionListener(this);
-        menuItemExportSVG.addActionListener(this);
-        menuItemProperty.addActionListener(this);
-        menuItemChangeOutline.addActionListener(this);
-        menuItemRepeatCopy.addActionListener(this);
-        menuItemCircleCopy.addActionListener(this);
-        menuItemSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-                ActionEvent.CTRL_MASK));
-
-        menuItemUnSelectAll.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_ESCAPE, 0));
-
-        menuItemUnSelectAll
-                .addActionListener(new java.awt.event.ActionListener() {
-                    @Override
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        CreasePattern creasePattern = DocHolder.getInstance().getDoc()
-                                .getCreasePattern();
-                        Painter painter = new Painter();
-                        painter.resetSelectedOriLines(creasePattern);
-
-                        mouseContext.clear(false);
-                        mainScreen.repaint();
-                    }
-                });
-
-        menuItemDeleteSelectedLines
-                .addActionListener(new DeleteSelectedLines());
-        menuItemDeleteSelectedLines.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_DELETE, 0));
-
-        menuItemCopyAndPaste.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-        menuItemCutAndPaste.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_X, ActionEvent.CTRL_MASK));
-
-
-        for (int i = 0; i < Config.MRUFILE_NUM; i++) {
-            MRUFilesMenuItem[i] = new JMenuItem();
-            MRUFilesMenuItem[i].addActionListener(this);
-        }
-    }
-
     public MainFrame() {
-        setting.addObserver(this);
-        mainScreen = new PainterScreen();
+        MainFrameSettingDB.getInstance().addObserver(this);
         addWindowListener(this);
+        mainScreen = new PainterScreen();
         uiPanel = new UIPanel(mainScreen);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(uiPanel, BorderLayout.WEST);
         getContentPane().add(mainScreen, BorderLayout.CENTER);
         getContentPane().add(hintLabel, BorderLayout.SOUTH);
-
-        ImageResourceLoader imgLoader = new ImageResourceLoader();
-        this.setIconImage(imgLoader.loadAsIcon("icon/diamond.gif", getClass())
+        setIconImage(new ImageResourceLoader()
+                .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
-
         buildMenuBar();
-        buildMenuItems();
-        buildMenus();
         loadIniFile();
-
-        // Building the menu bar
-        buildMenuFile();
-
         addSavingActions();
+        setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
+                Config.INITIAL_MAIN_FRAME_HEIGHT);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        updateTitleText();
+        setVisible(true);
     }
 
-    /**
-     *
-     */
-    private void buildMenus() {
-        buildMenuFile();
-        buildMenuEdit();
-        buildMenuHelp();
-
-    }
-
-    /**
-     *
-     */
-    private void buildMenuHelp() {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }
-
-    /**
-     *
-     */
-    private void buildMenuEdit() {
-        menuEdit.add(menuItemCopyAndPaste);
-        menuEdit.add(menuItemCutAndPaste);
-        menuEdit.add(menuItemRepeatCopy);
-        menuEdit.add(menuItemCircleCopy);
-        menuEdit.add(menuItemSelectAll);
-        menuEdit.add(menuItemUnSelectAll);
-        menuEdit.add(menuItemDeleteSelectedLines);
-        menuEdit.add(menuItemUndo);
-        menuEdit.add(menuItemChangeOutline);
-    }
-
-    /**
-     *
-     */
     private void buildMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
+        menuFile = new MenuFile(this);
+        menuEdit = new MenuEdit(this);
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
-        menuBar.add(menuHelp);
+        menuBar.add(new MenuHelp());
         setJMenuBar(menuBar);
-
     }
+
+
+    public void updateMenu(String filePath) {
+        if (filterDB.getLoadableFilterOf(filePath) == null) {
+            return;
+        }
+        FileHistory.useFile(filePath);
+        menuFile.addItems();
+    }
+
+
 
     private void addSavingActions() {
 
@@ -392,9 +215,10 @@ public class MainFrame extends JFrame implements ActionListener,
 
         // Check the last opened files
         for (int i = 0; i < Config.MRUFILE_NUM; i++) {
-            if (e.getSource() == MRUFilesMenuItem[i]) {
+            if (e.getSource() == menuFile.getMRUFilesMenuItem()[i]) {
                 try {
-                    String filePath = MRUFilesMenuItem[i].getText();
+                    String filePath = menuFile.getMRUFilesMenuItem()[i]
+                            .getText();
                     openFile(filePath);
                     updateTitleText();
                 } catch (Exception ex) {
@@ -412,18 +236,18 @@ public class MainFrame extends JFrame implements ActionListener,
         //TODO Refactor the long, long if-else sequences!
 
         // String lastPath = fileHistory.getLastPath();
-        String lastDirectory = fileHistory.getLastDirectory();
+        String lastDirectory = FileHistory.getLastDirectory();
 
-        if (e.getSource() == menuItemOpen) {
+        if (e.getSource() == menuFile.getMenuItemOpen()) {
             openFile(null);
             mainScreen.repaint();
             updateTitleText();
-        } else if (e.getSource() == menuItemSave
+        } else if (e.getSource() == menuFile.getMenuItemSave()
                 && !DocHolder.getInstance().getDoc().getDataFilePath().equals("")) {
             saveOpxFile(DocHolder.getInstance().getDoc().getDataFilePath());
 
-        } else if (e.getSource() == menuItemSaveAs
-                || e.getSource() == menuItemSave) {
+        } else if (e.getSource() == menuFile.getMenuItemSaveAs()
+                || e.getSource() == menuFile.getMenuItemSave()) {
 
             String path = saveFile(lastDirectory, DocHolder.getInstance().getDoc().getDataFileName(),
                     fileFilters);
@@ -431,36 +255,36 @@ public class MainFrame extends JFrame implements ActionListener,
             updateMenu(path);
             updateTitleText();
 
-        } else if (e.getSource() == menuItemSaveAsImage) {
+        } else if (e.getSource() == menuFile.getMenuItemSaveAsImage()) {
 
             saveFile(lastDirectory, DocHolder.getInstance().getDoc().getDataFileName(),
                     new FileFilterEx[] { filterDB.getFilter("pict") });
 
-        } else if (e.getSource() == menuItemExportDXF) {
+        } else if (e.getSource() == menuFile.getMenuItemExportDXF()) {
             exportFile("dxf");
-        } else if (e.getSource() == menuItemExportOBJ) {
+        } else if (e.getSource() == menuFile.getMenuItemExportOBJ()) {
             exportFile("obj");
-        } else if (e.getSource() == menuItemExportCP) {
+        } else if (e.getSource() == menuFile.getMenuItemExportCP()) {
             exportFile("cp");
-        } else if (e.getSource() == menuItemExportSVG) {
+        } else if (e.getSource() == menuFile.getMenuItemExportSVG()) {
             exportFile("svg");
-        } else if (e.getSource() == menuItemChangeOutline) {
+        } else if (e.getSource() == menuEdit.getMenuItemChangeOutline()) {
             // Globals.preEditMode = Globals.editMode;
             // Globals.editMode = Constants.EditMode.EDIT_OUTLINE;
 
             // Globals.setMouseAction(new EditOutlineAction());
 
-        } else if (e.getSource() == menuItemExit) {
+        } else if (e.getSource() == menuFile.getMenuItemExit()) {
             saveIniFile();
             System.exit(0);
-        } else if (e.getSource() == menuItemUndo) {
+        } else if (e.getSource() == menuEdit.getMenuItemUndo()) {
             if (PaintConfig.getMouseAction() != null) {
-                PaintConfig.getMouseAction().undo(mouseContext);
+                PaintConfig.getMouseAction().undo(PaintContext.getInstance());
             } else {
                 DocHolder.getInstance().getDoc().loadUndoInfo();
             }
             mainScreen.repaint();
-        } else if (e.getSource() == menuItemClear) {
+        } else if (e.getSource() == menuFile.getMenuItemClear()) {
             DocHolder.getInstance()
                     .setDoc(new Doc(Constants.DEFAULT_PAPER_SIZE));
             DIAMOND.modelFrame.repaint();
@@ -473,12 +297,7 @@ public class MainFrame extends JFrame implements ActionListener,
 
             // ORIPA.mainFrame.uiPanel.dispGridCheckBox.setSelected(true);
             updateTitleText();
-        } else if (e.getSource() == menuItemAbout) {
-            JOptionPane.showMessageDialog(this, infoString,
-                    ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                            "Title"),
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else if (e.getSource() == menuItemProperty) {
+        } else if (e.getSource() == menuFile.getMenuItemProperty()) {
             PropertyDialog dialog = new PropertyDialog(this);
             dialog.setValue();
             Rectangle rec = getBounds();
@@ -487,7 +306,7 @@ public class MainFrame extends JFrame implements ActionListener,
                     (int) (rec.getCenterY() - dialog.getHeight() / 2));
             dialog.setModal(true);
             dialog.setVisible(true);
-        } else if (e.getSource() == menuItemRepeatCopy) {
+        } else if (e.getSource() == menuEdit.getMenuItemRepeatCopy()) {
             Painter painter = new Painter();
             if (painter.countSelectedLines(creasePattern) == 0) {
                 JOptionPane.showMessageDialog(this, "Select target lines",
@@ -496,7 +315,7 @@ public class MainFrame extends JFrame implements ActionListener,
             } else {
                 arrayCopyDialog.setVisible(true);
             }
-        } else if (e.getSource() == menuItemCircleCopy) {
+        } else if (e.getSource() == menuEdit.getMenuItemCircleCopy()) {
             Painter painter = new Painter();
             if (painter.countSelectedLines(creasePattern) == 0) {
                 JOptionPane.showMessageDialog(this, "Select target lines",
@@ -575,52 +394,10 @@ public class MainFrame extends JFrame implements ActionListener,
                     JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
         }
 
-
         saveFile(null, new FileFilterEx[] { filterDB.getFilter(ext) });
     }
 
-    private void buildMenuFile() {
-        menuFile.removeAll();
 
-        menuFile.add(menuItemClear);
-        menuFile.add(menuItemOpen);
-        menuFile.add(menuItemSave);
-        menuFile.add(menuItemSaveAs);
-        menuFile.add(menuItemSaveAsImage);
-        menuFile.add(menuItemExportDXF);
-        menuFile.add(menuItemExportOBJ);
-        menuFile.add(menuItemExportCP);
-        menuFile.add(menuItemExportSVG);
-        menuFile.addSeparator();
-        menuFile.add(menuItemProperty);
-        menuFile.addSeparator();
-
-        int i = 0;
-        for (String path : fileHistory.getHistory()) {
-            MRUFilesMenuItem[i].setText(path);
-            menuFile.add(MRUFilesMenuItem[i]);
-
-            i++;
-        }
-        while (i < MRUFilesMenuItem.length) {
-            MRUFilesMenuItem[i].setText("");
-            i++;
-        }
-
-        menuFile.addSeparator();
-        menuFile.add(menuItemExit);
-    }
-
-    public void updateMenu(String filePath) {
-
-        if (filterDB.getLoadableFilterOf(filePath) == null) {
-            return;
-        }
-
-        fileHistory.useFile(filePath);
-
-        buildMenuFile();
-    }
 
     /**
      * if filePath is null, this method opens a dialog to select the target.
@@ -643,7 +420,7 @@ public class MainFrame extends JFrame implements ActionListener,
             path = loadFile(filePath);
         } else {
             FileChooserFactory factory = new FileChooserFactory();
-            FileChooser fileChooser = factory.createChooser(fileHistory
+            FileChooser fileChooser = factory.createChooser(FileHistory
                     .getLastPath(), FilterDB.getInstance().getLoadables());
 
             fileChooser.setFileFilter(FilterDB.getInstance().getFilter("opx"));
@@ -705,11 +482,11 @@ public class MainFrame extends JFrame implements ActionListener,
     }
 
     private void saveIniFile() {
-        fileHistory.saveToFile(iniFilePath);
+        FileHistory.saveToFile(Config.INI_FILE_PATH);
     }
 
     private void loadIniFile() {
-        fileHistory.loadFromFile(iniFilePath);
+        FileHistory.loadFromFile(Config.INI_FILE_PATH);
     }
 
     @Override
@@ -743,7 +520,7 @@ public class MainFrame extends JFrame implements ActionListener,
                             "The crease pattern has been modified. Would you like to save?",
                             "Comfirm to save", JOptionPane.YES_NO_OPTION);
             if (selected == JOptionPane.YES_OPTION) {
-                String path = saveFile(fileHistory.getLastDirectory(),
+                String path = saveFile(FileHistory.getLastDirectory(),
                         DocHolder.getInstance().getDoc().getDataFileName(),
                         fileFilters);
                 if (path == null) {
@@ -799,9 +576,15 @@ public class MainFrame extends JFrame implements ActionListener,
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o.toString() == setting.getName()) {
-            hintLabel.setText("    " + setting.getHint());
+        if (o.toString() == MainFrameSettingDB
+                .getInstance().getName()) {
+            hintLabel.setText("    " + MainFrameSettingDB
+                    .getInstance().getHint());
             hintLabel.repaint();
         }
+    }
+
+    public PainterScreen getMainScreen() {
+        return this.mainScreen;
     }
 }

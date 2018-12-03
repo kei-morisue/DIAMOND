@@ -42,7 +42,6 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.vecmath.Vector2d;
 
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.fold.OriFace;
@@ -52,6 +51,7 @@ import diamond.paint.core.LineSetting;
 import diamond.paint.core.PaintConfig;
 import diamond.resource.Constants;
 import diamond.value.OriLine;
+import diamond.view.main.MainFrame;
 
 public class ModelViewScreen extends JPanel
 implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener, ComponentListener {
@@ -248,7 +248,7 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
 
         DocHolder.getInstance().getDoc().setCrossLine(crossLine);
         repaint();
-        DIAMOND.mainFrame.repaint();
+        MainFrame.getInstance().repaint();
     }
 
     @Override

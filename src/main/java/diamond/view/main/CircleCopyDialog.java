@@ -28,7 +28,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.CreasePattern;
@@ -47,7 +46,7 @@ public class CircleCopyDialog extends JDialog {
     private JTextField jTextFieldAngle = null;
     private JLabel jLabel3 = null;
     private JTextField jTextFieldNum = null;
-    
+
     private double m_cx = 0;
     private double m_cy = 0;
     private double m_angleDeg = 30;
@@ -63,19 +62,20 @@ public class CircleCopyDialog extends JDialog {
 
     /**
      * This method initializes this
-     * 
+     *
      * @return void
      */
     private void initialize() {
         this.setSize(160, 171);
         this.setTitle("CircleCoppy");
-        this.setLocation(DIAMOND.mainFrame.getLocation().x + 200, DIAMOND.mainFrame.getLocation().y + 100);
+        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
+                MainFrame.getInstance().getLocation().y + 100);
         this.setContentPane(getJContentPane());
     }
 
     /**
      * This method initializes jContentPane
-     * 
+     *
      * @return javax.swing.JPanel
      */
     private JPanel getJContentPane() {
@@ -110,9 +110,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jButtonOK	
-     * 	
-     * @return javax.swing.JButton	
+     * This method initializes jButtonOK
+     *
+     * @return javax.swing.JButton
      */
     private JButton getJButtonOK() {
         if (jButtonOK == null) {
@@ -123,49 +123,52 @@ public class CircleCopyDialog extends JDialog {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     System.out.println("actionPerformed()");
-                    
+
                     try{
                         m_cx = Double.valueOf(jTextFieldCX.getText());
                     } catch(Exception ex) {
                         m_cx = 0;
                     }
-                    
+
                     try {
                         m_cy = Double.valueOf(jTextFieldCY.getText());
                     } catch(Exception ex) {
                         m_cy = 0;
                     }
-                    
+
                     try {
                         m_angleDeg = Double.valueOf(jTextFieldAngle.getText());
                     } catch(Exception ex) {
                         m_angleDeg = 0;
                     }
-                    
-                    try{ 
+
+                    try {
                         m_num = Integer.valueOf(jTextFieldNum.getText());
                     } catch(Exception ex) {
                         m_num = 0;
                     }
-                                           
+
                     if(m_num <= 0) {
                         JOptionPane.showMessageDialog(
-                                DIAMOND.mainFrame , "Specify positive integer to Number.", "ArrayCopy" ,
+                                MainFrame.getInstance(),
+                                "Specify positive integer to Number.",
+                                "ArrayCopy",
                                 JOptionPane.INFORMATION_MESSAGE
-                            );            
-                        
-                    } else {
-                    	Doc document = DocHolder.getInstance().getDoc();
-                    	CreasePattern creasePattern = document.getCreasePattern();
-                    	document.pushUndoInfo();
-                    	
-                    	Painter painter = new Painter();
-                    	painter.copyWithRotation(
-                    			m_cx, m_cy, m_angleDeg, m_num,
-                    			creasePattern, creasePattern.getPaperSize());
+                        );
 
-                    	//TODO make it local access
-                        DIAMOND.mainFrame.repaint();
+                    } else {
+                        Doc document = DocHolder.getInstance().getDoc();
+                        CreasePattern creasePattern = document
+                                .getCreasePattern();
+                        document.pushUndoInfo();
+
+                        Painter painter = new Painter();
+                        painter.copyWithRotation(
+                                m_cx, m_cy, m_angleDeg, m_num,
+                                creasePattern, creasePattern.getPaperSize());
+
+                        //TODO make it local access
+                        MainFrame.getInstance().repaint();
                         setVisible(false);
                     }
                 }
@@ -175,9 +178,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jButtonCancel	
-     * 	
-     * @return javax.swing.JButton	
+     * This method initializes jButtonCancel
+     *
+     * @return javax.swing.JButton
      */
     private JButton getJButtonCancel() {
         if (jButtonCancel == null) {
@@ -187,7 +190,7 @@ public class CircleCopyDialog extends JDialog {
             jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
-                    System.out.println("actionPerformed()"); 
+                            System.out.println("actionPerformed()");
                     setVisible(false);
                 }
             });
@@ -196,9 +199,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jTextFieldCX	
-     * 	
-     * @return javax.swing.JTextField	
+     * This method initializes jTextFieldCX
+     *
+     * @return javax.swing.JTextField
      */
     private JTextField getJTextFieldCX() {
         if (jTextFieldCX == null) {
@@ -211,9 +214,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jTextFieldCY	
-     * 	
-     * @return javax.swing.JTextField	
+     * This method initializes jTextFieldCY
+     *
+     * @return javax.swing.JTextField
      */
     private JTextField getJTextFieldCY() {
         if (jTextFieldCY == null) {
@@ -226,9 +229,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jTextFieldAngle	
-     * 	
-     * @return javax.swing.JTextField	
+     * This method initializes jTextFieldAngle
+     *
+     * @return javax.swing.JTextField
      */
     private JTextField getJTextFieldAngle() {
         if (jTextFieldAngle == null) {
@@ -241,9 +244,9 @@ public class CircleCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jTextFieldNum	
-     * 	
-     * @return javax.swing.JTextField	
+     * This method initializes jTextFieldNum
+     *
+     * @return javax.swing.JTextField
      */
     private JTextField getJTextFieldNum() {
         if (jTextFieldNum == null) {

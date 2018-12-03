@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.core.PaintContext;
@@ -71,7 +70,8 @@ public class RepeatCopyDialog extends JDialog {
      */
     private void initialize() {
         this.setSize(123, 249);
-        this.setLocation(DIAMOND.mainFrame.getLocation().x + 200, DIAMOND.mainFrame.getLocation().y + 100);
+        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
+                MainFrame.getInstance().getLocation().y + 100);
         this.setTitle("ArrayCopy");
         this.setContentPane(getJContentPane());
     }
@@ -243,25 +243,31 @@ public class RepeatCopyDialog extends JDialog {
 
                     if (!m_bFillSheet && (m_row == 0 || m_col == 0)) {
                         JOptionPane.showMessageDialog(
-                                DIAMOND.mainFrame, "Specify non-Zero value to Low and Col.", "ArrayCopy",
+                                MainFrame.getInstance(),
+                                "Specify non-Zero value to Low and Col.",
+                                "ArrayCopy",
                                 JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
-                    	Doc document = DocHolder.getInstance().getDoc();
-                    	CreasePattern creasePattern = document.getCreasePattern();
-                    	document.pushUndoInfo();
+                        Doc document = DocHolder.getInstance().getDoc();
+                        CreasePattern creasePattern = document
+                                .getCreasePattern();
+                        document.pushUndoInfo();
 
-                    	Painter painter = new Painter();
-                    	if (m_bFillSheet) {
-                    		PaintContext context = PaintContext.getInstance();
-                    		painter.fillOut(
-                    				context.getLines(), creasePattern, creasePattern.getPaperSize());
-                    	} else {
-                    		painter.copyWithTiling(
-                    				m_row, m_col, m_interX, m_interX, creasePattern, creasePattern.getPaperSize());
-                    	}
-                    	//TODO make it local access
-                    	DIAMOND.mainFrame.repaint();
+                        Painter painter = new Painter();
+                        if (m_bFillSheet) {
+                            PaintContext context = PaintContext.getInstance();
+                            painter.fillOut(
+                                    context.getLines(), creasePattern,
+                                    creasePattern.getPaperSize());
+                        } else {
+                            painter.copyWithTiling(
+                                    m_row, m_col, m_interX, m_interX,
+                                    creasePattern,
+                                    creasePattern.getPaperSize());
+                        }
+                        //TODO make it local access
+                        MainFrame.getInstance().repaint();
                         setVisible(false);
                     }
                 }

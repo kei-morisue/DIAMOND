@@ -9,6 +9,8 @@ import diamond.bind.binder.ApplicationStateButtonBinder;
 import diamond.bind.state.PaintBoundStateFactory;
 import diamond.paint.EditMode;
 import diamond.paint.core.PaintContext;
+import diamond.resource.ResourceHolder;
+import diamond.resource.ResourceKey;
 
 
 /**
@@ -18,31 +20,36 @@ import diamond.paint.core.PaintContext;
  */
 public class PaintActionButtonFactory implements ButtonFactory {
 
-	PaintContext context = PaintContext.getInstance();
+    PaintContext context = PaintContext.getInstance();
 
-	/* (non-Javadoc)
-	 * @see oripa.bind.ButtonFactory#create(java.awt.Component, java.lang.Class, java.lang.String)
-	 */
-	@Override
-	public AbstractButton create(Component parent,
-			Class<? extends AbstractButton> buttonClass, String id){
+    /* (non-Javadoc)
+     * @see oripa.bind.ButtonFactory#create(java.awt.Component, java.lang.Class, java.lang.String)
+     */
+    @Override
+    public AbstractButton create(Component parent,
+            Class<? extends AbstractButton> buttonClass, String id) {
 
-		PaintBoundStateFactory stateFactory = 
-				new PaintBoundStateFactory();
-
-
-		ApplicationState<EditMode> state = stateFactory.create(parent, id);
+        PaintBoundStateFactory stateFactory = new PaintBoundStateFactory();
 
 
-		if(state == null){
-			throw new NullPointerException("Wrong ID for creating state");
-		}
+        ApplicationState<EditMode> state = stateFactory.create(parent, id);
 
-		ApplicationStateButtonBinder paintBinder = 
-				new  ApplicationStateButtonBinder();
-		AbstractButton button = paintBinder.createButton(buttonClass, state, id);
 
-		return button;
-	}
+        if (state == null) {
+            throw new NullPointerException("Wrong ID for creating state");
+        }
 
+        ApplicationStateButtonBinder paintBinder = new ApplicationStateButtonBinder();
+        AbstractButton button = paintBinder.createButton(buttonClass, state,
+                id);
+        return button;
+    }
+
+    public AbstractButton create(Component parent,
+            Class<? extends AbstractButton> buttonClass, ResourceKey key,
+            String id) {
+        AbstractButton button = create(parent, buttonClass, id);
+        button.setText(ResourceHolder.getInstance().getString(key, id));
+        return button;
+    }
 }

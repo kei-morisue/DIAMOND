@@ -30,7 +30,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.doc.exporter.Exporter;
@@ -40,6 +39,7 @@ import diamond.file.FileFilterEx;
 import diamond.fold.FoldedModelInfo;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.view.main.MainFrame;
 
 public class EstimationResultUI extends JPanel {
 
@@ -299,7 +299,8 @@ public class EstimationResultUI extends JPanel {
                     fileChooser.addChoosableFileFilter(f2);
                     fileChooser.setAcceptAllFileFilterUsed(false);
                     fileChooser.setFileFilter(f2);
-                    if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(DIAMOND.mainFrame)) {
+                            if (JFileChooser.APPROVE_OPTION == fileChooser
+                                    .showSaveDialog(MainFrame.getInstance())) {
                         try {
                             String filePath = fileChooser.getSelectedFile().getPath();
                             File file = new File(filePath);
@@ -334,7 +335,8 @@ public class EstimationResultUI extends JPanel {
 
                         } catch (Exception ex) {
                             JOptionPane.showMessageDialog(
-                                    DIAMOND.mainFrame, ex.toString(),
+                                            MainFrame.getInstance(),
+                                            ex.toString(),
                                             ResourceHolder.getInstance()
                                                     .getString(
                                                             ResourceKey.LABEL,
