@@ -16,14 +16,8 @@ import diamond.value.OriLine;
 public abstract class RectangularSelectableAction extends GraphicMouseAction {
 
 
-	private Point2D.Double startPoint = null; 
 	private Point2D.Double draggingPoint = null; 
-
-	@Override
-	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		startPoint = context.getLogicalMousePoint();
-	}
+	private Point2D.Double startPoint = null; 
 
 	@Override
 	public void onDrag(PaintContext context, AffineTransform affine,
@@ -33,7 +27,32 @@ public abstract class RectangularSelectableAction extends GraphicMouseAction {
 	
 	}
 
+	@Override
+	public void onDraw(Graphics2D g2d, PaintContext context) {
 
+		super.onDraw(g2d, context);
+
+		if(startPoint != null && draggingPoint != null){
+						
+	        g2d.setStroke(LineSetting.STROKE_SELECT_BY_AREA);
+	        g2d.setColor(Color.BLACK);
+	        double sx = Math.min(startPoint.x, draggingPoint.x);
+	        double sy = Math.min(startPoint.y, draggingPoint.y);
+	        double w = Math.abs(startPoint.x - draggingPoint.x);
+	        double h = Math.abs(startPoint.y - draggingPoint.y);
+	        g2d.draw(new Rectangle2D.Double(sx, sy, w, h));
+
+		}
+
+	}
+
+
+
+	@Override
+	public void onPress(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		startPoint = context.getLogicalMousePoint();
+	}
 
 	@Override
 	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
@@ -46,7 +65,7 @@ public abstract class RectangularSelectableAction extends GraphicMouseAction {
 		draggingPoint = null;
 		
 	}
-
+	
 	/**
 	 * defines what to do for the selected lines.
 	 * @param selectedLines		lines selected by dragging
@@ -54,6 +73,7 @@ public abstract class RectangularSelectableAction extends GraphicMouseAction {
 	 */
 	protected abstract void afterRectangularSelection(
 			Collection<OriLine> selectedLines, PaintContext context);
+	
 	
 	protected final void selectByRectangularArea(PaintContext context){
 		LinkedList<OriLine> selectedLines = new LinkedList<>();
@@ -82,26 +102,6 @@ public abstract class RectangularSelectableAction extends GraphicMouseAction {
 		}
 
 		afterRectangularSelection(selectedLines, context);
-	}
-	
-	
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-
-		super.onDraw(g2d, context);
-
-		if(startPoint != null && draggingPoint != null){
-						
-	        g2d.setStroke(LineSetting.STROKE_SELECT_BY_AREA);
-	        g2d.setColor(Color.BLACK);
-	        double sx = Math.min(startPoint.x, draggingPoint.x);
-	        double sy = Math.min(startPoint.y, draggingPoint.y);
-	        double w = Math.abs(startPoint.x - draggingPoint.x);
-	        double h = Math.abs(startPoint.y - draggingPoint.y);
-	        g2d.draw(new Rectangle2D.Double(sx, sy, w, h));
-
-		}
-
 	}
 
 

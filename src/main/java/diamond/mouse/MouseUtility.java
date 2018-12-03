@@ -13,18 +13,6 @@ import java.awt.geom.Point2D;
  */
 public class MouseUtility {
 
-	private MouseUtility() {}
-	
-	/**
-	 * 
-	 * @param event
-	 * @return true if Ctrl key is pressed, otherwise false.
-	 */
-	public static boolean isControlKeyPressed(MouseEvent event){
-		return ((event.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) 
-				== MouseEvent.CTRL_DOWN_MASK);		
-	}
-	
 	/**
 	 * 
 	 * @param affine
@@ -42,5 +30,17 @@ public class MouseUtility {
 
         return logicalPoint;
     }
+	
+	/**
+	 * 
+	 * @param event
+	 * @return true if Ctrl key is pressed, otherwise false.
+	 */
+	public static boolean isControlKeyPressed(MouseEvent event){
+		return ((event.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) 
+				== MouseEvent.CTRL_DOWN_MASK);		
+	}
+	
+	private MouseUtility() {}
 
 }

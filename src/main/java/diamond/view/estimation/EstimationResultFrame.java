@@ -42,9 +42,9 @@ public class EstimationResultFrame extends JFrame
 
     private RenderFrameSettingDB setting = RenderFrameSettingDB.getInstance();
 
+    public JLabel hintLabel;
     FoldedModelScreen screen;
     EstimationResultUI ui;
-    public JLabel hintLabel;
 
     public EstimationResultFrame() {
         setting.addObserver(this);
@@ -62,13 +62,13 @@ public class EstimationResultFrame extends JFrame
 
     }
 
-    public void initialize() {
-        setVisible(false);
-    }
-
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
+    }
+
+    public void initialize() {
+        setVisible(false);
     }
 
     @Override

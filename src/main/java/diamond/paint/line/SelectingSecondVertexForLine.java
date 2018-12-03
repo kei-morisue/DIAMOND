@@ -18,6 +18,14 @@ public class SelectingSecondVertexForLine extends PickingVertex{
 	}
 
 	@Override
+	protected void initialize() {
+		setPreviousClass(SelectingFirstVertexForLine.class);
+		setNextClass(SelectingFirstVertexForLine.class);
+
+		//System.out.println("SelectingSecondVertex.initialize() is called");
+	}
+
+	@Override
 	protected void onResult(PaintContext context) {
 
 		if(context.getVertexCount() != 2){
@@ -45,13 +53,5 @@ public class SelectingSecondVertexForLine extends PickingVertex{
 		}
 
 		context.clear(false);
-	}
-
-	@Override
-	protected void initialize() {
-		setPreviousClass(SelectingFirstVertexForLine.class);
-		setNextClass(SelectingFirstVertexForLine.class);
-
-		//System.out.println("SelectingSecondVertex.initialize() is called");
 	}
 }	

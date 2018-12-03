@@ -42,14 +42,6 @@ public class AngleBisectorAction extends GraphicMouseAction {
 
 
 	@Override
-	public void recover(PaintContext context) {
-		
-	}
-
-
-
-
-	@Override
 	public void destroy(PaintContext context) {
 		super.destroy(context);
 		setActionState(new SelectingVertexForBisector());
@@ -68,14 +60,6 @@ public class AngleBisectorAction extends GraphicMouseAction {
 
 
 	@Override
-	public void onRelease(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
 
 		super.onDraw(g2d, context);
@@ -91,10 +75,26 @@ public class AngleBisectorAction extends GraphicMouseAction {
 
 
 
+
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+	@Override
+	public void recover(PaintContext context) {
 		
 	}
 

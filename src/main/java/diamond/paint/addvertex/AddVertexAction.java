@@ -42,12 +42,6 @@ public class AddVertexAction extends GraphicMouseAction {
 
 
 	@Override
-	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
-
-
-	}
-
-	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
 
 		super.onDraw(g2d, context);
@@ -58,6 +52,12 @@ public class AddVertexAction extends GraphicMouseAction {
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
+	}
+
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
+
+
 	}
 
 

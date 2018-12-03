@@ -43,13 +43,12 @@ public class Save extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         MainFrame mainFrame = MainFrame.getInstance();
-        if (!DocHolder.getInstance().getDoc().getDataFilePath()
-                .equals("")) {
-            mainFrame.saveOpxFile(
-                    DocHolder.getInstance().getDoc().getDataFilePath());
+        String filePath = DocHolder.getInstance().getDoc().getDataFilePath();
+        if (!filePath.equals("")) {
+            MainFrame.getInstance().saveOpxFile(filePath);
         } else {
             mainFrame.saveAs(FileHistory.getLastDirectory());
         }
-
+        mainFrame.updateMenu(filePath);
     }
 }

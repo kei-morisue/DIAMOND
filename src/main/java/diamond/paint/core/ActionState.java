@@ -6,13 +6,13 @@ public interface ActionState {
 	public ActionState doAction(PaintContext context, 
 			Point2D.Double currentPoint, boolean differentAction);
 
-	public ActionState undo(PaintContext context);
+	public ActionState getNextState();
 	
 
-	public void setNextState(ActionState state);	
-	public void setPreviousState(ActionState state);
+	public ActionState getPreviousState();	
+	public void setNextState(ActionState state);
 
-	public ActionState getNextState();	
-	public ActionState getPreviousState();
+	public void setPreviousState(ActionState state);	
+	public ActionState undo(PaintContext context);
 
 }

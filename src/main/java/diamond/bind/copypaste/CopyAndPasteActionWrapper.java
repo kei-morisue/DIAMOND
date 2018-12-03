@@ -27,17 +27,6 @@ public class CopyAndPasteActionWrapper extends CopyAndPasteAction {
     }
 
     @Override
-    public void recover(PaintContext context) {
-        super.recover(context);
-        Doc document = DocHolder.getInstance().getDoc();
-        Collection<OriLine> creasePattern = document.getCreasePattern();
-        if (isCut) {
-            Painter painter = new Painter();
-            painter.removeSelectedLines(creasePattern);
-        }
-    }
-
-    @Override
     public void onRightClick(PaintContext context, AffineTransform affine,
             boolean differentAction) {
 
@@ -50,6 +39,17 @@ public class CopyAndPasteActionWrapper extends CopyAndPasteAction {
 
         // a case having switched copy to cut.
         prev.performActions(null);
+    }
+
+    @Override
+    public void recover(PaintContext context) {
+        super.recover(context);
+        Doc document = DocHolder.getInstance().getDoc();
+        Collection<OriLine> creasePattern = document.getCreasePattern();
+        if (isCut) {
+            Painter painter = new Painter();
+            painter.removeSelectedLines(creasePattern);
+        }
     }
 
 }

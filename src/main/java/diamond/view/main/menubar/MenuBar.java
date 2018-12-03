@@ -15,11 +15,11 @@ import diamond.resource.StringID;
  * @author  long_
  */
 public class MenuBar extends JMenuBar {
+    private JMenu menuEdit;
     /**
      *
      */
     private JMenu menuFile;
-    private JMenu menuEdit;
     private JMenu menuHelp;
 
     /**
@@ -37,12 +37,12 @@ public class MenuBar extends JMenuBar {
                         StringID.Main.HELP_ID));
     }
 
-    public JMenu getMenuFile() {
-        return this.menuFile;
-    }
-
     public JMenu getMenuEdit() {
         return this.menuEdit;
+    }
+
+    public JMenu getMenuFile() {
+        return this.menuFile;
     }
 
     public JMenu getMenuHelp() {

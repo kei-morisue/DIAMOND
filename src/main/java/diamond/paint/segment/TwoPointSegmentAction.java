@@ -23,26 +23,12 @@ public class TwoPointSegmentAction extends GraphicMouseAction {
 	}
 
 	@Override
-	public void recover(PaintContext context) {
-		// TODO Auto-generated method stub
-		setActionState(new SelectingFirstVertexForSegment());
-	}
-
-
-	@Override
 	public void onDrag(PaintContext context, AffineTransform affine, boolean differentAction) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void onRelease(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
 
-	}
-
-	
 	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
 
@@ -55,14 +41,28 @@ public class TwoPointSegmentAction extends GraphicMouseAction {
 
 	}
 
-
-
-
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+
+	@Override
+	public void recover(PaintContext context) {
+		// TODO Auto-generated method stub
+		setActionState(new SelectingFirstVertexForSegment());
 	}
 
 }

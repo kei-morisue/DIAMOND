@@ -21,12 +21,6 @@ public class SelectingLine extends PickingLine {
 	
 	
 	@Override
-	protected void undoAction(PaintContext context) {
-		// TODO Auto-generated method stub
-		super.undoAction(context);
-	}
-
-	@Override
 	protected void onResult(PaintContext context) {
 		
 		DocHolder.getInstance().getDoc().pushUndoInfo();
@@ -45,6 +39,12 @@ public class SelectingLine extends PickingLine {
 	    	line.selected = true;
 	    }
 
+	}
+
+	@Override
+	protected void undoAction(PaintContext context) {
+		// TODO Auto-generated method stub
+		super.undoAction(context);
 	}
 
 }

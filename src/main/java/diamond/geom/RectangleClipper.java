@@ -24,38 +24,20 @@ import diamond.value.OriLine;
 
 public class RectangleClipper {
 
+    final static int BOTTOM = 8;
     final static int LEFT = 1;
     final static int RIGHT = 2;
     final static int TOP = 4;
-    final static int BOTTOM = 8;
-    private double m_minX;
-    private double m_minY;
     private double m_maxX;
     private double m_maxY;
+    private double m_minX;
+    private double m_minY;
 
     public RectangleClipper(double x0, double y0, double x1, double y1) {
         m_minX = x0;
         m_minY = y0;
         m_maxX = x1;
         m_maxY = y1;
-    }
-
-    private int calcCode(double x, double y) {
-        int code = 0;
-        if (x < m_minX) {
-            code += LEFT;
-        }
-        if (x > m_maxX) {
-            code += RIGHT;
-        }
-        if (y < m_minY) {
-            code += TOP;
-        }
-        if (y > m_maxY) {
-            code += BOTTOM;
-        }
-
-        return code;
     }
 
     /*
@@ -105,6 +87,24 @@ public class RectangleClipper {
         }
 
         return -1;  // If it is not clipping, line segment is completely invisible
+    }
+
+    private int calcCode(double x, double y) {
+        int code = 0;
+        if (x < m_minX) {
+            code += LEFT;
+        }
+        if (x > m_maxX) {
+            code += RIGHT;
+        }
+        if (y < m_minY) {
+            code += TOP;
+        }
+        if (y > m_maxY) {
+            code += BOTTOM;
+        }
+
+        return code;
     }
 
     // Returns false if not included in the area

@@ -23,16 +23,16 @@ public class SymmetricLineFactory {
 			return bestLine;
 		}
 		/**
-		 * @param bestLine bestLineを登録する
-		 */
-		public void setBestLine(OriLine bestLine) {
-			this.bestLine = bestLine;
-		}
-		/**
 		 * @return bestPoint
 		 */
 		public Vector2d getBestPoint() {
 			return bestPoint;
+		}
+		/**
+		 * @param bestLine bestLineを登録する
+		 */
+		public void setBestLine(OriLine bestLine) {
+			this.bestLine = bestLine;
 		}
 		/**
 		 * @param bestPoint bestPointを登録する
@@ -43,22 +43,48 @@ public class SymmetricLineFactory {
 		
 	}
 	/**
-	 * v1-v2 is the symmetry line, v0-v1 is the subject to be copied. 
+	 * add new symmetric line to {@code autoWalkLines} recursively.
 	 * @param v0
 	 * @param v1
 	 * @param v2
+	 * @param stepCount
+	 * @param startV
 	 * @param creasePattern
+	 * @param autoWalkLines
 	 * @throws PainterCommandFailedException 
 	 */
-	public OriLine createSymmetricLine(
-			Vector2d v0, Vector2d v1, Vector2d v2,
-			Collection<OriLine> creasePattern) throws PainterCommandFailedException {
+	private void addSymmetricLineAutoWalk(
+			Vector2d v0, Vector2d v1, Vector2d v2, int stepCount, Vector2d startV,
+			Collection<OriLine> creasePattern, Collection<OriLine> autoWalkLines)
+					throws PainterCommandFailedException {
+
+		//FIXME this method does not detect loop path. it causes meaningless recursion.
+
+		stepCount++;
+		if (stepCount > 36) {
+			return;
+		}
 
 		BestPair pair = findBestPair(v0, v1, v2, creasePattern);
 
 		Vector2d bestPoint = pair.getBestPoint();
+		OriLine bestLine =  pair.getBestLine();
 		
-		return new OriLine(v1, bestPoint, PaintConfig.inputLineType);
+
+		OriLine autoWalk = new OriLine(
+				v1, bestPoint, PaintConfig.inputLineType);
+		
+
+		autoWalkLines.add(autoWalk);
+
+		if (GeomUtil.Distance(bestPoint, startV) < CalculationResource.POINT_EPS) {
+			return;
+		}
+
+		addSymmetricLineAutoWalk(
+				v1, bestPoint, bestLine.p0, stepCount, startV,
+				creasePattern, autoWalkLines);
+
 	}
 
 	/**
@@ -106,6 +132,26 @@ public class SymmetricLineFactory {
 	
 
 	/**
+	 * v1-v2 is the symmetry line, v0-v1 is the subject to be copied. 
+	 * @param v0
+	 * @param v1
+	 * @param v2
+	 * @param creasePattern
+	 * @throws PainterCommandFailedException 
+	 */
+	public OriLine createSymmetricLine(
+			Vector2d v0, Vector2d v1, Vector2d v2,
+			Collection<OriLine> creasePattern) throws PainterCommandFailedException {
+
+		BestPair pair = findBestPair(v0, v1, v2, creasePattern);
+
+		Vector2d bestPoint = pair.getBestPoint();
+		
+		return new OriLine(v1, bestPoint, PaintConfig.inputLineType);
+	}
+	
+	
+	/**
 	 * This method generates possible rebouncing of the fold.
 	 * 
 	 * @param v0 terminal point of the line to be copied
@@ -126,52 +172,6 @@ public class SymmetricLineFactory {
 		addSymmetricLineAutoWalk(v0, v1, v2, 0, startV, creasePattern, autoWalkLines);
 
 		return autoWalkLines;
-	}
-	
-	
-	/**
-	 * add new symmetric line to {@code autoWalkLines} recursively.
-	 * @param v0
-	 * @param v1
-	 * @param v2
-	 * @param stepCount
-	 * @param startV
-	 * @param creasePattern
-	 * @param autoWalkLines
-	 * @throws PainterCommandFailedException 
-	 */
-	private void addSymmetricLineAutoWalk(
-			Vector2d v0, Vector2d v1, Vector2d v2, int stepCount, Vector2d startV,
-			Collection<OriLine> creasePattern, Collection<OriLine> autoWalkLines)
-					throws PainterCommandFailedException {
-
-		//FIXME this method does not detect loop path. it causes meaningless recursion.
-
-		stepCount++;
-		if (stepCount > 36) {
-			return;
-		}
-
-		BestPair pair = findBestPair(v0, v1, v2, creasePattern);
-
-		Vector2d bestPoint = pair.getBestPoint();
-		OriLine bestLine =  pair.getBestLine();
-		
-
-		OriLine autoWalk = new OriLine(
-				v1, bestPoint, PaintConfig.inputLineType);
-		
-
-		autoWalkLines.add(autoWalk);
-
-		if (GeomUtil.Distance(bestPoint, startV) < CalculationResource.POINT_EPS) {
-			return;
-		}
-
-		addSymmetricLineAutoWalk(
-				v1, bestPoint, bestLine.p0, stepCount, startV,
-				creasePattern, autoWalkLines);
-
 	}
 
 }

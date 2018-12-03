@@ -19,14 +19,6 @@ public class SelectingLineForBisector extends PickingLine {
 	
 	
 	@Override
-	protected void undoAction(PaintContext context) {
-		context.popVertex();
-	
-	}
-
-	
-
-	@Override
 	protected void onResult(PaintContext context) {
 		if(context.getLineCount() != 1 || 
 				context.getVertexCount() != 3){
@@ -45,6 +37,14 @@ public class SelectingLineForBisector extends PickingLine {
         		creasePattern);
 
         context.clear(false);
+	}
+
+	
+
+	@Override
+	protected void undoAction(PaintContext context) {
+		context.popVertex();
+	
 	}
 
 }

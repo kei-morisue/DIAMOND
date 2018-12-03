@@ -38,114 +38,228 @@ import diamond.value.OriLine;
 
 public class Folder {
 
+	public static void matrixCopy(int[][] from, int[][] to) {
+		int size = from.length;
+		for (int i = 0; i < size; i++) {
+			System.arraycopy(from[i], 0, to[i], 0, size);
+		}
+	}
 	private ArrayList<Condition4> condition4s = new ArrayList<>();
-	private int workORmat[][];
-	private ArrayList<SubFace> subFaces;
+	private FolderTool folderTool = new FolderTool();
 
 	// helper object
     private OrigamiModelFactory modelFactory = new OrigamiModelFactory();
-    private FolderTool folderTool = new FolderTool();
+    private ArrayList<SubFace> subFaces;
     
+	private int workORmat[][];
+
 	public Folder() {
 	}
 
-	// TODO: this method should return FoldedModelInfo.
-	public int fold(OrigamiModel origamiModel, FoldedModelInfo foldedModelInfo) {
-//		OrigamiModel origamiModel = m_doc.getOrigamiModel();
-//		FoldedModelInfo foldedModelInfo = m_doc.getFoldedModelInfo();
+	//creates the matrix overlapRelation and fills it with "no overlap" or "undifined"
+	private int[][] createOverlapRelation(List<OriFace> faces) {
 
-        List<OriFace> sortedFaces = origamiModel.getSortedFaces();
-
-        List<OriFace>   faces    = origamiModel.getFaces();
-        List<OriVertex> vertices = origamiModel.getVertices();
-        List<OriEdge>   edges    = origamiModel.getEdges();
-        
-        List<int[][]> foldableOverlapRelations = foldedModelInfo.getFoldableOverlapRelations();
-        foldableOverlapRelations.clear();
-
-        
-		simpleFoldWithoutZorder(faces, edges);
-		
-		foldedModelInfo.setBoundBox(
-				folderTool.calcFoldedBoundingBox(faces));
-		
-		sortedFaces.addAll(faces);
-		folderTool.setFacesOutline(vertices, faces, false);
-
-
-		if (!PaintConfig.bDoFullEstimation) {
-			origamiModel.setFolded(true);
-			return 0;
-		}
-
-		// After folding construct the sbfaces
-		double paperSize = origamiModel.getPaperSize();
-		subFaces = makeSubFaces(faces, paperSize);
-		System.out.println("subFaces.size() = " + subFaces.size());
-
-		foldedModelInfo.setOverlapRelation(
-				createOverlapRelation(faces));
-
-        int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-		// Set overlap relations based on valley/mountain folds information
-		step1(faces, overlapRelation);
-
-		holdCondition3s(faces, paperSize, overlapRelation);
-		holdCondition4s(edges, overlapRelation);
-
-
-		estimation(faces, overlapRelation);
-
+		int overlapCount = 0;
 		int size = faces.size();
-		workORmat = new int[size][size];
+		int[][] overlapRelation = new int[size][size];
+
 		for (int i = 0; i < size; i++) {
-			System.arraycopy(overlapRelation[i], 0, workORmat[i], 0, size);
+			overlapRelation[i][i] = Doc.NO_OVERLAP;
+			for (int j = i + 1; j < size; j++) {
+				if (GeomUtil.isFaceOverlap(faces.get(i), faces.get(j), size * 0.00001)) {
+					overlapRelation[i][j] = Doc.UNDEFINED;
+					overlapRelation[j][i] = Doc.UNDEFINED;
+					overlapCount++;
+				} else {
+					overlapRelation[i][j] = Doc.NO_OVERLAP;
+					overlapRelation[j][i] = Doc.NO_OVERLAP;
+				}
+			}
 		}
 
-		DIAMOND.tmpInt = 0;
+		return overlapRelation;
+	}
 
+	// If face[i] and face[j] touching edge is covered by face[k]
+	// then OR[i][k] = OR[j][k] 
+	private boolean estimate_by3faces(
+			List<OriFace> faces,
+			int[][] orMat) {
+
+		boolean bChanged = false;
+		for (OriFace f_i : faces) {
+			for (OriHalfedge he : f_i.halfedges) {
+				if (he.pair == null) {
+					continue;
+				}
+				OriFace f_j = he.pair.face;
+
+				for (OriFace f_k : faces) {
+					if (f_k == f_i || f_k == f_j) {
+						continue;
+					}
+					if (GeomUtil.isLineCrossFace(f_k, he, 0.0001)) {
+						if (orMat[f_i.tmpInt][f_k.tmpInt] != Doc.UNDEFINED
+								&& orMat[f_j.tmpInt][f_k.tmpInt] == Doc.UNDEFINED) {
+							setOR(orMat, f_j.tmpInt, f_k.tmpInt, orMat[f_i.tmpInt][f_k.tmpInt], true);
+							bChanged = true;
+						} else if (orMat[f_j.tmpInt][f_k.tmpInt] != Doc.UNDEFINED
+								&& orMat[f_i.tmpInt][f_k.tmpInt] == Doc.UNDEFINED) {
+							setOR(orMat, f_i.tmpInt, f_k.tmpInt, orMat[f_j.tmpInt][f_k.tmpInt], true);
+							bChanged = true;
+						}
+					}
+				}
+			}
+		}
+
+		return bChanged;
+	}
+
+	// If the subface a>b and b>c then a>c
+	private boolean estimate_by3faces2(int[][] orMat) {
+		boolean bChanged = false;
 		for (SubFace sub : subFaces) {
-			sub.sortFaceOverlapOrder(faces, workORmat);
+
+			boolean changed;
+
+			while (true) {
+				changed = false;
+
+				boolean bFound = false;
+				for (int i = 0; i < sub.faces.size(); i++) {
+					for (int j = i + 1; j < sub.faces.size(); j++) {
+
+						// seach for undertermined relations
+						int index_i = sub.faces.get(i).tmpInt;
+						int index_j = sub.faces.get(j).tmpInt;
+
+						if (orMat[index_i][index_j] == Doc.NO_OVERLAP) {
+							continue;
+						}
+						if (orMat[index_i][index_j] != Doc.UNDEFINED) {
+							continue;
+						}
+						// Find the intermediary face
+						for (int k = 0; k < sub.faces.size(); k++) {
+							if (k == i) {
+								continue;
+							}
+							if (k == j) {
+								continue;
+							}
+
+							int index_k = sub.faces.get(k).tmpInt;
+
+							if (orMat[index_i][index_k] == Doc.UPPER && orMat[index_k][index_j] == Doc.UPPER) {
+								orMat[index_i][index_j] = Doc.UPPER;
+								orMat[index_j][index_i] = Doc.LOWER;
+								bFound = true;
+								changed = true;
+								bChanged = true;
+								break;
+							}
+							if (orMat[index_i][index_k] == Doc.LOWER && orMat[index_k][index_j] == Doc.LOWER) {
+								orMat[index_i][index_j] = Doc.LOWER;
+								orMat[index_j][index_i] = Doc.UPPER;
+								bFound = true;
+								changed = true;
+								bChanged = true;
+								break;
+							}
+							if (bFound) {
+								break;
+							}
+						}
+						if (bFound) {
+							break;
+						}
+
+					}
+
+					if (bFound) {
+						break;
+					}
+				}
+
+				if (!changed) {
+					break;
+				}
+			}
+		}
+		return bChanged;
+	}
+
+	private boolean estimate_by4faces(int[][] orMat) {
+
+		boolean[] changed = new boolean[1];
+		changed[0] = false;
+
+		for (Condition4 cond : condition4s) {
+
+			// if: lower1 > upper2, then: upper1 > upper2, upper1 > lower2, lower1 > lower2
+			if (orMat[cond.lower1][cond.upper2] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper1, cond.upper2, changed);
+				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
+				setLowerValueIfUndefined(orMat, cond.lower1, cond.lower2, changed);
+			}
+
+			// if: lower2 > upper1, then: upper2 > upper1, upper2 > lower1, lower2 > lower1
+			if (orMat[cond.lower2][cond.upper1] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper2, cond.upper1, changed);
+				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
+				setLowerValueIfUndefined(orMat, cond.lower2, cond.lower1, changed);
+			}
+
+			// if: upper1 > upper2 > lower1, then: upper1 > lower2, lower2 > lower1
+			if (orMat[cond.upper1][cond.upper2] == Doc.LOWER
+					&& orMat[cond.upper2][cond.lower1] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
+				setLowerValueIfUndefined(orMat, cond.lower2, cond.lower1, changed);
+			}
+
+			// if: upper1 > lower2 > lower1, then: upper1 > upper2, upper2 > lower1
+			if (orMat[cond.upper1][cond.lower2] == Doc.LOWER
+					&& orMat[cond.lower2][cond.lower1] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper1, cond.upper2, changed);
+				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
+			}
+
+			// if: upper2 > upper1 > lower2, then: upper2 > lower1, lower1 > lower2
+			if (orMat[cond.upper2][cond.upper1] == Doc.LOWER
+					&& orMat[cond.upper1][cond.lower2] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
+				setLowerValueIfUndefined(orMat, cond.lower1, cond.lower2, changed);
+			}
+
+			// if: upper2 > lower1 > lower2, then: upper2 > upper1, upper1 > lower2
+			if (orMat[cond.upper2][cond.lower1] == Doc.LOWER
+					&& orMat[cond.lower1][cond.lower2] == Doc.LOWER) {
+				setLowerValueIfUndefined(orMat, cond.upper2, cond.upper1, changed);
+				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
+			}
 		}
 
-		findAnswer(foldedModelInfo, 0, overlapRelation);
 
-		foldedModelInfo.setCurrentORmatIndex(0);
-		if (foldableOverlapRelations.isEmpty()) {
-			DIAMOND.outMessage("No answer was found");
-			return 0;
-		} else {
-			matrixCopy(foldableOverlapRelations.get(0), overlapRelation);
-		}
+		return changed[0];
+	}
 
-		folderTool.setFacesOutline(vertices, faces, false);
-
-		// Color the faces
-		Random rand = new Random();
-		for (OriFace face : faces) {
-			int r = (int) (rand.nextDouble() * 255);
-			int g = (int) (rand.nextDouble() * 255);
-			int b = (int) (rand.nextDouble() * 255);
-			if (r < 0) {
-				r = 0;
-			} else if (r > 255) {
-				r = 255;
+	private void estimation(
+			List<OriFace> faces, int[][] orMat) {
+		boolean bChanged;
+		do {
+			bChanged = false;
+			if (estimate_by3faces(faces, orMat)) {
+				bChanged = true;
 			}
-			if (g < 0) {
-				g = 0;
-			} else if (g > 255) {
-				g = 255;
+			if (estimate_by3faces2(orMat)) {
+				bChanged = true;
 			}
-			if (b < 0) {
-				b = 0;
-			} else if (b > 255) {
-				b = 255;
+			if (estimate_by4faces(orMat)) {
+				bChanged = true;
 			}
-			face.intColor = (r << 16) | (g << 8) | b | 0xff000000;
-		}
+		} while (bChanged);
 
-		origamiModel.setFolded(true);
-		return foldableOverlapRelations.size();
 	}
 
 	private void findAnswer(
@@ -222,22 +336,135 @@ public class Folder {
 		}
 	}
 
-	private void estimation(
-			List<OriFace> faces, int[][] orMat) {
-		boolean bChanged;
-		do {
-			bChanged = false;
-			if (estimate_by3faces(faces, orMat)) {
-				bChanged = true;
-			}
-			if (estimate_by3faces2(orMat)) {
-				bChanged = true;
-			}
-			if (estimate_by4faces(orMat)) {
-				bChanged = true;
-			}
-		} while (bChanged);
+	private void flipFace(OriFace face, OriHalfedge baseHe) {
+		Vector2d preOrigin = new Vector2d(baseHe.pair.next.tmpVec);
+		Vector2d afterOrigin = new Vector2d(baseHe.tmpVec);
 
+		// Creates the base unit vector for before the rotation
+		Vector2d baseDir = new Vector2d();
+		baseDir.sub(baseHe.pair.tmpVec, baseHe.pair.next.tmpVec);
+
+		// Creates the base unit vector for after the rotation
+		Vector2d afterDir = new Vector2d();
+		afterDir.sub(baseHe.next.tmpVec, baseHe.tmpVec);
+		afterDir.normalize();
+
+		Line preLine = new Line(preOrigin, baseDir);
+
+		for (OriHalfedge he : face.halfedges) {
+			double param[] = new double[1];
+			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
+			double d1 = param[0]; 
+
+			Vector2d footV = new Vector2d(afterOrigin);
+			footV.x += d1 * afterDir.x;
+			footV.y += d1 * afterDir.y;
+
+			Vector2d afterDirFromFoot = new Vector2d();
+			afterDirFromFoot.x = afterDir.y;
+			afterDirFromFoot.y = -afterDir.x;
+
+			he.tmpVec.x = footV.x + d0 * afterDirFromFoot.x;
+			he.tmpVec.y = footV.y + d0 * afterDirFromFoot.y;
+		}
+
+		// Ivertion
+		if (face.faceFront == baseHe.face.faceFront) {
+			Vector2d ep = baseHe.next.tmpVec;
+			Vector2d sp = baseHe.tmpVec;
+
+
+			Vector2d b = new Vector2d();
+			b.sub(ep, sp);
+			for (OriHalfedge he : face.halfedges) {
+
+				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
+					continue;
+				}
+				if (Math.abs(b.y) < GeomUtil.EPS) {
+					Vector2d a = new Vector2d();
+					a.sub(he.tmpVec, sp);
+					a.y = -a.y;
+					he.tmpVec.y = a.y + sp.y;
+				} else {
+					Vector2d a = new Vector2d();
+					a.sub(he.tmpVec, sp);
+					he.tmpVec.y = ((b.y * b.y - b.x * b.x) * a.y + 2 * b.x * b.y * a.x) / b.lengthSquared();
+					he.tmpVec.x = b.x / b.y * a.y - a.x + b.x / b.y * he.tmpVec.y;
+					he.tmpVec.x += sp.x;
+					he.tmpVec.y += sp.y;
+				}
+			}
+			face.faceFront = !face.faceFront;
+		}
+	}
+
+	// Method that doesnt use sin con 
+	private void flipFace2(List<OriFace> faces, OriFace face, OriHalfedge baseHe) {
+
+		Vector2d preOrigin = new Vector2d(baseHe.pair.next.tmpVec);
+		Vector2d afterOrigin = new Vector2d(baseHe.tmpVec);
+
+		// Creates the base unit vector for before the rotation
+		Vector2d baseDir = new Vector2d();
+		baseDir.sub(baseHe.pair.tmpVec, baseHe.pair.next.tmpVec);
+
+		// Creates the base unit vector for after the rotation
+		Vector2d afterDir = new Vector2d();
+		afterDir.sub(baseHe.next.tmpVec, baseHe.tmpVec);
+		afterDir.normalize();
+
+		Line preLine = new Line(preOrigin, baseDir);
+
+		for (OriHalfedge he : face.halfedges) {
+			double param[] = new double[1];
+			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
+			double d1 = param[0];
+
+			Vector2d footV = new Vector2d(afterOrigin);
+			footV.x += d1 * afterDir.x;
+			footV.y += d1 * afterDir.y;
+
+			Vector2d afterDirFromFoot = new Vector2d();
+			afterDirFromFoot.x = afterDir.y;
+			afterDirFromFoot.y = -afterDir.x;
+
+			he.tmpVec.x = footV.x + d0 * afterDirFromFoot.x;
+			he.tmpVec.y = footV.y + d0 * afterDirFromFoot.y;
+
+		}
+
+		// Ivertion
+		if (face.faceFront == baseHe.face.faceFront) {
+			Vector2d ep = baseHe.next.tmpVec;
+			Vector2d sp = baseHe.tmpVec;
+
+			Vector2d b = new Vector2d();
+			b.sub(ep, sp);
+			for (OriHalfedge he : face.halfedges) {
+
+				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
+					continue;
+				}
+				if (Math.abs(b.y) < GeomUtil.EPS) {
+					Vector2d a = new Vector2d();
+					a.sub(he.tmpVec, sp);
+					a.y = -a.y;
+					he.tmpVec.y = a.y + sp.y;
+				} else {
+					Vector2d a = new Vector2d();
+					a.sub(he.tmpVec, sp);
+					he.tmpVec.y = ((b.y * b.y - b.x * b.x) * a.y + 2 * b.x * b.y * a.x) / b.lengthSquared();
+					he.tmpVec.x = b.x / b.y * a.y - a.x + b.x / b.y * he.tmpVec.y;
+					he.tmpVec.x += sp.x;
+					he.tmpVec.y += sp.y;
+				}
+			}
+			face.faceFront = !face.faceFront;
+		}
+
+		faces.remove(face);
+		faces.add(face);
 	}
 
 	// If face[i] and face[j] touching edge is covered by face[k]
@@ -405,196 +632,6 @@ public class Folder {
 		}
 	}
 
-	public static void matrixCopy(int[][] from, int[][] to) {
-		int size = from.length;
-		for (int i = 0; i < size; i++) {
-			System.arraycopy(from[i], 0, to[i], 0, size);
-		}
-	}
-
-	private void setOR(int[][] orMat, int i, int j, int value, boolean bSetPairAtSameTime) {
-		orMat[i][j] = value;
-		if (bSetPairAtSameTime) {
-			if (value == Doc.LOWER) {
-				orMat[j][i] = Doc.UPPER;
-			} else {
-				orMat[j][i] = Doc.LOWER;
-			}
-		}
-	}
-
-	private void setLowerValueIfUndefined(int[][] orMat, int i, int j, boolean[] changed) {
-		if (orMat[i][j] == Doc.UNDEFINED) {
-			orMat[i][j] = Doc.LOWER;
-			orMat[j][i] = Doc.UPPER;
-			changed[0] = true;
-		}
-	}
-
-	private boolean estimate_by4faces(int[][] orMat) {
-
-		boolean[] changed = new boolean[1];
-		changed[0] = false;
-
-		for (Condition4 cond : condition4s) {
-
-			// if: lower1 > upper2, then: upper1 > upper2, upper1 > lower2, lower1 > lower2
-			if (orMat[cond.lower1][cond.upper2] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper1, cond.upper2, changed);
-				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
-				setLowerValueIfUndefined(orMat, cond.lower1, cond.lower2, changed);
-			}
-
-			// if: lower2 > upper1, then: upper2 > upper1, upper2 > lower1, lower2 > lower1
-			if (orMat[cond.lower2][cond.upper1] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper2, cond.upper1, changed);
-				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
-				setLowerValueIfUndefined(orMat, cond.lower2, cond.lower1, changed);
-			}
-
-			// if: upper1 > upper2 > lower1, then: upper1 > lower2, lower2 > lower1
-			if (orMat[cond.upper1][cond.upper2] == Doc.LOWER
-					&& orMat[cond.upper2][cond.lower1] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
-				setLowerValueIfUndefined(orMat, cond.lower2, cond.lower1, changed);
-			}
-
-			// if: upper1 > lower2 > lower1, then: upper1 > upper2, upper2 > lower1
-			if (orMat[cond.upper1][cond.lower2] == Doc.LOWER
-					&& orMat[cond.lower2][cond.lower1] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper1, cond.upper2, changed);
-				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
-			}
-
-			// if: upper2 > upper1 > lower2, then: upper2 > lower1, lower1 > lower2
-			if (orMat[cond.upper2][cond.upper1] == Doc.LOWER
-					&& orMat[cond.upper1][cond.lower2] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper2, cond.lower1, changed);
-				setLowerValueIfUndefined(orMat, cond.lower1, cond.lower2, changed);
-			}
-
-			// if: upper2 > lower1 > lower2, then: upper2 > upper1, upper1 > lower2
-			if (orMat[cond.upper2][cond.lower1] == Doc.LOWER
-					&& orMat[cond.lower1][cond.lower2] == Doc.LOWER) {
-				setLowerValueIfUndefined(orMat, cond.upper2, cond.upper1, changed);
-				setLowerValueIfUndefined(orMat, cond.upper1, cond.lower2, changed);
-			}
-		}
-
-
-		return changed[0];
-	}
-
-	// If the subface a>b and b>c then a>c
-	private boolean estimate_by3faces2(int[][] orMat) {
-		boolean bChanged = false;
-		for (SubFace sub : subFaces) {
-
-			boolean changed;
-
-			while (true) {
-				changed = false;
-
-				boolean bFound = false;
-				for (int i = 0; i < sub.faces.size(); i++) {
-					for (int j = i + 1; j < sub.faces.size(); j++) {
-
-						// seach for undertermined relations
-						int index_i = sub.faces.get(i).tmpInt;
-						int index_j = sub.faces.get(j).tmpInt;
-
-						if (orMat[index_i][index_j] == Doc.NO_OVERLAP) {
-							continue;
-						}
-						if (orMat[index_i][index_j] != Doc.UNDEFINED) {
-							continue;
-						}
-						// Find the intermediary face
-						for (int k = 0; k < sub.faces.size(); k++) {
-							if (k == i) {
-								continue;
-							}
-							if (k == j) {
-								continue;
-							}
-
-							int index_k = sub.faces.get(k).tmpInt;
-
-							if (orMat[index_i][index_k] == Doc.UPPER && orMat[index_k][index_j] == Doc.UPPER) {
-								orMat[index_i][index_j] = Doc.UPPER;
-								orMat[index_j][index_i] = Doc.LOWER;
-								bFound = true;
-								changed = true;
-								bChanged = true;
-								break;
-							}
-							if (orMat[index_i][index_k] == Doc.LOWER && orMat[index_k][index_j] == Doc.LOWER) {
-								orMat[index_i][index_j] = Doc.LOWER;
-								orMat[index_j][index_i] = Doc.UPPER;
-								bFound = true;
-								changed = true;
-								bChanged = true;
-								break;
-							}
-							if (bFound) {
-								break;
-							}
-						}
-						if (bFound) {
-							break;
-						}
-
-					}
-
-					if (bFound) {
-						break;
-					}
-				}
-
-				if (!changed) {
-					break;
-				}
-			}
-		}
-		return bChanged;
-	}
-
-	// If face[i] and face[j] touching edge is covered by face[k]
-	// then OR[i][k] = OR[j][k] 
-	private boolean estimate_by3faces(
-			List<OriFace> faces,
-			int[][] orMat) {
-
-		boolean bChanged = false;
-		for (OriFace f_i : faces) {
-			for (OriHalfedge he : f_i.halfedges) {
-				if (he.pair == null) {
-					continue;
-				}
-				OriFace f_j = he.pair.face;
-
-				for (OriFace f_k : faces) {
-					if (f_k == f_i || f_k == f_j) {
-						continue;
-					}
-					if (GeomUtil.isLineCrossFace(f_k, he, 0.0001)) {
-						if (orMat[f_i.tmpInt][f_k.tmpInt] != Doc.UNDEFINED
-								&& orMat[f_j.tmpInt][f_k.tmpInt] == Doc.UNDEFINED) {
-							setOR(orMat, f_j.tmpInt, f_k.tmpInt, orMat[f_i.tmpInt][f_k.tmpInt], true);
-							bChanged = true;
-						} else if (orMat[f_j.tmpInt][f_k.tmpInt] != Doc.UNDEFINED
-								&& orMat[f_i.tmpInt][f_k.tmpInt] == Doc.UNDEFINED) {
-							setOR(orMat, f_i.tmpInt, f_k.tmpInt, orMat[f_j.tmpInt][f_k.tmpInt], true);
-							bChanged = true;
-						}
-					}
-				}
-			}
-		}
-
-		return bChanged;
-	}
-
 	private ArrayList<SubFace> makeSubFaces(
 			List<OriFace> faces, double paperSize) {
 		//OrigamiModel origamiModel = m_doc.getOrigamiModel();
@@ -688,6 +725,25 @@ public class Folder {
 		return localSubFaces;
 	}
 
+	private void setLowerValueIfUndefined(int[][] orMat, int i, int j, boolean[] changed) {
+		if (orMat[i][j] == Doc.UNDEFINED) {
+			orMat[i][j] = Doc.LOWER;
+			orMat[j][i] = Doc.UPPER;
+			changed[0] = true;
+		}
+	}
+
+	private void setOR(int[][] orMat, int i, int j, int value, boolean bSetPairAtSameTime) {
+		orMat[i][j] = value;
+		if (bSetPairAtSameTime) {
+			if (value == Doc.LOWER) {
+				orMat[j][i] = Doc.UPPER;
+			} else {
+				orMat[j][i] = Doc.LOWER;
+			}
+		}
+	}
+
 	private void simpleFoldWithoutZorder(
 			List<OriFace> faces, List<OriEdge> edges) {
 		//OrigamiModel origamiModel = m_doc.getOrigamiModel();
@@ -727,112 +783,6 @@ public class Folder {
 
 	}
 
-	// Recursive method that flips the faces, making the folds
-	private void walkFace(OriFace face) {
-		face.tmpFlg = true;
-
-		for (OriHalfedge he : face.halfedges) {
-			if (he.pair == null) {
-				continue;
-			}
-			if (he.pair.face.tmpFlg) {
-				continue;
-			}
-
-			flipFace(he.pair.face, he);
-			he.pair.face.tmpFlg = true;
-			walkFace(he.pair.face);
-		}
-	}
-
-	private void flipFace(OriFace face, OriHalfedge baseHe) {
-		Vector2d preOrigin = new Vector2d(baseHe.pair.next.tmpVec);
-		Vector2d afterOrigin = new Vector2d(baseHe.tmpVec);
-
-		// Creates the base unit vector for before the rotation
-		Vector2d baseDir = new Vector2d();
-		baseDir.sub(baseHe.pair.tmpVec, baseHe.pair.next.tmpVec);
-
-		// Creates the base unit vector for after the rotation
-		Vector2d afterDir = new Vector2d();
-		afterDir.sub(baseHe.next.tmpVec, baseHe.tmpVec);
-		afterDir.normalize();
-
-		Line preLine = new Line(preOrigin, baseDir);
-
-		for (OriHalfedge he : face.halfedges) {
-			double param[] = new double[1];
-			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
-			double d1 = param[0]; 
-
-			Vector2d footV = new Vector2d(afterOrigin);
-			footV.x += d1 * afterDir.x;
-			footV.y += d1 * afterDir.y;
-
-			Vector2d afterDirFromFoot = new Vector2d();
-			afterDirFromFoot.x = afterDir.y;
-			afterDirFromFoot.y = -afterDir.x;
-
-			he.tmpVec.x = footV.x + d0 * afterDirFromFoot.x;
-			he.tmpVec.y = footV.y + d0 * afterDirFromFoot.y;
-		}
-
-		// Ivertion
-		if (face.faceFront == baseHe.face.faceFront) {
-			Vector2d ep = baseHe.next.tmpVec;
-			Vector2d sp = baseHe.tmpVec;
-
-
-			Vector2d b = new Vector2d();
-			b.sub(ep, sp);
-			for (OriHalfedge he : face.halfedges) {
-
-				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
-					continue;
-				}
-				if (Math.abs(b.y) < GeomUtil.EPS) {
-					Vector2d a = new Vector2d();
-					a.sub(he.tmpVec, sp);
-					a.y = -a.y;
-					he.tmpVec.y = a.y + sp.y;
-				} else {
-					Vector2d a = new Vector2d();
-					a.sub(he.tmpVec, sp);
-					he.tmpVec.y = ((b.y * b.y - b.x * b.x) * a.y + 2 * b.x * b.y * a.x) / b.lengthSquared();
-					he.tmpVec.x = b.x / b.y * a.y - a.x + b.x / b.y * he.tmpVec.y;
-					he.tmpVec.x += sp.x;
-					he.tmpVec.y += sp.y;
-				}
-			}
-			face.faceFront = !face.faceFront;
-		}
-	}
-
-	//creates the matrix overlapRelation and fills it with "no overlap" or "undifined"
-	private int[][] createOverlapRelation(List<OriFace> faces) {
-
-		int overlapCount = 0;
-		int size = faces.size();
-		int[][] overlapRelation = new int[size][size];
-
-		for (int i = 0; i < size; i++) {
-			overlapRelation[i][i] = Doc.NO_OVERLAP;
-			for (int j = i + 1; j < size; j++) {
-				if (GeomUtil.isFaceOverlap(faces.get(i), faces.get(j), size * 0.00001)) {
-					overlapRelation[i][j] = Doc.UNDEFINED;
-					overlapRelation[j][i] = Doc.UNDEFINED;
-					overlapCount++;
-				} else {
-					overlapRelation[i][j] = Doc.NO_OVERLAP;
-					overlapRelation[j][i] = Doc.NO_OVERLAP;
-				}
-			}
-		}
-
-		return overlapRelation;
-	}
-
-
 	// Determines the overlap relations
 	private void step1(
 			List<OriFace> faces, int[][] overlapRelation) {
@@ -863,6 +813,145 @@ public class Folder {
 	}
 
 
+	// Make the folds by flipping the faces 
+	private void walkFace(List<OriFace> faces, OriFace face, int walkFaceCount) {
+		face.tmpFlg = true;
+		if (walkFaceCount > 1000) {
+			System.out.println("walkFace too deap");
+			return;
+		}
+		for (OriHalfedge he : face.halfedges) {
+			if (he.pair == null) {
+				continue;
+			}
+			if (he.pair.face.tmpFlg) {
+				continue;
+			}
+
+			flipFace2(faces, he.pair.face, he);
+			he.pair.face.tmpFlg = true;
+			walkFace(faces, he.pair.face, walkFaceCount + 1);
+		}
+	}
+
+
+	// Recursive method that flips the faces, making the folds
+	private void walkFace(OriFace face) {
+		face.tmpFlg = true;
+
+		for (OriHalfedge he : face.halfedges) {
+			if (he.pair == null) {
+				continue;
+			}
+			if (he.pair.face.tmpFlg) {
+				continue;
+			}
+
+			flipFace(he.pair.face, he);
+			he.pair.face.tmpFlg = true;
+			walkFace(he.pair.face);
+		}
+	}
+
+	// TODO: this method should return FoldedModelInfo.
+	public int fold(OrigamiModel origamiModel, FoldedModelInfo foldedModelInfo) {
+//		OrigamiModel origamiModel = m_doc.getOrigamiModel();
+//		FoldedModelInfo foldedModelInfo = m_doc.getFoldedModelInfo();
+
+        List<OriFace> sortedFaces = origamiModel.getSortedFaces();
+
+        List<OriFace>   faces    = origamiModel.getFaces();
+        List<OriVertex> vertices = origamiModel.getVertices();
+        List<OriEdge>   edges    = origamiModel.getEdges();
+        
+        List<int[][]> foldableOverlapRelations = foldedModelInfo.getFoldableOverlapRelations();
+        foldableOverlapRelations.clear();
+
+        
+		simpleFoldWithoutZorder(faces, edges);
+		
+		foldedModelInfo.setBoundBox(
+				folderTool.calcFoldedBoundingBox(faces));
+		
+		sortedFaces.addAll(faces);
+		folderTool.setFacesOutline(vertices, faces, false);
+
+
+		if (!PaintConfig.bDoFullEstimation) {
+			origamiModel.setFolded(true);
+			return 0;
+		}
+
+		// After folding construct the sbfaces
+		double paperSize = origamiModel.getPaperSize();
+		subFaces = makeSubFaces(faces, paperSize);
+		System.out.println("subFaces.size() = " + subFaces.size());
+
+		foldedModelInfo.setOverlapRelation(
+				createOverlapRelation(faces));
+
+        int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+		// Set overlap relations based on valley/mountain folds information
+		step1(faces, overlapRelation);
+
+		holdCondition3s(faces, paperSize, overlapRelation);
+		holdCondition4s(edges, overlapRelation);
+
+
+		estimation(faces, overlapRelation);
+
+		int size = faces.size();
+		workORmat = new int[size][size];
+		for (int i = 0; i < size; i++) {
+			System.arraycopy(overlapRelation[i], 0, workORmat[i], 0, size);
+		}
+
+		DIAMOND.tmpInt = 0;
+
+		for (SubFace sub : subFaces) {
+			sub.sortFaceOverlapOrder(faces, workORmat);
+		}
+
+		findAnswer(foldedModelInfo, 0, overlapRelation);
+
+		foldedModelInfo.setCurrentORmatIndex(0);
+		if (foldableOverlapRelations.isEmpty()) {
+			DIAMOND.outMessage("No answer was found");
+			return 0;
+		} else {
+			matrixCopy(foldableOverlapRelations.get(0), overlapRelation);
+		}
+
+		folderTool.setFacesOutline(vertices, faces, false);
+
+		// Color the faces
+		Random rand = new Random();
+		for (OriFace face : faces) {
+			int r = (int) (rand.nextDouble() * 255);
+			int g = (int) (rand.nextDouble() * 255);
+			int b = (int) (rand.nextDouble() * 255);
+			if (r < 0) {
+				r = 0;
+			} else if (r > 255) {
+				r = 255;
+			}
+			if (g < 0) {
+				g = 0;
+			} else if (g > 255) {
+				g = 255;
+			}
+			if (b < 0) {
+				b = 0;
+			} else if (b > 255) {
+				b = 255;
+			}
+			face.intColor = (r << 16) | (g << 8) | b | 0xff000000;
+		}
+
+		origamiModel.setFolded(true);
+		return foldableOverlapRelations.size();
+	}
+
 	public BoundBox foldWithoutLineType(
 			OrigamiModel model) {
 		List<OriVertex> vertices = model.getVertices();
@@ -891,95 +980,6 @@ public class Folder {
 		
 		return folderTool.calcFoldedBoundingBox(faces);
 
-	}
-
-	// Make the folds by flipping the faces 
-	private void walkFace(List<OriFace> faces, OriFace face, int walkFaceCount) {
-		face.tmpFlg = true;
-		if (walkFaceCount > 1000) {
-			System.out.println("walkFace too deap");
-			return;
-		}
-		for (OriHalfedge he : face.halfedges) {
-			if (he.pair == null) {
-				continue;
-			}
-			if (he.pair.face.tmpFlg) {
-				continue;
-			}
-
-			flipFace2(faces, he.pair.face, he);
-			he.pair.face.tmpFlg = true;
-			walkFace(faces, he.pair.face, walkFaceCount + 1);
-		}
-	}
-
-	// Method that doesnt use sin con 
-	private void flipFace2(List<OriFace> faces, OriFace face, OriHalfedge baseHe) {
-
-		Vector2d preOrigin = new Vector2d(baseHe.pair.next.tmpVec);
-		Vector2d afterOrigin = new Vector2d(baseHe.tmpVec);
-
-		// Creates the base unit vector for before the rotation
-		Vector2d baseDir = new Vector2d();
-		baseDir.sub(baseHe.pair.tmpVec, baseHe.pair.next.tmpVec);
-
-		// Creates the base unit vector for after the rotation
-		Vector2d afterDir = new Vector2d();
-		afterDir.sub(baseHe.next.tmpVec, baseHe.tmpVec);
-		afterDir.normalize();
-
-		Line preLine = new Line(preOrigin, baseDir);
-
-		for (OriHalfedge he : face.halfedges) {
-			double param[] = new double[1];
-			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
-			double d1 = param[0];
-
-			Vector2d footV = new Vector2d(afterOrigin);
-			footV.x += d1 * afterDir.x;
-			footV.y += d1 * afterDir.y;
-
-			Vector2d afterDirFromFoot = new Vector2d();
-			afterDirFromFoot.x = afterDir.y;
-			afterDirFromFoot.y = -afterDir.x;
-
-			he.tmpVec.x = footV.x + d0 * afterDirFromFoot.x;
-			he.tmpVec.y = footV.y + d0 * afterDirFromFoot.y;
-
-		}
-
-		// Ivertion
-		if (face.faceFront == baseHe.face.faceFront) {
-			Vector2d ep = baseHe.next.tmpVec;
-			Vector2d sp = baseHe.tmpVec;
-
-			Vector2d b = new Vector2d();
-			b.sub(ep, sp);
-			for (OriHalfedge he : face.halfedges) {
-
-				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
-					continue;
-				}
-				if (Math.abs(b.y) < GeomUtil.EPS) {
-					Vector2d a = new Vector2d();
-					a.sub(he.tmpVec, sp);
-					a.y = -a.y;
-					he.tmpVec.y = a.y + sp.y;
-				} else {
-					Vector2d a = new Vector2d();
-					a.sub(he.tmpVec, sp);
-					he.tmpVec.y = ((b.y * b.y - b.x * b.x) * a.y + 2 * b.x * b.y * a.x) / b.lengthSquared();
-					he.tmpVec.x = b.x / b.y * a.y - a.x + b.x / b.y * he.tmpVec.y;
-					he.tmpVec.x += sp.x;
-					he.tmpVec.y += sp.y;
-				}
-			}
-			face.faceFront = !face.faceFront;
-		}
-
-		faces.remove(face);
-		faces.add(face);
 	}
 
 

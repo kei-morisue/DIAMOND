@@ -5,6 +5,17 @@ import java.util.Collection;
 import diamond.value.OriLine;
 
 public class LineSelectionModifier {
+	public int countSelectedLines(Collection<OriLine> creasePattern) {
+		int count = 0;
+		for (OriLine l : creasePattern) {
+			if (l.selected) {
+				count++;
+			}
+		}
+		return count;
+
+	}
+
 	/**
 	 * reset selection mark of all lines in given collection.
 	 * @param creasePattern
@@ -25,17 +36,6 @@ public class LineSelectionModifier {
 				l.selected = true;
 			}
 		}
-	}
-
-	public int countSelectedLines(Collection<OriLine> creasePattern) {
-		int count = 0;
-		for (OriLine l : creasePattern) {
-			if (l.selected) {
-				count++;
-			}
-		}
-		return count;
-
 	}
 
 }

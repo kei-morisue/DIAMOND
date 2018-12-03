@@ -70,34 +70,34 @@ public class Doc {
 
 
 
-    private double paperSize;
+    final public static int LOWER = 2;
 
     // Crease Pattern
 
-    private CreasePattern creasePattern = null;
-    private ArrayList<OriLine> crossLines = new ArrayList<OriLine>();
+    final public static int NO_OVERLAP = 0;
+    final public static int UNDEFINED = 9;
 
-    // Origami Model for Estimation
-    private OrigamiModel origamiModel = null;
+    final public static int UPPER = 1;
 
     // Folded Model Information (Result of Estimation)
 
-    private FoldedModelInfo foldedModelInfo = null;
+    private CreasePattern creasePattern = null;
 
-    final public static int NO_OVERLAP = 0;
-    final public static int UPPER = 1;
-    final public static int LOWER = 2;
-    final public static int UNDEFINED = 9;
+    private ArrayList<OriLine> crossLines = new ArrayList<OriLine>();
+    private String dataFilePath = "";
+    private String editorName;
+    private FoldedModelInfo foldedModelInfo = null;
 
     // Project data
 
-    private String dataFilePath = "";
-    private String title;
-    private String editorName;
+    // Origami Model for Estimation
+    private OrigamiModel origamiModel = null;
     private String originalAuthorName;
+    private double paperSize;
     private String reference;
-    public String memo;
+    private String title;
     private UndoManager<UndoInfo> undoManager = new UndoManager<>(30);
+    public String memo;
 
 
 
@@ -136,12 +136,40 @@ public class Doc {
         foldedModelInfo = new FoldedModelInfo();
     }
 
-    public void setDataFilePath(String path) {
-        this.dataFilePath = path;
+    public void addLine(OriLine inputLine) {
+        LineAdder lineAdder = new LineAdder();
+
+        lineAdder.addLine(inputLine, creasePattern);
     }
 
-    public String getDataFilePath() {
-        return dataFilePath;
+    public void cacheUndoInfo() {
+        undoManager.setCache(createUndoInfo());
+    }
+
+    public boolean canUndo() {
+        return undoManager.canUndo();
+    }
+
+
+
+    public void clearChanged() {
+        undoManager.clearChanged();
+    }
+
+    public UndoInfo createUndoInfo() {
+        UndoInfo undoInfo = new UndoInfo(creasePattern);
+        return undoInfo;
+    }
+
+    public CreasePattern getCreasePattern() {
+        return creasePattern;
+    }
+
+    /**
+     * @return crossLines
+     */
+    public ArrayList<OriLine> getCrossLines() {
+        return crossLines;
     }
 
     public String getDataFileName() {
@@ -152,28 +180,90 @@ public class Doc {
 
     }
 
-
-
-    public UndoInfo createUndoInfo() {
-        UndoInfo undoInfo = new UndoInfo(creasePattern);
-        return undoInfo;
+    public String getDataFilePath() {
+        return dataFilePath;
     }
 
-    public void cacheUndoInfo() {
-        undoManager.setCache(createUndoInfo());
+    /**
+     * @return editorName
+     */
+    public String getEditorName() {
+        return editorName;
     }
 
-    public void pushCachedUndoInfo() {
-        undoManager.pushCachedInfo();
+    /**
+     * @return foldedModelInfo
+     */
+    public FoldedModelInfo getFoldedModelInfo() {
+        return foldedModelInfo;
     }
 
-    public void pushUndoInfo() {
-        UndoInfo ui = new UndoInfo(creasePattern);
-        undoManager.push(ui);
+    /**
+     * @return memo
+     */
+    public String getMemo() {
+        return memo;
     }
 
-    public void pushUndoInfo(UndoInfo uinfo) {
-        undoManager.push(uinfo);
+
+    /**
+     * @return origamiModel
+     */
+    public OrigamiModel getOrigamiModel() {
+        return origamiModel;
+    }
+
+
+
+
+
+
+
+    /**
+     * @return originalAuthorName
+     */
+    public String getOriginalAuthorName() {
+        return originalAuthorName;
+    }
+
+
+
+
+    /**
+     * @return size
+     */
+    public double getPaperSize() {
+        return paperSize;
+    }
+
+    /**
+     * @return reference
+     */
+    public String getReference() {
+        return reference;
+    }
+
+    /**
+     * @return title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    public Collection<Collection<Vector2d>> getVerticesArea(
+            double x, double y, double distance) {
+
+        return creasePattern.getVerticesArea(x, y, distance);
+    }
+
+    public Collection<Vector2d> getVerticesAround(Vector2d v) {
+        return creasePattern.getVerticesAround(v);
+    }
+
+
+
+    public boolean isChanged() {
+        return undoManager.isChanged();
     }
 
     public void loadUndoInfo() {
@@ -187,144 +277,17 @@ public class Doc {
         creasePattern.addAll(info.getLines());
     }
 
-    public boolean canUndo() {
-        return undoManager.canUndo();
-    }
-
-    public boolean isChanged() {
-        return undoManager.isChanged();
-    }
-
-    public void clearChanged() {
-        undoManager.clearChanged();
-    }
-
-
-    public void addLine(OriLine inputLine) {
-        LineAdder lineAdder = new LineAdder();
-
-        lineAdder.addLine(inputLine, creasePattern);
-    }
-
-
-
-
-
-
-
-    public void setCrossLine(OriLine line) {
-        crossLines.clear();
-
-        List<OriFace> sortedFaces = origamiModel.getSortedFaces();
-
-        for (OriFace face : sortedFaces) {
-            ArrayList<Vector2d> vv = new ArrayList<Vector2d>();
-            int crossCount = 0;
-            for (OriHalfedge he : face.halfedges) {
-                OriLine l = new OriLine(he.positionForDisplay.x,
-                        he.positionForDisplay.y,
-                        he.next.positionForDisplay.x,
-                        he.next.positionForDisplay.y,
-                        PaintConfig.inputLineType);
-
-                double params[] = new double[2];
-                boolean res = GeomUtil.getCrossPointParam(line.p0, line.p1,
-                        l.p0, l.p1, params);
-                if (res == true && params[0] > -0.001 && params[1] > -0.001
-                        && params[0] < 1.001 && params[1] < 1.001) {
-                    double param = params[1];
-                    crossCount++;
-
-                    Vector2d crossV = new Vector2d();
-                    crossV.x = (1.0 - param) * he.vertex.preP.x
-                            + param * he.next.vertex.preP.x;
-                    crossV.y = (1.0 - param) * he.vertex.preP.y
-                            + param * he.next.vertex.preP.y;
-
-                    boolean isNewPoint = true;
-                    for (Vector2d v2d : vv) {
-                        if (GeomUtil.Distance(v2d, crossV) < 1) {
-                            isNewPoint = false;
-                            break;
-                        }
-                    }
-                    if (isNewPoint) {
-                        vv.add(crossV);
-                    }
-                }
-            }
-
-            if (vv.size() >= 2) {
-                crossLines.add(new OriLine(vv.get(0), vv.get(1),
-                        PaintConfig.inputLineType));
-            }
-        }
-
-    }
-
-
-
-
-    public Collection<Vector2d> getVerticesAround(Vector2d v) {
-        return creasePattern.getVerticesAround(v);
-    }
-
-    public Collection<Collection<Vector2d>> getVerticesArea(
-            double x, double y, double distance) {
-
-        return creasePattern.getVerticesArea(x, y, distance);
-    }
-
-    public CreasePattern getCreasePattern() {
-        return creasePattern;
-    }
-
-    /**
-     * @return origamiModel
-     */
-    public OrigamiModel getOrigamiModel() {
-        return origamiModel;
-    }
-
-    /**
-     * @param origamiModel origamiModel is set to this instance.
-     */
-    public void setOrigamiModel(OrigamiModel origamiModel) {
-        this.origamiModel = origamiModel;
-    }
-
-
-
-    /**
-     * @return foldedModelInfo
-     */
-    public FoldedModelInfo getFoldedModelInfo() {
-        return foldedModelInfo;
-    }
-
-    /**
-     * @param foldedModelInfo foldedModelInfo is set to this instance.
-     */
-    public void setFoldedModelInfo(FoldedModelInfo foldedModelInfo) {
-        this.foldedModelInfo = foldedModelInfo;
-    }
-
     //======================================================================
     // Getter/Setter eventually unnecessary
 
 
-    /**
-     * @return crossLines
-     */
-    public ArrayList<OriLine> getCrossLines() {
-        return crossLines;
+    public void pushCachedUndoInfo() {
+        undoManager.pushCachedInfo();
     }
 
-    /**
-     * @param crossLines crossLines is set to this instance.
-     */
-    public void setCrossLines(ArrayList<OriLine> crossLines) {
-        this.crossLines = crossLines;
+    public void pushUndoInfo() {
+        UndoInfo ui = new UndoInfo(creasePattern);
+        undoManager.push(ui);
     }
 
 
@@ -508,41 +471,69 @@ public class Doc {
 //		foldedModelInfo.setFoldableOverlapRelations(foldableOverlapRelations);
 //	}
 
-    /**
-     * @param size size is set to this instance.
-     */
-    public void setPaperSize(double size) {
-        this.paperSize = size;
-        origamiModel.setPaperSize(size);
-        creasePattern.changePaperSize(size);
+    public void pushUndoInfo(UndoInfo uinfo) {
+        undoManager.push(uinfo);
+    }
+
+    public void setCrossLine(OriLine line) {
+        crossLines.clear();
+
+        List<OriFace> sortedFaces = origamiModel.getSortedFaces();
+
+        for (OriFace face : sortedFaces) {
+            ArrayList<Vector2d> vv = new ArrayList<Vector2d>();
+            int crossCount = 0;
+            for (OriHalfedge he : face.halfedges) {
+                OriLine l = new OriLine(he.positionForDisplay.x,
+                        he.positionForDisplay.y,
+                        he.next.positionForDisplay.x,
+                        he.next.positionForDisplay.y,
+                        PaintConfig.inputLineType);
+
+                double params[] = new double[2];
+                boolean res = GeomUtil.getCrossPointParam(line.p0, line.p1,
+                        l.p0, l.p1, params);
+                if (res == true && params[0] > -0.001 && params[1] > -0.001
+                        && params[0] < 1.001 && params[1] < 1.001) {
+                    double param = params[1];
+                    crossCount++;
+
+                    Vector2d crossV = new Vector2d();
+                    crossV.x = (1.0 - param) * he.vertex.preP.x
+                            + param * he.next.vertex.preP.x;
+                    crossV.y = (1.0 - param) * he.vertex.preP.y
+                            + param * he.next.vertex.preP.y;
+
+                    boolean isNewPoint = true;
+                    for (Vector2d v2d : vv) {
+                        if (GeomUtil.Distance(v2d, crossV) < 1) {
+                            isNewPoint = false;
+                            break;
+                        }
+                    }
+                    if (isNewPoint) {
+                        vv.add(crossV);
+                    }
+                }
+            }
+
+            if (vv.size() >= 2) {
+                crossLines.add(new OriLine(vv.get(0), vv.get(1),
+                        PaintConfig.inputLineType));
+            }
+        }
+
     }
 
     /**
-     * @return size
+     * @param crossLines crossLines is set to this instance.
      */
-    public double getPaperSize() {
-        return paperSize;
+    public void setCrossLines(ArrayList<OriLine> crossLines) {
+        this.crossLines = crossLines;
     }
 
-    /**
-     * @return title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * @param title title is set to this instance.
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * @return editorName
-     */
-    public String getEditorName() {
-        return editorName;
+    public void setDataFilePath(String path) {
+        this.dataFilePath = path;
     }
 
     /**
@@ -553,24 +544,10 @@ public class Doc {
     }
 
     /**
-     * @return originalAuthorName
+     * @param foldedModelInfo foldedModelInfo is set to this instance.
      */
-    public String getOriginalAuthorName() {
-        return originalAuthorName;
-    }
-
-    /**
-     * @param originalAuthorName originalAuthorName is set to this instance.
-     */
-    public void setOriginalAuthorName(String originalAuthorName) {
-        this.originalAuthorName = originalAuthorName;
-    }
-
-    /**
-     * @return memo
-     */
-    public String getMemo() {
-        return memo;
+    public void setFoldedModelInfo(FoldedModelInfo foldedModelInfo) {
+        this.foldedModelInfo = foldedModelInfo;
     }
 
     /**
@@ -581,10 +558,26 @@ public class Doc {
     }
 
     /**
-     * @return reference
+     * @param origamiModel origamiModel is set to this instance.
      */
-    public String getReference() {
-        return reference;
+    public void setOrigamiModel(OrigamiModel origamiModel) {
+        this.origamiModel = origamiModel;
+    }
+
+    /**
+     * @param originalAuthorName originalAuthorName is set to this instance.
+     */
+    public void setOriginalAuthorName(String originalAuthorName) {
+        this.originalAuthorName = originalAuthorName;
+    }
+
+    /**
+     * @param size size is set to this instance.
+     */
+    public void setPaperSize(double size) {
+        this.paperSize = size;
+        origamiModel.setPaperSize(size);
+        creasePattern.changePaperSize(size);
     }
 
     /**
@@ -592,6 +585,13 @@ public class Doc {
      */
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    /**
+     * @param title title is set to this instance.
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

@@ -16,6 +16,25 @@ public class LengthMeasuringAction extends GraphicMouseAction {
 	
 	
 	@Override
+	public void onDrag(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+	@Override
+	public void onDraw(Graphics2D g2d, PaintContext context) {
+
+		super.onDraw(g2d, context);
+		
+		drawPickCandidateVertex(g2d, context);
+
+
+	}
+
+	@Override
 	public GraphicMouseActionInterface onLeftClick(PaintContext context,
 			AffineTransform affine, boolean differentAction) {
 
@@ -29,38 +48,19 @@ public class LengthMeasuringAction extends GraphicMouseAction {
 		return action;
 	}
 
-
-
 	@Override
-	public void onDrag(PaintContext context, AffineTransform affine,
+	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+
 
 	@Override
 	public void onRelease(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-
-		super.onDraw(g2d, context);
-		
-		drawPickCandidateVertex(g2d, context);
-
-
-	}
-
-
-
-	@Override
-	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
-		
 	}
 }

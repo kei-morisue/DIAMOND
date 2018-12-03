@@ -11,17 +11,17 @@ public class BoundBox {
 		rightAndBottom = rb;
 	}
 	
-	public Vector2d getRightAndBottom() {
-		return rightAndBottom;
-	}
-	public void setRightAndBottom(Vector2d rightAndBottom) {
-		this.rightAndBottom = rightAndBottom;
-	}
 	public Vector2d getLeftAndTop() {
 		return leftAndTop;
 	}
+	public Vector2d getRightAndBottom() {
+		return rightAndBottom;
+	}
 	public void setLeftAndTop(Vector2d leftAndTop) {
 		this.leftAndTop = leftAndTop;
+	}
+	public void setRightAndBottom(Vector2d rightAndBottom) {
+		this.rightAndBottom = rightAndBottom;
 	}
 
 

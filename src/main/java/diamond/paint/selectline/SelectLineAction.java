@@ -23,14 +23,11 @@ public class SelectLineAction extends RectangularSelectableAction {
 		recover(context);
 	}
 
-	/**
-	 * set old line-selected marks to current context.s
-	 */
 	@Override
-	public void undo(PaintContext context) {
-		DocHolder.getInstance().getDoc().loadUndoInfo();
+	public void onDraw(Graphics2D g2d, PaintContext context) {
+		super.onDraw(g2d, context);
 
-		recover(context);
+		this.drawPickCandidateLine(g2d, context);
 	}
 
 
@@ -49,6 +46,18 @@ public class SelectLineAction extends RectangularSelectableAction {
 			}
 		}
 	}
+
+
+	/**
+	 * set old line-selected marks to current context.s
+	 */
+	@Override
+	public void undo(PaintContext context) {
+		DocHolder.getInstance().getDoc().loadUndoInfo();
+
+		recover(context);
+	}
+
 
 
 	@Override
@@ -80,15 +89,6 @@ public class SelectLineAction extends RectangularSelectableAction {
 			}
 
 		}
-	}
-
-
-
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-		super.onDraw(g2d, context);
-
-		this.drawPickCandidateLine(g2d, context);
 	}
 
 

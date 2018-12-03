@@ -28,14 +28,14 @@ import diamond.DIAMOND;
 public class SubFace {
 
 
-	public OriFace outline;
-	public ArrayList<OriFace> faces;
-	public ArrayList<OriFace> sortedFaces;
-	public int tmpInt;
-	public ArrayList<Condition4> condition4s = new ArrayList<>();
-	public ArrayList<Condition3> condition3s = new ArrayList<>();
 	public boolean allFaceOrderDecided = false;
 	public ArrayList<ArrayList<OriFace>> answerStacks = new ArrayList<>();
+	public ArrayList<Condition3> condition3s = new ArrayList<>();
+	public ArrayList<Condition4> condition4s = new ArrayList<>();
+	public ArrayList<OriFace> faces;
+	public OriFace outline;
+	public ArrayList<OriFace> sortedFaces;
+	public int tmpInt;
 
 	public SubFace(OriFace f) {
 		outline = f;
@@ -43,71 +43,43 @@ public class SubFace {
 		sortedFaces = new ArrayList<>();
 	}
 
-	public int sortFaceOverlapOrder(List<OriFace> modelFaces, int[][] mat) {
-		sortedFaces.clear();
-		for (int i = 0; i < faces.size(); i++) {
-			sortedFaces.add(null);
-		}
+	private boolean checkForSortLocally3(List<OriFace> modelFaces, OriFace face) {
 
-		// Count the number of pending surfaces
-		int cnt = 0;
-		int f_num = faces.size();
-		for (int i = 0; i < f_num; i++) {
-			for (int j = i + 1; j < f_num; j++) {
-				if (mat[faces.get(i).tmpInt][faces.get(j).tmpInt] == OrigamiModelFactory.UNDEFINED) {
-					cnt++;
-				}
+		for (Condition3 cond : face.condition3s) {
+			if (modelFaces.get(cond.lower).alreadyStacked
+					&& !modelFaces.get(cond.upper).alreadyStacked) {
+				return false;
 			}
 		}
 
-		// Exit if the order is already settled
-		if (cnt == 0) {
-			allFaceOrderDecided = true;
-			return 0;
-		}
+		// check condition4
+		// aabb or abba or baab are good, but aba or bab are impossible
 
-		for (OriFace f : faces) {
-			f.condition3s.clear();
-			f.condition4s.clear();
-			f.condition2s.clear();
+		// stack lower2 < lower1, without upper1 being stacked, dont stack
+		// upper2
+		// stack lower1 < lower2, without upper2 being stacked, dont stack
+		// upper1
 
-			for (Condition3 cond : condition3s) {
-				if (f.tmpInt == cond.other) {
-					f.condition3s.add(cond);
-				}
+		for (Condition4 cond : face.condition4s) {
+
+			if (face.tmpInt == cond.upper2
+					&& modelFaces.get(cond.lower2).alreadyStacked
+					&& modelFaces.get(cond.lower1).alreadyStacked
+					&& !modelFaces.get(cond.upper1).alreadyStacked
+					&& modelFaces.get(cond.lower2).tmpInt2 < modelFaces
+							.get(cond.lower1).tmpInt2) {
+				return false;
 			}
-			for (Condition4 cond : condition4s) {
-				if (f.tmpInt == cond.upper1 || f.tmpInt == cond.upper2) {
-					f.condition4s.add(cond);
-				}
-			}
-
-			for (OriFace ff : faces) {
-				if (mat[f.tmpInt][ff.tmpInt] == OrigamiModelFactory.LOWER) {
-					f.condition2s.add(new Integer(ff.tmpInt));
-				}
+			if (face.tmpInt == cond.upper1
+					&& modelFaces.get(cond.lower2).alreadyStacked
+					&& modelFaces.get(cond.lower1).alreadyStacked
+					&& !modelFaces.get(cond.upper2).alreadyStacked
+					&& modelFaces.get(cond.lower1).tmpInt2 < modelFaces
+							.get(cond.lower2).tmpInt2) {
+				return false;
 			}
 		}
-
-		for (OriFace f : faces) {
-			f.alreadyStacked = false;
-			f.tmpInt2 = -1;
-		}
-
-		// From the bottom
-		sort(modelFaces, 0);
-
-		// Returns the number of solutions obtained
-		return answerStacks.size();
-	}
-
-	public Vector2d getInnerPoint() {
-		Vector2d c = new Vector2d();
-		for (OriHalfedge he : outline.halfedges) {
-			c.add(he.tmpVec);
-		}
-		c.scale(1.0 / outline.halfedges.size());
-		return c;
+		return true;
 	}
 
 	private void sort(List<OriFace> modelFaces, int index) {
@@ -168,42 +140,70 @@ public class SubFace {
 
 	}
 
-	private boolean checkForSortLocally3(List<OriFace> modelFaces, OriFace face) {
+	public Vector2d getInnerPoint() {
+		Vector2d c = new Vector2d();
+		for (OriHalfedge he : outline.halfedges) {
+			c.add(he.tmpVec);
+		}
+		c.scale(1.0 / outline.halfedges.size());
+		return c;
+	}
 
-		for (Condition3 cond : face.condition3s) {
-			if (modelFaces.get(cond.lower).alreadyStacked
-					&& !modelFaces.get(cond.upper).alreadyStacked) {
-				return false;
+	public int sortFaceOverlapOrder(List<OriFace> modelFaces, int[][] mat) {
+		sortedFaces.clear();
+		for (int i = 0; i < faces.size(); i++) {
+			sortedFaces.add(null);
+		}
+
+		// Count the number of pending surfaces
+		int cnt = 0;
+		int f_num = faces.size();
+		for (int i = 0; i < f_num; i++) {
+			for (int j = i + 1; j < f_num; j++) {
+				if (mat[faces.get(i).tmpInt][faces.get(j).tmpInt] == OrigamiModelFactory.UNDEFINED) {
+					cnt++;
+				}
 			}
 		}
 
-		// check condition4
-		// aabb or abba or baab are good, but aba or bab are impossible
+		// Exit if the order is already settled
+		if (cnt == 0) {
+			allFaceOrderDecided = true;
+			return 0;
+		}
 
-		// stack lower2 < lower1, without upper1 being stacked, dont stack
-		// upper2
-		// stack lower1 < lower2, without upper2 being stacked, dont stack
-		// upper1
+		for (OriFace f : faces) {
+			f.condition3s.clear();
+			f.condition4s.clear();
+			f.condition2s.clear();
 
-		for (Condition4 cond : face.condition4s) {
-
-			if (face.tmpInt == cond.upper2
-					&& modelFaces.get(cond.lower2).alreadyStacked
-					&& modelFaces.get(cond.lower1).alreadyStacked
-					&& !modelFaces.get(cond.upper1).alreadyStacked
-					&& modelFaces.get(cond.lower2).tmpInt2 < modelFaces
-							.get(cond.lower1).tmpInt2) {
-				return false;
+			for (Condition3 cond : condition3s) {
+				if (f.tmpInt == cond.other) {
+					f.condition3s.add(cond);
+				}
 			}
-			if (face.tmpInt == cond.upper1
-					&& modelFaces.get(cond.lower2).alreadyStacked
-					&& modelFaces.get(cond.lower1).alreadyStacked
-					&& !modelFaces.get(cond.upper2).alreadyStacked
-					&& modelFaces.get(cond.lower1).tmpInt2 < modelFaces
-							.get(cond.lower2).tmpInt2) {
-				return false;
+			for (Condition4 cond : condition4s) {
+				if (f.tmpInt == cond.upper1 || f.tmpInt == cond.upper2) {
+					f.condition4s.add(cond);
+				}
+			}
+
+			for (OriFace ff : faces) {
+				if (mat[f.tmpInt][ff.tmpInt] == OrigamiModelFactory.LOWER) {
+					f.condition2s.add(new Integer(ff.tmpInt));
+				}
 			}
 		}
-		return true;
+
+		for (OriFace f : faces) {
+			f.alreadyStacked = false;
+			f.tmpInt2 = -1;
+		}
+
+		// From the bottom
+		sort(modelFaces, 0);
+
+		// Returns the number of solutions obtained
+		return answerStacks.size();
 	}
 }

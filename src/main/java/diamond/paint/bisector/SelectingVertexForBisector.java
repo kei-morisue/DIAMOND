@@ -8,10 +8,17 @@ import diamond.paint.core.PickingVertex;
 
 public class SelectingVertexForBisector extends PickingVertex{
 	
+	private boolean doingFirstAction = true;
+	
 	public SelectingVertexForBisector(){
 		super();
 	}
-	
+
+
+	@Override
+	public void onResult(PaintContext context) {
+		
+	}
 	@Override
 	protected void initialize() {
 		setPreviousClass(this.getClass());
@@ -20,8 +27,6 @@ public class SelectingVertexForBisector extends PickingVertex{
 //		System.out.println("SelectingFirstVertex.initialize() is called");
 	}
 
-
-	private boolean doingFirstAction = true;
 	@Override
 	protected boolean onAct(PaintContext context, Double currentPoint,
 			boolean doSpecial) {
@@ -40,11 +45,6 @@ public class SelectingVertexForBisector extends PickingVertex{
 		}
 		
 		return result;
-	}
-
-	@Override
-	public void onResult(PaintContext context) {
-		
 	}
 
 	

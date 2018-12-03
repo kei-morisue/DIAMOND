@@ -13,23 +13,23 @@ import diamond.value.OriLine;
  */
 public class OrigamiModel {
 	
-	private List<OriFace> faces = new ArrayList<OriFace>();
-	private List<OriVertex> vertices = new ArrayList<OriVertex>();
-	private List<OriEdge> edges = new ArrayList<OriEdge>();
-
 	private List<OriLine> crossLines = new ArrayList<OriLine>();
+	private List<OriEdge> edges = new ArrayList<OriEdge>();
+	private List<OriFace> faces = new ArrayList<OriFace>();
 
-	private List<OriFace> sortedFaces = new ArrayList<OriFace>();
-
-	//private FoldedModelInfo foldedModelInfo = new FoldedModelInfo();
-	
 	private boolean folded = false;
 
 	private boolean hasModel = false;
 
-	private boolean probablyFoldable = false;
+	//private FoldedModelInfo foldedModelInfo = new FoldedModelInfo();
 	
 	private double paperSize = -1;
+
+	private boolean probablyFoldable = false;
+
+	private List<OriFace> sortedFaces = new ArrayList<OriFace>();
+	
+	private List<OriVertex> vertices = new ArrayList<OriVertex>();
 	
 
 	//=============================================================
@@ -47,32 +47,26 @@ public class OrigamiModel {
 	// Getter/Setter
 	//=============================================================
 
-	public boolean isFolded() {
-		return folded;
+	public List<OriLine> getCrossLines() {
+		return crossLines;
 	}
 
-	public void setFolded(boolean folded) {
-		this.folded = folded;
+	public List<OriEdge> getEdges() {
+		return edges;
 	}
 
 	
 	
-	/**
-	 * @return probablyFoldable
-	 */
-	public boolean isProbablyFoldable() {
-		return probablyFoldable;
-	}
-
-	/**
-	 * @param probablyFoldable probablyFoldableを登録する
-	 */
-	public void setProbablyFoldable(boolean probablyFoldable) {
-		this.probablyFoldable = probablyFoldable;
-	}
-
 	public List<OriFace> getFaces() {
 		return faces;
+	}
+
+	public double getPaperSize() {
+		return paperSize;
+	}
+
+	public List<OriFace> getSortedFaces() {
+		return sortedFaces;
 	}
 	
 	
@@ -80,33 +74,45 @@ public class OrigamiModel {
 	public List<OriVertex> getVertices() {
 		return vertices;
 	}
-	public List<OriEdge> getEdges() {
-		return edges;
+	/**
+	 * @return hasModel
+	 */
+	public boolean hasModel() {
+		return hasModel;
 	}
 
 
-	public List<OriLine> getCrossLines() {
-		return crossLines;
+	public boolean isFolded() {
+		return folded;
+	}
+
+	/**
+	 * @return probablyFoldable
+	 */
+	public boolean isProbablyFoldable() {
+		return probablyFoldable;
 	}
 
 	public void setCrossLines(List<OriLine> crossLines) {
 		this.crossLines = crossLines;
 	}
 
-	public double getPaperSize() {
-		return paperSize;
+	/**
+	 * @param edges edgesを登録する
+	 */
+	public void setEdges(List<OriEdge> edges) {
+		this.edges = edges;
 	}
 
-	public void setPaperSize(double paperSize) {
-		this.paperSize = paperSize;
+	/**
+	 * @param faces facesを登録する
+	 */
+	public void setFaces(List<OriFace> faces) {
+		this.faces = faces;
 	}
 
-	public List<OriFace> getSortedFaces() {
-		return sortedFaces;
-	}
-
-	public void setSortedFaces(List<OriFace> sortedFaces) {
-		this.sortedFaces = sortedFaces;
+	public void setFolded(boolean folded) {
+		this.folded = folded;
 	}
 
 //	public FoldedModelInfo getFoldedModelInfo() {
@@ -118,10 +124,25 @@ public class OrigamiModel {
 //	}
 
 	/**
-	 * @param faces facesを登録する
+	 * @param hasModel hasModelを登録する
 	 */
-	public void setFaces(List<OriFace> faces) {
-		this.faces = faces;
+	public void setHasModel(boolean hasModel) {
+		this.hasModel = hasModel;
+	}
+
+	public void setPaperSize(double paperSize) {
+		this.paperSize = paperSize;
+	}
+
+	/**
+	 * @param probablyFoldable probablyFoldableを登録する
+	 */
+	public void setProbablyFoldable(boolean probablyFoldable) {
+		this.probablyFoldable = probablyFoldable;
+	}
+
+	public void setSortedFaces(List<OriFace> sortedFaces) {
+		this.sortedFaces = sortedFaces;
 	}
 
 	/**
@@ -129,27 +150,6 @@ public class OrigamiModel {
 	 */
 	public void setVertices(List<OriVertex> vertices) {
 		this.vertices = vertices;
-	}
-
-	/**
-	 * @param edges edgesを登録する
-	 */
-	public void setEdges(List<OriEdge> edges) {
-		this.edges = edges;
-	}
-
-	/**
-	 * @return hasModel
-	 */
-	public boolean hasModel() {
-		return hasModel;
-	}
-
-	/**
-	 * @param hasModel hasModelを登録する
-	 */
-	public void setHasModel(boolean hasModel) {
-		this.hasModel = hasModel;
 	}
 	
 	

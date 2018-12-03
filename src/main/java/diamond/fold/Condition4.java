@@ -20,8 +20,8 @@ package diamond.fold;
 
 public class Condition4 {
 
-    public int upper1;
     public int lower1;
-    public int upper2;
     public int lower2;
+    public int upper1;
+    public int upper2;
 }

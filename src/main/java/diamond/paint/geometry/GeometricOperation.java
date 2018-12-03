@@ -26,6 +26,24 @@ public class GeometricOperation {
 	}
 	
 	
+	public static Vector2d getCandidateVertex(PaintContext context, boolean enableMousePoint){
+
+		Vector2d candidate = context.pickCandidateV;
+
+		if(candidate == null && enableMousePoint){
+			Point2D.Double mp = context.getLogicalMousePoint();
+			candidate = new Vector2d(mp.x, mp.y);
+		}
+
+		return candidate;
+	}
+
+
+
+	public static OriLine pickLine(PaintContext context) {
+		return pickLine(context.getLogicalMousePoint(), context.scale);
+	}
+
 	// returns the OriLine sufficiently closer to point p
 	public static OriLine pickLine(Point2D.Double p, double scale) {
 		double minDistance = Double.MAX_VALUE;
@@ -47,8 +65,6 @@ public class GeometricOperation {
 			return null;
 		}
 	}
-
-
 
 	public static Vector2d pickVertex(
 			PaintContext context, boolean freeSelection){
@@ -93,22 +109,6 @@ public class GeometricOperation {
 		}
 		
 		return picked;
-	}
-
-	public static OriLine pickLine(PaintContext context) {
-		return pickLine(context.getLogicalMousePoint(), context.scale);
-	}
-
-	public static Vector2d getCandidateVertex(PaintContext context, boolean enableMousePoint){
-
-		Vector2d candidate = context.pickCandidateV;
-
-		if(candidate == null && enableMousePoint){
-			Point2D.Double mp = context.getLogicalMousePoint();
-			candidate = new Vector2d(mp.x, mp.y);
-		}
-
-		return candidate;
 	}
 
 	public static void shiftLines(Collection<OriLine> lines, 

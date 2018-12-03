@@ -4,14 +4,10 @@ import diamond.viewsetting.ViewSettingDataBase;
 
 public class MainFrameSettingDB extends ViewSettingDataBase{
 
-	private String hint;
-	
-	
-	
-	
 	private static MainFrameSettingDB instance = null;
-
-	private MainFrameSettingDB(){}
+	
+	
+	
 	
 	public static MainFrameSettingDB getInstance(){
 		if(instance == null){
@@ -20,6 +16,10 @@ public class MainFrameSettingDB extends ViewSettingDataBase{
 		
 		return instance;
 	}
+
+	private String hint;
+	
+	private MainFrameSettingDB(){}
 	
 	
 	public String getHint() {
@@ -29,16 +29,16 @@ public class MainFrameSettingDB extends ViewSettingDataBase{
 
 
 
-	public void setHint(String hint) {
-		this.hint = hint;
-		this.setChanged();
+	@Override
+	public String getName() {
+		return this.getClass().getName();
 	}
 
 
 
 
-	@Override
-	public String getName() {
-		return this.getClass().getName();
+	public void setHint(String hint) {
+		this.hint = hint;
+		this.setChanged();
 	}
 }

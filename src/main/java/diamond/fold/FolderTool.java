@@ -55,67 +55,6 @@ public class FolderTool {
 	
 	
 	
-		BoundBox calcFoldedBoundingBox(List<OriFace> faces) {
-			Vector2d foldedBBoxLT = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
-			Vector2d foldedBBoxRB = new Vector2d(-Double.MAX_VALUE, -Double.MAX_VALUE);
-	
-			for (OriFace face : faces) {
-				for (OriHalfedge he : face.halfedges) {
-					foldedBBoxLT.x = Math.min(foldedBBoxLT.x, he.tmpVec.x);
-					foldedBBoxLT.y = Math.min(foldedBBoxLT.y, he.tmpVec.y);
-					foldedBBoxRB.x = Math.max(foldedBBoxRB.x, he.tmpVec.x);
-					foldedBBoxRB.y = Math.max(foldedBBoxRB.y, he.tmpVec.y);
-				}
-			}
-	
-			return new BoundBox(foldedBBoxLT, foldedBBoxRB);
-		}
-
-		boolean isLineCrossFace4(OriFace face, OriHalfedge heg, double size) {
-			Vector2d p1 = heg.positionAfterFolded;
-			Vector2d p2 = heg.next.positionAfterFolded;
-			Vector2d dir = new Vector2d();
-			dir.sub(p2, p1);
-			Line heLine = new Line(p1, dir);
-		
-			for (OriHalfedge he : face.halfedges) {
-				// About the relation of contours (?)
-		
-				// Check if the line is on the countour of the face
-				if (GeomUtil.DistancePointToLine(he.positionAfterFolded, heLine) < 1
-						&& GeomUtil.DistancePointToLine(he.next.positionAfterFolded, heLine) < 1) {
-					return false;
-				}
-			}
-		
-			Vector2d preCrossPoint = null;
-			for (OriHalfedge he : face.halfedges) {
-				// Checks if the line crosses any of the edges of the face
-				Vector2d cp = GeomUtil.getCrossPoint(he.positionAfterFolded, he.next.positionAfterFolded, heg.positionAfterFolded, heg.next.positionAfterFolded);
-				if (cp == null) {
-					continue;
-				}
-		
-				if (preCrossPoint == null) {
-					preCrossPoint = cp;
-				} else {
-					if (GeomUtil.Distance(cp, preCrossPoint) > size * 0.001) {
-						return true;
-					}
-				}
-			}
-		
-			// Checkes if the line is in the interior of the face
-			if (isOnFace(face, heg.positionAfterFolded, size)) {
-				return true;
-			}
-			if (isOnFace(face, heg.next.positionAfterFolded, size)) {
-				return true;
-			}
-		
-			return false;
-		}
-
 		private boolean isOnFace(OriFace face, Vector2d v, double size) {
 		
 			int heNum = face.halfedges.size();
@@ -138,6 +77,37 @@ public class FolderTool {
 				}
 			}
 		
+			return true;
+		}
+
+		public boolean cleanDuplicatedLines(Collection<OriLine> creasePattern) {
+			System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
+			ArrayList<OriLine> tmpLines = new ArrayList<OriLine>(creasePattern.size());
+			for (OriLine l : creasePattern) {
+				OriLine ll = l;
+
+				boolean bSame = false;
+				// Test if the line is already in tmpLines to prevent duplicity
+				for (OriLine line : tmpLines) {
+					if (GeomUtil.isSameLineSegment(line, ll)) {
+						bSame = true;
+						break;
+					}
+				}
+				if (bSame) {
+					continue;
+				}
+				tmpLines.add(ll);
+			}
+
+			if (creasePattern.size() == tmpLines.size()) {
+				return false;
+			}
+
+			creasePattern.clear();
+			creasePattern.addAll(tmpLines);
+			System.out.println("after cleanDuplicatedLines " + creasePattern.size());
+
 			return true;
 		}
 
@@ -234,35 +204,65 @@ public class FolderTool {
 			}
 		}
 
-		public boolean cleanDuplicatedLines(Collection<OriLine> creasePattern) {
-			System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
-			ArrayList<OriLine> tmpLines = new ArrayList<OriLine>(creasePattern.size());
-			for (OriLine l : creasePattern) {
-				OriLine ll = l;
-
-				boolean bSame = false;
-				// Test if the line is already in tmpLines to prevent duplicity
-				for (OriLine line : tmpLines) {
-					if (GeomUtil.isSameLineSegment(line, ll)) {
-						bSame = true;
-						break;
-					}
+		BoundBox calcFoldedBoundingBox(List<OriFace> faces) {
+			Vector2d foldedBBoxLT = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
+			Vector2d foldedBBoxRB = new Vector2d(-Double.MAX_VALUE, -Double.MAX_VALUE);
+	
+			for (OriFace face : faces) {
+				for (OriHalfedge he : face.halfedges) {
+					foldedBBoxLT.x = Math.min(foldedBBoxLT.x, he.tmpVec.x);
+					foldedBBoxLT.y = Math.min(foldedBBoxLT.y, he.tmpVec.y);
+					foldedBBoxRB.x = Math.max(foldedBBoxRB.x, he.tmpVec.x);
+					foldedBBoxRB.y = Math.max(foldedBBoxRB.y, he.tmpVec.y);
 				}
-				if (bSame) {
+			}
+	
+			return new BoundBox(foldedBBoxLT, foldedBBoxRB);
+		}
+
+		boolean isLineCrossFace4(OriFace face, OriHalfedge heg, double size) {
+			Vector2d p1 = heg.positionAfterFolded;
+			Vector2d p2 = heg.next.positionAfterFolded;
+			Vector2d dir = new Vector2d();
+			dir.sub(p2, p1);
+			Line heLine = new Line(p1, dir);
+		
+			for (OriHalfedge he : face.halfedges) {
+				// About the relation of contours (?)
+		
+				// Check if the line is on the countour of the face
+				if (GeomUtil.DistancePointToLine(he.positionAfterFolded, heLine) < 1
+						&& GeomUtil.DistancePointToLine(he.next.positionAfterFolded, heLine) < 1) {
+					return false;
+				}
+			}
+		
+			Vector2d preCrossPoint = null;
+			for (OriHalfedge he : face.halfedges) {
+				// Checks if the line crosses any of the edges of the face
+				Vector2d cp = GeomUtil.getCrossPoint(he.positionAfterFolded, he.next.positionAfterFolded, heg.positionAfterFolded, heg.next.positionAfterFolded);
+				if (cp == null) {
 					continue;
 				}
-				tmpLines.add(ll);
+		
+				if (preCrossPoint == null) {
+					preCrossPoint = cp;
+				} else {
+					if (GeomUtil.Distance(cp, preCrossPoint) > size * 0.001) {
+						return true;
+					}
+				}
 			}
-
-			if (creasePattern.size() == tmpLines.size()) {
-				return false;
+		
+			// Checkes if the line is in the interior of the face
+			if (isOnFace(face, heg.positionAfterFolded, size)) {
+				return true;
 			}
-
-			creasePattern.clear();
-			creasePattern.addAll(tmpLines);
-			System.out.println("after cleanDuplicatedLines " + creasePattern.size());
-
-			return true;
+			if (isOnFace(face, heg.next.positionAfterFolded, size)) {
+				return true;
+			}
+		
+			return false;
 		}
 
 }

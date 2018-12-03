@@ -9,8 +9,6 @@ class OriginHolder {
 //--------------------------------------------------------------
 	private static OriginHolder holder = null;
 	
-	private OriginHolder(){}
-	
 	public static OriginHolder getInstance(){
 		if(holder == null){
 			holder = new OriginHolder();
@@ -19,11 +17,15 @@ class OriginHolder {
 		return holder;
 	}
 //--------------------------------------------------------------
-
-	private Vector2d origin = null;
 	
-	public void setOrigin(Vector2d p){
-		origin = p;
+	private Vector2d origin = null;
+
+	private OriginHolder(){}
+	
+	public Vector2d getOrigin(PaintContext context){
+		resetOrigin(context);
+		
+		return origin;
 	}
 	
 	public void resetOrigin(PaintContext context){
@@ -34,10 +36,8 @@ class OriginHolder {
 		}	
 	}
 	
-	public Vector2d getOrigin(PaintContext context){
-		resetOrigin(context);
-		
-		return origin;
+	public void setOrigin(Vector2d p){
+		origin = p;
 	}
 	
 }

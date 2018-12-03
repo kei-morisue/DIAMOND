@@ -23,6 +23,6 @@ public class Condition3 {
     // then OR[i][k] = OR[j][k] 
 
     public int lower;
-    public int upper;
     public int other;
+    public int upper;
 }

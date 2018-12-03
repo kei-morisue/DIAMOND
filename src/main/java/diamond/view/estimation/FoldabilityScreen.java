@@ -53,26 +53,26 @@ import diamond.value.OriLine;
 public class FoldabilityScreen extends JPanel
         implements ComponentListener {
 
-    private boolean bDrawFaceID = false;
-    private Image bufferImage;
-    private Graphics2D bufferg;
-    private double scale;
-    private double transX;
-    private double transY;
-    // Temporary information when editing
-    private ArrayList<Vector2d> tmpOutline = new ArrayList<>(); // Contour line in the edit
-    private boolean dispGrid = true;
-    // Affine transformation information
-    private Dimension preSize;
     private AffineTransform affineTransform = new AffineTransform();
+    private boolean bDrawFaceID = false;
+    private Graphics2D bufferg;
+    private Image bufferImage;
+    private Collection<OriLine> creasePattern = null;
+//    private FoldedModelInfo foldedModelInfo = null;
     private ArrayList<Vector2d> crossPoints = new ArrayList<>();
+    private boolean dispGrid = true;
+    private OrigamiModel origamiModel = null;
     private JPopupMenu popup = new JPopupMenu();
     private JMenuItem popupItem_DivideFace = new JMenuItem("Face division");
     private JMenuItem popupItem_FlipFace = new JMenuItem("Face Inversion");
+    // Affine transformation information
+    private Dimension preSize;
+    private double scale;
+    // Temporary information when editing
+    private ArrayList<Vector2d> tmpOutline = new ArrayList<>(); // Contour line in the edit
 
-    private OrigamiModel origamiModel = null;
-    private Collection<OriLine> creasePattern = null;
-//    private FoldedModelInfo foldedModelInfo = null;
+    private double transX;
+    private double transY;
 
     FoldabilityScreen() {
 
@@ -86,15 +86,47 @@ public class FoldabilityScreen extends JPanel
         preSize = getSize();
     }
 
-    public void showModel(
-            OrigamiModel origamiModel,
-            Collection<OriLine> creasePattern  //, FoldedModelInfo foldedModelInfo
-            ) {
-        this.origamiModel = origamiModel;
-        this.creasePattern = creasePattern;
-//    	this.foldedModelInfo = foldedModelInfo;
+    // To update the current AffineTransform
+    private void updateAffineTransform() {
+        affineTransform.setToIdentity();
+        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
+        affineTransform.scale(scale, scale);
+        affineTransform.translate(transX, transY);
+    }
 
-        this.setVisible(true);
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentResized(ComponentEvent arg0) {
+        if (getWidth() <= 0 || getHeight() <= 0) {
+            return;
+        }
+        preSize = getSize();
+
+        // Update of the logical coordinates of the center of the screen
+        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
+        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
+
+        // Updating the image buffer
+        bufferImage = createImage(getWidth(), getHeight());
+        bufferg = (Graphics2D) bufferImage.getGraphics();
+
+        updateAffineTransform();
+        repaint();
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
     }
 
     public void drawModel(Graphics2D g2d) {
@@ -164,12 +196,9 @@ public class FoldabilityScreen extends JPanel
         }
     }
 
-    // To update the current AffineTransform
-    private void updateAffineTransform() {
-        affineTransform.setToIdentity();
-        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
-        affineTransform.scale(scale, scale);
-        affineTransform.translate(transX, transY);
+    public void modeChanged() {
+
+        repaint();
     }
 
     @Override
@@ -276,54 +305,25 @@ public class FoldabilityScreen extends JPanel
         g.drawImage(bufferImage, 0, 0, this);
     }
 
+    public void resetPickElements() {
+        crossPoints.clear();
+        tmpOutline.clear();
+    }
+
     public void setDispGrid(boolean dispGrid) {
         this.dispGrid = dispGrid;
         resetPickElements();
         repaint();
     }
 
-    public void modeChanged() {
+    public void showModel(
+            OrigamiModel origamiModel,
+            Collection<OriLine> creasePattern  //, FoldedModelInfo foldedModelInfo
+            ) {
+        this.origamiModel = origamiModel;
+        this.creasePattern = creasePattern;
+//    	this.foldedModelInfo = foldedModelInfo;
 
-        repaint();
-    }
-
-    public void resetPickElements() {
-        crossPoints.clear();
-        tmpOutline.clear();
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        if (getWidth() <= 0 || getHeight() <= 0) {
-            return;
-        }
-        preSize = getSize();
-
-        // Update of the logical coordinates of the center of the screen
-        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
-        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
-
-        // Updating the image buffer
-        bufferImage = createImage(getWidth(), getHeight());
-        bufferg = (Graphics2D) bufferImage.getGraphics();
-
-        updateAffineTransform();
-        repaint();
-
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
+        this.setVisible(true);
     }
 }

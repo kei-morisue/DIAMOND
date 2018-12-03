@@ -23,16 +23,6 @@ public class PastingOnVertex extends PickingVertex {
 	
 	
 	@Override
-	protected void undoAction(PaintContext context) {
-		context.setMissionCompleted(false);
-		DocHolder.getInstance().getDoc().loadUndoInfo();
-	}
-
-
-	
-	
-
-	@Override
 	protected boolean onAct(PaintContext context, Double currentPoint,
 			boolean freeSelection) {
 		if(context.pickCandidateV == null){
@@ -45,6 +35,8 @@ public class PastingOnVertex extends PickingVertex {
 	}
 
 
+	
+	
 
 	@Override
 	protected void onResult(PaintContext context) {
@@ -75,6 +67,14 @@ public class PastingOnVertex extends PickingVertex {
             context.setMissionCompleted(true);
         }
 		
+	}
+
+
+
+	@Override
+	protected void undoAction(PaintContext context) {
+		context.setMissionCompleted(false);
+		DocHolder.getInstance().getDoc().loadUndoInfo();
 	}
 
 }

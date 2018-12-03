@@ -52,16 +52,6 @@ public class FileChooser extends JFileChooser {
         super.addChoosableFileFilter(filter);
     }
 
-    public String replaceExtension(String path, String ext) {
-
-        String path_new;
-
-        path_new = path.replaceAll("\\.\\w+$", "");
-        path_new += ext;
-
-        return path_new;
-    }
-
     /**
      * this method does not change {@code path}.
      * @param path
@@ -83,6 +73,44 @@ public class FileChooser extends JFileChooser {
         if (isCorrect == false) {
             path_new = replaceExtension(path_new, extensions[0]);
         }
+
+        return path_new;
+    }
+
+    public String loadFile(Component parent) {
+        String filePath = null;
+
+        if (JFileChooser.APPROVE_OPTION == this.showOpenDialog(parent)) {
+            try {
+                filePath = this.getSelectedFile().getPath();
+                FileFilterEx filter = ((FileFilterEx) this.getFileFilter());
+
+                filter.getLoadingAction().load(filePath);
+            } catch (FileVersionError v_err) {
+                JOptionPane.showMessageDialog(
+                        this, "This file is compatible with a new version. "
+                                + "Please obtain the latest version of ORIPA",
+                        "Failed to load the file",
+                        JOptionPane.ERROR_MESSAGE);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        this, e.toString(),
+                        ResourceHolder.getInstance().getString(
+                                ResourceKey.WARNING, "Error_FileLoadFailed"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return filePath;
+    }
+
+    public String replaceExtension(String path, String ext) {
+
+        String path_new;
+
+        path_new = path.replaceAll("\\.\\w+$", "");
+        path_new += ext;
 
         return path_new;
     }
@@ -132,34 +160,6 @@ public class FileChooser extends JFileChooser {
                     ResourceHolder.getInstance().getString(ResourceKey.WARNING,
                             "Error_FileSaveFailed"),
                     JOptionPane.ERROR_MESSAGE);
-        }
-
-        return filePath;
-    }
-
-    public String loadFile(Component parent) {
-        String filePath = null;
-
-        if (JFileChooser.APPROVE_OPTION == this.showOpenDialog(parent)) {
-            try {
-                filePath = this.getSelectedFile().getPath();
-                FileFilterEx filter = ((FileFilterEx) this.getFileFilter());
-
-                filter.getLoadingAction().load(filePath);
-            } catch (FileVersionError v_err) {
-                JOptionPane.showMessageDialog(
-                        this, "This file is compatible with a new version. "
-                                + "Please obtain the latest version of ORIPA",
-                        "Failed to load the file",
-                        JOptionPane.ERROR_MESSAGE);
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                        this, e.toString(),
-                        ResourceHolder.getInstance().getString(
-                                ResourceKey.WARNING, "Error_FileLoadFailed"),
-                        JOptionPane.ERROR_MESSAGE);
-            }
         }
 
         return filePath;

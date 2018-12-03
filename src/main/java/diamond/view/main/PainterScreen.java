@@ -70,25 +70,25 @@ public class PainterScreen extends JPanel
 ActionListener, ComponentListener, Observer{
 
 
-    private MainScreenSettingDB setting = MainScreenSettingDB.getInstance();
-    private ScreenUpdater screenUpdater = ScreenUpdater.getInstance();
-    private PaintContext mouseContext = PaintContext.getInstance();
-
-    private Image bufferImage;
-    private Graphics2D bufferg;
-    private Point2D preMousePoint; // Screen coordinates
-    private Point2D.Double currentMousePointLogic = new Point2D.Double(); // Logic coordinates
-    private double scale;
-    private double transX;
-    private double transY;
-    // Temporary information when editing
-    // Affine transformation information
-    private Dimension preSize;
     private AffineTransform affineTransform = new AffineTransform();
+    private Graphics2D bufferg;
+    private Image bufferImage;
+
     private ArrayList<Vector2d> crossPoints = new ArrayList<>();
+    private Point2D.Double currentMousePointLogic = new Point2D.Double(); // Logic coordinates
+    private PaintContext mouseContext = PaintContext.getInstance();
     private JPopupMenu popup = new JPopupMenu();
     private JMenuItem popupItem_DivideFace = new JMenuItem("Dividing face");
     private JMenuItem popupItem_FlipFace = new JMenuItem("Flipping face");
+    private Point2D preMousePoint; // Screen coordinates
+    // Temporary information when editing
+    // Affine transformation information
+    private Dimension preSize;
+    private double scale;
+    private ScreenUpdater screenUpdater = ScreenUpdater.getInstance();
+    private MainScreenSettingDB setting = MainScreenSettingDB.getInstance();
+    private double transX;
+    private double transY;
 
     public PainterScreen() {
         addMouseListener(this);
@@ -107,6 +107,67 @@ ActionListener, ComponentListener, Observer{
         popupItem_FlipFace.addActionListener(this);
         popup.add(popupItem_FlipFace);
         preSize = getSize();
+    }
+
+    private void drawCandidatePosition(Graphics g) {
+        Vector2d candidate = mouseContext.pickCandidateV;
+        if (candidate != null) {
+            g.setColor(Color.BLACK);
+            g.drawString("(" + candidate.x +
+                    "," + candidate.y + ")", 0, 10);
+        }
+
+    }
+
+
+    private void drawGridLine(Graphics2D g2d) {
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.setStroke(LineSetting.STROKE_GRID);
+
+        double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+
+        int lineNum = PaintConfig.gridDivNum;
+        double step = paperSize / lineNum;
+
+        for (int i = 1; i < lineNum; i++) {
+            g2d.draw(new Line2D.Double(
+                    step * i - paperSize / 2.0, -paperSize / 2.0,
+                    step * i - paperSize / 2.0, paperSize / 2.0));
+
+            g2d.draw(new Line2D.Double(
+                    -paperSize / 2.0, step * i - paperSize / 2.0,
+                    paperSize / 2.0, step * i - paperSize / 2.0));
+        }
+    }
+
+
+    private void drawLines(Graphics2D g2d, Collection<OriLine> lines) {
+
+        ElementSelector selector = new ElementSelector();
+        for (OriLine line : lines) {
+            if (line.typeVal == OriLine.TYPE_NONE
+                    && !PaintConfig.dispAuxLines) {
+                continue;
+            }
+
+            if ((line.typeVal == OriLine.TYPE_RIDGE
+                    || line.typeVal == OriLine.TYPE_VALLEY)
+                    && !PaintConfig.dispMVLines) {
+                continue;
+            }
+
+            g2d.setColor(selector.selectColorByLineType(line.typeVal));
+            g2d.setStroke(selector.selectStroke(line.typeVal));
+
+            if (PaintConfig.mouseAction != null) {
+                if (mouseContext.getLines().contains(line) == false) {
+                    g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
+                            line.p1.y));
+                }
+            }
+
+        }
+
     }
 
     /**
@@ -183,68 +244,172 @@ ActionListener, ComponentListener, Observer{
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+
+    @Override
+    public void componentMoved(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+
+
+
+    @Override
+    public void componentResized(ComponentEvent arg0) {
+        if (getWidth() <= 0 || getHeight() <= 0) {
+            return;
+        }
+        preSize = getSize();
+
+        // Update of the logical coordinates of the center of the screen
+        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
+        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
+
+        // Updating the image buffer
+        bufferImage = createImage(getWidth(), getHeight());
+        bufferg = (Graphics2D) bufferImage.getGraphics();
+
+        updateAffineTransform();
+        repaint();
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
     public Image getCreasePatternImage() {
 
         return bufferImage;
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
-    private void drawLines(Graphics2D g2d, Collection<OriLine> lines) {
+        if (PaintConfig.mouseAction == null) {
+            return;
+        }
 
-        ElementSelector selector = new ElementSelector();
-        for (OriLine line : lines) {
-            if (line.typeVal == OriLine.TYPE_NONE
-                    && !PaintConfig.dispAuxLines) {
-                continue;
-            }
-
-            if ((line.typeVal == OriLine.TYPE_RIDGE
-                    || line.typeVal == OriLine.TYPE_VALLEY)
-                    && !PaintConfig.dispMVLines) {
-                continue;
-            }
-
-            g2d.setColor(selector.selectColorByLineType(line.typeVal));
-            g2d.setStroke(selector.selectStroke(line.typeVal));
-
-            if (PaintConfig.mouseAction != null) {
-                if (mouseContext.getLines().contains(line) == false) {
-                    g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
-                            line.p1.y));
-                }
-            }
-
+        if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
+            PaintConfig.mouseAction.onRightClick(
+                    mouseContext, affineTransform,
+                    MouseUtility.isControlKeyPressed(e));
+        } else {
+            PaintConfig.mouseAction = PaintConfig.mouseAction.onLeftClick(
+                    mouseContext, affineTransform,
+                    MouseUtility.isControlKeyPressed(e));
         }
 
     }
 
-    void drawVertexRectangles(Graphics2D g2d) {
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0 && // zoom
+                (e.getModifiersEx()
+                        & MouseEvent.CTRL_DOWN_MASK) == MouseEvent.CTRL_DOWN_MASK) {
 
-        g2d.setColor(Color.BLACK);
-        final double vertexDrawSize = 2.0;
-        for (OriLine line : creasePattern) {
-            if (!PaintConfig.dispAuxLines
-                    && line.typeVal == OriLine.TYPE_NONE) {
-                continue;
+            double moved = e.getX() - preMousePoint.getX() + e.getY()
+                    - preMousePoint.getY();
+            scale += moved / 150.0;
+            if (scale < 0.01) {
+                scale = 0.01;
             }
-            if (!PaintConfig.dispMVLines && (line.typeVal == OriLine.TYPE_RIDGE
-                    || line.typeVal == OriLine.TYPE_VALLEY)) {
-                continue;
-            }
-            Vector2d v0 = line.p0;
-            Vector2d v1 = line.p1;
 
-            g2d.fill(new Rectangle2D.Double(v0.x - vertexDrawSize / scale,
-                    v0.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
-                    vertexDrawSize * 2 / scale));
-            g2d.fill(new Rectangle2D.Double(v1.x - vertexDrawSize / scale,
-                    v1.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
-                    vertexDrawSize * 2 / scale));
+            preMousePoint = e.getPoint();
+            updateAffineTransform();
+            repaint();
+
+        } else if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) != 0) {
+            transX += (double) (e.getX() - preMousePoint.getX()) / scale;
+            transY += (double) (e.getY() - preMousePoint.getY()) / scale;
+            preMousePoint = e.getPoint();
+            updateAffineTransform();
+            repaint();
+        } else {
+            mouseContext.setLogicalMousePoint(MouseUtility
+                    .getLogicalPoint(affineTransform, e.getPoint()));
+            PaintConfig.getMouseAction().onDrag(mouseContext, affineTransform,
+                    MouseUtility.isControlKeyPressed(e));
+            repaint();
         }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+    }
+
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Gets the value of the current logical coordinates of the mouse
+
+        try {
+            affineTransform.inverseTransform(e.getPoint(),
+                    currentMousePointLogic);
+        } catch (Exception ex) {
+            return;
+        }
+
+        mouseContext.scale = scale;
+        mouseContext.dispGrid = setting.isGridVisible();
+        mouseContext.setLogicalMousePoint(
+                MouseUtility.getLogicalPoint(affineTransform, e.getPoint()));
+
+        if (PaintConfig.mouseAction == null) {
+            return;
+        }
+
+        PaintConfig.mouseAction.onMove(mouseContext, affineTransform,
+                MouseUtility.isControlKeyPressed(e));
+        //this.mouseContext.pickCandidateV = Globals.mouseAction.onMove(mouseContext, affineTransform, e);
+        repaint();
 
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+        if (PaintConfig.mouseAction == null) {
+            return;
+        }
+
+        PaintConfig.mouseAction.onPress(mouseContext, affineTransform,
+                MouseUtility.isControlKeyPressed(e));
+
+        preMousePoint = e.getPoint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Rectangular Selection
+
+        if (PaintConfig.mouseAction != null) {
+            PaintConfig.mouseAction.onRelease(mouseContext, affineTransform,
+                    MouseUtility.isControlKeyPressed(e));
+        }
+        repaint();
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        double scale_ = (100.0 - e.getWheelRotation() * 5) / 100.0;
+        scale *= scale_;
+        updateAffineTransform();
+        repaint();
+    }
 
     // Scaling relative to the center of the screen
     @Override
@@ -360,199 +525,6 @@ ActionListener, ComponentListener, Observer{
         }
     }
 
-    private void drawCandidatePosition(Graphics g) {
-        Vector2d candidate = mouseContext.pickCandidateV;
-        if (candidate != null) {
-            g.setColor(Color.BLACK);
-            g.drawString("(" + candidate.x +
-                    "," + candidate.y + ")", 0, 10);
-        }
-
-    }
-
-
-    private void drawGridLine(Graphics2D g2d) {
-        g2d.setColor(Color.LIGHT_GRAY);
-        g2d.setStroke(LineSetting.STROKE_GRID);
-
-        double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
-
-        int lineNum = PaintConfig.gridDivNum;
-        double step = paperSize / lineNum;
-
-        for (int i = 1; i < lineNum; i++) {
-            g2d.draw(new Line2D.Double(
-                    step * i - paperSize / 2.0, -paperSize / 2.0,
-                    step * i - paperSize / 2.0, paperSize / 2.0));
-
-            g2d.draw(new Line2D.Double(
-                    -paperSize / 2.0, step * i - paperSize / 2.0,
-                    paperSize / 2.0, step * i - paperSize / 2.0));
-        }
-    }
-
-
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
-            PaintConfig.mouseAction.onRightClick(
-                    mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        } else {
-            PaintConfig.mouseAction = PaintConfig.mouseAction.onLeftClick(
-                    mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        PaintConfig.mouseAction.onPress(mouseContext, affineTransform,
-                MouseUtility.isControlKeyPressed(e));
-
-        preMousePoint = e.getPoint();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // Rectangular Selection
-
-        if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onRelease(mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        }
-        repaint();
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0 && // zoom
-                (e.getModifiersEx()
-                        & MouseEvent.CTRL_DOWN_MASK) == MouseEvent.CTRL_DOWN_MASK) {
-
-            double moved = e.getX() - preMousePoint.getX() + e.getY()
-                    - preMousePoint.getY();
-            scale += moved / 150.0;
-            if (scale < 0.01) {
-                scale = 0.01;
-            }
-
-            preMousePoint = e.getPoint();
-            updateAffineTransform();
-            repaint();
-
-        } else if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) != 0) {
-            transX += (double) (e.getX() - preMousePoint.getX()) / scale;
-            transY += (double) (e.getY() - preMousePoint.getY()) / scale;
-            preMousePoint = e.getPoint();
-            updateAffineTransform();
-            repaint();
-        } else {
-            mouseContext.setLogicalMousePoint(MouseUtility
-                    .getLogicalPoint(affineTransform, e.getPoint()));
-            PaintConfig.getMouseAction().onDrag(mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-            repaint();
-        }
-    }
-
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // Gets the value of the current logical coordinates of the mouse
-
-        try {
-            affineTransform.inverseTransform(e.getPoint(),
-                    currentMousePointLogic);
-        } catch (Exception ex) {
-            return;
-        }
-
-        mouseContext.scale = scale;
-        mouseContext.dispGrid = setting.isGridVisible();
-        mouseContext.setLogicalMousePoint(
-                MouseUtility.getLogicalPoint(affineTransform, e.getPoint()));
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        PaintConfig.mouseAction.onMove(mouseContext, affineTransform,
-                MouseUtility.isControlKeyPressed(e));
-        //this.mouseContext.pickCandidateV = Globals.mouseAction.onMove(mouseContext, affineTransform, e);
-        repaint();
-
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        double scale_ = (100.0 - e.getWheelRotation() * 5) / 100.0;
-        scale *= scale_;
-        updateAffineTransform();
-        repaint();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        if (getWidth() <= 0 || getHeight() <= 0) {
-            return;
-        }
-        preSize = getSize();
-
-        // Update of the logical coordinates of the center of the screen
-        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
-        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
-
-        // Updating the image buffer
-        bufferImage = createImage(getWidth(), getHeight());
-        bufferg = (Graphics2D) bufferImage.getGraphics();
-
-        updateAffineTransform();
-        repaint();
-
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-
     @Override
     public void update(Observable o, Object arg) {
         String name = o.toString();
@@ -563,6 +535,34 @@ ActionListener, ComponentListener, Observer{
                 }
             }
 
+        }
+
+    }
+
+
+    void drawVertexRectangles(Graphics2D g2d) {
+        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+
+        g2d.setColor(Color.BLACK);
+        final double vertexDrawSize = 2.0;
+        for (OriLine line : creasePattern) {
+            if (!PaintConfig.dispAuxLines
+                    && line.typeVal == OriLine.TYPE_NONE) {
+                continue;
+            }
+            if (!PaintConfig.dispMVLines && (line.typeVal == OriLine.TYPE_RIDGE
+                    || line.typeVal == OriLine.TYPE_VALLEY)) {
+                continue;
+            }
+            Vector2d v0 = line.p0;
+            Vector2d v1 = line.p1;
+
+            g2d.fill(new Rectangle2D.Double(v0.x - vertexDrawSize / scale,
+                    v0.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
+                    vertexDrawSize * 2 / scale));
+            g2d.fill(new Rectangle2D.Double(v1.x - vertexDrawSize / scale,
+                    v1.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
+                    vertexDrawSize * 2 / scale));
         }
 
     }

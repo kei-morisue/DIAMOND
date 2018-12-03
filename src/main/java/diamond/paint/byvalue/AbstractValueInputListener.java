@@ -15,23 +15,6 @@ import javax.swing.text.Document;
 public abstract class AbstractValueInputListener implements DocumentListener{
 
 
-	@Override
-	public void insertUpdate(DocumentEvent e) {
-		setToDB(e);
-
-	}
-
-	@Override
-	public void removeUpdate(DocumentEvent e) {
-		setToDB(e);
-
-	}
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-		setToDB(e);
-	}
-	
 	private void setToDB(DocumentEvent e){
 		Document document = e.getDocument();
 		try{
@@ -43,6 +26,23 @@ public abstract class AbstractValueInputListener implements DocumentListener{
 		catch (Exception ex) {
 			// TODO: handle exception
 		}
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		setToDB(e);
+	}
+
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		setToDB(e);
+
+	}
+	
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		setToDB(e);
+
 	}
 
 	/**

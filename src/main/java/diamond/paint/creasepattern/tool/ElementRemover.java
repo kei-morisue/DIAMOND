@@ -14,30 +14,6 @@ import diamond.value.OriLine;
  *
  */
 public class ElementRemover {
-	/**
-	 * remove line from crease pattern
-	 * @param l
-	 * @param creasePattern
-	 */
-	public void removeLine(
-			OriLine l, Collection<OriLine> creasePattern) {
-		
-		creasePattern.remove(l);
-		// merge the lines if possible, to prevent unnecessary vertexes
-		merge2LinesAt(l.p0, creasePattern);
-		merge2LinesAt(l.p1, creasePattern);
-	}
-
-	/**
-	 * remove vertex from crease pattern
-	 * @param v
-	 * @param creasePattern
-	 */
-	public void removeVertex(
-			Vector2d v, Collection<OriLine> creasePattern) {
-		
-		merge2LinesAt(v, creasePattern);
-	}
 	private void merge2LinesAt(
 			Vector2d p, Collection<OriLine> creasePattern) {
 		
@@ -92,6 +68,19 @@ public class ElementRemover {
 	}
 
 	/**
+	 * remove line from crease pattern
+	 * @param l
+	 * @param creasePattern
+	 */
+	public void removeLine(
+			OriLine l, Collection<OriLine> creasePattern) {
+		
+		creasePattern.remove(l);
+		// merge the lines if possible, to prevent unnecessary vertexes
+		merge2LinesAt(l.p0, creasePattern);
+		merge2LinesAt(l.p1, creasePattern);
+	}
+	/**
 	 * remove lines which is marked "selected" from given collection.
 	 * @param creasePattern collection of lines
 	 */
@@ -108,6 +97,17 @@ public class ElementRemover {
 		for (OriLine line : selectedLines) {
 			creasePattern.remove(line);
 		}
+	}
+
+	/**
+	 * remove vertex from crease pattern
+	 * @param v
+	 * @param creasePattern
+	 */
+	public void removeVertex(
+			Vector2d v, Collection<OriLine> creasePattern) {
+		
+		merge2LinesAt(v, creasePattern);
 	}
 
 }

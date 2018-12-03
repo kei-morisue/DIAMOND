@@ -11,28 +11,35 @@ import diamond.paint.core.PaintContext;
 public interface GraphicMouseActionInterface {
 
 	/**
-	 * True if the inherited class uses line-selected marks set by previous action. 
-	 * default is false.
-	 * @return
-	 */
-	public abstract boolean needSelect();
-
-	public abstract EditMode getEditMode();
-
-	/**
 	 * define action on destroy.
 	 * default does clear context selection keeping line-selected marks.
 	 * @param context
 	 */
 	public abstract void destroy(PaintContext context);
 
+	public abstract void doAction(PaintContext context, Point2D.Double point,
+			boolean differntAction);
+
+	public abstract EditMode getEditMode();
+
 	/**
-	 * define action for recovering the status of this object 
-	 * with given context.
-	 * default does nothing.
+	 * True if the inherited class uses line-selected marks set by previous action. 
+	 * default is false.
+	 * @return
+	 */
+	public abstract boolean needSelect();
+
+	public abstract void onDrag(PaintContext context, AffineTransform affine,
+			boolean differentAction);
+
+	/**
+	 * draws selected lines and selected vertices as selected state.
+	 * Override for more drawing.
+	 * 
+	 * @param g2d
 	 * @param context
 	 */
-	public abstract void recover(PaintContext context);
+	public abstract void onDraw(Graphics2D g2d, PaintContext context);
 
 	/**
 	 * performs action.
@@ -45,20 +52,6 @@ public interface GraphicMouseActionInterface {
 	 */
 	public abstract GraphicMouseActionInterface onLeftClick(PaintContext context,
 			AffineTransform affine, boolean differentAction);
-
-	public abstract void doAction(PaintContext context, Point2D.Double point,
-			boolean differntAction);
-
-	/**
-	 * undo action.
-	 * @param context
-	 * @param affine
-	 * @param differentAction
-	 */
-	public abstract void onRightClick(PaintContext context,
-			AffineTransform affine, boolean differentAction);
-
-	public abstract void undo(PaintContext context);
 
 	/**
 	 * searches a vertex and a line close enough to the mouse cursor.
@@ -75,19 +68,26 @@ public interface GraphicMouseActionInterface {
 	public abstract void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction);
 
-	public abstract void onDrag(PaintContext context, AffineTransform affine,
-			boolean differentAction);
-
 	public abstract void onRelease(PaintContext context,
 			AffineTransform affine, boolean differentAction);
 
 	/**
-	 * draws selected lines and selected vertices as selected state.
-	 * Override for more drawing.
-	 * 
-	 * @param g2d
+	 * undo action.
+	 * @param context
+	 * @param affine
+	 * @param differentAction
+	 */
+	public abstract void onRightClick(PaintContext context,
+			AffineTransform affine, boolean differentAction);
+
+	/**
+	 * define action for recovering the status of this object 
+	 * with given context.
+	 * default does nothing.
 	 * @param context
 	 */
-	public abstract void onDraw(Graphics2D g2d, PaintContext context);
+	public abstract void recover(PaintContext context);
+
+	public abstract void undo(PaintContext context);
 
 }

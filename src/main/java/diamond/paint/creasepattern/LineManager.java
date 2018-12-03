@@ -23,26 +23,14 @@ public class LineManager implements Collection<OriLine> {
 	
 	
 	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return lines.contains(o);
-	}
-
-	@Override
-	public int size() {
-		return lines.size();
-	}
-
-	@Override
 	public boolean add(OriLine e) {
 		return lines.add(e);
 	}
 
 	@Override
-	public boolean remove(Object o) {
-		OriLine l = (OriLine) o;
-
-		return lines.remove(o);
+	public boolean addAll(Collection<? extends OriLine> c) {
+				
+		return lines.addAll(c);
 	}
 
 	@Override
@@ -50,20 +38,20 @@ public class LineManager implements Collection<OriLine> {
 		lines.clear();
 	}
 
-
-
-
 	@Override
-	public Object[] toArray() {
+	public boolean contains(Object o) {
 		// TODO Auto-generated method stub
-		return lines.toArray();
+		return lines.contains(o);
 	}
 
 	@Override
-	public <T> T[] toArray(T[] a) {
+	public boolean containsAll(Collection<?> c) {
 		// TODO Auto-generated method stub
-		return lines.toArray(a);
+		return lines.containsAll(c);
 	}
+
+
+
 
 	@Override
 	public boolean isEmpty() {
@@ -78,15 +66,10 @@ public class LineManager implements Collection<OriLine> {
 	}
 
 	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return lines.containsAll(c);
-	}
+	public boolean remove(Object o) {
+		OriLine l = (OriLine) o;
 
-	@Override
-	public boolean addAll(Collection<? extends OriLine> c) {
-				
-		return lines.addAll(c);
+		return lines.remove(o);
 	}
 
 	@Override
@@ -99,5 +82,22 @@ public class LineManager implements Collection<OriLine> {
 	public boolean retainAll(Collection<?> c) {
 		
 		return lines.retainAll(c);
+	}
+
+	@Override
+	public int size() {
+		return lines.size();
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return lines.toArray();
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		// TODO Auto-generated method stub
+		return lines.toArray(a);
 	}
 }

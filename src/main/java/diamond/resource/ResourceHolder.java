@@ -14,37 +14,10 @@ import java.util.ResourceBundle;
 public class ResourceHolder {
 
 
-    private HashMap<ResourceKey, ResourceBundle> resources = new HashMap<>();
-
     //----------------------------------------------------------
     private static ResourceHolder instance = null;
 
-    private ResourceHolder() {
-    }
-
-    public static ResourceHolder getInstance() {
-        if (instance == null) {
-            instance = new ResourceHolder();
-            instance.load();
-        }
-
-        return instance;
-    }
-    //----------------------------------------------------------
-
     private static final String resourcePackage = "diamond.resource";
-
-    private void load() {
-        ResourceHolder resources = ResourceHolder.getInstance();
-        resources.addResource(ResourceKey.EXPLANATION,
-                createResource(
-                        resourcePackage + ".ExplanationStringResource_en"));
-        resources.addResource(ResourceKey.LABEL,
-                createResource(resourcePackage + ".LabelStringResource_en"));
-        resources.addResource(ResourceKey.WARNING,
-                createResource(resourcePackage + ".WarningStringResource_en"));
-
-    }
 
     public static ResourceBundle createResource(String classPath) {
         ResourceBundle bundle;
@@ -63,6 +36,33 @@ public class ResourceHolder {
 
 
         return bundle;
+    }
+
+    public static ResourceHolder getInstance() {
+        if (instance == null) {
+            instance = new ResourceHolder();
+            instance.load();
+        }
+
+        return instance;
+    }
+    //----------------------------------------------------------
+
+    private HashMap<ResourceKey, ResourceBundle> resources = new HashMap<>();
+
+    private ResourceHolder() {
+    }
+
+    private void load() {
+        ResourceHolder resources = ResourceHolder.getInstance();
+        resources.addResource(ResourceKey.EXPLANATION,
+                createResource(
+                        resourcePackage + ".ExplanationStringResource_en"));
+        resources.addResource(ResourceKey.LABEL,
+                createResource(resourcePackage + ".LabelStringResource_en"));
+        resources.addResource(ResourceKey.WARNING,
+                createResource(resourcePackage + ".WarningStringResource_en"));
+
     }
 
     public void addResource(ResourceKey key, ResourceBundle resource) {

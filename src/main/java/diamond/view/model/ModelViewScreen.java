@@ -56,21 +56,21 @@ import diamond.view.main.MainFrame;
 public class ModelViewScreen extends JPanel
 implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener, ComponentListener {
 
-    private Image bufferImage;
-    private Graphics2D bufferg;
-    private Point2D preMousePoint; // Screen coordinates
-    private Point2D.Double currentMousePointLogic = new Point2D.Double(); // Logical coordinates
-    private double scale;
-    private double transX;
-    private double transY;
-    private Vector2d modelCenter = new Vector2d();
-    private Dimension preSize;
-    private double rotateAngle;
     private AffineTransform affineTransform = new AffineTransform();
-    public boolean dispSlideFace = false;
+    private Graphics2D bufferg;
+    private Image bufferImage;
     private OriLine crossLine = null;
     private int crossLineAngleDegree = 90;
     private double crossLinePosition = 0;
+    private Point2D.Double currentMousePointLogic = new Point2D.Double(); // Logical coordinates
+    private Vector2d modelCenter = new Vector2d();
+    private Point2D preMousePoint; // Screen coordinates
+    private Dimension preSize;
+    private double rotateAngle;
+    private double scale;
+    private double transX;
+    private double transY;
+    public boolean dispSlideFace = false;
 
     public ModelViewScreen() {
         addMouseListener(this);
@@ -86,35 +86,48 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
         preSize = getSize();
     }
 
-    public void resetViewMatrix() {
-        Doc document = DocHolder.getInstance().getDoc();
-        OrigamiModel origamiModel = document.getOrigamiModel();
-        List<OriFace> faces = origamiModel.getFaces();
+    // Update the current AffineTransform
+    private void updateAffineTransform() {
+        affineTransform.setToIdentity();
+        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
+        affineTransform.scale(scale, scale);
+        affineTransform.translate(transX, transY);
+        affineTransform.rotate(rotateAngle);
+        affineTransform.translate(-modelCenter.x, -modelCenter.y);
+    }
 
-        boolean hasModel = origamiModel.hasModel();
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        // TODO Auto-generated method stub
+    }
 
-        rotateAngle = 0;
-        if (!hasModel) {
-            scale = 1.0;
-        } else {
-            // Align the center of the model, combined scale
-            Vector2d maxV = new Vector2d(-Double.MAX_VALUE, -Double.MAX_VALUE);
-            Vector2d minV = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
-            for (OriFace face : faces) {
-                for (OriHalfedge he : face.halfedges) {
-                    maxV.x = Math.max(maxV.x, he.vertex.p.x);
-                    maxV.y = Math.max(maxV.y, he.vertex.p.y);
-                    minV.x = Math.min(minV.x, he.vertex.p.x);
-                    minV.y = Math.min(minV.y, he.vertex.p.y);
-                }
-            }
-            modelCenter.x = (maxV.x + minV.x) / 2;
-            modelCenter.y = (maxV.y + minV.y) / 2;
-            scale = 0.8 * Math.min(getWidth() / (maxV.x - minV.x),
-                    getHeight() / (maxV.y - minV.y));
-            updateAffineTransform();
-            recalcCrossLine();
-        }
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentResized(ComponentEvent arg0) {
+        preSize = getSize();
+
+        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
+        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
+
+        bufferImage = createImage(getWidth(), getHeight());
+        bufferg = (Graphics2D) bufferImage.getGraphics();
+
+        updateAffineTransform();
+        repaint();
+    }
+
+    @Override
+    public void componentShown(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
     }
 
     public void drawModel(Graphics2D g2d) {
@@ -162,14 +175,74 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
         }
     }
 
-    // Update the current AffineTransform
-    private void updateAffineTransform() {
-        affineTransform.setToIdentity();
-        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
-        affineTransform.scale(scale, scale);
-        affineTransform.translate(transX, transY);
-        affineTransform.rotate(rotateAngle);
-        affineTransform.translate(-modelCenter.x, -modelCenter.y);
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Point2D.Double clickPoint = new Point2D.Double();
+        try {
+            affineTransform.inverseTransform(e.getPoint(), clickPoint);
+        } catch (Exception ex) {
+        }
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
+            transX += (double) (e.getX() - preMousePoint.getX()) / scale;
+            transY += (double) (e.getY() - preMousePoint.getY()) / scale;
+
+            preMousePoint = e.getPoint();
+            updateAffineTransform();
+            repaint();
+        } else if (javax.swing.SwingUtilities.isLeftMouseButton(e)) {
+            rotateAngle += ((double) e.getX() - preMousePoint.getX()) / 100.0;
+            preMousePoint = e.getPoint();
+            updateAffineTransform();
+            repaint();
+        }
+
+        // Gets the value of the current logical coordinates of the mouse
+        try {
+            affineTransform.inverseTransform(e.getPoint(),
+                    currentMousePointLogic);
+        } catch (Exception ex) {
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        try {
+            affineTransform.inverseTransform(e.getPoint(),
+                    currentMousePointLogic);
+        } catch (Exception ex) {
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        preMousePoint = e.getPoint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        double scale_ = (100.0 - e.getWheelRotation() * 5) / 100.0;
+        scale *= scale_;
+        updateAffineTransform();
+        repaint();
     }
 
     // Scaling relative to the center of the screen
@@ -213,25 +286,6 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        Point2D.Double clickPoint = new Point2D.Double();
-        try {
-            affineTransform.inverseTransform(e.getPoint(), clickPoint);
-        } catch (Exception ex) {
-        }
-    }
-
-    public void setCrossLineAngle(int angleDegree) {
-        crossLineAngleDegree = angleDegree;
-        recalcCrossLine();
-    }
-
-    public void setCrossLinePosition(int positionValue) {
-        crossLinePosition = positionValue;
-        recalcCrossLine();
-    }
-
     public void recalcCrossLine() {
         Vector2d dir = new Vector2d(
                 Math.cos(Math.PI * crossLineAngleDegree / 180.0),
@@ -251,98 +305,44 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
         MainFrame.getInstance().repaint();
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        preMousePoint = e.getPoint();
-    }
+    public void resetViewMatrix() {
+        Doc document = DocHolder.getInstance().getDoc();
+        OrigamiModel origamiModel = document.getOrigamiModel();
+        List<OriFace> faces = origamiModel.getFaces();
 
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
+        boolean hasModel = origamiModel.hasModel();
 
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
-            transX += (double) (e.getX() - preMousePoint.getX()) / scale;
-            transY += (double) (e.getY() - preMousePoint.getY()) / scale;
-
-            preMousePoint = e.getPoint();
+        rotateAngle = 0;
+        if (!hasModel) {
+            scale = 1.0;
+        } else {
+            // Align the center of the model, combined scale
+            Vector2d maxV = new Vector2d(-Double.MAX_VALUE, -Double.MAX_VALUE);
+            Vector2d minV = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
+            for (OriFace face : faces) {
+                for (OriHalfedge he : face.halfedges) {
+                    maxV.x = Math.max(maxV.x, he.vertex.p.x);
+                    maxV.y = Math.max(maxV.y, he.vertex.p.y);
+                    minV.x = Math.min(minV.x, he.vertex.p.x);
+                    minV.y = Math.min(minV.y, he.vertex.p.y);
+                }
+            }
+            modelCenter.x = (maxV.x + minV.x) / 2;
+            modelCenter.y = (maxV.y + minV.y) / 2;
+            scale = 0.8 * Math.min(getWidth() / (maxV.x - minV.x),
+                    getHeight() / (maxV.y - minV.y));
             updateAffineTransform();
-            repaint();
-        } else if (javax.swing.SwingUtilities.isLeftMouseButton(e)) {
-            rotateAngle += ((double) e.getX() - preMousePoint.getX()) / 100.0;
-            preMousePoint = e.getPoint();
-            updateAffineTransform();
-            repaint();
-        }
-
-        // Gets the value of the current logical coordinates of the mouse
-        try {
-            affineTransform.inverseTransform(e.getPoint(),
-                    currentMousePointLogic);
-        } catch (Exception ex) {
+            recalcCrossLine();
         }
     }
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        try {
-            affineTransform.inverseTransform(e.getPoint(),
-                    currentMousePointLogic);
-        } catch (Exception ex) {
-        }
+    public void setCrossLineAngle(int angleDegree) {
+        crossLineAngleDegree = angleDegree;
+        recalcCrossLine();
     }
 
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        double scale_ = (100.0 - e.getWheelRotation() * 5) / 100.0;
-        scale *= scale_;
-        updateAffineTransform();
-        repaint();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        preSize = getSize();
-
-        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
-        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
-
-        bufferImage = createImage(getWidth(), getHeight());
-        bufferg = (Graphics2D) bufferImage.getGraphics();
-
-        updateAffineTransform();
-        repaint();
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
+    public void setCrossLinePosition(int positionValue) {
+        crossLinePosition = positionValue;
+        recalcCrossLine();
     }
 }

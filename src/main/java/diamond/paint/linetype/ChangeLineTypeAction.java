@@ -22,6 +22,15 @@ public class ChangeLineTypeAction extends RectangularSelectableAction {
 
 
 	@Override
+	public void onDraw(Graphics2D g2d, PaintContext context) {
+
+		super.onDraw(g2d, context);
+
+		drawPickCandidateLine(g2d, context);
+	}
+
+
+	@Override
 	protected void afterRectangularSelection(Collection<OriLine> selectedLines,
 			PaintContext context) {
 
@@ -41,15 +50,6 @@ public class ChangeLineTypeAction extends RectangularSelectableAction {
 			}
 
 		}
-	}
-
-
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-
-		super.onDraw(g2d, context);
-
-		drawPickCandidateLine(g2d, context);
 	}
 
 

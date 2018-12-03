@@ -12,6 +12,9 @@ import diamond.value.OriLine;
 public class VerticalLineAction extends GraphicMouseAction {
 
 
+	private OriLine closeLine = null;
+
+
 	public VerticalLineAction(){
 		setActionState(new SelectingVertexForVertical());
 	}
@@ -24,8 +27,33 @@ public class VerticalLineAction extends GraphicMouseAction {
 		
 	}
 
+	@Override
+	public void onDrag(PaintContext context, AffineTransform affine, boolean differentAction) {
+		// TODO Auto-generated method stub
 
-	private OriLine closeLine = null;
+	}
+
+
+
+
+
+
+
+	@Override
+	public void onDraw(Graphics2D g2d, PaintContext context) {
+
+		super.onDraw(g2d, context);
+
+
+		if(context.getVertexCount() == 0){
+
+			drawPickCandidateVertex(g2d, context);
+		}
+		else if(context.getVertexCount() == 1){
+			drawPickCandidateLine(g2d, context);
+			
+		}
+	}
 
 	@Override
 	public Vector2d onMove(PaintContext context, AffineTransform affine,
@@ -47,49 +75,21 @@ public class VerticalLineAction extends GraphicMouseAction {
 	}
 
 
-
-
-
-
-
 	@Override
-	public void onDrag(PaintContext context, AffineTransform affine, boolean differentAction) {
+	public void onPress(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+
+
 
 	@Override
 	public void onRelease(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
 
-	}
-
-
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-
-		super.onDraw(g2d, context);
-
-
-		if(context.getVertexCount() == 0){
-
-			drawPickCandidateVertex(g2d, context);
-		}
-		else if(context.getVertexCount() == 1){
-			drawPickCandidateLine(g2d, context);
-			
-		}
-	}
-
-
-
-
-	@Override
-	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

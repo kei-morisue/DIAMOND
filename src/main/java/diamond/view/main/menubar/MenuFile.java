@@ -5,16 +5,17 @@
 package diamond.view.main.menubar;
 
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
-import diamond.Config;
 import diamond.file.FileHistory;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
+import diamond.view.main.menubar.file.Exit;
+import diamond.view.main.menubar.file.Export;
+import diamond.view.main.menubar.file.MRUFiles;
 import diamond.view.main.menubar.file.New;
 import diamond.view.main.menubar.file.Open;
+import diamond.view.main.menubar.file.Property;
 import diamond.view.main.menubar.file.Save;
 import diamond.view.main.menubar.file.SaveAs;
 
@@ -33,75 +34,47 @@ public class MenuFile extends JMenu {
 
     }
 
-    private static ResourceHolder res = ResourceHolder.getInstance();
-    public static JMenuItem menuItemSaveAsImage = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.SAVE_AS_IMAGE_ID));
-
-    public static JMenuItem menuItemExportDXF = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_DXF_ID));
-    public static JMenuItem menuItemExportOBJ = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_OBJ_ID));
-    public static JMenuItem menuItemExportCP = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_CP_ID));
-    public static JMenuItem menuItemExportSVG = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_SVG_ID));
-    public static JMenuItem menuItemProperty = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.PROPERTY_ID));
-    public static JMenuItem[] MRUFilesMenuItem = new JMenuItem[Config.MRUFILE_NUM];
-
-    public static JMenuItem menuItemExit = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXIT_ID));
-
     public MenuFile() {
-        super(res.getString(ResourceKey.LABEL, StringID.Main.FILE_ID));
-        addActionListeners();
+        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                StringID.Main.FILE_ID));
         addItems();
     }
 
-    private void addActionListeners() {
-        MainFrame mainFrame = MainFrame.getInstance();
-        menuItemSaveAsImage.addActionListener(mainFrame);
-        menuItemExit.addActionListener(mainFrame);
-        menuItemExportDXF.addActionListener(mainFrame);
-        menuItemExportOBJ.addActionListener(mainFrame);
-        menuItemExportCP.addActionListener(mainFrame);
-        menuItemExportSVG.addActionListener(mainFrame);
-        menuItemProperty.addActionListener(mainFrame);
-        for (int i = 0; i < Config.MRUFILE_NUM; i++) {
-            MRUFilesMenuItem[i] = new JMenuItem();
-            MRUFilesMenuItem[i].addActionListener(mainFrame);
+    private void addExportItems() {
+        new Export();
+        add(Export.menuItemExportDXF);
+        add(Export.menuItemExportOBJ);
+        add(Export.menuItemExportCP);
+        add(Export.menuItemExportSVG);
+    }
+
+    private void addMRUItems() {
+        int i = 0;
+        new MRUFiles();
+        for (String path : FileHistory.getHistory()) {
+            MRUFiles.menuItems[i].setText(path);
+            add(MRUFiles.menuItems[i]);
+            i++;
+        }
+        while (i < MRUFiles.menuItems.length) {
+            MRUFiles.menuItems[i].setText("");
+            i++;
         }
     }
 
     public void addItems() {
-        removeAll();
+        removeAll();//TODO seems needless...
         add(New.getInstance());
         add(Open.getInstance());
         add(Save.getInstance());
         add(SaveAs.getInstance());
-        add(menuItemSaveAsImage);
-        add(menuItemExportDXF);
-        add(menuItemExportOBJ);
-        add(menuItemExportCP);
-        add(menuItemExportSVG);
+        addExportItems();
         addSeparator();
-        add(menuItemProperty);
+        add(Property.getInstance());
         addSeparator();
-
-        int i = 0;
-        for (String path : FileHistory.getHistory()) {
-            MRUFilesMenuItem[i].setText(path);
-            add(MRUFilesMenuItem[i]);
-
-            i++;
-        }
-        while (i < MRUFilesMenuItem.length) {
-            MRUFilesMenuItem[i].setText("");
-            i++;
-        }
-
+        addMRUItems();
         addSeparator();
-        add(menuItemExit);
+        add(Exit.getInstance());
 
     }
 }

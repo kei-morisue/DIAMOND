@@ -4,6 +4,28 @@ import java.util.Iterator;
 
 public class PairLoop {
 
+	public interface Block<Element>{
+		/**
+		 * this method must return true to go next.
+		 * @param element
+		 * @param nextElement
+		 * @return true if the loop continues, otherwise false.
+		 */
+		public boolean yield(Element element, Element nextElement);
+	}
+	
+	/**
+	 * loop of (0, 1), (1, 2) ... (n-2, n-1), (n-1, 0) for n elements.
+	 * @param elements Loop target
+	 * @param block What to do for the pairs
+	 * @return The first element of the last pair, in other word, i of (i, i+1).
+	 *         null if {@code block} never made a break by returning false.
+	 */
+	public static <Element> Element iterateAll(
+			Iterable<Element> elements, Block<Element> block){
+		return iterateFrom(elements.iterator(), elements, block);
+	}
+
 	/**
 	 * loop of (begin, begin+1), ... , (n-2, n-1), (n-1, 0).
 	 * @param begin
@@ -36,18 +58,6 @@ public class PairLoop {
 		
 	}
 	
-	/**
-	 * loop of (0, 1), (1, 2) ... (n-2, n-1), (n-1, 0) for n elements.
-	 * @param elements Loop target
-	 * @param block What to do for the pairs
-	 * @return The first element of the last pair, in other word, i of (i, i+1).
-	 *         null if {@code block} never made a break by returning false.
-	 */
-	public static <Element> Element iterateAll(
-			Iterable<Element> elements, Block<Element> block){
-		return iterateFrom(elements.iterator(), elements, block);
-	}
-
 	/**
 	 * loop of first {@code count} pairs.
 	 * This method does not iterate to (n-1, 0) pair.
@@ -82,16 +92,6 @@ public class PairLoop {
         
         return null;
 				
-	}
-	
-	public interface Block<Element>{
-		/**
-		 * this method must return true to go next.
-		 * @param element
-		 * @param nextElement
-		 * @return true if the loop continues, otherwise false.
-		 */
-		public boolean yield(Element element, Element nextElement);
 	}
 
 }

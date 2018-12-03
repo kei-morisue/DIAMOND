@@ -38,6 +38,72 @@ public class PaintBoundStateFactory {
 
 	
 
+	private ApplicationState<EditMode> createLineInputState(
+			Component parent, String id){
+
+		LocalPaintBoundStateFactory stateFactory = 
+				new LocalPaintBoundStateFactory(parent, 
+				new ActionListener[] {new ViewChangeListener(
+						new ChangeOnPaintInputButtonSelected())} );
+
+
+		ApplicationState<EditMode> state = null;
+		switch(id){
+		case StringID.DIRECT_V_ID:
+
+			state = stateFactory.create(new TwoPointSegmentAction(), 
+					id, null);
+			break;
+			
+		case StringID.ON_V_ID:
+			state =	stateFactory.create(new TwoPointLineAction(), 
+					id, null);
+			break;
+		case StringID.VERTICAL_ID:
+			state = stateFactory.create(new VerticalLineAction(), 
+					id, null);
+			break;
+			
+		case StringID.BISECTOR_ID:
+			state = stateFactory.create(new AngleBisectorAction(), 
+					id, null);
+			break;
+			
+		case StringID.TRIANGLE_ID:
+			state = stateFactory.create(new TriangleSplitAction(), 
+					id, null);
+
+			break;
+
+		case StringID.SYMMETRIC_ID:
+			state = stateFactory.create(new SymmetricalLineAction(), 
+					id, null);
+
+			break;
+		case StringID.MIRROR_ID:
+			state = stateFactory.create(new MirrorCopyAction(context), 
+					id, null);
+
+			break;
+
+		case StringID.BY_VALUE_ID:
+			LocalPaintBoundStateFactory byValueFactory = new LocalPaintBoundStateFactory(
+					parent, new ActionListener[] {new ViewChangeListener(new ChangeOnByValueButtonSelected())});
+
+			state = byValueFactory.create(new LineByValueAction(), 
+					id,	null );
+
+			break;
+
+		case StringID.PERPENDICULAR_BISECTOR_ID:
+			state = stateFactory.create(new TwoPointBisectorAction(), 
+					id, null);
+
+		}
+
+		return state;
+	}
+
 	/**
 	 * Create a state specified by ID
 	 * @param parent
@@ -116,72 +182,6 @@ public class PaintBoundStateFactory {
 			throw new NullPointerException("Wrong ID for creating state");
 		}
 
-
-		return state;
-	}
-
-	private ApplicationState<EditMode> createLineInputState(
-			Component parent, String id){
-
-		LocalPaintBoundStateFactory stateFactory = 
-				new LocalPaintBoundStateFactory(parent, 
-				new ActionListener[] {new ViewChangeListener(
-						new ChangeOnPaintInputButtonSelected())} );
-
-
-		ApplicationState<EditMode> state = null;
-		switch(id){
-		case StringID.DIRECT_V_ID:
-
-			state = stateFactory.create(new TwoPointSegmentAction(), 
-					id, null);
-			break;
-			
-		case StringID.ON_V_ID:
-			state =	stateFactory.create(new TwoPointLineAction(), 
-					id, null);
-			break;
-		case StringID.VERTICAL_ID:
-			state = stateFactory.create(new VerticalLineAction(), 
-					id, null);
-			break;
-			
-		case StringID.BISECTOR_ID:
-			state = stateFactory.create(new AngleBisectorAction(), 
-					id, null);
-			break;
-			
-		case StringID.TRIANGLE_ID:
-			state = stateFactory.create(new TriangleSplitAction(), 
-					id, null);
-
-			break;
-
-		case StringID.SYMMETRIC_ID:
-			state = stateFactory.create(new SymmetricalLineAction(), 
-					id, null);
-
-			break;
-		case StringID.MIRROR_ID:
-			state = stateFactory.create(new MirrorCopyAction(context), 
-					id, null);
-
-			break;
-
-		case StringID.BY_VALUE_ID:
-			LocalPaintBoundStateFactory byValueFactory = new LocalPaintBoundStateFactory(
-					parent, new ActionListener[] {new ViewChangeListener(new ChangeOnByValueButtonSelected())});
-
-			state = byValueFactory.create(new LineByValueAction(), 
-					id,	null );
-
-			break;
-
-		case StringID.PERPENDICULAR_BISECTOR_ID:
-			state = stateFactory.create(new TwoPointBisectorAction(), 
-					id, null);
-
-		}
 
 		return state;
 	}

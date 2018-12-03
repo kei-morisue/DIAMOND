@@ -15,9 +15,9 @@ import diamond.resource.ResourceKey;
 public interface ButtonFactory {
 
     public abstract AbstractButton create(Component parent,
-            Class<? extends AbstractButton> buttonClass, String id);
-
-    public abstract AbstractButton create(Component parent,
             Class<? extends AbstractButton> buttonClass, ResourceKey key,
             String id);
+
+    public abstract AbstractButton create(Component parent,
+            Class<? extends AbstractButton> buttonClass, String id);
 }

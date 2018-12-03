@@ -13,11 +13,11 @@ public class FileFilterEx extends javax.swing.filechooser.FileFilter {
     
     
     private String extensions[];
-    private String msg;
-    
-    private SavingAction savingAction = null;
-
     private LoadingAction loadingAction = null;
+    
+    private String msg;
+
+    private SavingAction savingAction = null;
     
     public FileFilterEx(String[] extensions, String msg) {
         this.extensions = extensions;
@@ -53,6 +53,69 @@ public class FileFilterEx extends javax.swing.filechooser.FileFilter {
 //    }
 
 
+	@Override
+    public boolean accept(java.io.File f) {
+        if (f.isDirectory()) {
+            return true;
+        }
+        for (int i = 0; i < extensions.length; i++) {
+
+            if (f.getName().endsWith(extensions[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+	
+
+	@Override
+    public String getDescription() {
+        return msg;
+    }
+	
+	
+    public String[] getExtensions(){
+    	return extensions;
+    }
+
+	public LoadingAction getLoadingAction() {
+		return loadingAction;
+	}
+
+//	public Loader getLoader() {
+//		return loader;
+//	}
+//
+//	public void setLoader(Loader loader) {
+//		this.loader = loader;
+//	}
+
+    
+    public SavingAction getSavingAction(){
+    	return savingAction;
+    }
+    
+    public boolean load(String path) throws Exception{
+
+    	boolean success = false;
+    	
+    	if(loadingAction != null){
+    		success = loadingAction.load(path);
+    	} 	
+    	
+    	return success;
+    }
+
+    
+//    public Exporter getExporter() {
+//		return exporter;
+//	}
+//
+//	public void setExporter(Exporter exporter) {
+//		this.exporter = exporter;
+//	}
+
 	public boolean save(Doc doc, String path) throws Exception{
 
     	boolean success = false;
@@ -68,75 +131,12 @@ public class FileFilterEx extends javax.swing.filechooser.FileFilter {
     	return success;
     }
     
-	
-
-	public boolean load(String path) throws Exception{
-
-    	boolean success = false;
-    	
-    	if(loadingAction != null){
-    		success = loadingAction.load(path);
-    	} 	
-    	
-    	return success;
-    }
-	
-	
-    public LoadingAction getLoadingAction() {
-		return loadingAction;
-	}
-
-	public void setLoadingAction(LoadingAction loadingAction) {
+    
+    public void setLoadingAction(LoadingAction loadingAction) {
 		this.loadingAction = loadingAction;
 	}
 
-//	public Loader getLoader() {
-//		return loader;
-//	}
-//
-//	public void setLoader(Loader loader) {
-//		this.loader = loader;
-//	}
-
-    
     public void setSavingAction(SavingAction s) {
     	savingAction = s;
-    }
-    
-    public SavingAction getSavingAction(){
-    	return savingAction;
-    }
-
-    
-//    public Exporter getExporter() {
-//		return exporter;
-//	}
-//
-//	public void setExporter(Exporter exporter) {
-//		this.exporter = exporter;
-//	}
-
-	public String[] getExtensions(){
-    	return extensions;
-    }
-    
-    
-    @Override
-    public boolean accept(java.io.File f) {
-        if (f.isDirectory()) {
-            return true;
-        }
-        for (int i = 0; i < extensions.length; i++) {
-
-            if (f.getName().endsWith(extensions[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return msg;
     }
 }

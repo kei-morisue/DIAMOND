@@ -35,18 +35,23 @@ import diamond.doc.DocHolder;
 
 public class PropertyDialog extends JDialog implements ComponentListener {
 
+    private JTextField EditorNameTextField = null;
     private JPanel jContentPane = null;
     private JLabel jLabel = null;
-    public JTextField TitleTextField = null;
     private JLabel jLabel1 = null;
     private JLabel jLabel2 = null;
     private JLabel jLabel3 = null;
     private JLabel jLabel4 = null;
-    private JTextField EditorNameTextField = null;
+    private JTextArea MemoTextArea = null;
     private JTextField OriginalAuthorTextField = null;
     private JTextField ReferenceTextField = null;
-    private JTextArea MemoTextArea = null;
     public JButton OKButton = null;
+    public JTextField TitleTextField = null;
+
+    public PropertyDialog() {
+        super();
+        initialize();
+    }
 
     /**
      * This is the default constructor
@@ -56,39 +61,16 @@ public class PropertyDialog extends JDialog implements ComponentListener {
         initialize();
     }
 
-    public PropertyDialog() {
-        super();
-        initialize();
-    }
-
-    public void setValue() {
-    	Doc document = DocHolder.getInstance().getDoc();
-        TitleTextField.setText(document.getTitle());
-        EditorNameTextField.setText(document.getEditorName());
-        OriginalAuthorTextField.setText(document.getOriginalAuthorName());
-        ReferenceTextField.setText(document.getReference());
-        MemoTextArea.setText(document.memo);
-    }
-
-    private void storeValue() {
-    	Doc document = DocHolder.getInstance().getDoc();
-    	document.setTitle(TitleTextField.getText());
-    	document.setEditorName(EditorNameTextField.getText());
-    	document.setOriginalAuthorName(OriginalAuthorTextField.getText());
-    	document.setReference(ReferenceTextField.getText());
-    	document.setMemo(MemoTextArea.getText());
-    }
-
     /**
-     * This method initializes this
+     * This method initializes EditorNameTextField
      *
-     * @return void
+     * @return javax.swing.JTextField
      */
-    private void initialize() {
-        this.addComponentListener(this);
-        this.setSize(420, 278);
-        this.setContentPane(getJContentPane());
-        this.setTitle("Model Information");
+    private JTextField getEditorNameTextField() {
+        if (EditorNameTextField == null) {
+            EditorNameTextField = new JTextField();
+        }
+        return EditorNameTextField;
     }
 
     /**
@@ -168,54 +150,6 @@ public class PropertyDialog extends JDialog implements ComponentListener {
     }
 
     /**
-     * This method initializes TitleTextField
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getTitleTextField() {
-        if (TitleTextField == null) {
-            TitleTextField = new JTextField();
-        }
-        return TitleTextField;
-    }
-
-    /**
-     * This method initializes EditorNameTextField
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getEditorNameTextField() {
-        if (EditorNameTextField == null) {
-            EditorNameTextField = new JTextField();
-        }
-        return EditorNameTextField;
-    }
-
-    /**
-     * This method initializes OriginalAuthorTextField
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getOriginalAuthorTextField() {
-        if (OriginalAuthorTextField == null) {
-            OriginalAuthorTextField = new JTextField();
-        }
-        return OriginalAuthorTextField;
-    }
-
-    /**
-     * This method initializes OriginTextField
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getOriginTextField() {
-        if (ReferenceTextField == null) {
-            ReferenceTextField = new JTextField();
-        }
-        return ReferenceTextField;
-    }
-
-    /**
      * This method initializes MemoTextArea
      *
      * @return javax.swing.JTextArea
@@ -248,11 +182,66 @@ public class PropertyDialog extends JDialog implements ComponentListener {
         return OKButton;
     }
 
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-        System.out.println(arg0);
+    /**
+     * This method initializes OriginalAuthorTextField
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getOriginalAuthorTextField() {
+        if (OriginalAuthorTextField == null) {
+            OriginalAuthorTextField = new JTextField();
+        }
+        return OriginalAuthorTextField;
+    }
 
+    /**
+     * This method initializes OriginTextField
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getOriginTextField() {
+        if (ReferenceTextField == null) {
+            ReferenceTextField = new JTextField();
+        }
+        return ReferenceTextField;
+    }
+
+    /**
+     * This method initializes TitleTextField
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getTitleTextField() {
+        if (TitleTextField == null) {
+            TitleTextField = new JTextField();
+        }
+        return TitleTextField;
+    }
+
+    /**
+     * This method initializes this
+     *
+     * @return void
+     */
+    private void initialize() {
+        this.addComponentListener(this);
+        this.setSize(420, 278);
+        this.setContentPane(getJContentPane());
+        this.setTitle("Model Information");
+    }
+
+    private void storeValue() {
+    	Doc document = DocHolder.getInstance().getDoc();
+    	document.setTitle(TitleTextField.getText());
+    	document.setEditorName(EditorNameTextField.getText());
+    	document.setOriginalAuthorName(OriginalAuthorTextField.getText());
+    	document.setReference(ReferenceTextField.getText());
+    	document.setMemo(MemoTextArea.getText());
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
     }
 
     @Override
@@ -261,12 +250,23 @@ public class PropertyDialog extends JDialog implements ComponentListener {
     }
 
     @Override
+    public void componentResized(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+        System.out.println(arg0);
+
+    }
+
+    @Override
     public void componentShown(ComponentEvent arg0) {
         OKButton.requestFocusInWindow();
     }
 
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
+    public void setValue() {
+    	Doc document = DocHolder.getInstance().getDoc();
+        TitleTextField.setText(document.getTitle());
+        EditorNameTextField.setText(document.getEditorName());
+        OriginalAuthorTextField.setText(document.getOriginalAuthorName());
+        ReferenceTextField.setText(document.getReference());
+        MemoTextArea.setText(document.memo);
     }
 }  //  @jve:decl-index=0:visual-constraint="10,10"

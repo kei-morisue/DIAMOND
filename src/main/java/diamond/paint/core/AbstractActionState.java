@@ -21,19 +21,25 @@ public abstract class AbstractActionState implements ActionState {
 		initialize();
 	}
 
-	/**
-	 * set next state class and previous state class here.
-	 */
-	protected abstract void initialize();	
-	
-	protected void setNextClass(Class<? extends ActionState> next){
-		this.next = next;
-	}
-	
-	protected void setPreviousClass(Class<? extends ActionState> prev){
-		this.prev = prev;
-	}
+	private ActionState createInstance(Class<? extends ActionState> c){
+		ActionState state = null;
 
+		if(c == null){
+			return this;
+		}
+		
+		try {
+			state = c.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		return state;
+		
+	}	
+	
 	/**
 	 * first this method calls onAct(),  then calls onResult() 
 	 * if onAct() returns true. 
@@ -60,22 +66,25 @@ public abstract class AbstractActionState implements ActionState {
 		return nextState;
 	}
 	
-	/**
-	 * defines what to do after onAct() succeeded.
-	 * @param context
-	 */
-	protected abstract void onResult(PaintContext context);
+	@Override
+	public ActionState getNextState() {
+		return createInstance(next);
+	}
 
-	/**
-	 * defines the job of this class.
-	 * 
-	 * @param context information relating mouse action.
-	 * @param currentPoint current point of mouse cursor.
-	 * @param doSpecial true if you want switch the action.
-	 * @return true if the action succeeded, otherwise false.
-	 */
-	protected abstract boolean onAct(PaintContext context, 
-			Point2D.Double currentPoint, boolean doSpecial);
+	@Override
+	public ActionState getPreviousState() {
+		return createInstance(prev);
+	}
+	
+	@Override
+	public void setNextState(ActionState state){
+		next = state.getClass();
+	}
+
+	@Override
+	public void setPreviousState(ActionState state){
+		prev = state.getClass();
+	}
 	
 	/**
 	 * cancel the current actions and returns previous state.
@@ -93,50 +102,41 @@ public abstract class AbstractActionState implements ActionState {
 
 
 	/**
+	 * set next state class and previous state class here.
+	 */
+	protected abstract void initialize();
+	
+	/**
+	 * defines the job of this class.
+	 * 
+	 * @param context information relating mouse action.
+	 * @param currentPoint current point of mouse cursor.
+	 * @param doSpecial true if you want switch the action.
+	 * @return true if the action succeeded, otherwise false.
+	 */
+	protected abstract boolean onAct(PaintContext context, 
+			Point2D.Double currentPoint, boolean doSpecial);
+
+	/**
+	 * defines what to do after onAct() succeeded.
+	 * @param context
+	 */
+	protected abstract void onResult(PaintContext context);
+
+	protected void setNextClass(Class<? extends ActionState> next){
+		this.next = next;
+	}
+
+	protected void setPreviousClass(Class<? extends ActionState> prev){
+		this.prev = prev;
+	}
+
+	/**
 	 * implement undo action. clean up the garbages!
 	 * (and change previous state class if you need.)
 	 * @param context
 	 */
 	protected abstract void undoAction(PaintContext context);
-	
-	@Override
-	public void setNextState(ActionState state){
-		next = state.getClass();
-	}
-
-	@Override
-	public void setPreviousState(ActionState state){
-		prev = state.getClass();
-	}
-
-	@Override
-	public ActionState getNextState() {
-		return createInstance(next);
-	}
-
-	@Override
-	public ActionState getPreviousState() {
-		return createInstance(prev);
-	}
-
-	private ActionState createInstance(Class<? extends ActionState> c){
-		ActionState state = null;
-
-		if(c == null){
-			return this;
-		}
-		
-		try {
-			state = c.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-		
-		return state;
-		
-	}
 
 
 }

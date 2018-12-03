@@ -46,14 +46,6 @@ public class TriangleSplitAction extends GraphicMouseAction {
 	}
 
 	@Override
-	public void onRelease(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
 
 		super.onDraw(g2d, context);
@@ -63,12 +55,20 @@ public class TriangleSplitAction extends GraphicMouseAction {
 	}
 
 
-
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

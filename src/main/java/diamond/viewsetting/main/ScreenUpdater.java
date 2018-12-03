@@ -10,41 +10,7 @@ import diamond.viewsetting.ViewSettingDataBase;
 
 public class ScreenUpdater extends ViewSettingDataBase implements ViewScreenUpdater {
 
-	//-------------------------
-	// singleton
-	//-------------------------
-	private static ScreenUpdater instance = null;
-
-	private ScreenUpdater() {
-	}
-
-
-	public static ScreenUpdater getInstance(){
-		if(instance == null){
-			instance = new ScreenUpdater();
-		}
-
-		return instance;
-	}
-	//-------------------------
-
-
-	/* (非 Javadoc)
-	 * @see oripa.viewsetting.main.ViewScreenUpdater#updateScreen()
-	 */
-	@Override
-	public void updateScreen(){
-		setChanged();
-		notifyObservers(REDRAW_REQUESTED);
-
-	}
-
-	
 	public class KeyListener implements java.awt.event.KeyListener{
-		@Override
-		public void keyTyped(KeyEvent e) {
-		}
-
 		@Override
 		public void keyPressed(KeyEvent e) {
 			
@@ -63,7 +29,31 @@ public class ScreenUpdater extends ViewSettingDataBase implements ViewScreenUpda
 			updateIfCopyAndPaste(false);
 		}
 
+		@Override
+		public void keyTyped(KeyEvent e) {
+		}
+
 	}
+
+	//-------------------------
+	// singleton
+	//-------------------------
+	private static ScreenUpdater instance = null;
+
+
+	public static ScreenUpdater getInstance(){
+		if(instance == null){
+			instance = new ScreenUpdater();
+		}
+
+		return instance;
+	}
+	//-------------------------
+
+
+	private ScreenUpdater() {
+	}
+
 	
 	private void updateIfCopyAndPaste(boolean changeOrigin){
 		GraphicMouseActionInterface action = PaintConfig.getMouseAction();
@@ -76,13 +66,23 @@ public class ScreenUpdater extends ViewSettingDataBase implements ViewScreenUpda
 		}
 		
 	}
-
+	
 	/* (非 Javadoc)
 	 * @see oripa.viewsetting.main.ViewScreenUpdater#getKeyListener()
 	 */
 	@Override
 	public java.awt.event.KeyListener getKeyListener() {
 		return new KeyListener();
+	}
+
+	/* (非 Javadoc)
+	 * @see oripa.viewsetting.main.ViewScreenUpdater#updateScreen()
+	 */
+	@Override
+	public void updateScreen(){
+		setChanged();
+		notifyObservers(REDRAW_REQUESTED);
+
 	}
 
 }

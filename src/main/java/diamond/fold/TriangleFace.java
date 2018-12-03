@@ -21,8 +21,8 @@ package diamond.fold;
 
 public class TriangleFace {
 
-    public TriangleVertex[] v;
     public OriFace face;
+    public TriangleVertex[] v;
 
     public TriangleFace(OriFace f) {
         face = f;

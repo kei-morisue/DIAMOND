@@ -23,7 +23,7 @@ import javax.vecmath.Vector3d;
 
 public class TriangleVertex {
 
+    public Vector3d color = new Vector3d();
     public Vector2d p = new Vector2d();
     public Vector2d uv = new Vector2d();
-    public Vector3d color = new Vector3d();
 }

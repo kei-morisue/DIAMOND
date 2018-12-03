@@ -8,6 +8,27 @@ import diamond.value.OriPoint;
 
 public class RotatedLineFactory {
 
+	private OriPoint rotate(OriPoint p, double angleRad) {
+		OriPoint rotated = new OriPoint();
+		
+		rotated.x = p.x * Math.cos(angleRad) - p.y * Math.sin(angleRad);
+		rotated.y = p.x * Math.sin(angleRad) + p.y * Math.cos(angleRad);
+		
+		return rotated;
+	}
+
+	private OriPoint rotateAroundCenter(OriPoint p, OriPoint center, double angleRad) {
+
+		OriPoint shiftedToCenter =
+				new OriPoint(p.x - center.x, p.y - center.y);
+
+		OriPoint rotated = rotate(shiftedToCenter, angleRad);
+
+		rotated.add(center);
+		
+		return rotated;
+	}
+	
 	/**
 	 * create copy of selected lines with a rotation around specified center point.
 	 * For a line l, this method creates rotatedLine(l, angleDeg * i) for i = 1 ... repetitionCount.
@@ -55,26 +76,5 @@ public class RotatedLineFactory {
 		}
 
 		return rotatedLines;
-	}
-
-	private OriPoint rotateAroundCenter(OriPoint p, OriPoint center, double angleRad) {
-
-		OriPoint shiftedToCenter =
-				new OriPoint(p.x - center.x, p.y - center.y);
-
-		OriPoint rotated = rotate(shiftedToCenter, angleRad);
-
-		rotated.add(center);
-		
-		return rotated;
-	}
-	
-	private OriPoint rotate(OriPoint p, double angleRad) {
-		OriPoint rotated = new OriPoint();
-		
-		rotated.x = p.x * Math.cos(angleRad) - p.y * Math.sin(angleRad);
-		rotated.y = p.x * Math.sin(angleRad) + p.y * Math.cos(angleRad);
-		
-		return rotated;
 	}
 }

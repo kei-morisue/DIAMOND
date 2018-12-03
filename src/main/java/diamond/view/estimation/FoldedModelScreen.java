@@ -58,40 +58,59 @@ import diamond.fold.TriangleVertex;
 public class FoldedModelScreen extends JPanel
         implements MouseListener, MouseMotionListener, MouseWheelListener {
 
-    private BufferedImage bufferImage;
-    private Graphics2D bufferg;
-    static private int pbuf[];      //32bit pixel buffer
-    static private int zbuf[];      //32bit z buffer
-    static private int BUFFERW;     // width
     static private int BUFFERH;     // height
-    static private int min[];
-    static private int max[];
-    static private int minr[];
-    static private int maxr[];
-    static private int ming[];
-    static private int maxg[];
-    static private int minb[];
-    static private int maxb[];
-    static private double minu[];
-    static private double maxu[];
-    static private double minv[];
-    static private double maxv[];
-    private boolean m_bUseColor = true;
-    private boolean m_bFillFaces = true;
-    private boolean m_bAmbientOcclusion = false;
+    static private int BUFFERW;     // width
+    static private boolean m_bDrawEdges = true;
     private static boolean m_bFaceOrderFlip = false;
     static private double m_rotAngle = 0;
     static private double m_scale = 0.8;
-    static private boolean m_bDrawEdges = true;
-    private Image renderImage;
-    double rotateAngle;
-    double scale;
-    double transX;
-    double transY;
-    private Point2D preMousePoint;
+    static private int max[];
+    static private int maxb[];
+    static private int maxg[];
+    static private int maxr[];
+    static private double maxu[];
+    static private double maxv[];
+    static private int min[];
+    static private int minb[];
+    static private int ming[];
+    static private int minr[];
+    static private double minu[];
+    static private double minv[];
+    static private int pbuf[];      //32bit pixel buffer
+    static private int zbuf[];      //32bit z buffer
+    private static int getIndex(int x, int y) {
+        return y * BUFFERW + x;
+    }
+    public static void clear() {
+        for (int i = 0; i < BUFFERW * BUFFERH; i++) {
+            pbuf[i] = 0xffffffff;
+            zbuf[i] = -1;
+        }
+    }
+    public static boolean isM_bFaceOrderFlip() {
+		return m_bFaceOrderFlip;
+	}
+    public static void setM_bFaceOrderFlip(boolean m_bFaceOrderFlip) {
+		FoldedModelScreen.m_bFaceOrderFlip = m_bFaceOrderFlip;
+	}
     private AffineTransform affineTransform;
-    private BufferedImage textureImage = null;
+    private Graphics2D bufferg;
+    private BufferedImage bufferImage;
     private boolean bUseTexture = false;
+    private boolean m_bAmbientOcclusion = false;
+    private boolean m_bFillFaces = true;
+    private boolean m_bUseColor = true;
+    private Point2D preMousePoint;
+    private Image renderImage;
+    private BufferedImage textureImage = null;
+
+    double rotateAngle;
+
+    double scale;
+
+    double transX;
+
+    double transY;
 
     public FoldedModelScreen() {
         addMouseListener(this);
@@ -131,295 +150,6 @@ public class FoldedModelScreen extends JPanel
                 textureImage = null;
             }
         }
-
-    }
-
-    public void resetViewMatrix() {
-        rotateAngle = 0;
-        scale = 1;
-        updateAffineTransform();
-        redrawOrigami();
-    }
-
-    public void redrawOrigami() {
-        clear();
-        drawOrigami();
-        repaint();
-    }
-
-    public void setUseColor(boolean b) {
-        m_bUseColor = b;
-        redrawOrigami();
-    }
-
-    public void setFillFace(boolean bFillFace) {
-        m_bFillFaces = bFillFace;
-        redrawOrigami();
-    }
-
-    public void drawEdge(boolean bEdge) {
-        m_bDrawEdges = bEdge;
-        redrawOrigami();
-    }
-
-    public void flipFaces(boolean bFlip) {
-        setM_bFaceOrderFlip(bFlip);
-        redrawOrigami();
-    }
-
-    public void shadeFaces(boolean bShade) {
-        m_bAmbientOcclusion = bShade;
-        redrawOrigami();
-    }
-
-    private static int getIndex(int x, int y) {
-        return y * BUFFERW + x;
-    }
-
-    public static void clear() {
-        for (int i = 0; i < BUFFERW * BUFFERH; i++) {
-            pbuf[i] = 0xffffffff;
-            zbuf[i] = -1;
-        }
-    }
-
-    private void updateAffineTransform() {
-        affineTransform.setToIdentity();
-        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
-        affineTransform.scale(scale, -scale);
-        affineTransform.translate(transX, -transY);
-        affineTransform.rotate(rotateAngle);
-        affineTransform.translate(-getWidth() * 0.5, -getHeight() * 0.5);
-    }
-
-    /**
-     * Convenience method that returns a scaled instance of the provided {@code BufferedImage}.
-     *
-     * @param img the original image to be scaled
-     * @param targetWidth the desired width of the scaled instance, in pixels
-     * @param targetHeight the desired height of the scaled instance, in pixels
-     * @param hint one of the rendering hints that corresponds to
-     *    {@code RenderingHints.KEY_INTERPOLATION} (e.g.
-     *    {@code RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR},
-     *    {@code RenderingHints.VALUE_INTERPOLATION_BILINEAR},
-     *    {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
-     * @param higherQuality if true, this method will use a multi-step scaling
-     * technique that provides higher quality than the usual one-step technique
-     * (only useful in downscaling cases, where
-     *    {@code targetWidth} or {@code targetHeight} is smaller than the original
-     * dimensions, and generally only when the {@code BILINEAR} hint is
-     * specified)
-     * @return a scaled version of the original {@code BufferedImage}
-     */
-    public BufferedImage getScaledInstance(BufferedImage img,
-            int targetWidth,
-            int targetHeight,
-            Object hint,
-            boolean higherQuality) {
-        int type = (img.getTransparency() == Transparency.OPAQUE)
-                ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-        BufferedImage ret = (BufferedImage) img;
-        int w, h;
-        if (higherQuality) {
-            // Use multi-step technique: start with original size, then
-            // scale down in multiple passes with drawImage()
-            // until the target size is reached
-            w = img.getWidth();
-            h = img.getHeight();
-            if (w < targetWidth) {
-                w = targetWidth;
-            }
-            if (h < targetHeight) {
-                h = targetHeight;
-            }
-        } else {
-            // Use one-step technique: scale directly from original
-            // size to target size with a single drawImage() call
-            w = targetWidth;
-            h = targetHeight;
-        }
-
-        do {
-            if (higherQuality && w > targetWidth) {
-                w /= 2;
-                if (w < targetWidth) {
-                    w = targetWidth;
-                }
-            }
-
-            if (higherQuality && h > targetHeight) {
-                h /= 2;
-                if (h < targetHeight) {
-                    h = targetHeight;
-                }
-            }
-
-            BufferedImage tmp = new BufferedImage(w, h, type);
-            Graphics2D g2 = tmp.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint);
-            g2.drawImage(ret, 0, 0, w, h, null);
-            g2.dispose();
-
-            ret = tmp;
-        } while (w != targetWidth || h != targetHeight);
-
-        return ret;
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        if (bufferImage == null) {
-            bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-            bufferg = (Graphics2D) bufferImage.getGraphics();
-
-            updateAffineTransform();
-        }
-        bufferg.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        bufferg.setTransform(new AffineTransform());
-
-        // Clear image
-        bufferg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-        bufferg.setColor(Color.WHITE);
-        bufferg.fillRect(0, 0, getWidth(), getHeight());
-
-        bufferg.setTransform(affineTransform);
-
-        Graphics2D g2d = bufferg;
-
-
-        if (renderImage != null) {
-            g2d.drawImage(renderImage, 0, 0, null);
-        }
-        g.drawImage(bufferImage, 0, 0, this);
-    }
-
-    public void drawOrigami() {
-    	Doc document = DocHolder.getInstance().getDoc();
-    	OrigamiModel origamiModel = document.getOrigamiModel();
-    	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
-    	
-        List<OriFace> faces = origamiModel.getFaces();
-        boolean folded = origamiModel.isFolded();
-        if (!folded) {
-            return;
-        }
-        long time0 = System.currentTimeMillis();
-
-        BoundBox boundBox = foldedModelInfo.getBoundBox();
-        Vector2d leftAndTop = boundBox.getLeftAndTop();
-        Vector2d rightAndBottom = boundBox.getRightAndBottom();
-        
-        Vector2d center = new Vector2d((leftAndTop.x + rightAndBottom.x) / 2,
-                (leftAndTop.y + rightAndBottom.y) / 2);
-        double localScale = Math.min(
-                BUFFERW / (rightAndBottom.x - leftAndTop.x),
-                BUFFERH / (rightAndBottom.y - leftAndTop.y)) * 0.95;
-        double angle = m_rotAngle * Math.PI / 180;
-        localScale *= m_scale;
-
-        for (OriFace face : faces) {
-
-            face.trianglateAndSetColor(m_bUseColor, isM_bFaceOrderFlip());
-
-            for (TriangleFace tri : face.triangles) {
-                for (int i = 0; i < 3; i++) {
-
-                    double x = (tri.v[i].p.x - center.x) * localScale;
-                    double y = (tri.v[i].p.y - center.y) * localScale;
-
-                    tri.v[i].p.x = x * Math.cos(angle) + y * Math.sin(angle) + BUFFERW * 0.5;
-                    tri.v[i].p.y = x * Math.sin(angle) - y * Math.cos(angle) + BUFFERW * 0.5;
-
-
-                }
-                drawTriangle(tri, face.tmpInt, face.intColor);
-            }
-        }
-
-
-        if (m_bDrawEdges) {
-            for (int y = 1; y < BUFFERH - 1; y++) {
-                for (int x = 1; x < BUFFERW - 1; x++) {
-                    int val_h = -1 * zbuf[getIndex(x - 1, y - 1)]
-                            + zbuf[getIndex(x + 1, y - 1)]
-                            + -2 * zbuf[getIndex(x - 1, y)]
-                            + 2 * zbuf[getIndex(x + 1, y)]
-                            + -1 * zbuf[getIndex(x - 1, y + 1)]
-                            + zbuf[getIndex(x + 1, y + 1)];
-                    int val_v = -1 * zbuf[getIndex(x - 1, y - 1)]
-                            + zbuf[getIndex(x - 1, y + 1)]
-                            + -2 * zbuf[getIndex(x, y - 1)]
-                            + 2 * zbuf[getIndex(x, y + 1)]
-                            + -1 * zbuf[getIndex(x + 1, y - 1)]
-                            + zbuf[getIndex(x + 1, y + 1)];
-
-                    if (val_h != 0 || val_v != 0) {
-                        pbuf[getIndex(x, y)] = 0xff888888;
-                    }
-                }
-            }
-        }
-
-        if (m_bAmbientOcclusion) {
-            int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER : diamond.doc.Doc.LOWER;
-            int r = 10;
-            int s = (int) (r * r * Math.PI);
-            // For every pixel
-            for (int y = 1; y < BUFFERH - 1; y++) {
-                for (int x = 1; x < BUFFERW - 1; x++) {
-                    int f_id = zbuf[getIndex(x, y)];
-
-                    // Within a circle of radius r, Count the pixels of the surface 
-                    //that is above their own
-                    int cnt = 0;
-                    for (int dy = -r; dy <= r; dy++) {
-                        for (int dx = -r; dx <= r; dx++) {
-                            if (dx * dx + dy * dy > r * r) {
-                                continue;
-                            }
-                            if (y + dy < 0 || y + dy > BUFFERH - 1) {
-                                continue;
-                            }
-                            if (x + dx < 0 || x + dx > BUFFERW - 1) {
-                                continue;
-                            }
-                            int f_id2 = zbuf[getIndex(x + dx, y + dy)];
-
-                            if (f_id == -1 && f_id2 != -1) {
-                                cnt++;
-                            } else {
-                				int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-
-                                if (f_id2 != -1 && overlapRelation[f_id][f_id2] == renderFace) {
-                                    cnt++;
-                                }
-                            }
-                        }
-                    }
-
-                    if (cnt > 0) {
-                        int prev = pbuf[getIndex(x, y)];
-                        double ratio = 1.0 - ((double) cnt) / s;
-                        int p_r = (int) Math.max(0, ((prev & 0x00ff0000) >> 16) * ratio);
-                        int p_g = (int) Math.max(0, ((prev & 0x0000ff00) >> 8) * ratio);
-                        int p_b = (int) Math.max(0, (prev & 0x000000ff) * ratio);
-
-                        pbuf[getIndex(x, y)] = (p_r << 16) | (p_g << 8) | p_b | 0xff000000;
-                    }
-
-                }
-            }
-
-        }
-        long time1 = System.currentTimeMillis();
-
-        System.out.println("render time = " + (time1 - time0) + "ms");
-
-        renderImage = createImage(new MemoryImageSource(BUFFERW, BUFFERH, pbuf, 0, BUFFERW));
 
     }
 
@@ -605,32 +335,235 @@ public class FoldedModelScreen extends JPanel
         }
     }
 
-    public void setScale(double newScale){
-        scale = newScale;
+    private void updateAffineTransform() {
+        affineTransform.setToIdentity();
+        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
+        affineTransform.scale(scale, -scale);
+        affineTransform.translate(transX, -transY);
+        affineTransform.rotate(rotateAngle);
+        affineTransform.translate(-getWidth() * 0.5, -getHeight() * 0.5);
     }
-    
+
+    public void drawEdge(boolean bEdge) {
+        m_bDrawEdges = bEdge;
+        redrawOrigami();
+    }
+
+    public void drawOrigami() {
+    	Doc document = DocHolder.getInstance().getDoc();
+    	OrigamiModel origamiModel = document.getOrigamiModel();
+    	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
+    	
+        List<OriFace> faces = origamiModel.getFaces();
+        boolean folded = origamiModel.isFolded();
+        if (!folded) {
+            return;
+        }
+        long time0 = System.currentTimeMillis();
+
+        BoundBox boundBox = foldedModelInfo.getBoundBox();
+        Vector2d leftAndTop = boundBox.getLeftAndTop();
+        Vector2d rightAndBottom = boundBox.getRightAndBottom();
+        
+        Vector2d center = new Vector2d((leftAndTop.x + rightAndBottom.x) / 2,
+                (leftAndTop.y + rightAndBottom.y) / 2);
+        double localScale = Math.min(
+                BUFFERW / (rightAndBottom.x - leftAndTop.x),
+                BUFFERH / (rightAndBottom.y - leftAndTop.y)) * 0.95;
+        double angle = m_rotAngle * Math.PI / 180;
+        localScale *= m_scale;
+
+        for (OriFace face : faces) {
+
+            face.trianglateAndSetColor(m_bUseColor, isM_bFaceOrderFlip());
+
+            for (TriangleFace tri : face.triangles) {
+                for (int i = 0; i < 3; i++) {
+
+                    double x = (tri.v[i].p.x - center.x) * localScale;
+                    double y = (tri.v[i].p.y - center.y) * localScale;
+
+                    tri.v[i].p.x = x * Math.cos(angle) + y * Math.sin(angle) + BUFFERW * 0.5;
+                    tri.v[i].p.y = x * Math.sin(angle) - y * Math.cos(angle) + BUFFERW * 0.5;
+
+
+                }
+                drawTriangle(tri, face.tmpInt, face.intColor);
+            }
+        }
+
+
+        if (m_bDrawEdges) {
+            for (int y = 1; y < BUFFERH - 1; y++) {
+                for (int x = 1; x < BUFFERW - 1; x++) {
+                    int val_h = -1 * zbuf[getIndex(x - 1, y - 1)]
+                            + zbuf[getIndex(x + 1, y - 1)]
+                            + -2 * zbuf[getIndex(x - 1, y)]
+                            + 2 * zbuf[getIndex(x + 1, y)]
+                            + -1 * zbuf[getIndex(x - 1, y + 1)]
+                            + zbuf[getIndex(x + 1, y + 1)];
+                    int val_v = -1 * zbuf[getIndex(x - 1, y - 1)]
+                            + zbuf[getIndex(x - 1, y + 1)]
+                            + -2 * zbuf[getIndex(x, y - 1)]
+                            + 2 * zbuf[getIndex(x, y + 1)]
+                            + -1 * zbuf[getIndex(x + 1, y - 1)]
+                            + zbuf[getIndex(x + 1, y + 1)];
+
+                    if (val_h != 0 || val_v != 0) {
+                        pbuf[getIndex(x, y)] = 0xff888888;
+                    }
+                }
+            }
+        }
+
+        if (m_bAmbientOcclusion) {
+            int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER : diamond.doc.Doc.LOWER;
+            int r = 10;
+            int s = (int) (r * r * Math.PI);
+            // For every pixel
+            for (int y = 1; y < BUFFERH - 1; y++) {
+                for (int x = 1; x < BUFFERW - 1; x++) {
+                    int f_id = zbuf[getIndex(x, y)];
+
+                    // Within a circle of radius r, Count the pixels of the surface 
+                    //that is above their own
+                    int cnt = 0;
+                    for (int dy = -r; dy <= r; dy++) {
+                        for (int dx = -r; dx <= r; dx++) {
+                            if (dx * dx + dy * dy > r * r) {
+                                continue;
+                            }
+                            if (y + dy < 0 || y + dy > BUFFERH - 1) {
+                                continue;
+                            }
+                            if (x + dx < 0 || x + dx > BUFFERW - 1) {
+                                continue;
+                            }
+                            int f_id2 = zbuf[getIndex(x + dx, y + dy)];
+
+                            if (f_id == -1 && f_id2 != -1) {
+                                cnt++;
+                            } else {
+                				int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+
+                                if (f_id2 != -1 && overlapRelation[f_id][f_id2] == renderFace) {
+                                    cnt++;
+                                }
+                            }
+                        }
+                    }
+
+                    if (cnt > 0) {
+                        int prev = pbuf[getIndex(x, y)];
+                        double ratio = 1.0 - ((double) cnt) / s;
+                        int p_r = (int) Math.max(0, ((prev & 0x00ff0000) >> 16) * ratio);
+                        int p_g = (int) Math.max(0, ((prev & 0x0000ff00) >> 8) * ratio);
+                        int p_b = (int) Math.max(0, (prev & 0x000000ff) * ratio);
+
+                        pbuf[getIndex(x, y)] = (p_r << 16) | (p_g << 8) | p_b | 0xff000000;
+                    }
+
+                }
+            }
+
+        }
+        long time1 = System.currentTimeMillis();
+
+        System.out.println("render time = " + (time1 - time0) + "ms");
+
+        renderImage = createImage(new MemoryImageSource(BUFFERW, BUFFERH, pbuf, 0, BUFFERW));
+
+    }
+
+    public void flipFaces(boolean bFlip) {
+        setM_bFaceOrderFlip(bFlip);
+        redrawOrigami();
+    }
+
+    public AffineTransform getAffineTransform() {
+        return affineTransform;
+    }
+
+    public BufferedImage getBufferImage() {
+        return bufferImage;
+    }
+
+    /**
+     * Convenience method that returns a scaled instance of the provided {@code BufferedImage}.
+     *
+     * @param img the original image to be scaled
+     * @param targetWidth the desired width of the scaled instance, in pixels
+     * @param targetHeight the desired height of the scaled instance, in pixels
+     * @param hint one of the rendering hints that corresponds to
+     *    {@code RenderingHints.KEY_INTERPOLATION} (e.g.
+     *    {@code RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR},
+     *    {@code RenderingHints.VALUE_INTERPOLATION_BILINEAR},
+     *    {@code RenderingHints.VALUE_INTERPOLATION_BICUBIC})
+     * @param higherQuality if true, this method will use a multi-step scaling
+     * technique that provides higher quality than the usual one-step technique
+     * (only useful in downscaling cases, where
+     *    {@code targetWidth} or {@code targetHeight} is smaller than the original
+     * dimensions, and generally only when the {@code BILINEAR} hint is
+     * specified)
+     * @return a scaled version of the original {@code BufferedImage}
+     */
+    public BufferedImage getScaledInstance(BufferedImage img,
+            int targetWidth,
+            int targetHeight,
+            Object hint,
+            boolean higherQuality) {
+        int type = (img.getTransparency() == Transparency.OPAQUE)
+                ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+        BufferedImage ret = (BufferedImage) img;
+        int w, h;
+        if (higherQuality) {
+            // Use multi-step technique: start with original size, then
+            // scale down in multiple passes with drawImage()
+            // until the target size is reached
+            w = img.getWidth();
+            h = img.getHeight();
+            if (w < targetWidth) {
+                w = targetWidth;
+            }
+            if (h < targetHeight) {
+                h = targetHeight;
+            }
+        } else {
+            // Use one-step technique: scale directly from original
+            // size to target size with a single drawImage() call
+            w = targetWidth;
+            h = targetHeight;
+        }
+
+        do {
+            if (higherQuality && w > targetWidth) {
+                w /= 2;
+                if (w < targetWidth) {
+                    w = targetWidth;
+                }
+            }
+
+            if (higherQuality && h > targetHeight) {
+                h /= 2;
+                if (h < targetHeight) {
+                    h = targetHeight;
+                }
+            }
+
+            BufferedImage tmp = new BufferedImage(w, h, type);
+            Graphics2D g2 = tmp.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, hint);
+            g2.drawImage(ret, 0, 0, w, h, null);
+            g2.dispose();
+
+            ret = tmp;
+        } while (w != targetWidth || h != targetHeight);
+
+        return ret;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        preMousePoint = e.getPoint();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
     }
 
@@ -651,7 +584,27 @@ public class FoldedModelScreen extends JPanel
     }
 
     @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+    
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
     public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        preMousePoint = e.getPoint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
     }
 
@@ -662,24 +615,71 @@ public class FoldedModelScreen extends JPanel
         updateAffineTransform();
         repaint();
     }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (bufferImage == null) {
+            bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+            bufferg = (Graphics2D) bufferImage.getGraphics();
+
+            updateAffineTransform();
+        }
+        bufferg.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        bufferg.setTransform(new AffineTransform());
+
+        // Clear image
+        bufferg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        bufferg.setColor(Color.WHITE);
+        bufferg.fillRect(0, 0, getWidth(), getHeight());
+
+        bufferg.setTransform(affineTransform);
+
+        Graphics2D g2d = bufferg;
+
+
+        if (renderImage != null) {
+            g2d.drawImage(renderImage, 0, 0, null);
+        }
+        g.drawImage(bufferImage, 0, 0, this);
+    }
+
+    public void redrawOrigami() {
+        clear();
+        drawOrigami();
+        repaint();
+    }
+
+    public void resetViewMatrix() {
+        rotateAngle = 0;
+        scale = 1;
+        updateAffineTransform();
+        redrawOrigami();
+    }
     
     
 
-    public AffineTransform getAffineTransform() {
-        return affineTransform;
+    public void setFillFace(boolean bFillFace) {
+        m_bFillFaces = bFillFace;
+        redrawOrigami();
     }
 
-    public BufferedImage getBufferImage() {
-        return bufferImage;
+    public void setScale(double newScale){
+        scale = newScale;
     }
 
-	public static boolean isM_bFaceOrderFlip() {
-		return m_bFaceOrderFlip;
-	}
+	public void setUseColor(boolean b) {
+        m_bUseColor = b;
+        redrawOrigami();
+    }
 
-	public static void setM_bFaceOrderFlip(boolean m_bFaceOrderFlip) {
-		FoldedModelScreen.m_bFaceOrderFlip = m_bFaceOrderFlip;
-	}
+	public void shadeFaces(boolean bShade) {
+        m_bAmbientOcclusion = bShade;
+        redrawOrigami();
+    }
 
     
     

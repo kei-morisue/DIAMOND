@@ -6,11 +6,6 @@ import java.awt.event.ActionListener;
 import diamond.paint.EditMode;
 
 public class StatePopper implements ActionListener{
-	public ApplicationState<EditMode> pop(){
-		StateManager manager = StateManager.getInstance();
-		return manager.pop();
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ApplicationState<EditMode> current = pop();
@@ -20,5 +15,10 @@ public class StatePopper implements ActionListener{
 		}
 		
 		current.performActions(e);
+	}
+	
+	public ApplicationState<EditMode> pop(){
+		StateManager manager = StateManager.getInstance();
+		return manager.pop();
 	}
 }

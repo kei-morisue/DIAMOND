@@ -41,22 +41,22 @@ import diamond.resource.StringID;
 public class RepeatCopyDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
+    private JButton jButtonCancel = null;
+    private JButton jButtonOK = null;
+    private JCheckBox jCheckBoxFill = null;
     private JPanel jContentPane = null;
-    private JTextField jTextFieldX = null;
     private JLabel jLabel = null;
     private JLabel jLabel1 = null;
-    private JTextField jTextFieldY = null;
-    private JCheckBox jCheckBoxFill = null;
     private JLabel jLabel2 = null;
     private JLabel jLabel3 = null;
     private JLabel jLabel4 = null;
     private JTextField jTextFieldIntX = null;
     private JTextField jTextFieldIntY = null;
-    private JButton jButtonOK = null;
-    private JButton jButtonCancel = null;
-    private int m_row, m_col;
-    private double m_interX, m_interY;
+    private JTextField jTextFieldX = null;
+    private JTextField jTextFieldY = null;
     private boolean m_bFillSheet;
+    private double m_interX, m_interY;
+    private int m_row, m_col;
 
     /**
      * @param owner
@@ -67,142 +67,26 @@ public class RepeatCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes this
+     * This method initializes jButtonCancel
      *
-     * @return void
+     * @return javax.swing.JButton
      */
-    private void initialize() {
-        this.setSize(123, 249);
-        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
-                MainFrame.getInstance().getLocation().y + 100);
-        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                StringID.Main.REPEAT_COPY_ID));
-        this.setContentPane(getJContentPane());
-    }
+    private JButton getJButtonCancel() {
+        if (jButtonCancel == null) {
+            jButtonCancel = new JButton();
+            jButtonCancel.setBounds(new Rectangle(10, 185, 96, 21));
+            jButtonCancel.setText("Cancel");
+            jButtonCancel
+                    .addActionListener(new java.awt.event.ActionListener() {
 
-    /**
-     * This method initializes jContentPane
-     *
-     * @return javax.swing.JPanel
-     */
-    private JPanel getJContentPane() {
-        if (jContentPane == null) {
-            jLabel4 = new JLabel();
-            jLabel4.setBounds(new Rectangle(5, 130, 26, 21));
-            jLabel4.setText("Y");
-            jLabel3 = new JLabel();
-            jLabel3.setBounds(new Rectangle(5, 105, 26, 21));
-            jLabel3.setText("X");
-            jLabel2 = new JLabel();
-            jLabel2.setBounds(new Rectangle(5, 80, 59, 21));
-            jLabel2.setText("Interval");
-            jLabel1 = new JLabel();
-            jLabel1.setBounds(new Rectangle(5, 55, 51, 21));
-            jLabel1.setText("Col");
-            jLabel1.setEnabled(false);
-            jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(5, 30, 51, 21));
-            jLabel.setText("Row");
-            jLabel.setEnabled(false);
-            jContentPane = new JPanel();
-            jContentPane.setLayout(null);
-            jContentPane.add(getJTextFieldX(), null);
-            jContentPane.add(jLabel, null);
-            jContentPane.add(jLabel1, null);
-            jContentPane.add(getJTextFieldY(), null);
-            jContentPane.add(getJCheckBoxFill(), null);
-            jContentPane.add(jLabel2, null);
-            jContentPane.add(jLabel3, null);
-            jContentPane.add(jLabel4, null);
-            jContentPane.add(getJTextFieldIntX(), null);
-            jContentPane.add(getJTextFieldIntY(), null);
-            jContentPane.add(getJButtonOK(), null);
-            jContentPane.add(getJButtonCancel(), null);
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
+                            setVisible(false);
+                        }
+                    });
         }
-        return jContentPane;
-    }
-
-    /**
-     * This method initializes jTextFieldX
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getJTextFieldX() {
-        if (jTextFieldX == null) {
-            jTextFieldX = new JTextField();
-            jTextFieldX.setBounds(new Rectangle(60, 30, 41, 21));
-            jTextFieldX.setHorizontalAlignment(JTextField.RIGHT);
-            jTextFieldX.setEnabled(false);
-        }
-        return jTextFieldX;
-    }
-
-    /**
-     * This method initializes jTextFieldY
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getJTextFieldY() {
-        if (jTextFieldY == null) {
-            jTextFieldY = new JTextField();
-            jTextFieldY.setBounds(new Rectangle(60, 55, 41, 21));
-            jTextFieldY.setHorizontalAlignment(JTextField.RIGHT);
-            jTextFieldY.setEnabled(false);
-        }
-        return jTextFieldY;
-    }
-
-    /**
-     * This method initializes jCheckBoxFill
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxFill() {
-        if (jCheckBoxFill == null) {
-            jCheckBoxFill = new JCheckBox();
-            jCheckBoxFill.setBounds(new Rectangle(5, 5, 91, 22));
-            jCheckBoxFill.setSelected(true);
-            jCheckBoxFill.setText("Fill Sheet");
-            jCheckBoxFill.addItemListener(new java.awt.event.ItemListener() {
-
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    jTextFieldX.setEnabled(!jCheckBoxFill.isSelected());
-                    jTextFieldY.setEnabled(!jCheckBoxFill.isSelected());
-                    jLabel.setEnabled(!jCheckBoxFill.isSelected());
-                    jLabel1.setEnabled(!jCheckBoxFill.isSelected());
-                }
-            });
-        }
-        return jCheckBoxFill;
-    }
-
-    /**
-     * This method initializes jTextFieldIntX
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getJTextFieldIntX() {
-        if (jTextFieldIntX == null) {
-            jTextFieldIntX = new JTextField();
-            jTextFieldIntX.setBounds(new Rectangle(35, 105, 66, 21));
-            jTextFieldIntX.setHorizontalAlignment(JTextField.RIGHT);
-        }
-        return jTextFieldIntX;
-    }
-
-    /**
-     * This method initializes jTextFieldIntY
-     *
-     * @return javax.swing.JTextField
-     */
-    private JTextField getJTextFieldIntY() {
-        if (jTextFieldIntY == null) {
-            jTextFieldIntY = new JTextField();
-            jTextFieldIntY.setBounds(new Rectangle(35, 130, 66, 21));
-            jTextFieldIntY.setHorizontalAlignment(JTextField.RIGHT);
-        }
-        return jTextFieldIntY;
+        return jButtonCancel;
     }
 
     /**
@@ -281,25 +165,141 @@ public class RepeatCopyDialog extends JDialog {
     }
 
     /**
-     * This method initializes jButtonCancel
+     * This method initializes jCheckBoxFill
      *
-     * @return javax.swing.JButton
+     * @return javax.swing.JCheckBox
      */
-    private JButton getJButtonCancel() {
-        if (jButtonCancel == null) {
-            jButtonCancel = new JButton();
-            jButtonCancel.setBounds(new Rectangle(10, 185, 96, 21));
-            jButtonCancel.setText("Cancel");
-            jButtonCancel
-                    .addActionListener(new java.awt.event.ActionListener() {
+    private JCheckBox getJCheckBoxFill() {
+        if (jCheckBoxFill == null) {
+            jCheckBoxFill = new JCheckBox();
+            jCheckBoxFill.setBounds(new Rectangle(5, 5, 91, 22));
+            jCheckBoxFill.setSelected(true);
+            jCheckBoxFill.setText("Fill Sheet");
+            jCheckBoxFill.addItemListener(new java.awt.event.ItemListener() {
 
-                        @Override
-                        public void actionPerformed(
-                                java.awt.event.ActionEvent e) {
-                            setVisible(false);
-                        }
-                    });
+                @Override
+                public void itemStateChanged(java.awt.event.ItemEvent e) {
+                    jTextFieldX.setEnabled(!jCheckBoxFill.isSelected());
+                    jTextFieldY.setEnabled(!jCheckBoxFill.isSelected());
+                    jLabel.setEnabled(!jCheckBoxFill.isSelected());
+                    jLabel1.setEnabled(!jCheckBoxFill.isSelected());
+                }
+            });
         }
-        return jButtonCancel;
+        return jCheckBoxFill;
+    }
+
+    /**
+     * This method initializes jContentPane
+     *
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJContentPane() {
+        if (jContentPane == null) {
+            jLabel4 = new JLabel();
+            jLabel4.setBounds(new Rectangle(5, 130, 26, 21));
+            jLabel4.setText("Y");
+            jLabel3 = new JLabel();
+            jLabel3.setBounds(new Rectangle(5, 105, 26, 21));
+            jLabel3.setText("X");
+            jLabel2 = new JLabel();
+            jLabel2.setBounds(new Rectangle(5, 80, 59, 21));
+            jLabel2.setText("Interval");
+            jLabel1 = new JLabel();
+            jLabel1.setBounds(new Rectangle(5, 55, 51, 21));
+            jLabel1.setText("Col");
+            jLabel1.setEnabled(false);
+            jLabel = new JLabel();
+            jLabel.setBounds(new Rectangle(5, 30, 51, 21));
+            jLabel.setText("Row");
+            jLabel.setEnabled(false);
+            jContentPane = new JPanel();
+            jContentPane.setLayout(null);
+            jContentPane.add(getJTextFieldX(), null);
+            jContentPane.add(jLabel, null);
+            jContentPane.add(jLabel1, null);
+            jContentPane.add(getJTextFieldY(), null);
+            jContentPane.add(getJCheckBoxFill(), null);
+            jContentPane.add(jLabel2, null);
+            jContentPane.add(jLabel3, null);
+            jContentPane.add(jLabel4, null);
+            jContentPane.add(getJTextFieldIntX(), null);
+            jContentPane.add(getJTextFieldIntY(), null);
+            jContentPane.add(getJButtonOK(), null);
+            jContentPane.add(getJButtonCancel(), null);
+        }
+        return jContentPane;
+    }
+
+    /**
+     * This method initializes jTextFieldIntX
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getJTextFieldIntX() {
+        if (jTextFieldIntX == null) {
+            jTextFieldIntX = new JTextField();
+            jTextFieldIntX.setBounds(new Rectangle(35, 105, 66, 21));
+            jTextFieldIntX.setHorizontalAlignment(JTextField.RIGHT);
+        }
+        return jTextFieldIntX;
+    }
+
+    /**
+     * This method initializes jTextFieldIntY
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getJTextFieldIntY() {
+        if (jTextFieldIntY == null) {
+            jTextFieldIntY = new JTextField();
+            jTextFieldIntY.setBounds(new Rectangle(35, 130, 66, 21));
+            jTextFieldIntY.setHorizontalAlignment(JTextField.RIGHT);
+        }
+        return jTextFieldIntY;
+    }
+
+    /**
+     * This method initializes jTextFieldX
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getJTextFieldX() {
+        if (jTextFieldX == null) {
+            jTextFieldX = new JTextField();
+            jTextFieldX.setBounds(new Rectangle(60, 30, 41, 21));
+            jTextFieldX.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldX.setEnabled(false);
+        }
+        return jTextFieldX;
+    }
+
+    /**
+     * This method initializes jTextFieldY
+     *
+     * @return javax.swing.JTextField
+     */
+    private JTextField getJTextFieldY() {
+        if (jTextFieldY == null) {
+            jTextFieldY = new JTextField();
+            jTextFieldY.setBounds(new Rectangle(60, 55, 41, 21));
+            jTextFieldY.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldY.setEnabled(false);
+        }
+        return jTextFieldY;
+    }
+
+    /**
+     * This method initializes this
+     *
+     * @return void
+     */
+    private void initialize() {
+        this.setSize(123, 249);
+        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
+                MainFrame.getInstance().getLocation().y + 100);
+        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                StringID.Main.REPEAT_COPY_ID));
+        this.setContentPane(getJContentPane());
     }
 } //  @jve:decl-index=0:visual-constraint="10,10"

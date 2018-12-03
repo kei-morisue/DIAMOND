@@ -18,14 +18,6 @@ import diamond.value.OriLine;
  */
 public class VerticesManager {
 
-	/*
-	 * divides paper equally in order to localize access to vertices
-	 */
-	static public final int divNum = 32;
-
-	public double interval;
-	public double paperCenter;
-
 	/**
 	 * the index of divided paper area.
 	 * A given point is converted to the index it should belongs to.
@@ -36,6 +28,11 @@ public class VerticesManager {
 	public class AreaPosition{
 		public int x, y;
 
+		public AreaPosition(double x, double y){
+			this.x = toDiv(x);
+			this.y = toDiv(y);
+		}
+		
 		/**
 		 * doubles point to index
 		 */
@@ -44,12 +41,50 @@ public class VerticesManager {
 			y = toDiv(v.y);
 		}
 		
-		public AreaPosition(double x, double y){
-			this.x = toDiv(x);
-			this.y = toDiv(y);
+
+	}
+
+	/*
+	 * divides paper equally in order to localize access to vertices
+	 */
+	static public final int divNum = 32;
+	/**
+	 * count existence of same values.
+	 */
+	private Map<Vector2d, Integer> counts = new HashMap<>();
+
+	/**
+	 * [div_x][div_y] is a vertices in the divided area.
+	 */
+	private HashSet<Vector2d>[][] vertices = new HashSet[divNum][divNum];
+
+	public double interval;
+	
+
+	public double paperCenter;
+	/**
+	 * Constructor to initialize fields.
+	 * @param paperSize	paper size in double.
+	 */
+	public VerticesManager(double paperSize) {
+		changePaperSize(paperSize);
+		
+		// allocate memory for each area
+		for(int x = 0; x < divNum; x++){
+			for(int y = 0; y < divNum; y++){
+				vertices[x][y] = new HashSet<Vector2d>();
+			}
 		}
 		
+	}
 
+	/**
+	 * return vertices in the specified area.
+	 * @param ap	index of area.
+	 * @return		vertices in the specified area.
+	 */
+	private HashSet<Vector2d> getVertices(AreaPosition ap){
+		return vertices[ap.x][ap.y];
 	}
 
 	/**
@@ -71,29 +106,23 @@ public class VerticesManager {
 		return div;
 	}
 	
+	/**
+	 * add given vertex to appropriate area.
+	 * @param v	vertex to be managed by this class.
+	 */
+	public void add(Vector2d v){
+				
+		HashSet<Vector2d> vertices = getVertices(new AreaPosition(v));
 
-	/**
-	 * [div_x][div_y] is a vertices in the divided area.
-	 */
-	private HashSet<Vector2d>[][] vertices = new HashSet[divNum][divNum];
-	/**
-	 * count existence of same values.
-	 */
-	private Map<Vector2d, Integer> counts = new HashMap<>();
-
-	/**
-	 * Constructor to initialize fields.
-	 * @param paperSize	paper size in double.
-	 */
-	public VerticesManager(double paperSize) {
-		changePaperSize(paperSize);
-		
-		// allocate memory for each area
-		for(int x = 0; x < divNum; x++){
-			for(int y = 0; y < divNum; y++){
-				vertices[x][y] = new HashSet<Vector2d>();
-			}
+		// v is a new value
+		if (vertices.add(v)) {
+			counts.put(v, 1);
+			return;
 		}
+		
+		// count duplication.
+		Integer count = counts.get(v);
+		counts.put(v, count+1);
 		
 	}
 
@@ -114,71 +143,7 @@ public class VerticesManager {
 		}
 		counts.clear();
 	}
-
-	/**
-	 * return vertices in the specified area.
-	 * @param ap	index of area.
-	 * @return		vertices in the specified area.
-	 */
-	private HashSet<Vector2d> getVertices(AreaPosition ap){
-		return vertices[ap.x][ap.y];
-	}
 	
-	/**
-	 * add given vertex to appropriate area.
-	 * @param v	vertex to be managed by this class.
-	 */
-	public void add(Vector2d v){
-				
-		HashSet<Vector2d> vertices = getVertices(new AreaPosition(v));
-
-		// v is a new value
-		if (vertices.add(v)) {
-			counts.put(v, 1);
-			return;
-		}
-		
-		// count duplication.
-		Integer count = counts.get(v);
-		counts.put(v, count+1);
-		
-	}
-	
-
-	/**
-	 * returns vertices in the area which the given vertex belongs to.
-	 * @param v		vertex
-	 * @return
-	 */
-	public Collection<Vector2d> getAround(Vector2d v){
-		AreaPosition ap = new AreaPosition(v);
-		return getVertices(ap);
-	}
-	
-
-	/**
-	 * remove the given vertex from this class.
-	 * @param v
-	 */
-	public void remove(Vector2d v){
-		AreaPosition ap = new AreaPosition(v);
-		Integer count = counts.get(v);
-		
-		// should never happen.
-		if (count <= 0) {
-			throw new IllegalStateException("Nothing to remove");
-		}
-		
-		// No longer same vertices exist.s
-		if (count == 1) {
-			getVertices(ap).remove(v);
-			counts.remove(v);
-			return;
-		}
-
-		// decrement existence.
-		counts.put(v, count-1);
-	}
 
 	/**
 	 * similar to #getAround(). this method returns some areas in a large rectangle
@@ -207,6 +172,29 @@ public class VerticesManager {
 		
 		return result;
 	}
+	
+
+	/**
+	 * returns vertices in the area which the given vertex belongs to.
+	 * @param v		vertex
+	 * @return
+	 */
+	public Collection<Vector2d> getAround(Vector2d v){
+		AreaPosition ap = new AreaPosition(v);
+		return getVertices(ap);
+	}
+
+	public boolean isEmpty() {
+		for (HashSet<Vector2d>[] vertexSets : vertices) {
+			for (HashSet<Vector2d> vertexSet : vertexSets) {
+				if (! vertexSet.isEmpty()) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
 
 	/**
 	 * set all vertices of given lines
@@ -221,15 +209,27 @@ public class VerticesManager {
 		
 	}
 	
-	public boolean isEmpty() {
-		for (HashSet<Vector2d>[] vertexSets : vertices) {
-			for (HashSet<Vector2d> vertexSet : vertexSets) {
-				if (! vertexSet.isEmpty()) {
-					return false;
-				}
-			}
+	/**
+	 * remove the given vertex from this class.
+	 * @param v
+	 */
+	public void remove(Vector2d v){
+		AreaPosition ap = new AreaPosition(v);
+		Integer count = counts.get(v);
+		
+		// should never happen.
+		if (count <= 0) {
+			throw new IllegalStateException("Nothing to remove");
 		}
 		
-		return true;
+		// No longer same vertices exist.s
+		if (count == 1) {
+			getVertices(ap).remove(v);
+			counts.remove(v);
+			return;
+		}
+
+		// decrement existence.
+		counts.put(v, count-1);
 	}
 }

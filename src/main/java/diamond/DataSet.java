@@ -25,14 +25,14 @@ import diamond.value.OriLine;
 public class DataSet {
 
     private int mainVersion;
-    private int subVersion;
-    public OriLineProxy[] lines;
     private double paperSize;
-    public String title;
+    private int subVersion;
     public String editorName;
+    public OriLineProxy[] lines;
+    public String memo;
     public String originalAuthorName;
     public String reference;
-    public String memo;
+    public String title;
 
     public DataSet() {
     }
@@ -58,6 +58,42 @@ public class DataSet {
         memo = doc.getMemo();
     }
 
+    public String getEditorName() {
+        return editorName;
+    }
+
+    public OriLineProxy[] getLines() {
+        return lines;
+    }
+
+    public int getMainVersion() {
+        return mainVersion;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public String getOriginalAuthorName() {
+        return originalAuthorName;
+    }
+
+    public double getPaperSize() {
+        return paperSize;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public int getSubVersion() {
+        return subVersion;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     public void recover(Doc doc) {
     	CreasePattern creasePattern = doc.getCreasePattern();
         creasePattern.clear();
@@ -72,75 +108,39 @@ public class DataSet {
         doc.setMemo(memo);;
     }
 
-    public void setPaperSize(double d) {
-        paperSize = d;
-    }
-
-    public double getPaperSize() {
-        return paperSize;
-    }
-
-    public void setMainVersion(int i) {
-        mainVersion = i;
-    }
-
-    public int getMainVersion() {
-        return mainVersion;
-    }
-
-    public void setSubVersion(int i) {
-        subVersion = i;
-    }
-
-    public int getSubVersion() {
-        return subVersion;
+    public void setEditorName(String s) {
+        editorName = s;
     }
 
     public void setLines(OriLineProxy[] l) {
         lines = l;
     }
 
-    public OriLineProxy[] getLines() {
-        return lines;
-    }
-
-    public void setTitle(String s) {
-        title = s;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setEditorName(String s) {
-        editorName = s;
-    }
-
-    public String getEditorName() {
-        return editorName;
-    }
-
-    public void setOriginalAuthorName(String s) {
-        originalAuthorName = s;
-    }
-
-    public String getOriginalAuthorName() {
-        return originalAuthorName;
-    }
-
-    public void setReference(String s) {
-        reference = s;
-    }
-
-    public String getReference() {
-        return reference;
+    public void setMainVersion(int i) {
+        mainVersion = i;
     }
 
     public void setMemo(String s) {
         memo = s;
     }
 
-    public String getMemo() {
-        return memo;
+    public void setOriginalAuthorName(String s) {
+        originalAuthorName = s;
+    }
+
+    public void setPaperSize(double d) {
+        paperSize = d;
+    }
+
+    public void setReference(String s) {
+        reference = s;
+    }
+
+    public void setSubVersion(int i) {
+        subVersion = i;
+    }
+
+    public void setTitle(String s) {
+        title = s;
     }
 }

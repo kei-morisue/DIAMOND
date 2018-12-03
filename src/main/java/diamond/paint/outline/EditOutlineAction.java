@@ -17,12 +17,6 @@ import diamond.paint.util.PairLoop;
 
 public class EditOutlineAction extends GraphicMouseAction {
 
-	public EditOutlineAction(){
-		setActionState(new SelectingVertexForOutline());
-		setEditMode(EditMode.OTHER);
-	}
-
-
 	private class DrawTempOutlines implements PairLoop.Block<Vector2d>{
 
 		private Graphics2D g2d;
@@ -50,6 +44,21 @@ public class EditOutlineAction extends GraphicMouseAction {
 		}
 
 	}
+
+
+	public EditOutlineAction(){
+		setActionState(new SelectingVertexForOutline());
+		setEditMode(EditMode.OTHER);
+	}
+
+	@Override
+	public void onDrag(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
@@ -79,17 +88,8 @@ public class EditOutlineAction extends GraphicMouseAction {
 
 	}
 
-
-
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onDrag(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		// TODO Auto-generated method stub
 

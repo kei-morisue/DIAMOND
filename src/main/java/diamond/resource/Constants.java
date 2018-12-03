@@ -22,53 +22,30 @@ public class Constants {
 
     public static enum EditMode {
 
-        NONE,
-        INPUT_LINE,
-        CHANGE_LINE_TYPE,
-        DELETE_LINE,
-        DIVIDE_LINE,
-        PICK_LINE,
-        ADD_VERTEX,
-        DELETE_VERTEX,
-        EDIT_OUTLINE
-    };
-
-    public static enum ModelEditMode {
-
-        NONE,
-        INPUT_CROSS_LINE
+        ADD_VERTEX, CHANGE_LINE_TYPE, DELETE_LINE, DELETE_VERTEX, DIVIDE_LINE, EDIT_OUTLINE, INPUT_LINE, NONE, PICK_LINE
     };
 
     public static enum LineInputMode {
 
-        DIRECT_V,
-        ON_V,
-        OVERLAP_V,
-        OVERLAP_E,
-        TRIANGLE_SPLIT,
-        BISECTOR,
-        VERTICAL_LINE,
-        SYMMETRIC_LINE,
-        BY_VALUE,
-        MIRROR,
-        COPY_AND_PASTE,
-        PBISECTOR // perpendicular bisector
-    };
-
-    public static enum SubLineInputMode {
-
-        NONE,
-        PICK_LENGTH,
-        PICK_ANGLE
+        BISECTOR, BY_VALUE, COPY_AND_PASTE, DIRECT_V, MIRROR, ON_V, OVERLAP_E, OVERLAP_V, PBISECTOR, // perpendicular bisector,
+        SYMMETRIC_LINE, TRIANGLE_SPLIT, VERTICAL_LINE
     };
 
     public static enum ModelDispMode {
 
-        FILL_COLOR,
-        FILL_WHITE,
-        FILL_ALPHA,
-        FILL_NONE
+        FILL_ALPHA, FILL_COLOR, FILL_NONE, FILL_WHITE
     };
-    final public static double EPS = 1.0e-6;
+
+    public static enum ModelEditMode {
+
+        INPUT_CROSS_LINE, NONE
+    };
+
+    public static enum SubLineInputMode {
+
+        NONE, PICK_ANGLE, PICK_LENGTH
+    };
+
     final public static double DEFAULT_PAPER_SIZE = 400;
+    final public static double EPS = 1.0e-6;
 }

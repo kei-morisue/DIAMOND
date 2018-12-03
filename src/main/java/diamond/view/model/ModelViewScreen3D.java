@@ -66,31 +66,18 @@ import diamond.fold.OriFace;
 import diamond.fold.OriHalfedge;
 import diamond.fold.OrigamiModel;
 
-class J3DFace {
-
-    OriFace oriFace;
-    Shape3D frontShape3D;
-    Shape3D backShape3D;
-    boolean bSelected;
-
-    J3DFace(OriFace f) {
-        oriFace = f;
-        bSelected = false;
-    }
-}
-
 public class ModelViewScreen3D extends Canvas3D implements MouseListener, MouseMotionListener, MouseWheelListener,
         ComponentListener {
 
-    ArrayList<J3DFace> faces = new ArrayList<>();
-    TransformGroup objTrans = new TransformGroup();
-    Appearance mainAppearance = new Appearance();
-    SimpleUniverse universe;
-    BranchGroup objRoot = new BranchGroup();
-    BranchGroup scene;
-    Color3f faceColorFront = new Color3f(1.0f, 0.8f, 0.8f);
     Color3f faceColorBack = new Color3f(0.8f, 0.8f, 1.0f);
+    Color3f faceColorFront = new Color3f(1.0f, 0.8f, 0.8f);
     Color3f faceColorSelected = new Color3f(Color.RED);
+    ArrayList<J3DFace> faces = new ArrayList<>();
+    Appearance mainAppearance = new Appearance();
+    BranchGroup objRoot = new BranchGroup();
+    TransformGroup objTrans = new TransformGroup();
+    BranchGroup scene;
+    SimpleUniverse universe;
 
     public ModelViewScreen3D(GraphicsConfiguration config) {
         super(config);
@@ -109,6 +96,143 @@ public class ModelViewScreen3D extends Canvas3D implements MouseListener, MouseM
 
     }
 
+
+    private BranchGroup createSceneGraph() {
+        Background background = new Background();
+        background.setColor(new Color3f(1.0f, 1.0f, 1.0f));
+        background.setApplicationBounds(new BoundingSphere(new Point3d(), 10000.0));
+        objRoot.addChild(background);
+
+        {
+            BoundingSphere bounds = new BoundingSphere(new Point3d(), 100.0);
+            DirectionalLight dlight =
+                    new DirectionalLight(new Color3f(1.0f, 0.0f, 0.0f),
+                    new Vector3f(0.87f, 0.0f, -0.5f));
+            dlight.setInfluencingBounds(bounds);
+            objRoot.addChild(dlight);
+
+            AmbientLight alight = new AmbientLight();
+            alight.setInfluencingBounds(bounds);
+            objRoot.addChild(alight);
+        }
+
+
+        objRoot.addChild(objTrans);
+
+        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+
+        MouseRotate rotat = new MouseRotate(objTrans);
+        MouseTranslate trans = new MouseTranslate(objTrans);
+        MouseZoom zoom = new MouseZoom(objTrans);
+
+        BoundingSphere bounds = new BoundingSphere();
+        bounds.setRadius(1.0);
+        rotat.setSchedulingBounds(bounds);
+        trans.setSchedulingBounds(bounds);
+        zoom.setSchedulingBounds(bounds);
+
+        objTrans.addChild(rotat);
+        objTrans.addChild(trans);
+        objTrans.addChild(zoom);
+        return objRoot;
+    }
+
+    private void setColor(Shape3D sp, Color3f color) {
+        for (int i = 0; i < sp.numGeometries(); i++) {
+            TriangleArray ta = (TriangleArray) sp.getGeometry(i);
+            int vNum = ta.getVertexCount();
+            for (int j = 0; j < vNum; j++) {
+                ta.setColor(j, color);
+            }
+        }
+    }
+
+    private void setSelected(J3DFace face) {
+        for (J3DFace f : faces) {
+            setColor(f.frontShape3D, faceColorFront);
+            setColor(f.backShape3D, faceColorBack);
+        }
+
+        setColor(face.backShape3D, faceColorSelected);
+        setColor(face.frontShape3D, faceColorSelected);
+
+        for (OriHalfedge he : face.oriFace.halfedges) {
+            if (he.pair == null) {
+                continue;
+            }
+            for (J3DFace f : faces) {
+                if (f == face) {
+                    continue;
+                }
+                if (f.oriFace == he.pair.face) {
+                    setColor(f.backShape3D, new Color3f(0.0f, 0.5f, 0.0f));
+                    setColor(f.frontShape3D, new Color3f(0.0f, 0.5f, 0.0f));
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentResized(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void componentShown(ComponentEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mousePressed(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent arg0) {
+        // TODO Auto-generated method stub
+    }
 
     public void setModel() {
         faces.clear();
@@ -254,148 +378,19 @@ public class ModelViewScreen3D extends Canvas3D implements MouseListener, MouseM
         universe.addBranchGraph(scene);
 
     }
-
-    private void setSelected(J3DFace face) {
-        for (J3DFace f : faces) {
-            setColor(f.frontShape3D, faceColorFront);
-            setColor(f.backShape3D, faceColorBack);
-        }
-
-        setColor(face.backShape3D, faceColorSelected);
-        setColor(face.frontShape3D, faceColorSelected);
-
-        for (OriHalfedge he : face.oriFace.halfedges) {
-            if (he.pair == null) {
-                continue;
-            }
-            for (J3DFace f : faces) {
-                if (f == face) {
-                    continue;
-                }
-                if (f.oriFace == he.pair.face) {
-                    setColor(f.backShape3D, new Color3f(0.0f, 0.5f, 0.0f));
-                    setColor(f.frontShape3D, new Color3f(0.0f, 0.5f, 0.0f));
-                }
-            }
-
-        }
-    }
-
-    private void setColor(Shape3D sp, Color3f color) {
-        for (int i = 0; i < sp.numGeometries(); i++) {
-            TriangleArray ta = (TriangleArray) sp.getGeometry(i);
-            int vNum = ta.getVertexCount();
-            for (int j = 0; j < vNum; j++) {
-                ta.setColor(j, color);
-            }
-        }
-    }
-
-    private BranchGroup createSceneGraph() {
-        Background background = new Background();
-        background.setColor(new Color3f(1.0f, 1.0f, 1.0f));
-        background.setApplicationBounds(new BoundingSphere(new Point3d(), 10000.0));
-        objRoot.addChild(background);
-
-        {
-            BoundingSphere bounds = new BoundingSphere(new Point3d(), 100.0);
-            DirectionalLight dlight =
-                    new DirectionalLight(new Color3f(1.0f, 0.0f, 0.0f),
-                    new Vector3f(0.87f, 0.0f, -0.5f));
-            dlight.setInfluencingBounds(bounds);
-            objRoot.addChild(dlight);
-
-            AmbientLight alight = new AmbientLight();
-            alight.setInfluencingBounds(bounds);
-            objRoot.addChild(alight);
-        }
-
-
-        objRoot.addChild(objTrans);
-
-        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-
-        MouseRotate rotat = new MouseRotate(objTrans);
-        MouseTranslate trans = new MouseTranslate(objTrans);
-        MouseZoom zoom = new MouseZoom(objTrans);
-
-        BoundingSphere bounds = new BoundingSphere();
-        bounds.setRadius(1.0);
-        rotat.setSchedulingBounds(bounds);
-        trans.setSchedulingBounds(bounds);
-        zoom.setSchedulingBounds(bounds);
-
-        objTrans.addChild(rotat);
-        objTrans.addChild(trans);
-        objTrans.addChild(zoom);
-        return objRoot;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
-    }
 }
 
-interface SimplePickingCallback {
+class J3DFace {
 
-    void picked(int nodeType, Node node);
+    Shape3D backShape3D;
+    boolean bSelected;
+    Shape3D frontShape3D;
+    OriFace oriFace;
+
+    J3DFace(OriFace f) {
+        oriFace = f;
+        bSelected = false;
+    }
 }
 
 class SimplePicking extends PickMouseBehavior {
@@ -423,4 +418,9 @@ class SimplePicking extends PickMouseBehavior {
             callback.picked(PickResult.SHAPE3D, res.getNode(PickResult.SHAPE3D));
         }
     }
+}
+
+interface SimplePickingCallback {
+
+    void picked(int nodeType, Node node);
 }

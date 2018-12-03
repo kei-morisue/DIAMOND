@@ -22,6 +22,8 @@ import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
 import diamond.view.main.MainFrame;
+import diamond.view.main.menubar.edit.CircleCopy;
+import diamond.view.main.menubar.edit.RepeatCopy;
 
 /**
  * @author long_
@@ -36,16 +38,11 @@ public class MenuEdit extends JMenu {
     private static ResourceHolder res = ResourceHolder.getInstance();
     public static JMenuItem menuItemChangeOutline;
 
-    public static JMenuItem menuItemCircleCopy = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.CIRCLE_COPY_ID));
-
     public static JMenuItem menuItemCopyAndPaste;
     public static JMenuItem menuItemCutAndPaste;
     public static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
             res.getString(ResourceKey.LABEL,
                     StringID.Main.DELETE_SELECTED_LINES_ID));
-    public static JMenuItem menuItemRepeatCopy = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.REPEAT_COPY_ID));
 
     public static JMenuItem menuItemSelectAll;
     public static JMenuItem menuItemUndo = new JMenuItem(
@@ -98,8 +95,6 @@ public class MenuEdit extends JMenu {
     private void addActionListeners(MainFrame mainFrame) {
         menuItemUndo.addActionListener(mainFrame);
         menuItemChangeOutline.addActionListener(mainFrame);
-        menuItemRepeatCopy.addActionListener(mainFrame);
-        menuItemCircleCopy.addActionListener(mainFrame);
         menuItemUnSelectAll
                 .addActionListener(new java.awt.event.ActionListener() {
                     @Override
@@ -118,8 +113,8 @@ public class MenuEdit extends JMenu {
     private void addItems() {
         add(menuItemCopyAndPaste);
         add(menuItemCutAndPaste);
-        add(menuItemRepeatCopy);
-        add(menuItemCircleCopy);
+        add(RepeatCopy.getInstance());
+        add(CircleCopy.getInstance());
         add(menuItemSelectAll);
         add(menuItemUnSelectAll);
         add(menuItemDeleteSelectedLines);

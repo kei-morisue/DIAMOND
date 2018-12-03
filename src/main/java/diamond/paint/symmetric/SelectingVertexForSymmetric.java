@@ -14,41 +14,15 @@ import diamond.value.OriLine;
 
 public class SelectingVertexForSymmetric extends PickingVertex{
 	
+	private boolean doingFirstAction = true;
+	
+	private boolean doSpecial = false;
+
+
 	public SelectingVertexForSymmetric(){
 		super();
 	}
 	
-	@Override
-	protected void initialize() {
-	}
-
-
-	private boolean doingFirstAction = true;
-	
-	private boolean doSpecial = false;
-	
-	@Override
-	protected boolean onAct(PaintContext context, Double currentPoint,
-			boolean doSpecial) {
-		
-		if(doingFirstAction){
-			DocHolder.getInstance().getDoc().cacheUndoInfo();
-			doingFirstAction = false;
-		}
-		
-		boolean result = super.onAct(context, currentPoint, doSpecial);
-		
-		if(result == true){
-			if(context.getVertexCount() < 3){
-				result = false;
-			}
-		}
-
-		this.doSpecial = doSpecial;
-		
-		return result;
-	}
-
 	@Override
 	public void onResult(PaintContext context) {
 		Doc document = DocHolder.getInstance().getDoc();
@@ -72,6 +46,32 @@ public class SelectingVertexForSymmetric extends PickingVertex{
 
 		doingFirstAction = true;
         context.clear(false);
+	}
+	
+	@Override
+	protected void initialize() {
+	}
+
+	@Override
+	protected boolean onAct(PaintContext context, Double currentPoint,
+			boolean doSpecial) {
+		
+		if(doingFirstAction){
+			DocHolder.getInstance().getDoc().cacheUndoInfo();
+			doingFirstAction = false;
+		}
+		
+		boolean result = super.onAct(context, currentPoint, doSpecial);
+		
+		if(result == true){
+			if(context.getVertexCount() < 3){
+				result = false;
+			}
+		}
+
+		this.doSpecial = doSpecial;
+		
+		return result;
 	}
 
 	

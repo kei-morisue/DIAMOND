@@ -14,17 +14,17 @@ public class SelectingLineForMirror extends PickingLine {
 
 	
 	
+	private OriLine axis;
+
+	private boolean doingFirstAction = true;
+
+	
 	public SelectingLineForMirror() {
 		super();
 	}
-
 	@Override
 	protected void initialize() {
 	}
-
-	
-	private OriLine axis;
-	private boolean doingFirstAction = true;
 	
 	/**
 	 * This class keeps selecting line while {@code doSpecial} is false.
@@ -73,15 +73,6 @@ public class SelectingLineForMirror extends PickingLine {
 	
 	
 	@Override
-	protected void undoAction(PaintContext context) {
-//		if (doingFirstAction) {
-//			super.undoAction(context);
-//			return;
-//		}
-		context.popLine();
-	}
-
-	@Override
 	protected void onResult(PaintContext context) {
 
 		Doc document = DocHolder.getInstance().getDoc();
@@ -93,6 +84,15 @@ public class SelectingLineForMirror extends PickingLine {
 
         doingFirstAction = true;
         context.clear(true);
+	}
+
+	@Override
+	protected void undoAction(PaintContext context) {
+//		if (doingFirstAction) {
+//			super.undoAction(context);
+//			return;
+//		}
+		context.popLine();
 	}
 
 }

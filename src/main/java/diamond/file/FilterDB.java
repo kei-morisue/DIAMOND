@@ -18,15 +18,12 @@ import diamond.doc.loader.LoaderXML;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 
-
 /**
  *
  * @author OUCHI Koji
  *
  */
 public class FilterDB {
-
-    private HashMap<String, FileFilterEx> filters = new HashMap<>();
 
     private static FilterDB instance = null;
 
@@ -36,6 +33,8 @@ public class FilterDB {
         }
         return instance;
     }
+
+    private HashMap<String, FileFilterEx> filters = new HashMap<>();
 
     private FilterDB() {
 
@@ -54,7 +53,6 @@ public class FilterDB {
                 "(*.png, *.jpg) " + ResourceHolder.getInstance()
                         .getString(ResourceKey.LABEL, "Picture_File"));
         this.putFilter("pict", filter);
-
 
         String key = "dxf";
         filter = new FileFilterEx(new String[] { "." + key },
@@ -82,7 +80,6 @@ public class FilterDB {
         filter.setLoadingAction(new LoadingDoc(new LoaderCP()));
         this.putFilter(key, filter);
 
-
         key = "svg";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
@@ -98,39 +95,8 @@ public class FilterDB {
 
     }
 
-    public FileFilterEx getFilter(String key){
+    public FileFilterEx getFilter(String key) {
         return filters.get(key);
-    }
-
-    public FileFilterEx putFilter(String key, FileFilterEx filter){
-        return filters.put(key, filter);
-    }
-
-    public FileFilterEx[] toArray(){
-        FileFilterEx[] array = new FileFilterEx[filters.size()];
-
-        int i = 0;
-        for (String key : filters.keySet()) {
-            array[i] = filters.get(key);
-            i++;
-        }
-
-        return array;
-    }
-
-    public FileFilterEx[] getLoadables(){
-        ArrayList<FileFilterEx> loadables = new ArrayList<>();
-
-        for (String key : filters.keySet()) {
-            FileFilterEx filter = filters.get(key);
-            if (filter.getLoadingAction() != null) {
-                loadables.add(filter);
-            }
-        }
-
-        FileFilterEx[] array = new FileFilterEx[loadables.size()];
-
-        return loadables.toArray(array);
     }
 
     /**
@@ -138,7 +104,7 @@ public class FilterDB {
      * @param path
      * @return a filter which can load the file at the path.
      */
-    public FileFilterEx getLoadableFilterOf(String path){
+    public FileFilterEx getLoadableFilterOf(String path) {
         File file = new File(path);
         if (file.isDirectory()) {
             return null;
@@ -153,7 +119,22 @@ public class FilterDB {
         return null;
     }
 
-    public FileFilterEx[] getSavables(){
+    public FileFilterEx[] getLoadables() {
+        ArrayList<FileFilterEx> loadables = new ArrayList<>();
+
+        for (String key : filters.keySet()) {
+            FileFilterEx filter = filters.get(key);
+            if (filter.getLoadingAction() != null) {
+                loadables.add(filter);
+            }
+        }
+
+        FileFilterEx[] array = new FileFilterEx[loadables.size()];
+
+        return loadables.toArray(array);
+    }
+
+    public FileFilterEx[] getSavables() {
         ArrayList<FileFilterEx> savables = new ArrayList<>();
 
         for (String key : filters.keySet()) {
@@ -164,6 +145,22 @@ public class FilterDB {
         }
 
         return (FileFilterEx[]) savables.toArray();
+    }
+
+    public FileFilterEx putFilter(String key, FileFilterEx filter) {
+        return filters.put(key, filter);
+    }
+
+    public FileFilterEx[] toArray() {
+        FileFilterEx[] array = new FileFilterEx[filters.size()];
+
+        int i = 0;
+        for (String key : filters.keySet()) {
+            array[i] = filters.get(key);
+            i++;
+        }
+
+        return array;
     }
 
 }

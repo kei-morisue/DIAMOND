@@ -26,26 +26,11 @@ import diamond.geom.Segment;
 
 public class OriLine implements Comparable<OriLine> {
 
-	final public static int TYPE_NONE = 0;
-    final public static int TYPE_CUT = 1;
-    final public static int TYPE_RIDGE = 2;
-    final public static int TYPE_VALLEY = 3;
-
-    // currently switching to use enum...
+	// currently switching to use enum...
     public enum Type{
 		
-		NONE(TYPE_NONE), CUT(TYPE_CUT), RIDGE(TYPE_RIDGE), VALLEY(TYPE_VALLEY);
+		CUT(TYPE_CUT), NONE(TYPE_NONE), RIDGE(TYPE_RIDGE), VALLEY(TYPE_VALLEY);
 
-		private int val;
-		
-		private Type(int val){
-			this.val = val;
-		}
-		
-		public int toInt(){
-			return val;
-		}
-	
 		public static Type fromInt(int val){
 			Type type;
 			switch(val){
@@ -72,32 +57,39 @@ public class OriLine implements Comparable<OriLine> {
 			
 			return type;
 		}
-	};
+		
+		private int val;
+		
+		private Type(int val){
+			this.val = val;
+		}
+	
+		public int toInt(){
+			return val;
+		}
+	}
+    final public static int TYPE_CUT = 1;
+    final public static int TYPE_NONE = 0;
+    final public static int TYPE_RIDGE = 2;
+
+    final public static int TYPE_VALLEY = 3;;
 
 	private Type type = Type.NONE;
 	
-    public boolean selected;
-    public int typeVal = TYPE_NONE;  // eventually unneeded
     public OriPoint p0 = new OriPoint();
     public OriPoint p1 = new OriPoint();
+    public boolean selected;
+    public int typeVal = TYPE_NONE;  // eventually unneeded
 
     public OriLine() {
     }
 
-    public void setTypeValue(int type) { // eventually unneeded
-    	this.type = Type.fromInt(type);
+    public OriLine(double x0, double y0, double x1, double y1, int type) {
         this.typeVal = type;
+        this.p0.set(x0, y0);
+        this.p1.set(x1, y1);
     }
     
-    public void setType(Type type){
-    	this.type = type;
-    	this.typeVal = type.toInt(); // eventually unneeded
-    }
-
-    public int getTypeValue() { // eventually unneeded
-        return typeVal;
-    }
-
     public OriLine(OriLine l) {
         selected = l.selected;
         p0.set(l.p0);
@@ -109,17 +101,6 @@ public class OriLine implements Comparable<OriLine> {
         this.typeVal = type;
         this.p0.set(p0);
         this.p1.set(p1);
-    }
-
-    public OriLine(double x0, double y0, double x1, double y1, int type) {
-        this.typeVal = type;
-        this.p0.set(x0, y0);
-        this.p1.set(x1, y1);
-    }
-
-    @Override
-    public String toString() {
-        return "" + p0 + "" + p1;
     }
 
     public void changeToNextType() {
@@ -138,15 +119,6 @@ public class OriLine implements Comparable<OriLine> {
                 break;
         }
     }
-
-    public Segment getSegment() {
-        return new Segment(p0, p1);
-    }
-
-    public Line getLine() {
-        return new Line(p0, new Vector2d(p1.x - p0.x, p1.y - p0.y));
-    }
-
 
     /**
      * gives order to this class's object.
@@ -204,6 +176,34 @@ public class OriLine implements Comparable<OriLine> {
     	// differs
     	return false;
 	}
+
+    public Line getLine() {
+        return new Line(p0, new Vector2d(p1.x - p0.x, p1.y - p0.y));
+    }
+
+    public Segment getSegment() {
+        return new Segment(p0, p1);
+    }
+
+    public int getTypeValue() { // eventually unneeded
+        return typeVal;
+    }
+
+    public void setType(Type type){
+    	this.type = type;
+    	this.typeVal = type.toInt(); // eventually unneeded
+    }
+
+
+    public void setTypeValue(int type) { // eventually unneeded
+    	this.type = Type.fromInt(type);
+        this.typeVal = type;
+    }
+
+    @Override
+    public String toString() {
+        return "" + p0 + "" + p1;
+    }
 
 
     

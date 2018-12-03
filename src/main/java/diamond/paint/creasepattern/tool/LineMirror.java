@@ -10,31 +10,6 @@ import diamond.value.OriPoint;
 
 public class LineMirror {
 	/**
-	 * 
-	 * 
-	 * @param baseLine       a line to be the axis of symmetry
-	 * @param lines          lines to be mirrored
-	 * @param creasePattern  destination of mirrored lines
-	 */
-	public Collection<OriLine> createMirroredLines(
-			OriLine baseLine, Collection<OriLine> lines) {
-
-		ArrayList<OriLine> copiedLines = new ArrayList<OriLine>(lines.size());
-		for (OriLine line : lines) {
-			if (!line.selected) {
-				continue;
-			}
-			if (line.equals(baseLine)) {
-				continue;
-			}
-
-			copiedLines.add(createMirroredLine(line, baseLine));
-		}
-
-		return copiedLines;
-	}    
-
-	/**
 	 * create a mirrored line.
 	 * @param line         a line to be mirrored
 	 * @param baseOriLine  a line to be axis of symmetry
@@ -49,7 +24,7 @@ public class LineMirror {
 		OriLine mirroredLine = new OriLine(q0, q1, line.typeVal);
 
 		return mirroredLine;
-	}
+	}    
 
 	/**
 	 * create a mirrored vertex.
@@ -75,5 +50,30 @@ public class LineMirror {
 				vertex.y + dir0.y * dist0 * 2);
 		
 		return q0;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param baseLine       a line to be the axis of symmetry
+	 * @param lines          lines to be mirrored
+	 * @param creasePattern  destination of mirrored lines
+	 */
+	public Collection<OriLine> createMirroredLines(
+			OriLine baseLine, Collection<OriLine> lines) {
+
+		ArrayList<OriLine> copiedLines = new ArrayList<OriLine>(lines.size());
+		for (OriLine line : lines) {
+			if (!line.selected) {
+				continue;
+			}
+			if (line.equals(baseLine)) {
+				continue;
+			}
+
+			copiedLines.add(createMirroredLine(line, baseLine));
+		}
+
+		return copiedLines;
 	}
 }

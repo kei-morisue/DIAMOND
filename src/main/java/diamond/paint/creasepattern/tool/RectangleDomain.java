@@ -16,6 +16,12 @@ public class RectangleDomain{
 	private double left, right, top, bottom;
 
 	/**
+	 * Hide from others since this is meaningless.
+	 */
+	@SuppressWarnings("unused")
+	private RectangleDomain() {}
+
+	/**
 	 * construct this instance fit to given lines
 	 * @param target
 	 */
@@ -29,13 +35,11 @@ public class RectangleDomain{
 		}
 		
 	}
-
-	/**
-	 * Hide from others since this is meaningless.
-	 */
-	@SuppressWarnings("unused")
-	private RectangleDomain() {}
 	
+	private double computeGap(double a, double b) {
+		return Math.max(a, b) - Math.min(a, b);
+	}
+
 	private void initialize(){
 		left = Double.POSITIVE_INFINITY;
 		right = Double.NEGATIVE_INFINITY;
@@ -44,6 +48,8 @@ public class RectangleDomain{
 
 	}
 
+	
+	
 	/**
 	 * Enlarge this domain as including given point.
 	 * @param v
@@ -56,8 +62,17 @@ public class RectangleDomain{
 		
 	}
 
-	
-	
+	/**
+	 * @return bottom
+	 */
+	public double getBottom() {
+		return bottom;
+	}
+
+	public double getHeight() {
+		return computeGap(top, bottom);
+	}
+
 	/**
 	 * @return left
 	 */
@@ -79,22 +94,7 @@ public class RectangleDomain{
 		return top;
 	}
 
-	/**
-	 * @return bottom
-	 */
-	public double getBottom() {
-		return bottom;
-	}
-
 	public double getWidth() {
 		return computeGap(left, right);
-	}
-
-	public double getHeight() {
-		return computeGap(top, bottom);
-	}
-
-	private double computeGap(double a, double b) {
-		return Math.max(a, b) - Math.min(a, b);
 	}
 }

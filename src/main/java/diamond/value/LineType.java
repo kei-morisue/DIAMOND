@@ -1,7 +1,7 @@
 package diamond.value;
 
 public enum LineType {
-	NONE("NONE", 0), CUT("CUT", 1), VALLEY("VALLEY", 2), RIDGE("RIDGE", 3);
+	CUT("CUT", 1), NONE("NONE", 0), RIDGE("RIDGE", 3), VALLEY("VALLEY", 2);
 	
 	private String name;
 	private int val;
@@ -11,11 +11,11 @@ public enum LineType {
 		this.val = val;
 	}
 	
-	public String toString(){
-		return name;
-	}
-	
 	public int toInt(){
 		return val;
+	}
+	
+	public String toString(){
+		return name;
 	}
 }

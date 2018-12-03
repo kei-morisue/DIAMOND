@@ -3,9 +3,9 @@ package diamond.paint.creasepattern.tool;
 // TODO move to view layer, or integrate with LineTypes
 
 public enum TypeForChange {
-	EMPTY("-"),
-	RIDGE("M"), VALLEY("V"), AUX("Aux"), CUT("Cut"), 
-	DELETE("Del"), FLIP("Flip");
+	AUX("Aux"),
+	CUT("Cut"), DELETE("Del"), EMPTY("-"), FLIP("Flip"), 
+	RIDGE("M"), VALLEY("V");
 	
 	private String shortName;
 	

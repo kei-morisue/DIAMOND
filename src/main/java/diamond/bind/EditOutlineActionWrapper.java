@@ -17,6 +17,14 @@ public class EditOutlineActionWrapper extends EditOutlineAction {
 	
 	
 	
+	private void popPreviousState(){
+		StateManager stateManager = StateManager.getInstance();
+		ApplicationState<EditMode> prev = stateManager.pop();
+		
+		prev.performActions(null);
+
+	}
+
 	@Override
 	public GraphicMouseActionInterface onLeftClick(PaintContext context,
 			AffineTransform affine, boolean differentAction) {
@@ -35,14 +43,6 @@ public class EditOutlineActionWrapper extends EditOutlineAction {
 			boolean differentAction) {
 
 		popPreviousState();
-	}
-
-	private void popPreviousState(){
-		StateManager stateManager = StateManager.getInstance();
-		ApplicationState<EditMode> prev = stateManager.pop();
-		
-		prev.performActions(null);
-
 	}
 	
 }

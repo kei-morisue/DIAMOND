@@ -25,27 +25,27 @@ import diamond.resource.Constants;
 
 public class PaintConfig {
 
-    public static GraphicMouseActionInterface getMouseAction() {
-		return mouseAction;
-	}
+    public static boolean bDispCrossLine = false;
 
-	public static void setMouseAction(GraphicMouseActionInterface mouseAction) {
-		PaintConfig.mouseAction = mouseAction;
-	}
+	public static boolean bDoFullEstimation = true;
 
-//	public static Constants.EditMode editMode = Constants.EditMode.INPUT_LINE;
+public static boolean dispAuxLines = true;
+    public static boolean dispMVLines = true;
+    public static boolean dispVertex = false;
+    //	public static Constants.EditMode editMode = Constants.EditMode.INPUT_LINE;
 //    public static Constants.ModelEditMode modelEditMode = Constants.ModelEditMode.INPUT_CROSS_LINE;
 //    public static Constants.EditMode preEditMode = Constants.EditMode.INPUT_LINE;
 //    public static Constants.LineInputMode lineInputMode = Constants.LineInputMode.DIRECT_V;
 //    public static Constants.SubLineInputMode subLineInputMode = Constants.SubLineInputMode.NONE;
     public static int gridDivNum = Config.DEFAULT_GRID_DIV_NUM;
-    public static Constants.ModelDispMode modelDispMode = Constants.ModelDispMode.FILL_ALPHA;
-    public static boolean dispVertex = false;
-    public static boolean dispMVLines = true;
-    public static boolean dispAuxLines = true;
-    public static boolean bDispCrossLine = false;
-    public static boolean bDoFullEstimation = true;
     public static int inputLineType = diamond.value.OriLine.TYPE_RIDGE;
-    
+    public static Constants.ModelDispMode modelDispMode = Constants.ModelDispMode.FILL_ALPHA;
     public static GraphicMouseActionInterface mouseAction = new TwoPointSegmentAction();
+    public static GraphicMouseActionInterface getMouseAction() {
+		return mouseAction;
+	}
+    
+    public static void setMouseAction(GraphicMouseActionInterface mouseAction) {
+		PaintConfig.mouseAction = mouseAction;
+	}
 }

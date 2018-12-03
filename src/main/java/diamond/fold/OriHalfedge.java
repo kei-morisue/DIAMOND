@@ -23,17 +23,17 @@ import javax.vecmath.Vector3d;
 
 public class OriHalfedge {
 
-    public OriHalfedge next = null;
-    public OriHalfedge prev = null;
-    public OriHalfedge pair = null;
     public OriEdge edge = null;
-    public OriVertex vertex = null;
     public OriFace face = null;
+    public OriHalfedge next = null;
+    public Vector2d p = new Vector2d();
+    public OriHalfedge pair = null;
+    public Vector2d positionAfterFolded = new Vector2d();
+    public Vector2d positionForDisplay = new Vector2d();
+    public OriHalfedge prev = null;
     public int tmpInt = 0;
     public Vector2d tmpVec = new Vector2d();
-    public Vector2d p = new Vector2d();
-    public Vector2d positionForDisplay = new Vector2d();
-    public Vector2d positionAfterFolded = new Vector2d();
+    public OriVertex vertex = null;
     public Vector3d vertexColor = new Vector3d();
 
     public OriHalfedge(OriVertex v, OriFace f) {

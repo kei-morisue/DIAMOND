@@ -13,10 +13,10 @@ import diamond.value.OriLine;
 import diamond.view.main.MainFrame;
 
 public class OrigamiModelFactory {
-    final public static int NO_OVERLAP = 0;
-    final public static int UPPER = 1;
     final public static int LOWER = 2;
+    final public static int NO_OVERLAP = 0;
     final public static int UNDEFINED = 9;
+    final public static int UPPER = 1;
 
     int debugCount = 0;
 
@@ -43,6 +43,199 @@ public class OrigamiModelFactory {
         return vtx;
     }
 
+
+    private boolean checkPatternValidity(
+            List<OriEdge> edges, List<OriVertex> vertices,
+            List<OriFace> faces) {
+        boolean isOK = true;
+
+
+        // Check if the faces are convex
+        for (OriFace face : faces) {
+            if (face.halfedges.size() == 3) {
+                continue;
+            }
+
+            OriHalfedge baseHe = face.halfedges.get(0);
+            boolean baseFlg = GeomUtil.CCWcheck(baseHe.prev.vertex.p,
+                    baseHe.vertex.p, baseHe.next.vertex.p);
+
+            for (int i = 1; i < face.halfedges.size(); i++) {
+                OriHalfedge he = face.halfedges.get(i);
+                if (GeomUtil.CCWcheck(he.prev.vertex.p, he.vertex.p,
+                        he.next.vertex.p) != baseFlg) {
+                    isOK = false;
+                    face.hasProblem = true;
+                    break;
+                }
+
+            }
+        }
+
+        // Check Maekawa's theorem for all vertexes
+        for (OriVertex v : vertices) {
+            int ridgeCount = 0;
+            int valleyCount = 0;
+            boolean isCorner = false;
+            for (OriEdge e : v.edges) {
+                if (e.type == OriLine.TYPE_RIDGE) {
+                    ridgeCount++;
+                } else if (e.type == OriLine.TYPE_VALLEY) {
+                    valleyCount++;
+                } else if (e.type == OriLine.TYPE_CUT) {
+                    isCorner = true;
+                    break;
+                }
+            }
+
+            if (isCorner) {
+                continue;
+            }
+
+            if (Math.abs(ridgeCount - valleyCount) != 2) {
+                System.out.println("edge type count invalid: " + v + " "
+                        + Math.abs(ridgeCount - valleyCount));
+                v.hasProblem = true;
+                isOK = false;
+            }
+        }
+
+        // Check Kawasaki's theorem for every vertex
+
+        for (OriVertex v : vertices) {
+            if (v.hasProblem) {
+                continue;
+            }
+            Vector2d p = v.p;
+            double oddSum = 0;
+            double evenSum = 0;
+            boolean isCorner = false;
+            for (int i = 0; i < v.edges.size(); i++) {
+                OriEdge e = v.edges.get(i);
+                if (e.type == OriLine.TYPE_CUT) {
+                    isCorner = true;
+                    break;
+                }
+
+                Vector2d preP = new Vector2d(
+                        v.edges.get(i).oppositeVertex(v).p);
+                Vector2d nxtP = new Vector2d(v.edges
+                        .get((i + 1) % v.edges.size()).oppositeVertex(v).p);
+
+                nxtP.sub(p);
+                preP.sub(p);
+
+                if (i % 2 == 0) {
+                    oddSum += preP.angle(nxtP);
+                } else {
+                    evenSum += preP.angle(nxtP);
+                }
+            }
+
+            if (isCorner) {
+                continue;
+            }
+
+            //System.out.println("oddSum = " + oddSum + "/ evenSum = " + evenSum);
+            if (Math.abs(oddSum - Math.PI) > Math.PI / 180 / 2) {
+                System.out.println("edge angle sum invalid");
+                v.hasProblem = true;
+                isOK = false;
+            }
+        }
+
+
+        return isOK;
+    }
+    //boolean sortFinished = false;
+
+    private boolean cleanDuplicatedLines(Collection<OriLine> creasePattern) {
+        debugCount = 0;
+        System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
+        ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
+        for (OriLine l : creasePattern) {
+            OriLine ll = l;
+
+            boolean bSame = false;
+            // Test if the line is already in tmpLines to prevent duplicity
+            for (OriLine line : tmpLines) {
+                if (GeomUtil.isSameLineSegment(line, ll)) {
+                    bSame = true;
+                    break;
+                }
+            }
+            if (bSame) {
+                continue;
+            }
+            tmpLines.add(ll);
+        }
+
+        if (creasePattern.size() == tmpLines.size()) {
+            return false;
+        }
+
+        creasePattern.clear();
+        creasePattern.addAll(tmpLines);
+        System.out
+                .println("after cleanDuplicatedLines " + creasePattern.size());
+
+        return true;
+    }
+
+    private void makeEdges(List<OriEdge> edges, List<OriFace> faces) {
+        edges.clear();
+
+        ArrayList<OriHalfedge> tmpHalfedges = new ArrayList<OriHalfedge>();
+
+        // Clear all the Halfedges
+        for (OriFace face : faces) {
+            for (OriHalfedge he : face.halfedges) {
+                he.pair = null;
+                he.edge = null;
+                tmpHalfedges.add(he);
+            }
+        }
+
+        // Search the halfedge pair
+        int heNum = tmpHalfedges.size();
+        for (int i = 0; i < heNum; i++) {
+            OriHalfedge he0 = tmpHalfedges.get(i);
+            if (he0.pair != null) {
+                continue;
+            }
+
+            for (int j = i + 1; j < heNum; j++) {
+                OriHalfedge he1 = tmpHalfedges.get(j);
+                if (he0.vertex == he1.next.vertex
+                        && he0.next.vertex == he1.vertex) {
+                    OriEdge edge = new OriEdge();
+                    he0.pair = he1;
+                    he1.pair = he0;
+                    he0.edge = edge;
+                    he1.edge = edge;
+                    edge.sv = he0.vertex;
+                    edge.ev = he1.vertex;
+                    edge.left = he0;
+                    edge.right = he1;
+                    edges.add(edge);
+                    edge.type = OriLine.TYPE_NONE;//OriEdge.TYPE_NONE;
+                }
+            }
+        }
+
+        // If the pair wasnt found it should be an edge
+        for (OriHalfedge he : tmpHalfedges) {
+            if (he.pair == null) {
+                OriEdge edge = new OriEdge();
+                he.edge = edge;
+                edge.sv = he.vertex;
+                edge.ev = he.next.vertex;
+                edge.left = he;
+                edges.add(edge);
+                edge.type = OriLine.TYPE_CUT;
+            }
+        }
+    }
 
     //TODO: change as: throw error if creation failed.
     public OrigamiModel buildOrigami(
@@ -133,14 +326,10 @@ public class OrigamiModelFactory {
 
     }
 
+
     public OrigamiModel createOrigamiModel3(
             Collection<OriLine> creasePattern, double paperSize) {
         return this.createOrigamiModel3(creasePattern, paperSize, false);
-    }
-
-    public OrigamiModel createOrigamiModel3NoDuplicateLines(
-            Collection<OriLine> creasePattern, double paperSize) {
-        return this.createOrigamiModel3(creasePattern, paperSize, true);
     }
 
     /**
@@ -331,198 +520,9 @@ public class OrigamiModelFactory {
         return origamiModel;
     }
 
-
-    private boolean cleanDuplicatedLines(Collection<OriLine> creasePattern) {
-        debugCount = 0;
-        System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
-        ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
-        for (OriLine l : creasePattern) {
-            OriLine ll = l;
-
-            boolean bSame = false;
-            // Test if the line is already in tmpLines to prevent duplicity
-            for (OriLine line : tmpLines) {
-                if (GeomUtil.isSameLineSegment(line, ll)) {
-                    bSame = true;
-                    break;
-                }
-            }
-            if (bSame) {
-                continue;
-            }
-            tmpLines.add(ll);
-        }
-
-        if (creasePattern.size() == tmpLines.size()) {
-            return false;
-        }
-
-        creasePattern.clear();
-        creasePattern.addAll(tmpLines);
-        System.out
-                .println("after cleanDuplicatedLines " + creasePattern.size());
-
-        return true;
-    }
-
-    private boolean checkPatternValidity(
-            List<OriEdge> edges, List<OriVertex> vertices,
-            List<OriFace> faces) {
-        boolean isOK = true;
-
-
-        // Check if the faces are convex
-        for (OriFace face : faces) {
-            if (face.halfedges.size() == 3) {
-                continue;
-            }
-
-            OriHalfedge baseHe = face.halfedges.get(0);
-            boolean baseFlg = GeomUtil.CCWcheck(baseHe.prev.vertex.p,
-                    baseHe.vertex.p, baseHe.next.vertex.p);
-
-            for (int i = 1; i < face.halfedges.size(); i++) {
-                OriHalfedge he = face.halfedges.get(i);
-                if (GeomUtil.CCWcheck(he.prev.vertex.p, he.vertex.p,
-                        he.next.vertex.p) != baseFlg) {
-                    isOK = false;
-                    face.hasProblem = true;
-                    break;
-                }
-
-            }
-        }
-
-        // Check Maekawa's theorem for all vertexes
-        for (OriVertex v : vertices) {
-            int ridgeCount = 0;
-            int valleyCount = 0;
-            boolean isCorner = false;
-            for (OriEdge e : v.edges) {
-                if (e.type == OriLine.TYPE_RIDGE) {
-                    ridgeCount++;
-                } else if (e.type == OriLine.TYPE_VALLEY) {
-                    valleyCount++;
-                } else if (e.type == OriLine.TYPE_CUT) {
-                    isCorner = true;
-                    break;
-                }
-            }
-
-            if (isCorner) {
-                continue;
-            }
-
-            if (Math.abs(ridgeCount - valleyCount) != 2) {
-                System.out.println("edge type count invalid: " + v + " "
-                        + Math.abs(ridgeCount - valleyCount));
-                v.hasProblem = true;
-                isOK = false;
-            }
-        }
-
-        // Check Kawasaki's theorem for every vertex
-
-        for (OriVertex v : vertices) {
-            if (v.hasProblem) {
-                continue;
-            }
-            Vector2d p = v.p;
-            double oddSum = 0;
-            double evenSum = 0;
-            boolean isCorner = false;
-            for (int i = 0; i < v.edges.size(); i++) {
-                OriEdge e = v.edges.get(i);
-                if (e.type == OriLine.TYPE_CUT) {
-                    isCorner = true;
-                    break;
-                }
-
-                Vector2d preP = new Vector2d(
-                        v.edges.get(i).oppositeVertex(v).p);
-                Vector2d nxtP = new Vector2d(v.edges
-                        .get((i + 1) % v.edges.size()).oppositeVertex(v).p);
-
-                nxtP.sub(p);
-                preP.sub(p);
-
-                if (i % 2 == 0) {
-                    oddSum += preP.angle(nxtP);
-                } else {
-                    evenSum += preP.angle(nxtP);
-                }
-            }
-
-            if (isCorner) {
-                continue;
-            }
-
-            //System.out.println("oddSum = " + oddSum + "/ evenSum = " + evenSum);
-            if (Math.abs(oddSum - Math.PI) > Math.PI / 180 / 2) {
-                System.out.println("edge angle sum invalid");
-                v.hasProblem = true;
-                isOK = false;
-            }
-        }
-
-
-        return isOK;
-    }
-    //boolean sortFinished = false;
-
-    private void makeEdges(List<OriEdge> edges, List<OriFace> faces) {
-        edges.clear();
-
-        ArrayList<OriHalfedge> tmpHalfedges = new ArrayList<OriHalfedge>();
-
-        // Clear all the Halfedges
-        for (OriFace face : faces) {
-            for (OriHalfedge he : face.halfedges) {
-                he.pair = null;
-                he.edge = null;
-                tmpHalfedges.add(he);
-            }
-        }
-
-        // Search the halfedge pair
-        int heNum = tmpHalfedges.size();
-        for (int i = 0; i < heNum; i++) {
-            OriHalfedge he0 = tmpHalfedges.get(i);
-            if (he0.pair != null) {
-                continue;
-            }
-
-            for (int j = i + 1; j < heNum; j++) {
-                OriHalfedge he1 = tmpHalfedges.get(j);
-                if (he0.vertex == he1.next.vertex
-                        && he0.next.vertex == he1.vertex) {
-                    OriEdge edge = new OriEdge();
-                    he0.pair = he1;
-                    he1.pair = he0;
-                    he0.edge = edge;
-                    he1.edge = edge;
-                    edge.sv = he0.vertex;
-                    edge.ev = he1.vertex;
-                    edge.left = he0;
-                    edge.right = he1;
-                    edges.add(edge);
-                    edge.type = OriLine.TYPE_NONE;//OriEdge.TYPE_NONE;
-                }
-            }
-        }
-
-        // If the pair wasnt found it should be an edge
-        for (OriHalfedge he : tmpHalfedges) {
-            if (he.pair == null) {
-                OriEdge edge = new OriEdge();
-                he.edge = edge;
-                edge.sv = he.vertex;
-                edge.ev = he.next.vertex;
-                edge.left = he;
-                edges.add(edge);
-                edge.type = OriLine.TYPE_CUT;
-            }
-        }
+    public OrigamiModel createOrigamiModel3NoDuplicateLines(
+            Collection<OriLine> creasePattern, double paperSize) {
+        return this.createOrigamiModel3(creasePattern, paperSize, true);
     }
 
 

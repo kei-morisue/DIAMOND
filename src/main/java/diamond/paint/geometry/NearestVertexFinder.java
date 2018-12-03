@@ -32,17 +32,21 @@ public class NearestVertexFinder {
 		
 	}
 
-	public static Vector2d findNearestOf(
-			Point2D.Double p, Vector2d nearest, Vector2d other){
-		
-		NearestPoint nearestPoint = new NearestPoint();
-		nearestPoint.point = nearest;
-		nearestPoint.distance = p.distance(nearest.x, nearest.y);
+	/**
+	 * Find the nearest of p among vertices
+	 * @param p
+	 * @param vertices
+	 * @return nearest point
+	 */
+	private static NearestPoint findNearestVertex(Point2D.Double p, Collection<Vector2d> vertices){
 
-		NearestVertexFinder.findNearestOf(
-				p, nearestPoint, other);
-	
-		return nearest;
+		NearestPoint minPosition = new NearestPoint();
+
+		for(Vector2d vertex : vertices){
+			findNearestOf(p, minPosition, vertex);
+		}
+
+		return minPosition;
 	}
 
 
@@ -62,23 +66,6 @@ public class NearestVertexFinder {
 
 	}
 		
-	/**
-	 * Find the nearest of p among vertices
-	 * @param p
-	 * @param vertices
-	 * @return nearest point
-	 */
-	private static NearestPoint findNearestVertex(Point2D.Double p, Collection<Vector2d> vertices){
-
-		NearestPoint minPosition = new NearestPoint();
-
-		for(Vector2d vertex : vertices){
-			findNearestOf(p, minPosition, vertex);
-		}
-
-		return minPosition;
-	}
-
 	/**
 	 * find the nearest of current mouse point in the circle whose radius = {@code distance}.
 	 * @param context
@@ -139,5 +126,18 @@ public class NearestVertexFinder {
 		
 
 		return nearestPosition;
+	}
+
+	public static Vector2d findNearestOf(
+			Point2D.Double p, Vector2d nearest, Vector2d other){
+		
+		NearestPoint nearestPoint = new NearestPoint();
+		nearestPoint.point = nearest;
+		nearestPoint.distance = p.distance(nearest.x, nearest.y);
+
+		NearestVertexFinder.findNearestOf(
+				p, nearestPoint, other);
+	
+		return nearest;
 	}
 }

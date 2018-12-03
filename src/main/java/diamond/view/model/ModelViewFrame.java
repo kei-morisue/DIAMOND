@@ -72,45 +72,45 @@ public class ModelViewFrame extends JFrame
         return instance;
     }
 
-    private ModelFrameSettingDB setting = ModelFrameSettingDB.getInstance();
+    private JMenu dispSubMenu = new JMenu(ResourceHolder.getInstance()
+            .getString(ResourceKey.LABEL, "MENU_DispType"));
 
-    ModelViewScreen screen;
     private JMenu menuDisp = new JMenu(ResourceHolder.getInstance()
             .getString(ResourceKey.LABEL, "MENU_Disp"));
     private JMenu menuFile = new JMenu(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL, "File"));
+    private JCheckBoxMenuItem menuItemCrossLine = new JCheckBoxMenuItem(
+            "Show Cross-Line", false);
     private JMenuItem menuItemExportDXF = new JMenuItem(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                     "MENU_ExportModelLine_DXF"));
     private JMenuItem menuItemExportOBJ = new JMenuItem("Export to OBJ file");
-    private JMenuItem menuItemFlip = new JMenuItem(ResourceHolder.getInstance()
-            .getString(ResourceKey.LABEL, "MENU_Invert"));
-    private JCheckBoxMenuItem menuItemCrossLine = new JCheckBoxMenuItem(
-            "Show Cross-Line", false);
-    public JCheckBoxMenuItem menuItemSlideFaces = new JCheckBoxMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "MENU_SlideFaces"),
-            false);
-    public JLabel hintLabel = new JLabel(ResourceHolder.getInstance()
-            .getString(ResourceKey.LABEL, "Basic"));
-    private JMenu dispSubMenu = new JMenu(ResourceHolder.getInstance()
-            .getString(ResourceKey.LABEL, "MENU_DispType"));
-    private JRadioButtonMenuItem menuItemFillColor = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "MENU_FillColor"));
-    private JRadioButtonMenuItem menuItemFillWhite = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "MENU_FillWhite"));
     private JRadioButtonMenuItem menuItemFillAlpha = new JRadioButtonMenuItem(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                     "MENU_FillAlpha"));
+    private JRadioButtonMenuItem menuItemFillColor = new JRadioButtonMenuItem(
+            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                    "MENU_FillColor"));
     private JRadioButtonMenuItem menuItemFillNone = new JRadioButtonMenuItem(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                     "MENU_DrawLines"));
+    private JRadioButtonMenuItem menuItemFillWhite = new JRadioButtonMenuItem(
+            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                    "MENU_FillWhite"));
+    private JMenuItem menuItemFlip = new JMenuItem(ResourceHolder.getInstance()
+            .getString(ResourceKey.LABEL, "MENU_Invert"));
     private JScrollBar scrollBarAngle = new JScrollBar(JScrollBar.HORIZONTAL,
             90, 5, 0, 185);
     private JScrollBar scrollBarPosition = new JScrollBar(JScrollBar.VERTICAL,
             0, 5, -150, 150);
+    private ModelFrameSettingDB setting = ModelFrameSettingDB.getInstance();
+    public JLabel hintLabel = new JLabel(ResourceHolder.getInstance()
+            .getString(ResourceKey.LABEL, "Basic"));
+    public JCheckBoxMenuItem menuItemSlideFaces = new JCheckBoxMenuItem(
+            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                    "MENU_SlideFaces"),
+            false);
+    ModelViewScreen screen;
 
     public ModelViewFrame() {
 
@@ -159,6 +159,57 @@ public class ModelViewFrame extends JFrame
         scrollBarAngle.addAdjustmentListener(this);
         scrollBarPosition.addAdjustmentListener(this);
 
+    }
+
+    private void exportFile(String ext) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new FileFilterEx(
+                new String[] { "." + ext },
+                "(*." + ext + ")" + ext
+                        + ResourceHolder.getInstance()
+                                .getString(ResourceKey.LABEL, "File")));
+        if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(this)) {
+            try {
+                String filePath = fileChooser.getSelectedFile().getPath();
+                File file = new File(filePath);
+                if (file.exists()) {
+                    if (JOptionPane.showConfirmDialog(
+                            null,
+                            ResourceHolder.getInstance()
+                                    .getString(ResourceKey.WARNING,
+                                            "Warning_SameNameFileExist"),
+                            ResourceHolder.getInstance()
+                                    .getString(ResourceKey.LABEL,
+                                            StringID.DIALOG_TITLE_SAVE_ID),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
+                        return;
+                    }
+                }
+
+                if (!filePath.endsWith("." + ext)) {
+                    filePath += "." + ext;
+                }
+                switch (ext) {
+                case "dxf":
+                    ExporterDXF.exportModel(DocHolder.getInstance().getDoc(),
+                            filePath);
+                    break;
+                case "obj":
+                    Exporter exporter = new ExporterOBJ2();
+                    exporter.export(DocHolder.getInstance().getDoc(), filePath);
+                    break;
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        this, e.toString(),
+                        ResourceHolder.getInstance()
+                                .getString(ResourceKey.WARNING,
+                                        "Error_FileSaveFailed"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     @Override
@@ -214,57 +265,6 @@ public class ModelViewFrame extends JFrame
             screen.setCrossLinePosition(e.getValue());
         }
 
-    }
-
-    private void exportFile(String ext) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new FileFilterEx(
-                new String[] { "." + ext },
-                "(*." + ext + ")" + ext
-                        + ResourceHolder.getInstance()
-                                .getString(ResourceKey.LABEL, "File")));
-        if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(this)) {
-            try {
-                String filePath = fileChooser.getSelectedFile().getPath();
-                File file = new File(filePath);
-                if (file.exists()) {
-                    if (JOptionPane.showConfirmDialog(
-                            null,
-                            ResourceHolder.getInstance()
-                                    .getString(ResourceKey.WARNING,
-                                            "Warning_SameNameFileExist"),
-                            ResourceHolder.getInstance()
-                                    .getString(ResourceKey.LABEL,
-                                            StringID.DIALOG_TITLE_SAVE_ID),
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
-                        return;
-                    }
-                }
-
-                if (!filePath.endsWith("." + ext)) {
-                    filePath += "." + ext;
-                }
-                switch (ext) {
-                case "dxf":
-                    ExporterDXF.exportModel(DocHolder.getInstance().getDoc(),
-                            filePath);
-                    break;
-                case "obj":
-                    Exporter exporter = new ExporterOBJ2();
-                    exporter.export(DocHolder.getInstance().getDoc(), filePath);
-                    break;
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                        this, e.toString(),
-                        ResourceHolder.getInstance()
-                                .getString(ResourceKey.WARNING,
-                                        "Error_FileSaveFailed"),
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
 
     public void initialize() {

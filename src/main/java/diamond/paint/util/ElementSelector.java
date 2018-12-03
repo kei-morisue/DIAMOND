@@ -9,30 +9,6 @@ import diamond.value.OriLine;
 
 public class ElementSelector {
 
-	public Color selectColorByPickupOrder(int order, int count){
-		if(order == count - 1){
-			return Color.GREEN;
-		}
-		
-		return selectColorByLineType(PaintConfig.inputLineType);
-	}
-	
-	public Color selectLineColor(OriLine line){
-
-		Color color;
-		
-		if(line.selected){
-			color = LineSetting.LINE_COLOR_CANDIDATE;
-		}
-		else {
-			color = selectColorByLineType(line.typeVal);
-		}
-		
-		return color;
-		
-	}
-	
-	
 	public Color selectColorByLineType(int lineType){
         Color color;
         
@@ -54,6 +30,30 @@ public class ElementSelector {
 		}
 
 		return color;
+	}
+	
+	public Color selectColorByPickupOrder(int order, int count){
+		if(order == count - 1){
+			return Color.GREEN;
+		}
+		
+		return selectColorByLineType(PaintConfig.inputLineType);
+	}
+	
+	
+	public Color selectLineColor(OriLine line){
+
+		Color color;
+		
+		if(line.selected){
+			color = LineSetting.LINE_COLOR_CANDIDATE;
+		}
+		else {
+			color = selectColorByLineType(line.typeVal);
+		}
+		
+		return color;
+		
 	}
 	
 	public BasicStroke selectStroke(int lineType){

@@ -22,8 +22,8 @@ import javax.vecmath.Vector2d;
 
 public class Line {
 
-    public Vector2d p;   // Passing through point
     public Vector2d dir; // Unit direction vector
+    public Vector2d p;   // Passing through point
 
     public Line(Vector2d p, Vector2d dir) {
         this.p = p;

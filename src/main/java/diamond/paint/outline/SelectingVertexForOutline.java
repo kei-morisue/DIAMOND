@@ -13,13 +13,22 @@ import diamond.paint.core.PickingVertex;
 public class SelectingVertexForOutline extends PickingVertex {
 
 	
+	private void closeTmpOutline(Collection<Vector2d> outlineVertices) {
+
+    	(new CloseTempOutline()).execute(outlineVertices);
+    	
+    }
+	
+	
+	
+
 	@Override
 	protected void initialize() {
 		
 	}
-	
-	
-	
+
+
+
 
 	@Override
 	protected boolean onAct(PaintContext context, Point2D.Double currentPoint,
@@ -28,10 +37,9 @@ public class SelectingVertexForOutline extends PickingVertex {
 		return super.onAct(context, currentPoint, freeSelection);
 	}
 
-
-
-
-	@Override
+	
+	
+    @Override
 	protected void onResult(PaintContext context) {
 		
 		Vector2d v = context.popVertex();
@@ -61,14 +69,6 @@ public class SelectingVertexForOutline extends PickingVertex {
         
 
 	}
-
-	
-	
-    private void closeTmpOutline(Collection<Vector2d> outlineVertices) {
-
-    	(new CloseTempOutline()).execute(outlineVertices);
-    	
-    }
     
 
     

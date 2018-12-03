@@ -30,8 +30,8 @@ public class CreasePattern implements Collection<OriLine> {
 	 */
 	private class CreasePatternIterator implements Iterator<OriLine> {
 
-		private Iterator<OriLine> lineIter;
 		private OriLine current;
+		private Iterator<OriLine> lineIter;
 
 		public CreasePatternIterator(Iterator<OriLine> iter) {
 			lineIter = iter;
@@ -63,8 +63,8 @@ public class CreasePattern implements Collection<OriLine> {
 	private static final long serialVersionUID = -6919017534440930379L;
 
 	private LineManager     lines;
-	private VerticesManager vertices;
 	private double paperSize = 400;
+	private VerticesManager vertices;
 	
 	@SuppressWarnings("unused")
 	private CreasePattern(){}
@@ -76,26 +76,6 @@ public class CreasePattern implements Collection<OriLine> {
 		this.paperSize = paperSize;
 	}
 	
-	public void changePaperSize(double paperSize) {
-		this.paperSize = paperSize;
-		vertices.changePaperSize(paperSize);
-	}
-
-	public double getPaperSize() {
-		return paperSize;
-	}
-	
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return lines.contains(o);
-	}
-
-	@Override
-	public int size() {
-		return lines.size();
-	}
-
 	@Override
 	public boolean add(OriLine e) {
 		if (lines.add(e)) {
@@ -107,16 +87,19 @@ public class CreasePattern implements Collection<OriLine> {
 	}
 
 	@Override
-	public boolean remove(Object o) {
-		OriLine l = (OriLine) o;
-
-		if (lines.remove(o)) {
-			vertices.remove(l.p0);
-			vertices.remove(l.p1);
-			return true;
+	public boolean addAll(Collection<? extends OriLine> c) {
+		
+		for(OriLine line : c){
+			vertices.add(line.p0);
+			vertices.add(line.p1);
 		}
-
-		return false;
+		
+		return lines.addAll(c);
+	}
+	
+	public void changePaperSize(double paperSize) {
+		this.paperSize = paperSize;
+		vertices.changePaperSize(paperSize);
 	}
 
 	@Override
@@ -125,16 +108,41 @@ public class CreasePattern implements Collection<OriLine> {
 		vertices.clear();
 	}
 
-
 	@Override
-	public Object[] toArray() {
+	public boolean contains(Object o) {
 		// TODO Auto-generated method stub
-		return lines.toArray();
+		return lines.contains(o);
 	}
 
 	@Override
-	public <T> T[] toArray(T[] a) {
-		return lines.toArray(a);
+	public boolean containsAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return lines.containsAll(c);
+	}
+
+	public double getPaperSize() {
+		return paperSize;
+	}
+
+
+	public Collection<Collection<Vector2d>> getVerticesArea(
+			double x, double y, double distance){
+		
+		return vertices.getArea(x, y, distance);
+	}
+
+	public Collection<Vector2d> getVerticesAround(Vector2d v){
+		return vertices.getAround(v);
+	}
+
+	/**
+	 * DO NOT USE THIS.
+	 * this is for junit.
+	 * @return
+	 */
+	@Deprecated
+	public VerticesManager getVerticesManager(){
+		return vertices;
 	}
 
 	@Override
@@ -156,20 +164,16 @@ public class CreasePattern implements Collection<OriLine> {
 	}
 
 	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return lines.containsAll(c);
-	}
+	public boolean remove(Object o) {
+		OriLine l = (OriLine) o;
 
-	@Override
-	public boolean addAll(Collection<? extends OriLine> c) {
-		
-		for(OriLine line : c){
-			vertices.add(line.p0);
-			vertices.add(line.p1);
+		if (lines.remove(o)) {
+			vertices.remove(l.p0);
+			vertices.remove(l.p1);
+			return true;
 		}
-		
-		return lines.addAll(c);
+
+		return false;
 	}
 
 	@Override
@@ -202,24 +206,20 @@ public class CreasePattern implements Collection<OriLine> {
 		return lines.retainAll(c);
 	}
 	
-	public Collection<Vector2d> getVerticesAround(Vector2d v){
-		return vertices.getAround(v);
+	@Override
+	public int size() {
+		return lines.size();
 	}
 
-	public Collection<Collection<Vector2d>> getVerticesArea(
-			double x, double y, double distance){
-		
-		return vertices.getArea(x, y, distance);
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return lines.toArray();
 	}
 
-	/**
-	 * DO NOT USE THIS.
-	 * this is for junit.
-	 * @return
-	 */
-	@Deprecated
-	public VerticesManager getVerticesManager(){
-		return vertices;
+	@Override
+	public <T> T[] toArray(T[] a) {
+		return lines.toArray(a);
 	}
 	
 }

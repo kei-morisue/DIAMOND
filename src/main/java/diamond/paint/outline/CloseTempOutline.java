@@ -32,7 +32,20 @@ public class CloseTempOutline {
 		}
 	}
 
-	public void execute(Collection<Vector2d> outlinevertices){
+	private Vector2d isOnTmpOutlineLoop(
+    		Collection<Vector2d> outlinevertices, Vector2d v) {
+
+    	return (new IsOnTempOutlineLoop()).execute(outlinevertices, v);
+    }
+
+    
+    private boolean isOutsideOfTmpOutlineLoop(    			
+    		Collection<Vector2d> outlinevertices, Vector2d v) {
+
+    	return(new IsOutsideOfTempOutlineLoop()).execute(outlinevertices, v);
+    }
+
+    public void execute(Collection<Vector2d> outlinevertices){
 
         CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
 
@@ -86,18 +99,5 @@ public class CloseTempOutline {
 
 
 	}
-
-    
-    private Vector2d isOnTmpOutlineLoop(
-    		Collection<Vector2d> outlinevertices, Vector2d v) {
-
-    	return (new IsOnTempOutlineLoop()).execute(outlinevertices, v);
-    }
-
-    private boolean isOutsideOfTmpOutlineLoop(    			
-    		Collection<Vector2d> outlinevertices, Vector2d v) {
-
-    	return(new IsOutsideOfTempOutlineLoop()).execute(outlinevertices, v);
-    }
 
 }

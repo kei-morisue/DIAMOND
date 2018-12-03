@@ -22,6 +22,14 @@ public class PaintActionButtonFactory implements ButtonFactory {
 
     PaintContext context = PaintContext.getInstance();
 
+    public AbstractButton create(Component parent,
+            Class<? extends AbstractButton> buttonClass, ResourceKey key,
+            String id) {
+        AbstractButton button = create(parent, buttonClass, id);
+        button.setText(ResourceHolder.getInstance().getString(key, id));
+        return button;
+    }
+
     /* (non-Javadoc)
      * @see oripa.bind.ButtonFactory#create(java.awt.Component, java.lang.Class, java.lang.String)
      */
@@ -42,14 +50,6 @@ public class PaintActionButtonFactory implements ButtonFactory {
         ApplicationStateButtonBinder paintBinder = new ApplicationStateButtonBinder();
         AbstractButton button = paintBinder.createButton(buttonClass, state,
                 id);
-        return button;
-    }
-
-    public AbstractButton create(Component parent,
-            Class<? extends AbstractButton> buttonClass, ResourceKey key,
-            String id) {
-        AbstractButton button = create(parent, buttonClass, id);
-        button.setText(ResourceHolder.getInstance().getString(key, id));
         return button;
     }
 }

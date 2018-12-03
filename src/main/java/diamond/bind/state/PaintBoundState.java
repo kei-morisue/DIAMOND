@@ -24,24 +24,10 @@ import diamond.viewsetting.main.ChangeHint;
  */
 public class PaintBoundState extends ApplicationState<EditMode> {
 
-	/**
-	 * set paint action and hint updater without error handler.
-	 * @param mouseAction paint action
-	 * @param textID  ID for hint.
-	 * @param actions additional actions.
-	 */
-	public PaintBoundState(GraphicMouseActionInterface mouseAction,
-			String textID,
-			ActionListener[] actions) {
-		super(mouseAction.getEditMode(), actions);
-		
-		addBasicListeners(mouseAction, textID);
-	}
+	private ErrorListener errorListener;
 
 	
 	private Component parent;
-	private ErrorListener errorListener;
-	
 	/**
 	 * set paint action and hint updater.
 	 * @param parent		a parent component
@@ -64,6 +50,20 @@ public class PaintBoundState extends ApplicationState<EditMode> {
 		this.parent = parent;
 		setErrorListener(el);
 	}
+	
+	/**
+	 * set paint action and hint updater without error handler.
+	 * @param mouseAction paint action
+	 * @param textID  ID for hint.
+	 * @param actions additional actions.
+	 */
+	public PaintBoundState(GraphicMouseActionInterface mouseAction,
+			String textID,
+			ActionListener[] actions) {
+		super(mouseAction.getEditMode(), actions);
+		
+		addBasicListeners(mouseAction, textID);
+	}
 
 	private void addBasicListeners(GraphicMouseActionInterface mouseAction, String textID){
 		
@@ -82,11 +82,6 @@ public class PaintBoundState extends ApplicationState<EditMode> {
 	}
 	
 	
-	public void setErrorListener(ErrorListener el){
-		errorListener = el;
-	}
-
-
 	/**
 	 * This method first detects error by {@code ErrorListener.isError()}.
 	 * Then {@code ErrorListener.onError()} is called if an error occurs.
@@ -103,5 +98,10 @@ public class PaintBoundState extends ApplicationState<EditMode> {
 		
 		super.performActions(e);
 		
+	}
+
+
+	public void setErrorListener(ErrorListener el){
+		errorListener = el;
 	}
 }

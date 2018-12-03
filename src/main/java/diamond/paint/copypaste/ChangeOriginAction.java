@@ -19,54 +19,16 @@ public class ChangeOriginAction extends GraphicMouseAction{
 
 	
 	@Override
-	public GraphicMouseActionInterface onLeftClick(PaintContext context,
-			AffineTransform affine, boolean keepDoing) {
-
-		return this;
-	}
-	
-	@Override
 	public void doAction(PaintContext context, Double point,
 			boolean differntAction) {
 
 	}
 	
 	@Override
-	public void undo(PaintContext context) {
-	}
-	
-	@Override
-	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		
-	}
-
-	@Override
 	public void onDrag(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		
 	}
-
-	@Override
-	public void onRelease(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		
-	}
-
-	@Override
-	public Vector2d onMove(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-		Vector2d closeVertex = GeometricOperation.pickVertexFromPickedLines(context);
-		context.pickCandidateV = closeVertex;
-		
-		if(closeVertex != null){
-			OriginHolder holder = OriginHolder.getInstance();
-			holder.setOrigin(closeVertex);
-		}
-		
-		return closeVertex;
-	}
-	
 	
 	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
@@ -82,5 +44,43 @@ public class ChangeOriginAction extends GraphicMouseAction{
 		}
 		
 		this.drawPickCandidateVertex(g2d, context);
+	}
+	
+	@Override
+	public GraphicMouseActionInterface onLeftClick(PaintContext context,
+			AffineTransform affine, boolean keepDoing) {
+
+		return this;
+	}
+
+	@Override
+	public Vector2d onMove(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		Vector2d closeVertex = GeometricOperation.pickVertexFromPickedLines(context);
+		context.pickCandidateV = closeVertex;
+		
+		if(closeVertex != null){
+			OriginHolder holder = OriginHolder.getInstance();
+			holder.setOrigin(closeVertex);
+		}
+		
+		return closeVertex;
+	}
+
+	@Override
+	public void onPress(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		
+	}
+
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+		
+	}
+	
+	
+	@Override
+	public void undo(PaintContext context) {
 	}
 }

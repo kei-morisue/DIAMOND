@@ -36,6 +36,52 @@ public class StateManager implements StateManagerInterface<EditMode>{
 	}
 
 	/**
+	 * pop previous state. It  will be set to current state.
+	 * @return previous state. null if empty.
+	 */
+	@Override
+	public ApplicationState<EditMode> pop(){
+		if(current == previous){
+			return null;
+		}
+
+		current = previous;
+		return current;
+	}
+
+	/**
+	 * for the action of "input" radio button.
+	 * the current state will be dropped to previous state.
+	 * @return state of the last input command
+	 */
+	public ApplicationState<EditMode> popLastInputCommand(){
+		if(current == lastInputCommand){
+			return null;
+		}
+		previous = current;
+		current = lastInputCommand;
+
+		return current;
+	}
+
+	/**
+	 * This method accepts INPUT only.
+	 * the current state will be dropped to previous state.
+	 * @param group ID.
+	 * @return last state of the group. 
+	 * {@code null} if {@code group} is not {@code oripa.paint.EditMode.INPUT}.
+	 */
+	@Override
+	public ApplicationState<EditMode> popLastOf(EditMode group) {
+		if(group != EditMode.INPUT){
+			return null;
+		}
+
+		return popLastInputCommand();
+
+	}
+
+	/**
 	 * push {@code s} as a new state to be held. 
 	 * the current state will be dropped to previous state.
 	 * @param s new state
@@ -61,52 +107,6 @@ public class StateManager implements StateManagerInterface<EditMode>{
 			}
 		}
 		current = s;
-	}
-
-	/**
-	 * pop previous state. It  will be set to current state.
-	 * @return previous state. null if empty.
-	 */
-	@Override
-	public ApplicationState<EditMode> pop(){
-		if(current == previous){
-			return null;
-		}
-
-		current = previous;
-		return current;
-	}
-
-	/**
-	 * This method accepts INPUT only.
-	 * the current state will be dropped to previous state.
-	 * @param group ID.
-	 * @return last state of the group. 
-	 * {@code null} if {@code group} is not {@code oripa.paint.EditMode.INPUT}.
-	 */
-	@Override
-	public ApplicationState<EditMode> popLastOf(EditMode group) {
-		if(group != EditMode.INPUT){
-			return null;
-		}
-
-		return popLastInputCommand();
-
-	}
-
-	/**
-	 * for the action of "input" radio button.
-	 * the current state will be dropped to previous state.
-	 * @return state of the last input command
-	 */
-	public ApplicationState<EditMode> popLastInputCommand(){
-		if(current == lastInputCommand){
-			return null;
-		}
-		previous = current;
-		current = lastInputCommand;
-
-		return current;
 	}
 
 }

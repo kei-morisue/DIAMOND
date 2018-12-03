@@ -10,14 +10,14 @@ public class SelectingFirstVertexForLine extends PickingVertex{
 	}
 	
 	@Override
-	public void undoAction(PaintContext context) {
-		context.clear(false);
-	}
-
-	@Override
 	public void onResult(PaintContext context) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void undoAction(PaintContext context) {
+		context.clear(false);
 	}
 
 	@Override

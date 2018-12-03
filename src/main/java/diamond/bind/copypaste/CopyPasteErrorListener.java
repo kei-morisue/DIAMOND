@@ -14,6 +14,11 @@ import diamond.value.OriLine;
 
 public class CopyPasteErrorListener implements ErrorListener {
 
+    private void showErrorMessage(Component parent, ActionEvent e) {
+        JOptionPane.showMessageDialog(parent, "Select target lines",
+                "Copy and Paste", JOptionPane.WARNING_MESSAGE);
+    }
+
     @Override
     public boolean isError(ActionEvent e) {
         Doc document = DocHolder.getInstance().getDoc();
@@ -26,11 +31,6 @@ public class CopyPasteErrorListener implements ErrorListener {
     @Override
     public void onError(Component parent, ActionEvent e) {
         showErrorMessage(parent, e);
-    }
-
-    private void showErrorMessage(Component parent, ActionEvent e) {
-        JOptionPane.showMessageDialog(parent, "Select target lines",
-                "Copy and Paste", JOptionPane.WARNING_MESSAGE);
     }
 
 }

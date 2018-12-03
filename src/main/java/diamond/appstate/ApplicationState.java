@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @param <GroupEnum> Enum of group identifier
  */
 public class ApplicationState<GroupEnum> implements GroupMember<GroupEnum> {
-	private final GroupEnum group;
-	
 	private ArrayList<ActionListener> actions = new ArrayList<ActionListener>();
 	// TODO: use a class different from ActionListener which performs with no parameters.
+	
+	private final GroupEnum group;
 	
 	/**
 	 * A constructor which binds a group and actions.
@@ -41,6 +41,11 @@ public class ApplicationState<GroupEnum> implements GroupMember<GroupEnum> {
 		
 	}
 	
+	@Override
+	public GroupEnum getGroup() {
+		return group;
+	}
+
 	/**
 	 * performs actions of this state.
 	 * 
@@ -54,11 +59,6 @@ public class ApplicationState<GroupEnum> implements GroupMember<GroupEnum> {
 		for(ActionListener action : actions){
 			action.actionPerformed(e);
 		}
-	}
-
-	@Override
-	public GroupEnum getGroup() {
-		return group;
 	}
 	
 }

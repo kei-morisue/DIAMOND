@@ -24,76 +24,32 @@ public class PaintContext {
     	return instance;
     }
     
-    private PaintContext(){}
+    private ArrayList<Vector2d> gridPoints;
     
     
 //--------------------------------------------------
     
+    private boolean isPasting = false;
+
+
+	private boolean missionCompleted = false;
+    private Point2D.Double mousePoint;	
+	
+	private Stack<OriLine> pickedLines = new Stack<>();
     private Stack<Vector2d> pickedVertices = new Stack<>();
 
-
-	private Stack<OriLine> pickedLines = new Stack<>();
-    private boolean isPasting = false;	
-	
-	public Vector2d pickCandidateV = new Vector2d();
+	public boolean dispGrid = true;
     public OriLine pickCandidateL = new OriLine();
 
-	public boolean dispGrid = true;
+    public Vector2d pickCandidateV = new Vector2d();
+    
     public double scale;
-
-    private ArrayList<Vector2d> gridPoints;
-    
-    private boolean missionCompleted = false;
     
     
-    private Point2D.Double mousePoint;
+    private PaintContext(){}
 
 
-    public Point2D.Double getLogicalMousePoint() {
-		return mousePoint;
-	}
-
-    public boolean isPasting() {
-		return isPasting;
-	}
-
-	public void startPasting() {
-		this.isPasting = true;
-	}
-	
-	public void finishPasting() {
-		this.isPasting = false;
-	}
-	
-
-	public void setLogicalMousePoint(Point2D.Double logicalPoint) {
-		this.mousePoint = logicalPoint;
-	}
-
-	public void set(double scale, boolean dispGrid){
-    	this.scale = scale;
-    	this.dispGrid = dispGrid;
-    }
-
-	public Collection<Vector2d> updateGrids(int gridDivNum){
-		gridPoints = new ArrayList<>();
-		double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
-
-        double step = paperSize / gridDivNum;
-        for (int ix = 0; ix < PaintConfig.gridDivNum + 1; ix++) {
-            for (int iy = 0; iy < gridDivNum + 1; iy++) {
-                double x = -paperSize / 2 + step * ix;
-                double y = -paperSize / 2 + step * iy;
-                
-                gridPoints.add(new Vector2d(x, y));
-            }
-        }
-
-        return gridPoints;
-	}
-	
-
-	/**
+    /**
 	 * remove all lines and all vertices in this context.
 	 * 
 	 * @param unselect	true if the removed lines should be marked as unselected.
@@ -117,50 +73,58 @@ public class PaintContext {
     	missionCompleted = false;
     }
 
-   
-    
-    public boolean isMissionCompleted() {
-		return missionCompleted;
-	}
-
-	public void setMissionCompleted(boolean missionCompleted) {
-		this.missionCompleted = missionCompleted;
-	}
-
-	public Stack<Vector2d> getVertices() {
-		return pickedVertices;
-	}
-    
-    public Stack<OriLine> getLines() {
-		return pickedLines;
+    public void finishPasting() {
+		this.isPasting = false;
 	}
 
 	public OriLine getLine(int index){
     	return pickedLines.get(index);
     }
-    
-    
-    public Vector2d getVertex(int index){
+	
+	public int getLineCount(){
+    	return pickedLines.size();
+    }
+	
+
+	public Stack<OriLine> getLines() {
+		return pickedLines;
+	}
+
+	public Point2D.Double getLogicalMousePoint() {
+		return mousePoint;
+	}
+
+	public Vector2d getVertex(int index){
     	return pickedVertices.get(index);
     }
-    
-    public void pushVertex(Vector2d picked){
-    	pickedVertices.push(picked);
-    }
-    	    
-    public void pushLine(OriLine picked){
-    //	picked.selected = true;
-    	pickedLines.push(picked);
-    }
-    
-    public Vector2d popVertex(){
-    	if(pickedVertices.empty()){
-    		return null;
-    	}
+	
 
-    	return pickedVertices.pop();
+	public int getVertexCount(){
+    	return pickedVertices.size();
     }
 
+   
+    
+    public Stack<Vector2d> getVertices() {
+		return pickedVertices;
+	}
+
+	public boolean isMissionCompleted() {
+		return missionCompleted;
+	}
+
+	public boolean isPasting() {
+		return isPasting;
+	}
+    
+    public OriLine peekLine(){
+    	return pickedLines.peek();
+    }
+
+	public Vector2d peekVertex(){
+    	return pickedVertices.peek();
+    }
+    
     
     /**
      * pop the last pushed line and mark it unselected.
@@ -176,6 +140,24 @@ public class PaintContext {
     	return line;
     }
     
+    public Vector2d popVertex(){
+    	if(pickedVertices.empty()){
+    		return null;
+    	}
+
+    	return pickedVertices.pop();
+    }
+    	    
+    public void pushLine(OriLine picked){
+    //	picked.selected = true;
+    	pickedLines.push(picked);
+    }
+    
+    public void pushVertex(Vector2d picked){
+    	pickedVertices.push(picked);
+    }
+
+    
     /**
      * performs the same as {@code Vector.remove(Object o)}.
      * @param line
@@ -186,21 +168,39 @@ public class PaintContext {
     	return pickedLines.remove(line);
     }
     
-    public Vector2d peekVertex(){
-    	return pickedVertices.peek();
+    public void set(double scale, boolean dispGrid){
+    	this.scale = scale;
+    	this.dispGrid = dispGrid;
     }
     
-    public OriLine peekLine(){
-    	return pickedLines.peek();
-    }
+    public void setLogicalMousePoint(Point2D.Double logicalPoint) {
+		this.mousePoint = logicalPoint;
+	}
+    
+    public void setMissionCompleted(boolean missionCompleted) {
+		this.missionCompleted = missionCompleted;
+	}
 
-    public int getLineCount(){
-    	return pickedLines.size();
-    }
+    public void startPasting() {
+		this.isPasting = true;
+	}
 
-    public int getVertexCount(){
-    	return pickedVertices.size();
-    }
+    public Collection<Vector2d> updateGrids(int gridDivNum){
+		gridPoints = new ArrayList<>();
+		double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+
+        double step = paperSize / gridDivNum;
+        for (int ix = 0; ix < PaintConfig.gridDivNum + 1; ix++) {
+            for (int iy = 0; iy < gridDivNum + 1; iy++) {
+                double x = -paperSize / 2 + step * ix;
+                double y = -paperSize / 2 + step * iy;
+                
+                gridPoints.add(new Vector2d(x, y));
+            }
+        }
+
+        return gridPoints;
+	}
 
 
 }

@@ -10,37 +10,12 @@ import diamond.paint.core.PickingVertex;
 
 public class SelectingVertexForAngle extends PickingVertex{
 	
+	private boolean doingFirstAction = true;
+	
 	public SelectingVertexForAngle(){
 		super();
 	}
-	
-	@Override
-	protected void initialize() {
-	}
 
-
-	private boolean doingFirstAction = true;
-	@Override
-	protected boolean onAct(PaintContext context, Double currentPoint,
-			boolean doSpecial) {
-		
-		context.setMissionCompleted(false);
-		
-		if(doingFirstAction){
-			DocHolder.getInstance().getDoc().cacheUndoInfo();
-			doingFirstAction = false;
-		}
-		
-		boolean result = super.onAct(context, currentPoint, doSpecial);
-		
-		if(result == true){
-			if(context.getVertexCount() < 3){
-				result = false;
-			}
-		}
-		
-		return result;
-	}
 
 	@Override
 	public void onResult(PaintContext context) {
@@ -68,6 +43,31 @@ public class SelectingVertexForAngle extends PickingVertex{
         context.clear(false);
 
         context.setMissionCompleted(true);
+	}
+	@Override
+	protected void initialize() {
+	}
+
+	@Override
+	protected boolean onAct(PaintContext context, Double currentPoint,
+			boolean doSpecial) {
+		
+		context.setMissionCompleted(false);
+		
+		if(doingFirstAction){
+			DocHolder.getInstance().getDoc().cacheUndoInfo();
+			doingFirstAction = false;
+		}
+		
+		boolean result = super.onAct(context, currentPoint, doSpecial);
+		
+		if(result == true){
+			if(context.getVertexCount() < 3){
+				result = false;
+			}
+		}
+		
+		return result;
 	}
 
 	

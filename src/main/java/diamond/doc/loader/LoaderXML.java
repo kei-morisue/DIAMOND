@@ -30,23 +30,7 @@ import diamond.file.FileVersionError;
 
 public class LoaderXML implements Loader{
 
-    public DataSet loadAsDataSet(String filePath) {
-        DataSet dataset;
-        try {
-            XMLDecoder dec = new XMLDecoder(
-                    new BufferedInputStream(
-                    new FileInputStream(filePath)));
-            dataset = (DataSet) dec.readObject();
-            dec.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return dataset;
-    }
-
-	@Override
+    @Override
 	public Doc load(String filePath) throws FileVersionError {
 		
 		Doc doc = new Doc();
@@ -63,4 +47,20 @@ public class LoaderXML implements Loader{
 		
 		return doc;
 	}
+
+	public DataSet loadAsDataSet(String filePath) {
+        DataSet dataset;
+        try {
+            XMLDecoder dec = new XMLDecoder(
+                    new BufferedInputStream(
+                    new FileInputStream(filePath)));
+            dataset = (DataSet) dec.readObject();
+            dec.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return dataset;
+    }
 }

@@ -39,49 +39,6 @@ public class LineAdder {
 
 
 	/**
-	 * 
-	 * @param inputLine
-	 * @param currentLines
-	 * @return true.
-	 */
-	private boolean divideCurrentLines(OriLine inputLine, Collection<OriLine> currentLines){
-
-		LinkedList<OriLine> toBeAdded = new LinkedList<>();
-
-		// intersection of (aux input, other type lines) are rejected
-		for (Iterator<OriLine> iterator = currentLines.iterator(); iterator.hasNext();) {
-			OriLine line = iterator.next();
-
-            if (inputLine.typeVal == OriLine.TYPE_NONE && line.typeVal != OriLine.TYPE_NONE) {
-                continue;
-            }
-            
-			Vector2d crossPoint = GeomUtil.getCrossPoint(inputLine, line);
-			if (crossPoint == null) {
-				continue;
-			}
-
-			iterator.remove();
-
-			if (GeomUtil.Distance(line.p0, crossPoint) > CalculationResource.POINT_EPS) {
-				toBeAdded.add(new OriLine(line.p0, crossPoint, line.typeVal));
-			}
-
-			if (GeomUtil.Distance(line.p1, crossPoint) > CalculationResource.POINT_EPS) {
-				toBeAdded.add(new OriLine(line.p1, crossPoint, line.typeVal));
-			}
-
-			//crossingLines.add(line);
-		}
-
-		for(OriLine line : toBeAdded){
-			currentLines.add(line);
-		}
-
-		return true;
-	}
-
-	/**
 	 * Input line should be divided by other lines. This function returns end points of such new small lines.
 	 * @param inputLine
 	 * @param currentLines
@@ -126,7 +83,61 @@ public class LineAdder {
 
 		return points;
 	}
+
+	/**
+	 * 
+	 * @param inputLine
+	 * @param currentLines
+	 * @return true.
+	 */
+	private boolean divideCurrentLines(OriLine inputLine, Collection<OriLine> currentLines){
+
+		LinkedList<OriLine> toBeAdded = new LinkedList<>();
+
+		// intersection of (aux input, other type lines) are rejected
+		for (Iterator<OriLine> iterator = currentLines.iterator(); iterator.hasNext();) {
+			OriLine line = iterator.next();
+
+            if (inputLine.typeVal == OriLine.TYPE_NONE && line.typeVal != OriLine.TYPE_NONE) {
+                continue;
+            }
+            
+			Vector2d crossPoint = GeomUtil.getCrossPoint(inputLine, line);
+			if (crossPoint == null) {
+				continue;
+			}
+
+			iterator.remove();
+
+			if (GeomUtil.Distance(line.p0, crossPoint) > CalculationResource.POINT_EPS) {
+				toBeAdded.add(new OriLine(line.p0, crossPoint, line.typeVal));
+			}
+
+			if (GeomUtil.Distance(line.p1, crossPoint) > CalculationResource.POINT_EPS) {
+				toBeAdded.add(new OriLine(line.p1, crossPoint, line.typeVal));
+			}
+
+			//crossingLines.add(line);
+		}
+
+		for(OriLine line : toBeAdded){
+			currentLines.add(line);
+		}
+
+		return true;
+	}
 	
+	/**
+	 * 
+	 * @param lines        lines to be added
+	 * @param destination  collection as a destination
+	 */
+	public void addAll(Collection<OriLine> lines, Collection<OriLine> destination) {
+		for (OriLine line : lines) {
+			addLine(line, destination);
+		}
+	}
+
 	/**
 	 * Adds a new OriLine, also searching for intersections with others 
 	 * that would cause their mutual division
@@ -173,16 +184,5 @@ public class LineAdder {
 			prePoint = p;
 		}
 
-	}
-
-	/**
-	 * 
-	 * @param lines        lines to be added
-	 * @param destination  collection as a destination
-	 */
-	public void addAll(Collection<OriLine> lines, Collection<OriLine> destination) {
-		for (OriLine line : lines) {
-			addLine(line, destination);
-		}
 	}
 }

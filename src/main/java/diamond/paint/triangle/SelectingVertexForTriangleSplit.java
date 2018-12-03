@@ -12,16 +12,32 @@ import diamond.value.OriLine;
 
 public class SelectingVertexForTriangleSplit extends PickingVertex{
 	
+	private boolean doingFirstAction = true;
+	
 	public SelectingVertexForTriangleSplit(){
 		super();
 	}
-	
+
+
+	@Override
+	public void onResult(PaintContext context) {
+		Doc document = DocHolder.getInstance().getDoc();
+		Collection<OriLine> creasePattern = document.getCreasePattern();
+		
+		document.pushCachedUndoInfo();
+
+		Painter painter = new Painter();
+		painter.addTriangleDivideLines(
+				context.getVertex(0), context.getVertex(1), context.getVertex(2),
+				creasePattern);
+
+        doingFirstAction = true;
+        context.clear(false);
+	}
 	@Override
 	protected void initialize() {
 	}
 
-
-	private boolean doingFirstAction = true;
 	@Override
 	protected boolean onAct(PaintContext context, Double currentPoint,
 			boolean doSpecial) {
@@ -40,22 +56,6 @@ public class SelectingVertexForTriangleSplit extends PickingVertex{
 		}
 		
 		return result;
-	}
-
-	@Override
-	public void onResult(PaintContext context) {
-		Doc document = DocHolder.getInstance().getDoc();
-		Collection<OriLine> creasePattern = document.getCreasePattern();
-		
-		document.pushCachedUndoInfo();
-
-		Painter painter = new Painter();
-		painter.addTriangleDivideLines(
-				context.getVertex(0), context.getVertex(1), context.getVertex(2),
-				creasePattern);
-
-        doingFirstAction = true;
-        context.clear(false);
 	}
 
 	

@@ -4,8 +4,8 @@ import java.util.ListResourceBundle;
 
 public class ExplanationStringResource_en extends ListResourceBundle{
     
-	private static final String SELECT_LINE_TEXT = "Select/UnSelect Lines by Left Click or Left Drag";
 	private static final String COPY_PASTE_TEXT = "Left Click for Paste. [Ctrl] allows you to change the origin of pasting.";
+	private static final String SELECT_LINE_TEXT = "Select/UnSelect Lines by Left Click or Left Drag";
 
 	static final Object[][] strings = { 
     { StringID.DIRECT_V_ID, "Specify two end points.[Ctrl] allows to pick any point on an edge." }, 

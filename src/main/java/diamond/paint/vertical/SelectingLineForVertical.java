@@ -19,14 +19,6 @@ public class SelectingLineForVertical extends PickingLine {
 	
 	
 	@Override
-	protected void undoAction(PaintContext context) {
-		context.clear(false);
-	
-	}
-
-	
-
-	@Override
 	protected void onResult(PaintContext context) {
 		if(context.getLineCount() != 1 || 
 				context.getVertexCount() != 1){
@@ -40,6 +32,14 @@ public class SelectingLineForVertical extends PickingLine {
         DocHolder.getInstance().getDoc().addLine(vl);
 
         context.clear(false);
+	}
+
+	
+
+	@Override
+	protected void undoAction(PaintContext context) {
+		context.clear(false);
+	
 	}
 
 }

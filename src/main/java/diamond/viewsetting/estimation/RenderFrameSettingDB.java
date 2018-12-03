@@ -4,14 +4,10 @@ import diamond.viewsetting.ViewSettingDataBase;
 
 public class RenderFrameSettingDB extends ViewSettingDataBase{
 
-	private boolean frameVisible;
-	
-	
-	
-	
 	private static RenderFrameSettingDB instance = null;
-
-	private RenderFrameSettingDB(){}
+	
+	
+	
 	
 	public static RenderFrameSettingDB getInstance(){
 		if(instance == null){
@@ -20,11 +16,20 @@ public class RenderFrameSettingDB extends ViewSettingDataBase{
 		
 		return instance;
 	}
+
+	private boolean frameVisible;
+	
+	private RenderFrameSettingDB(){}
 	
 	
 
 
 
+
+	@Override
+	public String getName() {
+		return this.getClass().getName();
+	}
 
 	public boolean isFrameVisible() {
 		return frameVisible;
@@ -33,10 +38,5 @@ public class RenderFrameSettingDB extends ViewSettingDataBase{
 	public void setFrameVisible(boolean frameVisible) {
 		this.frameVisible = frameVisible;
 		this.setChanged();
-	}
-
-	@Override
-	public String getName() {
-		return this.getClass().getName();
 	}
 }

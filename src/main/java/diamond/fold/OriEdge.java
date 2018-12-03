@@ -21,10 +21,10 @@ package diamond.fold;
 
 public class OriEdge {
 
-    public OriVertex sv = null;
     public OriVertex ev = null;
     public OriHalfedge left = null;
     public OriHalfedge right = null;
+    public OriVertex sv = null;
     public int type = 0;
 
     public OriEdge() {

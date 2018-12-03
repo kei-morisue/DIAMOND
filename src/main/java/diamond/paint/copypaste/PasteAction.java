@@ -20,9 +20,16 @@ import diamond.value.OriLine;
 public class PasteAction extends GraphicMouseAction {
 
 
+	private OriginHolder originHolder = OriginHolder.getInstance();
+
 	private FilledOriLineArrayList shiftedLines = new FilledOriLineArrayList(0);
 
-	private OriginHolder originHolder = OriginHolder.getInstance();
+
+	double diffX, diffY;
+
+
+	Line2D.Double g2dLine = new Line2D.Double();
+
 
 
 	public PasteAction(){
@@ -32,27 +39,6 @@ public class PasteAction extends GraphicMouseAction {
 		setActionState(new PastingOnVertex());
 
 	}
-
-
-	@Override
-	public void recover(PaintContext context) {
-		context.clear(false);
-
-
-		context.startPasting();
-
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
-
-		for(OriLine line : creasePattern){
-			if(line.selected){
-				context.pushLine(line);
-			}
-		}
-
-		shiftedLines = new FilledOriLineArrayList(context.getLines());
-
-	}
-
 
 
 	/**
@@ -72,53 +58,6 @@ public class PasteAction extends GraphicMouseAction {
 	}
 
 
-	@Override
-	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
-
-
-	}
-
-
-	@Override
-	public Vector2d onMove(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-
-		// vertex-only super's action
-		setCandidateVertexOnMove(context, differentAction);
-		Vector2d closeVertex = context.pickCandidateV;
-
-
-		Vector2d closeVertexOfLines = 
-				GeometricOperation.pickVertexFromPickedLines(context);
-
-		if(closeVertex == null){
-			closeVertex = closeVertexOfLines;
-		}
-
-
-		Point2D.Double current = context.getLogicalMousePoint();
-		if(closeVertex != null && closeVertexOfLines != null){
-			// get the nearest to current
-			closeVertex = NearestVertexFinder.findNearestOf(
-					current, closeVertex, closeVertexOfLines);
-
-		}
-
-		context.pickCandidateV = closeVertex;
-
-//		if (context.getLineCount() > 0) {
-//			if(closeVertex == null) {
-//				closeVertex = new Vector2d(current.x, current.y);
-//			}
-//
-//		}		
-		return closeVertex;
-	}
-
-
-
-	Line2D.Double g2dLine = new Line2D.Double();
-	double diffX, diffY;
 	@Override
 	public void onDraw(Graphics2D g2d, PaintContext context) {
 
@@ -170,9 +109,70 @@ public class PasteAction extends GraphicMouseAction {
 
 	}
 
+
+
+	@Override
+	public Vector2d onMove(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+
+		// vertex-only super's action
+		setCandidateVertexOnMove(context, differentAction);
+		Vector2d closeVertex = context.pickCandidateV;
+
+
+		Vector2d closeVertexOfLines = 
+				GeometricOperation.pickVertexFromPickedLines(context);
+
+		if(closeVertex == null){
+			closeVertex = closeVertexOfLines;
+		}
+
+
+		Point2D.Double current = context.getLogicalMousePoint();
+		if(closeVertex != null && closeVertexOfLines != null){
+			// get the nearest to current
+			closeVertex = NearestVertexFinder.findNearestOf(
+					current, closeVertex, closeVertexOfLines);
+
+		}
+
+		context.pickCandidateV = closeVertex;
+
+//		if (context.getLineCount() > 0) {
+//			if(closeVertex == null) {
+//				closeVertex = new Vector2d(current.x, current.y);
+//			}
+//
+//		}		
+		return closeVertex;
+	}
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
+	}
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
+
+
+	}
+
+	@Override
+	public void recover(PaintContext context) {
+		context.clear(false);
+
+
+		context.startPasting();
+
+        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+
+		for(OriLine line : creasePattern){
+			if(line.selected){
+				context.pushLine(line);
+			}
+		}
+
+		shiftedLines = new FilledOriLineArrayList(context.getLines());
+
 	}
 
 

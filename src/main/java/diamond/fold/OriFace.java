@@ -31,29 +31,92 @@ import diamond.value.OriLine;
 
 public class OriFace {
 
+    public boolean alreadyStacked = false;
+    public Color color;
+    public ArrayList<Integer> condition2s = new ArrayList<>();
+    public ArrayList<Condition3> condition3s = new ArrayList<>();
+    public ArrayList<Condition4> condition4s = new ArrayList<>();
+    public boolean faceFront = true;
     public ArrayList<OriHalfedge> halfedges = new ArrayList<>();
+    public boolean hasProblem = false;
+    public int intColor;
     public GeneralPath outline = new GeneralPath();
     public GeneralPath preOutline = new GeneralPath();
     public boolean selected = false;
-    public boolean faceFront = true;
-    public Color color;
     public boolean tmpFlg = false;
-    public int z_order = 0;
-    public int tmpInt2 = 0;
     public int tmpInt = 0;
-    public boolean hasProblem = false;
-    public boolean alreadyStacked = false;
+    public int tmpInt2 = 0;
     public ArrayList<TriangleFace> triangles = new ArrayList<>();
-    public int intColor;
-    public ArrayList<Condition4> condition4s = new ArrayList<>();
-    public ArrayList<Condition3> condition3s = new ArrayList<>();
-    public ArrayList<Integer> condition2s = new ArrayList<>();
+    public int z_order = 0;
 
     public OriFace() {
         int r = (int) (Math.random() * 255);
         int g = (int) (Math.random() * 255);
         int b = (int) (Math.random() * 255);
         color = new Color(r, g, b);
+    }
+
+    public Vector2d getCenter() {
+        Vector2d centerVec = new Vector2d();
+        for (OriHalfedge he : halfedges) {
+            centerVec.add(he.vertex.preP);
+        }
+        centerVec.scale(1.0 / halfedges.size());
+        return centerVec;
+    }
+
+    public void makeHalfedgeLoop() {
+        int heNum = halfedges.size();
+        for (int i = 0; i < heNum; i++) {
+            OriHalfedge pre_he = halfedges.get((i - 1 + heNum) % heNum);
+            OriHalfedge he = halfedges.get(i);
+            OriHalfedge nxt_he = halfedges.get((i + 1) % heNum);
+
+            he.next = nxt_he;
+            he.prev = pre_he;
+        }
+    }
+
+    public void printInfo() {
+        System.out.println("OriFace");
+        for (OriHalfedge he : halfedges) {
+            System.out.println(he.vertex.p);
+        }
+    }
+
+    public void setOutline() {
+        outline.reset();
+        outline.moveTo((float) (halfedges.get(0).positionForDisplay.x),
+                (float) (halfedges.get(0).positionForDisplay.y));
+        for (int i = 1; i < halfedges.size(); i++) {
+            outline.lineTo((float) (halfedges.get(i).positionForDisplay.x),
+                    (float) (halfedges.get(i).positionForDisplay.y));
+        }
+        outline.closePath();
+    }
+
+    public void setPreOutline() {
+        preOutline.reset();
+        Vector2d centerP = new Vector2d();
+        for (OriHalfedge he : halfedges) {
+            centerP.add(he.vertex.preP);
+        }
+        centerP.scale(1.0 / halfedges.size());
+        double rate = 0.5;
+
+        preOutline.moveTo(
+                (float) (halfedges.get(0).vertex.preP.x * rate + centerP.x
+                        * (1.0 - rate)),
+                (float) (halfedges.get(0).vertex.preP.y * rate + centerP.y
+                        * (1.0 - rate)));
+        for (int i = 1; i < halfedges.size(); i++) {
+            preOutline.lineTo(
+                    (float) (halfedges.get(i).vertex.preP.x * rate + centerP.x
+                            * (1.0 - rate)),
+                    (float) (halfedges.get(i).vertex.preP.y * rate + centerP.y
+                            * (1.0 - rate)));
+        }
+        preOutline.closePath();
     }
 
     public void trianglateAndSetColor(boolean bUseColor, boolean bFlip) {
@@ -144,68 +207,5 @@ public class OriFace {
                             / paperSize + 0.5);
             triangles.add(tri);
         }
-    }
-
-    public void makeHalfedgeLoop() {
-        int heNum = halfedges.size();
-        for (int i = 0; i < heNum; i++) {
-            OriHalfedge pre_he = halfedges.get((i - 1 + heNum) % heNum);
-            OriHalfedge he = halfedges.get(i);
-            OriHalfedge nxt_he = halfedges.get((i + 1) % heNum);
-
-            he.next = nxt_he;
-            he.prev = pre_he;
-        }
-    }
-
-    public void printInfo() {
-        System.out.println("OriFace");
-        for (OriHalfedge he : halfedges) {
-            System.out.println(he.vertex.p);
-        }
-    }
-
-    public void setOutline() {
-        outline.reset();
-        outline.moveTo((float) (halfedges.get(0).positionForDisplay.x),
-                (float) (halfedges.get(0).positionForDisplay.y));
-        for (int i = 1; i < halfedges.size(); i++) {
-            outline.lineTo((float) (halfedges.get(i).positionForDisplay.x),
-                    (float) (halfedges.get(i).positionForDisplay.y));
-        }
-        outline.closePath();
-    }
-
-    public void setPreOutline() {
-        preOutline.reset();
-        Vector2d centerP = new Vector2d();
-        for (OriHalfedge he : halfedges) {
-            centerP.add(he.vertex.preP);
-        }
-        centerP.scale(1.0 / halfedges.size());
-        double rate = 0.5;
-
-        preOutline.moveTo(
-                (float) (halfedges.get(0).vertex.preP.x * rate + centerP.x
-                        * (1.0 - rate)),
-                (float) (halfedges.get(0).vertex.preP.y * rate + centerP.y
-                        * (1.0 - rate)));
-        for (int i = 1; i < halfedges.size(); i++) {
-            preOutline.lineTo(
-                    (float) (halfedges.get(i).vertex.preP.x * rate + centerP.x
-                            * (1.0 - rate)),
-                    (float) (halfedges.get(i).vertex.preP.y * rate + centerP.y
-                            * (1.0 - rate)));
-        }
-        preOutline.closePath();
-    }
-
-    public Vector2d getCenter() {
-        Vector2d centerVec = new Vector2d();
-        for (OriHalfedge he : halfedges) {
-            centerVec.add(he.vertex.preP);
-        }
-        centerVec.scale(1.0 / halfedges.size());
-        return centerVec;
     }
 }

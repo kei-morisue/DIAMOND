@@ -41,6 +41,20 @@ public class SymmetricalLineAction extends GraphicMouseAction {
 
 
 	@Override
+	public void onDrag(PaintContext context, AffineTransform affine, boolean differentAction) {
+
+	}
+
+	@Override
+	public void onDraw(Graphics2D g2d, PaintContext context) {
+
+		super.onDraw(g2d, context);
+
+
+		drawPickCandidateVertex(g2d, context);
+	}
+
+	@Override
 	public Vector2d onMove(
 			PaintContext context, AffineTransform affine, boolean differentAction) {
 
@@ -52,33 +66,19 @@ public class SymmetricalLineAction extends GraphicMouseAction {
 		return super.onMove(context, affine, false);
 	}
 
-	@Override
-	public void onDrag(PaintContext context, AffineTransform affine, boolean differentAction) {
-
-	}
-
-	@Override
-	public void onRelease(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-
-	}
-
-
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
-
-		super.onDraw(g2d, context);
-
-
-		drawPickCandidateVertex(g2d, context);
-	}
-
-
 
 	@Override
 	public void onPress(PaintContext context, AffineTransform affine,
 			boolean differentAction) {
 		
+	}
+
+
+
+	@Override
+	public void onRelease(PaintContext context, AffineTransform affine,
+			boolean differentAction) {
+
 	}
 
 }

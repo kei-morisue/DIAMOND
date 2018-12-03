@@ -5,14 +5,10 @@ import diamond.viewsetting.ViewSettingDataBase;
 public class MainScreenSettingDB extends ViewSettingDataBase{
 
 	
-	private boolean gridVisible = true;
-
-
 	// ---------
 	private static MainScreenSettingDB instance = null;
 
-	private MainScreenSettingDB(){}
-	
+
 	public static MainScreenSettingDB getInstance(){
 		if(instance == null){
 			instance = new MainScreenSettingDB();
@@ -20,6 +16,10 @@ public class MainScreenSettingDB extends ViewSettingDataBase{
 		
 		return instance;
 	}
+
+	private boolean gridVisible = true;
+	
+	private MainScreenSettingDB(){}
 
 //	public static final String REDRAW_REQUESTED = "redraw requested";
 //	public void requestRedraw(){

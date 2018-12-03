@@ -24,22 +24,34 @@ import javax.vecmath.Vector2d;
 
 public class OriVertex {
 
+    public ArrayList<OriEdge> edges = new ArrayList<>();
+    public boolean hasProblem = false;
     public Vector2d p = new Vector2d();
     public Vector2d preP = new Vector2d();
-    public Vector2d tmpVec = new Vector2d();
-    public ArrayList<OriEdge> edges = new ArrayList<>();
     public boolean tmpFlg = false;
-    public boolean hasProblem = false;
     public int tmpInt = 0;
+    public Vector2d tmpVec = new Vector2d();
+
+    public OriVertex(double x, double y) {
+        p.set(x, y);
+        preP.set(p);
+    }
 
     public OriVertex(Vector2d p) {
         this.p.set(p);
         preP.set(p);
     }
 
-    public OriVertex(double x, double y) {
-        p.set(x, y);
-        preP.set(p);
+    private double getAngle(OriEdge edge) {
+        Vector2d dir = new Vector2d();
+        if (edge.sv == this) {
+            dir.set(edge.ev.p.x - this.p.x, edge.ev.p.y - this.p.y);
+        } else {
+            dir.set(edge.sv.p.x - this.p.x, edge.sv.p.y - this.p.y);
+        }
+
+        return Math.atan2(dir.y, dir.x);
+
     }
 
     // To store and sort in a clockwise direction
@@ -59,18 +71,6 @@ public class OriVertex {
         if (!added) {
             edges.add(edge);
         }
-
-    }
-
-    private double getAngle(OriEdge edge) {
-        Vector2d dir = new Vector2d();
-        if (edge.sv == this) {
-            dir.set(edge.ev.p.x - this.p.x, edge.ev.p.y - this.p.y);
-        } else {
-            dir.set(edge.sv.p.x - this.p.x, edge.sv.p.y - this.p.y);
-        }
-
-        return Math.atan2(dir.y, dir.x);
 
     }
 

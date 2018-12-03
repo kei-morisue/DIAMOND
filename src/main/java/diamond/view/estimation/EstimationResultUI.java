@@ -45,16 +45,16 @@ import diamond.view.main.MainFrame;
 public class EstimationResultUI extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private JButton jButtonExport = null;
     private JButton jButtonNextAnswer = null;
     private JButton jButtonPrevAnswer = null;
-    private JCheckBox jCheckBoxOrder = null;
-    private JCheckBox jCheckBoxShadow = null;
-    private JLabel jLabel = null;
-    private FoldedModelScreen screen;
-    private JCheckBox jCheckBoxUseColor = null;
     private JCheckBox jCheckBoxEdge = null;
     private JCheckBox jCheckBoxFillFace = null;
-    private JButton jButtonExport = null;
+    private JCheckBox jCheckBoxOrder = null;
+    private JCheckBox jCheckBoxShadow = null;
+    private JCheckBox jCheckBoxUseColor = null;
+    private JLabel jLabel = null;
+    private FoldedModelScreen screen;
 
     /**
      * This is the default constructor
@@ -62,224 +62,6 @@ public class EstimationResultUI extends JPanel {
     public EstimationResultUI() {
         super();
         initialize();
-    }
-
-    public void setScreen(FoldedModelScreen s) {
-        screen = s;
-    }
-
-    /**
-     * This method initializes this
-     *
-     * @return void
-     */
-    private void initialize() {
-        jLabel = new JLabel();
-        jLabel.setBounds(new Rectangle(15, 45, 181, 16));
-        this.setLayout(null);
-        this.setSize(216, 256);
-        this.setPreferredSize(new Dimension(216, 200));
-        this.add(getJButtonPrevAnswer(), null);
-        this.add(getJCheckBoxOrder(), null);
-        this.add(getJButtonNextAnswer(), null);
-        this.add(getJCheckBoxShadow(), null);
-        this.add(jLabel, null);
-        this.add(getJCheckBoxUseColor(), null);
-        this.add(getJCheckBoxEdge(), null);
-        this.add(getJCheckBoxFillFace(), null);
-        this.add(getJButtonExport(), null);
-        updateLabel();
-    }
-
-    public void updateLabel() {
-        Doc document = DocHolder.getInstance().getDoc();
-        FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
-
-        List<int[][]> foldableOverlapRelations = foldedModelInfo
-                .getFoldableOverlapRelations();
-
-        jLabel.setText("Folded model ["
-                + (foldedModelInfo.getCurrentORmatIndex() + 1) + "/"
-                + foldableOverlapRelations.size() + "]");
-
-    }
-
-    /**
-     * This method initializes jButtonNextAnswer
-     *
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonNextAnswer() {
-
-        if (jButtonNextAnswer == null) {
-            jButtonNextAnswer = new JButton();
-            jButtonNextAnswer.setText("Next");
-            jButtonNextAnswer.setBounds(new Rectangle(109, 4, 87, 27));
-
-            jButtonNextAnswer
-                    .addActionListener(new java.awt.event.ActionListener() {
-
-                        @Override
-                        public void actionPerformed(
-                                java.awt.event.ActionEvent e) {
-                            Doc document = DocHolder.getInstance().getDoc();
-                            FoldedModelInfo foldedModelInfo = document
-                                    .getFoldedModelInfo();
-                            foldedModelInfo.setNextORMat();
-                            screen.redrawOrigami();
-                            updateLabel();
-                        }
-                    });
-        }
-        return jButtonNextAnswer;
-    }
-
-    /**
-     * This method initializes jButtonPrevAnswer
-     *
-     * @return javax.swing.JButton
-     */
-    private JButton getJButtonPrevAnswer() {
-        if (jButtonPrevAnswer == null) {
-            jButtonPrevAnswer = new JButton();
-            jButtonPrevAnswer.setText("Prev");
-            jButtonPrevAnswer.setBounds(new Rectangle(15, 4, 89, 27));
-
-            jButtonPrevAnswer
-                    .addActionListener(new java.awt.event.ActionListener() {
-
-                        @Override
-                        public void actionPerformed(
-                                java.awt.event.ActionEvent e) {
-                            Doc document = DocHolder.getInstance().getDoc();
-                            FoldedModelInfo foldedModelInfo = document
-                                    .getFoldedModelInfo();
-
-                            foldedModelInfo.setPrevORMat();
-                            screen.redrawOrigami();
-                            updateLabel();
-                        }
-                    });
-        }
-        return jButtonPrevAnswer;
-    }
-
-    /**
-     * This method initializes jCheckBoxOrder
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxOrder() {
-        if (jCheckBoxOrder == null) {
-            jCheckBoxOrder = new JCheckBox();
-            jCheckBoxOrder.setBounds(new Rectangle(15, 75, 91, 31));
-            jCheckBoxOrder.setText("Flip");
-            jCheckBoxOrder.addItemListener(new java.awt.event.ItemListener() {
-
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    screen.flipFaces(e.getStateChange() == ItemEvent.SELECTED);
-                }
-            });
-        }
-        return jCheckBoxOrder;
-    }
-
-    /**
-     * This method initializes jCheckBoxShadow
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxShadow() {
-        if (jCheckBoxShadow == null) {
-            jCheckBoxShadow = new JCheckBox();
-            jCheckBoxShadow.setBounds(new Rectangle(105, 75, 80, 31));
-            jCheckBoxShadow.setText("Shade");
-
-            jCheckBoxShadow.addItemListener(new java.awt.event.ItemListener() {
-
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    screen.shadeFaces(e.getStateChange() == ItemEvent.SELECTED);
-                }
-            });
-        }
-        return jCheckBoxShadow;
-    }
-
-    /**
-     * This method initializes jCheckBoxUseColor
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxUseColor() {
-        if (jCheckBoxUseColor == null) {
-            jCheckBoxUseColor = new JCheckBox();
-            jCheckBoxUseColor.setBounds(new Rectangle(15, 120, 80, 31));
-            jCheckBoxUseColor.setSelected(true);
-            jCheckBoxUseColor.setText("Use Color");
-
-            jCheckBoxUseColor
-                    .addItemListener(new java.awt.event.ItemListener() {
-
-                        @Override
-                        public void itemStateChanged(
-                                java.awt.event.ItemEvent e) {
-                            screen.setUseColor(
-                                    e.getStateChange() == ItemEvent.SELECTED);
-                        }
-                    });
-        }
-        return jCheckBoxUseColor;
-    }
-
-    /**
-     * This method initializes jCheckBoxEdge
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxEdge() {
-        if (jCheckBoxEdge == null) {
-            jCheckBoxEdge = new JCheckBox();
-            jCheckBoxEdge.setBounds(new Rectangle(105, 120, 93, 31));
-            jCheckBoxEdge.setSelected(true);
-            jCheckBoxEdge.setText("Draw Edge");
-
-            jCheckBoxEdge.addItemListener(new java.awt.event.ItemListener() {
-
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    screen.drawEdge(e.getStateChange() == ItemEvent.SELECTED);
-                }
-            });
-        }
-        return jCheckBoxEdge;
-    }
-
-    /**
-     * This method initializes jCheckBoxFillFace
-     *
-     * @return javax.swing.JCheckBox
-     */
-    private JCheckBox getJCheckBoxFillFace() {
-        if (jCheckBoxFillFace == null) {
-            jCheckBoxFillFace = new JCheckBox();
-            jCheckBoxFillFace.setBounds(new Rectangle(15, 165, 93, 21));
-            jCheckBoxFillFace.setSelected(true);
-            jCheckBoxFillFace.setText("FillFace");
-
-            jCheckBoxFillFace
-                    .addItemListener(new java.awt.event.ItemListener() {
-
-                        @Override
-                        public void itemStateChanged(
-                                java.awt.event.ItemEvent e) {
-                            screen.setFillFace(
-                                    e.getStateChange() == ItemEvent.SELECTED);
-                        }
-                    });
-        }
-        return jCheckBoxFillFace;
     }
 
     /**
@@ -372,5 +154,223 @@ public class EstimationResultUI extends JPanel {
                     });
         }
         return jButtonExport;
+    }
+
+    /**
+     * This method initializes jButtonNextAnswer
+     *
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonNextAnswer() {
+
+        if (jButtonNextAnswer == null) {
+            jButtonNextAnswer = new JButton();
+            jButtonNextAnswer.setText("Next");
+            jButtonNextAnswer.setBounds(new Rectangle(109, 4, 87, 27));
+
+            jButtonNextAnswer
+                    .addActionListener(new java.awt.event.ActionListener() {
+
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
+                            Doc document = DocHolder.getInstance().getDoc();
+                            FoldedModelInfo foldedModelInfo = document
+                                    .getFoldedModelInfo();
+                            foldedModelInfo.setNextORMat();
+                            screen.redrawOrigami();
+                            updateLabel();
+                        }
+                    });
+        }
+        return jButtonNextAnswer;
+    }
+
+    /**
+     * This method initializes jButtonPrevAnswer
+     *
+     * @return javax.swing.JButton
+     */
+    private JButton getJButtonPrevAnswer() {
+        if (jButtonPrevAnswer == null) {
+            jButtonPrevAnswer = new JButton();
+            jButtonPrevAnswer.setText("Prev");
+            jButtonPrevAnswer.setBounds(new Rectangle(15, 4, 89, 27));
+
+            jButtonPrevAnswer
+                    .addActionListener(new java.awt.event.ActionListener() {
+
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
+                            Doc document = DocHolder.getInstance().getDoc();
+                            FoldedModelInfo foldedModelInfo = document
+                                    .getFoldedModelInfo();
+
+                            foldedModelInfo.setPrevORMat();
+                            screen.redrawOrigami();
+                            updateLabel();
+                        }
+                    });
+        }
+        return jButtonPrevAnswer;
+    }
+
+    /**
+     * This method initializes jCheckBoxEdge
+     *
+     * @return javax.swing.JCheckBox
+     */
+    private JCheckBox getJCheckBoxEdge() {
+        if (jCheckBoxEdge == null) {
+            jCheckBoxEdge = new JCheckBox();
+            jCheckBoxEdge.setBounds(new Rectangle(105, 120, 93, 31));
+            jCheckBoxEdge.setSelected(true);
+            jCheckBoxEdge.setText("Draw Edge");
+
+            jCheckBoxEdge.addItemListener(new java.awt.event.ItemListener() {
+
+                @Override
+                public void itemStateChanged(java.awt.event.ItemEvent e) {
+                    screen.drawEdge(e.getStateChange() == ItemEvent.SELECTED);
+                }
+            });
+        }
+        return jCheckBoxEdge;
+    }
+
+    /**
+     * This method initializes jCheckBoxFillFace
+     *
+     * @return javax.swing.JCheckBox
+     */
+    private JCheckBox getJCheckBoxFillFace() {
+        if (jCheckBoxFillFace == null) {
+            jCheckBoxFillFace = new JCheckBox();
+            jCheckBoxFillFace.setBounds(new Rectangle(15, 165, 93, 21));
+            jCheckBoxFillFace.setSelected(true);
+            jCheckBoxFillFace.setText("FillFace");
+
+            jCheckBoxFillFace
+                    .addItemListener(new java.awt.event.ItemListener() {
+
+                        @Override
+                        public void itemStateChanged(
+                                java.awt.event.ItemEvent e) {
+                            screen.setFillFace(
+                                    e.getStateChange() == ItemEvent.SELECTED);
+                        }
+                    });
+        }
+        return jCheckBoxFillFace;
+    }
+
+    /**
+     * This method initializes jCheckBoxOrder
+     *
+     * @return javax.swing.JCheckBox
+     */
+    private JCheckBox getJCheckBoxOrder() {
+        if (jCheckBoxOrder == null) {
+            jCheckBoxOrder = new JCheckBox();
+            jCheckBoxOrder.setBounds(new Rectangle(15, 75, 91, 31));
+            jCheckBoxOrder.setText("Flip");
+            jCheckBoxOrder.addItemListener(new java.awt.event.ItemListener() {
+
+                @Override
+                public void itemStateChanged(java.awt.event.ItemEvent e) {
+                    screen.flipFaces(e.getStateChange() == ItemEvent.SELECTED);
+                }
+            });
+        }
+        return jCheckBoxOrder;
+    }
+
+    /**
+     * This method initializes jCheckBoxShadow
+     *
+     * @return javax.swing.JCheckBox
+     */
+    private JCheckBox getJCheckBoxShadow() {
+        if (jCheckBoxShadow == null) {
+            jCheckBoxShadow = new JCheckBox();
+            jCheckBoxShadow.setBounds(new Rectangle(105, 75, 80, 31));
+            jCheckBoxShadow.setText("Shade");
+
+            jCheckBoxShadow.addItemListener(new java.awt.event.ItemListener() {
+
+                @Override
+                public void itemStateChanged(java.awt.event.ItemEvent e) {
+                    screen.shadeFaces(e.getStateChange() == ItemEvent.SELECTED);
+                }
+            });
+        }
+        return jCheckBoxShadow;
+    }
+
+    /**
+     * This method initializes jCheckBoxUseColor
+     *
+     * @return javax.swing.JCheckBox
+     */
+    private JCheckBox getJCheckBoxUseColor() {
+        if (jCheckBoxUseColor == null) {
+            jCheckBoxUseColor = new JCheckBox();
+            jCheckBoxUseColor.setBounds(new Rectangle(15, 120, 80, 31));
+            jCheckBoxUseColor.setSelected(true);
+            jCheckBoxUseColor.setText("Use Color");
+
+            jCheckBoxUseColor
+                    .addItemListener(new java.awt.event.ItemListener() {
+
+                        @Override
+                        public void itemStateChanged(
+                                java.awt.event.ItemEvent e) {
+                            screen.setUseColor(
+                                    e.getStateChange() == ItemEvent.SELECTED);
+                        }
+                    });
+        }
+        return jCheckBoxUseColor;
+    }
+
+    /**
+     * This method initializes this
+     *
+     * @return void
+     */
+    private void initialize() {
+        jLabel = new JLabel();
+        jLabel.setBounds(new Rectangle(15, 45, 181, 16));
+        this.setLayout(null);
+        this.setSize(216, 256);
+        this.setPreferredSize(new Dimension(216, 200));
+        this.add(getJButtonPrevAnswer(), null);
+        this.add(getJCheckBoxOrder(), null);
+        this.add(getJButtonNextAnswer(), null);
+        this.add(getJCheckBoxShadow(), null);
+        this.add(jLabel, null);
+        this.add(getJCheckBoxUseColor(), null);
+        this.add(getJCheckBoxEdge(), null);
+        this.add(getJCheckBoxFillFace(), null);
+        this.add(getJButtonExport(), null);
+        updateLabel();
+    }
+
+    public void setScreen(FoldedModelScreen s) {
+        screen = s;
+    }
+
+    public void updateLabel() {
+        Doc document = DocHolder.getInstance().getDoc();
+        FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
+
+        List<int[][]> foldableOverlapRelations = foldedModelInfo
+                .getFoldableOverlapRelations();
+
+        jLabel.setText("Folded model ["
+                + (foldedModelInfo.getCurrentORmatIndex() + 1) + "/"
+                + foldableOverlapRelations.size() + "]");
+
     }
 } //  @jve:decl-index=0:visual-constraint="8,8"

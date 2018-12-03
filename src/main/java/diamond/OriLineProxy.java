@@ -23,11 +23,11 @@ import javax.vecmath.Vector2d;
 import diamond.value.OriLine;
 
 public class OriLineProxy {
-    private double x0;
-    private double y0;
-    private double x1;
-    private double y1;
     private int type;
+    private double x0;
+    private double x1;
+    private double y0;
+    private double y1;
     
     public OriLineProxy() {}
     public OriLineProxy(OriLine l) {
@@ -42,16 +42,16 @@ public class OriLineProxy {
         return new OriLine(new Vector2d(x0, y0), new Vector2d(x1, y1), type);
     }
     
-    public void setX0(double x0) { this.x0 = x0; }
+    public int getType() { return type; }
     public double getX0() { return x0; }
-    public void setX1(double x1) { this.x1 = x1; }
     public double getX1() { return x1; }
-    public void setY0(double y0) { this.y0 = y0; }
     public double getY0() { return y0; }
-    public void setY1(double y1) { this.y1 = y1; }
     public double getY1() { return y1; }
     public void setType(int type) { this.type = type; }
-    public int getType() { return type; }
+    public void setX0(double x0) { this.x0 = x0; }
+    public void setX1(double x1) { this.x1 = x1; }
+    public void setY0(double y0) { this.y0 = y0; }
+    public void setY1(double y1) { this.y1 = y1; }
     
     
 }

@@ -12,11 +12,6 @@ public abstract class ViewSettingDataBase extends Observable {
 
 	
 	
-	@Override
-	public String toString() {
-		return getName();
-	}
-
 	/**
 	 * A tool to be identified by observers.
 	 * @param name
@@ -24,5 +19,10 @@ public abstract class ViewSettingDataBase extends Observable {
 	 */
 	public boolean hasGivenName(String name){
 		return getName().equals(name);
+	}
+
+	@Override
+	public String toString() {
+		return getName();
 	}
 }
