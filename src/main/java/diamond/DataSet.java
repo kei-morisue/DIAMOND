@@ -20,7 +20,6 @@ package diamond;
 
 import diamond.doc.Doc;
 import diamond.paint.creasepattern.CreasePattern;
-import diamond.resource.Version;
 import diamond.value.OriLine;
 
 public class DataSet {

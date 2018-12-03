@@ -39,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollBar;
 
+import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.doc.exporter.Exporter;
@@ -51,6 +52,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.resource.Constants;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 import diamond.view.main.MainFrame;
 import diamond.viewsetting.model.ModelFrameSettingDB;
 
@@ -60,7 +62,15 @@ import diamond.viewsetting.model.ModelFrameSettingDB;
  *
  */
 public class ModelViewFrame extends JFrame
-implements ActionListener, AdjustmentListener, Observer{
+        implements ActionListener, AdjustmentListener, Observer {
+    private static ModelViewFrame instance = null;
+
+    public static ModelViewFrame getInstance() {
+        if (instance == null) {
+            instance = new ModelViewFrame();
+        }
+        return instance;
+    }
 
     private ModelFrameSettingDB setting = ModelFrameSettingDB.getInstance();
 
@@ -75,7 +85,8 @@ implements ActionListener, AdjustmentListener, Observer{
     private JMenuItem menuItemExportOBJ = new JMenuItem("Export to OBJ file");
     private JMenuItem menuItemFlip = new JMenuItem(ResourceHolder.getInstance()
             .getString(ResourceKey.LABEL, "MENU_Invert"));
-    private JCheckBoxMenuItem menuItemCrossLine = new JCheckBoxMenuItem("Show Cross-Line", false);
+    private JCheckBoxMenuItem menuItemCrossLine = new JCheckBoxMenuItem(
+            "Show Cross-Line", false);
     public JCheckBoxMenuItem menuItemSlideFaces = new JCheckBoxMenuItem(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                     "MENU_SlideFaces"),
@@ -96,8 +107,10 @@ implements ActionListener, AdjustmentListener, Observer{
     private JRadioButtonMenuItem menuItemFillNone = new JRadioButtonMenuItem(
             ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                     "MENU_DrawLines"));
-    private JScrollBar scrollBarAngle = new JScrollBar(JScrollBar.HORIZONTAL, 90, 5, 0, 185);
-    private JScrollBar scrollBarPosition = new JScrollBar(JScrollBar.VERTICAL, 0, 5, -150, 150);
+    private JScrollBar scrollBarAngle = new JScrollBar(JScrollBar.HORIZONTAL,
+            90, 5, 0, 185);
+    private JScrollBar scrollBarPosition = new JScrollBar(JScrollBar.VERTICAL,
+            0, 5, -150, 150);
 
     public ModelViewFrame() {
 
@@ -222,10 +235,9 @@ implements ActionListener, AdjustmentListener, Observer{
                                             "Warning_SameNameFileExist"),
                             ResourceHolder.getInstance()
                                     .getString(ResourceKey.LABEL,
-                                            "DialogTitle_FileSave"),
+                                            StringID.DIALOG_TITLE_SAVE_ID),
                             JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE)
-                            != JOptionPane.YES_OPTION) {
+                            JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
                         return;
                     }
                 }
@@ -234,13 +246,14 @@ implements ActionListener, AdjustmentListener, Observer{
                     filePath += "." + ext;
                 }
                 switch (ext) {
-                    case "dxf":
-                        ExporterDXF.exportModel(DocHolder.getInstance().getDoc(), filePath);
-                        break;
-                    case "obj":
-                        Exporter exporter = new ExporterOBJ2();
-                        exporter.export(DocHolder.getInstance().getDoc(), filePath);
-                        break;
+                case "dxf":
+                    ExporterDXF.exportModel(DocHolder.getInstance().getDoc(),
+                            filePath);
+                    break;
+                case "obj":
+                    Exporter exporter = new ExporterOBJ2();
+                    exporter.export(DocHolder.getInstance().getDoc(), filePath);
+                    break;
                 }
 
             } catch (Exception e) {
@@ -252,6 +265,13 @@ implements ActionListener, AdjustmentListener, Observer{
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    public void initialize() {
+        setSize(Config.INITIAL_MODEL_FRAME_WIDTH,
+                Config.INITIAL_MODEL_FRAME_HEIGHT);
+        setLocationRelativeTo(null);
+        setVisible(false);
     }
 
     @Override

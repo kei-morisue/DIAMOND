@@ -29,23 +29,38 @@ import diamond.view.main.MainFrame;
  */
 public class MenuEdit extends JMenu {
 
+    private static MenuEdit instance = null;
+
+    private static MainFrame mainFrame = MainFrame.getInstance();
+
     private static ResourceHolder res = ResourceHolder.getInstance();
-    private JMenuItem menuItemUndo = new JMenuItem(
+    public static JMenuItem menuItemChangeOutline;
+
+    public static JMenuItem menuItemCircleCopy = new JMenuItem(
+            res.getString(ResourceKey.LABEL, StringID.Main.CIRCLE_COPY_ID));
+
+    public static JMenuItem menuItemCopyAndPaste;
+    public static JMenuItem menuItemCutAndPaste;
+    public static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
+            res.getString(ResourceKey.LABEL,
+                    StringID.Main.DELETE_SELECTED_LINES_ID));
+    public static JMenuItem menuItemRepeatCopy = new JMenuItem(
+            res.getString(ResourceKey.LABEL, StringID.Main.REPEAT_COPY_ID));
+
+    public static JMenuItem menuItemSelectAll;
+    public static JMenuItem menuItemUndo = new JMenuItem(
             res.getString(ResourceKey.LABEL, StringID.Main.UNDO_ID));
+    public static JMenuItem menuItemUnSelectAll = new JMenuItem(
+            res.getString(ResourceKey.LABEL, StringID.Main.UNSELECT_ALL_ID));
 
-    private JMenuItem menuItemRepeatCopy = new JMenuItem("Array Copy");
-    private JMenuItem menuItemCircleCopy = new JMenuItem("Circle Copy");
-    private JMenuItem menuItemUnSelectAll = new JMenuItem("UnSelect All");
-    private JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
-            "Delete Selected Lines");
+    public static MenuEdit getInstance() {
+        if (instance == null) {
+            instance = new MenuEdit();
+        }
+        return instance;
+    }
 
-
-    private JMenuItem menuItemChangeOutline;
-    private JMenuItem menuItemSelectAll;
-    private JMenuItem menuItemCopyAndPaste;
-    private JMenuItem menuItemCutAndPaste;
-
-    public MenuEdit(MainFrame mainFrame) {
+    public MenuEdit() {
         super(res.getString(ResourceKey.LABEL, StringID.Main.EDIT_ID));
 
         ButtonFactory buttonFactory = new PaintActionButtonFactory();
@@ -61,6 +76,23 @@ public class MenuEdit extends JMenu {
         addActionListeners(mainFrame);
         addAccelerators();
         addItems();
+    }
+
+    private void addAccelerators() {
+        menuItemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
+                ActionEvent.CTRL_MASK));
+        menuItemSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
+                ActionEvent.CTRL_MASK));
+        menuItemUnSelectAll.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_ESCAPE, 0));
+        menuItemDeleteSelectedLines
+                .addActionListener(new DeleteSelectedLines());
+        menuItemDeleteSelectedLines.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_DELETE, 0));
+        menuItemCopyAndPaste.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+        menuItemCutAndPaste.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_X, ActionEvent.CTRL_MASK));
     }
 
     private void addActionListeners(MainFrame mainFrame) {
@@ -83,23 +115,6 @@ public class MenuEdit extends JMenu {
                 });
     }
 
-    private void addAccelerators() {
-        menuItemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-                ActionEvent.CTRL_MASK));
-        menuItemSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-                ActionEvent.CTRL_MASK));
-        menuItemUnSelectAll.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_ESCAPE, 0));
-        menuItemDeleteSelectedLines
-                .addActionListener(new DeleteSelectedLines());
-        menuItemDeleteSelectedLines.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_DELETE, 0));
-        menuItemCopyAndPaste.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-        menuItemCutAndPaste.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_X, ActionEvent.CTRL_MASK));
-    }
-
     private void addItems() {
         add(menuItemCopyAndPaste);
         add(menuItemCutAndPaste);
@@ -110,42 +125,6 @@ public class MenuEdit extends JMenu {
         add(menuItemDeleteSelectedLines);
         add(menuItemUndo);
         add(menuItemChangeOutline);
-    }
-
-    public JMenuItem getMenuItemUndo() {
-        return this.menuItemUndo;
-    }
-
-    public JMenuItem getMenuItemRepeatCopy() {
-        return this.menuItemRepeatCopy;
-    }
-
-    public JMenuItem getMenuItemCircleCopy() {
-        return this.menuItemCircleCopy;
-    }
-
-    public JMenuItem getMenuItemUnSelectAll() {
-        return this.menuItemUnSelectAll;
-    }
-
-    public JMenuItem getMenuItemDeleteSelectedLines() {
-        return this.menuItemDeleteSelectedLines;
-    }
-
-    public JMenuItem getMenuItemChangeOutline() {
-        return this.menuItemChangeOutline;
-    }
-
-    public JMenuItem getMenuItemSelectAll() {
-        return this.menuItemSelectAll;
-    }
-
-    public JMenuItem getMenuItemCopyAndPaste() {
-        return this.menuItemCopyAndPaste;
-    }
-
-    public JMenuItem getMenuItemCutAndPaste() {
-        return this.menuItemCutAndPaste;
     }
 
 }

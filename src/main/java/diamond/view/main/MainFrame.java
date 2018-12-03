@@ -40,7 +40,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import diamond.Config;
-import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.doc.exporter.ExporterXML;
@@ -58,13 +57,14 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
-import diamond.resource.Constants;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
+import diamond.view.estimation.EstimationResultFrame;
 import diamond.view.main.menubar.MenuEdit;
 import diamond.view.main.menubar.MenuFile;
 import diamond.view.main.menubar.MenuHelp;
+import diamond.view.model.ModelViewFrame;
 import diamond.viewsetting.main.MainFrameSettingDB;
 import diamond.viewsetting.main.MainScreenSettingDB;
 
@@ -80,23 +80,16 @@ public class MainFrame extends JFrame implements ActionListener,
         return instance;
     }
 
-
-
     private MainScreenSettingDB screenSetting = MainScreenSettingDB
             .getInstance();
 
     private PainterScreen mainScreen;
-
-    private JMenuBar menuBar = new JMenuBar();
-    private MenuFile menuFile;
-    private MenuEdit menuEdit;
 
     private RepeatCopyDialog arrayCopyDialog;
     private CircleCopyDialog circleCopyDialog;
 
     public static JLabel hintLabel = new JLabel();
     public UIPanel uiPanel;
-
 
     private static FilterDB filterDB = FilterDB.getInstance();
     private FileFilterEx[] fileFilters = new FileFilterEx[] {
@@ -115,7 +108,6 @@ public class MainFrame extends JFrame implements ActionListener,
         setIconImage(new ImageResourceLoader()
                 .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
-        buildMenuBar();
         loadIniFile();
         addSavingActions();
         setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
@@ -123,28 +115,23 @@ public class MainFrame extends JFrame implements ActionListener,
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         updateTitleText();
-        setVisible(true);
     }
 
     private void buildMenuBar() {
-        menuFile = new MenuFile(this);
-        menuEdit = new MenuEdit(this);
-        menuBar.add(menuFile);
-        menuBar.add(menuEdit);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(MenuFile.getInstace());
+        menuBar.add(MenuEdit.getInstance());
         menuBar.add(new MenuHelp());
         setJMenuBar(menuBar);
     }
-
 
     public void updateMenu(String filePath) {
         if (filterDB.getLoadableFilterOf(filePath) == null) {
             return;
         }
         FileHistory.useFile(filePath);
-        menuFile.addItems();
+        MenuFile.getInstace().addItems();
     }
-
-
 
     private void addSavingActions() {
 
@@ -181,7 +168,7 @@ public class MainFrame extends JFrame implements ActionListener,
         });
     }
 
-    private void saveOpxFile(String filePath) {
+    public void saveOpxFile(String filePath) {
         ExporterXML exporter = new ExporterXML();
         exporter.export(DocHolder.getInstance().getDoc(), filePath);
         DocHolder.getInstance().getDoc().setDataFilePath(filePath);
@@ -191,7 +178,7 @@ public class MainFrame extends JFrame implements ActionListener,
         DocHolder.getInstance().getDoc().clearChanged();
     }
 
-    private void savePictureFile(Image cpImage, String filePath)
+    public void savePictureFile(Image cpImage, String filePath)
             throws IOException {
         BufferedImage image = new BufferedImage(cpImage.getWidth(this),
                 cpImage.getHeight(this), BufferedImage.TYPE_INT_RGB);
@@ -206,6 +193,8 @@ public class MainFrame extends JFrame implements ActionListener,
     public void initialize() {
         arrayCopyDialog = new RepeatCopyDialog(this);
         circleCopyDialog = new CircleCopyDialog(this);
+        buildMenuBar();
+        setVisible(true);
     }
 
     @Override
@@ -215,9 +204,9 @@ public class MainFrame extends JFrame implements ActionListener,
 
         // Check the last opened files
         for (int i = 0; i < Config.MRUFILE_NUM; i++) {
-            if (e.getSource() == menuFile.getMRUFilesMenuItem()[i]) {
+            if (e.getSource() == MenuFile.MRUFilesMenuItem[i]) {
                 try {
-                    String filePath = menuFile.getMRUFilesMenuItem()[i]
+                    String filePath = MenuFile.MRUFilesMenuItem[i]
                             .getText();
                     openFile(filePath);
                     updateTitleText();
@@ -238,66 +227,37 @@ public class MainFrame extends JFrame implements ActionListener,
         // String lastPath = fileHistory.getLastPath();
         String lastDirectory = FileHistory.getLastDirectory();
 
-        if (e.getSource() == menuFile.getMenuItemOpen()) {
-            openFile(null);
-            mainScreen.repaint();
-            updateTitleText();
-        } else if (e.getSource() == menuFile.getMenuItemSave()
-                && !DocHolder.getInstance().getDoc().getDataFilePath().equals("")) {
-            saveOpxFile(DocHolder.getInstance().getDoc().getDataFilePath());
+        if (e.getSource() == MenuFile.menuItemSaveAsImage) {
 
-        } else if (e.getSource() == menuFile.getMenuItemSaveAs()
-                || e.getSource() == menuFile.getMenuItemSave()) {
-
-            String path = saveFile(lastDirectory, DocHolder.getInstance().getDoc().getDataFileName(),
-                    fileFilters);
-
-            updateMenu(path);
-            updateTitleText();
-
-        } else if (e.getSource() == menuFile.getMenuItemSaveAsImage()) {
-
-            saveFile(lastDirectory, DocHolder.getInstance().getDoc().getDataFileName(),
+            saveFile(lastDirectory,
+                    DocHolder.getInstance().getDoc().getDataFileName(),
                     new FileFilterEx[] { filterDB.getFilter("pict") });
 
-        } else if (e.getSource() == menuFile.getMenuItemExportDXF()) {
+        } else if (e.getSource() == MenuFile.menuItemExportDXF) {
             exportFile("dxf");
-        } else if (e.getSource() == menuFile.getMenuItemExportOBJ()) {
+        } else if (e.getSource() == MenuFile.menuItemExportOBJ) {
             exportFile("obj");
-        } else if (e.getSource() == menuFile.getMenuItemExportCP()) {
+        } else if (e.getSource() == MenuFile.menuItemExportCP) {
             exportFile("cp");
-        } else if (e.getSource() == menuFile.getMenuItemExportSVG()) {
+        } else if (e.getSource() == MenuFile.menuItemExportSVG) {
             exportFile("svg");
-        } else if (e.getSource() == menuEdit.getMenuItemChangeOutline()) {
+        } else if (e.getSource() == MenuEdit.menuItemChangeOutline) {
             // Globals.preEditMode = Globals.editMode;
             // Globals.editMode = Constants.EditMode.EDIT_OUTLINE;
 
             // Globals.setMouseAction(new EditOutlineAction());
 
-        } else if (e.getSource() == menuFile.getMenuItemExit()) {
+        } else if (e.getSource() == MenuFile.menuItemExit) {
             saveIniFile();
             System.exit(0);
-        } else if (e.getSource() == menuEdit.getMenuItemUndo()) {
+        } else if (e.getSource() == MenuEdit.menuItemUndo) {
             if (PaintConfig.getMouseAction() != null) {
                 PaintConfig.getMouseAction().undo(PaintContext.getInstance());
             } else {
                 DocHolder.getInstance().getDoc().loadUndoInfo();
             }
             mainScreen.repaint();
-        } else if (e.getSource() == menuFile.getMenuItemClear()) {
-            DocHolder.getInstance()
-                    .setDoc(new Doc(Constants.DEFAULT_PAPER_SIZE));
-            DIAMOND.modelFrame.repaint();
-
-            DIAMOND.modelFrame.setVisible(false);
-            DIAMOND.renderFrame.setVisible(false);
-
-            screenSetting.setGridVisible(true);
-            screenSetting.notifyObservers();
-
-            // ORIPA.mainFrame.uiPanel.dispGridCheckBox.setSelected(true);
-            updateTitleText();
-        } else if (e.getSource() == menuFile.getMenuItemProperty()) {
+        } else if (e.getSource() == MenuFile.menuItemProperty) {
             PropertyDialog dialog = new PropertyDialog(this);
             dialog.setValue();
             Rectangle rec = getBounds();
@@ -306,7 +266,7 @@ public class MainFrame extends JFrame implements ActionListener,
                     (int) (rec.getCenterY() - dialog.getHeight() / 2));
             dialog.setModal(true);
             dialog.setVisible(true);
-        } else if (e.getSource() == menuEdit.getMenuItemRepeatCopy()) {
+        } else if (e.getSource() == MenuEdit.menuItemRepeatCopy) {
             Painter painter = new Painter();
             if (painter.countSelectedLines(creasePattern) == 0) {
                 JOptionPane.showMessageDialog(this, "Select target lines",
@@ -315,7 +275,7 @@ public class MainFrame extends JFrame implements ActionListener,
             } else {
                 arrayCopyDialog.setVisible(true);
             }
-        } else if (e.getSource() == menuEdit.getMenuItemCircleCopy()) {
+        } else if (e.getSource() == MenuEdit.menuItemCircleCopy) {
             Painter painter = new Painter();
             if (painter.countSelectedLines(creasePattern) == 0) {
                 JOptionPane.showMessageDialog(this, "Select target lines",
@@ -328,6 +288,14 @@ public class MainFrame extends JFrame implements ActionListener,
 
     }
 
+    public void saveAs(String lastDirectory) {
+        String path = saveFile(lastDirectory,
+                DocHolder.getInstance().getDoc().getDataFileName(),
+                fileFilters);
+
+        updateMenu(path);
+        updateTitleText();
+    }
 
     public void updateTitleText() {
         String fileName;
@@ -397,22 +365,17 @@ public class MainFrame extends JFrame implements ActionListener,
         saveFile(null, new FileFilterEx[] { filterDB.getFilter(ext) });
     }
 
-
-
     /**
      * if filePath is null, this method opens a dialog to select the target.
      * otherwise, it tries to read data from the path.
      *
      * @param filePath
      */
-    private void openFile(String filePath) {
-        DIAMOND.modelFrame.setVisible(false);
-        DIAMOND.renderFrame.setVisible(false);
+    public void openFile(String filePath) {
+        ModelViewFrame.getInstance().setVisible(false);
+        EstimationResultFrame.getInstance().setVisible(false);
 
-        screenSetting.setGridVisible(false);
         screenSetting.notifyObservers();
-
-        // ORIPA.mainFrame.uiPanel.dispGridCheckBox.setSelected(false);
 
         String path = null;
 
@@ -481,7 +444,7 @@ public class MainFrame extends JFrame implements ActionListener,
         return filePath;
     }
 
-    private void saveIniFile() {
+    public void saveIniFile() {
         FileHistory.saveToFile(Config.INI_FILE_PATH);
     }
 

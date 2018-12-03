@@ -83,6 +83,7 @@
               <artifactId>maven-jar-plugin</artifactId>
               <configuration>
                 <archive>
+                  <manifestFile>target/classes/META-INF/MANIFEST.MF</manifestFile>
                   <manifest>
                     <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                     <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>

@@ -39,6 +39,7 @@ import diamond.file.FileFilterEx;
 import diamond.fold.FoldedModelInfo;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 import diamond.view.main.MainFrame;
 
 public class EstimationResultUI extends JPanel {
@@ -97,7 +98,8 @@ public class EstimationResultUI extends JPanel {
         List<int[][]> foldableOverlapRelations = foldedModelInfo
                 .getFoldableOverlapRelations();
 
-        jLabel.setText("Folded model [" + (foldedModelInfo.getCurrentORmatIndex() + 1) + "/"
+        jLabel.setText("Folded model ["
+                + (foldedModelInfo.getCurrentORmatIndex() + 1) + "/"
                 + foldableOverlapRelations.size() + "]");
 
     }
@@ -114,18 +116,20 @@ public class EstimationResultUI extends JPanel {
             jButtonNextAnswer.setText("Next");
             jButtonNextAnswer.setBounds(new Rectangle(109, 4, 87, 27));
 
-            jButtonNextAnswer.addActionListener(new java.awt.event.ActionListener() {
+            jButtonNextAnswer
+                    .addActionListener(new java.awt.event.ActionListener() {
 
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
                             Doc document = DocHolder.getInstance().getDoc();
                             FoldedModelInfo foldedModelInfo = document
                                     .getFoldedModelInfo();
-                    foldedModelInfo.setNextORMat();
-                    screen.redrawOrigami();
-                    updateLabel();
-                }
-            });
+                            foldedModelInfo.setNextORMat();
+                            screen.redrawOrigami();
+                            updateLabel();
+                        }
+                    });
         }
         return jButtonNextAnswer;
     }
@@ -141,19 +145,21 @@ public class EstimationResultUI extends JPanel {
             jButtonPrevAnswer.setText("Prev");
             jButtonPrevAnswer.setBounds(new Rectangle(15, 4, 89, 27));
 
-            jButtonPrevAnswer.addActionListener(new java.awt.event.ActionListener() {
+            jButtonPrevAnswer
+                    .addActionListener(new java.awt.event.ActionListener() {
 
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
                             Doc document = DocHolder.getInstance().getDoc();
                             FoldedModelInfo foldedModelInfo = document
                                     .getFoldedModelInfo();
 
                             foldedModelInfo.setPrevORMat();
-                    screen.redrawOrigami();
-                    updateLabel();
-                }
-            });
+                            screen.redrawOrigami();
+                            updateLabel();
+                        }
+                    });
         }
         return jButtonPrevAnswer;
     }
@@ -213,13 +219,16 @@ public class EstimationResultUI extends JPanel {
             jCheckBoxUseColor.setSelected(true);
             jCheckBoxUseColor.setText("Use Color");
 
-            jCheckBoxUseColor.addItemListener(new java.awt.event.ItemListener() {
+            jCheckBoxUseColor
+                    .addItemListener(new java.awt.event.ItemListener() {
 
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    screen.setUseColor(e.getStateChange() == ItemEvent.SELECTED);
-                }
-            });
+                        @Override
+                        public void itemStateChanged(
+                                java.awt.event.ItemEvent e) {
+                            screen.setUseColor(
+                                    e.getStateChange() == ItemEvent.SELECTED);
+                        }
+                    });
         }
         return jCheckBoxUseColor;
     }
@@ -259,13 +268,16 @@ public class EstimationResultUI extends JPanel {
             jCheckBoxFillFace.setSelected(true);
             jCheckBoxFillFace.setText("FillFace");
 
-            jCheckBoxFillFace.addItemListener(new java.awt.event.ItemListener() {
+            jCheckBoxFillFace
+                    .addItemListener(new java.awt.event.ItemListener() {
 
-                @Override
-                public void itemStateChanged(java.awt.event.ItemEvent e) {
-                    screen.setFillFace(e.getStateChange() == ItemEvent.SELECTED);
-                }
-            });
+                        @Override
+                        public void itemStateChanged(
+                                java.awt.event.ItemEvent e) {
+                            screen.setFillFace(
+                                    e.getStateChange() == ItemEvent.SELECTED);
+                        }
+                    });
         }
         return jCheckBoxFillFace;
     }
@@ -280,32 +292,37 @@ public class EstimationResultUI extends JPanel {
             jButtonExport = new JButton();
             jButtonExport.setBounds(new Rectangle(15, 206, 92, 26));
             jButtonExport.setText("Export");
-            jButtonExport.addActionListener(new java.awt.event.ActionListener() {
+            jButtonExport
+                    .addActionListener(new java.awt.event.ActionListener() {
 
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    String ext1 = "ormat";
-                    String ext2 = "svg";
-                    JFileChooser fileChooser = new JFileChooser();
-                    FileFilterEx f1 = new FileFilterEx(new String[]{"." + ext1},
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
+                            String ext1 = "ormat";
+                            String ext2 = "svg";
+                            JFileChooser fileChooser = new JFileChooser();
+                            FileFilterEx f1 = new FileFilterEx(
+                                    new String[] { "." + ext1 },
                                     "(*." + ext1 + ")" + ext1 + ResourceHolder
                                             .getInstance().getString(
                                                     ResourceKey.LABEL, "File"));
-                    FileFilterEx f2 = new FileFilterEx(new String[]{"." + ext2},
+                            FileFilterEx f2 = new FileFilterEx(
+                                    new String[] { "." + ext2 },
                                     "(*." + ext2 + ")" + ext2 + ResourceHolder
                                             .getInstance().getString(
                                                     ResourceKey.LABEL, "File"));
-                    fileChooser.addChoosableFileFilter(f1);
-                    fileChooser.addChoosableFileFilter(f2);
-                    fileChooser.setAcceptAllFileFilterUsed(false);
-                    fileChooser.setFileFilter(f2);
+                            fileChooser.addChoosableFileFilter(f1);
+                            fileChooser.addChoosableFileFilter(f2);
+                            fileChooser.setAcceptAllFileFilterUsed(false);
+                            fileChooser.setFileFilter(f2);
                             if (JFileChooser.APPROVE_OPTION == fileChooser
                                     .showSaveDialog(MainFrame.getInstance())) {
-                        try {
-                            String filePath = fileChooser.getSelectedFile().getPath();
-                            File file = new File(filePath);
-                            if (file.exists()) {
-                                if (JOptionPane.showConfirmDialog(
+                                try {
+                                    String filePath = fileChooser
+                                            .getSelectedFile().getPath();
+                                    File file = new File(filePath);
+                                    if (file.exists()) {
+                                        if (JOptionPane.showConfirmDialog(
                                                 null,
                                                 ResourceHolder.getInstance()
                                                         .getString(
@@ -314,39 +331,46 @@ public class EstimationResultUI extends JPanel {
                                                 ResourceHolder.getInstance()
                                                         .getString(
                                                                 ResourceKey.LABEL,
-                                                                "DialogTitle_FileSave"),
-                                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)
-                                        != JOptionPane.YES_OPTION) {
-                                    return;
-                                }
-                            }
-                            if (fileChooser.getFileFilter().equals(f1)) {
-                                if (!filePath.endsWith("." + ext1)) {
-                                    filePath += "." + ext1;
-                                }
-                                Exporter exporter = new ExporterORmat();
-                                exporter.export(DocHolder.getInstance().getDoc(), filePath);
-                            } else if (fileChooser.getFileFilter().equals(f2)) {
-                                if (!filePath.endsWith("." + ext2)) {
-                                    filePath += "." + ext2;
-                                }
-                                ExporterSVG.exportModel(DocHolder.getInstance().getDoc(), filePath);
-                            }
+                                                                StringID.DIALOG_TITLE_SAVE_ID),
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
+                                            return;
+                                        }
+                                    }
+                                    if (fileChooser.getFileFilter()
+                                            .equals(f1)) {
+                                        if (!filePath.endsWith("." + ext1)) {
+                                            filePath += "." + ext1;
+                                        }
+                                        Exporter exporter = new ExporterORmat();
+                                        exporter.export(DocHolder.getInstance()
+                                                .getDoc(), filePath);
+                                    } else if (fileChooser.getFileFilter()
+                                            .equals(f2)) {
+                                        if (!filePath.endsWith("." + ext2)) {
+                                            filePath += "." + ext2;
+                                        }
+                                        ExporterSVG
+                                                .exportModel(
+                                                        DocHolder.getInstance()
+                                                                .getDoc(),
+                                                        filePath);
+                                    }
 
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(
+                                } catch (Exception ex) {
+                                    JOptionPane.showMessageDialog(
                                             MainFrame.getInstance(),
                                             ex.toString(),
                                             ResourceHolder.getInstance()
                                                     .getString(
                                                             ResourceKey.LABEL,
                                                             "Error_FileSaveFaild"),
-                                    JOptionPane.ERROR_MESSAGE);
+                                            JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
                         }
-                    }
-                }
-            });
+                    });
         }
         return jButtonExport;
     }
-}  //  @jve:decl-index=0:visual-constraint="8,8"
+} //  @jve:decl-index=0:visual-constraint="8,8"

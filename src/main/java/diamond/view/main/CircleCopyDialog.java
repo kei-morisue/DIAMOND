@@ -32,6 +32,9 @@ import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
+import diamond.resource.ResourceHolder;
+import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 
 public class CircleCopyDialog extends JDialog {
     private static final long serialVersionUID = 1L;
@@ -67,7 +70,8 @@ public class CircleCopyDialog extends JDialog {
      */
     private void initialize() {
         this.setSize(160, 171);
-        this.setTitle("CircleCoppy");
+        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                StringID.Main.CIRCLE_COPY_ID));
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);
         this.setContentPane(getJContentPane());
@@ -124,37 +128,36 @@ public class CircleCopyDialog extends JDialog {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     System.out.println("actionPerformed()");
 
-                    try{
+                    try {
                         m_cx = Double.valueOf(jTextFieldCX.getText());
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         m_cx = 0;
                     }
 
                     try {
                         m_cy = Double.valueOf(jTextFieldCY.getText());
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         m_cy = 0;
                     }
 
                     try {
                         m_angleDeg = Double.valueOf(jTextFieldAngle.getText());
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         m_angleDeg = 0;
                     }
 
                     try {
                         m_num = Integer.valueOf(jTextFieldNum.getText());
-                    } catch(Exception ex) {
+                    } catch (Exception ex) {
                         m_num = 0;
                     }
 
-                    if(m_num <= 0) {
+                    if (m_num <= 0) {
                         JOptionPane.showMessageDialog(
                                 MainFrame.getInstance(),
                                 "Specify positive integer to Number.",
                                 "ArrayCopy",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
+                                JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
                         Doc document = DocHolder.getInstance().getDoc();
@@ -187,13 +190,15 @@ public class CircleCopyDialog extends JDialog {
             jButtonCancel = new JButton();
             jButtonCancel.setBounds(new Rectangle(65, 110, 81, 21));
             jButtonCancel.setText("Cancel");
-            jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
+            jButtonCancel
+                    .addActionListener(new java.awt.event.ActionListener() {
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
                             System.out.println("actionPerformed()");
-                    setVisible(false);
-                }
-            });
+                            setVisible(false);
+                        }
+                    });
         }
         return jButtonCancel;
     }
@@ -257,4 +262,4 @@ public class CircleCopyDialog extends JDialog {
         }
         return jTextFieldNum;
     }
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} //  @jve:decl-index=0:visual-constraint="10,10"

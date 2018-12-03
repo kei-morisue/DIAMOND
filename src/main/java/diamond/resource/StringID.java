@@ -19,10 +19,11 @@ public class StringID {
         public static final String EXIT_ID = "Exit";
         public static final String UNDO_ID = "Undo";
         public static final String ABOUT_ID = "About";
-//		public static final String COPY_PASTE_ID = "Copy_and_Paste";
-//		public static final String CUT_PASTE_ID = "Cut_and_Paste";
-        //	    public static final String EDIT_CONTOUR_ID =  "EditContour";
-        public static final String SELECT_ALL_ID = "selectAll";
+        public static final String REPEAT_COPY_ID = "RepeatCopy";
+        public static final String CIRCLE_COPY_ID = "CircleCopy";
+        public static final String SELECT_ALL_ID = "SelectAll";
+        public static final String UNSELECT_ALL_ID = "UnselectAll";
+        public static final String DELETE_SELECTED_LINES_ID = "DeleteSelectedLines";
     }
 
     public static class Error {
@@ -44,7 +45,7 @@ public class StringID {
     public static final String ORIPA_FILE_ID = "ORIPA_File";
     public static final String PICTURE_FILE_ID = "Picture_File";
 
-    public static class UI{
+    public static class UI {
         public static final String INPUT_LINE_ID = "UI_InputLine";
         public static final String SELECT_ID = "UI_Select";
         public static final String DELETE_LINE_ID = "UI_DeleteLine";
@@ -98,7 +99,7 @@ public class StringID {
     public static final String EDIT_CONTOUR_ID = "EditContour";
     public static final String SELECT_ALL_LINE_ID = "selectAll";
 
-    public static class ModelMenu{
+    public static class ModelMenu {
         public static final String DISPLAY_ID = "MENU_Disp";
         public static final String EXPORT_DXF_ID = "MENU_ExportModelLine_DXF";
         public static final String INVERT_ID = "MENU_Invert";

@@ -2,12 +2,13 @@ package diamond.resource;
 
 import java.util.ListResourceBundle;
 
-public class LabelStringResource_en extends ListResourceBundle {
+import diamond.Version;
 
+public class LabelStringResource_en extends ListResourceBundle {
 
     static final Object[][] strings = {
             { StringID.Main.TITLE_ID,
-                    "DIAMOND " + Version.VERSION + ": Origami Diagram Editor" },
+                    "DIAMOND : Origami Diagram Editor v" + Version.VERSION },
             { StringID.Main.FILE_ID, "File" },
             { StringID.Main.EDIT_ID, "Edit" },
             { StringID.Main.HELP_ID, "Help" },
@@ -24,7 +25,12 @@ public class LabelStringResource_en extends ListResourceBundle {
             { StringID.Main.EXIT_ID, "Exit" },
             { StringID.Main.ABOUT_ID, "About" },
             { StringID.Main.UNDO_ID, "Undo" },
+
+            { StringID.Main.REPEAT_COPY_ID, "Repeat Copy" },
+            { StringID.Main.CIRCLE_COPY_ID, "Circle Copy" },
             { StringID.Main.SELECT_ALL_ID, "Select all" },
+            { StringID.Main.UNSELECT_ALL_ID, "Unselect all" },
+            { StringID.Main.DELETE_SELECTED_LINES_ID, "Delete Selected Lines" },
 
             { StringID.UI.AUX_ID, "Aux" },
             { StringID.UI.VALLEY_ID, "Valley" },
@@ -57,7 +63,7 @@ public class LabelStringResource_en extends ListResourceBundle {
             { StringID.SELECT_ALL_LINE_ID, "Select All" },
             { StringID.ORIPA_FILE_ID, "ORIPA File" },
             { StringID.PICTURE_FILE_ID, "Picture File" },
-
+            { StringID.DIALOG_TITLE_SAVE_ID, "Save" },
             { StringID.UI.MEASURE_ID, "Measure" },
             { StringID.UI.FOLD_ID, "Fold..." },
             { StringID.UI.FULL_ESTIMATION_ID, "Full Estimation" },

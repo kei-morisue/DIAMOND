@@ -12,7 +12,7 @@ public class DocHolder {
 
         return instance;
     }
-//-----------------------------------------------------
+    //-----------------------------------------------------
 
     private Doc doc;
 
@@ -26,6 +26,5 @@ public class DocHolder {
 
     public void setDoc(Doc __doc) {
         doc = __doc;
-
     }
 }

@@ -29,18 +29,26 @@ import javax.swing.JLabel;
 
 import diamond.viewsetting.estimation.RenderFrameSettingDB;
 
+public class EstimationResultFrame extends JFrame
+        implements ActionListener, Observer {
+    private static EstimationResultFrame instance = null;
 
-public class EstimationResultFrame extends JFrame implements ActionListener, Observer {
+    public static EstimationResultFrame getInstance() {
+        if (instance == null) {
+            instance = new EstimationResultFrame();
+        }
+        return instance;
+    }
 
-	private RenderFrameSettingDB setting = RenderFrameSettingDB.getInstance();
+    private RenderFrameSettingDB setting = RenderFrameSettingDB.getInstance();
 
-	FoldedModelScreen screen;
+    FoldedModelScreen screen;
     EstimationResultUI ui;
     public JLabel hintLabel;
 
     public EstimationResultFrame() {
-    	setting.addObserver(this);
-    	
+        setting.addObserver(this);
+
         setTitle("Folded Origami");
         screen = new FoldedModelScreen();
         ui = new EstimationResultUI();
@@ -54,20 +62,23 @@ public class EstimationResultFrame extends JFrame implements ActionListener, Obs
 
     }
 
+    public void initialize() {
+        setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
 
-    	
-    	if(setting.isFrameVisible()){
-	    	screen.resetViewMatrix();
-			screen.redrawOrigami();
-			ui.updateLabel();
-			setVisible(true);
-    	}    	
+        if (setting.isFrameVisible()) {
+            screen.resetViewMatrix();
+            screen.redrawOrigami();
+            ui.updateLabel();
+            setVisible(true);
+        }
     }
 }

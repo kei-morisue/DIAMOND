@@ -34,6 +34,9 @@ import diamond.doc.DocHolder;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
+import diamond.resource.ResourceHolder;
+import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 
 public class RepeatCopyDialog extends JDialog {
 
@@ -72,7 +75,8 @@ public class RepeatCopyDialog extends JDialog {
         this.setSize(123, 249);
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);
-        this.setTitle("ArrayCopy");
+        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                StringID.Main.REPEAT_COPY_ID));
         this.setContentPane(getJContentPane());
     }
 
@@ -286,14 +290,16 @@ public class RepeatCopyDialog extends JDialog {
             jButtonCancel = new JButton();
             jButtonCancel.setBounds(new Rectangle(10, 185, 96, 21));
             jButtonCancel.setText("Cancel");
-            jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            jButtonCancel
+                    .addActionListener(new java.awt.event.ActionListener() {
 
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    setVisible(false);
-                }
-            });
+                        @Override
+                        public void actionPerformed(
+                                java.awt.event.ActionEvent e) {
+                            setVisible(false);
+                        }
+                    });
         }
         return jButtonCancel;
     }
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+} //  @jve:decl-index=0:visual-constraint="10,10"

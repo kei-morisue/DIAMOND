@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileFilter;
 
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 
 /**
  *
@@ -31,8 +32,7 @@ public class FileChooser extends JFileChooser {
     public FileChooser(String path) {
         super(path);
 
-
-//		File file = new File(trimmedPath);
+        //		File file = new File(trimmedPath);
         File file = new File(path);
         this.setSelectedFile(file);
 
@@ -87,9 +87,7 @@ public class FileChooser extends JFileChooser {
         return path_new;
     }
 
-
     public String saveFile(Component parent) {
-
 
         if (JFileChooser.APPROVE_OPTION != this.showSaveDialog(parent)) {
             return null;
@@ -118,7 +116,8 @@ public class FileChooser extends JFileChooser {
                                 ResourceKey.WARNING,
                                 "Warning_SameNameFileExist"),
                         ResourceHolder.getInstance().getString(
-                                ResourceKey.LABEL, "DialogTitle_FileSave"),
+                                ResourceKey.LABEL,
+                                StringID.DIALOG_TITLE_SAVE_ID),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
                     return null;
