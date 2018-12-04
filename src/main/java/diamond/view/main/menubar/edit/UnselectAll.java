@@ -6,53 +6,52 @@ package diamond.view.main.menubar.edit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 import diamond.doc.DocHolder;
+import diamond.paint.core.PaintContext;
+import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.CircleCopyDialog;
 import diamond.view.main.MainFrame;
 
 /**
  * @author long_
  *
  */
-public class CircleCopy
+public class UnselectAll
         extends JMenuItem implements ActionListener {
-    private static CircleCopy instance = null;
+    private static UnselectAll instance = null;
 
-    public static CircleCopy getInstance() {
+    public static UnselectAll getInstance() {
         if (instance == null) {
-            instance = new CircleCopy();
+            instance = new UnselectAll();
         }
         return instance;
     }
 
-    public CircleCopy() {
+    public UnselectAll() {
         super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                StringID.Main.CIRCLE_COPY_ID));
+                StringID.Main.UNSELECT_ALL_ID));
+        setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_ESCAPE, 0));
         addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        CreasePattern creasePattern = DocHolder.getInstance()
+                .getDoc()
+                .getCreasePattern();
         Painter painter = new Painter();
-        CircleCopyDialog circleCopyDialog = new CircleCopyDialog(
-                MainFrame.getInstance());
-        if (painter.countSelectedLines(
-                DocHolder.getInstance().getDoc().getCreasePattern()) == 0) {
-            JOptionPane.showMessageDialog(this, "Select target lines",
-                    "ArrayCopy", JOptionPane.WARNING_MESSAGE);
-
-        } else {
-            circleCopyDialog.setVisible(true);
-        }
-
+        painter.resetSelectedOriLines(creasePattern);
+        PaintContext.getInstance().clear(false);
+        MainFrame.getInstance().getCpScreen().repaint();
     }
 
 }

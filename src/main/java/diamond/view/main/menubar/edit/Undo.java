@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.main.menubar.file;
+package diamond.view.main.menubar.edit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,43 +12,44 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.doc.DocHolder;
-import diamond.file.FilterDB;
+import diamond.paint.core.PaintConfig;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.menubar.MenuFile;
+import diamond.view.main.MainFrame;
 
 /**
  * @author long_
  *
  */
-public class Save extends JMenuItem implements ActionListener {
-    private static Save instance = null;
+public class Undo
+        extends JMenuItem implements ActionListener {
+    private static Undo instance = null;
 
-    public static Save getInstance() {
+    public static Undo getInstance() {
         if (instance == null) {
-            instance = new Save();
+            instance = new Undo();
         }
         return instance;
     }
 
-    public Save() {
+    public Undo() {
         super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                StringID.Main.SAVE_ID));
-        setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                StringID.Main.UNDO_ID));
+        setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String filePath = DocHolder.getInstance().getDoc().getDataFilePath();
-        if (!filePath.equals("")) {
-            FilterDB.getInstance().getFilter("opx").getSavingAction()
-                    .save(filePath);
+        if (PaintConfig.getMouseAction() != null) {
+            PaintConfig.getMouseAction().undo(PaintContext.getInstance());
         } else {
-            SaveAs.getInstance().doClick();
+            DocHolder.getInstance().getDoc().loadUndoInfo();
         }
-        MenuFile.getInstance().updateMRUItems(filePath);
+        MainFrame.getInstance().getCpScreen().repaint();
     }
+
 }

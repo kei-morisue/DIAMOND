@@ -36,7 +36,6 @@ public class RepeatCopy
     public RepeatCopy() {
         super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                 StringID.Main.REPEAT_COPY_ID));
-        ;
         addActionListener(this);
     }
 

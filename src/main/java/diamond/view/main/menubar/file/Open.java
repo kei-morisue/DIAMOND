@@ -11,10 +11,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import diamond.file.FileIOUtil;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
+import diamond.view.estimation.EstimationResultFrame;
 import diamond.view.main.MainFrame;
+import diamond.view.model.ModelViewFrame;
+import diamond.viewsetting.main.MainFrameSettingDB;
 
 /**
  * @author long_
@@ -41,8 +45,12 @@ public class Open extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         MainFrame mainFrame = MainFrame.getInstance();
-        mainFrame.openFile(null);
-        mainFrame.getMainScreen().repaint();
+        MainFrameSettingDB.getInstance().notifyObservers();
+        ModelViewFrame.getInstance().setVisible(false);
+        EstimationResultFrame.getInstance().setVisible(false);
+
+        FileIOUtil.openFile(mainFrame, null);
+        mainFrame.getCpScreen().repaint();
         mainFrame.updateTitleText();
 
     }

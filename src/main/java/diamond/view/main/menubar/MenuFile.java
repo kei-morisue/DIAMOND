@@ -6,7 +6,9 @@ package diamond.view.main.menubar;
 
 import javax.swing.JMenu;
 
+import diamond.Config;
 import diamond.file.FileHistory;
+import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
@@ -26,7 +28,7 @@ import diamond.view.main.menubar.file.SaveAs;
 public class MenuFile extends JMenu {
     private static MenuFile instance = null;
 
-    public static MenuFile getInstace() {
+    public static MenuFile getInstance() {
         if (instance == null) {
             instance = new MenuFile();
         }
@@ -37,6 +39,7 @@ public class MenuFile extends JMenu {
     public MenuFile() {
         super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
                 StringID.Main.FILE_ID));
+        FileHistory.loadFromFile(Config.INI_FILE_PATH);
         addItems();
     }
 
@@ -63,7 +66,7 @@ public class MenuFile extends JMenu {
     }
 
     public void addItems() {
-        removeAll();//TODO seems needless...
+        removeAll();//TODO rest of MRU-adds seem needless...
         add(New.getInstance());
         add(Open.getInstance());
         add(Save.getInstance());
@@ -76,5 +79,13 @@ public class MenuFile extends JMenu {
         addSeparator();
         add(Exit.getInstance());
 
+    }
+
+    public void updateMRUItems(String filePath) {
+        if (FilterDB.getInstance().getLoadableFilterOf(filePath) == null) {
+            return;
+        }
+        FileHistory.useFile(filePath);
+        addItems();
     }
 }

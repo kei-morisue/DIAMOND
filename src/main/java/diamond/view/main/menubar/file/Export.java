@@ -13,13 +13,14 @@ import javax.swing.JOptionPane;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.file.FileFilterEx;
+import diamond.file.FileIOUtil;
+import diamond.file.FilterDB;
 import diamond.fold.OrigamiModel;
 import diamond.fold.OrigamiModelFactory;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
 
 /**
  * @author long_
@@ -68,8 +69,8 @@ public class Export implements ActionListener {
                     JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
         }
 
-        MainFrame.getInstance().saveFile(null,
-                new FileFilterEx[] { MainFrame.filterDB.getFilter(ext) });
+        FileIOUtil.exportFile(null,
+                new FileFilterEx[] { FilterDB.getInstance().getFilter(ext) });
     }
 
     @Override

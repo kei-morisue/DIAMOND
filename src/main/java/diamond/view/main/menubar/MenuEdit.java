@@ -13,10 +13,6 @@ import javax.swing.KeyStroke;
 
 import diamond.bind.ButtonFactory;
 import diamond.bind.PaintActionButtonFactory;
-import diamond.doc.DocHolder;
-import diamond.paint.core.PaintContext;
-import diamond.paint.creasepattern.CreasePattern;
-import diamond.paint.creasepattern.Painter;
 import diamond.paint.util.DeleteSelectedLines;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
@@ -24,6 +20,8 @@ import diamond.resource.StringID;
 import diamond.view.main.MainFrame;
 import diamond.view.main.menubar.edit.CircleCopy;
 import diamond.view.main.menubar.edit.RepeatCopy;
+import diamond.view.main.menubar.edit.Undo;
+import diamond.view.main.menubar.edit.UnselectAll;
 
 /**
  * @author long_
@@ -45,10 +43,6 @@ public class MenuEdit extends JMenu {
                     StringID.Main.DELETE_SELECTED_LINES_ID));
 
     public static JMenuItem menuItemSelectAll;
-    public static JMenuItem menuItemUndo = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.UNDO_ID));
-    public static JMenuItem menuItemUnSelectAll = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.UNSELECT_ALL_ID));
 
     public static MenuEdit getInstance() {
         if (instance == null) {
@@ -70,18 +64,13 @@ public class MenuEdit extends JMenu {
                 JMenuItem.class, ResourceKey.LABEL, StringID.COPY_PASTE_ID);
         menuItemCutAndPaste = (JMenuItem) buttonFactory.create(
                 mainFrame, JMenuItem.class, StringID.CUT_PASTE_ID);
-        addActionListeners(mainFrame);
         addAccelerators();
         addItems();
     }
 
     private void addAccelerators() {
-        menuItemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-                ActionEvent.CTRL_MASK));
         menuItemSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
                 ActionEvent.CTRL_MASK));
-        menuItemUnSelectAll.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_ESCAPE, 0));
         menuItemDeleteSelectedLines
                 .addActionListener(new DeleteSelectedLines());
         menuItemDeleteSelectedLines.setAccelerator(KeyStroke.getKeyStroke(
@@ -92,33 +81,15 @@ public class MenuEdit extends JMenu {
                 KeyEvent.VK_X, ActionEvent.CTRL_MASK));
     }
 
-    private void addActionListeners(MainFrame mainFrame) {
-        menuItemUndo.addActionListener(mainFrame);
-        menuItemChangeOutline.addActionListener(mainFrame);
-        menuItemUnSelectAll
-                .addActionListener(new java.awt.event.ActionListener() {
-                    @Override
-                    public void actionPerformed(java.awt.event.ActionEvent e) {
-                        CreasePattern creasePattern = DocHolder.getInstance()
-                                .getDoc()
-                                .getCreasePattern();
-                        Painter painter = new Painter();
-                        painter.resetSelectedOriLines(creasePattern);
-                        PaintContext.getInstance().clear(false);
-                        mainFrame.getMainScreen().repaint();
-                    }
-                });
-    }
-
     private void addItems() {
         add(menuItemCopyAndPaste);
         add(menuItemCutAndPaste);
         add(RepeatCopy.getInstance());
         add(CircleCopy.getInstance());
         add(menuItemSelectAll);
-        add(menuItemUnSelectAll);
+        add(UnselectAll.getInstance());
         add(menuItemDeleteSelectedLines);
-        add(menuItemUndo);
+        add(Undo.getInstance());
         add(menuItemChangeOutline);
     }
 

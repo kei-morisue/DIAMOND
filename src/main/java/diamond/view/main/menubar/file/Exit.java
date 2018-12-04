@@ -8,11 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
+import diamond.Config;
+import diamond.doc.DocHolder;
+import diamond.file.FileHistory;
+import diamond.file.FileIOUtil;
+import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
 
 /**
  * @author long_
@@ -36,7 +41,24 @@ public class Exit extends JMenuItem implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame.getInstance().saveIniFile();
+        if (DocHolder.getInstance().getDoc().isChanged()) {
+            // TODO: confirm saving edited opx
+            int selected = JOptionPane
+                    .showConfirmDialog(
+                            this,
+                            "The crease pattern has been modified. Would you like to save?",
+                            "Comfirm to save", JOptionPane.YES_NO_OPTION);
+            if (selected == JOptionPane.YES_OPTION) {
+                String path = FileIOUtil.exportFile(
+                        FileHistory.getLastDirectory(),
+                        DocHolder.getInstance().getDoc().getDataFileName(),
+                        FilterDB.getInstance().toArray());
+                if (path == null) {
+
+                }
+            }
+        }
+        FileHistory.saveToFile(Config.INI_FILE_PATH);
         System.exit(0);
     }
 }

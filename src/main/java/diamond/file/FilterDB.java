@@ -9,6 +9,7 @@ import diamond.doc.SavingDoc;
 import diamond.doc.exporter.ExporterCP;
 import diamond.doc.exporter.ExporterDXF;
 import diamond.doc.exporter.ExporterOBJ;
+import diamond.doc.exporter.ExporterPNG;
 import diamond.doc.exporter.ExporterSVG;
 import diamond.doc.exporter.ExporterXML;
 import diamond.doc.loader.LoaderCP;
@@ -23,6 +24,7 @@ import diamond.resource.ResourceKey;
  * @author OUCHI Koji
  *
  */
+//TB inappropriate name "Filter" , rather IOManager.
 public class FilterDB {
 
     private static FilterDB instance = null;
@@ -46,12 +48,14 @@ public class FilterDB {
                         .getString(ResourceKey.LABEL, "ORIPA_File"),
                 new SavingDoc(new ExporterXML()));
         filter.setLoadingAction(new LoadingDoc(new LoaderXML()));
+        filter.setSavingAction(new SavingDoc(new ExporterCP()));
         this.putFilter("opx", filter);
 
         filter = new FileFilterEx(
                 new String[] { ".png", ".jpg" },
                 "(*.png, *.jpg) " + ResourceHolder.getInstance()
                         .getString(ResourceKey.LABEL, "Picture_File"));
+        filter.setSavingAction(new SavingDoc(new ExporterPNG()));
         this.putFilter("pict", filter);
 
         String key = "dxf";

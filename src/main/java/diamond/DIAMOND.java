@@ -10,17 +10,17 @@ public class DIAMOND {
 
     public static int tmpInt;
 
+    public static void main(String[] args) {
+        MainFrame.getInstance().initialize();
+        ModelViewFrame.getInstance().initialize();
+        EstimationResultFrame.getInstance().initialize();
+    }
+
     public static void ERROR_END(String message) {
         JOptionPane.showMessageDialog(
                 MainFrame.getInstance(), message, "ERROR",
                 JOptionPane.ERROR_MESSAGE);
         System.exit(0);
-    }
-
-    public static void main(String[] args) {
-        MainFrame.getInstance().initialize();
-        ModelViewFrame.getInstance().initialize();
-        EstimationResultFrame.getInstance().initialize();
     }
 
     public static void outMessage(String s) {

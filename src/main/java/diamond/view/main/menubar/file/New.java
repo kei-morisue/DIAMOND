@@ -54,6 +54,6 @@ public class New extends JMenuItem implements ActionListener {
         ModelViewFrame.getInstance().setVisible(false);
         EstimationResultFrame.getInstance().setVisible(false);
         MainFrame.getInstance().updateTitleText();
-        MainFrame.getInstance().getMainScreen().repaint();
+        MainFrame.getInstance().getCpScreen().repaint();
     }
 }

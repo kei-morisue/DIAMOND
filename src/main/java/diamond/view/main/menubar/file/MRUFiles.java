@@ -11,9 +11,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import diamond.Config;
+import diamond.file.FileIOUtil;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
+import diamond.view.estimation.EstimationResultFrame;
 import diamond.view.main.MainFrame;
+import diamond.view.model.ModelViewFrame;
+import diamond.viewsetting.main.MainFrameSettingDB;
 
 /**
  * @author long_
@@ -24,10 +28,9 @@ public class MRUFiles implements ActionListener {
     public static JMenuItem[] menuItems = new JMenuItem[Config.MRUFILE_NUM];
 
     public MRUFiles() {
-        MainFrame mainFrame = MainFrame.getInstance();
         for (int i = 0; i < Config.MRUFILE_NUM; i++) {
             menuItems[i] = new JMenuItem();
-            menuItems[i].addActionListener(mainFrame);
+            menuItems[i].addActionListener(this);
         }
     }
 
@@ -35,21 +38,24 @@ public class MRUFiles implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < Config.MRUFILE_NUM; i++) {
             if (e.getSource() == menuItems[i]) {
-                MainFrame mainScreen = MainFrame.getInstance();
+                MainFrame mainFrame = MainFrame.getInstance();
                 try {
                     String filePath = menuItems[i]
                             .getText();
-                    mainScreen.openFile(filePath);
-                    mainScreen.updateTitleText();
+                    MainFrameSettingDB.getInstance().notifyObservers();
+                    ModelViewFrame.getInstance().setVisible(false);
+                    EstimationResultFrame.getInstance().setVisible(false);
+                    FileIOUtil.openFile(mainFrame, filePath);
+                    mainFrame.updateTitleText();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(mainScreen,
+                    JOptionPane.showMessageDialog(mainFrame,
                             e.toString(),
                             ResourceHolder.getInstance().getString(
                                     ResourceKey.WARNING,
                                     "Error_FileLoadFailed"),
                             JOptionPane.ERROR_MESSAGE);
                 }
-                mainScreen.getMainScreen().repaint();
+                mainFrame.getCpScreen().repaint();
                 return;
             }
         }

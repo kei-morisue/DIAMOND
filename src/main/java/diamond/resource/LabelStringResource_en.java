@@ -57,7 +57,7 @@ public class LabelStringResource_en extends ListResourceBundle {
             { StringID.EDIT_CONTOUR_ID, "Edit Contour" },
             { StringID.SELECT_ID, "Select" },
             { StringID.DELETE_LINE_ID, "Delete Line" },
-            { StringID.CHANGE_LINE_TYPE_ID, "Change Line Type" },
+            { StringID.CHANGE_LINE_TYPE_ID, "Alter Line Type" },
             { StringID.ADD_VERTEX_ID, "Add Vertex" },
             { StringID.DELETE_VERTEX_ID, "Delete Vertex" },
             { StringID.SELECT_ALL_LINE_ID, "Select All" },

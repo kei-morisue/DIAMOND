@@ -25,19 +25,23 @@ import diamond.doc.Doc;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.value.OriLine;
 
-public class ExporterCP implements Exporter{
+public class ExporterCP implements Exporter {
 
-	public boolean export(Doc doc, String filepath) throws Exception {
+    public boolean export(Doc doc, String filepath) throws Exception {
         FileWriter fw = new FileWriter(filepath);
         BufferedWriter bw = new BufferedWriter(fw);
 
         CreasePattern creasePattern = doc.getCreasePattern();
-        for(OriLine line : creasePattern) {
-            if(line.typeVal == OriLine.TYPE_NONE) continue;
-            bw.write(line.typeVal + " " + line.p0.x + " " + line.p0.y + " " + line.p1.x + " " + line.p1.y + "\n");
+        for (OriLine line : creasePattern) {
+            if (line.typeVal == OriLine.TYPE_NONE)
+                continue;
+            bw.write(line.typeVal + " " + line.p0.x + " " + line.p0.y + " "
+                    + line.p1.x + " " + line.p1.y + "\n");
         }
         bw.close();
-        
+
+        doc.setDataFilePath(filepath);
+        doc.clearChanged();
         return true;
-    } 
+    }
 }
