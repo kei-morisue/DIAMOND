@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.vecmath.Vector2d;
 
+import diamond.Config;
 import diamond.fold.FoldedModelInfo;
 import diamond.fold.OriFace;
 import diamond.fold.OriHalfedge;
@@ -33,10 +34,6 @@ import diamond.geom.GeomUtil;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.tool.LineAdder;
-import diamond.resource.Constants;
-import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
 import diamond.value.OriLine;
 
 public class Doc {
@@ -102,7 +99,7 @@ public class Doc {
     int debugCount = 0;
 
     public Doc() {
-        initialize(Constants.DEFAULT_PAPER_SIZE);
+        initialize(Config.DEFAULT_PAPER_SIZE);
     }
 
     public Doc(double size) {
@@ -175,15 +172,6 @@ public class Doc {
 
     public String getDataFilePath() {
         return dataFilePath;
-    }
-
-    public String buildFileName() {
-        if ((getDataFilePath()).equals("")) {
-            return ResourceHolder.getString(ResourceKey.LABEL,
-                    StringID.Default.FILE_NAME_ID);
-        } else {
-            return getDataFileName();
-        }
     }
 
     /**

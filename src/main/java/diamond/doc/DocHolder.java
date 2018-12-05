@@ -1,9 +1,9 @@
 package diamond.doc;
 
-import diamond.resource.Constants;
+import diamond.Config;
 
 public class DocHolder {
-    private static Doc doc = new Doc(Constants.DEFAULT_PAPER_SIZE);
+    private static Doc doc = new Doc(Config.DEFAULT_PAPER_SIZE);
 
     private DocHolder() {
     }

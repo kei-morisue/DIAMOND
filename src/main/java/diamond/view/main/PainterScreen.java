@@ -49,8 +49,6 @@ import javax.vecmath.Vector2d;
 
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
-import diamond.fold.FoldedModelInfo;
-import diamond.fold.OrigamiModel;
 import diamond.mouse.MouseUtility;
 import diamond.paint.EditMode;
 import diamond.paint.core.LineSetting;
@@ -88,8 +86,6 @@ public class PainterScreen extends JPanel
     private double transY;
 
     public PainterScreen() {
-        setPreferredSize(new Dimension(500, 500));
-
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -166,70 +162,6 @@ public class PainterScreen extends JPanel
         }
 
     }
-
-    /**
-     * for verifying algorithm
-     * @param g2d
-     */
-    //	public void drawModel(Graphics2D g2d) {
-    //
-    //		if (! Config.FOR_STUDY) {
-    //			return;
-    //		}
-    //
-    //		Doc document = ORIPA.doc;
-    //		OrigamiModel origamiModel = document.getOrigamiModel();
-    //
-    //		List<OriFace> faces = origamiModel.getFaces();
-    //		List<OriVertex> vertices = origamiModel.getVertices();
-    //
-    //
-    //		if (bDrawFaceID) {
-    //			g2d.setColor(Color.BLACK);
-    //			for (OriFace face : faces) {
-    //				g2d.drawString("" + face.tmpInt, (int) face.getCenter().x,
-    //						(int) face.getCenter().y);
-    //			}
-    //		}
-    //
-    //		g2d.setColor(new Color(255, 210, 220));
-    //		for (OriFace face : faces) {
-    //			if (face.tmpInt2 == 0) {
-    //				g2d.setColor(Color.RED);
-    //				g2d.fill(face.preOutline);
-    //			} else {
-    //				g2d.setColor(face.color);
-    //			}
-    //
-    //			if (face.hasProblem) {
-    //				g2d.setColor(Color.RED);
-    //			} else {
-    //				if (face.faceFront) {
-    //					g2d.setColor(new Color(255, 200, 200));
-    //				} else {
-    //					g2d.setColor(new Color(200, 200, 255));
-    //				}
-    //			}
-    //
-    ////			g2d.fill(face.preOutline);
-    //		}
-    //
-    //		g2d.setColor(Color.BLACK);
-    //
-    //
-    //		for (OriFace face : faces) {
-    //			g2d.drawString("" + face.z_order, (int) face.getCenter().x,
-    //					(int) face.getCenter().y);
-    //		}
-    //
-    //		g2d.setColor(Color.RED);
-    //		for (OriVertex v : vertices) {
-    //			if (v.hasProblem) {
-    //				g2d.fill(new Rectangle2D.Double(v.p.x - 8.0 / scale,
-    //						v.p.y - 8.0 / scale, 16.0 / scale, 16.0 / scale));
-    //			}
-    //		}
-    //	}
 
     // update actual AffineTransform
     private void updateAffineTransform() {
@@ -428,13 +360,6 @@ public class PainterScreen extends JPanel
 
         Doc doc = DocHolder.getDoc();
         CreasePattern creasePattern = doc.getCreasePattern();
-        OrigamiModel origamiModel = doc.getOrigamiModel();
-        FoldedModelInfo foldedModelInfo = doc.getFoldedModelInfo();
-
-        //		boolean hasModel = origamiModel.hasModel();
-        //		if (hasModel) {
-        //			drawModel(g2d);
-        //		}
         if (setting.isGridVisible()) {
 
             drawGridLine(g2d);
@@ -476,29 +401,6 @@ public class PainterScreen extends JPanel
             }
         }
 
-        // Line that links the pair of unsetled faces
-        //		if (Config.FOR_STUDY) {
-        //			List<OriFace> faces = origamiModel.getFaces();
-        //
-        //			int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-        //
-        //			if (overlapRelation != null) {
-        //				g2d.setStroke(LineSetting.STROKE_RIDGE);
-        //				g2d.setColor(Color.MAGENTA);
-        //				int size = faces.size();
-        //				for (int i = 0; i < size; i++) {
-        //					for (int j = i + 1; j < size; j++) {
-        //						if (overlapRelation[i][j] == Doc.UNDEFINED) {
-        //							Vector2d v0 = faces.get(i).getCenter();
-        //							Vector2d v1 = faces.get(j).getCenter();
-        //							g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
-        //
-        //						}
-        //					}
-        //				}
-        //			}
-        //		}
-
         if (PaintConfig.mouseAction != null) {
             PaintConfig.mouseAction.onDraw(g2d, mouseContext);
 
@@ -525,7 +427,7 @@ public class PainterScreen extends JPanel
 
     }
 
-    void drawVertexRectangles(Graphics2D g2d) {
+    private void drawVertexRectangles(Graphics2D g2d) {
         CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
         g2d.setColor(Color.BLACK);

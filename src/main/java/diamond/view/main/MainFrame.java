@@ -18,15 +18,14 @@
 
 package diamond.view.main;
 
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
 import diamond.Config;
+import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.file.ImageResourceLoader;
 import diamond.resource.ResourceHolder;
@@ -47,7 +46,6 @@ public class MainFrame extends JFrame implements WindowListener {
     }
 
     private PainterScreen cpScreen = new PainterScreen();
-    private PainterScreen secondScreen = new PainterScreen();
     private UIPanel uiPanel;
 
     public MainFrame() {
@@ -63,40 +61,30 @@ public class MainFrame extends JFrame implements WindowListener {
                 .getImage());
         updateTitleText();
         setJMenuBar(MenuBar.getInstance());
-        layoutComponents();
 
+        setLayout(new BorderLayout());
+        add(uiPanel, BorderLayout.WEST);
+        add(cpScreen, BorderLayout.CENTER);
+        add(new HintLabel(), BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    private void layoutComponents() {
-        //TODO
-
-        GridBagLayout gbl = new GridBagLayout();
-        setLayout(gbl);
-        layout(gbl, uiPanel, 0, 0, 1, 1);
-        layout(gbl, cpScreen, 1, 0, 3, 3);
-        layout(gbl, secondScreen, 4, 0, 3, 3);
-        layout(gbl, new HintLabel(), 0, 1, 1, 1);
-    }
-
-    void layout(GridBagLayout gbl, Component c, int x, int y, int w, int h) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = x;
-        gbc.gridy = y;
-        gbc.gridwidth = w;
-        gbc.gridheight = h;
-        gbl.setConstraints(c, gbc);
-        add(c);
-    }
-
     public void updateTitleText() {
-        String fileName = DocHolder.getDoc().buildFileName();
+        String fileName = buildFileName(DocHolder.getDoc());
         setTitle(fileName + " - "
                 + ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.Main.TITLE_ID));
+    }
+
+    private String buildFileName(Doc doc) {
+        if ((doc.getDataFilePath()).equals("")) {
+            return ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Default.FILE_NAME_ID);
+        } else {
+            return doc.getDataFileName();
+        }
     }
 
     @Override

@@ -20,6 +20,7 @@ package diamond.geom;
 
 import javax.vecmath.Vector2d;
 
+import diamond.Config;
 import diamond.value.OriLine;
 
 public class RectangleClipper {
@@ -48,7 +49,8 @@ public class RectangleClipper {
 
         // Outside from the left edge of the window
         if ((code & LEFT) != 0) {
-            cy = (l.p1.y - l.p0.y) * (m_minX - l.p0.x) / (l.p1.x - l.p0.x) + l.p0.y; 
+            cy = (l.p1.y - l.p0.y) * (m_minX - l.p0.x) / (l.p1.x - l.p0.x)
+                    + l.p0.y;
             if ((cy >= m_minY) && (cy <= m_maxY)) {
                 p.x = m_minX;
                 p.y = cy;
@@ -58,7 +60,8 @@ public class RectangleClipper {
 
         //Outside the right edge of the window
         if ((code & RIGHT) != 0) {
-            cy = (l.p1.y - l.p0.y) * (m_maxX - l.p0.x) / (l.p1.x - l.p0.x) + l.p0.y;
+            cy = (l.p1.y - l.p0.y) * (m_maxX - l.p0.x) / (l.p1.x - l.p0.x)
+                    + l.p0.y;
             if ((cy >= m_minY) && (cy <= m_maxY)) {
                 p.x = m_maxX;
                 p.y = cy;
@@ -68,7 +71,8 @@ public class RectangleClipper {
 
         // Outside from the top of the window
         if ((code & TOP) != 0) {
-            cx = (l.p1.x - l.p0.x) * (m_minY - l.p0.y) / (l.p1.y - l.p0.y) + l.p0.x;
+            cx = (l.p1.x - l.p0.x) * (m_minY - l.p0.y) / (l.p1.y - l.p0.y)
+                    + l.p0.x;
             if ((cx >= m_minX) && (cx <= m_maxX)) {
                 p.x = cx;
                 p.y = m_minY;
@@ -78,7 +82,8 @@ public class RectangleClipper {
 
         // Outside from the bottom of the window
         if ((code & BOTTOM) != 0) {
-            cx = (l.p1.x - l.p0.x) * (m_maxY - l.p0.y) / (l.p1.y - l.p0.y) + l.p0.x;
+            cx = (l.p1.x - l.p0.x) * (m_maxY - l.p0.y) / (l.p1.y - l.p0.y)
+                    + l.p0.x;
             if ((cx >= m_minX) && (cx <= m_maxX)) {
                 p.x = cx;
                 p.y = m_maxY;
@@ -86,7 +91,7 @@ public class RectangleClipper {
             }
         }
 
-        return -1;  // If it is not clipping, line segment is completely invisible
+        return -1; // If it is not clipping, line segment is completely invisible
     }
 
     private int calcCode(double x, double y) {
@@ -109,16 +114,20 @@ public class RectangleClipper {
 
     // Returns false if not included in the area
     public boolean clip(OriLine l) {
-        if (Math.abs(l.p0.x - m_minX) < diamond.resource.Constants.EPS && Math.abs(l.p1.x - m_minX) < diamond.resource.Constants.EPS) {
+        if (Math.abs(l.p0.x - m_minX) < Config.EPS
+                && Math.abs(l.p1.x - m_minX) < Config.EPS) {
             return false;
         }
-        if (Math.abs(l.p0.x - m_maxX) < diamond.resource.Constants.EPS && Math.abs(l.p1.x - m_maxX) < diamond.resource.Constants.EPS) {
+        if (Math.abs(l.p0.x - m_maxX) < Config.EPS
+                && Math.abs(l.p1.x - m_maxX) < Config.EPS) {
             return false;
         }
-        if (Math.abs(l.p0.y - m_minY) < diamond.resource.Constants.EPS && Math.abs(l.p1.y - m_minY) < diamond.resource.Constants.EPS) {
+        if (Math.abs(l.p0.y - m_minY) < Config.EPS
+                && Math.abs(l.p1.y - m_minY) < Config.EPS) {
             return false;
         }
-        if (Math.abs(l.p0.y - m_maxY) < diamond.resource.Constants.EPS && Math.abs(l.p1.y - m_maxY) < diamond.resource.Constants.EPS) {
+        if (Math.abs(l.p0.y - m_maxY) < Config.EPS
+                && Math.abs(l.p1.y - m_maxY) < Config.EPS) {
             return false;
         }
 
@@ -149,8 +158,8 @@ public class RectangleClipper {
     }
 
     public boolean clipTest(OriLine l) {
-        int s_code = calcCode(l.p0.x, l.p0.y);  
-        int e_code = calcCode(l.p1.x, l.p1.y); 
+        int s_code = calcCode(l.p0.x, l.p0.y);
+        int e_code = calcCode(l.p1.x, l.p1.y);
         if ((s_code == 0) && (e_code == 0)) {
             return true;
         }
