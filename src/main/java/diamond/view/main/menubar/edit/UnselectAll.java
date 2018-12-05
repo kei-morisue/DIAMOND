@@ -36,7 +36,7 @@ public class UnselectAll
     }
 
     public UnselectAll() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.UNSELECT_ALL_ID));
         setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_ESCAPE, 0));
@@ -45,7 +45,7 @@ public class UnselectAll
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        CreasePattern creasePattern = DocHolder.getInstance()
+        CreasePattern creasePattern = DocHolder
                 .getDoc()
                 .getCreasePattern();
         Painter painter = new Painter();

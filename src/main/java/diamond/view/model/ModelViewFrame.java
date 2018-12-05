@@ -72,42 +72,42 @@ public class ModelViewFrame extends JFrame
         return instance;
     }
 
-    private JMenu dispSubMenu = new JMenu(ResourceHolder.getInstance()
+    private JMenu dispSubMenu = new JMenu(ResourceHolder
             .getString(ResourceKey.LABEL, "MENU_DispType"));
 
-    private JMenu menuDisp = new JMenu(ResourceHolder.getInstance()
+    private JMenu menuDisp = new JMenu(ResourceHolder
             .getString(ResourceKey.LABEL, "MENU_Disp"));
     private JMenu menuFile = new JMenu(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL, "File"));
+            ResourceHolder.getString(ResourceKey.LABEL, "File"));
     private JCheckBoxMenuItem menuItemCrossLine = new JCheckBoxMenuItem(
             "Show Cross-Line", false);
     private JMenuItem menuItemExportDXF = new JMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_ExportModelLine_DXF"));
     private JMenuItem menuItemExportOBJ = new JMenuItem("Export to OBJ file");
     private JRadioButtonMenuItem menuItemFillAlpha = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_FillAlpha"));
     private JRadioButtonMenuItem menuItemFillColor = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_FillColor"));
     private JRadioButtonMenuItem menuItemFillNone = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_DrawLines"));
     private JRadioButtonMenuItem menuItemFillWhite = new JRadioButtonMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_FillWhite"));
-    private JMenuItem menuItemFlip = new JMenuItem(ResourceHolder.getInstance()
+    private JMenuItem menuItemFlip = new JMenuItem(ResourceHolder
             .getString(ResourceKey.LABEL, "MENU_Invert"));
     private JScrollBar scrollBarAngle = new JScrollBar(JScrollBar.HORIZONTAL,
             90, 5, 0, 185);
     private JScrollBar scrollBarPosition = new JScrollBar(JScrollBar.VERTICAL,
             0, 5, -150, 150);
     private ModelFrameSettingDB setting = ModelFrameSettingDB.getInstance();
-    public JLabel hintLabel = new JLabel(ResourceHolder.getInstance()
+    public JLabel hintLabel = new JLabel(ResourceHolder
             .getString(ResourceKey.LABEL, "Basic"));
     public JCheckBoxMenuItem menuItemSlideFaces = new JCheckBoxMenuItem(
-            ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     "MENU_SlideFaces"),
             false);
     ModelViewScreen screen;
@@ -116,7 +116,7 @@ public class ModelViewFrame extends JFrame
 
         setting.addObserver(this);
 
-        setTitle(ResourceHolder.getInstance()
+        setTitle(ResourceHolder
                 .getString(ResourceKey.LABEL, "ExpectedFoldedOrigami"));
         screen = new ModelViewScreen();
 
@@ -166,7 +166,7 @@ public class ModelViewFrame extends JFrame
         fileChooser.addChoosableFileFilter(new FileFilterEx(
                 new String[] { "." + ext },
                 "(*." + ext + ")" + ext
-                        + ResourceHolder.getInstance()
+                        + ResourceHolder
                                 .getString(ResourceKey.LABEL, "File")));
         if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(this)) {
             try {
@@ -175,10 +175,10 @@ public class ModelViewFrame extends JFrame
                 if (file.exists()) {
                     if (JOptionPane.showConfirmDialog(
                             null,
-                            ResourceHolder.getInstance()
+                            ResourceHolder
                                     .getString(ResourceKey.WARNING,
                                             "Warning_SameNameFileExist"),
-                            ResourceHolder.getInstance()
+                            ResourceHolder
                                     .getString(ResourceKey.LABEL,
                                             StringID.DIALOG_TITLE_SAVE_ID),
                             JOptionPane.YES_NO_OPTION,
@@ -192,19 +192,19 @@ public class ModelViewFrame extends JFrame
                 }
                 switch (ext) {
                 case "dxf":
-                    ExporterDXF.exportModel(DocHolder.getInstance().getDoc(),
+                    ExporterDXF.exportModel(DocHolder.getDoc(),
                             filePath);
                     break;
                 case "obj":
                     Exporter exporter = new ExporterOBJ2();
-                    exporter.export(DocHolder.getInstance().getDoc(), filePath);
+                    exporter.export(DocHolder.getDoc(), filePath);
                     break;
                 }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this, e.toString(),
-                        ResourceHolder.getInstance()
+                        ResourceHolder
                                 .getString(ResourceKey.WARNING,
                                         "Error_FileSaveFailed"),
                         JOptionPane.ERROR_MESSAGE);
@@ -214,7 +214,7 @@ public class ModelViewFrame extends JFrame
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         OrigamiModel origamiModel = document.getOrigamiModel();
 
         FolderTool folderTool = new FolderTool();

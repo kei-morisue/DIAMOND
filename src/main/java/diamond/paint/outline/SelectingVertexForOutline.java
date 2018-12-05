@@ -56,7 +56,7 @@ public class SelectingVertexForOutline extends PickingVertex {
             if (context.getVertexCount() > 2) {
             	// finish editing
             	
-            	DocHolder.getInstance().getDoc().pushUndoInfo();
+            	DocHolder.getDoc().pushUndoInfo();
                 closeTmpOutline(context.getVertices());
 
                 context.clear(false);

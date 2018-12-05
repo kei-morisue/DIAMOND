@@ -133,7 +133,7 @@ public class CircleCopyDialog extends JDialog {
                                 JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
-                        Doc document = DocHolder.getInstance().getDoc();
+                        Doc document = DocHolder.getDoc();
                         CreasePattern creasePattern = document
                                 .getCreasePattern();
                         document.pushUndoInfo();
@@ -256,7 +256,7 @@ public class CircleCopyDialog extends JDialog {
      */
     private void initialize() {
         this.setSize(160, 171);
-        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        this.setTitle(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.CIRCLE_COPY_ID));
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);

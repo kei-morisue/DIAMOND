@@ -194,7 +194,7 @@ public class OriFace {
             tri.v[1].color = new Vector3d(halfedges.get(i).vertexColor);
             tri.v[2].color = new Vector3d(halfedges.get(i + 1).vertexColor);
 
-            double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+            double paperSize = DocHolder.getDoc().getPaperSize();
             tri.v[0].uv = new Vector2d(startHe.vertex.preP.x / paperSize
                     + 0.5, startHe.vertex.preP.y / paperSize + 0.5);
             tri.v[1].uv = new Vector2d(halfedges.get(i).vertex.preP.x

@@ -39,7 +39,7 @@ public class SelectingLineForMirror extends PickingLine {
 			boolean doSpecial) {
 		if(doingFirstAction){
 			doingFirstAction = false;
-			DocHolder.getInstance().getDoc().cacheUndoInfo();
+			DocHolder.getDoc().cacheUndoInfo();
 			
 		}
 
@@ -75,7 +75,7 @@ public class SelectingLineForMirror extends PickingLine {
 	@Override
 	protected void onResult(PaintContext context) {
 
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		CreasePattern creasePattern = document.getCreasePattern();
 		document.pushCachedUndoInfo();
 		

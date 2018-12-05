@@ -85,7 +85,7 @@ public abstract class RectangularSelectableAction extends GraphicMouseAction {
 					Math.max(startPoint.x, draggingPoint.x),
 					Math.max(startPoint.y, draggingPoint.y));
 			
-	        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+	        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
 			for (OriLine l : creasePattern) {
 

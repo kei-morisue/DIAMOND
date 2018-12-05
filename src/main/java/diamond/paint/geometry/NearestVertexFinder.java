@@ -78,7 +78,7 @@ public class NearestVertexFinder {
 		Point2D.Double currentPoint = context.getLogicalMousePoint();
 		
 		
-		Collection<Collection<Vector2d>> vertices = DocHolder.getInstance().getDoc().getVerticesArea(
+		Collection<Collection<Vector2d>> vertices = DocHolder.getDoc().getVerticesArea(
 				currentPoint.x, currentPoint.y, distance);	
 	
 		for(Collection<Vector2d> locals : vertices){

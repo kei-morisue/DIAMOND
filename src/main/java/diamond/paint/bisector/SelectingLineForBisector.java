@@ -25,7 +25,7 @@ public class SelectingLineForBisector extends PickingLine {
 			throw new RuntimeException();
 		}
 		
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		CreasePattern creasePattern = document.getCreasePattern();
 		document.pushCachedUndoInfo();
 

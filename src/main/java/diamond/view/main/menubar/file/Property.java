@@ -30,7 +30,7 @@ public class Property extends JMenuItem implements ActionListener {
     }
 
     public Property() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.PROPERTY_ID));
         addActionListener(this);
     }

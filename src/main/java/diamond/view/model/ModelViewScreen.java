@@ -131,7 +131,7 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
     }
 
     public void drawModel(Graphics2D g2d) {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         OrigamiModel origamiModel = document.getOrigamiModel();
         List<OriFace> sortedFaces = origamiModel.getSortedFaces();
 
@@ -250,7 +250,7 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         OrigamiModel orirgamiModel = document.getOrigamiModel();
 
         if (bufferImage == null) {
@@ -300,13 +300,13 @@ implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListene
         crossLine.p0.add(moveVec);
         crossLine.p1.add(moveVec);
 
-        DocHolder.getInstance().getDoc().setCrossLine(crossLine);
+        DocHolder.getDoc().setCrossLine(crossLine);
         repaint();
         MainFrame.getInstance().repaint();
     }
 
     public void resetViewMatrix() {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         OrigamiModel origamiModel = document.getOrigamiModel();
         List<OriFace> faces = origamiModel.getFaces();
 

@@ -44,7 +44,7 @@ public class FilterDB {
 
         filter = new FileFilterEx(
                 new String[] { ".opx", ".xml" },
-                "(*.opx, *.xml) " + ResourceHolder.getInstance()
+                "(*.opx, *.xml) " + ResourceHolder
                         .getString(ResourceKey.LABEL, "ORIPA_File"),
                 new SavingDoc(new ExporterXML()));
         filter.setLoadingAction(new LoadingDoc(new LoaderXML()));
@@ -53,7 +53,7 @@ public class FilterDB {
 
         filter = new FileFilterEx(
                 new String[] { ".png", ".jpg" },
-                "(*.png, *.jpg) " + ResourceHolder.getInstance()
+                "(*.png, *.jpg) " + ResourceHolder
                         .getString(ResourceKey.LABEL, "Picture_File"));
         filter.setSavingAction(new SavingDoc(new ExporterPNG()));
         this.putFilter("pict", filter);
@@ -61,7 +61,7 @@ public class FilterDB {
         String key = "dxf";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getInstance()
+                        + ResourceHolder
                                 .getString(ResourceKey.LABEL, "File"),
                 new SavingDoc(new ExporterDXF()));
         filter.setLoadingAction(new LoadingDoc(new LoaderDXF()));
@@ -70,7 +70,7 @@ public class FilterDB {
         key = "obj";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getInstance()
+                        + ResourceHolder
                                 .getString(ResourceKey.LABEL, "File"),
                 new SavingDoc(new ExporterOBJ()));
         this.putFilter(key, filter);
@@ -78,7 +78,7 @@ public class FilterDB {
         key = "cp";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getInstance()
+                        + ResourceHolder
                                 .getString(ResourceKey.LABEL, "File"),
                 new SavingDoc(new ExporterCP()));
         filter.setLoadingAction(new LoadingDoc(new LoaderCP()));
@@ -87,7 +87,7 @@ public class FilterDB {
         key = "svg";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getInstance()
+                        + ResourceHolder
                                 .getString(ResourceKey.LABEL, "File"),
                 new SavingDoc(new ExporterSVG()));
         this.putFilter(key, filter);

@@ -47,7 +47,7 @@ public class CloseTempOutline {
 
     public void execute(Collection<Vector2d> outlinevertices){
 
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
         // Delete the current outline
 		ArrayList<OriLine> outlines = new ArrayList<>();

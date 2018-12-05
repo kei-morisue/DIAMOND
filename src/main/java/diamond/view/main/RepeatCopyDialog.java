@@ -137,7 +137,7 @@ public class RepeatCopyDialog extends JDialog {
                                 JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
-                        Doc document = DocHolder.getInstance().getDoc();
+                        Doc document = DocHolder.getDoc();
                         CreasePattern creasePattern = document
                                 .getCreasePattern();
                         document.pushUndoInfo();
@@ -298,7 +298,7 @@ public class RepeatCopyDialog extends JDialog {
         this.setSize(123, 249);
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);
-        this.setTitle(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        this.setTitle(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.REPEAT_COPY_ID));
         this.setContentPane(getJContentPane());
     }

@@ -33,7 +33,7 @@ public class Save extends JMenuItem implements ActionListener {
     }
 
     public Save() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.SAVE_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
@@ -42,7 +42,7 @@ public class Save extends JMenuItem implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String filePath = DocHolder.getInstance().getDoc().getDataFilePath();
+        String filePath = DocHolder.getDoc().getDataFilePath();
         if (!filePath.equals("")) {
             FilterDB.getInstance().getFilter("opx").getSavingAction()
                     .save(filePath);

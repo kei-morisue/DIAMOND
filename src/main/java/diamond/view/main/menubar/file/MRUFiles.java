@@ -50,7 +50,7 @@ public class MRUFiles implements ActionListener {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(mainFrame,
                             e.toString(),
-                            ResourceHolder.getInstance().getString(
+                            ResourceHolder.getString(
                                     ResourceKey.WARNING,
                                     "Error_FileLoadFailed"),
                             JOptionPane.ERROR_MESSAGE);

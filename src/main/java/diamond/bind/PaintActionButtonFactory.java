@@ -26,7 +26,7 @@ public class PaintActionButtonFactory implements ButtonFactory {
             Class<? extends AbstractButton> buttonClass, ResourceKey key,
             String id) {
         AbstractButton button = create(parent, buttonClass, id);
-        button.setText(ResourceHolder.getInstance().getString(key, id));
+        button.setText(ResourceHolder.getString(key, id));
         return button;
     }
 

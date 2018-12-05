@@ -14,7 +14,7 @@ public class SelectAllLineAction extends SelectLineAction {
 	@Override
 	public void recover(PaintContext context) {
 		Painter painter = new Painter();
-		CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+		CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 		painter.selectAllOriLines(creasePattern);
 		super.recover(context);
 	}

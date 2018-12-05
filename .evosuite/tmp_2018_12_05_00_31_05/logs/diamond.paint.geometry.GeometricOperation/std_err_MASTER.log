@@ -1,0 +1,25 @@
+[MASTER] 02:19:35.611 [main] ERROR ExternalProcessHandler - Class diamond.paint.geometry.GeometricOperation. Lost connection with clients.
+ClientNode: INITIALIZATION
+
+java.rmi.UnmarshalException: Error unmarshaling return header; nested exception is: 
+	java.net.SocketException: Connection reset
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:236) ~[na:1.8.0_191]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:161) ~[na:1.8.0_191]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:227) ~[na:1.8.0_191]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:179) ~[na:1.8.0_191]
+	at com.sun.proxy.$Proxy7.waitUntilFinished(Unknown Source) ~[na:na]
+	at org.evosuite.utils.ExternalProcessHandler.waitForResult(ExternalProcessHandler.java:608) ~[evosuite-master-1.0.6.jar:1.0.6]
+	at org.evosuite.executionmode.TestGeneration.generateTests(TestGeneration.java:480) [evosuite-master-1.0.6.jar:1.0.6]
+	at org.evosuite.executionmode.TestGeneration.executeTestGeneration(TestGeneration.java:79) [evosuite-master-1.0.6.jar:1.0.6]
+	at org.evosuite.EvoSuite.parseCommandLine(EvoSuite.java:269) [evosuite-master-1.0.6.jar:1.0.6]
+	at org.evosuite.EvoSuite.main(EvoSuite.java:302) [evosuite-master-1.0.6.jar:1.0.6]
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210) ~[na:1.8.0_191]
+	at java.net.SocketInputStream.read(SocketInputStream.java:141) ~[na:1.8.0_191]
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246) ~[na:1.8.0_191]
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265) ~[na:1.8.0_191]
+	at java.io.DataInputStream.readByte(DataInputStream.java:265) ~[na:1.8.0_191]
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:222) ~[na:1.8.0_191]
+	... 9 common frames omitted
+[MASTER] 02:19:35.728 [main] ERROR SearchStatistics - No statistics has been saved because EvoSuite failed to generate any test case
+[MASTER] 02:19:35.828 [main] ERROR TestGeneration - failed to write statistics data

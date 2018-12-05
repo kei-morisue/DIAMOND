@@ -42,7 +42,7 @@ public class SaveAs extends JMenuItem implements ActionListener {
     }
 
     public SaveAs() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.SAVE_AS_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
@@ -52,7 +52,7 @@ public class SaveAs extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String path = FileIOUtil.exportFile(FileHistory.getLastDirectory(),
-                DocHolder.getInstance().getDoc().getDataFileName(),
+                DocHolder.getDoc().getDataFileName(),
                 fileFilters);
         MenuFile.getInstance().updateMRUItems(path);
         MainFrame.getInstance().updateTitleText();

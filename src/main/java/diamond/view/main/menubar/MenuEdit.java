@@ -33,13 +33,12 @@ public class MenuEdit extends JMenu {
 
     private static MainFrame mainFrame = MainFrame.getInstance();
 
-    private static ResourceHolder res = ResourceHolder.getInstance();
     public static JMenuItem menuItemChangeOutline;
 
     public static JMenuItem menuItemCopyAndPaste;
     public static JMenuItem menuItemCutAndPaste;
     public static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
-            res.getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.Main.DELETE_SELECTED_LINES_ID));
 
     public static JMenuItem menuItemSelectAll;
@@ -52,7 +51,8 @@ public class MenuEdit extends JMenu {
     }
 
     public MenuEdit() {
-        super(res.getString(ResourceKey.LABEL, StringID.Main.EDIT_ID));
+        super(ResourceHolder.getString(ResourceKey.LABEL,
+                StringID.Main.EDIT_ID));
 
         ButtonFactory buttonFactory = new PaintActionButtonFactory();
         menuItemChangeOutline = (JMenuItem) buttonFactory.create(mainFrame,

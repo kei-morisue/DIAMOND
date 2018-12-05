@@ -85,13 +85,13 @@ public class EstimationResultUI extends JPanel {
                             JFileChooser fileChooser = new JFileChooser();
                             FileFilterEx f1 = new FileFilterEx(
                                     new String[] { "." + ext1 },
-                                    "(*." + ext1 + ")" + ext1 + ResourceHolder
-                                            .getInstance().getString(
+                                    "(*." + ext1 + ")" + ext1
+                                            + ResourceHolder.getString(
                                                     ResourceKey.LABEL, "File"));
                             FileFilterEx f2 = new FileFilterEx(
                                     new String[] { "." + ext2 },
-                                    "(*." + ext2 + ")" + ext2 + ResourceHolder
-                                            .getInstance().getString(
+                                    "(*." + ext2 + ")" + ext2
+                                            + ResourceHolder.getString(
                                                     ResourceKey.LABEL, "File"));
                             fileChooser.addChoosableFileFilter(f1);
                             fileChooser.addChoosableFileFilter(f2);
@@ -106,11 +106,11 @@ public class EstimationResultUI extends JPanel {
                                     if (file.exists()) {
                                         if (JOptionPane.showConfirmDialog(
                                                 null,
-                                                ResourceHolder.getInstance()
+                                                ResourceHolder
                                                         .getString(
                                                                 ResourceKey.LABEL,
                                                                 "Warning_SameNameFileExist"),
-                                                ResourceHolder.getInstance()
+                                                ResourceHolder
                                                         .getString(
                                                                 ResourceKey.LABEL,
                                                                 StringID.DIALOG_TITLE_SAVE_ID),
@@ -125,7 +125,7 @@ public class EstimationResultUI extends JPanel {
                                             filePath += "." + ext1;
                                         }
                                         Exporter exporter = new ExporterORmat();
-                                        exporter.export(DocHolder.getInstance()
+                                        exporter.export(DocHolder
                                                 .getDoc(), filePath);
                                     } else if (fileChooser.getFileFilter()
                                             .equals(f2)) {
@@ -134,7 +134,7 @@ public class EstimationResultUI extends JPanel {
                                         }
                                         ExporterSVG
                                                 .exportModel(
-                                                        DocHolder.getInstance()
+                                                        DocHolder
                                                                 .getDoc(),
                                                         filePath);
                                     }
@@ -143,7 +143,7 @@ public class EstimationResultUI extends JPanel {
                                     JOptionPane.showMessageDialog(
                                             MainFrame.getInstance(),
                                             ex.toString(),
-                                            ResourceHolder.getInstance()
+                                            ResourceHolder
                                                     .getString(
                                                             ResourceKey.LABEL,
                                                             "Error_FileSaveFaild"),
@@ -174,7 +174,7 @@ public class EstimationResultUI extends JPanel {
                         @Override
                         public void actionPerformed(
                                 java.awt.event.ActionEvent e) {
-                            Doc document = DocHolder.getInstance().getDoc();
+                            Doc document = DocHolder.getDoc();
                             FoldedModelInfo foldedModelInfo = document
                                     .getFoldedModelInfo();
                             foldedModelInfo.setNextORMat();
@@ -203,7 +203,7 @@ public class EstimationResultUI extends JPanel {
                         @Override
                         public void actionPerformed(
                                 java.awt.event.ActionEvent e) {
-                            Doc document = DocHolder.getInstance().getDoc();
+                            Doc document = DocHolder.getDoc();
                             FoldedModelInfo foldedModelInfo = document
                                     .getFoldedModelInfo();
 
@@ -362,7 +362,7 @@ public class EstimationResultUI extends JPanel {
     }
 
     public void updateLabel() {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
 
         List<int[][]> foldableOverlapRelations = foldedModelInfo

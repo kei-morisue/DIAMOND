@@ -26,7 +26,7 @@ public class SelectingSecondVertexForBisector extends PickingVertex{
 		p0 = context.getVertex(0);
 		p1 = context.getVertex(1);
 		
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		CreasePattern creasePattern = document.getCreasePattern();
 
         document.pushUndoInfo();

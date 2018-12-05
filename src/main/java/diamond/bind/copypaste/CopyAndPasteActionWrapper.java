@@ -44,7 +44,7 @@ public class CopyAndPasteActionWrapper extends CopyAndPasteAction {
     @Override
     public void recover(PaintContext context) {
         super.recover(context);
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         Collection<OriLine> creasePattern = document.getCreasePattern();
         if (isCut) {
             Painter painter = new Painter();

@@ -34,41 +34,41 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.tool.LineAdder;
 import diamond.resource.Constants;
+import diamond.resource.ResourceHolder;
+import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 import diamond.value.OriLine;
 
-
 public class Doc {
-//	class PointComparatorX implements Comparator<Vector2d> {
-//
-//		@Override
-//		public int compare(Vector2d v1, Vector2d v2) {
-//			if(v1.x == v2.x){
-//				return 0;
-//			}
-//			return v1.x > v2.x ? 1 : -1;
-//		}
-//	}
-//
-//	class PointComparatorY implements Comparator<Vector2d> {
-//
-//		@Override
-//		public int compare(Vector2d v1, Vector2d v2) {
-//			if(v1.y == v2.y){
-//				return 0;
-//			}
-//			return ((Vector2d) v1).y > ((Vector2d) v2).y ? 1 : -1;
-//		}
-//	}
-//
-//	class FaceOrderComparator implements Comparator<OriFace> {
-//
-//		@Override
-//		public int compare(OriFace f1, OriFace f2) {
-//			return f1.z_order > f2.z_order ? 1 : -1;
-//		}
-//	}
-
-
+    //	class PointComparatorX implements Comparator<Vector2d> {
+    //
+    //		@Override
+    //		public int compare(Vector2d v1, Vector2d v2) {
+    //			if(v1.x == v2.x){
+    //				return 0;
+    //			}
+    //			return v1.x > v2.x ? 1 : -1;
+    //		}
+    //	}
+    //
+    //	class PointComparatorY implements Comparator<Vector2d> {
+    //
+    //		@Override
+    //		public int compare(Vector2d v1, Vector2d v2) {
+    //			if(v1.y == v2.y){
+    //				return 0;
+    //			}
+    //			return ((Vector2d) v1).y > ((Vector2d) v2).y ? 1 : -1;
+    //		}
+    //	}
+    //
+    //	class FaceOrderComparator implements Comparator<OriFace> {
+    //
+    //		@Override
+    //		public int compare(OriFace f1, OriFace f2) {
+    //			return f1.z_order > f2.z_order ? 1 : -1;
+    //		}
+    //	}
 
     final public static int LOWER = 2;
 
@@ -99,10 +99,7 @@ public class Doc {
     private UndoManager<UndoInfo> undoManager = new UndoManager<>(30);
     public String memo;
 
-
-
     int debugCount = 0;
-
 
     public Doc() {
         initialize(Constants.DEFAULT_PAPER_SIZE);
@@ -117,7 +114,6 @@ public class Doc {
         this.paperSize = size;
         creasePattern = new CreasePattern(size);
 
-
         OriLine l0 = new OriLine(-size / 2.0, -size / 2.0, size / 2.0,
                 -size / 2.0, OriLine.TYPE_CUT);
         OriLine l1 = new OriLine(size / 2.0, -size / 2.0, size / 2.0,
@@ -130,7 +126,6 @@ public class Doc {
         creasePattern.add(l1);
         creasePattern.add(l2);
         creasePattern.add(l3);
-
 
         origamiModel = new OrigamiModel(size);
         foldedModelInfo = new FoldedModelInfo();
@@ -149,8 +144,6 @@ public class Doc {
     public boolean canUndo() {
         return undoManager.canUndo();
     }
-
-
 
     public void clearChanged() {
         undoManager.clearChanged();
@@ -173,7 +166,7 @@ public class Doc {
     }
 
     public String getDataFileName() {
-        File file = new File(DocHolder.getInstance().getDoc().dataFilePath);
+        File file = new File(DocHolder.getDoc().dataFilePath);
         String fileName = file.getName();
 
         return fileName;
@@ -182,6 +175,15 @@ public class Doc {
 
     public String getDataFilePath() {
         return dataFilePath;
+    }
+
+    public String buildFileName() {
+        if ((getDataFilePath()).equals("")) {
+            return ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Default.FILE_NAME_ID);
+        } else {
+            return getDataFileName();
+        }
     }
 
     /**
@@ -205,7 +207,6 @@ public class Doc {
         return memo;
     }
 
-
     /**
      * @return origamiModel
      */
@@ -213,21 +214,12 @@ public class Doc {
         return origamiModel;
     }
 
-
-
-
-
-
-
     /**
      * @return originalAuthorName
      */
     public String getOriginalAuthorName() {
         return originalAuthorName;
     }
-
-
-
 
     /**
      * @return size
@@ -260,8 +252,6 @@ public class Doc {
         return creasePattern.getVerticesAround(v);
     }
 
-
-
     public boolean isChanged() {
         return undoManager.isChanged();
     }
@@ -280,7 +270,6 @@ public class Doc {
     //======================================================================
     // Getter/Setter eventually unnecessary
 
-
     public void pushCachedUndoInfo() {
         undoManager.pushCachedInfo();
     }
@@ -290,186 +279,183 @@ public class Doc {
         undoManager.push(ui);
     }
 
-
-
-
     //-------------------------------------------------------------
     // moved to OrigamiModel
 
-//	/**
-//	 * @return faces
-//	 */
-//	public List<OriFace> getFaces() {
-//		List<OriFace> faces = origamiModel.getFaces();
-//		return faces;
-//	}
-//
-//	/**
-//	 * @param faces faces is set to this instance.
-//	 */
-//	public void setFaces(List<OriFace> faces) {
-//		origamiModel.setFaces(faces);
-//	}
-//
-//	/**
-//	 * @return edges
-//	 */
-//	public List<OriEdge> getEdges() {
-//		List<OriEdge> edges = origamiModel.getEdges();
-//
-//		return edges;
-//	}
-//
+    //	/**
+    //	 * @return faces
+    //	 */
+    //	public List<OriFace> getFaces() {
+    //		List<OriFace> faces = origamiModel.getFaces();
+    //		return faces;
+    //	}
     //
-//	/**
-//	 * @return vertices
-//	 */
-//	public List<OriVertex> getVertices() {
-//		List<OriVertex> vertices = origamiModel.getVertices();
-//
-//		return vertices;
-//	}
-//
-//	/**
-//	 * @param vertices vertices is set to this instance.
-//	 */
-//	public void setVertices(List<OriVertex> vertices) {
-//		origamiModel.setVertices(vertices);;
-//	}
-//
-//	/**
-//	 * @param edges edges is set to this instance.
-//	 */
-//	public void setEdges(ArrayList<OriEdge> edges) {
-//		origamiModel.setEdges(edges);
-//	}
-//
-//	/**
-//	 * @return isValidPattern
-//	 */
-//	public boolean isValidPattern() {
+    //	/**
+    //	 * @param faces faces is set to this instance.
+    //	 */
+    //	public void setFaces(List<OriFace> faces) {
+    //		origamiModel.setFaces(faces);
+    //	}
     //
-//		return origamiModel.isValidPattern();
-//	}
-//
-//	/**
-//	 * @param isValidPattern isValidPattern is set to this instance.
-//	 */
-//	public void setValidPattern(boolean isValidPattern) {
-//			origamiModel.setValidPattern(isValidPattern);
-//	}
-//
-//	/**
-//	 * @return hasModel
-//	 */
-//	public boolean hasModel() {
-//		return origamiModel.hasModel();
-//	}
-//
-////	/**
-////	 * @param hasModel hasModel is set to this instance.
-////	 */
-////	public void setHasModel(boolean hasModel) {
-////		this.hasModel = hasModel;
-////	}
-//
-//	/**
-//	 * @return sortedFaces
-//	 */
-//	public List<OriFace> getSortedFaces() {
-//		List<OriFace> sortedFaces = origamiModel.getSortedFaces();
-//		return sortedFaces;
-//	}
-//
-//	/**
-//	 * @param sortedFaces sortedFaces is set to this instance.
-//	 */
-//	public void setSortedFaces(List<OriFace> sortedFaces) {
-//		origamiModel.setSortedFaces(sortedFaces);
-//	}
-//
-//	/**
-//	 * @return folded
-//	 */
-//	public boolean isFolded() {
-//		return origamiModel.isFolded();
-//	}
-//
-//	/**
-//	 * @param folded folded is set to this instance.
-//	 */
-//	public void setFolded(boolean folded) {
-//		origamiModel.setFolded(folded);
-//	}
+    //	/**
+    //	 * @return edges
+    //	 */
+    //	public List<OriEdge> getEdges() {
+    //		List<OriEdge> edges = origamiModel.getEdges();
+    //
+    //		return edges;
+    //	}
+    //
+    //
+    //	/**
+    //	 * @return vertices
+    //	 */
+    //	public List<OriVertex> getVertices() {
+    //		List<OriVertex> vertices = origamiModel.getVertices();
+    //
+    //		return vertices;
+    //	}
+    //
+    //	/**
+    //	 * @param vertices vertices is set to this instance.
+    //	 */
+    //	public void setVertices(List<OriVertex> vertices) {
+    //		origamiModel.setVertices(vertices);;
+    //	}
+    //
+    //	/**
+    //	 * @param edges edges is set to this instance.
+    //	 */
+    //	public void setEdges(ArrayList<OriEdge> edges) {
+    //		origamiModel.setEdges(edges);
+    //	}
+    //
+    //	/**
+    //	 * @return isValidPattern
+    //	 */
+    //	public boolean isValidPattern() {
+    //
+    //		return origamiModel.isValidPattern();
+    //	}
+    //
+    //	/**
+    //	 * @param isValidPattern isValidPattern is set to this instance.
+    //	 */
+    //	public void setValidPattern(boolean isValidPattern) {
+    //			origamiModel.setValidPattern(isValidPattern);
+    //	}
+    //
+    //	/**
+    //	 * @return hasModel
+    //	 */
+    //	public boolean hasModel() {
+    //		return origamiModel.hasModel();
+    //	}
+    //
+    ////	/**
+    ////	 * @param hasModel hasModel is set to this instance.
+    ////	 */
+    ////	public void setHasModel(boolean hasModel) {
+    ////		this.hasModel = hasModel;
+    ////	}
+    //
+    //	/**
+    //	 * @return sortedFaces
+    //	 */
+    //	public List<OriFace> getSortedFaces() {
+    //		List<OriFace> sortedFaces = origamiModel.getSortedFaces();
+    //		return sortedFaces;
+    //	}
+    //
+    //	/**
+    //	 * @param sortedFaces sortedFaces is set to this instance.
+    //	 */
+    //	public void setSortedFaces(List<OriFace> sortedFaces) {
+    //		origamiModel.setSortedFaces(sortedFaces);
+    //	}
+    //
+    //	/**
+    //	 * @return folded
+    //	 */
+    //	public boolean isFolded() {
+    //		return origamiModel.isFolded();
+    //	}
+    //
+    //	/**
+    //	 * @param folded folded is set to this instance.
+    //	 */
+    //	public void setFolded(boolean folded) {
+    //		origamiModel.setFolded(folded);
+    //	}
 
     //-------------------------------------------------------------
 
-//	/**
-//	 * @return currentORmatIndex
-//	 */
-//	public int getCurrentORmatIndex() {
-//		int currentORmatIndex = foldedModelInfo.getCurrentORmatIndex();
-//
-//		return currentORmatIndex;
-//	}
-//
-//	/**
-//	 * @param currentORmatIndex currentORmatIndex is set to this instance.
-//	 */
-//	public void setCurrentORmatIndex(int currentORmatIndex) {
-//		foldedModelInfo.setCurrentORmatIndex(currentORmatIndex);
-//	}
-//
-//	/**
-//	 * @return foldedBBoxLT
-//	 */
-//	public Vector2d getFoldedBBoxLT() {
-//		return foldedModelInfo.getBoundBox().getLeftAndTop();
-//	}
-//
-//
-//	/**
-//	 * @return foldedBBoxRB
-//	 */
-//	public Vector2d getFoldedBBoxRB() {
-//		return foldedModelInfo.getBoundBox().getRightAndBottom();
-//	}
-//
-//
-//
-//
-//	/**
-//	 * @return overlapRelation
-//	 */
-//	public int[][] getOverlapRelation() {
-//		int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-//		return overlapRelation;
-//	}
-//
-//	/**
-//	 * @param overlapRelation overlapRelation is set to this instance.
-//	 */
-//	public void setOverlapRelation(int[][] overlapRelation) {
-//		foldedModelInfo.setOverlapRelation(overlapRelation);
-//	}
-//
-//	/**
-//	 * @return foldableOverlapRelations
-//	 */
-//	public List<int[][]> getFoldableOverlapRelations() {
-//		List<int[][]> foldableOverlapRelations = foldedModelInfo.getFoldableOverlapRelations();
-//
-//		return foldableOverlapRelations;
-//	}
-//
-//	/**
-//	 * @param foldableOverlapRelations foldableOverlapRelations is set to this instance.
-//	 */
-//	public void setFoldableOverlapRelations(
-//			List<int[][]> foldableOverlapRelations) {
-//
-//		foldedModelInfo.setFoldableOverlapRelations(foldableOverlapRelations);
-//	}
+    //	/**
+    //	 * @return currentORmatIndex
+    //	 */
+    //	public int getCurrentORmatIndex() {
+    //		int currentORmatIndex = foldedModelInfo.getCurrentORmatIndex();
+    //
+    //		return currentORmatIndex;
+    //	}
+    //
+    //	/**
+    //	 * @param currentORmatIndex currentORmatIndex is set to this instance.
+    //	 */
+    //	public void setCurrentORmatIndex(int currentORmatIndex) {
+    //		foldedModelInfo.setCurrentORmatIndex(currentORmatIndex);
+    //	}
+    //
+    //	/**
+    //	 * @return foldedBBoxLT
+    //	 */
+    //	public Vector2d getFoldedBBoxLT() {
+    //		return foldedModelInfo.getBoundBox().getLeftAndTop();
+    //	}
+    //
+    //
+    //	/**
+    //	 * @return foldedBBoxRB
+    //	 */
+    //	public Vector2d getFoldedBBoxRB() {
+    //		return foldedModelInfo.getBoundBox().getRightAndBottom();
+    //	}
+    //
+    //
+    //
+    //
+    //	/**
+    //	 * @return overlapRelation
+    //	 */
+    //	public int[][] getOverlapRelation() {
+    //		int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+    //		return overlapRelation;
+    //	}
+    //
+    //	/**
+    //	 * @param overlapRelation overlapRelation is set to this instance.
+    //	 */
+    //	public void setOverlapRelation(int[][] overlapRelation) {
+    //		foldedModelInfo.setOverlapRelation(overlapRelation);
+    //	}
+    //
+    //	/**
+    //	 * @return foldableOverlapRelations
+    //	 */
+    //	public List<int[][]> getFoldableOverlapRelations() {
+    //		List<int[][]> foldableOverlapRelations = foldedModelInfo.getFoldableOverlapRelations();
+    //
+    //		return foldableOverlapRelations;
+    //	}
+    //
+    //	/**
+    //	 * @param foldableOverlapRelations foldableOverlapRelations is set to this instance.
+    //	 */
+    //	public void setFoldableOverlapRelations(
+    //			List<int[][]> foldableOverlapRelations) {
+    //
+    //		foldedModelInfo.setFoldableOverlapRelations(foldableOverlapRelations);
+    //	}
 
     public void pushUndoInfo(UndoInfo uinfo) {
         undoManager.push(uinfo);
@@ -593,8 +579,5 @@ public class Doc {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
-
 
 }

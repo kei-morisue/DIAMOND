@@ -35,7 +35,7 @@ public class Undo
     }
 
     public Undo() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.UNDO_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));
@@ -47,7 +47,7 @@ public class Undo
         if (PaintConfig.getMouseAction() != null) {
             PaintConfig.getMouseAction().undo(PaintContext.getInstance());
         } else {
-            DocHolder.getInstance().getDoc().loadUndoInfo();
+            DocHolder.getDoc().loadUndoInfo();
         }
         MainFrame.getInstance().getCpScreen().repaint();
     }

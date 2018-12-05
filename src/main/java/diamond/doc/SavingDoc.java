@@ -15,7 +15,7 @@ public class SavingDoc implements SavingAction {
     public boolean save(String path) {
         boolean success = false;
         try {
-            success = exporter.export(DocHolder.getInstance().getDoc(), path);
+            success = exporter.export(DocHolder.getDoc(), path);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

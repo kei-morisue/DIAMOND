@@ -37,7 +37,7 @@ public class MenuFile extends JMenu {
     }
 
     public MenuFile() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.FILE_ID));
         FileHistory.loadFromFile(Config.INI_FILE_PATH);
         addItems();

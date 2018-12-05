@@ -37,7 +37,7 @@ public class PaintActionSetter implements ActionListener{
         PaintConfig.setMouseAction(mouseAction);
 
         if (mouseAction.needSelect() == false) {
-            CreasePattern creasePattern = DocHolder.getInstance().getDoc()
+            CreasePattern creasePattern = DocHolder.getDoc()
                     .getCreasePattern();
             Painter painter = new Painter();
             painter.resetSelectedOriLines(creasePattern);

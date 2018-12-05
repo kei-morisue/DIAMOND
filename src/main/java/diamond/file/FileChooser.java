@@ -96,7 +96,7 @@ public class FileChooser extends JFileChooser {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this, e.toString(),
-                        ResourceHolder.getInstance().getString(
+                        ResourceHolder.getString(
                                 ResourceKey.WARNING, "Error_FileLoadFailed"),
                         JOptionPane.ERROR_MESSAGE);
             }
@@ -140,10 +140,10 @@ public class FileChooser extends JFileChooser {
             if (file.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         null,
-                        ResourceHolder.getInstance().getString(
+                        ResourceHolder.getString(
                                 ResourceKey.WARNING,
                                 "Warning_SameNameFileExist"),
-                        ResourceHolder.getInstance().getString(
+                        ResourceHolder.getString(
                                 ResourceKey.LABEL,
                                 StringID.DIALOG_TITLE_SAVE_ID),
                         JOptionPane.YES_NO_OPTION,
@@ -157,7 +157,7 @@ public class FileChooser extends JFileChooser {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     parent, e.toString(),
-                    ResourceHolder.getInstance().getString(ResourceKey.WARNING,
+                    ResourceHolder.getString(ResourceKey.WARNING,
                             "Error_FileSaveFailed"),
                     JOptionPane.ERROR_MESSAGE);
         }

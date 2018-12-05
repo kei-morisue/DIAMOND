@@ -163,7 +163,7 @@ public class PasteAction extends GraphicMouseAction {
 
 		context.startPasting();
 
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
 		for(OriLine line : creasePattern){
 			if(line.selected){

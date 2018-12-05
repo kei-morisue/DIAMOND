@@ -237,7 +237,7 @@ public class ModelViewScreen3D extends Canvas3D implements MouseListener, MouseM
     public void setModel() {
         faces.clear();
 
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         OrigamiModel origamiModel = document.getOrigamiModel();
         List<OriFace> sortedFaces = origamiModel.getSortedFaces();
 

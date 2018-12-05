@@ -23,9 +23,9 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import diamond.DataSet;
 import diamond.Version;
 import diamond.doc.Doc;
+import diamond.doc.exporter.cp.DataSet;
 import diamond.file.FileVersionError;
 
 public class LoaderXML implements Loader{

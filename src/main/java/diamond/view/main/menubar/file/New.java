@@ -36,7 +36,7 @@ public class New extends JMenuItem implements ActionListener {
     }
 
     public New() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.NEW_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.CTRL_MASK));
@@ -49,7 +49,7 @@ public class New extends JMenuItem implements ActionListener {
         screenSetting.setGridVisible(true);
         screenSetting.notifyObservers();
 
-        DocHolder.getInstance().setDoc(new Doc());
+        DocHolder.setDoc(new Doc());
         ModelViewFrame.getInstance().repaint();
         ModelViewFrame.getInstance().setVisible(false);
         EstimationResultFrame.getInstance().setVisible(false);

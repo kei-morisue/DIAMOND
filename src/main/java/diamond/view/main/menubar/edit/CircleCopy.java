@@ -34,7 +34,7 @@ public class CircleCopy
     }
 
     public CircleCopy() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.CIRCLE_COPY_ID));
         addActionListener(this);
     }
@@ -45,7 +45,7 @@ public class CircleCopy
         CircleCopyDialog circleCopyDialog = new CircleCopyDialog(
                 MainFrame.getInstance());
         if (painter.countSelectedLines(
-                DocHolder.getInstance().getDoc().getCreasePattern()) == 0) {
+                DocHolder.getDoc().getCreasePattern()) == 0) {
             JOptionPane.showMessageDialog(this, "Select target lines",
                     "ArrayCopy", JOptionPane.WARNING_MESSAGE);
 

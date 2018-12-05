@@ -107,6 +107,6 @@ public class CopyAndPasteAction extends GraphicMouseAction {
 
     @Override
     public void undo(PaintContext context) {
-        DocHolder.getInstance().getDoc().loadUndoInfo();
+        DocHolder.getDoc().loadUndoInfo();
     }
 }

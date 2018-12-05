@@ -49,7 +49,7 @@ public class GeometricOperation {
 		double minDistance = Double.MAX_VALUE;
 		OriLine bestLine = null;
 
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
 		for (OriLine line : creasePattern) {
 			double dist = GeomUtil.DistancePointToSegment(new Vector2d(p.x, p.y), line.p0, line.p1);

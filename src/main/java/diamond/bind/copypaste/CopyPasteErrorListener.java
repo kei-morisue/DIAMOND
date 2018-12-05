@@ -21,7 +21,7 @@ public class CopyPasteErrorListener implements ErrorListener {
 
     @Override
     public boolean isError(ActionEvent e) {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         Collection<OriLine> creasePattern = document.getCreasePattern();
 
         Painter painter = new Painter();

@@ -35,7 +35,7 @@ public class ChangeLineTypeAction extends RectangularSelectableAction {
 			PaintContext context) {
 
 		if(selectedLines.isEmpty() == false){
-			Doc document = DocHolder.getInstance().getDoc();
+			Doc document = DocHolder.getDoc();
 			Collection<OriLine> creasePattern = document.getCreasePattern();
 			document.pushUndoInfo();
 

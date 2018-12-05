@@ -31,8 +31,8 @@ public class SelectingVertexToDrawLine extends PickingVertex {
 			if (length > 0) {
 				OriLine vl = GeomUtil.getLineByValue(vertex, length, -angle, PaintConfig.inputLineType);
 
-				DocHolder.getInstance().getDoc().pushUndoInfo();
-				DocHolder.getInstance().getDoc().addLine(vl);
+				DocHolder.getDoc().pushUndoInfo();
+				DocHolder.getDoc().addLine(vl);
 			}
 		} 
 		catch (Exception ex) {

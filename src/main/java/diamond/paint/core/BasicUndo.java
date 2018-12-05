@@ -19,7 +19,7 @@ public class BasicUndo {
 			next = state.undo(context);
 		}
 		else {
-			DocHolder.getInstance().getDoc().loadUndoInfo();
+			DocHolder.getDoc().loadUndoInfo();
 		}
 		
 		return next;

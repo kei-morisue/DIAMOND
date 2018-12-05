@@ -158,7 +158,7 @@ public class FoldedModelScreen extends JPanel
     //
     //--------------------------------------------------------------------
     private void drawTriangle(TriangleFace tri, int id, int color) {
-    	Doc document = DocHolder.getInstance().getDoc();
+    	Doc document = DocHolder.getDoc();
     	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
 
 
@@ -350,7 +350,7 @@ public class FoldedModelScreen extends JPanel
     }
 
     public void drawOrigami() {
-    	Doc document = DocHolder.getInstance().getDoc();
+    	Doc document = DocHolder.getDoc();
     	OrigamiModel origamiModel = document.getOrigamiModel();
     	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
     	

@@ -187,7 +187,7 @@ public class PaintContext {
 
     public Collection<Vector2d> updateGrids(int gridDivNum){
 		gridPoints = new ArrayList<>();
-		double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+		double paperSize = DocHolder.getDoc().getPaperSize();
 
         double step = paperSize / gridDivNum;
         for (int ix = 0; ix < PaintConfig.gridDivNum + 1; ix++) {

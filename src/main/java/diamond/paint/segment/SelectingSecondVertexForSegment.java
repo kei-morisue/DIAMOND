@@ -31,8 +31,8 @@ public class SelectingSecondVertexForSegment extends PickingVertex{
 		OriLine line = new OriLine(context.getVertex(0),
 				context.getVertex(1), PaintConfig.inputLineType);
 
-		DocHolder.getInstance().getDoc().pushUndoInfo();
-        DocHolder.getInstance().getDoc().addLine(line);
+		DocHolder.getDoc().pushUndoInfo();
+        DocHolder.getDoc().addLine(line);
 
         context.clear(false);
 	}

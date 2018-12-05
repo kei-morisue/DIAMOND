@@ -44,12 +44,12 @@ public class SelectingSecondVertexForLine extends PickingVertex{
 		OriLine line = new OriLine(p0.x - dir.x, p0.y - dir.y,
 				p0.x + dir.x, p0.y + dir.y, PaintConfig.inputLineType);
 
-		double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+		double paperSize = DocHolder.getDoc().getPaperSize();
 
 		// add new line to crease pattern
 		if (GeomUtil.clipLine(line, paperSize / 2)) {
-			DocHolder.getInstance().getDoc().pushUndoInfo();
-			DocHolder.getInstance().getDoc().addLine(line);
+			DocHolder.getDoc().pushUndoInfo();
+			DocHolder.getDoc().addLine(line);
 		}
 
 		context.clear(false);

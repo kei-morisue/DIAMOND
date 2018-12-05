@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package diamond.view.main;
 
 import java.awt.Color;
@@ -64,11 +63,9 @@ import diamond.viewsetting.ViewScreenUpdater;
 import diamond.viewsetting.main.MainScreenSettingDB;
 import diamond.viewsetting.main.ScreenUpdater;
 
-
 public class PainterScreen extends JPanel
         implements MouseListener, MouseMotionListener, MouseWheelListener,
-ActionListener, ComponentListener, Observer{
-
+        ActionListener, ComponentListener, Observer {
 
     private AffineTransform affineTransform = new AffineTransform();
     private Graphics2D bufferg;
@@ -91,6 +88,8 @@ ActionListener, ComponentListener, Observer{
     private double transY;
 
     public PainterScreen() {
+        setPreferredSize(new Dimension(500, 500));
+
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -119,12 +118,11 @@ ActionListener, ComponentListener, Observer{
 
     }
 
-
     private void drawGridLine(Graphics2D g2d) {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.setStroke(LineSetting.STROKE_GRID);
 
-        double paperSize = DocHolder.getInstance().getDoc().getPaperSize();
+        double paperSize = DocHolder.getDoc().getPaperSize();
 
         int lineNum = PaintConfig.gridDivNum;
         double step = paperSize / lineNum;
@@ -139,7 +137,6 @@ ActionListener, ComponentListener, Observer{
                     paperSize / 2.0, step * i - paperSize / 2.0));
         }
     }
-
 
     private void drawLines(Graphics2D g2d, Collection<OriLine> lines) {
 
@@ -174,65 +171,65 @@ ActionListener, ComponentListener, Observer{
      * for verifying algorithm
      * @param g2d
      */
-//	public void drawModel(Graphics2D g2d) {
-//
-//		if (! Config.FOR_STUDY) {
-//			return;
-//		}
-//
-//		Doc document = ORIPA.doc;
-//		OrigamiModel origamiModel = document.getOrigamiModel();
-//
-//		List<OriFace> faces = origamiModel.getFaces();
-//		List<OriVertex> vertices = origamiModel.getVertices();
-//
-//
-//		if (bDrawFaceID) {
-//			g2d.setColor(Color.BLACK);
-//			for (OriFace face : faces) {
-//				g2d.drawString("" + face.tmpInt, (int) face.getCenter().x,
-//						(int) face.getCenter().y);
-//			}
-//		}
-//
-//		g2d.setColor(new Color(255, 210, 220));
-//		for (OriFace face : faces) {
-//			if (face.tmpInt2 == 0) {
-//				g2d.setColor(Color.RED);
-//				g2d.fill(face.preOutline);
-//			} else {
-//				g2d.setColor(face.color);
-//			}
-//
-//			if (face.hasProblem) {
-//				g2d.setColor(Color.RED);
-//			} else {
-//				if (face.faceFront) {
-//					g2d.setColor(new Color(255, 200, 200));
-//				} else {
-//					g2d.setColor(new Color(200, 200, 255));
-//				}
-//			}
-//
-////			g2d.fill(face.preOutline);
-//		}
-//
-//		g2d.setColor(Color.BLACK);
-//
-//
-//		for (OriFace face : faces) {
-//			g2d.drawString("" + face.z_order, (int) face.getCenter().x,
-//					(int) face.getCenter().y);
-//		}
-//
-//		g2d.setColor(Color.RED);
-//		for (OriVertex v : vertices) {
-//			if (v.hasProblem) {
-//				g2d.fill(new Rectangle2D.Double(v.p.x - 8.0 / scale,
-//						v.p.y - 8.0 / scale, 16.0 / scale, 16.0 / scale));
-//			}
-//		}
-//	}
+    //	public void drawModel(Graphics2D g2d) {
+    //
+    //		if (! Config.FOR_STUDY) {
+    //			return;
+    //		}
+    //
+    //		Doc document = ORIPA.doc;
+    //		OrigamiModel origamiModel = document.getOrigamiModel();
+    //
+    //		List<OriFace> faces = origamiModel.getFaces();
+    //		List<OriVertex> vertices = origamiModel.getVertices();
+    //
+    //
+    //		if (bDrawFaceID) {
+    //			g2d.setColor(Color.BLACK);
+    //			for (OriFace face : faces) {
+    //				g2d.drawString("" + face.tmpInt, (int) face.getCenter().x,
+    //						(int) face.getCenter().y);
+    //			}
+    //		}
+    //
+    //		g2d.setColor(new Color(255, 210, 220));
+    //		for (OriFace face : faces) {
+    //			if (face.tmpInt2 == 0) {
+    //				g2d.setColor(Color.RED);
+    //				g2d.fill(face.preOutline);
+    //			} else {
+    //				g2d.setColor(face.color);
+    //			}
+    //
+    //			if (face.hasProblem) {
+    //				g2d.setColor(Color.RED);
+    //			} else {
+    //				if (face.faceFront) {
+    //					g2d.setColor(new Color(255, 200, 200));
+    //				} else {
+    //					g2d.setColor(new Color(200, 200, 255));
+    //				}
+    //			}
+    //
+    ////			g2d.fill(face.preOutline);
+    //		}
+    //
+    //		g2d.setColor(Color.BLACK);
+    //
+    //
+    //		for (OriFace face : faces) {
+    //			g2d.drawString("" + face.z_order, (int) face.getCenter().x,
+    //					(int) face.getCenter().y);
+    //		}
+    //
+    //		g2d.setColor(Color.RED);
+    //		for (OriVertex v : vertices) {
+    //			if (v.hasProblem) {
+    //				g2d.fill(new Rectangle2D.Double(v.p.x - 8.0 / scale,
+    //						v.p.y - 8.0 / scale, 16.0 / scale, 16.0 / scale));
+    //			}
+    //		}
+    //	}
 
     // update actual AffineTransform
     private void updateAffineTransform() {
@@ -243,7 +240,6 @@ ActionListener, ComponentListener, Observer{
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent ae) {
     }
@@ -253,14 +249,10 @@ ActionListener, ComponentListener, Observer{
         // TODO Auto-generated method stub
     }
 
-
     @Override
     public void componentMoved(ComponentEvent arg0) {
         // TODO Auto-generated method stub
     }
-
-
-
 
     @Override
     public void componentResized(ComponentEvent arg0) {
@@ -346,7 +338,6 @@ ActionListener, ComponentListener, Observer{
     @Override
     public void mouseEntered(MouseEvent arg0) {
     }
-
 
     @Override
     public void mouseExited(MouseEvent arg0) {
@@ -435,15 +426,15 @@ ActionListener, ComponentListener, Observer{
 
         Graphics2D g2d = bufferg;
 
-        Doc document = DocHolder.getInstance().getDoc();
-        CreasePattern creasePattern = document.getCreasePattern();
-        OrigamiModel origamiModel = document.getOrigamiModel();
-        FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
+        Doc doc = DocHolder.getDoc();
+        CreasePattern creasePattern = doc.getCreasePattern();
+        OrigamiModel origamiModel = doc.getOrigamiModel();
+        FoldedModelInfo foldedModelInfo = doc.getFoldedModelInfo();
 
-//		boolean hasModel = origamiModel.hasModel();
-//		if (hasModel) {
-//			drawModel(g2d);
-//		}
+        //		boolean hasModel = origamiModel.hasModel();
+        //		if (hasModel) {
+        //			drawModel(g2d);
+        //		}
         if (setting.isGridVisible()) {
 
             drawGridLine(g2d);
@@ -454,17 +445,13 @@ ActionListener, ComponentListener, Observer{
         g2d.setStroke(LineSetting.STROKE_VALLEY);
         g2d.setColor(Color.black);
 
-
         drawLines(g2d, creasePattern);
-
-
 
         // Drawing of the vertices
         if (PaintConfig.getMouseAction().getEditMode() == EditMode.VERTEX
                 || PaintConfig.dispVertex) {
             drawVertexRectangles(g2d);
         }
-
 
         for (Vector2d v : crossPoints) {
             g2d.setColor(Color.RED);
@@ -473,9 +460,8 @@ ActionListener, ComponentListener, Observer{
                             10.0 / scale, 10.0 / scale));
         }
 
-
         if (PaintConfig.bDispCrossLine) {
-            List<OriLine> crossLines = document.getCrossLines();
+            List<OriLine> crossLines = doc.getCrossLines();
             if (!crossLines.isEmpty()) {
                 g2d.setStroke(LineSetting.STROKE_TMP_OUTLINE);
                 g2d.setColor(Color.MAGENTA);
@@ -491,27 +477,27 @@ ActionListener, ComponentListener, Observer{
         }
 
         // Line that links the pair of unsetled faces
-//		if (Config.FOR_STUDY) {
-//			List<OriFace> faces = origamiModel.getFaces();
-//
-//			int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-//
-//			if (overlapRelation != null) {
-//				g2d.setStroke(LineSetting.STROKE_RIDGE);
-//				g2d.setColor(Color.MAGENTA);
-//				int size = faces.size();
-//				for (int i = 0; i < size; i++) {
-//					for (int j = i + 1; j < size; j++) {
-//						if (overlapRelation[i][j] == Doc.UNDEFINED) {
-//							Vector2d v0 = faces.get(i).getCenter();
-//							Vector2d v1 = faces.get(j).getCenter();
-//							g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
-//
-//						}
-//					}
-//				}
-//			}
-//		}
+        //		if (Config.FOR_STUDY) {
+        //			List<OriFace> faces = origamiModel.getFaces();
+        //
+        //			int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+        //
+        //			if (overlapRelation != null) {
+        //				g2d.setStroke(LineSetting.STROKE_RIDGE);
+        //				g2d.setColor(Color.MAGENTA);
+        //				int size = faces.size();
+        //				for (int i = 0; i < size; i++) {
+        //					for (int j = i + 1; j < size; j++) {
+        //						if (overlapRelation[i][j] == Doc.UNDEFINED) {
+        //							Vector2d v0 = faces.get(i).getCenter();
+        //							Vector2d v1 = faces.get(j).getCenter();
+        //							g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
+        //
+        //						}
+        //					}
+        //				}
+        //			}
+        //		}
 
         if (PaintConfig.mouseAction != null) {
             PaintConfig.mouseAction.onDraw(g2d, mouseContext);
@@ -539,9 +525,8 @@ ActionListener, ComponentListener, Observer{
 
     }
 
-
     void drawVertexRectangles(Graphics2D g2d) {
-        CreasePattern creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
         g2d.setColor(Color.BLACK);
         final double vertexDrawSize = 2.0;
@@ -566,6 +551,5 @@ ActionListener, ComponentListener, Observer{
         }
 
     }
-
 
 }

@@ -32,7 +32,7 @@ public class SelectingVertexForBisector extends PickingVertex{
 			boolean doSpecial) {
 		
 		if(doingFirstAction){
-			DocHolder.getInstance().getDoc().cacheUndoInfo();
+			DocHolder.getDoc().cacheUndoInfo();
 			doingFirstAction = false;
 		}
 		

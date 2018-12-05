@@ -21,7 +21,7 @@ import diamond.viewsetting.main.MainFrameSettingDB;
 public class HintLabel extends JLabel implements Observer {
 
     public HintLabel() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.EXPLANATION,
+        super(ResourceHolder.getString(ResourceKey.EXPLANATION,
                 StringID.ON_V_ID));
         MainFrameSettingDB.getInstance().addObserver(this);
     }

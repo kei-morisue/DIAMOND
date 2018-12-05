@@ -21,7 +21,7 @@ public class SelectingVertexForTriangleSplit extends PickingVertex{
 
 	@Override
 	public void onResult(PaintContext context) {
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		Collection<OriLine> creasePattern = document.getCreasePattern();
 		
 		document.pushCachedUndoInfo();
@@ -43,7 +43,7 @@ public class SelectingVertexForTriangleSplit extends PickingVertex{
 			boolean doSpecial) {
 		
 		if(doingFirstAction){
-			DocHolder.getInstance().getDoc().cacheUndoInfo();
+			DocHolder.getDoc().cacheUndoInfo();
 			doingFirstAction = false;
 		}
 		

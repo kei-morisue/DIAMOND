@@ -67,7 +67,7 @@ public class FileIOUtil {
         }
 
         if (path == null) {
-            path = DocHolder.getInstance().getDoc().getDataFilePath();
+            path = DocHolder.getDoc().getDataFilePath();
         } else {
             MenuFile.getInstance().updateMRUItems(path);
 

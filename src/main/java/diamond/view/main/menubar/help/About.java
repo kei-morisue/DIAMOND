@@ -37,7 +37,7 @@ public class About extends JMenuItem implements ActionListener {
     }
 
     public About() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 Main.ABOUT_ID));
         addActionListener(this);
     }
@@ -45,7 +45,7 @@ public class About extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, content,
-                ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.Main.TITLE_ID),
                 JOptionPane.INFORMATION_MESSAGE);
 

@@ -35,7 +35,7 @@ public class SelectLineAction extends RectangularSelectableAction {
 	public void recover(PaintContext context) {
 		context.clear(false);
 
-		Collection<OriLine> creasePattern = DocHolder.getInstance().getDoc().getCreasePattern();
+		Collection<OriLine> creasePattern = DocHolder.getDoc().getCreasePattern();
 		if(creasePattern == null){
 			return;
 		}
@@ -53,7 +53,7 @@ public class SelectLineAction extends RectangularSelectableAction {
 	 */
 	@Override
 	public void undo(PaintContext context) {
-		DocHolder.getInstance().getDoc().loadUndoInfo();
+		DocHolder.getDoc().loadUndoInfo();
 
 		recover(context);
 	}
@@ -66,7 +66,7 @@ public class SelectLineAction extends RectangularSelectableAction {
 
 		if(selectedLines.isEmpty() == false){
 
-			DocHolder.getInstance().getDoc().pushUndoInfo();
+			DocHolder.getDoc().pushUndoInfo();
 
 			for(OriLine line : selectedLines){
 				if (line.typeVal == OriLine.TYPE_CUT) {

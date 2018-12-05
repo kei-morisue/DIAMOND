@@ -25,7 +25,7 @@ public class SelectingLineForLineType extends PickingLine {
 	
 	@Override
 	protected void onResult(PaintContext context) {
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		Collection<OriLine> creasePattern = document.getCreasePattern();
 
 		document.pushUndoInfo();

@@ -12,11 +12,6 @@ import java.util.ResourceBundle;
  *
  */
 public class ResourceHolder {
-
-
-    //----------------------------------------------------------
-    private static ResourceHolder instance = null;
-
     private static final String resourcePackage = "diamond.resource";
 
     public static ResourceBundle createResource(String classPath) {
@@ -34,46 +29,31 @@ public class ResourceHolder {
         // sorry for forcing English...
         bundle = ResourceBundle.getBundle(classPath, Locale.ENGLISH);
 
-
         return bundle;
     }
 
-    public static ResourceHolder getInstance() {
-        if (instance == null) {
-            instance = new ResourceHolder();
-            instance.load();
-        }
-
-        return instance;
-    }
-    //----------------------------------------------------------
-
-    private HashMap<ResourceKey, ResourceBundle> resources = new HashMap<>();
+    private static HashMap<ResourceKey, ResourceBundle> resources = load();
 
     private ResourceHolder() {
     }
 
-    private void load() {
-        ResourceHolder resources = ResourceHolder.getInstance();
-        resources.addResource(ResourceKey.EXPLANATION,
+    private static HashMap<ResourceKey, ResourceBundle> load() {
+        HashMap<ResourceKey, ResourceBundle> resources = new HashMap<>();
+        resources.put(ResourceKey.EXPLANATION,
                 createResource(
                         resourcePackage + ".ExplanationStringResource_en"));
-        resources.addResource(ResourceKey.LABEL,
+        resources.put(ResourceKey.LABEL,
                 createResource(resourcePackage + ".LabelStringResource_en"));
-        resources.addResource(ResourceKey.WARNING,
+        resources.put(ResourceKey.WARNING,
                 createResource(resourcePackage + ".WarningStringResource_en"));
-
+        return resources;
     }
 
-    public void addResource(ResourceKey key, ResourceBundle resource) {
-        resources.put(key, resource);
-    }
-
-    public ResourceBundle getResource(ResourceKey key) {
+    public static ResourceBundle getResource(ResourceKey key) {
         return resources.get(key);
     }
 
-    public String getString(ResourceKey key, String id) {
+    public static String getString(ResourceKey key, String id) {
         return getResource(key).getString(id);
     }
 

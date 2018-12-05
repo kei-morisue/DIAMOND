@@ -27,16 +27,19 @@ import diamond.resource.StringID;
  *
  */
 public class Export implements ActionListener {
-    private static ResourceHolder res = ResourceHolder.getInstance();
 
     public static JMenuItem menuItemExportCP = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_CP_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Main.EXPORT_CP_ID));
     public static JMenuItem menuItemExportDXF = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_DXF_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Main.EXPORT_DXF_ID));
     public static JMenuItem menuItemExportOBJ = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_OBJ_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Main.EXPORT_OBJ_ID));
     public static JMenuItem menuItemExportSVG = new JMenuItem(
-            res.getString(ResourceKey.LABEL, StringID.Main.EXPORT_SVG_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Main.EXPORT_SVG_ID));
 
     public Export() {
         menuItemExportDXF.addActionListener(this);
@@ -47,7 +50,7 @@ public class Export implements ActionListener {
 
     //TODO Needs more refactoring
     private void exportFile(String ext) {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
         CreasePattern creasePattern = document.getCreasePattern();
         OrigamiModel origamiModel = document.getOrigamiModel();
 

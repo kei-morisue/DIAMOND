@@ -18,12 +18,13 @@
 
 package diamond.view.main;
 
-import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 
 import diamond.Config;
 import diamond.doc.DocHolder;
@@ -31,9 +32,7 @@ import diamond.file.ImageResourceLoader;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.menubar.MenuEdit;
-import diamond.view.main.menubar.MenuFile;
-import diamond.view.main.menubar.MenuHelp;
+import diamond.view.main.menubar.MenuBar;
 import diamond.view.main.menubar.file.Exit;
 
 public class MainFrame extends JFrame implements WindowListener {
@@ -56,21 +55,14 @@ public class MainFrame extends JFrame implements WindowListener {
         uiPanel = new UIPanel(cpScreen);
     }
 
-    public PainterScreen getCpScreen() {
-        return this.cpScreen;
-    }
-
-    public UIPanel getUiPanel() {
-        return this.uiPanel;
-    }
-
     public void initialize() {
         setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
                 Config.INITIAL_MAIN_FRAME_HEIGHT);
         setIconImage(new ImageResourceLoader()
                 .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
-        buildMenuBar();
+        updateTitleText();
+        setJMenuBar(MenuBar.getInstance());
         layoutComponents();
 
         setLocationRelativeTo(null);
@@ -78,35 +70,32 @@ public class MainFrame extends JFrame implements WindowListener {
         setVisible(true);
     }
 
-    private void buildMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(MenuFile.getInstance());
-        menuBar.add(MenuEdit.getInstance());
-        menuBar.add(MenuHelp.getInstance());
-        setJMenuBar(menuBar);
-    }
-
     private void layoutComponents() {
         //TODO
-        GridLayout l = new GridLayout(2, 3);
-        getContentPane().setLayout(l);
-        getContentPane().add(uiPanel);
-        getContentPane().add(cpScreen);
-        //        getContentPane().add(secondScreen);
-        getContentPane().add(new HintLabel());
+
+        GridBagLayout gbl = new GridBagLayout();
+        setLayout(gbl);
+        layout(gbl, uiPanel, 0, 0, 1, 1);
+        layout(gbl, cpScreen, 1, 0, 3, 3);
+        layout(gbl, secondScreen, 4, 0, 3, 3);
+        layout(gbl, new HintLabel(), 0, 1, 1, 1);
+    }
+
+    void layout(GridBagLayout gbl, Component c, int x, int y, int w, int h) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.gridwidth = w;
+        gbc.gridheight = h;
+        gbl.setConstraints(c, gbc);
+        add(c);
     }
 
     public void updateTitleText() {
-        String fileName;
-        if ((DocHolder.getInstance().getDoc().getDataFilePath()).equals("")) {
-            fileName = ResourceHolder.getInstance().getString(ResourceKey.LABEL,
-                    "DefaultFileName");
-        } else {
-            fileName = DocHolder.getInstance().getDoc().getDataFileName();
-        }
-
+        String fileName = DocHolder.getDoc().buildFileName();
         setTitle(fileName + " - "
-                + ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                + ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.Main.TITLE_ID));
     }
 
@@ -137,6 +126,14 @@ public class MainFrame extends JFrame implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent arg0) {
+    }
+
+    public PainterScreen getCpScreen() {
+        return this.cpScreen;
+    }
+
+    public UIPanel getUiPanel() {
+        return this.uiPanel;
     }
 
 }

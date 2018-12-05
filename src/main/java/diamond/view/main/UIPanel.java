@@ -116,45 +116,48 @@ public class UIPanel extends JPanel
 
     // AlterLineType
     JPanel alterLineTypePanel = new JPanel();
-    ResourceHolder resources = ResourceHolder.getInstance();
 
     JButton buildButton = new JButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.FOLD_ID));
+            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.FOLD_ID));
 
     //---------------------------------------------------------------------------------------------------------------------------
     // Binding how to enter the line
 
     JButton buttonAngle = new JButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.MEASURE_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.UI.MEASURE_ID));
 
     JButton buttonCheckWindow = new JButton(
-            resources.getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.UI.CHECK_WINDOW_ID));
 
     ButtonFactory buttonFactory = new PaintActionButtonFactory();
 
     JButton buttonLength = new JButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.MEASURE_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.UI.MEASURE_ID));
 
     JCheckBox dispAuxLinesCheckBox = new JCheckBox(
-            resources.getString(ResourceKey.LABEL, StringID.UI.SHOW_AUX_ID),
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.UI.SHOW_AUX_ID),
             true);
 
     JCheckBox dispGridCheckBox = new JCheckBox(
-            resources.getString(ResourceKey.LABEL, StringID.UI.SHOW_GRID_ID),
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.UI.SHOW_GRID_ID),
             true);
 
     JCheckBox dispMVLinesCheckBox = new JCheckBox(
-            resources.getString(ResourceKey.LABEL, StringID.UI.SHOW_MV_ID),
+            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.SHOW_MV_ID),
             true);
 
     JCheckBox dispVertexCheckBox = new JCheckBox(
-            resources.getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.UI.SHOW_VERTICES_ID),
             false);
 
     JCheckBox doFullEstimationCheckBox = new JCheckBox(
-            resources.getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.UI.FULL_ESTIMATION_ID),
             false);
 
@@ -180,7 +183,7 @@ public class UIPanel extends JPanel
             this, JRadioButton.class, StringID.SELECT_ID);
 
     JButton gridChangeButton = new JButton(
-            resources.getString(ResourceKey.LABEL,
+            ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.UI.GRID_SIZE_CHANGE_ID));
     JButton gridLargeButton = new JButton("x1/2");
 
@@ -211,14 +214,15 @@ public class UIPanel extends JPanel
             .create(
                     this, JRadioButton.class, StringID.VERTICAL_ID);
     JRadioButton lineTypeMountainButton = new JRadioButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.MOUNTAIN_ID));
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.UI.MOUNTAIN_ID));
 
     JPanel lineTypePanel = new JPanel();
     JRadioButton lineTypeSubButton = new JRadioButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.AUX_ID));
+            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.AUX_ID));
 
     JRadioButton lineTypeValleyButton = new JRadioButton(
-            resources.getString(ResourceKey.LABEL, StringID.UI.VALLEY_ID));
+            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.VALLEY_ID));
     JPanel mainPanel = new JPanel();
 
     JButton resetButton = new JButton("Reset");
@@ -235,12 +239,12 @@ public class UIPanel extends JPanel
     JFormattedTextField textFieldLength;
 
     public UIPanel(PainterScreen __screen) {
+        setPreferredSize(new Dimension(200, 800));
 
         //setModeButtonText();
         editModeInputLineButton.setSelected(true);
 
         this.screen = __screen;
-        setPreferredSize(new Dimension(210, 400));
 
         settingDB.addObserver(this);
         screenDB.addObserver(this);
@@ -260,11 +264,11 @@ public class UIPanel extends JPanel
         editModeGroup.add(editModeDeleteVertex);
 
         JLabel l1 = new JLabel(
-                resources.getString(ResourceKey.LABEL,
+                ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.UI.CHANGE_LINE_TYPE_FROM_ID));
 
         JLabel l2 = new JLabel(
-                resources.getString(ResourceKey.LABEL,
+                ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.UI.CHANGE_LINE_TYPE_TO_ID));
 
         alterLineTypePanel.add(l1);
@@ -428,10 +432,12 @@ public class UIPanel extends JPanel
         // Panel input for length and angle
         //------------------------------------
         JLabel subLabel1 = new JLabel(
-                resources.getString(ResourceKey.LABEL, StringID.UI.LENGTH_ID));
+                ResourceHolder.getString(ResourceKey.LABEL,
+                        StringID.UI.LENGTH_ID));
 
         JLabel subLabel2 = new JLabel(
-                resources.getString(ResourceKey.LABEL, StringID.UI.ANGLE_ID));
+                ResourceHolder.getString(ResourceKey.LABEL,
+                        StringID.UI.ANGLE_ID));
 
         //		subPanel1.setVisible(true);
         //		subPanel2.setVisible(true);
@@ -470,7 +476,7 @@ public class UIPanel extends JPanel
         //------------------------------------
         JPanel divideNumSpecPanel = new JPanel();
         JLabel gridLabel1 = new JLabel(
-                resources.getString(ResourceKey.LABEL,
+                ResourceHolder.getString(ResourceKey.LABEL,
                         StringID.UI.GRID_DIVIDE_NUM_ID));
 
         textFieldGrid = new JFormattedTextField(new DecimalFormat("#"));
@@ -641,7 +647,7 @@ public class UIPanel extends JPanel
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        Doc document = DocHolder.getInstance().getDoc();
+                        Doc document = DocHolder.getDoc();
                         OrigamiModel origamiModel;
                         Collection<OriLine> creasePattern = document
                                 .getCreasePattern();
@@ -716,7 +722,7 @@ public class UIPanel extends JPanel
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        Doc document = DocHolder.getInstance().getDoc();
+        Doc document = DocHolder.getDoc();
 
         ScreenUpdaterInterface screenUpdater = ScreenUpdater.getInstance();
 
@@ -761,7 +767,7 @@ public class UIPanel extends JPanel
             } else {
                 if (JOptionPane.showConfirmDialog(
                         MainFrame.getInstance(),
-                        resources.getString(ResourceKey.WARNING,
+                        ResourceHolder.getString(ResourceKey.WARNING,
                                 StringID.Warning.FOLD_FAILED_DUPLICATION_ID),
                         "Failed", JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
@@ -775,7 +781,7 @@ public class UIPanel extends JPanel
                     } else {
                         JOptionPane.showMessageDialog(
                                 MainFrame.getInstance(),
-                                resources.getString(ResourceKey.WARNING,
+                                ResourceHolder.getString(ResourceKey.WARNING,
                                         StringID.Warning.FOLD_FAILED_WRONG_STRUCTURE_ID),
                                 "Failed Level1",
                                 JOptionPane.INFORMATION_MESSAGE);

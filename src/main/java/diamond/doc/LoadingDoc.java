@@ -19,9 +19,9 @@ public class LoadingDoc implements diamond.file.LoadingAction{
 
         doc = loader.load(path);
         if (doc != null) {
-            DocHolder.getInstance().setDoc(doc);
+            DocHolder.setDoc(doc);
             if(path != ""){
-                DocHolder.getInstance().getDoc().setDataFilePath(path);
+                DocHolder.getDoc().setDataFilePath(path);
             }
         }
         success = (doc != null);

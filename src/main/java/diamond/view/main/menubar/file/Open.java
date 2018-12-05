@@ -35,7 +35,7 @@ public class Open extends JMenuItem implements ActionListener {
     }
 
     public Open() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.OPEN_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));

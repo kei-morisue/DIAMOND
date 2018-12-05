@@ -18,7 +18,7 @@ public class DeletingVertex extends PickingVertex {
 
 	@Override
 	protected void onResult(PaintContext context) {
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		Collection<OriLine> creasePattern = document.getCreasePattern();
 
 		if(context.getVertexCount() > 0){

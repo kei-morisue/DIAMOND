@@ -44,7 +44,7 @@ public class PastingOnVertex extends PickingVertex {
         Vector2d v = context.popVertex();
         
         if (context.getLineCount() > 0) {
-        	Doc document = DocHolder.getInstance().getDoc();
+        	Doc document = DocHolder.getDoc();
         	CreasePattern creasePattern = document.getCreasePattern();
         	document.pushUndoInfo();
 
@@ -74,7 +74,7 @@ public class PastingOnVertex extends PickingVertex {
 	@Override
 	protected void undoAction(PaintContext context) {
 		context.setMissionCompleted(false);
-		DocHolder.getInstance().getDoc().loadUndoInfo();
+		DocHolder.getDoc().loadUndoInfo();
 	}
 
 }

@@ -19,7 +19,7 @@ public class DeleteSelectedLines implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		Collection<OriLine> creasePattern = document.getCreasePattern();
 
 		document.pushUndoInfo();

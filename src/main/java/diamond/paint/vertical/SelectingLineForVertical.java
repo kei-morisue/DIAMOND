@@ -28,8 +28,8 @@ public class SelectingLineForVertical extends PickingLine {
         OriLine vl = GeomUtil.getVerticalLine(
         		context.getVertex(0), context.getLine(0), PaintConfig.inputLineType);
 
-        DocHolder.getInstance().getDoc().pushUndoInfo();
-        DocHolder.getInstance().getDoc().addLine(vl);
+        DocHolder.getDoc().pushUndoInfo();
+        DocHolder.getDoc().addLine(vl);
 
         context.clear(false);
 	}

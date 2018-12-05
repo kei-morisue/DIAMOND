@@ -26,7 +26,7 @@ public class MenuHelp extends JMenu {
     }
 
     public MenuHelp() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.HELP_ID));
         add(About.getInstance());
     }

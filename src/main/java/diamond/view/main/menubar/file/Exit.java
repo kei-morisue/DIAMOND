@@ -34,14 +34,14 @@ public class Exit extends JMenuItem implements ActionListener {
     }
 
     public Exit() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.EXIT_ID));
         addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (DocHolder.getInstance().getDoc().isChanged()) {
+        if (DocHolder.getDoc().isChanged()) {
             // TODO: confirm saving edited opx
             int selected = JOptionPane
                     .showConfirmDialog(
@@ -51,7 +51,7 @@ public class Exit extends JMenuItem implements ActionListener {
             if (selected == JOptionPane.YES_OPTION) {
                 String path = FileIOUtil.exportFile(
                         FileHistory.getLastDirectory(),
-                        DocHolder.getInstance().getDoc().getDataFileName(),
+                        DocHolder.getDoc().getDataFileName(),
                         FilterDB.getInstance().toArray());
                 if (path == null) {
 

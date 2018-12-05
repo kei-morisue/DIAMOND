@@ -34,7 +34,7 @@ public class RepeatCopy
     }
 
     public RepeatCopy() {
-        super(ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+        super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.REPEAT_COPY_ID));
         addActionListener(this);
     }
@@ -45,9 +45,9 @@ public class RepeatCopy
         RepeatCopyDialog arrayCopyDialog = new RepeatCopyDialog(
                 MainFrame.getInstance());
         if (painter.countSelectedLines(
-                DocHolder.getInstance().getDoc().getCreasePattern()) == 0) {
+                DocHolder.getDoc().getCreasePattern()) == 0) {
             JOptionPane.showMessageDialog(this, "Select target lines",
-                    ResourceHolder.getInstance().getString(ResourceKey.LABEL,
+                    ResourceHolder.getString(ResourceKey.LABEL,
                             StringID.Main.REPEAT_COPY_ID),
                     JOptionPane.WARNING_MESSAGE);
 

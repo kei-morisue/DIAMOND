@@ -231,7 +231,7 @@ public class PropertyDialog extends JDialog implements ComponentListener {
     }
 
     private void storeValue() {
-    	Doc document = DocHolder.getInstance().getDoc();
+    	Doc document = DocHolder.getDoc();
     	document.setTitle(TitleTextField.getText());
     	document.setEditorName(EditorNameTextField.getText());
     	document.setOriginalAuthorName(OriginalAuthorTextField.getText());
@@ -262,7 +262,7 @@ public class PropertyDialog extends JDialog implements ComponentListener {
     }
 
     public void setValue() {
-    	Doc document = DocHolder.getInstance().getDoc();
+    	Doc document = DocHolder.getDoc();
         TitleTextField.setText(document.getTitle());
         EditorNameTextField.setText(document.getEditorName());
         OriginalAuthorTextField.setText(document.getOriginalAuthorName());

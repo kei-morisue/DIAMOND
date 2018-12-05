@@ -45,7 +45,7 @@ public class DeleteLineAction extends RectangularSelectableAction {
 	protected void afterRectangularSelection(Collection<OriLine> selectedLines,
 			PaintContext context) {
 
-		Doc document = DocHolder.getInstance().getDoc();
+		Doc document = DocHolder.getDoc();
 		Collection<OriLine> creasePattern = document.getCreasePattern();
 
 		if(selectedLines.isEmpty() == false){

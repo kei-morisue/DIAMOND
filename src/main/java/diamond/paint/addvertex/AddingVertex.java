@@ -48,7 +48,7 @@ public class AddingVertex extends PickingVertex {
 
 		if(context.getVertexCount() > 0){
 			
-			Doc document = DocHolder.getInstance().getDoc();
+			Doc document = DocHolder.getDoc();
 			document.pushUndoInfo();
 			CreasePattern creasePattern = document.getCreasePattern();
 
@@ -57,7 +57,7 @@ public class AddingVertex extends PickingVertex {
 			if (!painter.addVertexOnLine(
 					context.popLine(), context.popVertex(),
 					creasePattern, creasePattern.getPaperSize())) {
-				DocHolder.getInstance().getDoc().loadUndoInfo();
+				DocHolder.getDoc().loadUndoInfo();
 			}
 
 		}

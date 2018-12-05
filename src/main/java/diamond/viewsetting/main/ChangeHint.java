@@ -8,30 +8,28 @@ import diamond.viewsetting.ChangeViewSetting;
 
 public class ChangeHint implements ChangeViewSetting {
 
-	private MainFrameSettingDB frameSetting = MainFrameSettingDB.getInstance();
+    private MainFrameSettingDB frameSetting = MainFrameSettingDB.getInstance();
 
-	private String id;
-	
-	public ChangeHint(String resourceID){
-		this.id = resourceID;
-	}
-	
-	@Override
-	public void changeViewSetting() {
-		ResourceHolder holder = ResourceHolder.getInstance();
-		
-		ResourceBundle resource = holder.getResource(ResourceKey.EXPLANATION);
+    private String id;
 
-		String hint = null;
-		try{
-			hint = resource.getString(id);
-		}
-		catch (Exception e) {
-			//e.printStackTrace();
-		}
-		frameSetting.setHint(hint);
-		
-		frameSetting.notifyObservers();
-	}
+    public ChangeHint(String resourceID) {
+        this.id = resourceID;
+    }
+
+    @Override
+    public void changeViewSetting() {
+        ResourceBundle resource = ResourceHolder
+                .getResource(ResourceKey.EXPLANATION);
+
+        String hint = null;
+        try {
+            hint = resource.getString(id);
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
+        frameSetting.setHint(hint);
+
+        frameSetting.notifyObservers();
+    }
 
 }

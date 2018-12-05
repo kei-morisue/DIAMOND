@@ -23,8 +23,8 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import diamond.DataSet;
 import diamond.doc.Doc;
+import diamond.doc.exporter.cp.DataSet;
 
 public class ExporterXML implements Exporter{
 
