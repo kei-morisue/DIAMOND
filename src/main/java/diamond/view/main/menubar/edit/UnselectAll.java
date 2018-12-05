@@ -18,7 +18,6 @@ import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
 
 /**
  * @author long_
@@ -51,7 +50,7 @@ public class UnselectAll
         Painter painter = new Painter();
         painter.resetSelectedOriLines(creasePattern);
         PaintContext.getInstance().clear(false);
-        MainFrame.getInstance().getCpScreen().repaint();
+        PaintContext.getPainterScreen().repaint();
     }
 
 }

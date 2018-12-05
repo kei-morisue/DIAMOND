@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.file.FileIOUtil;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
@@ -34,7 +35,7 @@ public class Open extends JMenuItem implements ActionListener {
         return instance;
     }
 
-    public Open() {
+    private Open() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.OPEN_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
@@ -50,7 +51,7 @@ public class Open extends JMenuItem implements ActionListener {
         EstimationResultFrame.getInstance().setVisible(false);
 
         FileIOUtil.openFile(mainFrame, null);
-        mainFrame.getCpScreen().repaint();
+        PaintContext.getPainterScreen().repaint();
         mainFrame.updateTitleText();
 
     }

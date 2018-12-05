@@ -27,6 +27,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import diamond.doc.Doc;
+import diamond.paint.core.PaintContext;
 import diamond.view.main.MainFrame;
 
 public class ExporterPNG implements Exporter {
@@ -34,8 +35,7 @@ public class ExporterPNG implements Exporter {
     public boolean export(Doc doc, String filepath) throws IOException {
         Component originalComponent = MainFrame.getInstance();
         //TODO Extract original frame dependencies: "MainFrame"
-        Image cpImage = MainFrame.getInstance().getCpScreen()
-                .getCreasePatternImage();
+        Image cpImage = PaintContext.getPainterScreen().getCreasePatternImage();
         BufferedImage image = new BufferedImage(
                 cpImage.getWidth(originalComponent),
                 cpImage.getHeight(originalComponent),

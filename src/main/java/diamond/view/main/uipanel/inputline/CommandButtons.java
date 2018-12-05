@@ -5,6 +5,7 @@
 package diamond.view.main.uipanel.inputline;
 
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -22,8 +23,7 @@ import diamond.view.main.uipanel.LayoutUtil;
  * @author long_
  *
  */
-public class InputLineCommandButtons {
-    private int paintActionButtonCount = 0;
+public class CommandButtons extends JPanel {
     private ButtonFactory buttonFactory = new PaintActionButtonFactory();
 
     private JRadioButton lineInputAngleBisectorButton;
@@ -35,16 +35,21 @@ public class InputLineCommandButtons {
     private JRadioButton lineInputSymmetricButton;
     private JRadioButton lineInputTriangleSplitButton;
     private JRadioButton lineInputVerticalLineButton;
-    private JPanel basePanel;
 
-    public InputLineCommandButtons(JPanel __basePanel) {
-        basePanel = __basePanel;
-        JLabel label1 = new JLabel("Command (1...9)");
-        label1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        basePanel.add(label1, LayoutUtil.buildGBC(1, 8, 4));
-
+    public CommandButtons() {
         createButtons();
+        lineInputDirectVButton.setSelected(true);
+        setIcons();
+        setMnemonics();
+        lineInputDirectVButton.doClick();
+        add();
+    }
 
+    private CommandButtons add() {
+        setLayout(new GridBagLayout());
+        JLabel label = new JLabel("Command (1...9)");
+        label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        add(label, LayoutUtil.buildGBC(1, 0, 4));
         ButtonGroup lineInputGroup = new ButtonGroup();
         lineInputGroup.add(lineInputDirectVButton);
         lineInputGroup.add(lineInputOnVButton);
@@ -55,14 +60,8 @@ public class InputLineCommandButtons {
         lineInputGroup.add(lineInputMirrorButton);
         lineInputGroup.add(lineInputByValueButton);
         lineInputGroup.add(lineInputPBisectorButton);
-        lineInputDirectVButton.setSelected(true);
-
-        setIcons();
-        setMnemonics();
         addPaintActionButtons(4, 9);
-
-        lineInputDirectVButton.doClick();
-
+        return this;
     }
 
     /**
@@ -71,34 +70,34 @@ public class InputLineCommandButtons {
     private void createButtons() {
         lineInputAngleBisectorButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.BISECTOR_ID);
+                        this, JRadioButton.class, StringID.BISECTOR_ID);
 
         lineInputByValueButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.BY_VALUE_ID);
+                        this, JRadioButton.class, StringID.BY_VALUE_ID);
         lineInputDirectVButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.DIRECT_V_ID);
+                        this, JRadioButton.class, StringID.DIRECT_V_ID);
         lineInputMirrorButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.MIRROR_ID);
+                        this, JRadioButton.class, StringID.MIRROR_ID);
 
         lineInputOnVButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.ON_V_ID);
+                        this, JRadioButton.class, StringID.ON_V_ID);
         lineInputPBisectorButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class,
+                        this, JRadioButton.class,
                         StringID.PERPENDICULAR_BISECTOR_ID);
         lineInputSymmetricButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.SYMMETRIC_ID);
+                        this, JRadioButton.class, StringID.SYMMETRIC_ID);
         lineInputTriangleSplitButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.TRIANGLE_ID);
+                        this, JRadioButton.class, StringID.TRIANGLE_ID);
         lineInputVerticalLineButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.VERTICAL_ID);
+                        this, JRadioButton.class, StringID.VERTICAL_ID);
 
     }
 
@@ -163,32 +162,44 @@ public class InputLineCommandButtons {
 
     private void addPaintActionButtons(int gridWidth, int gridy_start) {
 
-        paintActionButtonCount = 0;
+        int count = 0;
         // put operation buttons in order
-        addPaintActionButton(lineInputDirectVButton, gridWidth, gridy_start);
-        addPaintActionButton(lineInputOnVButton, gridWidth, gridy_start);
-        addPaintActionButton(lineInputPBisectorButton, gridWidth, gridy_start);
+        addPaintActionButton(lineInputDirectVButton, gridWidth, gridy_start,
+                count);
+        count++;
+        addPaintActionButton(lineInputOnVButton, gridWidth, gridy_start, count);
+        count++;
+        addPaintActionButton(lineInputPBisectorButton, gridWidth, gridy_start,
+                count);
+        count++;
         addPaintActionButton(lineInputAngleBisectorButton, gridWidth,
-                gridy_start);
+                gridy_start, count);
+        count++;
         addPaintActionButton(lineInputTriangleSplitButton, gridWidth,
-                gridy_start);
+                gridy_start, count);
+        count++;
         addPaintActionButton(lineInputVerticalLineButton, gridWidth,
-                gridy_start);
-        addPaintActionButton(lineInputSymmetricButton, gridWidth, gridy_start);
-        addPaintActionButton(lineInputMirrorButton, gridWidth, gridy_start);
-        addPaintActionButton(lineInputByValueButton, gridWidth, gridy_start);
+                gridy_start, count);
+        count++;
+        addPaintActionButton(lineInputSymmetricButton, gridWidth, gridy_start,
+                count);
+        count++;
+        addPaintActionButton(lineInputMirrorButton, gridWidth, gridy_start,
+                count);
+        count++;
+        addPaintActionButton(lineInputByValueButton, gridWidth, gridy_start,
+                count);
     }
 
     private void addPaintActionButton(AbstractButton button, int gridWidth,
-            int gridy) {
+            int gridy, int count) {
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = paintActionButtonCount % gridWidth + 1;
-        gridBagConstraints.gridy = gridy + paintActionButtonCount / gridWidth;
+        gridBagConstraints.gridx = count % gridWidth + 1;
+        gridBagConstraints.gridy = gridy + count / gridWidth;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        basePanel.add(button, gridBagConstraints);
-
-        paintActionButtonCount++;
+        add(button, gridBagConstraints);
 
     }
+
 }

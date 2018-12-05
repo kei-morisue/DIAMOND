@@ -33,10 +33,9 @@ public class MenuFile extends JMenu {
             instance = new MenuFile();
         }
         return instance;
-
     }
 
-    public MenuFile() {
+    private MenuFile() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.FILE_ID));
         FileHistory.loadFromFile(Config.INI_FILE_PATH);
@@ -65,7 +64,7 @@ public class MenuFile extends JMenu {
         }
     }
 
-    public void addItems() {
+    private void addItems() {
         removeAll();//TODO rest of MRU-adds seem needless...
         add(New.getInstance());
         add(Open.getInstance());

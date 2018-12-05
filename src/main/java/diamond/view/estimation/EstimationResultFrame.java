@@ -46,7 +46,7 @@ public class EstimationResultFrame extends JFrame
     FoldedModelScreen screen;
     EstimationResultUI ui;
 
-    public EstimationResultFrame() {
+    private EstimationResultFrame() {
         setting.addObserver(this);
 
         setTitle("Folded Origami");
@@ -59,16 +59,12 @@ public class EstimationResultFrame extends JFrame
         getContentPane().add(ui, BorderLayout.WEST);
         getContentPane().add(screen, BorderLayout.CENTER);
         getContentPane().add(hintLabel, BorderLayout.SOUTH);
-
+        setVisible(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
-    }
-
-    public void initialize() {
-        setVisible(false);
     }
 
     @Override

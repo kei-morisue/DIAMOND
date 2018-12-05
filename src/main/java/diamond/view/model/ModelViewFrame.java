@@ -112,7 +112,7 @@ public class ModelViewFrame extends JFrame
             false);
     ModelViewScreen screen;
 
-    public ModelViewFrame() {
+    private ModelViewFrame() {
 
         setting.addObserver(this);
 
@@ -158,6 +158,10 @@ public class ModelViewFrame extends JFrame
 
         scrollBarAngle.addAdjustmentListener(this);
         scrollBarPosition.addAdjustmentListener(this);
+        setSize(Config.INITIAL_MODEL_FRAME_WIDTH,
+                Config.INITIAL_MODEL_FRAME_HEIGHT);
+        setLocationRelativeTo(null);
+        setVisible(false);
 
     }
 
@@ -265,13 +269,6 @@ public class ModelViewFrame extends JFrame
             screen.setCrossLinePosition(e.getValue());
         }
 
-    }
-
-    public void initialize() {
-        setSize(Config.INITIAL_MODEL_FRAME_WIDTH,
-                Config.INITIAL_MODEL_FRAME_HEIGHT);
-        setLocationRelativeTo(null);
-        setVisible(false);
     }
 
     @Override

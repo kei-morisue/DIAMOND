@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
@@ -35,7 +36,7 @@ public class New extends JMenuItem implements ActionListener {
         return instance;
     }
 
-    public New() {
+    private New() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.NEW_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
@@ -54,6 +55,6 @@ public class New extends JMenuItem implements ActionListener {
         ModelViewFrame.getInstance().setVisible(false);
         EstimationResultFrame.getInstance().setVisible(false);
         MainFrame.getInstance().updateTitleText();
-        MainFrame.getInstance().getCpScreen().repaint();
+        PaintContext.getPainterScreen().repaint();
     }
 }

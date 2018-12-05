@@ -73,7 +73,7 @@ public class LineTypePanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        UIPanelSettingDB setting = (UIPanelSettingDB) o;
+        UIPanelSettingDB setting = UIPanelSettingDB.getInstance();
         lineTypeMountainButton
                 .setEnabled(setting.isMountainButtonEnabled());
         lineTypeValleyButton.setEnabled(setting.isValleyButtonEnabled());

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import diamond.Config;
 import diamond.file.FileIOUtil;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.view.estimation.EstimationResultFrame;
@@ -55,7 +56,7 @@ public class MRUFiles implements ActionListener {
                                     "Error_FileLoadFailed"),
                             JOptionPane.ERROR_MESSAGE);
                 }
-                mainFrame.getCpScreen().repaint();
+                PaintContext.getPainterScreen().repaint();
                 return;
             }
         }

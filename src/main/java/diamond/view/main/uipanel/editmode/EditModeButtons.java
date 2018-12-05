@@ -2,7 +2,11 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.main.uipanel;
+package diamond.view.main.uipanel.editmode;
+
+import java.awt.GridBagLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -16,8 +20,7 @@ import diamond.bind.binder.BinderInterface;
 import diamond.bind.binder.ViewChangeBinder;
 import diamond.paint.creasepattern.tool.TypeForChange;
 import diamond.resource.StringID;
-import diamond.view.main.uipanel.editmode.AlterLinePanel;
-import diamond.view.main.uipanel.editmode.LineTypePanel;
+import diamond.view.main.uipanel.LayoutUtil;
 import diamond.viewsetting.ChangeViewSetting;
 import diamond.viewsetting.main.uipanel.ChangeOnPaintInputButtonSelected;
 import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
@@ -26,7 +29,7 @@ import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
  * @author long_
  *
  */
-public class EditModeButtons {
+public class EditModeButtons extends JPanel implements Observer {
     private ButtonGroup editModeGroup;
     private ButtonFactory buttonFactory = new PaintActionButtonFactory();
 
@@ -44,12 +47,17 @@ public class EditModeButtons {
     private JRadioButton editModePickLineButton;
     private JRadioButton editModeAddVertex;
 
-    private JPanel basePanel;
-
-    public EditModeButtons(JPanel __basePanel) {
-        basePanel = __basePanel;
+    public EditModeButtons() {
         createButtons();
+        setMnemonics();
+        editModeInputLineButton
+                .addActionListener(new InputCommandStatePopper());
         editModeInputLineButton.setSelected(true);
+        add();
+        UIPanelSettingDB.getInstance().addObserver(this);
+    }
+
+    private EditModeButtons add() {
         editModeGroup = new ButtonGroup();
         editModeGroup.add(editModeInputLineButton);
         editModeGroup.add(editModePickLineButton);
@@ -57,19 +65,16 @@ public class EditModeButtons {
         editModeGroup.add(editModeLineTypeButton);
         editModeGroup.add(editModeAddVertex);
         editModeGroup.add(editModeDeleteVertex);
-
-        basePanel.add(editModeInputLineButton, LayoutUtil.buildGBC(1, 0, 4));
-        basePanel.add(new LineTypePanel(), LayoutUtil.buildGBC(1, 1, 4));
-        basePanel.add(editModePickLineButton, LayoutUtil.buildGBC(1, 2, 4));
-        basePanel.add(editModeDeleteLineButton, LayoutUtil.buildGBC(1, 3, 4));
-        basePanel.add(editModeLineTypeButton, LayoutUtil.buildGBC(1, 4, 4));
-        basePanel.add(new AlterLinePanel(), LayoutUtil.buildGBC(1, 5, 4));
-        basePanel.add(editModeAddVertex, LayoutUtil.buildGBC(1, 6, 4));
-        basePanel.add(editModeDeleteVertex, LayoutUtil.buildGBC(1, 7, 4));
-        setMnemonics();
-
-        editModeInputLineButton
-                .addActionListener(new InputCommandStatePopper());
+        setLayout(new GridBagLayout());
+        add(editModeInputLineButton, LayoutUtil.buildGBC(1, 0, 4));
+        add(new LineTypePanel(), LayoutUtil.buildGBC(1, 1, 4));
+        add(editModePickLineButton, LayoutUtil.buildGBC(1, 2, 4));
+        add(editModeDeleteLineButton, LayoutUtil.buildGBC(1, 3, 4));
+        add(editModeLineTypeButton, LayoutUtil.buildGBC(1, 4, 4));
+        add(new AlterLinePanel(), LayoutUtil.buildGBC(1, 6, 4));
+        add(editModeAddVertex, LayoutUtil.buildGBC(1, 6, 4));
+        add(editModeDeleteVertex, LayoutUtil.buildGBC(1, 7, 4));
+        return this;
     }
 
     /**
@@ -85,13 +90,13 @@ public class EditModeButtons {
 
     private void createButtons() {
         editModeAddVertex = (JRadioButton) buttonFactory
-                .create(basePanel, JRadioButton.class, StringID.ADD_VERTEX_ID);
+                .create(this, JRadioButton.class, StringID.ADD_VERTEX_ID);
         editModeDeleteLineButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.DELETE_LINE_ID);
+                        this, JRadioButton.class, StringID.DELETE_LINE_ID);
         editModeDeleteVertex = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class,
+                        this, JRadioButton.class,
                         StringID.DELETE_VERTEX_ID);
 
         editModeInputLineButton = (JRadioButton) viewChangeBinder
@@ -101,16 +106,21 @@ public class EditModeButtons {
                         StringID.UI.INPUT_LINE_ID);
         editModeLineTypeButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class,
+                        this, JRadioButton.class,
                         StringID.CHANGE_LINE_TYPE_ID);
         editModePickLineButton = (JRadioButton) buttonFactory
                 .create(
-                        basePanel, JRadioButton.class, StringID.SELECT_ID);
+                        this, JRadioButton.class, StringID.SELECT_ID);
 
     }
 
-    public void updateEditModeButtonSelection(UIPanelSettingDB setting) {
-        switch (setting.getSelectedMode()) {
+    private void selectEditModeButton(AbstractButton modeButton) {
+        editModeGroup.setSelected(modeButton.getModel(), true);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        switch (UIPanelSettingDB.getInstance().getSelectedMode()) {
         case INPUT:
             selectEditModeButton(editModeInputLineButton);
             break;
@@ -120,9 +130,6 @@ public class EditModeButtons {
         default:
             break;
         }
-    }
-
-    private void selectEditModeButton(AbstractButton modeButton) {
-        editModeGroup.setSelected(modeButton.getModel(), true);
+        repaint();
     }
 }

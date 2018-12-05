@@ -17,7 +17,6 @@ import diamond.paint.util.DeleteSelectedLines;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
 import diamond.view.main.menubar.edit.CircleCopy;
 import diamond.view.main.menubar.edit.RepeatCopy;
 import diamond.view.main.menubar.edit.Undo;
@@ -28,20 +27,7 @@ import diamond.view.main.menubar.edit.UnselectAll;
  *
  */
 public class MenuEdit extends JMenu {
-
     private static MenuEdit instance = null;
-
-    private static MainFrame mainFrame = MainFrame.getInstance();
-
-    public static JMenuItem menuItemChangeOutline;
-
-    public static JMenuItem menuItemCopyAndPaste;
-    public static JMenuItem menuItemCutAndPaste;
-    public static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
-            ResourceHolder.getString(ResourceKey.LABEL,
-                    StringID.Main.DELETE_SELECTED_LINES_ID));
-
-    public static JMenuItem menuItemSelectAll;
 
     public static MenuEdit getInstance() {
         if (instance == null) {
@@ -50,20 +36,30 @@ public class MenuEdit extends JMenu {
         return instance;
     }
 
-    public MenuEdit() {
+    private static JMenuItem menuItemChangeOutline;
+
+    private static JMenuItem menuItemCopyAndPaste;
+    private static JMenuItem menuItemCutAndPaste;
+    private static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
+            ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Main.DELETE_SELECTED_LINES_ID));
+
+    private static JMenuItem menuItemSelectAll;
+
+    private MenuEdit() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.EDIT_ID));
 
         ButtonFactory buttonFactory = new PaintActionButtonFactory();
-        menuItemChangeOutline = (JMenuItem) buttonFactory.create(mainFrame,
+        menuItemChangeOutline = (JMenuItem) buttonFactory.create(this,
                 JMenuItem.class, ResourceKey.LABEL, StringID.EDIT_CONTOUR_ID);
-        menuItemSelectAll = (JMenuItem) buttonFactory.create(mainFrame,
+        menuItemSelectAll = (JMenuItem) buttonFactory.create(this,
                 JMenuItem.class, ResourceKey.LABEL,
                 StringID.SELECT_ALL_LINE_ID);
-        menuItemCopyAndPaste = (JMenuItem) buttonFactory.create(mainFrame,
+        menuItemCopyAndPaste = (JMenuItem) buttonFactory.create(this,
                 JMenuItem.class, ResourceKey.LABEL, StringID.COPY_PASTE_ID);
         menuItemCutAndPaste = (JMenuItem) buttonFactory.create(
-                mainFrame, JMenuItem.class, StringID.CUT_PASTE_ID);
+                this, JMenuItem.class, StringID.CUT_PASTE_ID);
         addAccelerators();
         addItems();
     }

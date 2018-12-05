@@ -32,7 +32,7 @@ public class Save extends JMenuItem implements ActionListener {
         return instance;
     }
 
-    public Save() {
+    private Save() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.SAVE_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,

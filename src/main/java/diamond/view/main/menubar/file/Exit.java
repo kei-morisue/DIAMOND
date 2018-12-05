@@ -33,7 +33,7 @@ public class Exit extends JMenuItem implements ActionListener {
         return instance;
     }
 
-    public Exit() {
+    private Exit() {
         super(ResourceHolder.getString(ResourceKey.LABEL,
                 StringID.Main.EXIT_ID));
         addActionListener(this);

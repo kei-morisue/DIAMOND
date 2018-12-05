@@ -17,14 +17,13 @@ import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
-import diamond.view.main.MainFrame;
 
 /**
  * @author long_
  *
  */
 public class Undo
-        extends JMenuItem implements ActionListener {
+        extends JMenuItem {
     private static Undo instance = null;
 
     public static Undo getInstance() {
@@ -39,17 +38,19 @@ public class Undo
                 StringID.Main.UNDO_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));
-        addActionListener(this);
-    }
+        addActionListener(new ActionListener() {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (PaintConfig.getMouseAction() != null) {
-            PaintConfig.getMouseAction().undo(PaintContext.getInstance());
-        } else {
-            DocHolder.getDoc().loadUndoInfo();
-        }
-        MainFrame.getInstance().getCpScreen().repaint();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (PaintConfig.getMouseAction() != null) {
+                    PaintConfig.getMouseAction()
+                            .undo(PaintContext.getInstance());
+                } else {
+                    DocHolder.getDoc().loadUndoInfo();
+                }
+                PaintContext.getPainterScreen().repaint();
+            }
+        });
     }
 
 }

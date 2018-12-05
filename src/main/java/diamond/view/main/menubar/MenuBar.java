@@ -19,7 +19,7 @@ public class MenuBar extends JMenuBar {
         return instance;
     }
 
-    public MenuBar() {
+    private MenuBar() {
         add(MenuFile.getInstance());
         add(MenuEdit.getInstance());
         add(MenuHelp.getInstance());

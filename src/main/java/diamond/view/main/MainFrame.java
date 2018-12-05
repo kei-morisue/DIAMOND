@@ -45,27 +45,22 @@ public class MainFrame extends JFrame implements WindowListener {
         return instance;
     }
 
-    private PainterScreen cpScreen = new PainterScreen();
-    private UIPanel uiPanel;
-
-    public MainFrame() {
+    private MainFrame() {
         addWindowListener(this);
-        uiPanel = new UIPanel(cpScreen);
-    }
-
-    public void initialize() {
         setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
                 Config.INITIAL_MAIN_FRAME_HEIGHT);
         setIconImage(new ImageResourceLoader()
                 .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
         updateTitleText();
-        setJMenuBar(MenuBar.getInstance());
 
         setLayout(new BorderLayout());
-        add(uiPanel, BorderLayout.WEST);
-        add(cpScreen, BorderLayout.CENTER);
+        PainterScreen painterScreen = new PainterScreen();
+        add(painterScreen, BorderLayout.CENTER);
+        add(new UIPanel(painterScreen), BorderLayout.WEST);
         add(new HintLabel(), BorderLayout.SOUTH);
+        setJMenuBar(MenuBar.getInstance());
+
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -78,7 +73,7 @@ public class MainFrame extends JFrame implements WindowListener {
                         StringID.Main.TITLE_ID));
     }
 
-    private String buildFileName(Doc doc) {
+    private static String buildFileName(Doc doc) {
         if ((doc.getDataFilePath()).equals("")) {
             return ResourceHolder.getString(ResourceKey.LABEL,
                     StringID.Default.FILE_NAME_ID);
@@ -114,14 +109,6 @@ public class MainFrame extends JFrame implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent arg0) {
-    }
-
-    public PainterScreen getCpScreen() {
-        return this.cpScreen;
-    }
-
-    public UIPanel getUiPanel() {
-        return this.uiPanel;
     }
 
 }

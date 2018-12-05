@@ -11,9 +11,9 @@ public class DIAMOND {
     public static int tmpInt;
 
     public static void main(String[] args) {
-        MainFrame.getInstance().initialize();
-        ModelViewFrame.getInstance().initialize();
-        EstimationResultFrame.getInstance().initialize();
+        MainFrame.getInstance();
+        ModelViewFrame.getInstance();
+        EstimationResultFrame.getInstance();
     }
 
     public static void ERROR_END(String message) {
