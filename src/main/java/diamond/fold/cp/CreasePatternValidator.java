@@ -2,12 +2,16 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.fold;
+package diamond.fold.cp;
 
 import java.util.List;
 
 import javax.vecmath.Vector2d;
 
+import diamond.fold.OriEdge;
+import diamond.fold.OriFace;
+import diamond.fold.OriHalfedge;
+import diamond.fold.OriVertex;
 import diamond.geom.GeomUtil;
 import diamond.value.OriLine;
 

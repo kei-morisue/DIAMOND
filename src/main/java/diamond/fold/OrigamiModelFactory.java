@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.vecmath.Vector2d;
 
+import diamond.fold.cp.CollinearCPSimplifier;
+import diamond.fold.cp.CreasePatternValidator;
+import diamond.fold.cp.DuplicatedCPSimplifier;
 import diamond.geom.GeomUtil;
 import diamond.value.CalculationResource;
 import diamond.value.OriLine;
@@ -85,8 +88,8 @@ public class OrigamiModelFactory {
 
     public static OrigamiModel createOrigamiModel(
             Collection<OriLine> creasePattern, double paperSize) {
-        CreasePatternSimplifier.cleanDuplicatedLines(creasePattern);
-        CreasePatternSimplifier.mergeColinearLines(creasePattern);
+        DuplicatedCPSimplifier.simplify(creasePattern);
+        CollinearCPSimplifier.simplify(creasePattern);
 
         return createOrigamiModelNoCleanup(creasePattern, paperSize);
     }

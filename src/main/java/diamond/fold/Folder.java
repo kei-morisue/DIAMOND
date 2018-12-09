@@ -30,6 +30,7 @@ import diamond.DIAMOND;
 import diamond.doc.Doc;
 import diamond.doc.exporter.Exporter;
 import diamond.doc.exporter.ExporterEPS;
+import diamond.fold.cp.DuplicatedCPSimplifier;
 import diamond.geom.GeomUtil;
 import diamond.geom.Line;
 import diamond.paint.core.PaintConfig;
@@ -676,7 +677,7 @@ public class Folder {
             }
         }
 
-        folderTool.cleanDuplicatedLines(temp_creasePattern);
+        DuplicatedCPSimplifier.simplify(temp_creasePattern);
 
         if (Config.FOR_STUDY) {
             try {
