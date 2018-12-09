@@ -23,63 +23,63 @@ import javax.vecmath.Vector2d;
 import diamond.geom.Line;
 import diamond.geom.Segment;
 
-
 public class OriLine implements Comparable<OriLine> {
 
-	// currently switching to use enum...
-    public enum Type{
-		
-		CUT(TYPE_CUT), NONE(TYPE_NONE), RIDGE(TYPE_RIDGE), VALLEY(TYPE_VALLEY);
+    // currently switching to use enum...
+    public enum Type {
 
-		public static Type fromInt(int val){
-			Type type;
-			switch(val){
-			
-			case TYPE_CUT:
-				type = CUT;
-				
-				break;
-				
-			case TYPE_RIDGE:
-				type = RIDGE;
-				break;
-					
-			case TYPE_VALLEY:
-				type = VALLEY;
-				break;
-				
-			case TYPE_NONE:
-			default:
-				type = NONE;
-				break;
-				
-			}
-			
-			return type;
-		}
-		
-		private int val;
-		
-		private Type(int val){
-			this.val = val;
-		}
-	
-		public int toInt(){
-			return val;
-		}
-	}
+        CUT(TYPE_CUT), NONE(TYPE_NONE), RIDGE(TYPE_RIDGE), VALLEY(TYPE_VALLEY);
+
+        public static Type fromInt(int val) {
+            Type type;
+            switch (val) {
+
+            case TYPE_CUT:
+                type = CUT;
+
+                break;
+
+            case TYPE_RIDGE:
+                type = RIDGE;
+                break;
+
+            case TYPE_VALLEY:
+                type = VALLEY;
+                break;
+
+            case TYPE_NONE:
+            default:
+                type = NONE;
+                break;
+
+            }
+
+            return type;
+        }
+
+        private int val;
+
+        private Type(int val) {
+            this.val = val;
+        }
+
+        public int toInt() {
+            return val;
+        }
+    }
+
     final public static int TYPE_CUT = 1;
     final public static int TYPE_NONE = 0;
     final public static int TYPE_RIDGE = 2;
 
     final public static int TYPE_VALLEY = 3;;
 
-	private Type type = Type.NONE;
-	
+    private Type type = Type.NONE;
+
     public OriPoint p0 = new OriPoint();
     public OriPoint p1 = new OriPoint();
     public boolean selected;
-    public int typeVal = TYPE_NONE;  // eventually unneeded
+    public int typeVal = TYPE_NONE; // eventually unneeded
 
     public OriLine() {
     }
@@ -89,7 +89,7 @@ public class OriLine implements Comparable<OriLine> {
         this.p0.set(x0, y0);
         this.p1.set(x1, y1);
     }
-    
+
     public OriLine(OriLine l) {
         selected = l.selected;
         p0.set(l.p0);
@@ -105,18 +105,18 @@ public class OriLine implements Comparable<OriLine> {
 
     public void changeToNextType() {
         switch (typeVal) {
-            case 3:
-                typeVal = 0;
-                break;
-            case 2:
-                typeVal = 3;
-                break;
-            case 1:
-                typeVal = 2;
-                break;
-            case 0:
-                typeVal = 2;
-                break;
+        case 3:
+            typeVal = 0;
+            break;
+        case 2:
+            typeVal = 3;
+            break;
+        case 1:
+            typeVal = 2;
+            break;
+        case 0:
+            typeVal = 2;
+            break;
         }
     }
 
@@ -124,58 +124,62 @@ public class OriLine implements Comparable<OriLine> {
      * gives order to this class's object.
      *
      * line type is not in comparison because
-     * there is only one line in the real world if 
+     * there is only one line in the real world if
      * the two ends of the line are determined.
-	 *
+     *
      * @param oline
      * @return
      */
     @Override
     public int compareTo(OriLine oline) {
 
-    	int comparison00 = this.p0.compareTo(oline.p0);
-    	int comparison11 = this.p1.compareTo(oline.p1);
+        int comparison00 = this.p0.compareTo(oline.p0);
+        int comparison11 = this.p1.compareTo(oline.p1);
 
-    	if (comparison00 == 0) {
-    		return comparison11;
-    	}
+        if (comparison00 == 0) {
+            return comparison11;
+        }
 
-    	return comparison00;
+        return comparison00;
     }
 
     /**
-     * 
+     *
      * line type is not compared because
-     * there is only one line in the real world if 
+     * there is only one line in the real world if
      * the two ends of the line are determined.
      */
-	@Override
-	public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
 
-		// same class?
-    	if (!(obj instanceof OriLine)) {
-    		return false;
-    	}
-		
-		OriLine oline = (OriLine)obj;
-    	int comparison00 = this.p0.compareTo(oline.p0);
-    	int comparison01 = this.p0.compareTo(oline.p1);
-    	int comparison10 = this.p1.compareTo(oline.p0);
-    	int comparison11 = this.p1.compareTo(oline.p1);
+        // same class?
+        if (!(obj instanceof OriLine)) {
+            return false;
+        }
 
-    	// same direction?
-    	if (comparison00 == 0 && comparison11 == 0) {
-    		return true;
-    	}
+        OriLine oline = (OriLine) obj;
+        int comparison00 = this.p0.compareTo(oline.p0);
+        int comparison01 = this.p0.compareTo(oline.p1);
+        int comparison10 = this.p1.compareTo(oline.p0);
+        int comparison11 = this.p1.compareTo(oline.p1);
 
-    	// reversed direction?
-    	if (comparison01 == 0 && comparison10 == 0) {
-    		return true;
-    	}
+        // same direction?
+        if (comparison00 == 0 && comparison11 == 0) {
+            return true;
+        }
 
-    	// differs
-    	return false;
-	}
+        // reversed direction?
+        if (comparison01 == 0 && comparison10 == 0) {
+            return true;
+        }
+
+        // differs
+        return false;
+    }
+
+    public double length() {
+        return Math.sqrt(Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2));
+    }
 
     public Line getLine() {
         return new Line(p0, new Vector2d(p1.x - p0.x, p1.y - p0.y));
@@ -189,14 +193,13 @@ public class OriLine implements Comparable<OriLine> {
         return typeVal;
     }
 
-    public void setType(Type type){
-    	this.type = type;
-    	this.typeVal = type.toInt(); // eventually unneeded
+    public void setType(Type type) {
+        this.type = type;
+        this.typeVal = type.toInt(); // eventually unneeded
     }
 
-
     public void setTypeValue(int type) { // eventually unneeded
-    	this.type = Type.fromInt(type);
+        this.type = Type.fromInt(type);
         this.typeVal = type;
     }
 
@@ -205,6 +208,4 @@ public class OriLine implements Comparable<OriLine> {
         return "" + p0 + "" + p1;
     }
 
-
-    
 }

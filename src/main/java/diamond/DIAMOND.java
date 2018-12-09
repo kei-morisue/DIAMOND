@@ -2,18 +2,12 @@ package diamond;
 
 import javax.swing.JOptionPane;
 
-import diamond.view.estimation.EstimationResultFrame;
 import diamond.view.main.MainFrame;
-import diamond.view.model.ModelViewFrame;
 
 public class DIAMOND {
 
-    public static int tmpInt;
-
     public static void main(String[] args) {
         MainFrame.getInstance();
-        ModelViewFrame.getInstance();
-        EstimationResultFrame.getInstance();
     }
 
     public static void ERROR_END(String message) {

@@ -22,6 +22,8 @@ import java.awt.Rectangle;
 import java.awt.event.ItemEvent;
 import java.io.File;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -41,8 +43,9 @@ import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
 import diamond.view.main.MainFrame;
+import diamond.viewsetting.estimation.RenderFrameSettingDB;
 
-public class EstimationResultUI extends JPanel {
+public class EstimationResultUI extends JPanel implements Observer {
 
     private static final long serialVersionUID = 1L;
     private JButton jButtonExport = null;
@@ -59,8 +62,9 @@ public class EstimationResultUI extends JPanel {
     /**
      * This is the default constructor
      */
-    public EstimationResultUI() {
+    public EstimationResultUI(FoldedModelScreen screen) {
         super();
+        this.screen = screen;
         initialize();
     }
 
@@ -354,11 +358,8 @@ public class EstimationResultUI extends JPanel {
         this.add(getJCheckBoxEdge(), null);
         this.add(getJCheckBoxFillFace(), null);
         this.add(getJButtonExport(), null);
+        RenderFrameSettingDB.getInstance().addObserver(this);
         updateLabel();
-    }
-
-    public void setScreen(FoldedModelScreen s) {
-        screen = s;
     }
 
     public void updateLabel() {
@@ -372,5 +373,12 @@ public class EstimationResultUI extends JPanel {
                 + (foldedModelInfo.getCurrentORmatIndex() + 1) + "/"
                 + foldableOverlapRelations.size() + "]");
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (RenderFrameSettingDB.getInstance().isFrameVisible()) {
+            updateLabel();
+        }
     }
 } //  @jve:decl-index=0:visual-constraint="8,8"

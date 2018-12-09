@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.core.PaintContext;
@@ -50,7 +51,7 @@ public class New extends JMenuItem implements ActionListener {
         screenSetting.setGridVisible(true);
         screenSetting.notifyObservers();
 
-        DocHolder.setDoc(new Doc());
+        DocHolder.setDoc(new Doc(Config.DEFAULT_PAPER_SIZE));
         ModelViewFrame.getInstance().repaint();
         ModelViewFrame.getInstance().setVisible(false);
         EstimationResultFrame.getInstance().setVisible(false);

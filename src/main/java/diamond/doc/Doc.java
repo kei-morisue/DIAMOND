@@ -30,6 +30,7 @@ import diamond.fold.FoldedModelInfo;
 import diamond.fold.OriFace;
 import diamond.fold.OriHalfedge;
 import diamond.fold.OrigamiModel;
+import diamond.fold.OrigamiModelFactory;
 import diamond.geom.GeomUtil;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.creasepattern.CreasePattern;
@@ -124,7 +125,9 @@ public class Doc {
         creasePattern.add(l2);
         creasePattern.add(l3);
 
-        origamiModel = new OrigamiModel(size);
+        origamiModel = OrigamiModelFactory.createOrigamiModelNoCleanup(
+                creasePattern,
+                size);
         foldedModelInfo = new FoldedModelInfo();
     }
 

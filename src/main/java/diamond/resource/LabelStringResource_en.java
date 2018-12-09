@@ -79,20 +79,23 @@ public class LabelStringResource_en extends ListResourceBundle {
 
             //---------------------------------------------------------
             // Model Menu IDs
-            { StringID.ModelMenu.DISPLAY_ID, "Display" },
-            { StringID.ModelMenu.DISPLAY_ID, "Display" },
-            { StringID.ModelMenu.EXPORT_DXF_ID, "Export Model Line(DXF)" },
-            { StringID.ModelMenu.INVERT_ID, "Invert" },
-            { StringID.ModelMenu.SLIDE_FACES_ID, "Slide Faces" },
-            { StringID.ModelMenu.DIRECTION_BASIC_ID,
-                    "    L: Rot R:Move Wheel:Zoom " },
-            { StringID.ModelMenu.DISPLAY_TYPE_ID, "Drawing type" },
-            { StringID.ModelMenu.FILL_COLOR_ID, "Fill Color: may be wrong" },
-            { StringID.ModelMenu.FILL_WHITE_ID, "Fill White: may be wrong" },
-            { StringID.ModelMenu.FILL_ALPHA_ID, "Fill Transmission" },
-            { StringID.ModelMenu.DRAW_LINES_ID, "Draw Lines" },
-            { StringID.ModelMenu.TITLE_ID, "Expected Folded Origami" }
+            { StringID.ExpectedModel.DISPLAY_ID, "Display" },
+            { StringID.ExpectedModel.DISPLAY_ID, "Display" },
+            { StringID.ExpectedModel.EXPORT_DXF_ID, "Export Model Line(DXF)" },
+            { StringID.ExpectedModel.INVERT_ID, "Invert" },
+            { StringID.ExpectedModel.SLIDE_FACES_ID, "Slide Faces" },
+            { StringID.ExpectedModel.DIRECTION_BASIC_ID,
+                    "    L: Rotate R:Move Wheel:Zoom " },
+            { StringID.ExpectedModel.DISPLAY_TYPE_ID, "Drawing type" },
+            { StringID.ExpectedModel.FILL_COLOR_ID, "Fill Color: may be wrong" },
+            { StringID.ExpectedModel.FILL_WHITE_ID, "Fill White: may be wrong" },
+            { StringID.ExpectedModel.FILL_ALPHA_ID, "Fill Transmission" },
+            { StringID.ExpectedModel.DRAW_LINES_ID, "Draw Lines" },
+            { StringID.ExpectedModel.TITLE_ID, "Expected Folded Origami" },
 
+            { StringID.FoldedModel.DIRECTION_BASIC_ID,
+                    "    L: Rotate R:Move Wheel:Zoom " },
+            { StringID.FoldedModel.TITLE_ID, "Folded Origami" },
     };
 
     @Override

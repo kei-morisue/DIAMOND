@@ -35,7 +35,7 @@ public class StringID {
         public static final String UNSELECT_ALL_ID = "UnselectAll";
     }
 
-    public static class ModelMenu {
+    public static class ExpectedModel {
         public static final String DIRECTION_BASIC_ID = "Basic";
         public static final String DISPLAY_ID = "MENU_Disp";
         public static final String DISPLAY_TYPE_ID = "MENU_DispType";
@@ -47,6 +47,11 @@ public class StringID {
         public static final String INVERT_ID = "MENU_Invert";
         public static final String SLIDE_FACES_ID = "MENU_SlideFaces";
         public static final String TITLE_ID = "ExpectedFoldedOrigami";
+    }
+
+    public static class FoldedModel {
+        public static final String DIRECTION_BASIC_ID = "Basic";
+        public static final String TITLE_ID = "FoldedOrigami";
     }
 
     public static class UI {
@@ -78,11 +83,13 @@ public class StringID {
         public static final String VALLEY_ID = "UI_Valley";
 
     }
+
     public static class Warning {
         public static final String FOLD_FAILED_DUPLICATION_ID = "Warning_foldFail1";
         public static final String FOLD_FAILED_WRONG_STRUCTURE_ID = "Warning_foldFail2";
         public static final String SAME_FILE_EXISTS_ID = "Warning_SameNameFileExist";
     }
+
     public static final String ADD_VERTEX_ID = "AddVertex";
 
     public static final String BISECTOR_ID = "Bisector";

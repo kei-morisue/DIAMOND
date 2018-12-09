@@ -18,7 +18,6 @@
 
 package diamond.fold;
 
-
 public class OriEdge {
 
     public OriVertex ev = null;
@@ -37,6 +36,12 @@ public class OriEdge {
     }
 
     public OriVertex oppositeVertex(OriVertex v) {
-        return v == sv ? ev : sv;
+        if (v == sv) {
+            return ev;
+        }
+        if (v == ev) {
+            return sv;
+        }
+        return null;
     }
 }

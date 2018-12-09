@@ -23,187 +23,185 @@ import java.util.List;
 
 import javax.vecmath.Vector2d;
 
-import diamond.DIAMOND;
-
 public class SubFace {
 
+    public boolean allFaceOrderDecided = false;
+    public ArrayList<ArrayList<OriFace>> answerStacks = new ArrayList<>();
+    public ArrayList<Condition3> condition3s = new ArrayList<>();
+    public ArrayList<Condition4> condition4s = new ArrayList<>();
+    public ArrayList<OriFace> faces;
+    public OriFace outline;
+    public ArrayList<OriFace> sortedFaces;
+    public int tmpInt;
 
-	public boolean allFaceOrderDecided = false;
-	public ArrayList<ArrayList<OriFace>> answerStacks = new ArrayList<>();
-	public ArrayList<Condition3> condition3s = new ArrayList<>();
-	public ArrayList<Condition4> condition4s = new ArrayList<>();
-	public ArrayList<OriFace> faces;
-	public OriFace outline;
-	public ArrayList<OriFace> sortedFaces;
-	public int tmpInt;
+    public SubFace(OriFace f) {
+        outline = f;
+        faces = new ArrayList<>();
+        sortedFaces = new ArrayList<>();
+    }
 
-	public SubFace(OriFace f) {
-		outline = f;
-		faces = new ArrayList<>();
-		sortedFaces = new ArrayList<>();
-	}
+    private boolean checkForSortLocally3(List<OriFace> modelFaces,
+            OriFace face) {
 
-	private boolean checkForSortLocally3(List<OriFace> modelFaces, OriFace face) {
+        for (Condition3 cond : face.condition3s) {
+            if (modelFaces.get(cond.lower).alreadyStacked
+                    && !modelFaces.get(cond.upper).alreadyStacked) {
+                return false;
+            }
+        }
 
-		for (Condition3 cond : face.condition3s) {
-			if (modelFaces.get(cond.lower).alreadyStacked
-					&& !modelFaces.get(cond.upper).alreadyStacked) {
-				return false;
-			}
-		}
+        // check condition4
+        // aabb or abba or baab are good, but aba or bab are impossible
 
-		// check condition4
-		// aabb or abba or baab are good, but aba or bab are impossible
+        // stack lower2 < lower1, without upper1 being stacked, dont stack
+        // upper2
+        // stack lower1 < lower2, without upper2 being stacked, dont stack
+        // upper1
 
-		// stack lower2 < lower1, without upper1 being stacked, dont stack
-		// upper2
-		// stack lower1 < lower2, without upper2 being stacked, dont stack
-		// upper1
+        for (Condition4 cond : face.condition4s) {
 
-		for (Condition4 cond : face.condition4s) {
+            if (face.tmpInt == cond.upper2
+                    && modelFaces.get(cond.lower2).alreadyStacked
+                    && modelFaces.get(cond.lower1).alreadyStacked
+                    && !modelFaces.get(cond.upper1).alreadyStacked
+                    && modelFaces.get(cond.lower2).tmpInt2 < modelFaces
+                            .get(cond.lower1).tmpInt2) {
+                return false;
+            }
+            if (face.tmpInt == cond.upper1
+                    && modelFaces.get(cond.lower2).alreadyStacked
+                    && modelFaces.get(cond.lower1).alreadyStacked
+                    && !modelFaces.get(cond.upper2).alreadyStacked
+                    && modelFaces.get(cond.lower1).tmpInt2 < modelFaces
+                            .get(cond.lower2).tmpInt2) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-			if (face.tmpInt == cond.upper2
-					&& modelFaces.get(cond.lower2).alreadyStacked
-					&& modelFaces.get(cond.lower1).alreadyStacked
-					&& !modelFaces.get(cond.upper1).alreadyStacked
-					&& modelFaces.get(cond.lower2).tmpInt2 < modelFaces
-							.get(cond.lower1).tmpInt2) {
-				return false;
-			}
-			if (face.tmpInt == cond.upper1
-					&& modelFaces.get(cond.lower2).alreadyStacked
-					&& modelFaces.get(cond.lower1).alreadyStacked
-					&& !modelFaces.get(cond.upper2).alreadyStacked
-					&& modelFaces.get(cond.lower1).tmpInt2 < modelFaces
-							.get(cond.lower2).tmpInt2) {
-				return false;
-			}
-		}
-		return true;
-	}
+    private void sort(List<OriFace> modelFaces, int index) {
 
-	private void sort(List<OriFace> modelFaces, int index) {
+        for (OriFace f : faces) {
+            if (f.alreadyStacked) {
+                continue;
+            }
 
-		for (OriFace f : faces) {
-			if (f.alreadyStacked) {
-				continue;
-			}
+            boolean isOK = true;
 
-			boolean isOK = true;
+            for (Integer ii : f.condition2s) {
+                if (!modelFaces.get(ii.intValue()).alreadyStacked) {
+                    isOK = false;
+                    break;
+                }
+            }
 
-			for (Integer ii : f.condition2s) {
-				if (!modelFaces.get(ii.intValue()).alreadyStacked) {
-					isOK = false;
-					break;
-				}
-			}
+            if (!isOK) {
+                continue;
+            }
 
-			if (!isOK) {
-				continue;
-			}
+            isOK = checkForSortLocally3(modelFaces, f);
+            if (!isOK) {
+                continue;
+            }
 
-			isOK = checkForSortLocally3(modelFaces, f);
-			if (!isOK) {
-				continue;
-			}
+            sortedFaces.set(index, f);
+            f.alreadyStacked = true;
+            f.tmpInt2 = index;
 
-			sortedFaces.set(index, f);
-			f.alreadyStacked = true;
-			f.tmpInt2 = index;
+            if (index == faces.size() - 1) {
 
-			if (index == faces.size() - 1) {
+                ArrayList<OriFace> ans = new ArrayList<>();
 
-				ArrayList<OriFace> ans = new ArrayList<>();
+                ans.addAll(sortedFaces);
+                answerStacks.add(ans);
 
-				ans.addAll(sortedFaces);
-				answerStacks.add(ans);
+                // Further continue the search for solutions
+                sortedFaces.set(index, null);
+                f.alreadyStacked = false;
+                f.tmpInt2 = -1;
+                continue;
+            } else {
+                sort(modelFaces, index + 1);
+            }
+        }
 
-				// Further continue the search for solutions
-				sortedFaces.set(index, null);
-				f.alreadyStacked = false;
-				f.tmpInt2 = -1;
-				continue;
-			} else {
-				sort(modelFaces, index + 1);
-			}
-		}
+        if (index == 0) {
+            // Examined until the end
+            return;
+        }
 
-		if (index == 0) {
-			// Examined until the end
-			return;
-		}
+        sortedFaces.get(index - 1).alreadyStacked = false;
+        sortedFaces.get(index - 1).tmpInt2 = -1;
+        sortedFaces.set(index - 1, null);
 
-		DIAMOND.tmpInt++;
-		sortedFaces.get(index - 1).alreadyStacked = false;
-		sortedFaces.get(index - 1).tmpInt2 = -1;
-		sortedFaces.set(index - 1, null);
+    }
 
-	}
+    public Vector2d getInnerPoint() {
+        Vector2d c = new Vector2d();
+        for (OriHalfedge he : outline.halfedges) {
+            c.add(he.tmpVec);
+        }
+        c.scale(1.0 / outline.halfedges.size());
+        return c;
+    }
 
-	public Vector2d getInnerPoint() {
-		Vector2d c = new Vector2d();
-		for (OriHalfedge he : outline.halfedges) {
-			c.add(he.tmpVec);
-		}
-		c.scale(1.0 / outline.halfedges.size());
-		return c;
-	}
+    public int sortFaceOverlapOrder(List<OriFace> modelFaces, int[][] mat) {
+        sortedFaces.clear();
+        for (int i = 0; i < faces.size(); i++) {
+            sortedFaces.add(null);
+        }
 
-	public int sortFaceOverlapOrder(List<OriFace> modelFaces, int[][] mat) {
-		sortedFaces.clear();
-		for (int i = 0; i < faces.size(); i++) {
-			sortedFaces.add(null);
-		}
+        // Count the number of pending surfaces
+        int cnt = 0;
+        int f_num = faces.size();
+        for (int i = 0; i < f_num; i++) {
+            for (int j = i + 1; j < f_num; j++) {
+                if (mat[faces.get(i).tmpInt][faces
+                        .get(j).tmpInt] == OrigamiModelFactory.UNDEFINED) {
+                    cnt++;
+                }
+            }
+        }
 
-		// Count the number of pending surfaces
-		int cnt = 0;
-		int f_num = faces.size();
-		for (int i = 0; i < f_num; i++) {
-			for (int j = i + 1; j < f_num; j++) {
-				if (mat[faces.get(i).tmpInt][faces.get(j).tmpInt] == OrigamiModelFactory.UNDEFINED) {
-					cnt++;
-				}
-			}
-		}
+        // Exit if the order is already settled
+        if (cnt == 0) {
+            allFaceOrderDecided = true;
+            return 0;
+        }
 
-		// Exit if the order is already settled
-		if (cnt == 0) {
-			allFaceOrderDecided = true;
-			return 0;
-		}
+        for (OriFace f : faces) {
+            f.condition3s.clear();
+            f.condition4s.clear();
+            f.condition2s.clear();
 
-		for (OriFace f : faces) {
-			f.condition3s.clear();
-			f.condition4s.clear();
-			f.condition2s.clear();
+            for (Condition3 cond : condition3s) {
+                if (f.tmpInt == cond.other) {
+                    f.condition3s.add(cond);
+                }
+            }
+            for (Condition4 cond : condition4s) {
+                if (f.tmpInt == cond.upper1 || f.tmpInt == cond.upper2) {
+                    f.condition4s.add(cond);
+                }
+            }
 
-			for (Condition3 cond : condition3s) {
-				if (f.tmpInt == cond.other) {
-					f.condition3s.add(cond);
-				}
-			}
-			for (Condition4 cond : condition4s) {
-				if (f.tmpInt == cond.upper1 || f.tmpInt == cond.upper2) {
-					f.condition4s.add(cond);
-				}
-			}
+            for (OriFace ff : faces) {
+                if (mat[f.tmpInt][ff.tmpInt] == OrigamiModelFactory.LOWER) {
+                    f.condition2s.add(new Integer(ff.tmpInt));
+                }
+            }
+        }
 
-			for (OriFace ff : faces) {
-				if (mat[f.tmpInt][ff.tmpInt] == OrigamiModelFactory.LOWER) {
-					f.condition2s.add(new Integer(ff.tmpInt));
-				}
-			}
-		}
+        for (OriFace f : faces) {
+            f.alreadyStacked = false;
+            f.tmpInt2 = -1;
+        }
 
-		for (OriFace f : faces) {
-			f.alreadyStacked = false;
-			f.tmpInt2 = -1;
-		}
+        // From the bottom
+        sort(modelFaces, 0);
 
-		// From the bottom
-		sort(modelFaces, 0);
-
-		// Returns the number of solutions obtained
-		return answerStacks.size();
-	}
+        // Returns the number of solutions obtained
+        return answerStacks.size();
+    }
 }

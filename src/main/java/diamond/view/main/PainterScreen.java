@@ -47,6 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.vecmath.Vector2d;
 
+import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.mouse.MouseUtility;
@@ -86,6 +87,8 @@ public class PainterScreen extends JPanel
     private double transY;
 
     public PainterScreen() {
+        int size = (int) (Config.DEFAULT_PAPER_SIZE * 1.1);
+        setPreferredSize(new Dimension(size, size));
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -94,7 +97,7 @@ public class PainterScreen extends JPanel
         screenUpdater.addObserver(this);
         setting.addObserver(this);
 
-        scale = 1.5;
+        scale = 1.0;
         setBackground(Color.white);
 
         popupItem_DivideFace.addActionListener(this);

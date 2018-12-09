@@ -25,9 +25,10 @@ import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
  */
 public class AlterLinePanel extends JPanel implements Observer {
     private UIPanelSettingDB settingDB = UIPanelSettingDB.getInstance();
-    private TypeForChange[] alterLine_comboData_to = { TypeForChange.RIDGE,
+    private TypeForChange[] alterLine_comboData_to = { TypeForChange.FLIP,
+            TypeForChange.RIDGE,
             TypeForChange.VALLEY, TypeForChange.AUX,
-            TypeForChange.CUT, TypeForChange.DELETE, TypeForChange.FLIP };
+            TypeForChange.CUT, TypeForChange.DELETE };
     private TypeForChange[] alterLine_comboData_from = { TypeForChange.EMPTY,
             TypeForChange.RIDGE, TypeForChange.VALLEY };
 

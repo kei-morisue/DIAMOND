@@ -20,6 +20,7 @@ package diamond.view.estimation;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -36,11 +37,14 @@ import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
 import java.io.File;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.vecmath.Vector2d;
 
+import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.fold.BoundBox;
@@ -49,6 +53,7 @@ import diamond.fold.OriFace;
 import diamond.fold.OrigamiModel;
 import diamond.fold.TriangleFace;
 import diamond.fold.TriangleVertex;
+import diamond.viewsetting.estimation.RenderFrameSettingDB;
 
 /**
  * A screen to show whether Maekawa theorem and Kawasaki theorem holds.
@@ -56,10 +61,11 @@ import diamond.fold.TriangleVertex;
  *
  */
 public class FoldedModelScreen extends JPanel
-        implements MouseListener, MouseMotionListener, MouseWheelListener {
+        implements Observer, MouseListener, MouseMotionListener,
+        MouseWheelListener {
 
-    static private int BUFFERH;     // height
-    static private int BUFFERW;     // width
+    static private int BUFFERH = (int) (Config.DEFAULT_PAPER_SIZE * 1.1); // height
+    static private int BUFFERW = (int) (Config.DEFAULT_PAPER_SIZE * 1.1); // width
     static private boolean m_bDrawEdges = true;
     private static boolean m_bFaceOrderFlip = false;
     static private double m_rotAngle = 0;
@@ -76,23 +82,28 @@ public class FoldedModelScreen extends JPanel
     static private int minr[];
     static private double minu[];
     static private double minv[];
-    static private int pbuf[];      //32bit pixel buffer
-    static private int zbuf[];      //32bit z buffer
+    static private int pbuf[]; //32bit pixel buffer
+    static private int zbuf[]; //32bit z buffer
+
     private static int getIndex(int x, int y) {
         return y * BUFFERW + x;
     }
+
     public static void clear() {
         for (int i = 0; i < BUFFERW * BUFFERH; i++) {
             pbuf[i] = 0xffffffff;
             zbuf[i] = -1;
         }
     }
+
     public static boolean isM_bFaceOrderFlip() {
-		return m_bFaceOrderFlip;
-	}
+        return m_bFaceOrderFlip;
+    }
+
     public static void setM_bFaceOrderFlip(boolean m_bFaceOrderFlip) {
-		FoldedModelScreen.m_bFaceOrderFlip = m_bFaceOrderFlip;
-	}
+        FoldedModelScreen.m_bFaceOrderFlip = m_bFaceOrderFlip;
+    }
+
     private AffineTransform affineTransform;
     private Graphics2D bufferg;
     private BufferedImage bufferImage;
@@ -116,10 +127,8 @@ public class FoldedModelScreen extends JPanel
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
-
-        BUFFERW = 600;
-        BUFFERH = 600;
-
+        RenderFrameSettingDB.getInstance().addObserver(this);
+        setPreferredSize(new Dimension(BUFFERW, BUFFERH));
         pbuf = new int[BUFFERW * BUFFERH];
         zbuf = new int[BUFFERW * BUFFERH];
         min = new int[BUFFERH];
@@ -158,9 +167,8 @@ public class FoldedModelScreen extends JPanel
     //
     //--------------------------------------------------------------------
     private void drawTriangle(TriangleFace tri, int id, int color) {
-    	Doc document = DocHolder.getDoc();
-    	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
-
+        Doc document = DocHolder.getDoc();
+        FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
 
         //(For speed) set the range of use of the buffer
         int top = +2147483647;
@@ -232,11 +240,13 @@ public class FoldedModelScreen extends JPanel
 
                 int p = offset + x;
 
-                int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER : diamond.doc.Doc.LOWER;
+                int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER
+                        : diamond.doc.Doc.LOWER;
 
-				int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+                int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
 
-                if (zbuf[p] == -1 || overlapRelation[zbuf[p]][id] == renderFace) {
+                if (zbuf[p] == -1
+                        || overlapRelation[zbuf[p]][id] == renderFace) {
 
                     int tr = r >> 16;
                     int tg = g >> 16;
@@ -254,18 +264,22 @@ public class FoldedModelScreen extends JPanel
                             ty = ty % textureImage.getHeight();
                             int textureColor = textureImage.getRGB(tx, ty);
 
-
-                            if (m_bFillFaces && (tri.face.faceFront ^ isM_bFaceOrderFlip())) {
+                            if (m_bFillFaces && (tri.face.faceFront
+                                    ^ isM_bFaceOrderFlip())) {
                                 pbuf[p] = textureColor;
                             } else {
-                                pbuf[p] = (tr << 16) | (tg << 8) | tb | 0xff000000;
+                                pbuf[p] = (tr << 16) | (tg << 8) | tb
+                                        | 0xff000000;
 
                             }
                         } else {
-                            if (m_bFillFaces && (tri.face.faceFront ^ isM_bFaceOrderFlip())) {
-                                pbuf[p] = (tr << 16) | (tg << 8) | tb | 0xff000000;
+                            if (m_bFillFaces && (tri.face.faceFront
+                                    ^ isM_bFaceOrderFlip())) {
+                                pbuf[p] = (tr << 16) | (tg << 8) | tb
+                                        | 0xff000000;
                             } else {
-                                pbuf[p] = (tr << 16) | (tg << 8) | tb | 0xff000000;
+                                pbuf[p] = (tr << 16) | (tg << 8) | tb
+                                        | 0xff000000;
                             }
                         }
                     }
@@ -282,13 +296,13 @@ public class FoldedModelScreen extends JPanel
     //Vector v2 ...Starting point
     //--------------------------------------------------------------------
     private void ScanEdge(TriangleVertex v1, TriangleVertex v2) {
-        
+
         int l = Math.abs((int) (v2.p.y - v1.p.y)) + 1;
 
         //Increment calculation
         int addx = (int) ((v2.p.x - v1.p.x) * 0xffff) / l;
         int addy = (int) ((v2.p.y - v1.p.y) * 0xffff) / l;
-        
+
         int addr = (int) (255 * 0xffff * (v2.color.x - v1.color.x) / l);
         int addg = (int) (255 * 0xffff * (v2.color.y - v1.color.y) / l);
         int addb = (int) (255 * 0xffff * (v2.color.z - v1.color.z) / l);
@@ -304,10 +318,9 @@ public class FoldedModelScreen extends JPanel
         int b = (int) (255 * 0xffff * v1.color.z);
         double u = v1.uv.x;
         double v = v1.uv.y;
-        
-        //Scan         
-        for (int i = 0; i < l; i++, x += addx, y += addy, r += addr, g += addg, 
-                b += addb, u += addu, v += addv) {
+
+        //Scan
+        for (int i = 0; i < l; i++, x += addx, y += addy, r += addr, g += addg, b += addb, u += addu, v += addv) {
             int py = y >> 16;
             int px = x >> 16;
 
@@ -350,10 +363,10 @@ public class FoldedModelScreen extends JPanel
     }
 
     public void drawOrigami() {
-    	Doc document = DocHolder.getDoc();
-    	OrigamiModel origamiModel = document.getOrigamiModel();
-    	FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
-    	
+        Doc document = DocHolder.getDoc();
+        OrigamiModel origamiModel = document.getOrigamiModel();
+        FoldedModelInfo foldedModelInfo = document.getFoldedModelInfo();
+
         List<OriFace> faces = origamiModel.getFaces();
         boolean folded = origamiModel.isFolded();
         if (!folded) {
@@ -364,7 +377,7 @@ public class FoldedModelScreen extends JPanel
         BoundBox boundBox = foldedModelInfo.getBoundBox();
         Vector2d leftAndTop = boundBox.getLeftAndTop();
         Vector2d rightAndBottom = boundBox.getRightAndBottom();
-        
+
         Vector2d center = new Vector2d((leftAndTop.x + rightAndBottom.x) / 2,
                 (leftAndTop.y + rightAndBottom.y) / 2);
         double localScale = Math.min(
@@ -383,15 +396,15 @@ public class FoldedModelScreen extends JPanel
                     double x = (tri.v[i].p.x - center.x) * localScale;
                     double y = (tri.v[i].p.y - center.y) * localScale;
 
-                    tri.v[i].p.x = x * Math.cos(angle) + y * Math.sin(angle) + BUFFERW * 0.5;
-                    tri.v[i].p.y = x * Math.sin(angle) - y * Math.cos(angle) + BUFFERW * 0.5;
-
+                    tri.v[i].p.x = x * Math.cos(angle) + y * Math.sin(angle)
+                            + BUFFERW * 0.5;
+                    tri.v[i].p.y = x * Math.sin(angle) - y * Math.cos(angle)
+                            + BUFFERW * 0.5;
 
                 }
                 drawTriangle(tri, face.tmpInt, face.intColor);
             }
         }
-
 
         if (m_bDrawEdges) {
             for (int y = 1; y < BUFFERH - 1; y++) {
@@ -417,7 +430,8 @@ public class FoldedModelScreen extends JPanel
         }
 
         if (m_bAmbientOcclusion) {
-            int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER : diamond.doc.Doc.LOWER;
+            int renderFace = isM_bFaceOrderFlip() ? diamond.doc.Doc.UPPER
+                    : diamond.doc.Doc.LOWER;
             int r = 10;
             int s = (int) (r * r * Math.PI);
             // For every pixel
@@ -425,7 +439,7 @@ public class FoldedModelScreen extends JPanel
                 for (int x = 1; x < BUFFERW - 1; x++) {
                     int f_id = zbuf[getIndex(x, y)];
 
-                    // Within a circle of radius r, Count the pixels of the surface 
+                    // Within a circle of radius r, Count the pixels of the surface
                     //that is above their own
                     int cnt = 0;
                     for (int dy = -r; dy <= r; dy++) {
@@ -444,9 +458,11 @@ public class FoldedModelScreen extends JPanel
                             if (f_id == -1 && f_id2 != -1) {
                                 cnt++;
                             } else {
-                				int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+                                int[][] overlapRelation = foldedModelInfo
+                                        .getOverlapRelation();
 
-                                if (f_id2 != -1 && overlapRelation[f_id][f_id2] == renderFace) {
+                                if (f_id2 != -1
+                                        && overlapRelation[f_id][f_id2] == renderFace) {
                                     cnt++;
                                 }
                             }
@@ -456,11 +472,15 @@ public class FoldedModelScreen extends JPanel
                     if (cnt > 0) {
                         int prev = pbuf[getIndex(x, y)];
                         double ratio = 1.0 - ((double) cnt) / s;
-                        int p_r = (int) Math.max(0, ((prev & 0x00ff0000) >> 16) * ratio);
-                        int p_g = (int) Math.max(0, ((prev & 0x0000ff00) >> 8) * ratio);
-                        int p_b = (int) Math.max(0, (prev & 0x000000ff) * ratio);
+                        int p_r = (int) Math.max(0,
+                                ((prev & 0x00ff0000) >> 16) * ratio);
+                        int p_g = (int) Math.max(0,
+                                ((prev & 0x0000ff00) >> 8) * ratio);
+                        int p_b = (int) Math.max(0,
+                                (prev & 0x000000ff) * ratio);
 
-                        pbuf[getIndex(x, y)] = (p_r << 16) | (p_g << 8) | p_b | 0xff000000;
+                        pbuf[getIndex(x, y)] = (p_r << 16) | (p_g << 8) | p_b
+                                | 0xff000000;
                     }
 
                 }
@@ -471,7 +491,8 @@ public class FoldedModelScreen extends JPanel
 
         System.out.println("render time = " + (time1 - time0) + "ms");
 
-        renderImage = createImage(new MemoryImageSource(BUFFERW, BUFFERH, pbuf, 0, BUFFERW));
+        renderImage = createImage(
+                new MemoryImageSource(BUFFERW, BUFFERH, pbuf, 0, BUFFERW));
 
     }
 
@@ -513,7 +534,8 @@ public class FoldedModelScreen extends JPanel
             Object hint,
             boolean higherQuality) {
         int type = (img.getTransparency() == Transparency.OPAQUE)
-                ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+                ? BufferedImage.TYPE_INT_RGB
+                : BufferedImage.TYPE_INT_ARGB;
         BufferedImage ret = (BufferedImage) img;
         int w, h;
         if (higherQuality) {
@@ -574,7 +596,7 @@ public class FoldedModelScreen extends JPanel
             preMousePoint = e.getPoint();
             updateAffineTransform();
             repaint();
-        }else if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
+        } else if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
             transX += (double) (e.getX() - preMousePoint.getX()) / scale;
             transY += (double) (e.getY() - preMousePoint.getY()) / scale;
             preMousePoint = e.getPoint();
@@ -587,7 +609,7 @@ public class FoldedModelScreen extends JPanel
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
     }
-    
+
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -621,7 +643,8 @@ public class FoldedModelScreen extends JPanel
         super.paintComponent(g);
 
         if (bufferImage == null) {
-            bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+            bufferImage = new BufferedImage(getWidth(), getHeight(),
+                    BufferedImage.TYPE_INT_RGB);
             bufferg = (Graphics2D) bufferImage.getGraphics();
 
             updateAffineTransform();
@@ -632,14 +655,14 @@ public class FoldedModelScreen extends JPanel
         bufferg.setTransform(new AffineTransform());
 
         // Clear image
-        bufferg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        bufferg.setComposite(
+                AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         bufferg.setColor(Color.WHITE);
         bufferg.fillRect(0, 0, getWidth(), getHeight());
 
         bufferg.setTransform(affineTransform);
 
         Graphics2D g2d = bufferg;
-
 
         if (renderImage != null) {
             g2d.drawImage(renderImage, 0, 0, null);
@@ -659,28 +682,35 @@ public class FoldedModelScreen extends JPanel
         updateAffineTransform();
         redrawOrigami();
     }
-    
-    
 
     public void setFillFace(boolean bFillFace) {
         m_bFillFaces = bFillFace;
         redrawOrigami();
     }
 
-    public void setScale(double newScale){
+    public void setScale(double newScale) {
         scale = newScale;
     }
 
-	public void setUseColor(boolean b) {
+    public void setUseColor(boolean b) {
         m_bUseColor = b;
         redrawOrigami();
     }
 
-	public void shadeFaces(boolean bShade) {
+    public void shadeFaces(boolean bShade) {
         m_bAmbientOcclusion = bShade;
         redrawOrigami();
     }
 
-    
-    
+    /* (非 Javadoc)
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        if (RenderFrameSettingDB.getInstance().isFrameVisible()) {
+            resetViewMatrix();
+            redrawOrigami();
+        }
+    }
+
 }

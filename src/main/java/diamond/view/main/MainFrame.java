@@ -19,20 +19,28 @@
 package diamond.view.main;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.file.ImageResourceLoader;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.ResourceKey;
 import diamond.resource.StringID;
+import diamond.view.estimation.EstimationResultUI;
+import diamond.view.estimation.FoldabilityScreen;
+import diamond.view.estimation.FoldedModelScreen;
 import diamond.view.main.menubar.MenuBar;
 import diamond.view.main.menubar.file.Exit;
+import diamond.view.main.uipanel.LayoutUtil;
+import diamond.view.model.ModelViewScreen;
 
 public class MainFrame extends JFrame implements WindowListener {
 
@@ -55,9 +63,24 @@ public class MainFrame extends JFrame implements WindowListener {
         updateTitleText();
 
         setLayout(new BorderLayout());
-        PainterScreen painterScreen = new PainterScreen();
-        add(painterScreen, BorderLayout.CENTER);
-        add(new UIPanel(painterScreen), BorderLayout.WEST);
+        JPanel screen = new JPanel();
+        FoldedModelScreen estimationScreen = new FoldedModelScreen();
+        {
+            screen.setLayout(new GridBagLayout());
+            screen.add(PaintContext.getPainterScreen(),
+                    LayoutUtil.buildGBC(0, 0, 1));
+            screen.add(estimationScreen, LayoutUtil.buildGBC(1, 0, 1));
+            screen.add(
+                    new diamond.view.model.RenderPanel(new ModelViewScreen()),
+                    LayoutUtil.buildGBC(0, 1, 1));
+            FoldabilityScreen foldabilityScreen = new FoldabilityScreen();
+            screen.add(
+                    foldabilityScreen,
+                    LayoutUtil.buildGBC(1, 1, 1));
+        }
+        add(screen, BorderLayout.CENTER);
+        add(new UIPanel(PaintContext.getPainterScreen()), BorderLayout.WEST);
+        add(new EstimationResultUI(estimationScreen), BorderLayout.EAST);
         add(new HintLabel(), BorderLayout.SOUTH);
         setJMenuBar(MenuBar.getInstance());
 

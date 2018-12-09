@@ -25,6 +25,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -38,6 +40,8 @@ import javax.swing.JPopupMenu;
 import javax.vecmath.Vector2d;
 
 import diamond.Config;
+import diamond.doc.Doc;
+import diamond.doc.DocHolder;
 import diamond.fold.OriFace;
 import diamond.fold.OriVertex;
 import diamond.fold.OrigamiModel;
@@ -51,17 +55,17 @@ import diamond.value.OriLine;
  *
  */
 public class FoldabilityScreen extends JPanel
-        implements ComponentListener {
+        implements ComponentListener, MouseListener {
 
     private AffineTransform affineTransform = new AffineTransform();
-    private boolean bDrawFaceID = false;
     private Graphics2D bufferg;
     private Image bufferImage;
-    private Collection<OriLine> creasePattern = null;
-//    private FoldedModelInfo foldedModelInfo = null;
+    private Collection<OriLine> creasePattern = DocHolder.getDoc()
+            .getCreasePattern();
+    //    private FoldedModelInfo foldedModelInfo = null;
     private ArrayList<Vector2d> crossPoints = new ArrayList<>();
     private boolean dispGrid = true;
-    private OrigamiModel origamiModel = null;
+    private OrigamiModel origamiModel = DocHolder.getDoc().getOrigamiModel();
     private JPopupMenu popup = new JPopupMenu();
     private JMenuItem popupItem_DivideFace = new JMenuItem("Face division");
     private JMenuItem popupItem_FlipFace = new JMenuItem("Face Inversion");
@@ -74,11 +78,12 @@ public class FoldabilityScreen extends JPanel
     private double transX;
     private double transY;
 
-    FoldabilityScreen() {
-
+    public FoldabilityScreen() {
+        int size = (int) (Config.DEFAULT_PAPER_SIZE * 1.1);
         addComponentListener(this);
-
-        scale = 1.5;
+        addMouseListener(this);
+        setPreferredSize(new Dimension(size, size));
+        scale = 1.0;
         setBackground(Color.white);
 
         popup.add(popupItem_DivideFace);
@@ -150,55 +155,6 @@ public class FoldabilityScreen extends JPanel
             }
         }
 
-        if (bDrawFaceID) {
-            g2d.setColor(Color.BLACK);
-            for (OriFace face : faces) {
-                g2d.drawString("" + face.tmpInt, (int) face.getCenter().x, (int) face.getCenter().y);
-            }
-        }
-
-        if (Config.FOR_STUDY) {
-            g2d.setColor(new Color(255, 210, 220));
-            for (OriFace face : faces) {
-                if (face.tmpInt2 == 0) {
-                    g2d.setColor(Color.RED);
-                    g2d.fill(face.preOutline);
-                } else {
-                    g2d.setColor(face.color);
-                }
-
-                if (face.hasProblem) {
-                    g2d.setColor(Color.RED);
-                } else {
-                    if (face.faceFront) {
-                        g2d.setColor(new Color(255, 200, 200));
-                    } else {
-                        g2d.setColor(new Color(200, 200, 255));
-                    }
-                }
-
-                g2d.fill(face.preOutline);
-            }
-
-            g2d.setColor(Color.BLACK);
-            for (OriFace face : faces) {
-                g2d.drawString("" + face.z_order, (int) face.getCenter().x,
-                        (int) face.getCenter().y);
-            }
-
-            g2d.setColor(Color.RED);
-            for (OriVertex v : vertices) {
-                if (v.hasProblem) {
-                    g2d.fill(new Rectangle2D.Double(v.p.x - 8.0 / scale,
-                            v.p.y - 8.0 / scale, 16.0 / scale, 16.0 / scale));
-                }
-            }
-        }
-    }
-
-    public void modeChanged() {
-
-        repaint();
     }
 
     @Override
@@ -221,42 +177,40 @@ public class FoldabilityScreen extends JPanel
 
         Graphics2D g2d = bufferg;
 
-
         g2d.setStroke(LineSetting.STROKE_VALLEY);
         g2d.setColor(Color.black);
         for (OriLine line : creasePattern) {
             switch (line.typeVal) {
-                case OriLine.TYPE_NONE:
-                    if (!PaintConfig.dispAuxLines) {
-                        continue;
-                    }
-                    g2d.setColor(LineSetting.LINE_COLOR_AUX);
-                    g2d.setStroke(LineSetting.STROKE_CUT);
-                    break;
-                case OriLine.TYPE_CUT:
-                    g2d.setColor(Color.BLACK);
-                    g2d.setStroke(LineSetting.STROKE_CUT);
-                    break;
-                case OriLine.TYPE_RIDGE:
-                    if (!PaintConfig.dispMVLines) {
-                        continue;
-                    }
-                    g2d.setColor(LineSetting.LINE_COLOR_RIDGE);
-                    g2d.setStroke(LineSetting.STROKE_RIDGE);
-                    break;
-                case OriLine.TYPE_VALLEY:
-                    if (!PaintConfig.dispMVLines) {
-                        continue;
-                    }
-                    g2d.setColor(LineSetting.LINE_COLOR_VALLEY);
-                    g2d.setStroke(LineSetting.STROKE_VALLEY);
-                    break;
+            case OriLine.TYPE_NONE:
+                if (!PaintConfig.dispAuxLines) {
+                    continue;
+                }
+                g2d.setColor(LineSetting.LINE_COLOR_AUX);
+                g2d.setStroke(LineSetting.STROKE_CUT);
+                break;
+            case OriLine.TYPE_CUT:
+                g2d.setColor(Color.BLACK);
+                g2d.setStroke(LineSetting.STROKE_CUT);
+                break;
+            case OriLine.TYPE_RIDGE:
+                if (!PaintConfig.dispMVLines) {
+                    continue;
+                }
+                g2d.setColor(LineSetting.LINE_COLOR_RIDGE);
+                g2d.setStroke(LineSetting.STROKE_RIDGE);
+                break;
+            case OriLine.TYPE_VALLEY:
+                if (!PaintConfig.dispMVLines) {
+                    continue;
+                }
+                g2d.setColor(LineSetting.LINE_COLOR_VALLEY);
+                g2d.setStroke(LineSetting.STROKE_VALLEY);
+                break;
             }
 
-
-            g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x, line.p1.y));
+            g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
+                    line.p1.y));
         }
-
 
         // Drawing of the vertices
         List<OriVertex> vertices = origamiModel.getVertices();
@@ -269,36 +223,39 @@ public class FoldabilityScreen extends JPanel
                 vertexDrawSize = 5.0;
                 g2d.setColor(Color.RED);
             }
-            g2d.fill(new Rectangle2D.Double(v.preP.x - vertexDrawSize / scale, v.preP.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale, vertexDrawSize * 2 / scale));
+            g2d.fill(new Rectangle2D.Double(v.preP.x - vertexDrawSize / scale,
+                    v.preP.y - vertexDrawSize / scale,
+                    vertexDrawSize * 2 / scale, vertexDrawSize * 2 / scale));
         }
 
         for (Vector2d v : crossPoints) {
             g2d.setColor(Color.RED);
-            g2d.fill(new Rectangle2D.Double(v.x - 5.0 / scale, v.y - 5.0 / scale, 10.0 / scale, 10.0 / scale));
+            g2d.fill(new Rectangle2D.Double(v.x - 5.0 / scale,
+                    v.y - 5.0 / scale, 10.0 / scale, 10.0 / scale));
         }
 
         // Line connecting the pair of unsetled faces
-//        if (Config.FOR_STUDY) {
-//            List<OriFace> faces = origamiModel.getFaces();
-//
-//			int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-//
-//            if (overlapRelation != null) {
-//                g2d.setStroke(LineSetting.STROKE_RIDGE);
-//                g2d.setColor(Color.MAGENTA);
-//                int size = faces.size();
-//                for (int i = 0; i < size; i++) {
-//                    for (int j = i + 1; j < size; j++) {
-//                        if (overlapRelation[i][j] == Doc.UNDEFINED) {
-//                            Vector2d v0 = faces.get(i).getCenter();
-//                            Vector2d v1 = faces.get(j).getCenter();
-//                            g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        //        if (Config.FOR_STUDY) {
+        //            List<OriFace> faces = origamiModel.getFaces();
+        //
+        //			int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
+        //
+        //            if (overlapRelation != null) {
+        //                g2d.setStroke(LineSetting.STROKE_RIDGE);
+        //                g2d.setColor(Color.MAGENTA);
+        //                int size = faces.size();
+        //                for (int i = 0; i < size; i++) {
+        //                    for (int j = i + 1; j < size; j++) {
+        //                        if (overlapRelation[i][j] == Doc.UNDEFINED) {
+        //                            Vector2d v0 = faces.get(i).getCenter();
+        //                            Vector2d v1 = faces.get(j).getCenter();
+        //                            g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
+        //
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
 
         drawModel(g2d);
 
@@ -318,12 +275,60 @@ public class FoldabilityScreen extends JPanel
 
     public void showModel(
             OrigamiModel origamiModel,
-            Collection<OriLine> creasePattern  //, FoldedModelInfo foldedModelInfo
-            ) {
+            Collection<OriLine> creasePattern //, FoldedModelInfo foldedModelInfo
+    ) {
         this.origamiModel = origamiModel;
         this.creasePattern = creasePattern;
-//    	this.foldedModelInfo = foldedModelInfo;
+        //    	this.foldedModelInfo = foldedModelInfo;
 
-        this.setVisible(true);
+        repaint();
+        ;
     }
+
+    /* (非 Javadoc)
+     * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Doc doc = DocHolder.getDoc();
+        showModel(doc.getOrigamiModel(),
+                doc.getCreasePattern());
+    }
+
+    /* (非 Javadoc)
+     * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    /* (非 Javadoc)
+     * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    /* (非 Javadoc)
+     * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    /* (非 Javadoc)
+     * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
 }

@@ -48,7 +48,7 @@ public class FilterDB {
                         .getString(ResourceKey.LABEL, "ORIPA_File"),
                 new SavingDoc(new ExporterXML()));
         filter.setLoadingAction(new LoadingDoc(new LoaderXML()));
-        filter.setSavingAction(new SavingDoc(new ExporterCP()));
+        filter.setSavingAction(new SavingDoc(new ExporterXML()));
         this.putFilter("opx", filter);
 
         filter = new FileFilterEx(

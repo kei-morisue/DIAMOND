@@ -29,7 +29,7 @@ public class PaintContext {
 
     private boolean isPasting = false;
 
-    private static PainterScreen painterScreen;
+    private static PainterScreen painterScreen = new PainterScreen();
 
     private boolean missionCompleted = false;
     private Point2D.Double mousePoint;
@@ -193,7 +193,7 @@ public class PaintContext {
     }
 
     public static PainterScreen getPainterScreen() {
-        return painterScreen;
+        return getInstance().painterScreen;
     }
 
     public static void setPainterScreen(PainterScreen __painterScreen) {

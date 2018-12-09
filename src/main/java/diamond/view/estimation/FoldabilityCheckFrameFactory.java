@@ -8,19 +8,19 @@ import diamond.fold.OrigamiModel;
 import diamond.value.OriLine;
 
 public class FoldabilityCheckFrameFactory {
-	private static FoldabilityCheckFrame frame = null;
+    private static FoldabilityCheckFrame frame = null;
 
-	public JFrame createFrame(
-			OrigamiModel origamiModel, 
-    		Collection<OriLine> creasePattern //, FoldedModelInfo foldedModelInfo
-    		) {
+    public JFrame createFrame(
+            OrigamiModel origamiModel,
+            Collection<OriLine> creasePattern //, FoldedModelInfo foldedModelInfo
+    ) {
 
-		if (frame == null) {
-			frame = new FoldabilityCheckFrame();
-		}
+        if (frame == null) {
+            frame = new FoldabilityCheckFrame();
+        }
 
-		frame.setModel(origamiModel, creasePattern //, foldedModelInfo
-				);
-		return frame;
-	}
+        frame.setModel(origamiModel, creasePattern //, foldedModelInfo
+        );
+        return frame;
+    }
 }

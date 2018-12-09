@@ -63,6 +63,7 @@ public class FileIOUtil {
             FileChooser fileChooser = factory.createChooser(FileHistory
                     .getLastPath(), FilterDB.getInstance().getLoadables());
             fileChooser.setFileFilter(FilterDB.getInstance().getFilter("opx"));
+            fileChooser.setFileFilter(FilterDB.getInstance().getFilter("cp"));
             path = fileChooser.loadFile(originalComponent);
         }
 

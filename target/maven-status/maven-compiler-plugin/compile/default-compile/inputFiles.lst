@@ -1,11 +1,13 @@
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\file\Open.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\LoadingDoc.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\textfield\LengthTextField.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\value\LineType.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\appstate\StateManager.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\ExporterEPS.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\ExporterSVG.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\ScreenUpdaterInterface.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\symmetric\SelectingVertexForSymmetric.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\editmode\EditModeButtons.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\resource\Constants.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\byvalue\ValueDB.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\LinePaster.java
@@ -42,6 +44,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\loader\LoaderXML.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\mirror\SelectingLineForMirror.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\geometry\NearestVertexFinder.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\geometry\NearestPoint.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\editmode\AlterLinePanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\appstate\StateManagerInterface.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\ExporterOBJ2.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\GraphicMouseActionInterface.java
@@ -67,6 +70,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\addvertex\AddVertexAction
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\viewsetting\main\uipanel\ChangeOnAlterTypeButtonSelected.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\resource\WarningStringResource_en.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\bind\state\action\StateActionPerformer.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\TextField.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\file\Exit.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\edit\RepeatCopy.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\model\ModelViewFrame.java
@@ -77,7 +81,9 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\CreasePatte
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\Condition4.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\OrigamiModel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\file\SavingAction.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\LayoutUtil.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\DocHolder.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\GridPanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\viewsetting\main\MainScreenSettingDB.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\triangle\TriangleSplitAction.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\util\DeleteSelectedLines.java
@@ -97,6 +103,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\edit\CircleCo
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\bind\state\ErrorListener.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\bisector\SelectingLineForBisector.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\BisectorFactory.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\DocKey.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\bind\state\action\PaintActionSetter.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\SubFace.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\core\ActionState.java
@@ -105,6 +112,8 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\viewsetting\main\uipanel\Change
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\MenuBar.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\viewsetting\ViewChangeListener.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\core\PaintContext.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\LengthValuePanel.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\FoldingButtonPanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\SavingDoc.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\loader\LoaderCP.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\FaceOrderComparator.java
@@ -129,6 +138,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\file\ImageResourceLoader.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\byvalue\SelectingVertexToDrawLine.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\LineManager.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\help\About.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\DisplayCeckBoxPanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\bind\binder\BinderInterface.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\deleteline\DeleteLineAction.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\segment\TwoPointSegmentAction.java
@@ -143,6 +153,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\loader\Loader.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\resource\LabelStringResource_en.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\TypeForChange.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\mirror\MirrorCopyAction.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\AngleValuePanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\resource\ResourceKey.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\bind\copypaste\CopyPasteErrorListener.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\Config.java
@@ -159,13 +170,16 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\deletevertex\DeleteVertex
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\model\ModelViewScreen.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\LineTypeChanger.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\MenuEdit.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\folding\FoldingAction.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\byvalue\AbstractValueInputListener.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\TriangleVertex.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\LineAdder.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\byvalue\LineByValueAction.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\editmode\LineTypePanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\OriFace.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\outline\IsOutsideOfTempOutlineLoop.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\selectline\SelectingLine.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\CommandButtons.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\deletevertex\DeletingVertex.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\fold\OrigamiModelFactory.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\addvertex\AddingVertex.java
@@ -217,6 +231,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\Exporter.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\core\BasicUndo.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\byvalue\LengthValueInputListener.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\PainterCommandFailedException.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\textfield\AngleTextField.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\geometry\GeometricOperation.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\creasepattern\tool\SymmetricLineFactory.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\resource\ExplanationStringResource_en.java
@@ -226,6 +241,7 @@ C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\ExporterORmat.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\vertical\SelectingLineForVertical.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\menubar\edit\Undo.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\exporter\ExporterXML.java
+C:\Users\long_\git\DIAMOND\src\main\java\diamond\view\main\uipanel\inputline\valuepanel\ValuePanel.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\doc\UndoManager.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\outline\SelectingVertexForOutline.java
 C:\Users\long_\git\DIAMOND\src\main\java\diamond\paint\selectline\SelectAllLineAction.java

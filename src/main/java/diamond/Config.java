@@ -18,6 +18,6 @@ public class Config {
     final public static int INITIAL_MODEL_FRAME_WIDTH = 400;
 
     final public static int MRUFILE_NUM = 10;
-    final public static double DEFAULT_PAPER_SIZE = 400;
+    final public static double DEFAULT_PAPER_SIZE = 350;
     final public static double EPS = 1.0e-6;
 }

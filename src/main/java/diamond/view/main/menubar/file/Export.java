@@ -56,9 +56,9 @@ public class Export implements ActionListener {
 
         boolean hasModel = origamiModel.hasModel();
 
-        OrigamiModelFactory modelFactory = new OrigamiModelFactory();
-        origamiModel = modelFactory.buildOrigami(creasePattern,
-                document.getPaperSize(), true);
+        origamiModel = OrigamiModelFactory.createOrigamiModelNoCleanup(
+                creasePattern,
+                document.getPaperSize());
         document.setOrigamiModel(origamiModel);
 
         if ("obj".equals(ext) == false) {
