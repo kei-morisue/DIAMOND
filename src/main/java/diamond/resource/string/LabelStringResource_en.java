@@ -2,13 +2,11 @@ package diamond.resource.string;
 
 import java.util.ListResourceBundle;
 
-import diamond.Version;
-
 public class LabelStringResource_en extends ListResourceBundle {
 
     static final Object[][] strings = {
             { StringID.Main.TITLE_ID,
-                    "DIAMOND : Origami Diagram Editor v" + Version.VERSION },
+                    "DIAMOND : Origami Diagram Editor v%1$s" },
             { StringID.Main.FILE_ID, "File" },
             { StringID.Main.EDIT_ID, "Edit" },
             { StringID.Main.HELP_ID, "Help" },
@@ -87,8 +85,10 @@ public class LabelStringResource_en extends ListResourceBundle {
             { StringID.ExpectedModel.DIRECTION_BASIC_ID,
                     "    L: Rotate R:Move Wheel:Zoom " },
             { StringID.ExpectedModel.DISPLAY_TYPE_ID, "Drawing type" },
-            { StringID.ExpectedModel.FILL_COLOR_ID, "Fill Color: may be wrong" },
-            { StringID.ExpectedModel.FILL_WHITE_ID, "Fill White: may be wrong" },
+            { StringID.ExpectedModel.FILL_COLOR_ID,
+                    "Fill Color: may be wrong" },
+            { StringID.ExpectedModel.FILL_WHITE_ID,
+                    "Fill White: may be wrong" },
             { StringID.ExpectedModel.FILL_ALPHA_ID, "Fill Transmission" },
             { StringID.ExpectedModel.DRAW_LINES_ID, "Draw Lines" },
             { StringID.ExpectedModel.TITLE_ID, "Expected Folded Origami" },

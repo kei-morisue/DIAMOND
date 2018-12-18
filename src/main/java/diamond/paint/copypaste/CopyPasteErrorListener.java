@@ -1,6 +1,5 @@
-package diamond.bind.copypaste;
+package diamond.paint.copypaste;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 
@@ -14,8 +13,8 @@ import diamond.value.OriLine;
 
 public class CopyPasteErrorListener implements ErrorListener {
 
-    private void showErrorMessage(Component parent, ActionEvent e) {
-        JOptionPane.showMessageDialog(parent, "Select target lines",
+    private void showErrorMessage(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "Select target lines",
                 "Copy and Paste", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -29,8 +28,8 @@ public class CopyPasteErrorListener implements ErrorListener {
     }
 
     @Override
-    public void onError(Component parent, ActionEvent e) {
-        showErrorMessage(parent, e);
+    public void onError(ActionEvent e) {
+        showErrorMessage(e);
     }
 
 }

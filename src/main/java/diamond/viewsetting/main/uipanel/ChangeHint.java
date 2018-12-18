@@ -1,26 +1,26 @@
-package diamond.viewsetting.main;
+package diamond.viewsetting.main.uipanel;
+
+import java.util.MissingResourceException;
 
 import diamond.resource.ResourceHolder;
 import diamond.viewsetting.ChangeViewSetting;
+import diamond.viewsetting.main.MainFrameSettingDB;
 
 public class ChangeHint implements ChangeViewSetting {
 
-    private String id;
+    private String hint;
 
     public ChangeHint(String resourceID) {
-        this.id = resourceID;
+        try {
+            hint = ResourceHolder.getHintString(resourceID);
+        } catch (MissingResourceException e) {
+            hint = "";
+        }
     }
 
     @Override
     public void changeViewSetting() {
-        String hint = null;
-        try {
-            hint = ResourceHolder.getHintString(id);
-        } catch (Exception e) {
-            //e.printStackTrace();
-        }
         MainFrameSettingDB.getInstance().setHint(hint);
-
         MainFrameSettingDB.getInstance().notifyObservers();
     }
 

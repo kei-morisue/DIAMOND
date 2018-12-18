@@ -6,6 +6,8 @@ package diamond.view.paint.uipanel.inputline;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -13,19 +15,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import diamond.bind.ButtonFactory;
-import diamond.bind.PaintActionButtonFactory;
+import diamond.bind.button.addline.BisectorButtonFactory;
+import diamond.bind.button.addline.LineByValueButtonFactory;
+import diamond.bind.button.addline.MirrorCopyButtonFactory;
+import diamond.bind.button.addline.P2PBisectorButtonFactory;
+import diamond.bind.button.addline.P2PLineButtonFactory;
+import diamond.bind.button.addline.P2PSegmentButtonFactory;
+import diamond.bind.button.addline.SymmetricalLineButtonFactory;
+import diamond.bind.button.addline.TriangleSplitButtonFactory;
+import diamond.bind.button.addline.VerticalLineButtonFactory;
 import diamond.file.ImageResourceLoader;
-import diamond.resource.string.StringID;
+import diamond.paint.EditMode;
 import diamond.view.paint.uipanel.LayoutUtil;
+import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_
  *
  */
-public class CommandButtons extends JPanel {
-    private ButtonFactory buttonFactory = new PaintActionButtonFactory();
-
+public class InputLineButtons extends JPanel implements Observer {
     private JRadioButton lineInputAngleBisectorButton;
     private JRadioButton lineInputByValueButton;
     private JRadioButton lineInputDirectVButton;
@@ -36,16 +44,17 @@ public class CommandButtons extends JPanel {
     private JRadioButton lineInputTriangleSplitButton;
     private JRadioButton lineInputVerticalLineButton;
 
-    public CommandButtons() {
+    public InputLineButtons() {
         createButtons();
-        lineInputDirectVButton.setSelected(true);
         setIcons();
         setMnemonics();
-        lineInputDirectVButton.doClick();
         add();
+        lineInputDirectVButton.doClick();
+        lineInputDirectVButton.setSelected(true);
+        UIPanelSettingDB.getInstance().addObserver(this);
     }
 
-    private CommandButtons add() {
+    private InputLineButtons add() {
         setLayout(new GridBagLayout());
         JLabel label = new JLabel("Command (1...9)");
         label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -68,36 +77,24 @@ public class CommandButtons extends JPanel {
      *
      */
     private void createButtons() {
-        lineInputAngleBisectorButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.BISECTOR_ID);
-
-        lineInputByValueButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.BY_VALUE_ID);
-        lineInputDirectVButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.DIRECT_V_ID);
-        lineInputMirrorButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.MIRROR_ID);
-
-        lineInputOnVButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.ON_V_ID);
-        lineInputPBisectorButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class,
-                        StringID.PERPENDICULAR_BISECTOR_ID);
-        lineInputSymmetricButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.SYMMETRIC_ID);
-        lineInputTriangleSplitButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.TRIANGLE_ID);
-        lineInputVerticalLineButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.VERTICAL_ID);
+        lineInputAngleBisectorButton = new BisectorButtonFactory()
+                .create(JRadioButton.class);
+        lineInputByValueButton = new LineByValueButtonFactory()
+                .create(JRadioButton.class);
+        lineInputDirectVButton = new P2PSegmentButtonFactory()
+                .create(JRadioButton.class);
+        lineInputMirrorButton = new MirrorCopyButtonFactory()
+                .create(JRadioButton.class);
+        lineInputOnVButton = new P2PLineButtonFactory()
+                .create(JRadioButton.class);
+        lineInputPBisectorButton = new P2PBisectorButtonFactory()
+                .create(JRadioButton.class);
+        lineInputSymmetricButton = new SymmetricalLineButtonFactory()
+                .create(JRadioButton.class);
+        lineInputTriangleSplitButton = new TriangleSplitButtonFactory()
+                .create(JRadioButton.class);
+        lineInputVerticalLineButton = new VerticalLineButtonFactory()
+                .create(JRadioButton.class);
 
     }
 
@@ -200,6 +197,12 @@ public class CommandButtons extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         add(button, gridBagConstraints);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setVisible(UIPanelSettingDB.getInstance()
+                .getSelectedMode() == EditMode.INPUT);
     }
 
 }

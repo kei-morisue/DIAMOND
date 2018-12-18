@@ -35,11 +35,7 @@ public class PaintConfig {
     public static boolean dispAuxLines = true;
     public static boolean dispMVLines = true;
     public static boolean dispVertex = true;
-    //	public static Constants.EditMode editMode = Constants.EditMode.INPUT_LINE;
-    //    public static Constants.ModelEditMode modelEditMode = Constants.ModelEditMode.INPUT_CROSS_LINE;
-    //    public static Constants.EditMode preEditMode = Constants.EditMode.INPUT_LINE;
-    //    public static Constants.LineInputMode lineInputMode = Constants.LineInputMode.DIRECT_V;
-    //    public static Constants.SubLineInputMode subLineInputMode = Constants.SubLineInputMode.NONE;
+
     public static int gridDivNum = Config.DEFAULT_GRID_DIV_NUM;
     public static int inputLineType = diamond.value.OriLine.TYPE_RIDGE;
     public static ModelDispMode modelDispMode = ModelDispMode.FILL_ALPHA;

@@ -1,4 +1,4 @@
-package diamond.bind.copypaste;
+package diamond.paint.copypaste;
 
 import java.awt.geom.AffineTransform;
 import java.util.Collection;
@@ -8,7 +8,6 @@ import diamond.appstate.StateManager;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.EditMode;
-import diamond.paint.copypaste.CopyAndPasteAction;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.Painter;
 import diamond.value.OriLine;

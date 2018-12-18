@@ -27,7 +27,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.view.paint.uipanel.DisplayCeckBoxPanel;
 import diamond.view.paint.uipanel.GridPanel;
 import diamond.view.paint.uipanel.editmode.EditModeButtons;
-import diamond.view.paint.uipanel.inputline.CommandButtons;
+import diamond.view.paint.uipanel.inputline.InputLineButtons;
 import diamond.view.paint.uipanel.inputline.valuepanel.AngleValuePanel;
 import diamond.view.paint.uipanel.inputline.valuepanel.LengthValuePanel;
 
@@ -38,7 +38,7 @@ public class PaintUI extends JPanel {
         setLayout(new FlowLayout());
 
         add(new EditModeButtons());
-        add(new CommandButtons());
+        add(new InputLineButtons());
         add(new LengthValuePanel());
         add(new AngleValuePanel());
         add(new GridPanel());

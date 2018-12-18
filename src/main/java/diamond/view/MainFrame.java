@@ -25,6 +25,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 import diamond.Config;
+import diamond.Version;
 import diamond.file.ImageResourceLoader;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
@@ -69,8 +70,8 @@ public class MainFrame extends JFrame implements WindowListener {
     @Override
     public void setTitle(String fileName) {
         super.setTitle(fileName + " - "
-                + ResourceHolder.getLabelString(
-                        StringID.Main.TITLE_ID));
+                + String.format(ResourceHolder.getLabelString(
+                        StringID.Main.TITLE_ID), Version.VERSION));
     }
 
     @Override

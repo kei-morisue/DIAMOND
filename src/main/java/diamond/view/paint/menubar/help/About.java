@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import diamond.Version;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.resource.string.StringID.Main;
@@ -44,8 +45,8 @@ public class About extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, content,
-                ResourceHolder.getLabelString(
-                        StringID.Main.TITLE_ID),
+                String.format(ResourceHolder.getLabelString(
+                        StringID.Main.TITLE_ID), Version.VERSION),
                 JOptionPane.INFORMATION_MESSAGE);
 
     }

@@ -14,15 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import diamond.appstate.InputCommandStatePopper;
-import diamond.bind.ButtonFactory;
-import diamond.bind.PaintActionButtonFactory;
-import diamond.bind.binder.BinderInterface;
-import diamond.bind.binder.ViewChangeBinder;
+import diamond.bind.button.editline.AddVertexButtonFactory;
+import diamond.bind.button.editline.ChangeLineTypeButtonFactory;
+import diamond.bind.button.editline.DeleteLineButtonFactory;
+import diamond.bind.button.editline.DeleteVertexButtonFactory;
+import diamond.bind.button.editline.InputLineButtonFactory;
+import diamond.bind.button.editline.SelectLineButtonFactory;
 import diamond.paint.creasepattern.tool.TypeForChange;
-import diamond.resource.string.StringID;
 import diamond.view.paint.uipanel.LayoutUtil;
-import diamond.viewsetting.ChangeViewSetting;
-import diamond.viewsetting.main.uipanel.ChangeOnPaintInputButtonSelected;
 import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
 
 /**
@@ -31,9 +30,7 @@ import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
  */
 public class EditModeButtons extends JPanel implements Observer {
     private ButtonGroup editModeGroup;
-    private ButtonFactory buttonFactory = new PaintActionButtonFactory();
 
-    private BinderInterface<ChangeViewSetting> viewChangeBinder = new ViewChangeBinder();
     TypeForChange[] alterLine_comboData_to = { TypeForChange.RIDGE,
             TypeForChange.VALLEY, TypeForChange.AUX,
             TypeForChange.CUT, TypeForChange.DELETE, TypeForChange.FLIP };
@@ -71,7 +68,7 @@ public class EditModeButtons extends JPanel implements Observer {
         add(editModePickLineButton, LayoutUtil.buildGBC(1, 2, 4));
         add(editModeDeleteLineButton, LayoutUtil.buildGBC(1, 3, 4));
         add(editModeLineTypeButton, LayoutUtil.buildGBC(1, 4, 4));
-        add(new AlterLinePanel(), LayoutUtil.buildGBC(1, 6, 4));
+        add(new AlterLinePanel(), LayoutUtil.buildGBC(1, 5, 4));
         add(editModeAddVertex, LayoutUtil.buildGBC(1, 6, 4));
         add(editModeDeleteVertex, LayoutUtil.buildGBC(1, 7, 4));
         return this;
@@ -89,28 +86,18 @@ public class EditModeButtons extends JPanel implements Observer {
     }
 
     private void createButtons() {
-        editModeAddVertex = (JRadioButton) buttonFactory
-                .create(this, JRadioButton.class, StringID.ADD_VERTEX_ID);
-        editModeDeleteLineButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.DELETE_LINE_ID);
-        editModeDeleteVertex = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class,
-                        StringID.DELETE_VERTEX_ID);
-
-        editModeInputLineButton = (JRadioButton) viewChangeBinder
-                .createButton(
-                        JRadioButton.class,
-                        new ChangeOnPaintInputButtonSelected(),
-                        StringID.UI.INPUT_LINE_ID);
-        editModeLineTypeButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class,
-                        StringID.CHANGE_LINE_TYPE_ID);
-        editModePickLineButton = (JRadioButton) buttonFactory
-                .create(
-                        this, JRadioButton.class, StringID.SELECT_ID);
+        editModeAddVertex = new AddVertexButtonFactory()
+                .create(JRadioButton.class);
+        editModeDeleteLineButton = new DeleteLineButtonFactory()
+                .create(JRadioButton.class);
+        editModeDeleteVertex = new DeleteVertexButtonFactory()
+                .create(JRadioButton.class);
+        editModeLineTypeButton = new ChangeLineTypeButtonFactory()
+                .create(JRadioButton.class);
+        editModePickLineButton = new SelectLineButtonFactory()
+                .create(JRadioButton.class);
+        editModeInputLineButton = new InputLineButtonFactory()
+                .create(JRadioButton.class);
 
     }
 

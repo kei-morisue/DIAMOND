@@ -1,4 +1,4 @@
-package diamond.bind;
+package diamond.paint.editcontour;
 
 import java.awt.geom.AffineTransform;
 
@@ -10,7 +10,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.outline.EditOutlineAction;
 
-public class EditOutlineActionWrapper extends EditOutlineAction {
+public class EditContourAction extends EditOutlineAction {
 	
 	
 	

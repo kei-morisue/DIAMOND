@@ -11,7 +11,7 @@ public class ResourceHolder {
     private static final ResourceBundle warningString = createResource(
             ".string.WarningStringResource");
 
-    public static ResourceBundle createResource(String classPath) {
+    private static ResourceBundle createResource(String classPath) {
         String resourcePackage = "diamond.resource";
         try {
             return ResourceBundle.getBundle(resourcePackage + classPath,

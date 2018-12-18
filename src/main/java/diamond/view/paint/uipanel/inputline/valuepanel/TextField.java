@@ -10,7 +10,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import diamond.paint.byvalue.AbstractValueInputListener;
