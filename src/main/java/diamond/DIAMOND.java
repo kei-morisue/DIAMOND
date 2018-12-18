@@ -2,7 +2,7 @@ package diamond;
 
 import javax.swing.JOptionPane;
 
-import diamond.view.main.MainFrame;
+import diamond.view.MainFrame;
 
 public class DIAMOND {
 

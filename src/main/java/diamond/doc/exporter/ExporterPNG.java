@@ -28,7 +28,7 @@ import javax.imageio.ImageIO;
 
 import diamond.doc.Doc;
 import diamond.paint.core.PaintContext;
-import diamond.view.main.MainFrame;
+import diamond.view.MainFrame;
 
 public class ExporterPNG implements Exporter {
 

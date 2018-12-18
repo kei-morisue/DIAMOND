@@ -10,7 +10,6 @@ import diamond.doc.exporter.ExporterCP;
 import diamond.doc.exporter.ExporterDXF;
 import diamond.doc.exporter.ExporterOBJ;
 import diamond.doc.exporter.ExporterPNG;
-import diamond.doc.exporter.ExporterSVG;
 import diamond.doc.exporter.ExporterXML;
 import diamond.doc.loader.LoaderCP;
 import diamond.doc.loader.LoaderDXF;
@@ -82,14 +81,6 @@ public class FilterDB {
                                 .getString(ResourceKey.LABEL, "File"),
                 new SavingDoc(new ExporterCP()));
         filter.setLoadingAction(new LoadingDoc(new LoaderCP()));
-        this.putFilter(key, filter);
-
-        key = "svg";
-        filter = new FileFilterEx(new String[] { "." + key },
-                "(*." + key + ") " + key
-                        + ResourceHolder
-                                .getString(ResourceKey.LABEL, "File"),
-                new SavingDoc(new ExporterSVG()));
         this.putFilter(key, filter);
 
         key = "pdf";

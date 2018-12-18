@@ -10,8 +10,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import diamond.doc.DocHolder;
-import diamond.view.main.MainFrame;
-import diamond.view.main.menubar.MenuFile;
+import diamond.view.MainFrame;
+import diamond.view.paint.menubar.MenuFile;
 
 /**
  * @author long_

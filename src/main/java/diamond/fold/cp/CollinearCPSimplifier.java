@@ -12,7 +12,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.value.OriLine;
 import diamond.value.OriPoint;
-import diamond.view.main.MainFrame;
+import diamond.view.MainFrame;
 
 /**
  * @author long_

@@ -9,7 +9,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.doc.DocHolder;
 import diamond.value.OriLine;
-import diamond.view.main.PainterScreen;
+import diamond.view.paint.PaintScreen;
 
 public class PaintContext {
 
@@ -29,7 +29,7 @@ public class PaintContext {
 
     private boolean isPasting = false;
 
-    private static PainterScreen painterScreen = new PainterScreen();
+    private static PaintScreen painterScreen = new PaintScreen();
 
     private boolean missionCompleted = false;
     private Point2D.Double mousePoint;
@@ -192,11 +192,11 @@ public class PaintContext {
         return gridPoints;
     }
 
-    public static PainterScreen getPainterScreen() {
+    public static PaintScreen getPainterScreen() {
         return getInstance().painterScreen;
     }
 
-    public static void setPainterScreen(PainterScreen __painterScreen) {
+    public static void setPainterScreen(PaintScreen __painterScreen) {
         painterScreen = __painterScreen;
     }
 

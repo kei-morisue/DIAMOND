@@ -35,38 +35,12 @@ import diamond.geom.GeomUtil;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.tool.LineAdder;
+import diamond.resource.ResourceHolder;
+import diamond.resource.ResourceKey;
+import diamond.resource.StringID;
 import diamond.value.OriLine;
 
 public class Doc {
-    //	class PointComparatorX implements Comparator<Vector2d> {
-    //
-    //		@Override
-    //		public int compare(Vector2d v1, Vector2d v2) {
-    //			if(v1.x == v2.x){
-    //				return 0;
-    //			}
-    //			return v1.x > v2.x ? 1 : -1;
-    //		}
-    //	}
-    //
-    //	class PointComparatorY implements Comparator<Vector2d> {
-    //
-    //		@Override
-    //		public int compare(Vector2d v1, Vector2d v2) {
-    //			if(v1.y == v2.y){
-    //				return 0;
-    //			}
-    //			return ((Vector2d) v1).y > ((Vector2d) v2).y ? 1 : -1;
-    //		}
-    //	}
-    //
-    //	class FaceOrderComparator implements Comparator<OriFace> {
-    //
-    //		@Override
-    //		public int compare(OriFace f1, OriFace f2) {
-    //			return f1.z_order > f2.z_order ? 1 : -1;
-    //		}
-    //	}
 
     final public static int LOWER = 2;
 
@@ -82,7 +56,7 @@ public class Doc {
     private CreasePattern creasePattern = null;
 
     private ArrayList<OriLine> crossLines = new ArrayList<OriLine>();
-    private String dataFilePath = "";
+    private String dataFilePath = null;
     private String editorName;
     private FoldedModelInfo foldedModelInfo = null;
 
@@ -166,6 +140,10 @@ public class Doc {
     }
 
     public String getDataFileName() {
+        if (dataFilePath == null) {
+            return ResourceHolder.getString(ResourceKey.LABEL,
+                    StringID.Default.FILE_NAME_ID);
+        }
         File file = new File(DocHolder.getDoc().dataFilePath);
         String fileName = file.getName();
 

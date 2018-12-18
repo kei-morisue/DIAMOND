@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import diamond.geom.GeomUtil;
 import diamond.value.OriLine;
-import diamond.view.main.MainFrame;
+import diamond.view.MainFrame;
 
 /**
  * @author long_
