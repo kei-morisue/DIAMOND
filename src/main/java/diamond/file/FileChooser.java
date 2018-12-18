@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 
 /**
  *
@@ -42,6 +41,7 @@ public class FileChooser extends JFileChooser {
     /**
      * don't use this!
      */
+    @Override
     @Deprecated
     public void addChoosableFileFilter(FileFilter filter) {
 
@@ -96,8 +96,7 @@ public class FileChooser extends JFileChooser {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this, e.toString(),
-                        ResourceHolder.getString(
-                                ResourceKey.WARNING, "Error_FileLoadFailed"),
+                        ResourceHolder.getWarningString("Error_FileLoadFailed"),
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -140,12 +139,10 @@ public class FileChooser extends JFileChooser {
             if (file.exists()) {
                 if (JOptionPane.showConfirmDialog(
                         null,
-                        ResourceHolder.getString(
-                                ResourceKey.WARNING,
-                                "Warning_SameNameFileExist"),
-                        ResourceHolder.getString(
-                                ResourceKey.LABEL,
-                                StringID.DIALOG_TITLE_SAVE_ID),
+                        ResourceHolder
+                                .getWarningString("Warning_SameNameFileExist"),
+                        ResourceHolder
+                                .getLabelString(StringID.DIALOG_TITLE_SAVE_ID),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
                     return null;
@@ -157,8 +154,7 @@ public class FileChooser extends JFileChooser {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     parent, e.toString(),
-                    ResourceHolder.getString(ResourceKey.WARNING,
-                            "Error_FileSaveFailed"),
+                    ResourceHolder.getWarningString("Error_FileSaveFailed"),
                     JOptionPane.ERROR_MESSAGE);
         }
 

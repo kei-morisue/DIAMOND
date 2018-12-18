@@ -1,4 +1,4 @@
-package diamond.resource;
+package diamond.resource.string;
 
 public class StringID {
     public static class Default {

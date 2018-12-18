@@ -1,6 +1,7 @@
 package diamond.mouse;
 
 import java.awt.Point;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
@@ -37,8 +38,8 @@ public class MouseUtility {
 	 * @return true if Ctrl key is pressed, otherwise false.
 	 */
 	public static boolean isControlKeyPressed(MouseEvent event){
-		return ((event.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) 
-				== MouseEvent.CTRL_DOWN_MASK);		
+		return ((event.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) 
+				== InputEvent.CTRL_DOWN_MASK);		
 	}
 	
 	private MouseUtility() {}

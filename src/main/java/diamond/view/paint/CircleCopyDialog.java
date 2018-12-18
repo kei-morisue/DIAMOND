@@ -27,14 +27,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 
 public class CircleCopyDialog extends JDialog {
@@ -200,7 +200,7 @@ public class CircleCopyDialog extends JDialog {
             jTextFieldAngle = new JTextField();
             jTextFieldAngle.setBounds(new Rectangle(80, 55, 66, 21));
             jTextFieldAngle.setText("30");
-            jTextFieldAngle.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldAngle.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldAngle;
     }
@@ -215,7 +215,7 @@ public class CircleCopyDialog extends JDialog {
             jTextFieldCX = new JTextField();
             jTextFieldCX.setBounds(new Rectangle(80, 5, 66, 21));
             jTextFieldCX.setText("0");
-            jTextFieldCX.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldCX.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldCX;
     }
@@ -230,7 +230,7 @@ public class CircleCopyDialog extends JDialog {
             jTextFieldCY = new JTextField();
             jTextFieldCY.setBounds(new Rectangle(80, 30, 66, 21));
             jTextFieldCY.setText("0");
-            jTextFieldCY.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldCY.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldCY;
     }
@@ -245,7 +245,7 @@ public class CircleCopyDialog extends JDialog {
             jTextFieldNum = new JTextField();
             jTextFieldNum.setBounds(new Rectangle(80, 80, 66, 21));
             jTextFieldNum.setText("1");
-            jTextFieldNum.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldNum.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldNum;
     }
@@ -257,7 +257,7 @@ public class CircleCopyDialog extends JDialog {
      */
     private void initialize() {
         this.setSize(160, 171);
-        this.setTitle(ResourceHolder.getString(ResourceKey.LABEL,
+        this.setTitle(ResourceHolder.getLabelString(
                 StringID.Main.CIRCLE_COPY_ID));
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);

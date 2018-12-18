@@ -32,6 +32,7 @@ import diamond.view.MainFrame;
 
 public class ExporterPNG implements Exporter {
 
+    @Override
     public boolean export(Doc doc, String filepath) throws IOException {
         Component originalComponent = MainFrame.getInstance();
         //TODO Extract original frame dependencies: "MainFrame"

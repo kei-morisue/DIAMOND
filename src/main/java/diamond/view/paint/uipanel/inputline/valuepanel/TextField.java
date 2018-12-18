@@ -11,6 +11,7 @@ import java.util.Observer;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import diamond.paint.byvalue.AbstractValueInputListener;
 import diamond.paint.byvalue.ValueDB;
@@ -26,7 +27,7 @@ public abstract class TextField extends JFormattedTextField
         super(createNumberFormat());
         setColumns(4);
         setValue(new java.lang.Double(0.0));
-        setHorizontalAlignment(JTextField.RIGHT);
+        setHorizontalAlignment(SwingConstants.RIGHT);
         getDocument()
                 .addDocumentListener(getValueInputListener());
 

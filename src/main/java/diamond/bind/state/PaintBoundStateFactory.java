@@ -24,7 +24,7 @@ import diamond.paint.selectline.SelectLineAction;
 import diamond.paint.symmetric.SymmetricalLineAction;
 import diamond.paint.triangle.TriangleSplitAction;
 import diamond.paint.vertical.VerticalLineAction;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.main.uipanel.ChangeOnAlterTypeButtonSelected;
 import diamond.viewsetting.main.uipanel.ChangeOnByValueButtonSelected;
@@ -34,155 +34,160 @@ import diamond.viewsetting.main.uipanel.ChangeOnSelectButtonSelected;
 
 public class PaintBoundStateFactory {
 
-	PaintContext context = PaintContext.getInstance();
+    PaintContext context = PaintContext.getInstance();
 
-	
+    private ApplicationState<EditMode> createLineInputState(
+            Component parent, String id) {
 
-	private ApplicationState<EditMode> createLineInputState(
-			Component parent, String id){
+        LocalPaintBoundStateFactory stateFactory = new LocalPaintBoundStateFactory(
+                parent,
+                new ActionListener[] { new ViewChangeListener(
+                        new ChangeOnPaintInputButtonSelected()) });
 
-		LocalPaintBoundStateFactory stateFactory = 
-				new LocalPaintBoundStateFactory(parent, 
-				new ActionListener[] {new ViewChangeListener(
-						new ChangeOnPaintInputButtonSelected())} );
+        ApplicationState<EditMode> state = null;
+        switch (id) {
+        case StringID.DIRECT_V_ID:
 
+            state = stateFactory.create(new TwoPointSegmentAction(),
+                    id, null);
+            break;
 
-		ApplicationState<EditMode> state = null;
-		switch(id){
-		case StringID.DIRECT_V_ID:
+        case StringID.ON_V_ID:
+            state = stateFactory.create(new TwoPointLineAction(),
+                    id, null);
+            break;
+        case StringID.VERTICAL_ID:
+            state = stateFactory.create(new VerticalLineAction(),
+                    id, null);
+            break;
 
-			state = stateFactory.create(new TwoPointSegmentAction(), 
-					id, null);
-			break;
-			
-		case StringID.ON_V_ID:
-			state =	stateFactory.create(new TwoPointLineAction(), 
-					id, null);
-			break;
-		case StringID.VERTICAL_ID:
-			state = stateFactory.create(new VerticalLineAction(), 
-					id, null);
-			break;
-			
-		case StringID.BISECTOR_ID:
-			state = stateFactory.create(new AngleBisectorAction(), 
-					id, null);
-			break;
-			
-		case StringID.TRIANGLE_ID:
-			state = stateFactory.create(new TriangleSplitAction(), 
-					id, null);
+        case StringID.BISECTOR_ID:
+            state = stateFactory.create(new AngleBisectorAction(),
+                    id, null);
+            break;
 
-			break;
+        case StringID.TRIANGLE_ID:
+            state = stateFactory.create(new TriangleSplitAction(),
+                    id, null);
 
-		case StringID.SYMMETRIC_ID:
-			state = stateFactory.create(new SymmetricalLineAction(), 
-					id, null);
+            break;
 
-			break;
-		case StringID.MIRROR_ID:
-			state = stateFactory.create(new MirrorCopyAction(context), 
-					id, null);
+        case StringID.SYMMETRIC_ID:
+            state = stateFactory.create(new SymmetricalLineAction(),
+                    id, null);
 
-			break;
+            break;
+        case StringID.MIRROR_ID:
+            state = stateFactory.create(new MirrorCopyAction(context),
+                    id, null);
 
-		case StringID.BY_VALUE_ID:
-			LocalPaintBoundStateFactory byValueFactory = new LocalPaintBoundStateFactory(
-					parent, new ActionListener[] {new ViewChangeListener(new ChangeOnByValueButtonSelected())});
+            break;
 
-			state = byValueFactory.create(new LineByValueAction(), 
-					id,	null );
+        case StringID.BY_VALUE_ID:
+            LocalPaintBoundStateFactory byValueFactory = new LocalPaintBoundStateFactory(
+                    parent, new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnByValueButtonSelected()) });
 
-			break;
+            state = byValueFactory.create(new LineByValueAction(),
+                    id, null);
 
-		case StringID.PERPENDICULAR_BISECTOR_ID:
-			state = stateFactory.create(new TwoPointBisectorAction(), 
-					id, null);
+            break;
 
-		}
+        case StringID.PERPENDICULAR_BISECTOR_ID:
+            state = stateFactory.create(new TwoPointBisectorAction(),
+                    id, null);
 
-		return state;
-	}
+        }
 
-	/**
-	 * Create a state specified by ID
-	 * @param parent
-	 * @param id A member of StringID
-	 * @return
-	 */
-	public ApplicationState<EditMode> create(Component parent, String id){
+        return state;
+    }
 
-		LocalPaintBoundStateFactory stateFactory = 
-				new LocalPaintBoundStateFactory(parent, null);
+    /**
+     * Create a state specified by ID
+     * @param parent
+     * @param id A member of StringID
+     * @return
+     */
+    public ApplicationState<EditMode> create(Component parent, String id) {
 
+        LocalPaintBoundStateFactory stateFactory = new LocalPaintBoundStateFactory(
+                parent, null);
 
-		ApplicationState<EditMode> state = null;
+        ApplicationState<EditMode> state = null;
 
-		switch(id){
-		case StringID.SELECT_ID:
-			state = stateFactory.create(
-					new SelectLineAction(context), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnSelectButtonSelected())});
-			break;
-			
-		case StringID.DELETE_LINE_ID:
-			state =	stateFactory.create(
-					new DeleteLineAction(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnOtherCommandButtonSelected())});		 
-			break;
+        switch (id) {
+        case StringID.SELECT_ID:
+            state = stateFactory.create(
+                    new SelectLineAction(context), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnSelectButtonSelected()) });
+            break;
 
-		case StringID.CHANGE_LINE_TYPE_ID:
-			state = stateFactory.create(
-					new ChangeLineTypeAction(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnAlterTypeButtonSelected())});
-			break;
-			
-		case StringID.ADD_VERTEX_ID:
-			state =	stateFactory.create(new AddVertexAction(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnOtherCommandButtonSelected())});
-			break;
-			
-		case StringID.DELETE_VERTEX_ID:
-			state =	stateFactory.create(new DeleteVertexAction(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnOtherCommandButtonSelected())});
-			break;
+        case StringID.DELETE_LINE_ID:
+            state = stateFactory.create(
+                    new DeleteLineAction(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnOtherCommandButtonSelected()) });
+            break;
 
-		case StringID.EDIT_CONTOUR_ID:
-			state = stateFactory.create(
-					new EditOutlineActionWrapper(),	id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnOtherCommandButtonSelected())});
-			break;
-			
-		case StringID.SELECT_ALL_LINE_ID:
-			state = stateFactory.create(
-					new SelectAllLineAction(context), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnSelectButtonSelected())});
-			break;
-			
-		case StringID.COPY_PASTE_ID:
-			state = stateFactory.create(
-					new CopyAndPasteActionWrapper(false),
-					new CopyPasteErrorListener(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnSelectButtonSelected())});
-			break;
-			
-		case StringID.CUT_PASTE_ID:
-			state = stateFactory.create(
-					new CopyAndPasteActionWrapper(true),
-					new CopyPasteErrorListener(), id, 
-					new ActionListener[] {new ViewChangeListener(new ChangeOnSelectButtonSelected())});
-			break;
+        case StringID.CHANGE_LINE_TYPE_ID:
+            state = stateFactory.create(
+                    new ChangeLineTypeAction(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnAlterTypeButtonSelected()) });
+            break;
 
+        case StringID.ADD_VERTEX_ID:
+            state = stateFactory.create(new AddVertexAction(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnOtherCommandButtonSelected()) });
+            break;
 
-		default:
-			state = createLineInputState(parent, id);
-		}
+        case StringID.DELETE_VERTEX_ID:
+            state = stateFactory.create(new DeleteVertexAction(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnOtherCommandButtonSelected()) });
+            break;
 
-		if(state == null){
-			throw new NullPointerException("Wrong ID for creating state");
-		}
+        case StringID.EDIT_CONTOUR_ID:
+            state = stateFactory.create(
+                    new EditOutlineActionWrapper(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnOtherCommandButtonSelected()) });
+            break;
 
+        case StringID.SELECT_ALL_LINE_ID:
+            state = stateFactory.create(
+                    new SelectAllLineAction(context), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnSelectButtonSelected()) });
+            break;
 
-		return state;
-	}
+        case StringID.COPY_PASTE_ID:
+            state = stateFactory.create(
+                    new CopyAndPasteActionWrapper(false),
+                    new CopyPasteErrorListener(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnSelectButtonSelected()) });
+            break;
+
+        case StringID.CUT_PASTE_ID:
+            state = stateFactory.create(
+                    new CopyAndPasteActionWrapper(true),
+                    new CopyPasteErrorListener(), id,
+                    new ActionListener[] { new ViewChangeListener(
+                            new ChangeOnSelectButtonSelected()) });
+            break;
+
+        default:
+            state = createLineInputState(parent, id);
+            break;
+        }
+
+        if (state == null) {
+            throw new NullPointerException("Wrong ID for creating state");
+        }
+
+        return state;
+    }
 }

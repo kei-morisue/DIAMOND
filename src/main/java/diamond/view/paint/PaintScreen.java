@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -240,9 +241,9 @@ public class PaintScreen extends JPanel
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if ((e.getModifiers() & MouseEvent.BUTTON1_MASK) != 0 && // zoom
+        if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0 && // zoom
                 (e.getModifiersEx()
-                        & MouseEvent.CTRL_DOWN_MASK) == MouseEvent.CTRL_DOWN_MASK) {
+                        & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
 
             double moved = e.getX() - preMousePoint.getX() + e.getY()
                     - preMousePoint.getY();
@@ -255,9 +256,9 @@ public class PaintScreen extends JPanel
             updateAffineTransform();
             repaint();
 
-        } else if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) != 0) {
-            transX += (double) (e.getX() - preMousePoint.getX()) / scale;
-            transY += (double) (e.getY() - preMousePoint.getY()) / scale;
+        } else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+            transX += (e.getX() - preMousePoint.getX()) / scale;
+            transY += (e.getY() - preMousePoint.getY()) / scale;
             preMousePoint = e.getPoint();
             updateAffineTransform();
             repaint();

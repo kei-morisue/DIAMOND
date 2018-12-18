@@ -15,8 +15,7 @@ import diamond.bind.ButtonFactory;
 import diamond.bind.PaintActionButtonFactory;
 import diamond.paint.util.DeleteSelectedLines;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.paint.menubar.edit.CircleCopy;
 import diamond.view.paint.menubar.edit.RepeatCopy;
 import diamond.view.paint.menubar.edit.Undo;
@@ -41,25 +40,27 @@ public class MenuEdit extends JMenu {
     private static JMenuItem menuItemCopyAndPaste;
     private static JMenuItem menuItemCutAndPaste;
     private static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
-            ResourceHolder.getString(ResourceKey.LABEL,
-                    StringID.Main.DELETE_SELECTED_LINES_ID));
+            ResourceHolder
+                    .getLabelString(StringID.Main.DELETE_SELECTED_LINES_ID));
 
     private static JMenuItem menuItemSelectAll;
 
     private MenuEdit() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.EDIT_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.EDIT_ID));
 
         ButtonFactory buttonFactory = new PaintActionButtonFactory();
         menuItemChangeOutline = (JMenuItem) buttonFactory.create(this,
-                JMenuItem.class, ResourceKey.LABEL, StringID.EDIT_CONTOUR_ID);
+                JMenuItem.class,
+                StringID.EDIT_CONTOUR_ID);
         menuItemSelectAll = (JMenuItem) buttonFactory.create(this,
-                JMenuItem.class, ResourceKey.LABEL,
+                JMenuItem.class,
                 StringID.SELECT_ALL_LINE_ID);
         menuItemCopyAndPaste = (JMenuItem) buttonFactory.create(this,
-                JMenuItem.class, ResourceKey.LABEL, StringID.COPY_PASTE_ID);
+                JMenuItem.class,
+                StringID.COPY_PASTE_ID);
         menuItemCutAndPaste = (JMenuItem) buttonFactory.create(
-                this, JMenuItem.class, StringID.CUT_PASTE_ID);
+                this, JMenuItem.class,
+                StringID.CUT_PASTE_ID);
         addAccelerators();
         addItems();
     }

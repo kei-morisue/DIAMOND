@@ -15,7 +15,8 @@ public enum LineType {
 		return val;
 	}
 	
-	public String toString(){
+	@Override
+    public String toString(){
 		return name;
 	}
 }

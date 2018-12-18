@@ -6,7 +6,7 @@ package diamond.view.paint.uipanel.inputline.valuepanel;
 
 import diamond.paint.byvalue.LengthMeasuringAction;
 import diamond.paint.core.GraphicMouseAction;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.paint.uipanel.inputline.valuepanel.textfield.LengthTextField;
 
 /**

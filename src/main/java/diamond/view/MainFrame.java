@@ -28,8 +28,7 @@ import diamond.Config;
 import diamond.file.ImageResourceLoader;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.paint.HintLabel;
 import diamond.view.paint.PaintScreen;
 import diamond.view.paint.PaintUI;
@@ -54,7 +53,7 @@ public class MainFrame extends JFrame implements WindowListener {
         setIconImage(new ImageResourceLoader()
                 .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
-        this.setTitle(ResourceHolder.getString(ResourceKey.LABEL,
+        this.setTitle(ResourceHolder.getLabelString(
                 StringID.Default.FILE_NAME_ID));
 
         add(new PaintScreen(), BorderLayout.CENTER);
@@ -70,7 +69,7 @@ public class MainFrame extends JFrame implements WindowListener {
     @Override
     public void setTitle(String fileName) {
         super.setTitle(fileName + " - "
-                + ResourceHolder.getString(ResourceKey.LABEL,
+                + ResourceHolder.getLabelString(
                         StringID.Main.TITLE_ID));
     }
 

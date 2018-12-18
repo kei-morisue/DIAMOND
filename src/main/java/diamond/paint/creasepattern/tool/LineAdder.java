@@ -33,7 +33,7 @@ public class LineAdder {
 			if(v1.y == v2.y){
 				return 0;
 			}
-			return ((Vector2d) v1).y > ((Vector2d) v2).y ? 1 : -1;
+			return v1.y > v2.y ? 1 : -1;
 		}
 	}
 

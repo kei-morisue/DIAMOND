@@ -10,8 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 import diamond.view.paint.PropertyDialog;
 
@@ -30,8 +29,7 @@ public class Property extends JMenuItem implements ActionListener {
     }
 
     public Property() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.PROPERTY_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.PROPERTY_ID));
         addActionListener(this);
     }
 
@@ -40,9 +38,9 @@ public class Property extends JMenuItem implements ActionListener {
         PropertyDialog dialog = new PropertyDialog(MainFrame.getInstance());
         dialog.setValue();
         dialog.setLocation(
-                (int) (MainFrame.getInstance().getX() + dialog.getWidth() / 2),
-                (int) (MainFrame.getInstance().getY()
-                        + dialog.getHeight() / 2));
+                MainFrame.getInstance().getX() + dialog.getWidth() / 2,
+                MainFrame.getInstance().getY()
+                        + dialog.getHeight() / 2);
         dialog.setModal(true);
         dialog.setVisible(true);
 

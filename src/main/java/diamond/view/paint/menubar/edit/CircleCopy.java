@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 import diamond.view.paint.CircleCopyDialog;
 
@@ -34,8 +33,7 @@ public class CircleCopy
     }
 
     public CircleCopy() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.CIRCLE_COPY_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.CIRCLE_COPY_ID));
         addActionListener(this);
     }
 

@@ -33,6 +33,7 @@ public class LoaderCP implements Loader{
 
     public ArrayList<OriLine> lines = new ArrayList<>();
 
+    @Override
     public Doc load(String filePath) {
         Vector2d minV = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
         Vector2d maxV = new Vector2d(-Double.MAX_VALUE, -Double.MAX_VALUE);

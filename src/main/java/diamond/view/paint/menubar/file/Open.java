@@ -15,8 +15,7 @@ import diamond.doc.DocHolder;
 import diamond.file.FileIOUtil;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 import diamond.viewsetting.main.MainFrameSettingDB;
 
@@ -35,8 +34,7 @@ public class Open extends JMenuItem implements ActionListener {
     }
 
     private Open() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.OPEN_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.OPEN_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);

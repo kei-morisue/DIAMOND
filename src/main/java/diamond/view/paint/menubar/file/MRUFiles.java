@@ -15,7 +15,6 @@ import diamond.doc.DocHolder;
 import diamond.file.FileIOUtil;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
 import diamond.view.MainFrame;
 import diamond.viewsetting.main.MainFrameSettingDB;
 
@@ -48,9 +47,8 @@ public class MRUFiles implements ActionListener {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(mainFrame,
                             e.toString(),
-                            ResourceHolder.getString(
-                                    ResourceKey.WARNING,
-                                    "Error_FileLoadFailed"),
+                            ResourceHolder
+                                    .getWarningString("Error_FileLoadFailed"),
                             JOptionPane.ERROR_MESSAGE);
                 }
                 PaintContext.getPainterScreen().repaint();

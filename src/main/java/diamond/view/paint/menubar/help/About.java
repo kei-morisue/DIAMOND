@@ -11,9 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
-import diamond.resource.StringID.Main;
+import diamond.resource.string.StringID;
+import diamond.resource.string.StringID.Main;
 
 /**
  * @author long_
@@ -37,7 +36,7 @@ public class About extends JMenuItem implements ActionListener {
             + "This program comes with ABSOLUTELY NO WARRANTY.";
 
     private About() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
+        super(ResourceHolder.getLabelString(
                 Main.ABOUT_ID));
         addActionListener(this);
     }
@@ -45,7 +44,7 @@ public class About extends JMenuItem implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, content,
-                ResourceHolder.getString(ResourceKey.LABEL,
+                ResourceHolder.getLabelString(
                         StringID.Main.TITLE_ID),
                 JOptionPane.INFORMATION_MESSAGE);
 

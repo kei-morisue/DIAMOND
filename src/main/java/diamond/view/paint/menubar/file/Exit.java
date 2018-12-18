@@ -16,8 +16,7 @@ import diamond.file.FileHistory;
 import diamond.file.FileIOUtil;
 import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 
 /**
  * @author long_
@@ -34,8 +33,7 @@ public class Exit extends JMenuItem implements ActionListener {
     }
 
     private Exit() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.EXIT_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.EXIT_ID));
         addActionListener(this);
     }
 

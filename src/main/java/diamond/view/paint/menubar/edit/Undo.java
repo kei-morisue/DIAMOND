@@ -15,8 +15,7 @@ import diamond.doc.DocHolder;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 
 /**
  * @author long_
@@ -34,7 +33,7 @@ public class Undo
     }
 
     public Undo() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
+        super(ResourceHolder.getLabelString(
                 StringID.Main.UNDO_ID));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));

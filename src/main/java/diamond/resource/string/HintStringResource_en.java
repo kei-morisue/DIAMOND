@@ -1,8 +1,8 @@
-package diamond.resource;
+package diamond.resource.string;
 
 import java.util.ListResourceBundle;
 
-public class ExplanationStringResource_en extends ListResourceBundle{
+public class HintStringResource_en extends ListResourceBundle{
     
 	private static final String COPY_PASTE_TEXT = "Left Click for Paste. [Ctrl] allows you to change the origin of pasting.";
 	private static final String SELECT_LINE_TEXT = "Select/UnSelect Lines by Left Click or Left Drag";

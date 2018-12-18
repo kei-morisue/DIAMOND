@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 import diamond.view.paint.RepeatCopyDialog;
 
@@ -34,8 +33,7 @@ public class RepeatCopy
     }
 
     public RepeatCopy() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
-                StringID.Main.REPEAT_COPY_ID));
+        super(ResourceHolder.getLabelString(StringID.Main.REPEAT_COPY_ID));
         addActionListener(this);
     }
 
@@ -47,7 +45,7 @@ public class RepeatCopy
         if (painter.countSelectedLines(
                 DocHolder.getDoc().getCreasePattern()) == 0) {
             JOptionPane.showMessageDialog(this, "Select target lines",
-                    ResourceHolder.getString(ResourceKey.LABEL,
+                    ResourceHolder.getLabelString(
                             StringID.Main.REPEAT_COPY_ID),
                     JOptionPane.WARNING_MESSAGE);
 

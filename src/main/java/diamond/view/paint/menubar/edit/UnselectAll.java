@@ -16,8 +16,7 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 
 /**
  * @author long_
@@ -35,7 +34,7 @@ public class UnselectAll
     }
 
     public UnselectAll() {
-        super(ResourceHolder.getString(ResourceKey.LABEL,
+        super(ResourceHolder.getLabelString(
                 StringID.Main.UNSELECT_ALL_ID));
         setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_ESCAPE, 0));

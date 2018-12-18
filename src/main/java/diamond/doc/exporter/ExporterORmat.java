@@ -32,6 +32,7 @@ import diamond.fold.OrigamiModel;
 // export folded model
 public class ExporterORmat implements Exporter{
 
+    @Override
     public boolean export(Doc doc, String filepath) throws Exception {
     	OrigamiModel origamiModel = doc.getOrigamiModel();
     	FoldedModelInfo foldedModelInfo = doc.getFoldedModelInfo();

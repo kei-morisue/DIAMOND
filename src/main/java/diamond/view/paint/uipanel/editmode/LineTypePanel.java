@@ -14,8 +14,7 @@ import javax.swing.JRadioButton;
 
 import diamond.paint.util.LineTypeSetter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.value.OriLine;
 import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
 
@@ -25,15 +24,15 @@ import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
  */
 public class LineTypePanel extends JPanel implements Observer {
     JRadioButton lineTypeMountainButton = new JRadioButton(
-            ResourceHolder.getString(ResourceKey.LABEL,
+            ResourceHolder.getLabelString(
                     StringID.UI.MOUNTAIN_ID));
 
     //    JPanel lineTypePanel = new JPanel();
     JRadioButton lineTypeSubButton = new JRadioButton(
-            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.AUX_ID));
+            ResourceHolder.getLabelString( StringID.UI.AUX_ID));
 
     JRadioButton lineTypeValleyButton = new JRadioButton(
-            ResourceHolder.getString(ResourceKey.LABEL, StringID.UI.VALLEY_ID));
+            ResourceHolder.getLabelString( StringID.UI.VALLEY_ID));
 
     public LineTypePanel() {
         ButtonGroup lineTypeGroup = new ButtonGroup();

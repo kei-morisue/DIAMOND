@@ -17,6 +17,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 
@@ -24,8 +25,7 @@ import diamond.Config;
 import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.core.PaintConfig;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.viewsetting.main.MainScreenSettingDB;
 import diamond.viewsetting.main.ScreenUpdater;
 
@@ -38,7 +38,7 @@ public class GridPanel extends JPanel implements ActionListener, Observer {
             .getInstance();
 
     JButton gridChangeButton = new JButton(
-            ResourceHolder.getString(ResourceKey.LABEL,
+            ResourceHolder.getLabelString(
                     StringID.UI.GRID_SIZE_CHANGE_ID));
     JButton gridLargeButton = new JButton("x1/2");
     JButton gridSmallButton = new JButton("x2");
@@ -46,20 +46,20 @@ public class GridPanel extends JPanel implements ActionListener, Observer {
     JFormattedTextField textField;
 
     JCheckBox dispGridCheckBox = new JCheckBox(
-            ResourceHolder.getString(ResourceKey.LABEL,
+            ResourceHolder.getLabelString(
                     StringID.UI.SHOW_GRID_ID),
             true);
 
     public GridPanel() {
         JPanel divideNumSpecPanel = new JPanel();
         JLabel gridLabel1 = new JLabel(
-                ResourceHolder.getString(ResourceKey.LABEL,
+                ResourceHolder.getLabelString(
                         StringID.UI.GRID_DIVIDE_NUM_ID));
 
         textField = new JFormattedTextField(new DecimalFormat("#"));
         textField.setColumns(2);
         textField.setValue(new Integer(Config.DEFAULT_GRID_DIV_NUM));
-        textField.setHorizontalAlignment(JTextField.RIGHT);
+        textField.setHorizontalAlignment(SwingConstants.RIGHT);
         gridChangeButton.addActionListener(this);
 
         divideNumSpecPanel.add(gridLabel1);

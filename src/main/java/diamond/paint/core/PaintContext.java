@@ -193,7 +193,8 @@ public class PaintContext {
     }
 
     public static PaintScreen getPainterScreen() {
-        return getInstance().painterScreen;
+        getInstance();
+        return PaintContext.painterScreen;
     }
 
     public static void setPainterScreen(PaintScreen __painterScreen) {

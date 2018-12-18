@@ -151,7 +151,7 @@ public class OriFace {
                 val -= 1;
             }
 
-            double vv = ((double) val + 2) / 4.0;
+            double vv = (val + 2) / 4.0;
             double v = (0.75 + vv * 0.25);
 
             v *= 0.9 + 0.15 * (Math.sqrt((he.vertex.p.x - min_x)

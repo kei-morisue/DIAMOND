@@ -1,14 +1,9 @@
 package diamond.viewsetting.main;
 
-import java.util.ResourceBundle;
-
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
 import diamond.viewsetting.ChangeViewSetting;
 
 public class ChangeHint implements ChangeViewSetting {
-
-    private MainFrameSettingDB frameSetting = MainFrameSettingDB.getInstance();
 
     private String id;
 
@@ -18,18 +13,15 @@ public class ChangeHint implements ChangeViewSetting {
 
     @Override
     public void changeViewSetting() {
-        ResourceBundle resource = ResourceHolder
-                .getResource(ResourceKey.EXPLANATION);
-
         String hint = null;
         try {
-            hint = resource.getString(id);
+            hint = ResourceHolder.getHintString(id);
         } catch (Exception e) {
             //e.printStackTrace();
         }
-        frameSetting.setHint(hint);
+        MainFrameSettingDB.getInstance().setHint(hint);
 
-        frameSetting.notifyObservers();
+        MainFrameSettingDB.getInstance().notifyObservers();
     }
 
 }

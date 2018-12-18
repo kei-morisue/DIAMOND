@@ -3,7 +3,6 @@ package diamond.bind.binder;
 import javax.swing.AbstractButton;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
 
 public abstract class AbstractButtonBinder<ToBeBound>
         implements BinderInterface<ToBeBound> {
@@ -35,7 +34,7 @@ public abstract class AbstractButtonBinder<ToBeBound>
          * set label
          */
         try {
-            button.setText(ResourceHolder.getString(ResourceKey.LABEL, textID));
+            button.setText(ResourceHolder.getLabelString(textID));
         } catch (Exception e) {
         }
 

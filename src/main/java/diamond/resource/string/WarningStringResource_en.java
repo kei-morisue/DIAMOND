@@ -1,4 +1,4 @@
-package diamond.resource;
+package diamond.resource.string;
 
 import java.util.ListResourceBundle;
 

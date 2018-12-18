@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
@@ -35,8 +36,7 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.ResourceKey;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
 
 public class RepeatCopyDialog extends JDialog {
@@ -241,7 +241,7 @@ public class RepeatCopyDialog extends JDialog {
         if (jTextFieldIntX == null) {
             jTextFieldIntX = new JTextField();
             jTextFieldIntX.setBounds(new Rectangle(35, 105, 66, 21));
-            jTextFieldIntX.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldIntX.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldIntX;
     }
@@ -255,7 +255,7 @@ public class RepeatCopyDialog extends JDialog {
         if (jTextFieldIntY == null) {
             jTextFieldIntY = new JTextField();
             jTextFieldIntY.setBounds(new Rectangle(35, 130, 66, 21));
-            jTextFieldIntY.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldIntY.setHorizontalAlignment(SwingConstants.RIGHT);
         }
         return jTextFieldIntY;
     }
@@ -269,7 +269,7 @@ public class RepeatCopyDialog extends JDialog {
         if (jTextFieldX == null) {
             jTextFieldX = new JTextField();
             jTextFieldX.setBounds(new Rectangle(60, 30, 41, 21));
-            jTextFieldX.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldX.setHorizontalAlignment(SwingConstants.RIGHT);
             jTextFieldX.setEnabled(false);
         }
         return jTextFieldX;
@@ -284,7 +284,7 @@ public class RepeatCopyDialog extends JDialog {
         if (jTextFieldY == null) {
             jTextFieldY = new JTextField();
             jTextFieldY.setBounds(new Rectangle(60, 55, 41, 21));
-            jTextFieldY.setHorizontalAlignment(JTextField.RIGHT);
+            jTextFieldY.setHorizontalAlignment(SwingConstants.RIGHT);
             jTextFieldY.setEnabled(false);
         }
         return jTextFieldY;
@@ -299,7 +299,7 @@ public class RepeatCopyDialog extends JDialog {
         this.setSize(123, 249);
         this.setLocation(MainFrame.getInstance().getLocation().x + 200,
                 MainFrame.getInstance().getLocation().y + 100);
-        this.setTitle(ResourceHolder.getString(ResourceKey.LABEL,
+        this.setTitle(ResourceHolder.getLabelString(
                 StringID.Main.REPEAT_COPY_ID));
         this.setContentPane(getJContentPane());
     }

@@ -19,7 +19,7 @@ import diamond.bind.PaintActionButtonFactory;
 import diamond.bind.binder.BinderInterface;
 import diamond.bind.binder.ViewChangeBinder;
 import diamond.paint.creasepattern.tool.TypeForChange;
-import diamond.resource.StringID;
+import diamond.resource.string.StringID;
 import diamond.view.paint.uipanel.LayoutUtil;
 import diamond.viewsetting.ChangeViewSetting;
 import diamond.viewsetting.main.uipanel.ChangeOnPaintInputButtonSelected;

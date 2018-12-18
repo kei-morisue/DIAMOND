@@ -15,6 +15,7 @@ import diamond.view.paint.uipanel.inputline.valuepanel.TextField;
  */
 public class AngleTextField extends TextField {
 
+    @Override
     protected double getMeasuredValue() {
         return ValueDB.getInstance().getAngle();
     }
