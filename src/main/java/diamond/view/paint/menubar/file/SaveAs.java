@@ -54,8 +54,9 @@ public class SaveAs extends JMenuItem implements ActionListener {
         String path = FileIOUtil.exportFile(FileHistory.getLastDirectory(),
                 dataFileName,
                 fileFilters);
+        DocHolder.getDoc().setDataFilePath(path);
         MenuFile.getInstance().updateMRUItems(path);
-        MainFrame.getInstance().setTitle(dataFileName);
+        MainFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());
     }
 
 }

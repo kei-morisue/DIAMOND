@@ -26,22 +26,23 @@ import java.io.FileOutputStream;
 import diamond.DataSet;
 import diamond.doc.Doc;
 
-public class ExporterXML implements Exporter{
+public class ExporterXML implements Exporter {
 
     @Override
     public boolean export(Doc doc, String filePath) {
-    	DataSet dataset = new DataSet(doc);
-    	
+        DataSet dataset = new DataSet(doc);
+
         try {
             XMLEncoder enc = new XMLEncoder(
                     new BufferedOutputStream(
-                    new FileOutputStream(filePath)));
+                            new FileOutputStream(filePath)));
             enc.writeObject(dataset);
             enc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }
+        doc.setDataFilePath(filePath);
 
         return true;
     }

@@ -21,9 +21,12 @@ package diamond.paint.core;
 import diamond.Config;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.segment.TwoPointSegmentAction;
-import diamond.resource.Constants;
 
 public class PaintConfig {
+    private enum ModelDispMode {
+
+        FILL_ALPHA, FILL_COLOR, FILL_NONE, FILL_WHITE
+    };
 
     public static boolean bDispCrossLine = true;
 
@@ -39,7 +42,7 @@ public class PaintConfig {
     //    public static Constants.SubLineInputMode subLineInputMode = Constants.SubLineInputMode.NONE;
     public static int gridDivNum = Config.DEFAULT_GRID_DIV_NUM;
     public static int inputLineType = diamond.value.OriLine.TYPE_RIDGE;
-    public static Constants.ModelDispMode modelDispMode = Constants.ModelDispMode.FILL_ALPHA;
+    public static ModelDispMode modelDispMode = ModelDispMode.FILL_ALPHA;
     public static GraphicMouseActionInterface mouseAction = new TwoPointSegmentAction();
 
     public static GraphicMouseActionInterface getMouseAction() {

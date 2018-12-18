@@ -41,7 +41,6 @@ public class ExporterCP implements Exporter {
         }
         bw.close();
 
-        doc.setDataFilePath(filepath);
         doc.clearChanged();
         return true;
     }

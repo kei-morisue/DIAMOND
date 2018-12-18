@@ -44,9 +44,11 @@ public class Save extends JMenuItem implements ActionListener {
         if (filePath != null) {
             FilterDB.getInstance().getFilter("opx").getSavingAction()
                     .save(filePath);
+            MenuFile.getInstance().updateMRUItems(filePath);
+            diamond.view.MainFrame.getInstance()
+                    .setTitle(DocHolder.getDoc().getDataFileName());
         } else {
             SaveAs.getInstance().doClick();
         }
-        MenuFile.getInstance().updateMRUItems(filePath);
     }
 }
