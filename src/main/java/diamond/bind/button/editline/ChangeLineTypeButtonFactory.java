@@ -12,7 +12,7 @@ import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.linetype.ChangeLineTypeAction;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnAlterTypeButtonSelected;
+import diamond.viewsetting.paint.uipanel.ChangeOnAlterTypeButtonSelected;
 
 /**
  * @author long_

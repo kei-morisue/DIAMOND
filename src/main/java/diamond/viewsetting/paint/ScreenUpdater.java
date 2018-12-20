@@ -1,4 +1,4 @@
-package diamond.viewsetting.main;
+package diamond.viewsetting.paint;
 
 import java.awt.event.KeyEvent;
 

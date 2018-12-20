@@ -12,7 +12,7 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.mirror.MirrorCopyAction;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnPaintInputButtonSelected;
+import diamond.viewsetting.paint.uipanel.ChangeOnPaintInputButtonSelected;
 
 /**
  * @author long_

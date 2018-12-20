@@ -3,11 +3,16 @@ package diamond;
 import javax.swing.JOptionPane;
 
 import diamond.view.MainFrame;
+import diamond.view.paint.menubar.file.MRUFiles;
 
 public class DIAMOND {
 
     public static void main(String[] args) {
         MainFrame.getInstance();
+
+        if (MRUFiles.menuItems[0] != null) {
+            MRUFiles.menuItems[0].doClick();
+        }
     }
 
     public static void ERROR_END(String message) {

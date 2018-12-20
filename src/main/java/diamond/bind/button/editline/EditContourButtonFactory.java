@@ -12,7 +12,7 @@ import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.editcontour.EditContourAction;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnOtherCommandButtonSelected;
+import diamond.viewsetting.paint.uipanel.ChangeOnOtherCommandButtonSelected;
 
 /**
  * @author long_

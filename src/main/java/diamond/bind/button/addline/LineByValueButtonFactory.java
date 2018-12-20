@@ -11,7 +11,7 @@ import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.byvalue.LineByValueAction;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnByValueButtonSelected;
+import diamond.viewsetting.paint.uipanel.ChangeOnByValueButtonSelected;
 
 /**
  * @author long_

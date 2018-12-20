@@ -13,8 +13,6 @@ import java.util.LinkedList;
 
 import diamond.Config;
 
-
-
 public class FileHistory {
     static final private int maxSize = Config.MRUFILE_NUM;
     static private LinkedList<String> mostRecentlyUsedHistory = new LinkedList<>();
@@ -51,7 +49,7 @@ public class FileHistory {
 
             int initMRUlength = initData.MRUFiles.length;
             int length = (maxSize < initMRUlength) ? maxSize : initMRUlength;
-
+            mostRecentlyUsedHistory.clear();
             for (int i = 0; i < length; i++) {
                 if (initData.MRUFiles[i] != null
                         && !initData.MRUFiles[i].equals("")) {

@@ -6,7 +6,6 @@ package diamond.view.paint.menubar;
 
 import javax.swing.JMenu;
 
-import diamond.Config;
 import diamond.file.FileHistory;
 import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
@@ -37,43 +36,20 @@ public class MenuFile extends JMenu {
     private MenuFile() {
         super(ResourceHolder.getLabelString(
                 StringID.Main.FILE_ID));
-        FileHistory.loadFromFile(Config.INI_FILE_PATH);
         addItems();
     }
 
-    private void addExportItems() {
-        new Export();
-        add(Export.menuItemExportDXF);
-        add(Export.menuItemExportOBJ);
-        add(Export.menuItemExportCP);
-        add(Export.menuItemExportSVG);
-    }
-
-    private void addMRUItems() {
-        int i = 0;
-        new MRUFiles();
-        for (String path : FileHistory.getHistory()) {
-            MRUFiles.menuItems[i].setText(path);
-            add(MRUFiles.menuItems[i]);
-            i++;
-        }
-        while (i < MRUFiles.menuItems.length) {
-            MRUFiles.menuItems[i].setText("");
-            i++;
-        }
-    }
-
     private void addItems() {
-        removeAll();//TODO rest of MRU-adds seem needless...
+        removeAll();
         add(New.getInstance());
         add(Open.getInstance());
         add(Save.getInstance());
         add(SaveAs.getInstance());
-        addExportItems();
+        new Export(this);
         addSeparator();
         add(Property.getInstance());
         addSeparator();
-        addMRUItems();
+        new MRUFiles(this);
         addSeparator();
         add(Exit.getInstance());
 

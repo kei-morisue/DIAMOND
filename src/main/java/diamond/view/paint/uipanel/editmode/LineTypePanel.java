@@ -16,7 +16,7 @@ import diamond.paint.util.LineTypeSetter;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.value.OriLine;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_

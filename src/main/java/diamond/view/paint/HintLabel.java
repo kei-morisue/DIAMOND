@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
-import diamond.viewsetting.main.MainFrameSettingDB;
+import diamond.viewsetting.paint.MainFrameSettingDB;
 
 /**
  * @author long_

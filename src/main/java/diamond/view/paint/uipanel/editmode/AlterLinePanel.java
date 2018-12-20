@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import diamond.paint.creasepattern.tool.TypeForChange;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
-import diamond.viewsetting.main.uipanel.FromLineTypeItemListener;
-import diamond.viewsetting.main.uipanel.ToLineTypeItemListener;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.FromLineTypeItemListener;
+import diamond.viewsetting.paint.uipanel.ToLineTypeItemListener;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_

@@ -1,17 +1,17 @@
-package diamond.viewsetting.main;
+package diamond.viewsetting.paint;
 
 import diamond.viewsetting.ViewSettingDataBase;
 
-public class MainScreenSettingDB extends ViewSettingDataBase{
+public class PaintScreenSettingDB extends ViewSettingDataBase{
 
 	
 	// ---------
-	private static MainScreenSettingDB instance = null;
+	private static PaintScreenSettingDB instance = null;
 
 
-	public static MainScreenSettingDB getInstance(){
+	public static PaintScreenSettingDB getInstance(){
 		if(instance == null){
-			instance = new MainScreenSettingDB();
+			instance = new PaintScreenSettingDB();
 		}
 		
 		return instance;
@@ -19,7 +19,7 @@ public class MainScreenSettingDB extends ViewSettingDataBase{
 
 	private boolean gridVisible = true;
 	
-	private MainScreenSettingDB(){}
+	private PaintScreenSettingDB(){}
 
 //	public static final String REDRAW_REQUESTED = "redraw requested";
 //	public void requestRedraw(){

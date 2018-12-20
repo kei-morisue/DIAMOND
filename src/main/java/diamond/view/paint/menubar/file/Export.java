@@ -7,6 +7,7 @@ package diamond.view.paint.menubar.file;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -27,16 +28,20 @@ import diamond.resource.string.StringID;
  */
 public class Export implements ActionListener {
 
-    public static JMenuItem menuItemExportCP = new JMenuItem(
+    private static JMenuItem menuItemExportCP = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_CP_ID));
-    public static JMenuItem menuItemExportDXF = new JMenuItem(
+    private static JMenuItem menuItemExportDXF = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_DXF_ID));
-    public static JMenuItem menuItemExportOBJ = new JMenuItem(
+    private static JMenuItem menuItemExportOBJ = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_OBJ_ID));
-    public static JMenuItem menuItemExportSVG = new JMenuItem(
+    private static JMenuItem menuItemExportSVG = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_SVG_ID));
 
-    public Export() {
+    public Export(JMenu menu) {
+        menu.add(menuItemExportDXF);
+        menu.add(menuItemExportOBJ);
+        menu.add(menuItemExportCP);
+        menu.add(menuItemExportSVG);
         menuItemExportDXF.addActionListener(this);
         menuItemExportOBJ.addActionListener(this);
         menuItemExportCP.addActionListener(this);

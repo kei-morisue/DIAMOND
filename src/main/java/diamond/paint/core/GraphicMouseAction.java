@@ -15,7 +15,7 @@ import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.geometry.GeometricOperation;
 import diamond.paint.util.ElementSelector;
 import diamond.value.OriLine;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 public abstract class GraphicMouseAction implements GraphicMouseActionInterface {
 

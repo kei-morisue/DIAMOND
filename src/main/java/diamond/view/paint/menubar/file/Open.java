@@ -17,7 +17,7 @@ import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
-import diamond.viewsetting.main.MainFrameSettingDB;
+import diamond.viewsetting.paint.MainFrameSettingDB;
 
 /**
  * @author long_

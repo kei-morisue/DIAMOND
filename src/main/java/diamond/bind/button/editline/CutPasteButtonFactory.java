@@ -13,7 +13,7 @@ import diamond.paint.copypaste.CopyAndPasteActionWrapper;
 import diamond.paint.copypaste.CopyPasteErrorListener;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnSelectButtonSelected;
+import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
 
 /**
  * @author long_

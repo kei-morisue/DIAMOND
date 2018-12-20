@@ -10,7 +10,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 
 /**

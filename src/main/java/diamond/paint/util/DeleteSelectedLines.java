@@ -10,7 +10,7 @@ import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.Painter;
 import diamond.value.OriLine;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 public class DeleteSelectedLines implements ActionListener {
 

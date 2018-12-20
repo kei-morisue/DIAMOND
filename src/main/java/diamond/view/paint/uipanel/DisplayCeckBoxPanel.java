@@ -15,7 +15,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 /**
  * @author long_

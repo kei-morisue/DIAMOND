@@ -12,7 +12,6 @@ import javax.swing.JMenuItem;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
-import diamond.view.paint.PropertyDialog;
 
 /**
  * @author long_

@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 import diamond.bind.state.ErrorListener;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.ScreenUpdater;
-import diamond.viewsetting.main.uipanel.ChangeHint;
+import diamond.viewsetting.paint.ScreenUpdater;
+import diamond.viewsetting.paint.uipanel.ChangeHint;
 
 /**
  * @author long_

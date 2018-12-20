@@ -1,4 +1,4 @@
-package diamond.viewsetting.main.uipanel;
+package diamond.viewsetting.paint.uipanel;
 
 import diamond.paint.EditMode;
 import diamond.paint.creasepattern.tool.TypeForChange;

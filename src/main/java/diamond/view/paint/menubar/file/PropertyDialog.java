@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.view.paint;
+package diamond.view.paint.menubar.file;
 
 import java.awt.GridBagConstraints;
 import java.awt.event.ComponentEvent;

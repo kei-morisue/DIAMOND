@@ -43,7 +43,7 @@ public class ExporterXML implements Exporter {
             return false;
         }
         doc.setDataFilePath(filePath);
-
+        doc.clearChanged();
         return true;
     }
 }

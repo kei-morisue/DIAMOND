@@ -17,8 +17,8 @@ import diamond.paint.core.GraphicMouseAction;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.viewsetting.ViewChangeListener;
-import diamond.viewsetting.main.uipanel.ChangeOnByValueButtonSelected;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.ChangeOnByValueButtonSelected;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_

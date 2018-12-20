@@ -1,14 +1,12 @@
-package diamond.viewsetting.main.uipanel;
+package diamond.viewsetting.paint.uipanel;
 
 import diamond.viewsetting.ChangeViewSetting;
 
-public class ChangeOnSelectButtonSelected implements ChangeViewSetting {
+public class ChangeOnOtherCommandButtonSelected implements ChangeViewSetting{
 
 	@Override
 	public void changeViewSetting() {
 		UIPanelSettingDB setting = UIPanelSettingDB.getInstance();
-		
-		setting.selectSelectMode();
 		
 		setting.setValuePanelVisible(false);
 		

@@ -15,7 +15,6 @@ import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
-import diamond.view.paint.CircleCopyDialog;
 
 /**
  * @author long_

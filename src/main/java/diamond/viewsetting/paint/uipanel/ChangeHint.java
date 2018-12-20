@@ -1,10 +1,10 @@
-package diamond.viewsetting.main.uipanel;
+package diamond.viewsetting.paint.uipanel;
 
 import java.util.MissingResourceException;
 
 import diamond.resource.ResourceHolder;
 import diamond.viewsetting.ChangeViewSetting;
-import diamond.viewsetting.main.MainFrameSettingDB;
+import diamond.viewsetting.paint.MainFrameSettingDB;
 
 public class ChangeHint implements ChangeViewSetting {
 

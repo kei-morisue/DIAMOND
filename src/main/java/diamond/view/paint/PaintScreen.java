@@ -19,7 +19,6 @@
 package diamond.view.paint;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,15 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,15 +35,12 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.vecmath.Vector2d;
 
 import diamond.Config;
 import diamond.doc.Doc;
 import diamond.doc.DocHolder;
-import diamond.mouse.MouseUtility;
 import diamond.paint.EditMode;
 import diamond.paint.core.LineSetting;
 import diamond.paint.core.PaintConfig;
@@ -59,57 +48,39 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.util.ElementSelector;
 import diamond.value.OriLine;
+import diamond.view.paint.screen.PaintScreenMouseAction;
+import diamond.view.paint.screen.ScreenAxisTransform;
 import diamond.viewsetting.ViewScreenUpdater;
-import diamond.viewsetting.main.MainScreenSettingDB;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.PaintScreenSettingDB;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 public class PaintScreen extends JPanel
-        implements MouseListener, MouseMotionListener, MouseWheelListener,
-        ActionListener, ComponentListener, Observer {
+        implements ActionListener, ComponentListener, Observer {
 
-    private AffineTransform affineTransform = new AffineTransform();
     private Graphics2D bufferg;
     private Image bufferImage;
 
     private ArrayList<Vector2d> crossPoints = new ArrayList<>();
-    private Point2D.Double currentMousePointLogic = new Point2D.Double(); // Logic coordinates
-    private PaintContext mouseContext = PaintContext.getInstance();
-    private JPopupMenu popup = new JPopupMenu();
-    private JMenuItem popupItem_DivideFace = new JMenuItem("Dividing face");
-    private JMenuItem popupItem_FlipFace = new JMenuItem("Flipping face");
-    private Point2D preMousePoint; // Screen coordinates
-    // Temporary information when editing
-    // Affine transformation information
-    private Dimension preSize;
-    private double scale;
-    private ScreenUpdater screenUpdater = ScreenUpdater.getInstance();
-    private MainScreenSettingDB setting = MainScreenSettingDB.getInstance();
-    private double transX;
-    private double transY;
+    private static final int initialSize = (int) (Config.DEFAULT_PAPER_SIZE
+            * 1.1);
+
+    private ScreenAxisTransform screenAxsisTransform = new ScreenAxisTransform(
+            initialSize, initialSize);
 
     public PaintScreen() {
-        int size = (int) (Config.DEFAULT_PAPER_SIZE * 1.1);
-        setPreferredSize(new Dimension(size, size));
-        addMouseListener(this);
-        addMouseMotionListener(this);
-        addMouseWheelListener(this);
+        PaintScreenMouseAction mouseAction = new PaintScreenMouseAction(
+                screenAxsisTransform);
+        addMouseListener(mouseAction);
+        addMouseMotionListener(mouseAction);
+        addMouseWheelListener(mouseAction);
         addComponentListener(this);
-
-        screenUpdater.addObserver(this);
-        setting.addObserver(this);
-
-        scale = 1.0;
-        setBackground(Color.white);
-
-        popupItem_DivideFace.addActionListener(this);
-        popup.add(popupItem_DivideFace);
-        popupItem_FlipFace.addActionListener(this);
-        popup.add(popupItem_FlipFace);
-        preSize = getSize();
+        ScreenUpdater.getInstance().addObserver(this);
+        PaintScreenSettingDB.getInstance().addObserver(this);
+        PaintContext.setPainterScreen(this);//TODO remove this
     }
 
     private void drawCandidatePosition(Graphics g) {
-        Vector2d candidate = mouseContext.pickCandidateV;
+        Vector2d candidate = PaintContext.getInstance().pickCandidateV;
         if (candidate != null) {
             g.setColor(Color.BLACK);
             g.drawString("(" + candidate.x +
@@ -157,23 +128,13 @@ public class PaintScreen extends JPanel
             g2d.setStroke(selector.selectStroke(line.typeVal));
 
             if (PaintConfig.mouseAction != null) {
-                if (mouseContext.getLines().contains(line) == false) {
+                if (PaintContext.getInstance().getLines()
+                        .contains(line) == false) {
                     g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
                             line.p1.y));
                 }
             }
-
         }
-
-    }
-
-    // update actual AffineTransform
-    private void updateAffineTransform() {
-        affineTransform.setToIdentity();
-        affineTransform.translate(getWidth() * 0.5, getHeight() * 0.5);
-        affineTransform.scale(scale, scale);
-        affineTransform.translate(transX, transY);
-
     }
 
     @Override
@@ -182,12 +143,10 @@ public class PaintScreen extends JPanel
 
     @Override
     public void componentHidden(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void componentMoved(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -195,147 +154,20 @@ public class PaintScreen extends JPanel
         if (getWidth() <= 0 || getHeight() <= 0) {
             return;
         }
-        preSize = getSize();
+        screenAxsisTransform.Resize(getWidth(), getHeight());
 
-        // Update of the logical coordinates of the center of the screen
-        transX = transX - preSize.width * 0.5 + getWidth() * 0.5;
-        transY = transY - preSize.height * 0.5 + getHeight() * 0.5;
-
-        // Updating the image buffer
         bufferImage = createImage(getWidth(), getHeight());
         bufferg = (Graphics2D) bufferImage.getGraphics();
-
-        updateAffineTransform();
         repaint();
-
     }
 
     @Override
     public void componentShown(ComponentEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     public Image getCreasePatternImage() {
 
         return bufferImage;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        if (javax.swing.SwingUtilities.isRightMouseButton(e)) {
-            PaintConfig.mouseAction.onRightClick(
-                    mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        } else {
-            PaintConfig.mouseAction = PaintConfig.mouseAction.onLeftClick(
-                    mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        }
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0 && // zoom
-                (e.getModifiersEx()
-                        & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
-
-            double moved = e.getX() - preMousePoint.getX() + e.getY()
-                    - preMousePoint.getY();
-            scale += moved / 150.0;
-            if (scale < 0.01) {
-                scale = 0.01;
-            }
-
-            preMousePoint = e.getPoint();
-            updateAffineTransform();
-            repaint();
-
-        } else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-            transX += (e.getX() - preMousePoint.getX()) / scale;
-            transY += (e.getY() - preMousePoint.getY()) / scale;
-            preMousePoint = e.getPoint();
-            updateAffineTransform();
-            repaint();
-        } else {
-            mouseContext.setLogicalMousePoint(MouseUtility
-                    .getLogicalPoint(affineTransform, e.getPoint()));
-            PaintConfig.getMouseAction().onDrag(mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-            repaint();
-        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // Gets the value of the current logical coordinates of the mouse
-
-        try {
-            affineTransform.inverseTransform(e.getPoint(),
-                    currentMousePointLogic);
-        } catch (Exception ex) {
-            return;
-        }
-
-        mouseContext.scale = scale;
-        mouseContext.dispGrid = setting.isGridVisible();
-        mouseContext.setLogicalMousePoint(
-                MouseUtility.getLogicalPoint(affineTransform, e.getPoint()));
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        PaintConfig.mouseAction.onMove(mouseContext, affineTransform,
-                MouseUtility.isControlKeyPressed(e));
-        //this.mouseContext.pickCandidateV = Globals.mouseAction.onMove(mouseContext, affineTransform, e);
-        repaint();
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-        if (PaintConfig.mouseAction == null) {
-            return;
-        }
-
-        PaintConfig.mouseAction.onPress(mouseContext, affineTransform,
-                MouseUtility.isControlKeyPressed(e));
-
-        preMousePoint = e.getPoint();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // Rectangular Selection
-
-        if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onRelease(mouseContext, affineTransform,
-                    MouseUtility.isControlKeyPressed(e));
-        }
-        repaint();
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        double scale_ = (100.0 - e.getWheelRotation() * 5) / 100.0;
-        scale *= scale_;
-        updateAffineTransform();
-        repaint();
     }
 
     // Scaling relative to the center of the screen
@@ -346,9 +178,7 @@ public class PaintScreen extends JPanel
         if (bufferImage == null) {
             bufferImage = createImage(getWidth(), getHeight());
             bufferg = (Graphics2D) bufferImage.getGraphics();
-            updateAffineTransform();
-            preSize = getSize();
-        }
+        } //TODO Why here?
 
         // initialize the AffineTransform of bufferg
         bufferg.setTransform(new AffineTransform());
@@ -358,13 +188,13 @@ public class PaintScreen extends JPanel
         bufferg.fillRect(0, 0, getWidth(), getHeight());
 
         // set the AffineTransform of buffer
-        bufferg.setTransform(affineTransform);
+        bufferg.setTransform(screenAxsisTransform.getTransform());
 
         Graphics2D g2d = bufferg;
 
         Doc doc = DocHolder.getDoc();
         CreasePattern creasePattern = doc.getCreasePattern();
-        if (setting.isGridVisible()) {
+        if (PaintScreenSettingDB.getInstance().isGridVisible()) {
 
             drawGridLine(g2d);
         }
@@ -382,11 +212,15 @@ public class PaintScreen extends JPanel
             drawVertexRectangles(g2d);
         }
 
-        for (Vector2d v : crossPoints) {
-            g2d.setColor(Color.RED);
-            g2d.fill(
-                    new Rectangle2D.Double(v.x - 5.0 / scale, v.y - 5.0 / scale,
-                            10.0 / scale, 10.0 / scale));
+        {
+            double scale = screenAxsisTransform.getScale();
+            for (Vector2d v : crossPoints) {
+                g2d.setColor(Color.RED);
+                g2d.fill(
+                        new Rectangle2D.Double(v.x - 5.0 / scale,
+                                v.y - 5.0 / scale,
+                                10.0 / scale, 10.0 / scale));
+            }
         }
 
         if (PaintConfig.bDispCrossLine) {
@@ -406,7 +240,7 @@ public class PaintScreen extends JPanel
         }
 
         if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onDraw(g2d, mouseContext);
+            PaintConfig.mouseAction.onDraw(g2d, PaintContext.getInstance());
 
             g.drawImage(bufferImage, 0, 0, this);
 
@@ -420,7 +254,7 @@ public class PaintScreen extends JPanel
     @Override
     public void update(Observable o, Object arg) {
         String name = o.toString();
-        if (name.equals(screenUpdater.getName())) {
+        if (name.equals(ScreenUpdater.getInstance().getName())) {
             if (arg != null) {
                 if (arg.equals(ViewScreenUpdater.REDRAW_REQUESTED)) {
                     repaint();
@@ -447,13 +281,17 @@ public class PaintScreen extends JPanel
             }
             Vector2d v0 = line.p0;
             Vector2d v1 = line.p1;
-
-            g2d.fill(new Rectangle2D.Double(v0.x - vertexDrawSize / scale,
-                    v0.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
-                    vertexDrawSize * 2 / scale));
-            g2d.fill(new Rectangle2D.Double(v1.x - vertexDrawSize / scale,
-                    v1.y - vertexDrawSize / scale, vertexDrawSize * 2 / scale,
-                    vertexDrawSize * 2 / scale));
+            {
+                double scale = screenAxsisTransform.getScale();
+                g2d.fill(new Rectangle2D.Double(v0.x - vertexDrawSize / scale,
+                        v0.y - vertexDrawSize / scale,
+                        vertexDrawSize * 2 / scale,
+                        vertexDrawSize * 2 / scale));
+                g2d.fill(new Rectangle2D.Double(v1.x - vertexDrawSize / scale,
+                        v1.y - vertexDrawSize / scale,
+                        vertexDrawSize * 2 / scale,
+                        vertexDrawSize * 2 / scale));
+            }
         }
 
     }

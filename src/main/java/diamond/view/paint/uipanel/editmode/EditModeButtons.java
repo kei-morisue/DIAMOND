@@ -22,7 +22,7 @@ import diamond.bind.button.editline.InputLineButtonFactory;
 import diamond.bind.button.editline.SelectLineButtonFactory;
 import diamond.paint.creasepattern.tool.TypeForChange;
 import diamond.view.paint.uipanel.LayoutUtil;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_

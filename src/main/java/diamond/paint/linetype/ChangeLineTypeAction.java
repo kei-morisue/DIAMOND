@@ -10,7 +10,7 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.core.RectangularSelectableAction;
 import diamond.paint.creasepattern.Painter;
 import diamond.value.OriLine;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 public class ChangeLineTypeAction extends RectangularSelectableAction {
 

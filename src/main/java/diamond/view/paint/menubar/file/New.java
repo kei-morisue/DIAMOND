@@ -18,7 +18,7 @@ import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
-import diamond.viewsetting.main.MainScreenSettingDB;
+import diamond.viewsetting.paint.PaintScreenSettingDB;
 
 /**
  * @author long_
@@ -43,7 +43,7 @@ public class New extends JMenuItem implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainScreenSettingDB screenSetting = MainScreenSettingDB.getInstance();
+        PaintScreenSettingDB screenSetting = PaintScreenSettingDB.getInstance();
         screenSetting.setGridVisible(true);
         screenSetting.notifyObservers();
 

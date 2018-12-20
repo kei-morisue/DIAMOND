@@ -1,4 +1,4 @@
-package diamond.viewsetting.main.uipanel;
+package diamond.viewsetting.paint.uipanel;
 
 import diamond.viewsetting.ChangeViewSetting;
 

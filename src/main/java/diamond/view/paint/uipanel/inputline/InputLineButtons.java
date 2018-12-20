@@ -27,7 +27,7 @@ import diamond.bind.button.addline.VerticalLineButtonFactory;
 import diamond.file.ImageResourceLoader;
 import diamond.paint.EditMode;
 import diamond.view.paint.uipanel.LayoutUtil;
-import diamond.viewsetting.main.uipanel.UIPanelSettingDB;
+import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
 
 /**
  * @author long_

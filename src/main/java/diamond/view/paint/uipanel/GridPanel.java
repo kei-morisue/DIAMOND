@@ -25,15 +25,15 @@ import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.core.PaintConfig;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
-import diamond.viewsetting.main.MainScreenSettingDB;
-import diamond.viewsetting.main.ScreenUpdater;
+import diamond.viewsetting.paint.PaintScreenSettingDB;
+import diamond.viewsetting.paint.ScreenUpdater;
 
 /**
  * @author long_
  *
  */
 public class GridPanel extends JPanel implements ActionListener, Observer {
-    private static MainScreenSettingDB mainScreenSetting = MainScreenSettingDB
+    private static PaintScreenSettingDB mainScreenSetting = PaintScreenSettingDB
             .getInstance();
 
     JButton gridChangeButton = new JButton(
