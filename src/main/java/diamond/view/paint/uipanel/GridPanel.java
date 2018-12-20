@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,18 +21,16 @@ import javax.swing.border.EtchedBorder;
 import diamond.Config;
 import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.core.PaintConfig;
+import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
-import diamond.viewsetting.paint.PaintScreenSettingDB;
 import diamond.viewsetting.paint.ScreenUpdater;
 
 /**
  * @author long_
  *
  */
-public class GridPanel extends JPanel implements ActionListener, Observer {
-    private static PaintScreenSettingDB mainScreenSetting = PaintScreenSettingDB
-            .getInstance();
+public class GridPanel extends JPanel implements ActionListener {
 
     JButton gridChangeButton = new JButton(
             ResourceHolder.getLabelString(
@@ -80,7 +76,6 @@ public class GridPanel extends JPanel implements ActionListener, Observer {
         gridSmallButton.addActionListener(this);
         gridLargeButton.addActionListener(this);
 
-        mainScreenSetting.addObserver(this);
     }
 
     @Override
@@ -88,11 +83,9 @@ public class GridPanel extends JPanel implements ActionListener, Observer {
         ScreenUpdaterInterface screenUpdater = ScreenUpdater.getInstance();
 
         if (ae.getSource() == dispGridCheckBox) {
-            mainScreenSetting.setGridVisible(dispGridCheckBox.isSelected());
-            mainScreenSetting.notifyObservers();
-
+            PaintContext.getInstance().dispGrid = dispGridCheckBox.isSelected();
+            PaintContext.getInstance().notifyObservers();
             screenUpdater.updateScreen();
-
         } else if (ae.getSource() == gridSmallButton) {
             if (PaintConfig.gridDivNum < 65) {
                 PaintConfig.gridDivNum *= 2;
@@ -122,12 +115,4 @@ public class GridPanel extends JPanel implements ActionListener, Observer {
         }
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        if (mainScreenSetting.isGridVisible() != dispGridCheckBox
-                .isSelected()) {
-            dispGridCheckBox.setSelected(mainScreenSetting.isGridVisible());
-        }
-        repaint();
-    }
 }

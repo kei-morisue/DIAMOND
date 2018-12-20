@@ -3,6 +3,7 @@ package diamond.paint.core;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
 import java.util.Stack;
 
 import javax.vecmath.Vector2d;
@@ -11,7 +12,7 @@ import diamond.doc.DocHolder;
 import diamond.value.OriLine;
 import diamond.view.paint.PaintScreen;
 
-public class PaintContext {
+public class PaintContext extends Observable {
 
     private static PaintContext instance = null;
 

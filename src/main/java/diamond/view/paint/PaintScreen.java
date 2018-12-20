@@ -51,7 +51,6 @@ import diamond.value.OriLine;
 import diamond.view.paint.screen.PaintScreenMouseAction;
 import diamond.view.paint.screen.ScreenAxisTransform;
 import diamond.viewsetting.ViewScreenUpdater;
-import diamond.viewsetting.paint.PaintScreenSettingDB;
 import diamond.viewsetting.paint.ScreenUpdater;
 
 public class PaintScreen extends JPanel
@@ -75,7 +74,7 @@ public class PaintScreen extends JPanel
         addMouseWheelListener(mouseAction);
         addComponentListener(this);
         ScreenUpdater.getInstance().addObserver(this);
-        PaintScreenSettingDB.getInstance().addObserver(this);
+        PaintContext.getInstance().addObserver(this);
         PaintContext.setPainterScreen(this);//TODO remove this
     }
 
@@ -194,8 +193,7 @@ public class PaintScreen extends JPanel
 
         Doc doc = DocHolder.getDoc();
         CreasePattern creasePattern = doc.getCreasePattern();
-        if (PaintScreenSettingDB.getInstance().isGridVisible()) {
-
+        if (PaintContext.getInstance().dispGrid) {
             drawGridLine(g2d);
         }
 

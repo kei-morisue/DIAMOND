@@ -18,7 +18,6 @@ import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
 import diamond.resource.string.StringID;
 import diamond.view.MainFrame;
-import diamond.viewsetting.paint.PaintScreenSettingDB;
 
 /**
  * @author long_
@@ -43,9 +42,9 @@ public class New extends JMenuItem implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        PaintScreenSettingDB screenSetting = PaintScreenSettingDB.getInstance();
-        screenSetting.setGridVisible(true);
-        screenSetting.notifyObservers();
+        PaintContext context = PaintContext.getInstance();
+        context.dispGrid = true;
+        context.notifyObservers();
 
         DocHolder.setDoc(new Doc(Config.DEFAULT_PAPER_SIZE));
         MainFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());

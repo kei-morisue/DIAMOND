@@ -15,7 +15,6 @@ import java.awt.geom.Point2D;
 import diamond.mouse.MouseUtility;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
-import diamond.viewsetting.paint.PaintScreenSettingDB;
 
 /**
  * @author long_
@@ -23,9 +22,10 @@ import diamond.viewsetting.paint.PaintScreenSettingDB;
  */
 public class PaintScreenMouseAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
+    private ScreenAxisTransform screenAxisTransform;
+
     private Point2D.Double currentMousePointLogic = new Point2D.Double();
     private Point2D preMousePoint;
-    private ScreenAxisTransform screenAxisTransform;
 
     public PaintScreenMouseAction(ScreenAxisTransform screenScaling) {
         this.screenAxisTransform = screenScaling;
@@ -44,10 +44,7 @@ public class PaintScreenMouseAction
                 screenAxisTransform.getTransform(),
                 e.getPoint());
         PaintContext.getInstance().setLogicalMousePoint(currentMousePointLogic);
-
-        PaintContext.getInstance().scale = screenAxisTransform.getScale();//TODO necessary?
-        PaintContext.getInstance().dispGrid = PaintScreenSettingDB.getInstance()//TODO necessary?
-                .isGridVisible();
+        PaintContext.getInstance().scale = screenAxisTransform.getScale();
 
         if (PaintConfig.mouseAction == null) {
             return;
