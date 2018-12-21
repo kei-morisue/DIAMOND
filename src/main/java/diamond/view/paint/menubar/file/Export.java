@@ -28,13 +28,13 @@ import diamond.resource.string.StringID;
  */
 public class Export implements ActionListener {
 
-    private static JMenuItem menuItemExportCP = new JMenuItem(
+    private JMenuItem menuItemExportCP = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_CP_ID));
-    private static JMenuItem menuItemExportDXF = new JMenuItem(
+    private JMenuItem menuItemExportDXF = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_DXF_ID));
-    private static JMenuItem menuItemExportOBJ = new JMenuItem(
+    private JMenuItem menuItemExportOBJ = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_OBJ_ID));
-    private static JMenuItem menuItemExportSVG = new JMenuItem(
+    private JMenuItem menuItemExportSVG = new JMenuItem(
             ResourceHolder.getLabelString(StringID.Main.EXPORT_SVG_ID));
 
     public Export(JMenu menu) {

@@ -29,7 +29,7 @@ import diamond.doc.Doc;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.value.OriLine;
 
-public class LoaderCP implements Loader{
+public class LoaderCP implements Loader {
 
     public ArrayList<OriLine> lines = new ArrayList<>();
 
@@ -51,27 +51,24 @@ public class LoaderCP implements Loader{
             st.whitespaceChars('\n', '\n');
             st.whitespaceChars('\r', '\r');
 
-            int token;
-
             OriLine line;
-            while ((token = st.nextToken()) != StreamTokenizer.TT_EOF) {
+            while (st.nextToken() != StreamTokenizer.TT_EOF) {
                 line = new OriLine();
                 lines.add(line);
 
                 line.typeVal = Integer.parseInt(st.sval);// == 1 ? OriLine.TYPE_RIDGE : OriLine.TYPE_VALLEY;
                 System.out.println("line type " + line.typeVal);
 
-                token = st.nextToken();
+                st.nextToken();
                 line.p0.x = Double.parseDouble(st.sval);
 
-                token = st.nextToken();
+                st.nextToken();
                 line.p0.y = Double.parseDouble(st.sval);
 
-
-                token = st.nextToken();
+                st.nextToken();
                 line.p1.x = Double.parseDouble(st.sval);
 
-                token = st.nextToken();
+                st.nextToken();
                 line.p1.y = Double.parseDouble(st.sval);
 
             }
@@ -96,7 +93,8 @@ public class LoaderCP implements Loader{
 
         // size normalization
         double size = 400;
-        Vector2d center = new Vector2d((minV.x + maxV.x) / 2.0, (minV.y + maxV.y) / 2.0);
+        Vector2d center = new Vector2d((minV.x + maxV.x) / 2.0,
+                (minV.y + maxV.y) / 2.0);
         double bboxSize = Math.max(maxV.x - minV.x, maxV.y - minV.y);
         for (OriLine line : lines) {
             line.p0.x = (line.p0.x - center.x) / bboxSize * size;

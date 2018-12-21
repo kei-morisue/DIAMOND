@@ -27,47 +27,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
-import javax.vecmath.Vector2d;
 
-import diamond.Config;
-import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.EditMode;
-import diamond.paint.core.LineSetting;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
-import diamond.paint.util.ElementSelector;
-import diamond.value.OriLine;
-import diamond.view.paint.screen.PaintScreenMouseAction;
+import diamond.view.paint.screen.Graphics2DDrawer;
 import diamond.view.paint.screen.ScreenAxisTransform;
+import diamond.view.paint.screen.ScreenMouseAction;
 import diamond.viewsetting.ViewScreenUpdater;
 import diamond.viewsetting.paint.ScreenUpdater;
 
 public class PaintScreen extends JPanel
         implements ActionListener, ComponentListener, Observer {
-
-    private Graphics2D bufferg;
     private Image bufferImage;
 
-    private ArrayList<Vector2d> crossPoints = new ArrayList<>();
-    private static final int initialSize = (int) (Config.DEFAULT_PAPER_SIZE
-            * 1.1);
-
     private ScreenAxisTransform screenAxsisTransform = new ScreenAxisTransform(
-            initialSize, initialSize);
+            getWidth(), getHeight());
 
     public PaintScreen() {
-        PaintScreenMouseAction mouseAction = new PaintScreenMouseAction(
+        ScreenMouseAction mouseAction = new ScreenMouseAction(
                 screenAxsisTransform);
         addMouseListener(mouseAction);
         addMouseMotionListener(mouseAction);
@@ -78,62 +62,41 @@ public class PaintScreen extends JPanel
         PaintContext.setPainterScreen(this);//TODO remove this
     }
 
-    private void drawCandidatePosition(Graphics g) {
-        Vector2d candidate = PaintContext.getInstance().pickCandidateV;
-        if (candidate != null) {
-            g.setColor(Color.BLACK);
-            g.drawString("(" + candidate.x +
-                    "," + candidate.y + ")", 0, 10);
+    @Override
+    public void paintComponent(Graphics g) {
+        Graphics2D g2d = initializeBufferG2D();
+        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
+        Graphics2DDrawer.drawLines(g2d, creasePattern);
+        if (PaintConfig.getMouseAction().getEditMode() == EditMode.VERTEX
+                || PaintConfig.dispVertex) {
+            Graphics2DDrawer.drawVertexRectangles(g2d,
+                    DocHolder.getDoc().getCreasePattern());
+        }
+        if (PaintContext.getInstance().dispGrid) {
+            Graphics2DDrawer.drawGridLine(g2d,
+                    DocHolder.getDoc().getPaperSize(), PaintConfig.gridDivNum);
         }
 
+        if (PaintConfig.bDispCrossLine) {
+            Graphics2DDrawer.drawCrossLines(g2d,
+                    DocHolder.getDoc().getCrossLines());
+        }
+        if (PaintConfig.mouseAction != null) {
+            PaintConfig.mouseAction.onDraw(g2d, PaintContext.getInstance());
+            Graphics2DDrawer.showXnY(g2d,
+                    PaintContext.getInstance().pickCandidateV);
+        }
+        g.drawImage(bufferImage, 0, 0, this);
     }
 
-    private void drawGridLine(Graphics2D g2d) {
-        g2d.setColor(Color.LIGHT_GRAY);
-        g2d.setStroke(LineSetting.STROKE_GRID);
-
-        double paperSize = DocHolder.getDoc().getPaperSize();
-
-        int lineNum = PaintConfig.gridDivNum;
-        double step = paperSize / lineNum;
-
-        for (int i = 1; i < lineNum; i++) {
-            g2d.draw(new Line2D.Double(
-                    step * i - paperSize / 2.0, -paperSize / 2.0,
-                    step * i - paperSize / 2.0, paperSize / 2.0));
-
-            g2d.draw(new Line2D.Double(
-                    -paperSize / 2.0, step * i - paperSize / 2.0,
-                    paperSize / 2.0, step * i - paperSize / 2.0));
-        }
-    }
-
-    private void drawLines(Graphics2D g2d, Collection<OriLine> lines) {
-
-        ElementSelector selector = new ElementSelector();
-        for (OriLine line : lines) {
-            if (line.typeVal == OriLine.TYPE_NONE
-                    && !PaintConfig.dispAuxLines) {
-                continue;
-            }
-
-            if ((line.typeVal == OriLine.TYPE_RIDGE
-                    || line.typeVal == OriLine.TYPE_VALLEY)
-                    && !PaintConfig.dispMVLines) {
-                continue;
-            }
-
-            g2d.setColor(selector.selectColorByLineType(line.typeVal));
-            g2d.setStroke(selector.selectStroke(line.typeVal));
-
-            if (PaintConfig.mouseAction != null) {
-                if (PaintContext.getInstance().getLines()
-                        .contains(line) == false) {
-                    g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
-                            line.p1.y));
-                }
-            }
-        }
+    private Graphics2D initializeBufferG2D() {
+        bufferImage = createImage(getWidth(), getHeight());
+        Graphics2D bufferg = (Graphics2D) bufferImage.getGraphics();
+        bufferg.setTransform(new AffineTransform());
+        bufferg.setColor(Color.WHITE);
+        bufferg.fillRect(0, 0, getWidth(), getHeight());
+        bufferg.setTransform(screenAxsisTransform.getTransform());
+        return bufferg;
     }
 
     @Override
@@ -154,9 +117,6 @@ public class PaintScreen extends JPanel
             return;
         }
         screenAxsisTransform.Resize(getWidth(), getHeight());
-
-        bufferImage = createImage(getWidth(), getHeight());
-        bufferg = (Graphics2D) bufferImage.getGraphics();
         repaint();
     }
 
@@ -165,88 +125,7 @@ public class PaintScreen extends JPanel
     }
 
     public Image getCreasePatternImage() {
-
         return bufferImage;
-    }
-
-    // Scaling relative to the center of the screen
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        if (bufferImage == null) {
-            bufferImage = createImage(getWidth(), getHeight());
-            bufferg = (Graphics2D) bufferImage.getGraphics();
-        } //TODO Why here?
-
-        // initialize the AffineTransform of bufferg
-        bufferg.setTransform(new AffineTransform());
-
-        // Clears the image buffer
-        bufferg.setColor(Color.WHITE);
-        bufferg.fillRect(0, 0, getWidth(), getHeight());
-
-        // set the AffineTransform of buffer
-        bufferg.setTransform(screenAxsisTransform.getTransform());
-
-        Graphics2D g2d = bufferg;
-
-        Doc doc = DocHolder.getDoc();
-        CreasePattern creasePattern = doc.getCreasePattern();
-        if (PaintContext.getInstance().dispGrid) {
-            drawGridLine(g2d);
-        }
-
-        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2d.setStroke(LineSetting.STROKE_VALLEY);
-        g2d.setColor(Color.black);
-
-        drawLines(g2d, creasePattern);
-
-        // Drawing of the vertices
-        if (PaintConfig.getMouseAction().getEditMode() == EditMode.VERTEX
-                || PaintConfig.dispVertex) {
-            drawVertexRectangles(g2d);
-        }
-
-        {
-            double scale = screenAxsisTransform.getScale();
-            for (Vector2d v : crossPoints) {
-                g2d.setColor(Color.RED);
-                g2d.fill(
-                        new Rectangle2D.Double(v.x - 5.0 / scale,
-                                v.y - 5.0 / scale,
-                                10.0 / scale, 10.0 / scale));
-            }
-        }
-
-        if (PaintConfig.bDispCrossLine) {
-            List<OriLine> crossLines = doc.getCrossLines();
-            if (!crossLines.isEmpty()) {
-                g2d.setStroke(LineSetting.STROKE_TMP_OUTLINE);
-                g2d.setColor(Color.MAGENTA);
-
-                for (OriLine line : crossLines) {
-                    Vector2d v0 = line.p0;
-                    Vector2d v1 = line.p1;
-
-                    g2d.draw(new Line2D.Double(v0.x, v0.y, v1.x, v1.y));
-
-                }
-            }
-        }
-
-        if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onDraw(g2d, PaintContext.getInstance());
-
-            g.drawImage(bufferImage, 0, 0, this);
-
-            drawCandidatePosition(g);
-        } else {
-            g.drawImage(bufferImage, 0, 0, this);
-
-        }
     }
 
     @Override
@@ -258,40 +137,7 @@ public class PaintScreen extends JPanel
                     repaint();
                 }
             }
-
         }
-
-    }
-
-    private void drawVertexRectangles(Graphics2D g2d) {
-        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
-
-        g2d.setColor(Color.BLACK);
-        final double vertexDrawSize = 2.0;
-        for (OriLine line : creasePattern) {
-            if (!PaintConfig.dispAuxLines
-                    && line.typeVal == OriLine.TYPE_NONE) {
-                continue;
-            }
-            if (!PaintConfig.dispMVLines && (line.typeVal == OriLine.TYPE_RIDGE
-                    || line.typeVal == OriLine.TYPE_VALLEY)) {
-                continue;
-            }
-            Vector2d v0 = line.p0;
-            Vector2d v1 = line.p1;
-            {
-                double scale = screenAxsisTransform.getScale();
-                g2d.fill(new Rectangle2D.Double(v0.x - vertexDrawSize / scale,
-                        v0.y - vertexDrawSize / scale,
-                        vertexDrawSize * 2 / scale,
-                        vertexDrawSize * 2 / scale));
-                g2d.fill(new Rectangle2D.Double(v1.x - vertexDrawSize / scale,
-                        v1.y - vertexDrawSize / scale,
-                        vertexDrawSize * 2 / scale,
-                        vertexDrawSize * 2 / scale));
-            }
-        }
-
     }
 
 }

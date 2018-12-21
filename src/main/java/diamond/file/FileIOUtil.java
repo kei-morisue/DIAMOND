@@ -10,7 +10,6 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import diamond.doc.DocHolder;
-import diamond.view.MainFrame;
 import diamond.view.paint.menubar.MenuFile;
 
 /**
@@ -26,7 +25,7 @@ public class FileIOUtil {
         FileChooserFactory chooserFactory = new FileChooserFactory();
         FileChooser chooser = chooserFactory.createChooser(homePath, filters);
 
-        String path = chooser.saveFile(MainFrame.getInstance());
+        String path = chooser.saveFile(null);
         if (path != null) {
 
         } else {

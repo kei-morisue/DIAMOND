@@ -56,7 +56,7 @@ public class RepeatCopyDialog extends JDialog {
     private JTextField jTextFieldX = null;
     private JTextField jTextFieldY = null;
     private boolean m_bFillSheet;
-    private double m_interX, m_interY;
+    private double m_interX;
     private int m_row, m_col;
 
     /**
@@ -120,12 +120,6 @@ public class RepeatCopyDialog extends JDialog {
                         m_interX = Double.valueOf(jTextFieldIntX.getText());
                     } catch (Exception ex) {
                         m_interX = 0;
-                    }
-
-                    try {
-                        m_interY = Double.valueOf(jTextFieldIntY.getText());
-                    } catch (Exception ey) {
-                        m_interY = 0;
                     }
 
                     m_bFillSheet = jCheckBoxFill.isSelected();

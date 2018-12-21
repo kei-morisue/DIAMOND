@@ -43,7 +43,7 @@ public class PaintContext extends Observable {
 
     public Vector2d pickCandidateV = new Vector2d();
 
-    public double scale;
+    public double scale = 1.0;
 
     private PaintContext() {
     }
@@ -157,11 +157,6 @@ public class PaintContext extends Observable {
     public boolean removeLine(OriLine line) {
 
         return pickedLines.remove(line);
-    }
-
-    public void set(double scale, boolean dispGrid) {
-        this.scale = scale;
-        this.dispGrid = dispGrid;
     }
 
     public void setLogicalMousePoint(Point2D.Double logicalPoint) {

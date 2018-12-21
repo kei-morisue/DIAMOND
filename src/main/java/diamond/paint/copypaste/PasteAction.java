@@ -19,162 +19,143 @@ import diamond.value.OriLine;
 
 public class PasteAction extends GraphicMouseAction {
 
+    private OriginHolder originHolder = OriginHolder.getInstance();
 
-	private OriginHolder originHolder = OriginHolder.getInstance();
+    double diffX, diffY;
 
-	private FilledOriLineArrayList shiftedLines = new FilledOriLineArrayList(0);
+    Line2D.Double g2dLine = new Line2D.Double();
 
+    public PasteAction() {
+        setEditMode(EditMode.INPUT);
+        setNeedSelect(true);
 
-	double diffX, diffY;
+        setActionState(new PastingOnVertex());
 
+    }
 
-	Line2D.Double g2dLine = new Line2D.Double();
+    /**
+     * Clear context and mark lines as unselected.
+     */
+    @Override
+    public void destroy(PaintContext context) {
+        context.clear(true);
+        context.finishPasting();
+    }
 
+    @Override
+    public void onDrag(PaintContext context, AffineTransform affine,
+            boolean differentAction) {
 
+    }
 
-	public PasteAction(){
-		setEditMode(EditMode.INPUT);
-		setNeedSelect(true);
+    @Override
+    public void onDraw(Graphics2D g2d, PaintContext context) {
 
-		setActionState(new PastingOnVertex());
+        super.onDraw(g2d, context);
 
-	}
+        drawPickCandidateVertex(g2d, context);
 
+        Vector2d origin = originHolder.getOrigin(context);
 
-	/**
-	 * Clear context and mark lines as unselected.
-	 */
-	@Override
-	public void destroy(PaintContext context) {
-		context.clear(true);
-		context.finishPasting();
-	}
+        if (origin == null) {
+            return;
+        }
 
+        double ox = origin.x;
+        double oy = origin.y;
 
-	@Override
-	public void onDrag(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
+        g2d.setColor(Color.GREEN);
+        drawVertex(g2d, context, ox, oy);
 
-	}
+        if (context.pickCandidateV != null) {
+            diffX = context.pickCandidateV.x - ox;
+            diffY = context.pickCandidateV.y - oy;
+        } else {
+            diffX = context.getLogicalMousePoint().x - ox;
+            diffY = context.getLogicalMousePoint().y - oy;
+        }
+        g2d.setColor(Color.MAGENTA);
 
+        //		GeometricOperation.shiftLines(context.getLines(), shiftedLines,
+        //				current.x - ox, current.y -oy);
+        //
+        //		for(OriLine line : shiftedLines){
+        //			this.drawLine(g2d, line);
+        //		}
 
-	@Override
-	public void onDraw(Graphics2D g2d, PaintContext context) {
+        // a little faster
+        for (OriLine l : context.getLines()) {
 
-		super.onDraw(g2d, context);
+            g2dLine.x1 = l.p0.x + diffX;
+            g2dLine.y1 = l.p0.y + diffY;
 
-		drawPickCandidateVertex(g2d, context);
+            g2dLine.x2 = l.p1.x + diffX;
+            g2dLine.y2 = l.p1.y + diffY;
 
-		Vector2d origin = originHolder.getOrigin(context);
+            g2d.draw(g2dLine);
+        }
 
-		if(origin == null){
-			return;
-		}
+    }
 
+    @Override
+    public Vector2d onMove(PaintContext context, AffineTransform affine,
+            boolean differentAction) {
 
-		double ox = origin.x;
-		double oy = origin.y;
+        // vertex-only super's action
+        setCandidateVertexOnMove(context, differentAction);
+        Vector2d closeVertex = context.pickCandidateV;
 
-		g2d.setColor(Color.GREEN);
-		drawVertex(g2d, context, ox, oy);
+        Vector2d closeVertexOfLines = GeometricOperation
+                .pickVertexFromPickedLines(context);
 
-		if(context.pickCandidateV != null){
-			diffX = context.pickCandidateV.x - ox;
-			diffY = context.pickCandidateV.y - oy;
-		}
-		else {
-			diffX = context.getLogicalMousePoint().x - ox;
-			diffY = context.getLogicalMousePoint().y -oy;
-		}
-		g2d.setColor(Color.MAGENTA);
+        if (closeVertex == null) {
+            closeVertex = closeVertexOfLines;
+        }
 
-		//		GeometricOperation.shiftLines(context.getLines(), shiftedLines,
-		//				current.x - ox, current.y -oy);
-		//		
-		//		for(OriLine line : shiftedLines){
-		//			this.drawLine(g2d, line);
-		//		}
+        Point2D.Double current = context.getLogicalMousePoint();
+        if (closeVertex != null && closeVertexOfLines != null) {
+            // get the nearest to current
+            closeVertex = NearestVertexFinder.findNearestOf(
+                    current, closeVertex, closeVertexOfLines);
 
-		// a little faster
-		for(OriLine l : context.getLines()){
+        }
 
-			g2dLine.x1 = l.p0.x + diffX;
-			g2dLine.y1 = l.p0.y + diffY;
+        context.pickCandidateV = closeVertex;
 
-			g2dLine.x2 = l.p1.x + diffX;
-			g2dLine.y2 = l.p1.y + diffY;
+        //		if (context.getLineCount() > 0) {
+        //			if(closeVertex == null) {
+        //				closeVertex = new Vector2d(current.x, current.y);
+        //			}
+        //
+        //		}
+        return closeVertex;
+    }
 
-			g2d.draw(g2dLine);
-		}
+    @Override
+    public void onPress(PaintContext context, AffineTransform affine,
+            boolean differentAction) {
+    }
 
-	}
+    @Override
+    public void onRelease(PaintContext context, AffineTransform affine,
+            boolean differentAction) {
 
+    }
 
+    @Override
+    public void recover(PaintContext context) {
+        context.clear(false);
 
-	@Override
-	public Vector2d onMove(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-
-		// vertex-only super's action
-		setCandidateVertexOnMove(context, differentAction);
-		Vector2d closeVertex = context.pickCandidateV;
-
-
-		Vector2d closeVertexOfLines = 
-				GeometricOperation.pickVertexFromPickedLines(context);
-
-		if(closeVertex == null){
-			closeVertex = closeVertexOfLines;
-		}
-
-
-		Point2D.Double current = context.getLogicalMousePoint();
-		if(closeVertex != null && closeVertexOfLines != null){
-			// get the nearest to current
-			closeVertex = NearestVertexFinder.findNearestOf(
-					current, closeVertex, closeVertexOfLines);
-
-		}
-
-		context.pickCandidateV = closeVertex;
-
-//		if (context.getLineCount() > 0) {
-//			if(closeVertex == null) {
-//				closeVertex = new Vector2d(current.x, current.y);
-//			}
-//
-//		}		
-		return closeVertex;
-	}
-	@Override
-	public void onPress(PaintContext context, AffineTransform affine,
-			boolean differentAction) {
-	}
-	@Override
-	public void onRelease(PaintContext context, AffineTransform affine, boolean differentAction) {
-
-
-	}
-
-	@Override
-	public void recover(PaintContext context) {
-		context.clear(false);
-
-
-		context.startPasting();
+        context.startPasting();
 
         CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
 
-		for(OriLine line : creasePattern){
-			if(line.selected){
-				context.pushLine(line);
-			}
-		}
+        for (OriLine line : creasePattern) {
+            if (line.selected) {
+                context.pushLine(line);
+            }
+        }
 
-		shiftedLines = new FilledOriLineArrayList(context.getLines());
-
-	}
-
-
+    }
 
 }

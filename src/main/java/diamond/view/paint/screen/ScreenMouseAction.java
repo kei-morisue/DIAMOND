@@ -20,22 +20,44 @@ import diamond.paint.core.PaintContext;
  * @author long_
  *
  */
-public class PaintScreenMouseAction
+public class ScreenMouseAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
     private ScreenAxisTransform screenAxisTransform;
 
     private Point2D.Double currentMousePointLogic = new Point2D.Double();
     private Point2D preMousePoint;
 
-    public PaintScreenMouseAction(ScreenAxisTransform screenScaling) {
+    public ScreenMouseAction(ScreenAxisTransform screenScaling) {
         this.screenAxisTransform = screenScaling;
+    }
+
+    private void zoomAction(MouseWheelEvent e) {
+        double scale_ = Math.pow(1.5, -e.getWheelRotation());
+        screenAxisTransform.zoom(scale_);
+        PaintContext.getInstance().scale = screenAxisTransform.getScale();
+        e.getComponent().repaint();
+    }
+
+    private void translateAction(MouseEvent e) {
+        double scale = screenAxisTransform.getScale();
+        double x = (e.getX() - preMousePoint.getX()) / scale;
+        double y = (e.getY() - preMousePoint.getY()) / scale;
+        screenAxisTransform.translate(x, y);
+        preMousePoint = e.getPoint();
+        e.getComponent().repaint();
+    }
+
+    private void rotateAction(MouseEvent e) {
+        double moved = e.getX() - preMousePoint.getX();
+        screenAxisTransform
+                .rotate(Math.PI / 8 * ((moved) % 8));
+        preMousePoint = e.getPoint();
+        e.getComponent().repaint();
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        double scale_ = Math.pow(1.5, -e.getWheelRotation());
-        screenAxisTransform.zoom(scale_);
-        e.getComponent().repaint();
+        zoomAction(e);
     }
 
     @Override
@@ -44,12 +66,9 @@ public class PaintScreenMouseAction
                 screenAxisTransform.getTransform(),
                 e.getPoint());
         PaintContext.getInstance().setLogicalMousePoint(currentMousePointLogic);
-        PaintContext.getInstance().scale = screenAxisTransform.getScale();
-
         if (PaintConfig.mouseAction == null) {
             return;
         }
-
         PaintConfig.mouseAction.onMove(PaintContext.getInstance(),
                 screenAxisTransform.getTransform(),
                 MouseUtility.isControlKeyPressed(e));
@@ -61,27 +80,21 @@ public class PaintScreenMouseAction
         if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0 &&
                 (e.getModifiersEx()
                         & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK) {
-            double moved = e.getX() - preMousePoint.getX();
-            screenAxisTransform
-                    .rotate(Math.PI / 8 * ((moved) % 8));
-            preMousePoint = e.getPoint();
-            e.getComponent().repaint();
-        } else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-            double scale = screenAxisTransform.getScale();
-            double x = (e.getX() - preMousePoint.getX()) / scale;
-            double y = (e.getY() - preMousePoint.getY()) / scale;
-            screenAxisTransform.translate(x, y);
-            preMousePoint = e.getPoint();
-            e.getComponent().repaint();
-        } else {
-            PaintContext.getInstance().setLogicalMousePoint(MouseUtility
-                    .getLogicalPoint(screenAxisTransform.getTransform(),
-                            e.getPoint()));
-            PaintConfig.getMouseAction().onDrag(PaintContext.getInstance(),
-                    screenAxisTransform.getTransform(),
-                    MouseUtility.isControlKeyPressed(e));
-            e.getComponent().repaint();
+            rotateAction(e);
+            return;
         }
+        if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+            translateAction(e);
+            return;
+        }
+        PaintContext.getInstance().setLogicalMousePoint(MouseUtility
+                .getLogicalPoint(screenAxisTransform.getTransform(),
+                        e.getPoint()));
+        PaintConfig.getMouseAction().onDrag(PaintContext.getInstance(),
+                screenAxisTransform.getTransform(),
+                MouseUtility.isControlKeyPressed(e));
+        e.getComponent().repaint();
+        return;
     }
 
     @Override
@@ -95,24 +108,23 @@ public class PaintScreenMouseAction
             PaintConfig.mouseAction.onRightClick(
                     paintContext, screenAxisTransform.getTransform(),
                     MouseUtility.isControlKeyPressed(e));
-        } else {
-            PaintConfig.mouseAction = PaintConfig.mouseAction.onLeftClick(
-                    paintContext, screenAxisTransform.getTransform(),
-                    MouseUtility.isControlKeyPressed(e));
+            return;
         }
+
+        PaintConfig.mouseAction = PaintConfig.mouseAction.onLeftClick(
+                paintContext, screenAxisTransform.getTransform(),
+                MouseUtility.isControlKeyPressed(e));
+        return;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
         if (PaintConfig.mouseAction == null) {
             return;
         }
-
         PaintConfig.mouseAction.onPress(PaintContext.getInstance(),
                 screenAxisTransform.getTransform(),
                 MouseUtility.isControlKeyPressed(e));
-
         preMousePoint = e.getPoint();
     }
 

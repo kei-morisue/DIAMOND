@@ -9,217 +9,213 @@ import diamond.value.OriLine;
 
 /**
  * Crease pattern
- * 
+ *
  * Implementation of line-and-vertices structure.
  * Original ORIPA uses line-only struture, which
  * may cause a slow vertex search if the CP is massive.
- * 
+ *
  * @author Koji
  *
  */
 public class CreasePattern implements Collection<OriLine> {
 
-	/**
-	 * Wrapper to treat vertices and line at the same time
-	 * 
-	 * basically default iterator is enough but it cannot
-	 * remove corresponding vertices.
-	 *
-	 * @author Koji
-	 *
-	 */
-	private class CreasePatternIterator implements Iterator<OriLine> {
+    /**
+     * Wrapper to treat vertices and line at the same time
+     *
+     * basically default iterator is enough but it cannot
+     * remove corresponding vertices.
+     *
+     * @author Koji
+     *
+     */
+    private class CreasePatternIterator implements Iterator<OriLine> {
 
-		private OriLine current;
-		private Iterator<OriLine> lineIter;
+        private OriLine current;
+        private Iterator<OriLine> lineIter;
 
-		public CreasePatternIterator(Iterator<OriLine> iter) {
-			lineIter = iter;
-		}
-		
-		@Override
-		public boolean hasNext() {
-			return lineIter.hasNext();
-		}
+        public CreasePatternIterator(Iterator<OriLine> iter) {
+            lineIter = iter;
+        }
 
-		@Override
-		public OriLine next() {
-			current = lineIter.next();
-			return current;
-		}
+        @Override
+        public boolean hasNext() {
+            return lineIter.hasNext();
+        }
 
-		@Override
-		public void remove() {
-			lineIter.remove();
-			vertices.remove(current.p0);
-			vertices.remove(current.p1);
-		}
-		
-	}
+        @Override
+        public OriLine next() {
+            current = lineIter.next();
+            return current;
+        }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6919017534440930379L;
+        @Override
+        public void remove() {
+            lineIter.remove();
+            vertices.remove(current.p0);
+            vertices.remove(current.p1);
+        }
 
-	private LineManager     lines;
-	private double paperSize = 400;
-	private VerticesManager vertices;
-	
-	@SuppressWarnings("unused")
-	private CreasePattern(){}
-	
-	public CreasePattern(double paperSize) {
-		lines    = new LineManager();
-		vertices = new VerticesManager(paperSize);
+    }
 
-		this.paperSize = paperSize;
-	}
-	
-	@Override
-	public boolean add(OriLine e) {
-		if (lines.add(e)) {
-			vertices.add(e.p0);
-			vertices.add(e.p1);
-			return true;
-		}
-		return false;
-	}
+    /**
+     *
+     */
 
-	@Override
-	public boolean addAll(Collection<? extends OriLine> c) {
-		
-		for(OriLine line : c){
-			vertices.add(line.p0);
-			vertices.add(line.p1);
-		}
-		
-		return lines.addAll(c);
-	}
-	
-	public void changePaperSize(double paperSize) {
-		this.paperSize = paperSize;
-		vertices.changePaperSize(paperSize);
-	}
+    private LineManager lines;
+    private double paperSize = 400;
+    private VerticesManager vertices;
 
-	@Override
-	public void clear() {
-		lines.clear();
-		vertices.clear();
-	}
+    @SuppressWarnings("unused")
+    private CreasePattern() {
+    }
 
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return lines.contains(o);
-	}
+    public CreasePattern(double paperSize) {
+        lines = new LineManager();
+        vertices = new VerticesManager(paperSize);
 
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return lines.containsAll(c);
-	}
+        this.paperSize = paperSize;
+    }
 
-	public double getPaperSize() {
-		return paperSize;
-	}
+    @Override
+    public boolean add(OriLine e) {
+        if (lines.add(e)) {
+            vertices.add(e.p0);
+            vertices.add(e.p1);
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public boolean addAll(Collection<? extends OriLine> c) {
 
-	public Collection<Collection<Vector2d>> getVerticesArea(
-			double x, double y, double distance){
-		
-		return vertices.getArea(x, y, distance);
-	}
+        for (OriLine line : c) {
+            vertices.add(line.p0);
+            vertices.add(line.p1);
+        }
 
-	public Collection<Vector2d> getVerticesAround(Vector2d v){
-		return vertices.getAround(v);
-	}
+        return lines.addAll(c);
+    }
 
-	/**
-	 * DO NOT USE THIS.
-	 * this is for junit.
-	 * @return
-	 */
-	@Deprecated
-	public VerticesManager getVerticesManager(){
-		return vertices;
-	}
+    public void changePaperSize(double paperSize) {
+        this.paperSize = paperSize;
+        vertices.changePaperSize(paperSize);
+    }
 
-	@Override
-	public boolean isEmpty() {
+    @Override
+    public void clear() {
+        lines.clear();
+        vertices.clear();
+    }
 
-		if (lines.isEmpty()) {
-			if (!vertices.isEmpty()) {
-				throw new IllegalStateException("no lines but some vertices exist.");
-			}
-			
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean contains(Object o) {
+        // TODO Auto-generated method stub
+        return lines.contains(o);
+    }
 
-	@Override
-	public Iterator<OriLine> iterator() {
-		return new CreasePatternIterator(lines.iterator());
-	}
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        // TODO Auto-generated method stub
+        return lines.containsAll(c);
+    }
 
-	@Override
-	public boolean remove(Object o) {
-		OriLine l = (OriLine) o;
+    public double getPaperSize() {
+        return paperSize;
+    }
 
-		if (lines.remove(o)) {
-			vertices.remove(l.p0);
-			vertices.remove(l.p1);
-			return true;
-		}
+    public Collection<Collection<Vector2d>> getVerticesArea(
+            double x, double y, double distance) {
 
-		return false;
-	}
+        return vertices.getArea(x, y, distance);
+    }
 
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		
-		boolean changed = false;
+    public Collection<Vector2d> getVerticesAround(Vector2d v) {
+        return vertices.getAround(v);
+    }
 
-		for(OriLine line : (Collection<OriLine>)c){
-			changed |= remove(line);
-		}
-		
-		return changed;
-	}
+    /**
+     * DO NOT USE THIS.
+     * this is for junit.
+     * @return
+     */
+    @Deprecated
+    public VerticesManager getVerticesManager() {
+        return vertices;
+    }
 
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		
-		for(OriLine line : lines){
-			Collection<OriLine> collection = (Collection<OriLine>)c;
-			//removes from this collection 
-			//all of its elements that are not contained in the specified collection c.
-			if(! collection.contains(line)){
-				vertices.remove(line.p0);
-				vertices.remove(line.p1);
-				
-			}
-		}
-		
-		
-		return lines.retainAll(c);
-	}
-	
-	@Override
-	public int size() {
-		return lines.size();
-	}
+    @Override
+    public boolean isEmpty() {
 
-	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return lines.toArray();
-	}
+        if (lines.isEmpty()) {
+            if (!vertices.isEmpty()) {
+                throw new IllegalStateException(
+                        "no lines but some vertices exist.");
+            }
 
-	@Override
-	public <T> T[] toArray(T[] a) {
-		return lines.toArray(a);
-	}
-	
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<OriLine> iterator() {
+        return new CreasePatternIterator(lines.iterator());
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        OriLine l = (OriLine) o;
+
+        if (lines.remove(o)) {
+            vertices.remove(l.p0);
+            vertices.remove(l.p1);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        boolean changed = false;
+        while (c.iterator().hasNext()) {
+            changed |= remove(c.iterator().next());
+        }
+        return changed;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        for (OriLine line : lines) {
+            Collection<OriLine> collection = (Collection<OriLine>) c;
+            //removes from this collection
+            //all of its elements that are not contained in the specified collection c.
+            if (!collection.contains(line)) {
+                vertices.remove(line.p0);
+                vertices.remove(line.p1);
+
+            }
+        }
+
+        return lines.retainAll(c);
+    }
+
+    @Override
+    public int size() {
+        return lines.size();
+    }
+
+    @Override
+    public Object[] toArray() {
+        // TODO Auto-generated method stub
+        return lines.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return lines.toArray(a);
+    }
+
 }

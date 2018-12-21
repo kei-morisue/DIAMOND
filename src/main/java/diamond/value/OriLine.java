@@ -74,8 +74,6 @@ public class OriLine implements Comparable<OriLine> {
 
     final public static int TYPE_VALLEY = 3;;
 
-    private Type type = Type.NONE;
-
     public OriPoint p0 = new OriPoint();
     public OriPoint p1 = new OriPoint();
     public boolean selected;
@@ -191,16 +189,6 @@ public class OriLine implements Comparable<OriLine> {
 
     public int getTypeValue() { // eventually unneeded
         return typeVal;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-        this.typeVal = type.toInt(); // eventually unneeded
-    }
-
-    public void setTypeValue(int type) { // eventually unneeded
-        this.type = Type.fromInt(type);
-        this.typeVal = type;
     }
 
     @Override

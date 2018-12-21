@@ -33,7 +33,8 @@ public class GeomUtil {
         return Math.sqrt((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1));
     }
 
-    private static Vector2d getCrossPoint(OriLine l0, OriLine l1, double epsilon) {
+    private static Vector2d getCrossPoint(OriLine l0, OriLine l1,
+            double epsilon) {
         Vector2d p0 = new Vector2d(l0.p0);
         Vector2d p1 = new Vector2d(l0.p1);
 
@@ -64,7 +65,8 @@ public class GeomUtil {
         return null;
     }
 
-    private static Vector2d getNearestPointToLine(Vector2d p, Vector2d sp, Vector2d ep) {
+    private static Vector2d getNearestPointToLine(Vector2d p, Vector2d sp,
+            Vector2d ep) {
         double x0 = sp.x;
         double y0 = sp.y;
         double x1 = ep.x;
@@ -93,8 +95,8 @@ public class GeomUtil {
         dy2 = q.y - p0.y;
 
         if (dx1 * dy2 > dy1 * dx2) {
-            return true; 
-        } 
+            return true;
+        }
         return false;
     }
 
@@ -237,7 +239,8 @@ public class GeomUtil {
 
     }
 
-    public static double DistancePointToSegment(Vector2d p, Vector2d sp, Vector2d ep) {
+    public static double DistancePointToSegment(Vector2d p, Vector2d sp,
+            Vector2d ep) {
         double x0 = sp.x;
         double y0 = sp.y;
         double x1 = ep.x;
@@ -263,7 +266,8 @@ public class GeomUtil {
 
     }
 
-    public static double DistancePointToSegment(Vector2d p, Vector2d sp, Vector2d ep, Vector2d nearestPoint) {
+    public static double DistancePointToSegment(Vector2d p, Vector2d sp,
+            Vector2d ep, Vector2d nearestPoint) {
         double x0 = sp.x;
         double y0 = sp.y;
         double x1 = ep.x;
@@ -292,7 +296,8 @@ public class GeomUtil {
 
     }
 
-    public static double DistanceSquared(double x0, double y0, double x1, double y1) {
+    public static double DistanceSquared(double x0, double y0, double x1,
+            double y1) {
         return (x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1);
     }
 
@@ -300,7 +305,8 @@ public class GeomUtil {
         return DistanceSquared(p0.x, p0.y, p1.x, p1.y);
     }
 
-    public static Vector2d getBisectorVec(Vector2d v0, Vector2d v1, Vector2d v2) {
+    public static Vector2d getBisectorVec(Vector2d v0, Vector2d v1,
+            Vector2d v2) {
         Vector2d v0_v1 = new Vector2d();
         v0_v1.sub(v0, v1);
         v0_v1.normalize();
@@ -327,7 +333,6 @@ public class GeomUtil {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
             double invDet = 1.0 / det;
-            double s = (d1.x * diff.y - d1.y * diff.x) * invDet;
             double t = (d0.x * diff.y - d0.y * diff.x) * invDet;
 
             Vector2d cp = new Vector2d();
@@ -342,7 +347,7 @@ public class GeomUtil {
         return getCrossPoint(l0, l1, 1.0e-6);
     }
 
-    // Returns the intersection of the semi straight line and the line segment. 
+    // Returns the intersection of the semi straight line and the line segment.
     // Null if not intersect
     public static Vector2d getCrossPoint(Ray ray, Segment seg) {
         Vector2d p0 = new Vector2d(ray.p);
@@ -375,7 +380,8 @@ public class GeomUtil {
     }
 
     // (Including endpoints) intersection between two line segments
-    public static Vector2d getCrossPoint(Vector2d p0, Vector2d p1, Vector2d q0, Vector2d q1) {
+    public static Vector2d getCrossPoint(Vector2d p0, Vector2d p1, Vector2d q0,
+            Vector2d q1) {
         Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
         Vector2d d1 = new Vector2d(q1.x - q0.x, q1.y - q0.y);
         Vector2d diff = new Vector2d(q0.x - p0.x, q0.y - p0.y);
@@ -404,10 +410,9 @@ public class GeomUtil {
         return null;
     }
 
-
     //Calculate the intersection of p1-p2 and p3-p4.
-    //The return value is:  0 when there is no intersection, 
-    //                      1 when intersect (ap1 is the intersection), 
+    //The return value is:  0 when there is no intersection,
+    //                      1 when intersect (ap1 is the intersection),
     //                      2 when they are parallel and ap1-ap2 is the intersection
     public static int getCrossPoint(Vector2d ap1, Vector2d ap2,
             Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4) {
@@ -477,9 +482,10 @@ public class GeomUtil {
     }
 
     //    Obtain the parameters for the intersection of the segments p0-p1 and q0-q1
-//    The param stores the position of the intersection
-//    Returns false if parallel
-    public static boolean getCrossPointParam(Vector2d p0, Vector2d p1, Vector2d q0, Vector2d q1, double[] param) {
+    //    The param stores the position of the intersection
+    //    Returns false if parallel
+    public static boolean getCrossPointParam(Vector2d p0, Vector2d p1,
+            Vector2d q0, Vector2d q1, double[] param) {
 
         Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
         Vector2d d1 = new Vector2d(q1.x - q0.x, q1.y - q0.y);
@@ -491,7 +497,7 @@ public class GeomUtil {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
             double invDet = 1.0 / det;
-            
+
             param[0] = (d1.x * diff.y - d1.y * diff.x) * invDet;
             param[1] = (d0.x * diff.y - d0.y * diff.x) * invDet;
             return true;
@@ -512,15 +518,18 @@ public class GeomUtil {
         return vc;
     }
 
-    public static OriLine getLineByValue(Vector2d sv, double length, double deg_angle, int type) {
+    public static OriLine getLineByValue(Vector2d sv, double length,
+            double deg_angle, int type) {
         Vector2d ev = new Vector2d(sv);
         double rad_angle = Math.toRadians(deg_angle);
-        Vector2d dir = new Vector2d(length * Math.cos(rad_angle), length * Math.sin(rad_angle));
+        Vector2d dir = new Vector2d(length * Math.cos(rad_angle),
+                length * Math.sin(rad_angle));
         ev.add(dir);
         return new OriLine(sv, ev, type);
     }
 
-    public static Vector2d getSymmetricPoint(Vector2d p, Vector2d sp, Vector2d ep) {
+    public static Vector2d getSymmetricPoint(Vector2d p, Vector2d sp,
+            Vector2d ep) {
         Vector2d cp = getNearestPointToLine(p, sp, ep);
         return new Vector2d(2 * cp.x - p.x, 2 * cp.y - p.y);
     }
@@ -532,38 +541,40 @@ public class GeomUtil {
         double y1 = line.p1.y;
         double px = v.x;
         double py = v.y;
-        Vector2d sub0, sub1, sub, sub0b;
+        Vector2d sub0, sub, sub0b;
 
         sub0 = new Vector2d(x0 - px, y0 - py);
-        sub1 = new Vector2d(x1 - px, y1 - py);
         sub0b = new Vector2d(-sub0.x, -sub0.y);
         sub = new Vector2d(x1 - x0, y1 - y0);
 
         double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
                 / ((sub.x * sub.x) + (sub.y * sub.y));
 
-
         return new OriLine(x0 + t * sub.x, y0 + t * sub.y, px, py, type);
     }
 
-    public static boolean isContainsPointFoldedFace(OriFace face, Vector2d v, double eps) {
+    public static boolean isContainsPointFoldedFace(OriFace face, Vector2d v,
+            double eps) {
 
         int heNum = face.halfedges.size();
 
         // If its on the faces edge, return false
         for (int i = 0; i < heNum; i++) {
             OriHalfedge he = face.halfedges.get(i);
-            if (GeomUtil.DistancePointToSegment(v, he.positionAfterFolded, he.next.positionAfterFolded) < eps) {
+            if (GeomUtil.DistancePointToSegment(v, he.positionAfterFolded,
+                    he.next.positionAfterFolded) < eps) {
                 return false;
             }
         }
 
         OriHalfedge baseHe = face.halfedges.get(0);
-        boolean baseFlg = GeomUtil.CCWcheck(baseHe.positionAfterFolded, baseHe.next.positionAfterFolded, v);
+        boolean baseFlg = GeomUtil.CCWcheck(baseHe.positionAfterFolded,
+                baseHe.next.positionAfterFolded, v);
 
         for (int i = 1; i < heNum; i++) {
             OriHalfedge he = face.halfedges.get(i);
-            if (GeomUtil.CCWcheck(he.positionAfterFolded, he.next.positionAfterFolded, v) != baseFlg) {
+            if (GeomUtil.CCWcheck(he.positionAfterFolded,
+                    he.next.positionAfterFolded, v) != baseFlg) {
                 return false;
             }
         }
@@ -571,7 +582,8 @@ public class GeomUtil {
         return true;
     }
 
-public static boolean isFaceOverlap(OriFace face0, OriFace face1, double eps) {
+    public static boolean isFaceOverlap(OriFace face0, OriFace face1,
+            double eps) {
         Vector2d center0 = new Vector2d();
         Vector2d center1 = new Vector2d();
 
@@ -618,8 +630,8 @@ public static boolean isFaceOverlap(OriFace face0, OriFace face1, double eps) {
         return false;
     }
 
-
-    public static boolean isLineCrossFace(OriFace face, OriHalfedge heg, double eps) {
+    public static boolean isLineCrossFace(OriFace face, OriHalfedge heg,
+            double eps) {
         Vector2d p1 = heg.positionAfterFolded;
         Vector2d p2 = heg.next.positionAfterFolded;
         Vector2d dir = new Vector2d();
@@ -629,15 +641,17 @@ public static boolean isFaceOverlap(OriFace face0, OriFace face1, double eps) {
         for (OriHalfedge he : face.halfedges) {
             // About the relationship  of each outline`s segment
 
-            if (GeomUtil.DistancePointToLine(he.positionAfterFolded, heLine) < eps
-                    && GeomUtil.DistancePointToLine(he.next.positionAfterFolded, heLine) < eps) {
+            if (GeomUtil.DistancePointToLine(he.positionAfterFolded,
+                    heLine) < eps
+                    && GeomUtil.DistancePointToLine(he.next.positionAfterFolded,
+                            heLine) < eps) {
                 return false;
             }
         }
         Vector2d preCrossPoint = null;
         for (OriHalfedge he : face.halfedges) {
-            Vector2d cp = GeomUtil.getCrossPoint(he.positionAfterFolded, 
-                    he.next.positionAfterFolded, heg.positionAfterFolded, 
+            Vector2d cp = GeomUtil.getCrossPoint(he.positionAfterFolded,
+                    he.next.positionAfterFolded, heg.positionAfterFolded,
                     heg.next.positionAfterFolded);
             if (cp == null) {
                 continue;
@@ -653,16 +667,19 @@ public static boolean isFaceOverlap(OriFace face0, OriFace face1, double eps) {
             }
         }
         // If at least one of the endpoints is fully contained
-        if (GeomUtil.isContainsPointFoldedFace(face, heg.positionAfterFolded, eps)) {
+        if (GeomUtil.isContainsPointFoldedFace(face, heg.positionAfterFolded,
+                eps)) {
             return true;
         }
-        if (GeomUtil.isContainsPointFoldedFace(face, heg.next.positionAfterFolded, eps)) {
+        if (GeomUtil.isContainsPointFoldedFace(face,
+                heg.next.positionAfterFolded, eps)) {
             return true;
         }
         return false;
     }
 
-    public static boolean isLineSegmentsOverlap(Vector2d s0, Vector2d e0, Vector2d s1, Vector2d e1) {
+    public static boolean isLineSegmentsOverlap(Vector2d s0, Vector2d e0,
+            Vector2d s1, Vector2d e1) {
         // Whether or not is parallel
         Vector2d dir0 = new Vector2d(e0);
         dir0.sub(s0);
@@ -694,9 +711,10 @@ public static boolean isFaceOverlap(OriFace face0, OriFace face1, double eps) {
 
     }
 
-public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
+    public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
         // tolerance of 1 degree
-        return dir0.angle(dir1) < Math.PI / 180 || dir0.angle(dir1) > Math.PI * 179.0 / 180;
+        return dir0.angle(dir1) < Math.PI / 180
+                || dir0.angle(dir1) > Math.PI * 179.0 / 180;
     }
 
     //  Determine if p3 is in p1~p2 range
@@ -707,7 +725,7 @@ public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
     public static boolean isRange(Vector2d p1, Vector2d p2, Vector2d p3) {
         return isRange(p1.x, p2.x, p3.x) && isRange(p1.y, p2.y, p3.y);
     }
-    
+
     public static boolean isRightSide(Vector2d p, Line line) {
         Vector3d lineDir = new Vector3d(line.dir.x, line.dir.y, 0);
         Vector3d pointDir = new Vector3d(p.x - line.p.x, p.y - line.p.y, 0);
@@ -716,36 +734,35 @@ public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
         return crossVec.z > 0;
     }
 
-//    private static int whichSide(Triangle tri, Vector2d P, Vector2d D) {
-//
-//        // Vertices are projected to the form P+t*D.  Return value is +1 if all
-//        // t > 0, -1 if all t < 0, 0 otherwise, in which case the line splits the
-//        // triangle.
-//
-//        int iPositive = 0, iNegative = 0, iZero = 0;
-//
-//        for (int i = 0; i < 3; i++) {
-//            Vector2d vi_p = new Vector2d();
-//            vi_p.set(tri.p[i].x - P.x, tri.p[i].y - P.y);
-//            double fT = D.dot(vi_p);
-//
-//            if (fT > 0.0f) {
-//                iPositive++;
-//            } else if (fT < 0.0f) {
-//                iNegative++;
-//            } else {
-//                iZero++;
-//            }
-//
-//            if (iPositive > 0 && iNegative > 0) {
-//                return 0;
-//            }
-//        }
-//
-//        return (iZero == 0 ? (iPositive > 0 ? 1 : -1) : 0);
-//    }
+    //    private static int whichSide(Triangle tri, Vector2d P, Vector2d D) {
+    //
+    //        // Vertices are projected to the form P+t*D.  Return value is +1 if all
+    //        // t > 0, -1 if all t < 0, 0 otherwise, in which case the line splits the
+    //        // triangle.
+    //
+    //        int iPositive = 0, iNegative = 0, iZero = 0;
+    //
+    //        for (int i = 0; i < 3; i++) {
+    //            Vector2d vi_p = new Vector2d();
+    //            vi_p.set(tri.p[i].x - P.x, tri.p[i].y - P.y);
+    //            double fT = D.dot(vi_p);
+    //
+    //            if (fT > 0.0f) {
+    //                iPositive++;
+    //            } else if (fT < 0.0f) {
+    //                iNegative++;
+    //            } else {
+    //                iZero++;
+    //            }
+    //
+    //            if (iPositive > 0 && iNegative > 0) {
+    //                return 0;
+    //            }
+    //        }
+    //
+    //        return (iZero == 0 ? (iPositive > 0 ? 1 : -1) : 0);
+    //    }
 
-    
     public static boolean isSameLineSegment(OriLine l0, OriLine l1) {
         if (Distance(l0.p0, l1.p0) < EPS && Distance(l0.p1, l1.p1) < EPS) {
             return true;
@@ -757,7 +774,8 @@ public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
         return false;
     }
 
-    public static boolean isSegmentsCross(Vector2d p0, Vector2d p1, Vector2d q0, Vector2d q1) {
+    public static boolean isSegmentsCross(Vector2d p0, Vector2d p1, Vector2d q0,
+            Vector2d q1) {
 
         // Rough check
         // Check by coordinates x
@@ -784,12 +802,14 @@ public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
 
         // >= 0.0 means that when p0 == q0, for example, returns false
         if (((p0.x - p1.x) * (q0.y - p0.y) + (p0.y - p1.y) * (p0.x - q0.x))
-                * ((p0.x - p1.x) * (q1.y - p0.y) + (p0.y - p1.y) * (p0.x - q1.x)) >= 0.0) {
+                * ((p0.x - p1.x) * (q1.y - p0.y)
+                        + (p0.y - p1.y) * (p0.x - q1.x)) >= 0.0) {
             return false;
         }
 
         if (((q0.x - q1.x) * (p0.y - q0.y) + (q0.y - q1.y) * (q0.x - p0.x))
-                * ((q0.x - q1.x) * (p1.y - q0.y) + (q0.y - q1.y) * (q0.x - p1.x)) >= 0.0) {
+                * ((q0.x - q1.x) * (p1.y - q0.y)
+                        + (q0.y - q1.y) * (q0.x - p1.x)) >= 0.0) {
             return false;
         }
 

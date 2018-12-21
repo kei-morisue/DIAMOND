@@ -234,9 +234,6 @@ public class Doc {
         creasePattern.addAll(info.getLines());
     }
 
-    //======================================================================
-    // Getter/Setter eventually unnecessary
-
     public void pushCachedUndoInfo() {
         undoManager.pushCachedInfo();
     }
@@ -245,184 +242,6 @@ public class Doc {
         UndoInfo ui = new UndoInfo(creasePattern);
         undoManager.push(ui);
     }
-
-    //-------------------------------------------------------------
-    // moved to OrigamiModel
-
-    //	/**
-    //	 * @return faces
-    //	 */
-    //	public List<OriFace> getFaces() {
-    //		List<OriFace> faces = origamiModel.getFaces();
-    //		return faces;
-    //	}
-    //
-    //	/**
-    //	 * @param faces faces is set to this instance.
-    //	 */
-    //	public void setFaces(List<OriFace> faces) {
-    //		origamiModel.setFaces(faces);
-    //	}
-    //
-    //	/**
-    //	 * @return edges
-    //	 */
-    //	public List<OriEdge> getEdges() {
-    //		List<OriEdge> edges = origamiModel.getEdges();
-    //
-    //		return edges;
-    //	}
-    //
-    //
-    //	/**
-    //	 * @return vertices
-    //	 */
-    //	public List<OriVertex> getVertices() {
-    //		List<OriVertex> vertices = origamiModel.getVertices();
-    //
-    //		return vertices;
-    //	}
-    //
-    //	/**
-    //	 * @param vertices vertices is set to this instance.
-    //	 */
-    //	public void setVertices(List<OriVertex> vertices) {
-    //		origamiModel.setVertices(vertices);;
-    //	}
-    //
-    //	/**
-    //	 * @param edges edges is set to this instance.
-    //	 */
-    //	public void setEdges(ArrayList<OriEdge> edges) {
-    //		origamiModel.setEdges(edges);
-    //	}
-    //
-    //	/**
-    //	 * @return isValidPattern
-    //	 */
-    //	public boolean isValidPattern() {
-    //
-    //		return origamiModel.isValidPattern();
-    //	}
-    //
-    //	/**
-    //	 * @param isValidPattern isValidPattern is set to this instance.
-    //	 */
-    //	public void setValidPattern(boolean isValidPattern) {
-    //			origamiModel.setValidPattern(isValidPattern);
-    //	}
-    //
-    //	/**
-    //	 * @return hasModel
-    //	 */
-    //	public boolean hasModel() {
-    //		return origamiModel.hasModel();
-    //	}
-    //
-    ////	/**
-    ////	 * @param hasModel hasModel is set to this instance.
-    ////	 */
-    ////	public void setHasModel(boolean hasModel) {
-    ////		this.hasModel = hasModel;
-    ////	}
-    //
-    //	/**
-    //	 * @return sortedFaces
-    //	 */
-    //	public List<OriFace> getSortedFaces() {
-    //		List<OriFace> sortedFaces = origamiModel.getSortedFaces();
-    //		return sortedFaces;
-    //	}
-    //
-    //	/**
-    //	 * @param sortedFaces sortedFaces is set to this instance.
-    //	 */
-    //	public void setSortedFaces(List<OriFace> sortedFaces) {
-    //		origamiModel.setSortedFaces(sortedFaces);
-    //	}
-    //
-    //	/**
-    //	 * @return folded
-    //	 */
-    //	public boolean isFolded() {
-    //		return origamiModel.isFolded();
-    //	}
-    //
-    //	/**
-    //	 * @param folded folded is set to this instance.
-    //	 */
-    //	public void setFolded(boolean folded) {
-    //		origamiModel.setFolded(folded);
-    //	}
-
-    //-------------------------------------------------------------
-
-    //	/**
-    //	 * @return currentORmatIndex
-    //	 */
-    //	public int getCurrentORmatIndex() {
-    //		int currentORmatIndex = foldedModelInfo.getCurrentORmatIndex();
-    //
-    //		return currentORmatIndex;
-    //	}
-    //
-    //	/**
-    //	 * @param currentORmatIndex currentORmatIndex is set to this instance.
-    //	 */
-    //	public void setCurrentORmatIndex(int currentORmatIndex) {
-    //		foldedModelInfo.setCurrentORmatIndex(currentORmatIndex);
-    //	}
-    //
-    //	/**
-    //	 * @return foldedBBoxLT
-    //	 */
-    //	public Vector2d getFoldedBBoxLT() {
-    //		return foldedModelInfo.getBoundBox().getLeftAndTop();
-    //	}
-    //
-    //
-    //	/**
-    //	 * @return foldedBBoxRB
-    //	 */
-    //	public Vector2d getFoldedBBoxRB() {
-    //		return foldedModelInfo.getBoundBox().getRightAndBottom();
-    //	}
-    //
-    //
-    //
-    //
-    //	/**
-    //	 * @return overlapRelation
-    //	 */
-    //	public int[][] getOverlapRelation() {
-    //		int[][] overlapRelation = foldedModelInfo.getOverlapRelation();
-    //		return overlapRelation;
-    //	}
-    //
-    //	/**
-    //	 * @param overlapRelation overlapRelation is set to this instance.
-    //	 */
-    //	public void setOverlapRelation(int[][] overlapRelation) {
-    //		foldedModelInfo.setOverlapRelation(overlapRelation);
-    //	}
-    //
-    //	/**
-    //	 * @return foldableOverlapRelations
-    //	 */
-    //	public List<int[][]> getFoldableOverlapRelations() {
-    //		List<int[][]> foldableOverlapRelations = foldedModelInfo.getFoldableOverlapRelations();
-    //
-    //		return foldableOverlapRelations;
-    //	}
-    //
-    //	/**
-    //	 * @param foldableOverlapRelations foldableOverlapRelations is set to this instance.
-    //	 */
-    //	public void setFoldableOverlapRelations(
-    //			List<int[][]> foldableOverlapRelations) {
-    //
-    //		foldedModelInfo.setFoldableOverlapRelations(foldableOverlapRelations);
-    //	}
 
     public void pushUndoInfo(UndoInfo uinfo) {
         undoManager.push(uinfo);
@@ -435,7 +254,6 @@ public class Doc {
 
         for (OriFace face : sortedFaces) {
             ArrayList<Vector2d> vv = new ArrayList<Vector2d>();
-            int crossCount = 0;
             for (OriHalfedge he : face.halfedges) {
                 OriLine l = new OriLine(he.positionForDisplay.x,
                         he.positionForDisplay.y,
@@ -449,7 +267,6 @@ public class Doc {
                 if (res == true && params[0] > -0.001 && params[1] > -0.001
                         && params[0] < 1.001 && params[1] < 1.001) {
                     double param = params[1];
-                    crossCount++;
 
                     Vector2d crossV = new Vector2d();
                     crossV.x = (1.0 - param) * he.vertex.preP.x
