@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.resource.string.StringKey.WARNING;
 
 /**
  *
@@ -96,7 +97,7 @@ public class FileChooser extends JFileChooser {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this, e.toString(),
-                        ResourceHolder.getWarningString("Error_FileLoadFailed"),
+                        ResourceHolder.getWarningString(WARNING.LOAD_FAILED),
                         JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -140,9 +141,9 @@ public class FileChooser extends JFileChooser {
                 if (JOptionPane.showConfirmDialog(
                         null,
                         ResourceHolder
-                                .getWarningString("Warning_SameNameFileExist"),
+                                .getWarningString(WARNING.SAME_FILE_EXISTS),
                         ResourceHolder
-                                .getLabelString(StringID.DIALOG_TITLE_SAVE_ID),
+                                .getLabelString(LABEL.DIALOG_TITLE_SAVE),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
                     return null;
@@ -154,7 +155,7 @@ public class FileChooser extends JFileChooser {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     parent, e.toString(),
-                    ResourceHolder.getWarningString("Error_FileSaveFailed"),
+                    ResourceHolder.getWarningString(WARNING.SAVE_FAILED),
                     JOptionPane.ERROR_MESSAGE);
         }
 

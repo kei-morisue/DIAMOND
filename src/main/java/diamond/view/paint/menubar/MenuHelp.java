@@ -7,7 +7,7 @@ package diamond.view.paint.menubar;
 import javax.swing.JMenu;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.menubar.help.About;
 
 /**
@@ -25,8 +25,7 @@ public class MenuHelp extends JMenu {
     }
 
     private MenuHelp() {
-        super(ResourceHolder.getLabelString(
-                StringID.Main.HELP_ID));
+        super(ResourceHolder.getLabelString(LABEL.HELP));
         add(About.getInstance());
     }
 

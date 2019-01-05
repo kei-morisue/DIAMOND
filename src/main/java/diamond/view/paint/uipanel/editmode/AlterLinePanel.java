@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import diamond.paint.creasepattern.tool.TypeForChange;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.paint.uipanel.FromLineTypeItemListener;
 import diamond.viewsetting.paint.uipanel.ToLineTypeItemListener;
 import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
@@ -40,11 +40,11 @@ public class AlterLinePanel extends JPanel implements Observer {
     public AlterLinePanel() {
         add(new JLabel(
                 ResourceHolder.getLabelString(
-                        StringID.UI.CHANGE_LINE_TYPE_FROM_ID)));
+                        LABEL.CHANGE_LINE_TYPE_FROM)));
         add(alterLine_combo_from);
         add(new JLabel(
                 ResourceHolder.getLabelString(
-                        StringID.UI.CHANGE_LINE_TYPE_TO_ID)));
+                        LABEL.CHANGE_LINE_TYPE_TO)));
 
         add(alterLine_combo_to);
         setVisible(false);

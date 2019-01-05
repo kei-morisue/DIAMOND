@@ -12,7 +12,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.value.OriLine;
 import diamond.value.OriPoint;
-import diamond.view.MainFrame;
+import diamond.view.paint.PaintFrame;
 
 /**
  * @author long_
@@ -37,7 +37,7 @@ public class CollinearCPSimplifier {
         creasePattern.clear();
         creasePattern.addAll(tmpLines);
         JOptionPane.showMessageDialog(
-                MainFrame.getInstance(),
+                PaintFrame.getInstance(),
                 "Merged colliniear edges",
                 "Simplifying CP", JOptionPane.INFORMATION_MESSAGE);
         return true;

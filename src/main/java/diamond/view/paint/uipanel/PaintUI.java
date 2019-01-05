@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.view.paint;
+package diamond.view.paint.uipanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,8 +24,7 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import diamond.paint.core.PaintConfig;
-import diamond.view.paint.uipanel.DisplayCeckBoxPanel;
-import diamond.view.paint.uipanel.GridPanel;
+import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.uipanel.editmode.EditModeButtons;
 import diamond.view.paint.uipanel.inputline.InputLineButtons;
 import diamond.view.paint.uipanel.inputline.valuepanel.AngleValuePanel;
@@ -43,7 +42,7 @@ public class PaintUI extends JPanel {
         add(new AngleValuePanel());
         add(new GridPanel());
         add(new DisplayCeckBoxPanel());
-
+        add(new FoldabilityCheckButton());
         PaintConfig.dispVertex = true;
         PaintConfig.bDoFullEstimation = true;
     }

@@ -2,23 +2,25 @@ package diamond.resource.string;
 
 import java.util.ListResourceBundle;
 
+import diamond.resource.string.StringKey.WARNING;
+
 public class WarningStringResource_en extends ListResourceBundle {
 
-    static final Object[][] strings = {
-            { StringID.Warning.SAME_FILE_EXISTS_ID,
+    static final String[][] strings = {
+            { WARNING.SAME_FILE_EXISTS.name(),
                     "Same name file exists. Over write?" },
-        { StringID.Warning.FOLD_FAILED_DUPLICATION_ID, "Failed to fold. Try again by deleting duplicating segments?"},
-        { StringID.Warning.FOLD_FAILED_WRONG_STRUCTURE_ID, "Failed to fold. It seems the pattern has basic problems."},
-            { StringID.Error.SAVE_FAILED_ID, "Failed to save." },
-            { StringID.Error.LOAD_FAIELD_ID, "Failed to load." },
+            { WARNING.FOLD_FAILED_DUPLICATION.name(),
+                    "Failed to fold. Try again by deleting duplicating segments?" },
+            { WARNING.FOLD_FAILED_WRONG_STRUCTURE.name(),
+                    "Failed to fold. It seems the pattern has basic problems." },
+            { WARNING.SAVE_FAILED.name(), "Failed to save." },
+            { WARNING.LOAD_FAILED.name(), "Failed to load." },
 
     };
 
     @Override
     protected Object[][] getContents() {
-        // TODO Auto-generated method stub
         return strings;
     }
-
 
 }

@@ -10,7 +10,7 @@ import diamond.bind.button.EditLineButtonFactory;
 import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.deleteline.DeleteLineAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnOtherCommandButtonSelected;
 
@@ -20,8 +20,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnOtherCommandButtonSelected;
  */
 public class DeleteLineButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.DELETE_LINE_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return StringKey.LABEL.DELETE_LINE;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return StringKey.HINT.DELETE_LINE;
     }
 
     @Override

@@ -10,7 +10,8 @@ import diamond.bind.button.EditLineButtonFactory;
 import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.util.LazyMouseAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
+import diamond.resource.string.StringKey.HINT;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnPaintInputButtonSelected;
 
@@ -20,8 +21,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnPaintInputButtonSelected;
  */
 public class InputLineButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.UI.INPUT_LINE_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return StringKey.LABEL.INPUT_LINE;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return HINT.INPUT_LINE;
     }
 
     @Override

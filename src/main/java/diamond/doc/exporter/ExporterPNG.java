@@ -28,13 +28,13 @@ import javax.imageio.ImageIO;
 
 import diamond.doc.Doc;
 import diamond.paint.core.PaintContext;
-import diamond.view.MainFrame;
+import diamond.view.paint.PaintFrame;
 
 public class ExporterPNG implements Exporter {
 
     @Override
     public boolean export(Doc doc, String filepath) throws IOException {
-        Component originalComponent = MainFrame.getInstance();
+        Component originalComponent = PaintFrame.getInstance();
         //TODO Extract original frame dependencies: "MainFrame"
         Image cpImage = PaintContext.getPainterScreen().getCreasePatternImage();
         BufferedImage image = new BufferedImage(

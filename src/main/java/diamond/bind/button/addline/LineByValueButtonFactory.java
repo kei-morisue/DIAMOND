@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import diamond.bind.button.AddLineButtonFactory;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.byvalue.LineByValueAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnByValueButtonSelected;
 
@@ -19,8 +19,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnByValueButtonSelected;
  */
 public class LineByValueButtonFactory extends AddLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.BY_VALUE_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return null;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return StringKey.HINT.BY_VALUE;
     }
 
     @Override

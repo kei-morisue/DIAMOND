@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.paint.ScreenUpdater;
 
 /**
@@ -24,16 +24,16 @@ import diamond.viewsetting.paint.ScreenUpdater;
 public class DisplayCeckBoxPanel extends JPanel implements ActionListener {
     JCheckBox dispAuxLinesCheckBox = new JCheckBox(
             ResourceHolder.getLabelString(
-                    StringID.UI.SHOW_AUX_ID),
+                    LABEL.SHOW_AUX),
             true);
 
     JCheckBox dispMVLinesCheckBox = new JCheckBox(
-            ResourceHolder.getLabelString( StringID.UI.SHOW_MV_ID),
+            ResourceHolder.getLabelString(LABEL.SHOW_MV),
             true);
 
     JCheckBox dispVertexCheckBox = new JCheckBox(
             ResourceHolder.getLabelString(
-                    StringID.UI.SHOW_VERTICES_ID),
+                    LABEL.SHOW_VERTICES),
             false);
 
     public DisplayCeckBoxPanel() {

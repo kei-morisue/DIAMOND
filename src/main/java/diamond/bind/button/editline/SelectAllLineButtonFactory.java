@@ -11,7 +11,8 @@ import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.core.PaintContext;
 import diamond.paint.selectline.SelectAllLineAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.HINT;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
 
@@ -21,8 +22,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
  */
 public class SelectAllLineButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.SELECT_ALL_LINE_ID;
+    protected LABEL getLabelKey() {
+        return LABEL.SELECT_ALL_LINES;
+    }
+
+    @Override
+    protected HINT getHintKey() {
+        return HINT.SELECT_ALL_LINES;
     }
 
     @Override
@@ -40,5 +46,4 @@ public class SelectAllLineButtonFactory extends EditLineButtonFactory {
         return new ViewChangeListener(
                 new ChangeOnSelectButtonSelected());
     }
-
 }

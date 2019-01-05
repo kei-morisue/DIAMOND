@@ -30,7 +30,7 @@ public abstract class AddLineButtonFactory extends PaintActionButtonFactory {
     @Override
     protected ActionListener[] buildViewChangeListeners() {
         return new ActionListener[] {
-                new ViewChangeListener(new ChangeHint(getLabelKey())),
+                new ViewChangeListener(new ChangeHint(buildHint())),
                 buildViewChangeListener() };
     }
 

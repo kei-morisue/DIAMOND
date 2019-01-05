@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 
 /**
  * @author long_
@@ -32,7 +32,7 @@ public class RepeatCopy
     }
 
     public RepeatCopy() {
-        super(ResourceHolder.getLabelString(StringID.Main.REPEAT_COPY_ID));
+        super(ResourceHolder.getLabelString(LABEL.REPEAT_COPY));
         addActionListener(this);
     }
 
@@ -40,12 +40,12 @@ public class RepeatCopy
     public void actionPerformed(ActionEvent e) {
         Painter painter = new Painter();
         RepeatCopyDialog arrayCopyDialog = new RepeatCopyDialog(
-                MainFrame.getInstance());
+                PaintFrame.getInstance());
         if (painter.countSelectedLines(
                 DocHolder.getDoc().getCreasePattern()) == 0) {
             JOptionPane.showMessageDialog(this, "Select target lines",
                     ResourceHolder.getLabelString(
-                            StringID.Main.REPEAT_COPY_ID),
+                            LABEL.REPEAT_COPY),
                     JOptionPane.WARNING_MESSAGE);
 
         } else {

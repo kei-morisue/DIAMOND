@@ -10,7 +10,7 @@ import java.util.Observer;
 import javax.swing.JLabel;
 
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.HINT;
 import diamond.viewsetting.paint.MainFrameSettingDB;
 
 /**
@@ -20,7 +20,7 @@ import diamond.viewsetting.paint.MainFrameSettingDB;
 public class HintLabel extends JLabel implements Observer {
 
     public HintLabel() {
-        super(ResourceHolder.getHintString(StringID.ON_V_ID));
+        super(ResourceHolder.getHintString(HINT.ON_V));
         MainFrameSettingDB.getInstance().addObserver(this);
     }
 

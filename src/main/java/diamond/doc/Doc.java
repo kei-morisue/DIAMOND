@@ -36,7 +36,7 @@ import diamond.paint.core.PaintConfig;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.tool.LineAdder;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.value.OriLine;
 
 public class Doc {
@@ -140,7 +140,7 @@ public class Doc {
 
     public String getDataFileName() {
         if (dataFilePath == null) {
-            return ResourceHolder.getLabelString(StringID.Default.FILE_NAME_ID);
+            return ResourceHolder.getLabelString(LABEL.DEFAULT_FILE_NAME);
         }
         File file = new File(DocHolder.getDoc().dataFilePath);
         String fileName = file.getName();

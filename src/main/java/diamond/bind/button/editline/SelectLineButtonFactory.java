@@ -11,7 +11,8 @@ import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.core.PaintContext;
 import diamond.paint.selectline.SelectLineAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.HINT;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
 
@@ -21,8 +22,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
  */
 public class SelectLineButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.SELECT_ID;
+    protected LABEL getLabelKey() {
+        return LABEL.SELECT;
+    }
+
+    @Override
+    protected HINT getHintKey() {
+        return HINT.SELECT;
     }
 
     @Override

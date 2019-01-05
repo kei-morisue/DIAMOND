@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import diamond.bind.state.action.PaintActionSetter;
 import diamond.paint.core.GraphicMouseAction;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnByValueButtonSelected;
 import diamond.viewsetting.paint.uipanel.UIPanelSettingDB;
@@ -37,8 +37,7 @@ public abstract class ValuePanel extends JPanel implements Observer {
 
     private JButton createButton() {
         JButton button = new JButton(
-                ResourceHolder.getLabelString(
-                        StringID.UI.MEASURE_ID));
+                ResourceHolder.getLabelString(LABEL.MEASURE));
         button.addActionListener(
                 new ViewChangeListener(new ChangeOnByValueButtonSelected()));
         button.addActionListener(
@@ -50,12 +49,12 @@ public abstract class ValuePanel extends JPanel implements Observer {
 
     protected abstract GraphicMouseAction createMeasuringActionListner();
 
-    protected abstract String createStringId();
+    protected abstract LABEL getLabelKey();
 
     protected JLabel createLabel() {
         return new JLabel(
                 ResourceHolder.getLabelString(
-                        createStringId()));
+                        getLabelKey()));
     }
 
     @Override

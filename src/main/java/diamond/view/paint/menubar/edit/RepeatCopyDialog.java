@@ -36,8 +36,8 @@ import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 
 public class RepeatCopyDialog extends JDialog {
 
@@ -126,7 +126,7 @@ public class RepeatCopyDialog extends JDialog {
 
                     if (!m_bFillSheet && (m_row == 0 || m_col == 0)) {
                         JOptionPane.showMessageDialog(
-                                MainFrame.getInstance(),
+                                PaintFrame.getInstance(),
                                 "Specify non-Zero value to Low and Col.",
                                 "ArrayCopy",
                                 JOptionPane.INFORMATION_MESSAGE);
@@ -150,7 +150,7 @@ public class RepeatCopyDialog extends JDialog {
                                     creasePattern.getPaperSize());
                         }
                         //TODO make it local access
-                        MainFrame.getInstance().repaint();
+                        PaintFrame.getInstance().repaint();
                         setVisible(false);
                     }
                 }
@@ -291,10 +291,10 @@ public class RepeatCopyDialog extends JDialog {
      */
     private void initialize() {
         this.setSize(123, 249);
-        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
-                MainFrame.getInstance().getLocation().y + 100);
+        this.setLocation(PaintFrame.getInstance().getLocation().x + 200,
+                PaintFrame.getInstance().getLocation().y + 100);
         this.setTitle(ResourceHolder.getLabelString(
-                StringID.Main.REPEAT_COPY_ID));
+                LABEL.REPEAT_COPY));
         this.setContentPane(getJContentPane());
     }
 } //  @jve:decl-index=0:visual-constraint="10,10"

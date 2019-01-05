@@ -9,7 +9,7 @@ import javax.swing.JMenu;
 import diamond.file.FileHistory;
 import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.menubar.file.Exit;
 import diamond.view.paint.menubar.file.Export;
 import diamond.view.paint.menubar.file.MRUFiles;
@@ -34,8 +34,7 @@ public class MenuFile extends JMenu {
     }
 
     private MenuFile() {
-        super(ResourceHolder.getLabelString(
-                StringID.Main.FILE_ID));
+        super(ResourceHolder.getLabelString(LABEL.FILE));
         addItems();
     }
 

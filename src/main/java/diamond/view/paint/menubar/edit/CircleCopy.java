@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 
 /**
  * @author long_
@@ -32,7 +32,7 @@ public class CircleCopy
     }
 
     public CircleCopy() {
-        super(ResourceHolder.getLabelString(StringID.Main.CIRCLE_COPY_ID));
+        super(ResourceHolder.getLabelString(LABEL.CIRCLE_COPY));
         addActionListener(this);
     }
 
@@ -40,7 +40,7 @@ public class CircleCopy
     public void actionPerformed(ActionEvent e) {
         Painter painter = new Painter();
         CircleCopyDialog circleCopyDialog = new CircleCopyDialog(
-                MainFrame.getInstance());
+                PaintFrame.getInstance());
         if (painter.countSelectedLines(
                 DocHolder.getDoc().getCreasePattern()) == 0) {
             JOptionPane.showMessageDialog(this, "Select target lines",

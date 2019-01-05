@@ -15,8 +15,8 @@ import diamond.doc.DocHolder;
 import diamond.file.FileIOUtil;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 import diamond.viewsetting.paint.MainFrameSettingDB;
 
 /**
@@ -34,7 +34,7 @@ public class Open extends JMenuItem implements ActionListener {
     }
 
     private Open() {
-        super(ResourceHolder.getLabelString(StringID.Main.OPEN_ID));
+        super(ResourceHolder.getLabelString(LABEL.OPEN));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);
@@ -42,7 +42,7 @@ public class Open extends JMenuItem implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame mainFrame = MainFrame.getInstance();
+        PaintFrame mainFrame = PaintFrame.getInstance();
         MainFrameSettingDB.getInstance().notifyObservers();
 
         FileIOUtil.openFile(mainFrame, null);

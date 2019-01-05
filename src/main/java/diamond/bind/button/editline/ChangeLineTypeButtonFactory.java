@@ -10,7 +10,7 @@ import diamond.bind.button.EditLineButtonFactory;
 import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.linetype.ChangeLineTypeAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnAlterTypeButtonSelected;
 
@@ -20,8 +20,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnAlterTypeButtonSelected;
  */
 public class ChangeLineTypeButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.CHANGE_LINE_TYPE_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return StringKey.LABEL.CHANGE_LINE_TYPE;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return StringKey.HINT.CHANGE_LINE_TYPE;
     }
 
     @Override

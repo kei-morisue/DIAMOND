@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import diamond.geom.GeomUtil;
 import diamond.value.OriLine;
-import diamond.view.MainFrame;
+import diamond.view.paint.PaintFrame;
 
 /**
  * @author long_
@@ -50,7 +50,7 @@ public class DuplicatedCPSimplifier {
         creasePattern.clear();
         creasePattern.addAll(tmpLines);
         JOptionPane.showMessageDialog(
-                MainFrame.getInstance(),
+                PaintFrame.getInstance(),
                 "Removing multiples edges with the same position ",
                 "Simplifying CP", JOptionPane.INFORMATION_MESSAGE);
 

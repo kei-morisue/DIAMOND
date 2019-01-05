@@ -23,7 +23,7 @@ import diamond.paint.ScreenUpdaterInterface;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.viewsetting.paint.ScreenUpdater;
 
 /**
@@ -34,7 +34,7 @@ public class GridPanel extends JPanel implements ActionListener {
 
     JButton gridChangeButton = new JButton(
             ResourceHolder.getLabelString(
-                    StringID.UI.GRID_SIZE_CHANGE_ID));
+                    LABEL.GRID_SIZE_CHANGE));
     JButton gridLargeButton = new JButton("x1/2");
     JButton gridSmallButton = new JButton("x2");
 
@@ -42,14 +42,14 @@ public class GridPanel extends JPanel implements ActionListener {
 
     JCheckBox dispGridCheckBox = new JCheckBox(
             ResourceHolder.getLabelString(
-                    StringID.UI.SHOW_GRID_ID),
+                    LABEL.SHOW_GRID),
             true);
 
     public GridPanel() {
         JPanel divideNumSpecPanel = new JPanel();
         JLabel gridLabel1 = new JLabel(
                 ResourceHolder.getLabelString(
-                        StringID.UI.GRID_DIVIDE_NUM_ID));
+                        LABEL.GRID_DIVIDE_NUM));
 
         textField = new JFormattedTextField(new DecimalFormat("#"));
         textField.setColumns(2);

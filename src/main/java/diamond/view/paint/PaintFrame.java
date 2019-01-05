@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.view;
+package diamond.view.paint;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
@@ -29,25 +29,24 @@ import diamond.Version;
 import diamond.file.ImageResourceLoader;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.paint.HintLabel;
-import diamond.view.paint.PaintScreen;
-import diamond.view.paint.PaintUI;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.menubar.MenuBar;
 import diamond.view.paint.menubar.file.Exit;
+import diamond.view.paint.screen.PaintScreen;
+import diamond.view.paint.uipanel.PaintUI;
 
-public class MainFrame extends JFrame implements WindowListener {
+public class PaintFrame extends JFrame implements WindowListener {
 
-    private static MainFrame instance = null;
+    private static PaintFrame instance = null;
 
-    public static MainFrame getInstance() {
+    public static PaintFrame getInstance() {
         if (instance == null) {
-            instance = new MainFrame();
+            instance = new PaintFrame();
         }
         return instance;
     }
 
-    private MainFrame() {
+    private PaintFrame() {
         addWindowListener(this);
         setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
                 Config.INITIAL_MAIN_FRAME_HEIGHT);
@@ -55,7 +54,7 @@ public class MainFrame extends JFrame implements WindowListener {
                 .loadAsIcon("icon/diamond.gif", getClass())
                 .getImage());
         this.setTitle(ResourceHolder.getLabelString(
-                StringID.Default.FILE_NAME_ID));
+                LABEL.DEFAULT_FILE_NAME));
 
         add(new PaintScreen(), BorderLayout.CENTER);
         add(new PaintUI(PaintContext.getPainterScreen()), BorderLayout.WEST);
@@ -71,7 +70,7 @@ public class MainFrame extends JFrame implements WindowListener {
     public void setTitle(String fileName) {
         super.setTitle(fileName + " - "
                 + String.format(ResourceHolder.getLabelString(
-                        StringID.Main.TITLE_ID), Version.VERSION));
+                        LABEL.MAIN_FRAME_TITLE), Version.VERSION));
     }
 
     @Override

@@ -20,7 +20,7 @@ import diamond.fold.OrigamiModel;
 import diamond.fold.OrigamiModelFactory;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 
 /**
  * @author long_
@@ -29,13 +29,13 @@ import diamond.resource.string.StringID;
 public class Export implements ActionListener {
 
     private JMenuItem menuItemExportCP = new JMenuItem(
-            ResourceHolder.getLabelString(StringID.Main.EXPORT_CP_ID));
+            ResourceHolder.getLabelString(LABEL.EXPORT_CP));
     private JMenuItem menuItemExportDXF = new JMenuItem(
-            ResourceHolder.getLabelString(StringID.Main.EXPORT_DXF_ID));
+            ResourceHolder.getLabelString(LABEL.EXPORT_DXF));
     private JMenuItem menuItemExportOBJ = new JMenuItem(
-            ResourceHolder.getLabelString(StringID.Main.EXPORT_OBJ_ID));
+            ResourceHolder.getLabelString(LABEL.EXPORT_OBJ));
     private JMenuItem menuItemExportSVG = new JMenuItem(
-            ResourceHolder.getLabelString(StringID.Main.EXPORT_SVG_ID));
+            ResourceHolder.getLabelString(LABEL.EXPORT_SVG));
 
     public Export(JMenu menu) {
         menu.add(menuItemExportDXF);

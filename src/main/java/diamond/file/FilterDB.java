@@ -16,6 +16,7 @@ import diamond.doc.loader.LoaderDXF;
 import diamond.doc.loader.LoaderPDF;
 import diamond.doc.loader.LoaderXML;
 import diamond.resource.ResourceHolder;
+import diamond.resource.string.StringKey.LABEL;
 
 /**
  *
@@ -42,7 +43,8 @@ public class FilterDB {
 
         filter = new FileFilterEx(
                 new String[] { ".opx", ".xml" },
-                "(*.opx, *.xml) " + ResourceHolder.getLabelString("ORIPA_File"),
+                "(*.opx, *.xml) "
+                        + ResourceHolder.getLabelString(LABEL.DIAMOND_FILE),
                 new SavingDoc(new ExporterXML()));
         filter.setLoadingAction(new LoadingDoc(new LoaderXML()));
         filter.setSavingAction(new SavingDoc(new ExporterXML()));
@@ -51,14 +53,14 @@ public class FilterDB {
         filter = new FileFilterEx(
                 new String[] { ".png", ".jpg" },
                 "(*.png, *.jpg) "
-                        + ResourceHolder.getLabelString("Picture_File"));
+                        + ResourceHolder.getLabelString(LABEL.PICTURE_FILE));
         filter.setSavingAction(new SavingDoc(new ExporterPNG()));
         this.putFilter("pict", filter);
 
         String key = "dxf";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getLabelString("File"),
+                        + ResourceHolder.getLabelString(LABEL.FILE),
                 new SavingDoc(new ExporterDXF()));
         filter.setLoadingAction(new LoadingDoc(new LoaderDXF()));
         this.putFilter(key, filter);
@@ -66,14 +68,14 @@ public class FilterDB {
         key = "obj";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getLabelString("File"),
+                        + ResourceHolder.getLabelString(LABEL.FILE),
                 new SavingDoc(new ExporterOBJ()));
         this.putFilter(key, filter);
 
         key = "cp";
         filter = new FileFilterEx(new String[] { "." + key },
                 "(*." + key + ") " + key
-                        + ResourceHolder.getLabelString("File"),
+                        + ResourceHolder.getLabelString(LABEL.FILE),
                 new SavingDoc(new ExporterCP()));
         filter.setLoadingAction(new LoadingDoc(new LoaderCP()));
         this.putFilter(key, filter);

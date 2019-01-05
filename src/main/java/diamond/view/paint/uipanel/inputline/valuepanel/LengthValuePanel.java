@@ -6,7 +6,7 @@ package diamond.view.paint.uipanel.inputline.valuepanel;
 
 import diamond.paint.byvalue.LengthMeasuringAction;
 import diamond.paint.core.GraphicMouseAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.uipanel.inputline.valuepanel.textfield.LengthTextField;
 
 /**
@@ -26,8 +26,8 @@ public class LengthValuePanel extends ValuePanel {
     }
 
     @Override
-    protected String createStringId() {
-        return StringID.UI.LENGTH_ID;
+    protected LABEL getLabelKey() {
+        return LABEL.LENGTH;
     }
 
 }

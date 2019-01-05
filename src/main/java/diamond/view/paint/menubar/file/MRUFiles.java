@@ -17,8 +17,8 @@ import diamond.file.FileHistory;
 import diamond.file.FileIOUtil;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.WARNING;
+import diamond.view.paint.PaintFrame;
 import diamond.viewsetting.paint.MainFrameSettingDB;
 
 /**
@@ -50,7 +50,7 @@ public class MRUFiles {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            MainFrame mainFrame = MainFrame.getInstance();
+            PaintFrame mainFrame = PaintFrame.getInstance();
             try {
                 MainFrameSettingDB.getInstance().notifyObservers();
                 FileIOUtil.openFile(mainFrame, filePath);
@@ -60,7 +60,7 @@ public class MRUFiles {
                         e.toString(),
                         ResourceHolder
                                 .getWarningString(
-                                        StringID.Error.LOAD_FAIELD_ID),
+                                        WARNING.LOAD_FAILED),
                         JOptionPane.ERROR_MESSAGE);
             }
             PaintContext.getPainterScreen().repaint();

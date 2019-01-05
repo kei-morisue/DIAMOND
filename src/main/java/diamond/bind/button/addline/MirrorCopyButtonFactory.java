@@ -10,7 +10,7 @@ import diamond.bind.button.AddLineButtonFactory;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.core.PaintContext;
 import diamond.paint.mirror.MirrorCopyAction;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnPaintInputButtonSelected;
 
@@ -20,8 +20,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnPaintInputButtonSelected;
  */
 public class MirrorCopyButtonFactory extends AddLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.MIRROR_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return null;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return StringKey.HINT.MIRROR;
     }
 
     @Override

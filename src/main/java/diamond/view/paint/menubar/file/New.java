@@ -16,8 +16,8 @@ import diamond.doc.Doc;
 import diamond.doc.DocHolder;
 import diamond.paint.core.PaintContext;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 
 /**
  * @author long_
@@ -34,7 +34,7 @@ public class New extends JMenuItem implements ActionListener {
     }
 
     private New() {
-        super(ResourceHolder.getLabelString(StringID.Main.NEW_ID));
+        super(ResourceHolder.getLabelString(LABEL.NEW));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);
@@ -47,7 +47,7 @@ public class New extends JMenuItem implements ActionListener {
         context.notifyObservers();
 
         DocHolder.setDoc(new Doc(Config.DEFAULT_PAPER_SIZE));
-        MainFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());
+        PaintFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());
         PaintContext.getPainterScreen().repaint();
     }
 }

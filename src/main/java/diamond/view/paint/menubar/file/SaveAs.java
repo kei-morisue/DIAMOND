@@ -17,8 +17,8 @@ import diamond.file.FileHistory;
 import diamond.file.FileIOUtil;
 import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 import diamond.view.paint.menubar.MenuFile;
 
 /**
@@ -42,7 +42,7 @@ public class SaveAs extends JMenuItem implements ActionListener {
             filterDB.getFilter("opx"), filterDB.getFilter("pict") };
 
     private SaveAs() {
-        super(ResourceHolder.getLabelString(StringID.Main.SAVE_AS_ID));
+        super(ResourceHolder.getLabelString(LABEL.SAVE_AS));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);
@@ -56,7 +56,7 @@ public class SaveAs extends JMenuItem implements ActionListener {
                 fileFilters);
         DocHolder.getDoc().setDataFilePath(path);
         MenuFile.getInstance().updateMRUItems(path);
-        MainFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());
+        PaintFrame.getInstance().setTitle(DocHolder.getDoc().getDataFileName());
     }
 
 }

@@ -10,7 +10,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.doc.DocHolder;
 import diamond.value.OriLine;
-import diamond.view.paint.PaintScreen;
+import diamond.view.paint.screen.PaintScreen;
 
 public class PaintContext extends Observable {
 

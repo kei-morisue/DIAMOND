@@ -12,8 +12,7 @@ import javax.swing.JOptionPane;
 
 import diamond.Version;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.resource.string.StringID.Main;
+import diamond.resource.string.StringKey.LABEL;
 
 /**
  * @author long_
@@ -38,7 +37,7 @@ public class About extends JMenuItem implements ActionListener {
 
     private About() {
         super(ResourceHolder.getLabelString(
-                Main.ABOUT_ID));
+                LABEL.ABOUT));
         addActionListener(this);
     }
 
@@ -46,7 +45,7 @@ public class About extends JMenuItem implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, content,
                 String.format(ResourceHolder.getLabelString(
-                        StringID.Main.TITLE_ID), Version.VERSION),
+                        LABEL.MAIN_FRAME_TITLE), Version.VERSION),
                 JOptionPane.INFORMATION_MESSAGE);
 
     }

@@ -3,6 +3,8 @@ package diamond.resource;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import diamond.resource.string.StringKey;
+
 public class ResourceHolder {
     private static final ResourceBundle labelString = createResource(
             ".string.LabelStringResource");
@@ -25,16 +27,17 @@ public class ResourceHolder {
     private ResourceHolder() {
     }
 
-    public static String getLabelString(String key) {
-        return labelString.getString(key);
+    public static String getLabelString(StringKey.LABEL key) {
+        String name = key.name();
+        return labelString.getString(name);
     }
 
-    public static String getHintString(String key) {
-        return hintString.getString(key);
+    public static String getHintString(StringKey.HINT key) {
+        return hintString.getString(key.name());
     }
 
-    public static String getWarningString(String key) {
-        return warningString.getString(key);
+    public static String getWarningString(StringKey.WARNING key) {
+        return warningString.getString(key.name());
     }
 
 }

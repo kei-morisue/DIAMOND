@@ -12,10 +12,13 @@ import diamond.bind.state.action.StateActionPerformer;
 import diamond.paint.EditMode;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.resource.ResourceHolder;
+import diamond.resource.string.StringKey;
 
 public abstract class PaintActionButtonFactory {
 
-    protected abstract String getLabelKey();
+    protected abstract StringKey.LABEL getLabelKey();
+
+    protected abstract StringKey.HINT getHintKey();
 
     protected abstract java.awt.event.KeyListener buildKeyListner();
 
@@ -40,6 +43,14 @@ public abstract class PaintActionButtonFactory {
     protected String buildLabel() {
         try {
             return ResourceHolder.getLabelString(getLabelKey());
+        } catch (MissingResourceException | NullPointerException e) {
+            return "";
+        }
+    };
+
+    protected String buildHint() {
+        try {
+            return ResourceHolder.getHintString(getHintKey());
         } catch (MissingResourceException e) {
             return "";
         }
@@ -65,4 +76,5 @@ public abstract class PaintActionButtonFactory {
         button.addKeyListener(buildKeyListner());
         return button;
     }
+
 }

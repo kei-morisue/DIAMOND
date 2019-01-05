@@ -11,7 +11,7 @@ import diamond.bind.state.ErrorListener;
 import diamond.paint.GraphicMouseActionInterface;
 import diamond.paint.copypaste.CopyAndPasteActionWrapper;
 import diamond.paint.copypaste.CopyPasteErrorListener;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey;
 import diamond.viewsetting.ViewChangeListener;
 import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
 
@@ -21,8 +21,13 @@ import diamond.viewsetting.paint.uipanel.ChangeOnSelectButtonSelected;
  */
 public class CopyPasteButtonFactory extends EditLineButtonFactory {
     @Override
-    protected String getLabelKey() {
-        return StringID.COPY_PASTE_ID;
+    protected StringKey.LABEL getLabelKey() {
+        return StringKey.LABEL.COPY_PASTE;
+    }
+
+    @Override
+    protected StringKey.HINT getHintKey() {
+        return StringKey.HINT.COPY_PASTE;
     }
 
     @Override

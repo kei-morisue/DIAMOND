@@ -34,8 +34,8 @@ import diamond.doc.DocHolder;
 import diamond.paint.creasepattern.CreasePattern;
 import diamond.paint.creasepattern.Painter;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
-import diamond.view.MainFrame;
+import diamond.resource.string.StringKey.LABEL;
+import diamond.view.paint.PaintFrame;
 
 public class CircleCopyDialog extends JDialog {
     private static final long serialVersionUID = 1L;
@@ -128,7 +128,7 @@ public class CircleCopyDialog extends JDialog {
 
                     if (m_num <= 0) {
                         JOptionPane.showMessageDialog(
-                                MainFrame.getInstance(),
+                                PaintFrame.getInstance(),
                                 "Specify positive integer to Number.",
                                 "ArrayCopy",
                                 JOptionPane.INFORMATION_MESSAGE);
@@ -145,7 +145,7 @@ public class CircleCopyDialog extends JDialog {
                                 creasePattern, creasePattern.getPaperSize());
 
                         //TODO make it local access
-                        MainFrame.getInstance().repaint();
+                        PaintFrame.getInstance().repaint();
                         setVisible(false);
                     }
                 }
@@ -258,9 +258,9 @@ public class CircleCopyDialog extends JDialog {
     private void initialize() {
         this.setSize(160, 171);
         this.setTitle(ResourceHolder.getLabelString(
-                StringID.Main.CIRCLE_COPY_ID));
-        this.setLocation(MainFrame.getInstance().getLocation().x + 200,
-                MainFrame.getInstance().getLocation().y + 100);
+                LABEL.CIRCLE_COPY));
+        this.setLocation(PaintFrame.getInstance().getLocation().x + 200,
+                PaintFrame.getInstance().getLocation().y + 100);
         this.setContentPane(getJContentPane());
     }
 } //  @jve:decl-index=0:visual-constraint="10,10"

@@ -17,7 +17,7 @@ import diamond.bind.button.editline.EditContourButtonFactory;
 import diamond.bind.button.editline.SelectAllLineButtonFactory;
 import diamond.paint.util.DeleteSelectedLines;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.menubar.edit.CircleCopy;
 import diamond.view.paint.menubar.edit.RepeatCopy;
 import diamond.view.paint.menubar.edit.Undo;
@@ -43,12 +43,12 @@ public class MenuEdit extends JMenu {
     private static JMenuItem menuItemCutAndPaste;
     private static JMenuItem menuItemDeleteSelectedLines = new JMenuItem(
             ResourceHolder
-                    .getLabelString(StringID.Main.DELETE_SELECTED_LINES_ID));
+                    .getLabelString(LABEL.DELETE_SELECTED_LINES));
 
     private static JMenuItem menuItemSelectAll;
 
     private MenuEdit() {
-        super(ResourceHolder.getLabelString(StringID.Main.EDIT_ID));
+        super(ResourceHolder.getLabelString(LABEL.EDIT));
 
         menuItemEditCountour = new EditContourButtonFactory()
                 .create(JMenuItem.class);

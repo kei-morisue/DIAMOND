@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.view.paint;
+package diamond.view.paint.screen;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,9 +37,6 @@ import diamond.paint.EditMode;
 import diamond.paint.core.PaintConfig;
 import diamond.paint.core.PaintContext;
 import diamond.paint.creasepattern.CreasePattern;
-import diamond.view.paint.screen.Graphics2DDrawer;
-import diamond.view.paint.screen.ScreenAxisTransform;
-import diamond.view.paint.screen.ScreenMouseAction;
 import diamond.viewsetting.ViewScreenUpdater;
 import diamond.viewsetting.paint.ScreenUpdater;
 

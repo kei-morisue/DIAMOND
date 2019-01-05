@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 import diamond.doc.DocHolder;
 import diamond.file.FilterDB;
 import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringID;
+import diamond.resource.string.StringKey.LABEL;
 import diamond.view.paint.menubar.MenuFile;
 
 /**
@@ -32,7 +32,7 @@ public class Save extends JMenuItem implements ActionListener {
     }
 
     private Save() {
-        super(ResourceHolder.getLabelString(StringID.Main.SAVE_ID));
+        super(ResourceHolder.getLabelString(LABEL.SAVE));
         setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         addActionListener(this);
@@ -45,7 +45,7 @@ public class Save extends JMenuItem implements ActionListener {
             FilterDB.getInstance().getFilter("opx").getSavingAction()
                     .save(filePath);
             MenuFile.getInstance().updateMRUItems(filePath);
-            diamond.view.MainFrame.getInstance()
+            diamond.view.paint.PaintFrame.getInstance()
                     .setTitle(DocHolder.getDoc().getDataFileName());
         } else {
             SaveAs.getInstance().doClick();
