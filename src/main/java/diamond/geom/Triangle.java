@@ -22,5 +22,10 @@ import javax.vecmath.Vector2d;
 
 public class Triangle {
 
-    public Vector2d[] p = new Vector2d[3];
+    private Vector2d[] vector2ds = new Vector2d[3];
+
+    public Vector2d[] getVector2ds() {
+
+        return vector2ds;
+    }
 }
