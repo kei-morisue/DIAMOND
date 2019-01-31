@@ -28,4 +28,8 @@ public class Triangle {
 
         return vector2ds;
     }
+
+    public void add(Vector2d v) {
+        vector2ds[]
+    }
 }
