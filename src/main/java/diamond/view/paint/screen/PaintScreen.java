@@ -22,8 +22,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
@@ -32,109 +30,70 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import diamond.doc.DocHolder;
-import diamond.paint.EditMode;
-import diamond.paint.core.PaintConfig;
-import diamond.paint.core.PaintContext;
-import diamond.paint.creasepattern.CreasePattern;
-import diamond.viewsetting.ViewScreenUpdater;
-import diamond.viewsetting.paint.ScreenUpdater;
+import diamond.Initials;
+import diamond.model.palette.cp.CreasePattern;
+import diamond.view.paint.PaintContext;
 
-public class PaintScreen extends JPanel
-        implements ActionListener, ComponentListener, Observer {
-    private Image bufferImage;
-
+public class PaintScreen extends JPanel implements ComponentListener, Observer {
     private ScreenAxisTransform screenAxsisTransform = new ScreenAxisTransform(
             getWidth(), getHeight());
 
-    public PaintScreen() {
+    private PaintContext paintContext;
+
+    public PaintScreen(PaintContext paintContext) {
         ScreenMouseAction mouseAction = new ScreenMouseAction(
                 screenAxsisTransform);
         addMouseListener(mouseAction);
         addMouseMotionListener(mouseAction);
         addMouseWheelListener(mouseAction);
-        addComponentListener(this);
-        ScreenUpdater.getInstance().addObserver(this);
-        PaintContext.getInstance().addObserver(this);
-        PaintContext.setPainterScreen(this);//TODO remove this
+        this.paintContext = paintContext;
+        setBackground(Color.gray);
+        setSize(Initials.MAIN_FRAME_WIDTH, Initials.MAIN_FRAME_HEIGHT);
+    }
+
+    private Graphics2D createFreshG2D() {
+        Image g2dBuff = createImage();
+        Graphics2D g2d = (Graphics2D) g2dBuff.getGraphics();
+        g2d.setTransform(new AffineTransform());
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+        g2d.setTransform(screenAxsisTransform.getTransform());
+        return g2d;
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        Graphics2D g2d = initializeBufferG2D();
-        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
-        Graphics2DDrawer.drawLines(g2d, creasePattern);
-        if (PaintConfig.getMouseAction().getEditMode() == EditMode.VERTEX
-                || PaintConfig.dispVertex) {
-            Graphics2DDrawer.drawVertexRectangles(g2d,
-                    DocHolder.getDoc().getCreasePattern());
-        }
-        if (PaintContext.getInstance().dispGrid) {
-            Graphics2DDrawer.drawGridLine(g2d,
-                    DocHolder.getDoc().getPaperSize(), PaintConfig.gridDivNum);
-        }
-
-        if (PaintConfig.bDispCrossLine) {
-            Graphics2DDrawer.drawCrossLines(g2d,
-                    DocHolder.getDoc().getCrossLines());
-        }
-        if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onDraw(g2d, PaintContext.getInstance());
-            Graphics2DDrawer.showXnY(g2d,
-                    PaintContext.getInstance().pickCandidateV);
-        }
-        g.drawImage(bufferImage, 0, 0, this);
+        Graphics2D g2d = (Graphics2D) g;
+        CreasePattern creasePattern = new CreasePattern();
+        Graphics2DDrawer.drawLines(g2d, creasePattern.getLines());
+        Graphics2DDrawer.showXnY(g2d, paintContext.pickCandidateVertex());
     }
 
-    private Graphics2D initializeBufferG2D() {
-        bufferImage = createImage(getWidth(), getHeight());
-        Graphics2D bufferg = (Graphics2D) bufferImage.getGraphics();
-        bufferg.setTransform(new AffineTransform());
-        bufferg.setColor(Color.WHITE);
-        bufferg.fillRect(0, 0, getWidth(), getHeight());
-        bufferg.setTransform(screenAxsisTransform.getTransform());
-        return bufferg;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        if (getWidth() <= 0 || getHeight() <= 0) {
-            return;
-        }
-        screenAxsisTransform.Resize(getWidth(), getHeight());
-        repaint();
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-    }
-
-    public Image getCreasePatternImage() {
-        return bufferImage;
+    public Image createImage() {
+        int w = getWidth();
+        int h = getHeight();
+        return createImage(w, h);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        String name = o.toString();
-        if (name.equals(ScreenUpdater.getInstance().getName())) {
-            if (arg != null) {
-                if (arg.equals(ViewScreenUpdater.REDRAW_REQUESTED)) {
-                    repaint();
-                }
-            }
-        }
+        repaint();
     }
 
+    @Override
+    public void componentResized(ComponentEvent e) {
+        repaint();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
 }
