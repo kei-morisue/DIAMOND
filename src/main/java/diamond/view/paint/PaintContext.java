@@ -6,45 +6,16 @@ package diamond.view.paint;
 
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Vector2d;
-
-import diamond.action.GraphicMouseAction;
+import diamond.model.geom.OriPoint;
 
 /**
  * @author long_
  *
  */
-public class PaintContext {
-    private boolean isVisible;
-    private Point2D.Double logicalMousePoint;
-    public GraphicMouseAction mouseAction;
+public class PaintContext extends AbstractContext {
+    public Point2D.Double currentlogicalMousePoint;
+    public Point2D clickedLatestPoint;
+    public boolean bEffective = true;
+    public OriPoint pointedOriPoint = new OriPoint(0.0, 0.0);
 
-    public void setLogicalMousePoint(Point2D.Double logicalMousePoint) {
-        this.logicalMousePoint = logicalMousePoint;
-    }
-
-    public boolean isVisible() {
-        return this.isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public Point2D.Double getMousePoint() {
-        return this.logicalMousePoint;
-    }
-
-    public GraphicMouseAction getMouseAction() {
-        return this.mouseAction;
-    }
-
-    public void setMouseAction(GraphicMouseAction mouseAction) {
-        this.mouseAction = mouseAction;
-    }
-
-    public Vector2d pickCandidateVertex() {
-        Vector2d candidateVertex = new Vector2d(0, 0);
-        return candidateVertex;
-    }
 }

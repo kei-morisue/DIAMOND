@@ -25,12 +25,15 @@ public class CreasePattern {
         points = new HashSet<>(Initials.PAPER_EDGES);
         for (OriLine l : lines) {
             points.add(l.p0);
-            //points.add(l.p1);
         }
     }
 
     public Set<OriLine> getLines() {
         return this.lines;
+    }
+
+    public Set<OriPoint> getPoints() {
+        return this.points;
     }
 
     public void addLine(OriLine line) {

@@ -4,6 +4,8 @@
  */
 package diamond.model.geom;
 
+import java.awt.geom.Point2D;
+
 import javax.vecmath.Vector2d;
 
 /**
@@ -13,6 +15,10 @@ import javax.vecmath.Vector2d;
 public class OriPoint extends Vector2d implements Comparable<OriPoint> {
     public OriPoint(Double x, Double y) {
         super(x, y);
+    }
+
+    public OriPoint(Point2D p) {
+        super(p.getX(), p.getY());
     }
 
     @Override

@@ -19,11 +19,8 @@
 package diamond.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 
 import diamond.Initials;
 import diamond.view.paint.PaintContext;
@@ -35,8 +32,6 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class PaintFrame extends JFrame {
 
     public PaintFrame() {
-        setBackground(Color.black);
-
         setSize(Initials.MAIN_FRAME_WIDTH,
                 Initials.MAIN_FRAME_HEIGHT);
         setIconImage(
@@ -44,16 +39,10 @@ public class PaintFrame extends JFrame {
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
                 LABEL.DEFAULT_FILE_NAME));
-        {
 
-            JMenuBar bar = new JMenuBar();
-            bar.add(new JMenu("File"));
-            add(bar, BorderLayout.NORTH);
-
-        }
-
-        add(new PaintScreen(new PaintContext()), BorderLayout.CENTER);
-
+        PaintContext paintContext = new PaintContext();
+        PaintScreen paintScreen = new PaintScreen(paintContext);
+        add(paintScreen, BorderLayout.CENTER);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

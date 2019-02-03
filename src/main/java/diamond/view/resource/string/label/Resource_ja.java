@@ -8,7 +8,7 @@ public class Resource_ja extends ListResourceBundle {
 
     static final String[][] strings = {
             { LABEL.MAIN_FRAME_TITLE.name(),
-                    "DIAMOND : 折図専用エディタ" },
+                    "DIAMOND : ダイヤグラム製図専用エディタ" },
             { LABEL.FILE.name(), "ファイル" },
             { LABEL.EDIT.name(), "編集" },
             { LABEL.HELP.name(), "ヘルプ" },

@@ -4,7 +4,6 @@
  */
 package diamond.view.paint.screen;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
@@ -14,45 +13,58 @@ import java.util.Collection;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.OriLine;
+import diamond.model.geom.OriPoint;
 import diamond.model.palette.cp.LineSetting;
+import diamond.view.resource.color.ColorStyle;
 
 /**
  * @author long_
  *
  */
-public class Graphics2DDrawer {
-    public static void showXnY(Graphics2D g2d, Vector2d candidate) {
-        if (candidate == null) {
-            return;
-        }
-        g2d.setColor(Color.BLACK);
+public class Graphics2dDrawer {
+    public static void describe(Graphics2D g2d, Object pointed, int x, int y) {
+        g2d.setColor(ColorStyle.X_Y);
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
-        g2d.drawString(
-                String.format("(%f, %f)", candidate.x, candidate.y),
-                0,
-                10);
+        if (pointed == null) {
+            g2d.drawString("-", x, y);
+            ;
+        } else {
+            g2d.drawString(pointed.toString(), x, y);
+
+        }
+
         g2d.setTransform(tmpTransform);
         return;
     }
 
     public static void drawLines(Graphics2D g2d, Collection<OriLine> lines) {
         for (OriLine line : lines) {
-            g2d.setColor(Color.RED);
-            g2d.setStroke(LineSetting.STROKE_VALLEY);
-            g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
-                    line.p1.y));
+            drawLine(g2d, line);
         }
     }
 
-    public static void drawVertexRectangle(Graphics2D g2d, Vector2d v0,
+    private static void drawLine(Graphics2D g2d, OriLine line) {
+        g2d.setColor(ColorStyle.ORI_LINE);
+        g2d.setStroke(LineSetting.STROKE_VALLEY);
+        g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
+                line.p1.y));
+    }
+
+    public static void drawPoints(Graphics2D g2d, Collection<OriPoint> points) {
+        for (OriPoint point : points) {
+            drawPoint(g2d, point, 10.0 * calcScale(g2d));
+        }
+    }
+
+    public static void drawPoint(Graphics2D g2d, Vector2d point,
             double size) {
+        g2d.setColor(ColorStyle.ORI_POINT);
         g2d.fill(new Rectangle2D.Double(
-                v0.x - size * 0.5,
-                v0.y - size * 0.5,
+                point.x - size * 0.5,
+                point.y - size * 0.5,
                 size,
                 size));
-
     }
 
     private static double calcScale(Graphics2D g2d) {

@@ -21,79 +21,45 @@ package diamond.view.paint.screen;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.geom.AffineTransform;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.JPanel;
-
-import diamond.Initials;
 import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.PaintContext;
 
-public class PaintScreen extends JPanel implements ComponentListener, Observer {
-    private ScreenAxisTransform screenAxsisTransform = new ScreenAxisTransform(
+public class PaintScreen extends AbstractScreen {
+    private CoodinateTransform coordinateTransform = new CoodinateTransform(
             getWidth(), getHeight());
 
     private PaintContext paintContext;
 
     public PaintScreen(PaintContext paintContext) {
+        super();
         ScreenMouseAction mouseAction = new ScreenMouseAction(
-                screenAxsisTransform);
+                coordinateTransform, paintContext);
         addMouseListener(mouseAction);
         addMouseMotionListener(mouseAction);
         addMouseWheelListener(mouseAction);
         this.paintContext = paintContext;
-        setBackground(Color.gray);
-        setSize(Initials.MAIN_FRAME_WIDTH, Initials.MAIN_FRAME_HEIGHT);
-    }
-
-    private Graphics2D createFreshG2D() {
-        Image g2dBuff = createImage();
-        Graphics2D g2d = (Graphics2D) g2dBuff.getGraphics();
-        g2d.setTransform(new AffineTransform());
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-        g2d.setTransform(screenAxsisTransform.getTransform());
-        return g2d;
+        paintContext.addObserver(this);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        CreasePattern creasePattern = new CreasePattern();
-        Graphics2DDrawer.drawLines(g2d, creasePattern.getLines());
-        Graphics2DDrawer.showXnY(g2d, paintContext.pickCandidateVertex());
+        setBackground(Color.gray);
+        int width = getWidth();
+        int height = getHeight();
+        g2d.fillRect(0, 0, width, height);
+        coordinateTransform.ResizeWindow(width, height);
+        g2d.setTransform(coordinateTransform.getTransform());
+        CreasePattern creasePattern = new CreasePattern();//TODO
+        Graphics2dDrawer.drawLines(g2d, creasePattern.getLines());
+        Graphics2dDrawer.drawPoints(g2d, creasePattern.getPoints());
+        Graphics2dDrawer.describe(g2d, paintContext.currentlogicalMousePoint, 0,
+                10);
+        Graphics2dDrawer.describe(g2d, paintContext.clickedLatestPoint,
+                0, 30);
+        Graphics2dDrawer.describe(g2d, coordinateTransform.getTransform(),
+                0, 80);
     }
 
-    public Image createImage() {
-        int w = getWidth();
-        int h = getHeight();
-        return createImage(w, h);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        repaint();
-    }
-
-    @Override
-    public void componentResized(ComponentEvent e) {
-        repaint();
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
-    }
 }
