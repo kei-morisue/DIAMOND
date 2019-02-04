@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.model.geom;
+package diamond.model.geom.element;
 
 import java.awt.geom.Point2D;
 
@@ -29,4 +29,7 @@ public class OriPoint extends Vector2d implements Comparable<OriPoint> {
         return (int) Math.signum(this.x - o.x);
     }
 
+    public double distance(Vector2d v) {
+        return Math.hypot(x - v.x, y - v.y);
+    }
 }

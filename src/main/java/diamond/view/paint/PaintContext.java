@@ -5,17 +5,77 @@
 package diamond.view.paint;
 
 import java.awt.geom.Point2D;
+import java.util.Observable;
+import java.util.Stack;
 
-import diamond.model.geom.OriPoint;
+import diamond.model.geom.element.OriLine;
+import diamond.model.geom.element.OriLineType;
+import diamond.model.geom.element.OriPoint;
+import diamond.view.paint.screen.CoodinateTransform;
 
 /**
  * @author long_
  *
  */
-public class PaintContext extends AbstractContext {
-    public Point2D.Double currentlogicalMousePoint;
-    public Point2D clickedLatestPoint;
+public class PaintContext extends Observable {
+    public Point2D.Double currentLogicalMousePoint;
+    public Point2D latestClickedPoint;
     public boolean bEffective = true;
-    public OriPoint pointedOriPoint = new OriPoint(0.0, 0.0);
 
+    public OriPoint pointedOriPoint = null;
+    public OriLine pointedOriLine = null;
+
+    public OriLineType inputLineType = OriLineType.VALLEY;
+
+    private Stack<OriPoint> pickedOriPoints = new Stack<>();
+    private Stack<OriLine> pickedOriLines = new Stack<>();
+
+    public boolean isFinished;
+
+    public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
+            0);
+
+    public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
+        OriPoint candidate = pointedOriPoint;
+
+        if (candidate == null && enableFreePoint) {
+            Point2D.Double mp = currentLogicalMousePoint;
+            candidate = new OriPoint(mp.x, mp.y);
+        }
+
+        return candidate;
+    }
+
+    public double getScale() {
+        return coordinateTransform.getScale();
+    }
+
+    public Stack<OriLine> getpickedLines() {
+        return pickedOriLines;
+    }
+
+    public Stack<OriPoint> getPickedPoints() {
+        return pickedOriPoints;
+    }
+
+    public void popLatestPickedPoint() {
+        if (pickedOriPoints.isEmpty()) {
+            return;
+        }
+        pickedOriPoints.pop();
+    }
+
+    public void pushPoint(OriPoint p) {
+        pickedOriPoints.push(p);
+    }
+
+    public void initialize() {
+        pickedOriLines.clear();
+        pickedOriPoints.clear();
+
+        pointedOriLine = null;
+        pointedOriPoint = null;
+
+        isFinished = false;
+    }
 }

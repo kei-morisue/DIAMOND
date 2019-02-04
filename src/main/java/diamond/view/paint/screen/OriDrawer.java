@@ -12,8 +12,8 @@ import java.util.Collection;
 
 import javax.vecmath.Vector2d;
 
-import diamond.model.geom.OriLine;
-import diamond.model.geom.OriPoint;
+import diamond.model.geom.element.OriLine;
+import diamond.model.geom.element.OriPoint;
 import diamond.model.palette.cp.LineSetting;
 import diamond.view.resource.color.ColorStyle;
 
@@ -21,9 +21,9 @@ import diamond.view.resource.color.ColorStyle;
  * @author long_
  *
  */
-public class Graphics2dDrawer {
+public class OriDrawer {
     public static void describe(Graphics2D g2d, Object pointed, int x, int y) {
-        g2d.setColor(ColorStyle.X_Y);
+        g2d.setColor(ColorStyle.FONT);
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
         if (pointed == null) {
@@ -31,9 +31,7 @@ public class Graphics2dDrawer {
             ;
         } else {
             g2d.drawString(pointed.toString(), x, y);
-
         }
-
         g2d.setTransform(tmpTransform);
         return;
     }
@@ -51,9 +49,10 @@ public class Graphics2dDrawer {
                 line.p1.y));
     }
 
-    public static void drawPoints(Graphics2D g2d, Collection<OriPoint> points) {
+    public static void drawPoints(Graphics2D g2d, Collection<OriPoint> points,
+            double size) {
         for (OriPoint point : points) {
-            drawPoint(g2d, point, 10.0 * calcScale(g2d));
+            drawPoint(g2d, point, size * calcScale(g2d));
         }
     }
 

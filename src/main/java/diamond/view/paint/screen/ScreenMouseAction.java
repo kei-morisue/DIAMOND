@@ -11,7 +11,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.action.MouseUtility;
+import diamond.controller.paint.util.MouseUtility;
 import diamond.view.paint.PaintContext;
 
 /**
@@ -37,11 +37,11 @@ public class ScreenMouseAction
 
     private void translate(MouseEvent e) {
         double scale = coodinateTransform.getScale();
-        Point2D p0 = paintContext.clickedLatestPoint;
+        Point2D p0 = paintContext.latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
         coodinateTransform.translate(x, y);
-        paintContext.clickedLatestPoint = e.getPoint();
+        paintContext.latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
@@ -49,7 +49,7 @@ public class ScreenMouseAction
         double moved = e.getWheelRotation();
         coodinateTransform
                 .rotate(Math.PI / 8 * ((moved) % 8));
-        paintContext.clickedLatestPoint = e.getPoint();
+        paintContext.latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
@@ -65,7 +65,7 @@ public class ScreenMouseAction
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        paintContext.currentlogicalMousePoint = MouseUtility.getLogicalPoint(
+        paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
                 coodinateTransform.getTransform(),
                 e.getPoint());
     }
@@ -73,7 +73,7 @@ public class ScreenMouseAction
     @Override
     public void mouseDragged(MouseEvent e) {
         translate(e);
-        paintContext.clickedLatestPoint = e.getPoint();
+        paintContext.latestClickedPoint = e.getPoint();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ScreenMouseAction
 
     @Override
     public void mousePressed(MouseEvent e) {
-        paintContext.clickedLatestPoint = e.getPoint();
+        paintContext.latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 

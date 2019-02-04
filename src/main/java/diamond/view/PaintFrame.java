@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import diamond.Initials;
 import diamond.view.paint.PaintContext;
 import diamond.view.paint.screen.PaintScreen;
+import diamond.view.paint.ui.panelUI;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -35,14 +36,17 @@ public class PaintFrame extends JFrame {
         setSize(Initials.MAIN_FRAME_WIDTH,
                 Initials.MAIN_FRAME_HEIGHT);
         setIconImage(
-                ImageIconLoader.loadAsIcon("icon/diamond.gif", getClass())
+                new ImageIconLoader().loadAsIcon("icon/diamond.gif")
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
                 LABEL.DEFAULT_FILE_NAME));
 
         PaintContext paintContext = new PaintContext();
         PaintScreen paintScreen = new PaintScreen(paintContext);
+        panelUI ui = new panelUI(paintScreen, paintContext);
         add(paintScreen, BorderLayout.CENTER);
+        add(ui, BorderLayout.WEST);
+
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

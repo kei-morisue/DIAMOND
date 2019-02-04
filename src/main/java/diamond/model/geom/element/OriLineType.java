@@ -1,4 +1,4 @@
-package diamond.model.geom;
+package diamond.model.geom.element;
 
 public enum OriLineType {
     NONE,

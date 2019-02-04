@@ -13,8 +13,11 @@ import javax.swing.ImageIcon;
  *
  */
 public class ImageIconLoader {
+    public ImageIcon loadAsIcon(String name) {
+        return loadAsIcon(name, getClass());
+    }
 
-    public static ImageIcon loadAsIcon(String name, Class<?> c) {
+    public ImageIcon loadAsIcon(String name, Class<?> c) {
         ClassLoader classLoader = c.getClassLoader();
         URL url = classLoader.getResource(name);
         ImageIcon icon = new ImageIcon(url);

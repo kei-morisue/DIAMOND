@@ -6,9 +6,9 @@ package diamond.model.palette.cp;
 
 import java.util.HashSet;
 
-import diamond.model.geom.OriLine;
-import diamond.model.geom.OriLineType;
-import diamond.model.geom.OriPoint;
+import diamond.model.geom.element.OriLine;
+import diamond.model.geom.element.OriLineType;
+import diamond.model.geom.element.OriPoint;
 
 /**
  * @author long_

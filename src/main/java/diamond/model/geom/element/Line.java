@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.model.geom;
+package diamond.model.geom.element;
 
 import javax.vecmath.Vector2d;
 

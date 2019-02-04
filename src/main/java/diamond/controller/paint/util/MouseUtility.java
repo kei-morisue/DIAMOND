@@ -1,4 +1,4 @@
-package diamond.action;
+package diamond.controller.paint.util;
 
 import java.awt.Point;
 import java.awt.event.InputEvent;
@@ -14,14 +14,13 @@ import java.awt.geom.Point2D;
  */
 public class MouseUtility {
     public static Point2D.Double getLogicalPoint(AffineTransform affine,
-            Point p) {
+            Point mousePoint) {
         Point2D.Double logicalPoint = new Point2D.Double();
         try {
-            affine.inverseTransform(p, logicalPoint);
+            affine.inverseTransform(mousePoint, logicalPoint);
         } catch (NoninvertibleTransformException e) {
             e.printStackTrace();
         }
-
         return logicalPoint;
     }
 

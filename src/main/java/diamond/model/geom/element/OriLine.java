@@ -16,13 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.model.geom;
+package diamond.model.geom.element;
 
 public class OriLine implements Comparable<OriLine> {
 
     public OriPoint p0;
     public OriPoint p1;
-    public boolean selected;
     OriLineType type;
 
     public OriLine() {
@@ -35,7 +34,6 @@ public class OriLine implements Comparable<OriLine> {
     }
 
     public OriLine(OriLine l) {
-        selected = l.selected;
         p0.set(l.p0);
         p1.set(l.p1);
         type = l.type;
@@ -59,7 +57,7 @@ public class OriLine implements Comparable<OriLine> {
 
     @Override
     public String toString() {
-        return "" + p0 + "" + p1;
+        return p0.toString() + "," + p1.toString();
     }
 
     @Override
