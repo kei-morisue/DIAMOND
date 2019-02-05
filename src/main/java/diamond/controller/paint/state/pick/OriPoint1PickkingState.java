@@ -18,10 +18,15 @@ import diamond.view.paint.PaintContext;
  */
 public class OriPoint1PickkingState extends OripointPickkingState {
 
+    public OriPoint1PickkingState() {
+        super();
+        initialize();
+    }
+
     @Override
     protected void initialize() {
-        setNextClass(Oripoint0PickkingState.class);
-        setPrevClass(Oripoint0PickkingState.class);
+        setNextClass(OriPoint0PickkingState.class);
+        setPrevClass(OriPoint0PickkingState.class);
 
     }
 

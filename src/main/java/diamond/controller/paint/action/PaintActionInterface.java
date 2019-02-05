@@ -5,7 +5,6 @@
 package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
@@ -33,13 +32,9 @@ public interface PaintActionInterface {
 
     public abstract void recover(PaintContext context);
 
-    public abstract PaintActionInterface onLeftClick(
-            PaintContext context,
-            AffineTransform affine);
+    public abstract PaintActionInterface onLeftClick(PaintContext context);
 
-    public abstract PaintActionInterface onRightClick(
-            PaintContext context,
-            AffineTransform affine);
+    public abstract PaintActionInterface onRightClick(PaintContext context);
 
     public abstract Vector2d onMove(PaintContext context);
 

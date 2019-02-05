@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Stack;
 
+import diamond.controller.paint.action.PaintActionInterface;
+import diamond.controller.paint.action.axiom1.Axiom1Action;
 import diamond.model.geom.element.OriLine;
 import diamond.model.geom.element.OriLineType;
 import diamond.model.geom.element.OriPoint;
@@ -19,8 +21,6 @@ import diamond.view.paint.screen.CoodinateTransform;
  */
 public class PaintContext extends Observable {
     public Point2D.Double currentLogicalMousePoint;
-    public Point2D latestClickedPoint;
-    public boolean bEffective = true;
 
     public OriPoint pointedOriPoint = null;
     public OriLine pointedOriLine = null;
@@ -34,6 +34,8 @@ public class PaintContext extends Observable {
 
     public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
             0);
+
+    public PaintActionInterface paintAction = new Axiom1Action();
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
         OriPoint candidate = pointedOriPoint;

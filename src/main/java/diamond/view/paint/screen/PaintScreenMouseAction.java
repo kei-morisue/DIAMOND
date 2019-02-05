@@ -18,38 +18,37 @@ import diamond.view.paint.PaintContext;
  * @author long_
  *
  */
-public class ScreenMouseAction
+public class PaintScreenMouseAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private CoodinateTransform coodinateTransform;
     private PaintContext paintContext;
+    public Point2D latestClickedPoint;
 
-    public ScreenMouseAction(CoodinateTransform screenScaling,
+    public PaintScreenMouseAction(CoodinateTransform screenScaling,
             PaintContext paintContext) {
-        this.coodinateTransform = screenScaling;
         this.paintContext = paintContext;
     }
 
     private void zoom(MouseWheelEvent e) {
         double scale_ = Math.pow(1.5, -e.getWheelRotation());
-        coodinateTransform.zoom(scale_);
+        paintContext.coordinateTransform.zoom(scale_);
         e.getComponent().repaint();
     }
 
     private void translate(MouseEvent e) {
-        double scale = coodinateTransform.getScale();
-        Point2D p0 = paintContext.latestClickedPoint;
+        double scale = paintContext.coordinateTransform.getScale();
+        Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
-        coodinateTransform.translate(x, y);
-        paintContext.latestClickedPoint = e.getPoint();
+        paintContext.coordinateTransform.translate(x, y);
+        latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
     private void rotate(MouseWheelEvent e) {
         double moved = e.getWheelRotation();
-        coodinateTransform
+        paintContext.coordinateTransform
                 .rotate(Math.PI / 8 * ((moved) % 8));
-        paintContext.latestClickedPoint = e.getPoint();
+        latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
@@ -66,24 +65,27 @@ public class ScreenMouseAction
     @Override
     public void mouseMoved(MouseEvent e) {
         paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
-                coodinateTransform.getTransform(),
+                paintContext.coordinateTransform.getTransform(),
                 e.getPoint());
+        e.getComponent().repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         translate(e);
-        paintContext.latestClickedPoint = e.getPoint();
+        latestClickedPoint = e.getPoint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        paintContext.paintAction.onLeftClick(paintContext);
+        e.getComponent().repaint();
         return;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        paintContext.latestClickedPoint = e.getPoint();
+        latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
@@ -93,12 +95,10 @@ public class ScreenMouseAction
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        paintContext.bEffective = true;
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        paintContext.bEffective = false;
     }
 
 }

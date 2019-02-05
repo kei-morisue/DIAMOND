@@ -23,6 +23,7 @@ import java.awt.Graphics2D;
 
 import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.CreasePattern;
+import diamond.model.palette.cp.LineSetting;
 import diamond.view.paint.PaintContext;
 import diamond.view.resource.color.ColorStyle;
 
@@ -31,7 +32,7 @@ public class PaintScreen extends AbstractScreen {
 
     public PaintScreen(PaintContext paintContext) {
         super();
-        ScreenMouseAction mouseAction = new ScreenMouseAction(
+        PaintScreenMouseAction mouseAction = new PaintScreenMouseAction(
                 paintContext.coordinateTransform, paintContext);
         addMouseListener(mouseAction);
         addMouseMotionListener(mouseAction);
@@ -50,14 +51,29 @@ public class PaintScreen extends AbstractScreen {
         paintContext.coordinateTransform.ResizeWindow(width, height);
         g2d.setTransform(paintContext.coordinateTransform.getTransform());
         CreasePattern creasePattern = CreasePatternHolder.getCP();
-        OriDrawer.drawLines(g2d, creasePattern.getLines());
-        OriDrawer.drawPoints(g2d, creasePattern.getPoints(), 10.0);
+        OriDrawer.drawLines(
+                g2d,
+                creasePattern.getLines(),
+                ColorStyle.ORI_LINE,
+                LineSetting.STROKE_VALLEY);
+        OriDrawer.drawPoints(g2d, creasePattern.getPoints(), 10.0,
+                ColorStyle.ORI_POINT);
+        this.paintDebuggingComponent(g2d);
+        if (paintContext.paintAction != null) {
+            paintContext.paintAction.onDraw(g2d, paintContext);
+        }
+
+    }
+
+    /**
+     * @param g
+     */
+    private void paintDebuggingComponent(Graphics2D g2d) {
         OriDrawer.describe(g2d, paintContext.currentLogicalMousePoint, 0,
                 10);
-        OriDrawer.describe(g2d, paintContext.latestClickedPoint,
+        OriDrawer.describe(g2d, paintContext.pointedOriLine,
                 0, 30);
         OriDrawer.describe(g2d, paintContext.coordinateTransform.getTransform(),
                 0, 80);
     }
-
 }
