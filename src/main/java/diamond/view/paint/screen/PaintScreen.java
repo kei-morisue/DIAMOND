@@ -23,9 +23,10 @@ import java.awt.Graphics2D;
 
 import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.CreasePattern;
-import diamond.model.palette.cp.LineSetting;
 import diamond.view.paint.PaintContext;
 import diamond.view.resource.color.ColorStyle;
+import diamond.view.resource.graphic.LineStrokeSetting;
+import diamond.view.resource.graphic.VertexSetting;
 
 public class PaintScreen extends AbstractScreen {
     private PaintContext paintContext;
@@ -55,8 +56,11 @@ public class PaintScreen extends AbstractScreen {
                 g2d,
                 creasePattern.getLines(),
                 ColorStyle.ORI_LINE,
-                LineSetting.STROKE_VALLEY);
-        OriDrawer.drawPoints(g2d, creasePattern.getPoints(), 10.0,
+                LineStrokeSetting.STROKE_VALLEY);
+        OriDrawer.drawPoints(
+                g2d,
+                creasePattern.getPoints(),
+                VertexSetting.VERTEX_SIZE,
                 ColorStyle.ORI_POINT);
         this.paintDebuggingComponent(g2d);
         if (paintContext.paintAction != null) {

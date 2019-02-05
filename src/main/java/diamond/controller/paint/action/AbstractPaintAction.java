@@ -16,11 +16,12 @@ import diamond.model.geom.element.OriLineType;
 import diamond.model.geom.element.OriPoint;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
-import diamond.model.palette.cp.LineSetting;
-import diamond.model.palette.cp.VertexSetting;
 import diamond.view.paint.EditMode;
 import diamond.view.paint.PaintContext;
 import diamond.view.paint.screen.OriDrawer;
+import diamond.view.resource.color.ColorStyle;
+import diamond.view.resource.graphic.LineStrokeSetting;
+import diamond.view.resource.graphic.VertexSetting;
 
 /**
  * @author long_
@@ -131,8 +132,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriDrawer.drawLine(
                     g2d,
                     context.getpickedLines().get(i),
-                    LineSetting.LINE_COLOR_PICKED,
-                    LineSetting.STROKE_PICKED);
+                    ColorStyle.LINE_COLOR_PICKED,
+                    LineStrokeSetting.STROKE_PICKED);
         }
     }
 
@@ -142,7 +143,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriDrawer.drawPoint(
                     g2d, vertex,
                     VertexSetting.VERTEX_SIZE_PICKED / context.getScale(),
-                    VertexSetting.VERTEX_COLOR_PICKED);
+                    ColorStyle.VERTEX_COLOR_PICKED);
         }
     }
 
@@ -154,7 +155,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     g2d,
                     candidate,
                     VertexSetting.VERTEX_SIZE_POINTED / context.getScale(),
-                    VertexSetting.VERTEX_COLOR_POINTED);
+                    ColorStyle.VERTEX_COLOR_POINTED);
         }
     }
 
@@ -171,8 +172,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),
                             OriLineType.NONE),
-                    LineSetting.LINE_COLOR_CANDIDATE,
-                    LineSetting.STROKE_MOVING);
+                    ColorStyle.LINE_COLOR_CANDIDATE,
+                    LineStrokeSetting.STROKE_MOVING);
         }
 
     }
