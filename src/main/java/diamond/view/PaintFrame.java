@@ -23,7 +23,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import diamond.Initials;
-import diamond.view.paint.PaintContext;
+import diamond.controller.paint.PaintContext;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.ui.panelUI;
 import diamond.view.resource.ImageIconLoader;
@@ -39,7 +39,7 @@ public class PaintFrame extends JFrame {
                 new ImageIconLoader().loadAsIcon("icon/diamond.gif")
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
-                LABEL.DEFAULT_FILE_NAME));
+                LABEL.TITLE));
 
         PaintContext paintContext = new PaintContext();
         PaintScreen paintScreen = new PaintScreen(paintContext);
@@ -54,7 +54,7 @@ public class PaintFrame extends JFrame {
 
     @Override
     public void setTitle(String fileName) {
-        super.setTitle(ResourceHolder.getLabelString(LABEL.MAIN_FRAME_TITLE));
+        super.setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
     }
 
 }

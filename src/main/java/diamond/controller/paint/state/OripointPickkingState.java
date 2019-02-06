@@ -6,9 +6,9 @@ package diamond.controller.paint.state;
 
 import java.awt.geom.Point2D.Double;
 
-import diamond.model.geom.element.OriPoint;
+import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.NearestPointFinder;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_

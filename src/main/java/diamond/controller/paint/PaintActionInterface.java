@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.action;
+package diamond.controller.paint;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
@@ -10,7 +10,6 @@ import java.awt.geom.Point2D;
 import javax.vecmath.Vector2d;
 
 import diamond.view.paint.EditMode;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_

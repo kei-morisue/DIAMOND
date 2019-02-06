@@ -4,8 +4,8 @@
  */
 package diamond.controller.paint.state.pick;
 
+import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OripointPickkingState;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_

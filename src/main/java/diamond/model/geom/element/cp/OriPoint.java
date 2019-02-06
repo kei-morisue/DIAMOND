@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.model.geom.element;
+package diamond.model.geom.element.cp;
 
 import java.awt.geom.Point2D;
 

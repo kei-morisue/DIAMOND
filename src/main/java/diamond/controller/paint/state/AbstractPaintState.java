@@ -7,7 +7,7 @@ package diamond.controller.paint.state;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
-import diamond.view.paint.PaintContext;
+import diamond.controller.paint.PaintContext;
 
 /**
  * @author long_

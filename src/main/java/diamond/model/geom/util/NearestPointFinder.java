@@ -4,10 +4,10 @@
  */
 package diamond.model.geom.util;
 
+import diamond.controller.paint.PaintContext;
 import diamond.model.geom.Constants;
-import diamond.model.geom.element.OriPoint;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.CreasePatternHolder;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_

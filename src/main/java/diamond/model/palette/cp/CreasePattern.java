@@ -7,9 +7,12 @@ package diamond.model.palette.cp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.vecmath.Vector2d;
+
 import diamond.Initials;
-import diamond.model.geom.element.OriLine;
-import diamond.model.geom.element.OriPoint;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.util.CrossPointUtil;
 
 /**
  * @author long_
@@ -21,18 +24,6 @@ public class CreasePattern {
 
     public CreasePattern() {
         buildWhitePaper(Initials.PAPER_SIZE, Initials.PAPER_EDGES);
-    }
-
-    public CreasePattern(double size) {
-        buildWhitePaper(size, Initials.PAPER_EDGES);
-    }
-
-    public CreasePattern(int edges) {
-        buildWhitePaper(Initials.PAPER_SIZE, edges);
-    }
-
-    public CreasePattern(double size, int edges) {
-        buildWhitePaper(size, edges);
     }
 
     public void buildWhitePaper(double size, int edges) {
@@ -52,9 +43,16 @@ public class CreasePattern {
     }
 
     public void addLine(OriLine line) {
+        for (OriLine cpLine : lines) {
+            Vector2d crossPoint = CrossPointUtil.getCrossPoint(line, cpLine);
+            if (crossPoint != null) {
+                this.points.add(new OriPoint(crossPoint.x, crossPoint.y));
+            }
+        }
+
         this.lines.add(line);
         this.points.add(line.p0);
-        this.points.add(line.p1);//TODO Cross points need also to be added
+        this.points.add(line.p1);
     }
 
     public void addPoint(OriPoint p) {

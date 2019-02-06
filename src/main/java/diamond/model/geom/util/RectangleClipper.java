@@ -21,7 +21,7 @@ package diamond.model.geom.util;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
-import diamond.model.geom.element.OriLine;
+import diamond.model.geom.element.cp.OriLine;
 
 public class RectangleClipper {
 

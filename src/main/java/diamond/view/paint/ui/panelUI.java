@@ -7,7 +7,7 @@ package diamond.view.paint.ui;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import diamond.view.paint.PaintContext;
+import diamond.controller.paint.PaintContext;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
@@ -19,7 +19,7 @@ import diamond.view.resource.string.StringKey.LABEL;
  */
 public class panelUI extends JPanel {
     private JRadioButton axiom1Button = new JRadioButton(
-            ResourceHolder.getLabelString(LABEL.INPUT_LINE));
+            ResourceHolder.getLabelString(LABEL.AXIOM1));
 
     public panelUI(PaintScreen screen, PaintContext context) {
         ImageIconLoader imageIconLoader = new ImageIconLoader();
@@ -28,5 +28,6 @@ public class panelUI extends JPanel {
         add(axiom1Button);
         axiom1Button.setPressedIcon(
                 imageIconLoader.loadAsIcon("icon/segment_P.gif"));
+        setEnabled(false);
     }
 }

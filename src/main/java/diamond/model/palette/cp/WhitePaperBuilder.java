@@ -6,9 +6,9 @@ package diamond.model.palette.cp;
 
 import java.util.HashSet;
 
-import diamond.model.geom.element.OriLine;
-import diamond.model.geom.element.OriLineType;
-import diamond.model.geom.element.OriPoint;
+import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 
 /**
  * @author long_
@@ -26,7 +26,7 @@ public class WhitePaperBuilder {
             OriLine line = new OriLine(
                     buildOriPoint(radius, rotationOffset + theta * (2 * i - 1)),
                     buildOriPoint(radius, rotationOffset + theta * (2 * i + 1)),
-                    OriLineType.CUT);
+                    LineType.CUT);
             lines.add(line);
         }
         return lines;

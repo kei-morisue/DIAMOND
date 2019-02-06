@@ -8,9 +8,9 @@ import javax.vecmath.Vector2d;
 import javax.vecmath.Vector3d;
 
 import diamond.model.geom.element.Line;
-import diamond.model.geom.element.OriLine;
-import diamond.model.geom.element.OriLineType;
-import diamond.model.geom.element.OriPoint;
+import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 
 /**
  * @author long_
@@ -59,7 +59,7 @@ public class MiscGeomUtil {
     }
 
     public static OriLine getLineByValue(Vector2d sv, double length,
-            double deg_angle, OriLineType type) {
+            double deg_angle, LineType type) {
         Vector2d ev = new Vector2d(sv);
         double rad_angle = Math.toRadians(deg_angle);
         Vector2d dir = new Vector2d(length * Math.cos(rad_angle),

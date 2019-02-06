@@ -16,18 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.model.geom.element;
+package diamond.model.geom.element.cp;
+
+import diamond.model.geom.element.Line;
+import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.Segment;
 
 public class OriLine implements Comparable<OriLine> {
 
     public OriPoint p0;
     public OriPoint p1;
-    OriLineType type;
+    LineType type;
 
     public OriLine() {
     }
 
-    public OriLine(OriPoint p0, OriPoint p1, OriLineType type) {
+    public OriLine(OriPoint p0, OriPoint p1, LineType type) {
         this.type = type;
         this.p0 = p0;
         this.p1 = p1;
@@ -51,7 +55,7 @@ public class OriLine implements Comparable<OriLine> {
         return new Segment(p0, p1);
     }
 
-    public OriLineType getType() {
+    public LineType getType() {
         return type;
     }
 

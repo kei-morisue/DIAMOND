@@ -11,20 +11,19 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
+import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.util.MouseUtility;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_
  *
  */
-public class PaintScreenMouseAction
+public class PaintScreenCoordinateListnener
         implements MouseListener, MouseMotionListener, MouseWheelListener {
     private PaintContext paintContext;
     public Point2D latestClickedPoint;
 
-    public PaintScreenMouseAction(CoodinateTransform screenScaling,
-            PaintContext paintContext) {
+    public PaintScreenCoordinateListnener(PaintContext paintContext) {
         this.paintContext = paintContext;
     }
 
@@ -59,7 +58,7 @@ public class PaintScreenMouseAction
         } else {
             zoom(e);
         }
-
+        e.getComponent().repaint();
     }
 
     @Override
@@ -74,11 +73,11 @@ public class PaintScreenMouseAction
     public void mouseDragged(MouseEvent e) {
         translate(e);
         latestClickedPoint = e.getPoint();
+        e.getComponent().repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        paintContext.paintAction.onLeftClick(paintContext);
         e.getComponent().repaint();
         return;
     }

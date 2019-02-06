@@ -7,9 +7,9 @@ package diamond.model.geom.util;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
-import diamond.model.geom.element.OriLine;
-import diamond.model.geom.element.OriLineType;
-import diamond.model.geom.element.OriPoint;
+import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 
 /**
  * @author long_
@@ -95,7 +95,7 @@ public class LineGeomUtil {
     public static OriLine getVerticalLine(
             Vector2d v,
             OriLine line,
-            OriLineType type) {
+            LineType type) {
         double x0 = line.p0.x;
         double y0 = line.p0.y;
         double x1 = line.p1.x;

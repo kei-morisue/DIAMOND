@@ -1,8 +1,9 @@
 package diamond.model.geom.element;
 
-public enum OriLineType {
-    NONE,
+public enum LineType {
+    AUX,
     CUT,
     MOUNTAIN,
     VALLEY,
+    GRID
 }

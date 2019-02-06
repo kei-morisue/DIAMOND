@@ -2,18 +2,17 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.paint;
+package diamond.controller.paint;
 
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Stack;
 
-import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.axiom1.Axiom1Action;
-import diamond.model.geom.element.OriLine;
-import diamond.model.geom.element.OriLineType;
-import diamond.model.geom.element.OriPoint;
-import diamond.view.paint.screen.CoodinateTransform;
+import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
+import diamond.view.paint.screen.coordinate.CoodinateTransform;
 
 /**
  * @author long_
@@ -25,7 +24,7 @@ public class PaintContext extends Observable {
     public OriPoint pointedOriPoint = null;
     public OriLine pointedOriLine = null;
 
-    public OriLineType inputLineType = OriLineType.VALLEY;
+    public LineType inputLineType = LineType.MOUNTAIN;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();

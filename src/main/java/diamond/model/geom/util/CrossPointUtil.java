@@ -8,8 +8,8 @@ import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.Line;
-import diamond.model.geom.element.OriLine;
 import diamond.model.geom.element.Segment;
+import diamond.model.geom.element.cp.OriLine;
 
 /**
  * @author long_
@@ -49,7 +49,7 @@ public class CrossPointUtil {
     }
 
     public static Vector2d getCrossPoint(OriLine l0, OriLine l1) {
-        return getCrossPoint(l0, l1, 1.0e-6);
+        return getCrossPoint(l0, l1, Constants.EPS);
     }
 
     private static Vector2d getCrossPoint(OriLine l0, OriLine l1,
@@ -95,7 +95,7 @@ public class CrossPointUtil {
         Vector2d diff = new Vector2d(q0.x - p0.x, q0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
-        double epsilon = 1.0e-6;
+        double epsilon = Constants.EPS;
         if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
@@ -119,7 +119,7 @@ public class CrossPointUtil {
         Vector2d diff = new Vector2d(seg.p0.x - p0.x, seg.p0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
-        double epsilon = 1.0e-6;
+        double epsilon = Constants.EPS;
         if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
@@ -152,7 +152,7 @@ public class CrossPointUtil {
         Vector2d diff = new Vector2d(l1.p.x - p0.x, l1.p.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
-        double epsilon = 1.0e-6;
+        double epsilon = Constants.EPS;
         if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
@@ -168,10 +168,6 @@ public class CrossPointUtil {
         return null;
     }
 
-    //Calculate the intersection of p1-p2 and p3-p4.
-    //The return value is:  0 when there is no intersection,
-    //                      1 when intersect (ap1 is the intersection),
-    //                      2 when they are parallel and ap1-ap2 is the intersection
     public static int getCrossPoint(Vector2d ap1, Vector2d ap2,
             Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4) {
 

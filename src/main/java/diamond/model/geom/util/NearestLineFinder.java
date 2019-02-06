@@ -8,10 +8,10 @@ import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
-import diamond.model.geom.element.OriLine;
+import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.cp.OriLine;
 import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.CreasePattern;
-import diamond.view.paint.PaintContext;
 
 /**
  * @author long_
