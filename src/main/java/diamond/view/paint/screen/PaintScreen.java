@@ -25,7 +25,6 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.listener.PaintActionListnener;
 import diamond.controller.paint.listener.PaintScreenCoordinateListnener;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.palette.CreasePatternHolder;
@@ -85,14 +84,16 @@ public class PaintScreen extends AbstractScreen {
                     l,
                     ColorStyle.getColor(l),
                     LineStrokeSetting.STROKE_VALLEY);
-        }
-        for (OriPoint p : creasePattern.getPoints()) {
             OriDrawer.drawPoint(
                     g2d,
-                    p,
+                    l.p0,
                     VertexSetting.VERTEX_SIZE,
                     ColorStyle.ORI_POINT);
-
+            OriDrawer.drawPoint(
+                    g2d,
+                    l.p1,
+                    VertexSetting.VERTEX_SIZE,
+                    ColorStyle.ORI_POINT);
         }
 
     }
