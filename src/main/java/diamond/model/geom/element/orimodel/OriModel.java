@@ -28,10 +28,10 @@ public class OriModel {
 
     public OriModel(CreasePattern cp) {
         addOriVertices(cp);
-        addOriFaces(cp);
+        addOriFaces();
     }
 
-    private void addOriFaces(CreasePattern cp) {
+    private void addOriFaces() {
         for (OriVertex v : vertices) {
             for (OriEdge e : v.getEdges()) {
                 if (e.getType() == LineType.CUT) {
@@ -40,11 +40,24 @@ public class OriModel {
                 if (OriModelUtil.faceExistsOnLeft(v, e)) {
                     continue;
                 }
-                OriFace face = OriModelUtil.makeOriFaceOnLeft(v, e);
-                faces.add(face);
-                OriModelUtil.makePairsAndEdges(edges, faces);
+                makeGraph(v, e);
             }
         }
+        // white paper case
+        if (faces.size() == 0) {
+            for (OriVertex v : vertices) {
+                for (OriEdge e : v.getEdges()) {
+                    makeGraph(v, e);
+                }
+            }
+        }
+    }
+
+    private OriFace makeGraph(OriVertex v, OriEdge e) {
+        OriFace face = OriModelUtil.makeOriFaceOnLeft(v, e);
+        faces.add(face);
+        OriModelUtil.makePairsAndEdges(edges, faces);
+        return face;
     }
 
     private void addOriVertices(CreasePattern cp) {
