@@ -63,10 +63,6 @@ public class PaintScreenCoordinateListnener
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
-                paintContext.coordinateTransform.getTransform(),
-                e.getPoint());
-        e.getComponent().repaint();
     }
 
     @Override

@@ -102,10 +102,10 @@ public class LineGeomUtil {
         double y1 = line.p1.y;
         double px = v.x;
         double py = v.y;
-        Vector2d sub0, sub1, sub, sub0b;
+        Vector2d sub0, sub, sub0b;
 
         sub0 = new Vector2d(x0 - px, y0 - py);
-        sub1 = new Vector2d(x1 - px, y1 - py);
+
         sub0b = new Vector2d(-sub0.x, -sub0.y);
         sub = new Vector2d(x1 - x0, y1 - y0);
 

@@ -28,6 +28,7 @@ public class PaintActionListnener
         paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
                 paintContext.coordinateTransform.getTransform(),
                 e.getPoint());
+        paintContext.paintAction.onMove(paintContext);
         e.getComponent().repaint();
     }
 

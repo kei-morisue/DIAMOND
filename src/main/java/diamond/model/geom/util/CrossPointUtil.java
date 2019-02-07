@@ -157,7 +157,6 @@ public class CrossPointUtil {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
             double invDet = 1.0 / det;
-            double s = (d1.x * diff.y - d1.y * diff.x) * invDet;
             double t = (d0.x * diff.y - d0.y * diff.x) * invDet;
 
             Vector2d cp = new Vector2d();
