@@ -81,4 +81,9 @@ public class OriVertex {
     public void setFoldable(boolean isFoldable) {
         this.isFoldable = isFoldable;
     }
+
+    @Override
+    public String toString() {
+        return "(" + p.x + ", " + p.y + ")";
+    }
 }
