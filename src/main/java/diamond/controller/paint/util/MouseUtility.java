@@ -30,13 +30,11 @@ public class MouseUtility {
     }
 
     public static boolean isLeftClick(MouseEvent e) {
-        return ((e.getModifiersEx()
-                & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK);
+        return (e.getModifiers() == InputEvent.BUTTON1_MASK);
     }
 
     public static boolean isRightClick(MouseEvent e) {
-        return ((e.getModifiersEx()
-                & InputEvent.BUTTON2_MASK) == InputEvent.BUTTON2_MASK);
+        return (e.getModifiers() == InputEvent.BUTTON3_MASK);
     }
 
     private MouseUtility() {

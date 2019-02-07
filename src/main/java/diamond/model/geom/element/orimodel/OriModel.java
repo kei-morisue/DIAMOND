@@ -33,18 +33,16 @@ public class OriModel {
 
     private void addOriFaces(CreasePattern cp) {
         for (OriVertex v : vertices) {
-            for (OriEdge e : v.edges) {
-                if (e.type == LineType.CUT) {
+            for (OriEdge e : v.getEdges()) {
+                if (e.getType() == LineType.CUT) {
                     continue;
                 }
                 if (OriModelUtil.faceExistsOnLeft(v, e)) {
                     continue;
                 }
-                OriFace face = new OriFace();
+                OriFace face = OriModelUtil.makeOriFaceOnLeft(v, e);
                 faces.add(face);
-                OriModelUtil.makeHalfEdges(v, e, face);
-                face.makeHalfedgeLoop();
-                OriModelUtil.makeEdges(edges, faces);
+                OriModelUtil.makePairsAndEdges(edges, faces);
             }
         }
     }
@@ -63,7 +61,7 @@ public class OriModel {
     private OriVertex addOriVertex(Vector2d p) {
         OriVertex vtx = null;
         for (OriVertex v : vertices) {
-            if (DistanceUtil.Distance(v.p, p) < Constants.POINT_EPS) {
+            if (DistanceUtil.Distance(v.getP(), p) < Constants.POINT_EPS) {
                 vtx = v;
             }
         }
@@ -76,5 +74,17 @@ public class OriModel {
 
     public boolean isFolded() {
         return isFolded;
+    }
+
+    public List<OriFace> getFaces() {
+        return this.faces;
+    }
+
+    public List<OriVertex> getVertices() {
+        return this.vertices;
+    }
+
+    public List<OriEdge> getEdges() {
+        return this.edges;
     }
 }

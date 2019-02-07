@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.paint.screen;
+package diamond.view.paint.screen.draw;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.orimodel.OriFace;
 import diamond.view.resource.color.ColorStyle;
 
 /**
@@ -54,4 +55,9 @@ public class OriDrawer {
                 scaledSize));
     }
 
+    public static void drawFace(Graphics2D g2d,
+            OriFace face, Color color) {
+        g2d.setColor(color);
+        g2d.fill(face.preOutline);
+    }
 }

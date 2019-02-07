@@ -2,7 +2,9 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.validator;
+package diamond.model.palette.cp.validator;
+
+import java.util.LinkedList;
 
 import javax.vecmath.Vector2d;
 
@@ -16,18 +18,19 @@ import diamond.model.geom.element.orimodel.OriVertex;
  */
 public class Kawasaki {
     public static boolean isValid(OriVertex v) {
-        Vector2d p = v.p;
+        Vector2d p = v.getP();
         double oddSum = 0;
-        for (int i = 0; i < v.edges.size(); i++) {
-            OriEdge e = v.edges.get(i);
-            if (e.type == LineType.CUT) {
+        LinkedList<OriEdge> edges = v.getEdges();
+        for (int i = 0; i < edges.size(); i++) {
+            OriEdge e = edges.get(i);
+            if (e.getType() == LineType.CUT) {
                 return true;
             }
 
             Vector2d preP = new Vector2d(
-                    v.edges.get(i).oppositeVertex(v).p);
-            Vector2d nxtP = new Vector2d(v.edges
-                    .get((i + 1) % v.edges.size()).oppositeVertex(v).p);
+                    edges.get(i).oppositeVertex(v).getP());
+            Vector2d nxtP = new Vector2d(edges
+                    .get((i + 1) % edges.size()).oppositeVertex(v).getP());
 
             nxtP.sub(p);
             preP.sub(p);

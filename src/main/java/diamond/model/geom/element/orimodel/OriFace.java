@@ -21,22 +21,53 @@ public class OriFace {
     public GeneralPath outline = new GeneralPath();
     public GeneralPath preOutline = new GeneralPath();
 
+    public void setOutline() {
+        outline.reset();
+        outline.moveTo((float) (halfEdges.get(0).getVertex().getP().x),
+                (float) (halfEdges.get(0).getVertex().getP().y));
+        for (int i = 1; i < halfEdges.size(); i++) {
+            outline.lineTo((float) (halfEdges.get(i).getVertex().getP().x),
+                    (float) (halfEdges.get(i).getVertex().getP().y));
+        }
+        outline.closePath();
+    }
+
+    public void setPreviewOutline() {
+        preOutline.reset();
+        Vector2d centerP = new Vector2d();
+        for (OriHalfEdge he : halfEdges) {
+            centerP.add(he.getVertex().getP());
+        }
+        centerP.scale(1.0 / halfEdges.size());
+        double rate = 0.5;
+
+        preOutline.moveTo(
+                (float) (halfEdges.get(0).getVertex().getP().x * rate
+                        + centerP.x
+                                * (1.0 - rate)),
+                (float) (halfEdges.get(0).getVertex().getP().y * rate
+                        + centerP.y
+                                * (1.0 - rate)));
+        for (int i = 1; i < halfEdges.size(); i++) {
+            float x = (float) (halfEdges.get(i).getVertex().getP().x * rate
+                    + centerP.x
+                            * (1.0 - rate));
+            float y = (float) (halfEdges.get(i).getVertex().getP().y * rate
+                    + centerP.y
+                            * (1.0 - rate));
+            preOutline.lineTo(
+                    x,
+                    y);
+        }
+        preOutline.closePath();
+    }
+
     public Vector2d getCenter() {
         Vector2d centerVec = new Vector2d();
         for (OriHalfEdge he : halfEdges) {
-            centerVec.add(he.vertex.preP);
+            centerVec.add(he.getVertex().getP());
         }
         centerVec.scale(1.0 / halfEdges.size());
         return centerVec;
     }
-
-    public void makeHalfedgeLoop() {
-        int heNum = halfEdges.size();
-        for (int i = 0; i < heNum; i++) {
-            OriHalfEdge he = halfEdges.get(i);
-            he.next = halfEdges.get((i + 1) % heNum);
-            he.prev = halfEdges.get((i - 1 + heNum) % heNum);
-        }
-    }
-
 }

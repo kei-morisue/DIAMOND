@@ -7,7 +7,6 @@ package diamond.controller.paint.state.pick;
 import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.OripointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.CreasePatternHolder;

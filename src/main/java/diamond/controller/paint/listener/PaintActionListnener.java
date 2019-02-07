@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.paint.screen;
+package diamond.controller.paint.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -28,7 +28,6 @@ public class PaintActionListnener
         paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
                 paintContext.coordinateTransform.getTransform(),
                 e.getPoint());
-        paintContext.paintAction.onMove(paintContext);
         e.getComponent().repaint();
     }
 
@@ -38,10 +37,10 @@ public class PaintActionListnener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
+        if (MouseUtility.isLeftClick(e)) {
             paintContext.paintAction.onLeftClick(paintContext);
         }
-        if (e.getButton() == MouseEvent.BUTTON3) {
+        if (MouseUtility.isRightClick(e)) {
             paintContext.paintAction.onRightClick(paintContext);
         }
         e.getComponent().repaint();

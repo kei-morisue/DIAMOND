@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.validator;
+package diamond.model.palette.cp.validator;
 
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
@@ -19,13 +19,15 @@ public class Convex {
         }
 
         OriHalfEdge baseHe = face.halfEdges.get(0);
-        boolean baseFlg = MiscGeomUtil.CCWcheck(baseHe.prev.vertex.p,
-                baseHe.vertex.p, baseHe.next.vertex.p);
+        boolean baseFlg = MiscGeomUtil.CCWcheck(
+                baseHe.getPrev().getVertex().getP(),
+                baseHe.getVertex().getP(), baseHe.getNext().getVertex().getP());
 
         for (int i = 1; i < face.halfEdges.size(); i++) {
             OriHalfEdge he = face.halfEdges.get(i);
-            if (MiscGeomUtil.CCWcheck(he.prev.vertex.p, he.vertex.p,
-                    he.next.vertex.p) != baseFlg) {
+            if (MiscGeomUtil.CCWcheck(he.getPrev().getVertex().getP(),
+                    he.getVertex().getP(),
+                    he.getNext().getVertex().getP()) != baseFlg) {
                 return false;
             }
 

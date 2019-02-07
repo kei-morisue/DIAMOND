@@ -19,7 +19,7 @@ import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
 import diamond.view.paint.EditMode;
-import diamond.view.paint.screen.OriDrawer;
+import diamond.view.paint.screen.draw.OriDrawer;
 import diamond.view.resource.color.ColorStyle;
 import diamond.view.resource.graphic.LineStrokeSetting;
 import diamond.view.resource.graphic.VertexSetting;

@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.validator;
+package diamond.model.palette.cp.validator;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.orimodel.OriEdge;
@@ -16,12 +16,12 @@ public class Maekawa {
     public static boolean isMaekawa(OriVertex v) {
         int mountainCount = 0;
         int valleyCount = 0;
-        for (OriEdge e : v.edges) {
-            if (e.type == LineType.MOUNTAIN) {
+        for (OriEdge e : v.getEdges()) {
+            if (e.getType() == LineType.MOUNTAIN) {
                 mountainCount++;
-            } else if (e.type == LineType.VALLEY) {
+            } else if (e.getType() == LineType.VALLEY) {
                 valleyCount++;
-            } else if (e.type == LineType.CUT) {
+            } else if (e.getType() == LineType.CUT) {
                 return true;
             }
         }

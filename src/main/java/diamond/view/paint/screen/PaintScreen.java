@@ -22,10 +22,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.listener.PaintActionListnener;
+import diamond.controller.paint.listener.PaintScreenCoordinateListnener;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.orimodel.OriFace;
+import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.CreasePattern;
+import diamond.view.paint.screen.debug.Debugger;
+import diamond.view.paint.screen.draw.OriDrawer;
 import diamond.view.resource.color.ColorStyle;
 import diamond.view.resource.graphic.LineStrokeSetting;
 import diamond.view.resource.graphic.VertexSetting;
@@ -46,7 +52,7 @@ public class PaintScreen extends AbstractScreen {
         addMouseMotionListener(paintActionListnener);
 
         this.paintContext = paintContext;
-        //paintContext.addObserver(this);
+
     }
 
     @Override
@@ -59,15 +65,20 @@ public class PaintScreen extends AbstractScreen {
         paintContext.coordinateTransform.ResizeWindow(width, height);
         g2d.setTransform(paintContext.coordinateTransform.getTransform());
         paintCreasePattern(g2d);
-        this.paintDebuggingComponent(g2d);
         if (paintContext.paintAction != null) {
             paintContext.paintAction.onDraw(g2d, paintContext);
         }
+
+        Debugger.debugPaintContext(g2d, paintContext);
 
     }
 
     private void paintCreasePattern(Graphics2D g2d) {
         CreasePattern creasePattern = CreasePatternHolder.getCP();
+        OriModel model = new OriModel(creasePattern);
+        for (OriFace face : model.getFaces()) {
+            OriDrawer.drawFace(g2d, face, ColorStyle.ORI_FACE);
+        }
         for (OriLine l : creasePattern.getLines()) {
             OriDrawer.drawLine(
                     g2d,
@@ -81,18 +92,8 @@ public class PaintScreen extends AbstractScreen {
                     p,
                     VertexSetting.VERTEX_SIZE,
                     ColorStyle.ORI_POINT);
-        }
-    }
 
-    /**
-     * @param g
-     */
-    private void paintDebuggingComponent(Graphics2D g2d) {
-        OriDrawer.describe(g2d, paintContext.currentLogicalMousePoint, 0,
-                10);
-        OriDrawer.describe(g2d, paintContext.pointedOriLine,
-                0, 30);
-        OriDrawer.describe(g2d, paintContext.coordinateTransform.getTransform(),
-                0, 80);
+        }
+
     }
 }

@@ -15,6 +15,7 @@ import diamond.model.geom.element.cp.OriLine;
 public class ColorStyle {
     static public final java.awt.Color FRAME_BG = java.awt.Color.gray;
     static public final java.awt.Color ORI_POINT = java.awt.Color.white;
+    static public final java.awt.Color ORI_FACE = java.awt.Color.white;
 
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;

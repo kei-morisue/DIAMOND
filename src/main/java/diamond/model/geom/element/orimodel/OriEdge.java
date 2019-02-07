@@ -11,11 +11,11 @@ import diamond.model.geom.element.LineType;
  *
  */
 public class OriEdge {
-    public OriVertex sv = null;
-    public OriVertex ev = null;
-    public OriHalfEdge left = null;
-    public OriHalfEdge right = null;
-    public LineType type = LineType.AUX;
+    private OriVertex sv = null;
+    private OriVertex ev = null;
+    private OriHalfEdge left = null;
+    private OriHalfEdge right = null;
+    private LineType type = LineType.AUX;
 
     public OriEdge() {
     }
@@ -27,12 +27,53 @@ public class OriEdge {
     }
 
     public OriVertex oppositeVertex(OriVertex v) {
-        if (v == sv) {
+        if (isEv(v)) {
             return sv;
         }
-        if (v == ev) {
+        if (isSv(v)) {
             return ev;
         }
         return null;
+    }
+
+    public boolean isSv(OriVertex sv) {
+        return this.sv == sv;
+    }
+
+    public boolean isEv(OriVertex ev) {
+        return this.ev == ev;
+    }
+
+    public OriHalfEdge getLeft() {
+        return this.left;
+    }
+
+    public void setLeft(OriHalfEdge left) {
+        this.left = left;
+    }
+
+    public OriHalfEdge getRight() {
+        return this.right;
+    }
+
+    public void setRight(OriHalfEdge right) {
+        this.right = right;
+    }
+
+    public LineType getType() {
+        return this.type;
+    }
+
+    @Deprecated
+    public void setType(LineType type) {
+        this.type = type;
+    }
+
+    public OriVertex getSv() {
+        return this.sv;
+    }
+
+    public OriVertex getEv() {
+        return this.ev;
     }
 }
