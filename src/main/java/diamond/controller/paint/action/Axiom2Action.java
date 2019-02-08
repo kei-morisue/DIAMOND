@@ -2,10 +2,9 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.action.axiom2;
+package diamond.controller.paint.action;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.action.AbstractPaintAction;
 import diamond.controller.paint.state.axiom2.OriPoint0PickkingState;
 
 /**

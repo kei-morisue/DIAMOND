@@ -2,10 +2,9 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.linetype;
+package diamond.controller.paint.state;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.OriLinePickkingState;
 
 /**
  * @author long_

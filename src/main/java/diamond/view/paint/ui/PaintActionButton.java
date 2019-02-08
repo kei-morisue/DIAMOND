@@ -10,11 +10,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.action.Axiom1Action;
+import diamond.controller.paint.action.Axiom2Action;
+import diamond.controller.paint.action.DeleteLineAction;
+import diamond.controller.paint.action.FlipLineTypeAction;
 import diamond.controller.paint.action.LazyPaintAction;
 import diamond.controller.paint.action.PaintActionInterface;
-import diamond.controller.paint.action.axiom1.Axiom1Action;
-import diamond.controller.paint.action.axiom2.Axiom2Action;
-import diamond.controller.paint.action.linetype.FlipLineTypeAction;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -49,6 +50,10 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
         case FLIP_LINE_TYPE:
             this.setText(ResourceHolder.getLabelString(label));
             this.paintAction = new FlipLineTypeAction();
+            break;
+        case DELETE_LINE:
+            this.setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new DeleteLineAction();
             break;
         default:
             break;

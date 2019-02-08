@@ -9,6 +9,7 @@ import java.util.Set;
 
 import diamond.Initials;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.palette.cp.editor.LineAdder;
 
 /**
  * @author long_

@@ -2,22 +2,21 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.action.linetype;
+package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.action.AbstractPaintAction;
-import diamond.controller.paint.state.linetype.FlipLineTypeState;
+import diamond.controller.paint.state.DeleteLineState;
 
 /**
  * @author long_
  *
  */
-public class FlipLineTypeAction extends AbstractPaintAction {
-    public FlipLineTypeAction() {
+public class DeleteLineAction extends AbstractPaintAction {
+    public DeleteLineAction() {
         super();
-        setActionState(new FlipLineTypeState());
+        setActionState(new DeleteLineState());
     }
 
     @Override

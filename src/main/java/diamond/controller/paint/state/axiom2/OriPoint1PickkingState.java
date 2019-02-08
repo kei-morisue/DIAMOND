@@ -15,7 +15,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.CreasePatternHolder;
-import diamond.model.palette.cp.LineClipper;
+import diamond.model.palette.cp.editor.LineClipper;
 
 /**
  * @author long_

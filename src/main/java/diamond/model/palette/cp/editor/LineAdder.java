@@ -1,4 +1,4 @@
-package diamond.model.palette.cp;
+package diamond.model.palette.cp.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;

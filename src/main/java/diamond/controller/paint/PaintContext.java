@@ -8,8 +8,8 @@ import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Stack;
 
+import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.PaintActionInterface;
-import diamond.controller.paint.action.axiom1.Axiom1Action;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;

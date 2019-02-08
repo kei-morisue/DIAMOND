@@ -18,7 +18,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.AUX.name(), "Aux" },
             { LABEL.CUT.name(), "Cut" },
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
-
+            { LABEL.DELETE_LINE.name(), "Delete Line" },
     };
 
     @Override

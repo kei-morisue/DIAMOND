@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.cp;
+package diamond.model.palette.cp.editor;
 
 import javax.vecmath.Vector2d;
 

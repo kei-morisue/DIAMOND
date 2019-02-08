@@ -13,7 +13,8 @@ public class StringKey {
         VALLEY,
         CUT,
         AUX,
-        FLIP_LINE_TYPE
+        FLIP_LINE_TYPE,
+        DELETE_LINE
     }
 
     public enum HINT {
