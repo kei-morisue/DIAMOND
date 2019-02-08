@@ -121,6 +121,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     public void onDraw(Graphics2D g2d, PaintContext context) {
         drawPickedLines(g2d, context);
         drawPickedVertices(g2d, context);
+        drawTemporaryLine(g2d, context);
+        drawPointedVertex(g2d, context);
     }
 
     private void drawPickedLines(Graphics2D g2d, PaintContext context) {

@@ -2,19 +2,18 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.action.axiom1;
+package diamond.controller.paint.action.axiom2;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.AbstractPaintAction;
-import diamond.controller.paint.state.axiom1.OriPoint0PickkingState;
+import diamond.controller.paint.state.axiom2.OriPoint0PickkingState;
 
 /**
  * @author long_
  *
  */
-public class Axiom1Action extends AbstractPaintAction {
-    public Axiom1Action() {
-        super();
+public class Axiom2Action extends AbstractPaintAction {
+    public Axiom2Action() {
         setActionState(new OriPoint0PickkingState());
     }
 
@@ -24,6 +23,7 @@ public class Axiom1Action extends AbstractPaintAction {
 
     @Override
     public void onDrag(PaintContext context) {
+
     }
 
     @Override

@@ -13,6 +13,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.LazyPaintAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.axiom1.Axiom1Action;
+import diamond.controller.paint.action.axiom2.Axiom2Action;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -33,7 +34,7 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             break;
         case AXIOM2:
             setIcons("axiom2");
-            this.paintAction = new LazyPaintAction();
+            this.paintAction = new Axiom2Action();
             break;
         case AXIOM3:
             setIcons("axiom3");

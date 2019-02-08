@@ -2,11 +2,12 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.pick;
+package diamond.controller.paint.state.axiom1;
 
 import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.state.OripointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.CreasePatternHolder;
