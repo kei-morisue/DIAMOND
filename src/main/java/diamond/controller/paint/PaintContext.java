@@ -52,7 +52,7 @@ public class PaintContext extends Observable {
         return coordinateTransform.getScale();
     }
 
-    public Stack<OriLine> getpickedLines() {
+    public Stack<OriLine> getPickedLines() {
         return pickedOriLines;
     }
 

@@ -12,6 +12,8 @@ public class LineStrokeSetting {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_PICKED = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    final public static BasicStroke STROKE_POINTED = new BasicStroke(0.0f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_GRID = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_MOVING = new BasicStroke(0.0f,

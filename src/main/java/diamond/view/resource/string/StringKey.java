@@ -12,7 +12,8 @@ public class StringKey {
         MOUNTAIN,
         VALLEY,
         CUT,
-        AUX
+        AUX,
+        FLIP_LINE_TYPE
     }
 
     public enum HINT {

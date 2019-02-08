@@ -67,6 +67,14 @@ public class OriLine implements Comparable<OriLine> {
         return type;
     }
 
+    public void flipType() {
+        if (type == LineType.MOUNTAIN) {
+            type = LineType.VALLEY;
+        } else if (type == LineType.VALLEY) {
+            type = LineType.MOUNTAIN;
+        }
+    }
+
     @Override
     public String toString() {
         return p0.toString() + "," + p1.toString();

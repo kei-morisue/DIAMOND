@@ -14,7 +14,9 @@ import diamond.controller.paint.action.LazyPaintAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.axiom1.Axiom1Action;
 import diamond.controller.paint.action.axiom2.Axiom2Action;
+import diamond.controller.paint.action.linetype.FlipLineTypeAction;
 import diamond.view.resource.ImageIconLoader;
+import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -25,9 +27,9 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
     private PaintContext paintContext;
     private PaintActionInterface paintAction;
 
-    public PaintActionButton(LABEL l, PaintContext context) {
+    public PaintActionButton(LABEL label, PaintContext context) {
         this.paintContext = context;
-        switch (l) {
+        switch (label) {
         case AXIOM1:
             setIcons("axiom1");
             this.paintAction = new Axiom1Action();
@@ -43,6 +45,10 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
         case AXIOM4:
             setIcons("axiom4");
             this.paintAction = new LazyPaintAction();
+            break;
+        case FLIP_LINE_TYPE:
+            this.setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new FlipLineTypeAction();
             break;
         default:
             break;

@@ -24,6 +24,7 @@ public class ColorStyle {
     final public static Color ORILINE_GRID = Color.LIGHT_GRAY;
     final public static Color ORILINE_CANDIDATE = Color.GREEN;
     final public static Color ORILINE_PICKED = Color.GREEN;
+    final public static Color ORILINE_POINTED = Color.GREEN;
 
     public static final Color ORIPOINT_PICKED = Color.green;
     public static final Color ORIPOINT_POINTED = Color.green;

@@ -5,7 +5,6 @@
 package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
@@ -126,10 +125,10 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     private void drawPickedLines(Graphics2D g2d, PaintContext context) {
-        for (int i = 0; i < context.getpickedLines().size(); i++) {
+        for (int i = 0; i < context.getPickedLines().size(); i++) {
             OriDrawer.drawLine(
                     g2d,
-                    context.getpickedLines().get(i),
+                    context.getPickedLines().get(i),
                     ColorStyle.ORILINE_PICKED,
                     LineStrokeSetting.STROKE_PICKED);
         }
@@ -157,10 +156,16 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         }
     }
 
-    protected void drawLine(Graphics2D g2d, Vector2d p0, Vector2d p1) {
-        g2d.draw(new Line2D.Double(p0.x, p0.y,
-                p1.x, p1.y));
-
+    protected void drawPointedLine(Graphics2D g2d,
+            PaintContext context) {
+        if (context.pointedOriLine != null) {
+            OriLine candidate = context.pointedOriLine;
+            OriDrawer.drawLine(
+                    g2d,
+                    candidate,
+                    ColorStyle.ORILINE_POINTED,
+                    LineStrokeSetting.STROKE_POINTED);
+        }
     }
 
     protected void drawTemporaryLine(Graphics2D g2d, PaintContext context) {

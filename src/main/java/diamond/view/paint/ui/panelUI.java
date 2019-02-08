@@ -29,8 +29,9 @@ public class panelUI extends JPanel {
     JPanel lineTypePanel = new JPanel();
 
     public panelUI(PaintScreen screen, PaintContext context) {
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout(6, 1));
         addLineTypePanel(context);
+        addPaintActionButton(LABEL.FLIP_LINE_TYPE, context);
         addPaintActionButton(LABEL.AXIOM1, context);
         addPaintActionButton(LABEL.AXIOM2, context);
         addPaintActionButton(LABEL.AXIOM3, context);

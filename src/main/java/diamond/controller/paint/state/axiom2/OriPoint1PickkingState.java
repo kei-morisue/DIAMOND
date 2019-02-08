@@ -53,9 +53,9 @@ public class OriPoint1PickkingState extends OripointPickkingState {
             Vector2d v1,
             LineType type) {
 
-        Vector2d cp = new Vector2d(v0);
-        cp.add(v1);
-        cp.scale(0.5);
+        Vector2d centerPoint = (new Vector2d(v0));
+        centerPoint.add(v1);
+        centerPoint.scale(0.5);
 
         Vector2d dir = new Vector2d();
         dir.sub(v0, v1);
@@ -65,8 +65,9 @@ public class OriPoint1PickkingState extends OripointPickkingState {
         dir.scale(Initials.PAPER_SIZE * 2);
 
         OriLine bisector = new OriLine(
-                new OriPoint(cp.x - dir.x, cp.y - dir.y),
-                new OriPoint(cp.x + dir.x, cp.y + dir.y), type);
+                new OriPoint(centerPoint.x - dir.x, centerPoint.y - dir.y),
+                new OriPoint(centerPoint.x + dir.x, centerPoint.y + dir.y),
+                type);
         bisector = LineClipper.clipByCutLines(bisector);
         return bisector;
     }
