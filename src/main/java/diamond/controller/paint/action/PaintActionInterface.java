@@ -2,13 +2,14 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint;
+package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
+import diamond.controller.paint.PaintContext;
 import diamond.view.paint.EditMode;
 
 /**

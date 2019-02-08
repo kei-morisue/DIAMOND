@@ -2,6 +2,7 @@ package diamond.view.resource.string.warning;
 
 import java.util.ListResourceBundle;
 
+import diamond.model.geom.Constants;
 import diamond.view.resource.string.StringKey.WARNING;
 
 public class Resource_en extends ListResourceBundle {
@@ -11,7 +12,8 @@ public class Resource_en extends ListResourceBundle {
                     "Same name file exists. Over write?" },
             { WARNING.SAVE_FAILED.name(), "Failed to save." },
             { WARNING.LOAD_FAILED.name(), "Failed to load." },
-
+            { WARNING.WRONG_FACE.name(), "Too much vertices( >"
+                    + (Constants.MAX_POLYGON) + ") on a OriFace" },
     };
 
     @Override

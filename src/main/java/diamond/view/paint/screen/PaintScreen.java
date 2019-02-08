@@ -49,9 +49,7 @@ public class PaintScreen extends AbstractScreen {
         addMouseWheelListener(coordinateActionListener);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);
-
         this.paintContext = paintContext;
-
     }
 
     @Override

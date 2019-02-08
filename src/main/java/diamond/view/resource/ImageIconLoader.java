@@ -21,7 +21,6 @@ public class ImageIconLoader {
         ClassLoader classLoader = c.getClassLoader();
         URL url = classLoader.getResource(name);
         ImageIcon icon = new ImageIcon(url);
-
         return icon;
 
     }

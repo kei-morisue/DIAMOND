@@ -10,7 +10,6 @@ import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
-import diamond.controller.paint.PaintActionInterface;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;

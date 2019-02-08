@@ -43,7 +43,7 @@ public class OriModel {
                 makeGraph(v, e);
             }
         }
-        // white paper case
+        // unfolded paper case
         if (faces.size() == 0) {
             for (OriVertex v : vertices) {
                 for (OriEdge e : v.getEdges()) {

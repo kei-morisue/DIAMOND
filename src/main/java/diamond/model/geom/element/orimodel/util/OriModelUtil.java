@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import diamond.model.geom.Constants;
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.orimodel.OriEdge;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.view.resource.ResourceHolder;
+import diamond.view.resource.string.StringKey.WARNING;
 
 /**
  * @author long_
@@ -44,22 +47,26 @@ public class OriModelUtil {
         OriVertex walkV = v;
         OriEdge walkE = e;
         OriFace face = new OriFace();
-        int debugCount = 0;
+        int polygonNum = 0;
         while (true) {
-            if (debugCount++ > Constants.MAX_POLYGON) {
-                System.out.println("Too much vertices( >"
-                        + (Constants.MAX_POLYGON) + ") on a OriFace");
+            if (polygonNum++ > Constants.MAX_POLYGON) {
+                System.out.println(
+                        ResourceHolder.getWarningString(WARNING.WRONG_FACE));
                 return null;
             }
-            OriHalfEdge he = new OriHalfEdge(walkV, walkE, face);
-            face.halfEdges.add(he);
+            while (walkE.getType() == LineType.AUX) {
+                face.auxLines.add(walkE);
+                walkE = walkV.getPrevEdge(walkE);
+            }
+            face.addHalfEdge(walkV, walkE);
+
             walkV = walkE.oppositeVertex(walkV);
             walkE = walkV.getPrevEdge(walkE);
 
             if (walkV == v) {
                 setAdjacentHalfEdges(face.halfEdges);
-                face.setOutline();
-                face.setPreviewOutline();
+                face.setOutline(v, e);
+                face.setPreviewOutline(v, e);
                 return face;
             }
         }

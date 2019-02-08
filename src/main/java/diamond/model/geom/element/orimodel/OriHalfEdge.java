@@ -23,7 +23,6 @@ public class OriHalfEdge {
         this.vertex = v;
         this.face = f;
         this.edge = e;
-        ;
     }
 
     public static boolean makePair(OriHalfEdge he0, OriHalfEdge he1) {

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
-import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
@@ -54,12 +53,6 @@ public class LineAdder {
         for (Iterator<OriLine> iterator = currentLines.iterator(); iterator
                 .hasNext();) {
             OriLine line = iterator.next();
-
-            if (inputLine.getType() == LineType.AUX
-                    && line.getType() != LineType.AUX) {
-                continue;
-            }
-
             Vector2d crossPoint = CrossPointUtil.getCrossPoint(inputLine, line);
             if (crossPoint == null) {
                 continue;
@@ -77,7 +70,6 @@ public class LineAdder {
                 toBeAdded.add(new OriLine(line.p1, crossPoint, line.getType()));
             }
 
-            //crossingLines.add(line);
         }
 
         for (OriLine line : toBeAdded) {
@@ -87,28 +79,14 @@ public class LineAdder {
         return true;
     }
 
-    /**
-     * Input line should be divided by other lines. This function returns end points of such new small lines.
-     * @param inputLine
-     * @param currentLines
-     * @return points on input line divided by currentLines
-     */
     private List<Vector2d> createInputLinePoints(OriLine inputLine,
             Collection<OriLine> currentLines) {
         ArrayList<Vector2d> points = new ArrayList<Vector2d>();
         points.add(inputLine.p0);
         points.add(inputLine.p1);
 
-        // divide input line by existing lines
         for (OriLine line : currentLines) {
 
-            // reject (M/V input, aux lines) // It is by MITANI jun, I don't know why.
-            if (inputLine.getType() != LineType.AUX &&
-                    line.getType() == LineType.AUX) {
-                continue;
-            }
-
-            // If the intersection is on the end of the line, skip
             if (DistanceUtil.Distance(inputLine.p0,
                     line.p0) < Constants.EPS ||
                     DistanceUtil.Distance(inputLine.p0,
@@ -152,9 +130,6 @@ public class LineAdder {
      */
 
     public void addLine(OriLine inputLine, Collection<OriLine> currentLines) {
-        //ArrayList<OriLine> crossingLines = new ArrayList<OriLine>(); // for debug?
-
-        // If it already exists, do nothing
         for (OriLine line : currentLines) {
             if (LineGeomUtil.isSameLineSegment(line, inputLine)) {
                 return;

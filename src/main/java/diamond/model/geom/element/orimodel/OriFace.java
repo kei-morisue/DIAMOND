@@ -6,6 +6,7 @@ package diamond.model.geom.element.orimodel;
 
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.vecmath.Vector2d;
 
@@ -15,14 +16,19 @@ import javax.vecmath.Vector2d;
  */
 public class OriFace {
     public ArrayList<OriHalfEdge> halfEdges = new ArrayList<>();
+    public HashSet<OriEdge> auxLines = new HashSet<OriEdge>();
     public boolean selected = false;
     public boolean convex = false;
 
     public GeneralPath outline = new GeneralPath();
     public GeneralPath preOutline = new GeneralPath();
 
-    public void setOutline() {
-        outline.reset();
+    public void addHalfEdge(OriVertex v, OriEdge e) {
+        OriHalfEdge he = new OriHalfEdge(v, e, this);
+        halfEdges.add(he);
+    }
+
+    public void setOutline(OriVertex v, OriEdge e) {
         outline.moveTo((float) (halfEdges.get(0).getVertex().getP().x),
                 (float) (halfEdges.get(0).getVertex().getP().y));
         for (int i = 1; i < halfEdges.size(); i++) {
@@ -32,7 +38,7 @@ public class OriFace {
         outline.closePath();
     }
 
-    public void setPreviewOutline() {
+    public void setPreviewOutline(OriVertex v, OriEdge e) {
         preOutline.reset();
         Vector2d centerP = new Vector2d();
         for (OriHalfEdge he : halfEdges) {
