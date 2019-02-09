@@ -23,7 +23,6 @@ import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.listener.PaintActionListnener;
-import diamond.controller.paint.listener.PaintScreenCoordinateListnener;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriModel;
@@ -38,17 +37,13 @@ public class PaintScreen extends AbstractScreen {
     private PaintContext paintContext;
 
     public PaintScreen(PaintContext paintContext) {
-        super();
-        PaintScreenCoordinateListnener coordinateActionListener = new PaintScreenCoordinateListnener(
-                paintContext);
+        super(paintContext);
+        this.paintContext = paintContext;
+
         PaintActionListnener paintActionListnener = new PaintActionListnener(
                 paintContext);
-        addMouseListener(coordinateActionListener);
-        addMouseMotionListener(coordinateActionListener);
-        addMouseWheelListener(coordinateActionListener);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);
-        this.paintContext = paintContext;
     }
 
     @Override

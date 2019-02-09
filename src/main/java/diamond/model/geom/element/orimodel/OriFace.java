@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class OriFace {
     public HashSet<OriEdge> auxLines = new HashSet<OriEdge>();
     public boolean selected = false;
     public boolean convex = false;
-
+    public AffineTransform affineTransform = null;
     public GeneralPath outline = new GeneralPath();
     public GeneralPath preOutline = new GeneralPath();
 

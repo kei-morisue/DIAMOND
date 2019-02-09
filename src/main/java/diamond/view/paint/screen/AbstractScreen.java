@@ -11,14 +11,22 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.listener.PaintScreenCoordinateListnener;
+
 /**
  * @author long_
  *
  */
 public abstract class AbstractScreen extends JPanel
         implements ComponentListener, Observer {
-    public AbstractScreen() {
+    public AbstractScreen(PaintContext paintContext) {
         addComponentListener(this);
+        PaintScreenCoordinateListnener coordinateActionListener = new PaintScreenCoordinateListnener(
+                paintContext);
+        addMouseListener(coordinateActionListener);
+        addMouseMotionListener(coordinateActionListener);
+        addMouseWheelListener(coordinateActionListener);
     }
 
     @Override

@@ -19,11 +19,14 @@
 package diamond.view;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
+import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.ui.panelUI;
 import diamond.view.resource.ImageIconLoader;
@@ -40,12 +43,15 @@ public class PaintFrame extends JFrame {
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
                 LABEL.TITLE));
-
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
         PaintContext paintContext = new PaintContext();
         PaintScreen paintScreen = new PaintScreen(paintContext);
+        panel.add(paintScreen);
+        panel.add(new ModelScreen(paintContext));
+        add(panel, BorderLayout.CENTER);
 
         panelUI ui = new panelUI(paintScreen, paintContext);
-        add(paintScreen, BorderLayout.CENTER);
         add(ui, BorderLayout.WEST);
 
         setLocationRelativeTo(null);
