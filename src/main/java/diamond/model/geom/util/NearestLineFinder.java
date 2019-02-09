@@ -10,7 +10,6 @@ import javax.vecmath.Vector2d;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.CreasePattern;
 
 /**
@@ -22,7 +21,7 @@ public class NearestLineFinder {
             PaintContext context) {
         double minDistance = Double.MAX_VALUE;
         OriLine candidate = null;
-        CreasePattern creasePattern = CreasePatternHolder.getCP();
+        CreasePattern creasePattern = context.getCP();
         Point2D p = context.currentLogicalMousePoint;
         for (OriLine line : creasePattern.getLines()) {
             double dist = DistanceUtil.DistancePointToSegment(

@@ -20,7 +20,6 @@ package diamond.model.geom.element.cp;
 
 import javax.vecmath.Vector2d;
 
-import diamond.model.geom.element.Line;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.Segment;
 
@@ -53,14 +52,6 @@ public class OriLine implements Comparable<OriLine> {
 
     public double length() {
         return Math.hypot((p1.x - p0.x), (p1.y - p0.y));
-    }
-
-    public Line getLine() {
-        return new Line(p0, new OriPoint(p1.x - p0.x, p1.y - p0.y));
-    }
-
-    public Segment getSegment() {
-        return new Segment(p0, p1);
     }
 
     public LineType getType() {

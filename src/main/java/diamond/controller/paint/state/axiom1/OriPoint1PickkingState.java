@@ -10,7 +10,6 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OripointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.palette.CreasePatternHolder;
 
 /**
  * @author long_
@@ -40,7 +39,7 @@ public class OriPoint1PickkingState extends OripointPickkingState {
                 pickedPoint.get(0),
                 pickedPoint.get(1),
                 context.inputLineType);
-        CreasePatternHolder.getCP().addLine(line);
+        context.getCP().addLine(line);
         pickedPoint.clear();
     }
 

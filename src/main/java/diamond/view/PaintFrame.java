@@ -43,6 +43,7 @@ public class PaintFrame extends JFrame {
 
         PaintContext paintContext = new PaintContext();
         PaintScreen paintScreen = new PaintScreen(paintContext);
+
         panelUI ui = new panelUI(paintScreen, paintContext);
         add(paintScreen, BorderLayout.CENTER);
         add(ui, BorderLayout.WEST);

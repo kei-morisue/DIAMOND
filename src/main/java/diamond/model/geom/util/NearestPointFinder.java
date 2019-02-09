@@ -8,7 +8,6 @@ import diamond.controller.paint.PaintContext;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.palette.CreasePatternHolder;
 
 /**
  * @author long_
@@ -20,7 +19,7 @@ public class NearestPointFinder {
         OriPoint center = new OriPoint(context.currentLogicalMousePoint);
         OriPoint nearest = null;
         double shortestDistance = boundary;
-        for (OriLine line : CreasePatternHolder.getCP().getLines()) {
+        for (OriLine line : context.getCP().getLines()) {
             double d0 = line.p0.distance(center);
             double d1 = line.p1.distance(center);
             if (d0 < boundary) {

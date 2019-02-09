@@ -13,6 +13,7 @@ import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.screen.coordinate.CoodinateTransform;
 
 /**
@@ -32,6 +33,8 @@ public class PaintContext extends Observable {
 
     public boolean isFinished;
 
+    private CreasePattern creasePattern = new CreasePattern();
+
     public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
             0);
 
@@ -46,6 +49,10 @@ public class PaintContext extends Observable {
         }
 
         return candidate;
+    }
+
+    public CreasePattern getCP() {
+        return creasePattern;
     }
 
     public double getScale() {

@@ -4,6 +4,7 @@
  */
 package diamond.controller.paint.state.axiom2;
 
+import java.util.Set;
 import java.util.Stack;
 
 import javax.vecmath.Vector2d;
@@ -14,7 +15,6 @@ import diamond.controller.paint.state.OripointPickkingState;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.palette.CreasePatternHolder;
 import diamond.model.palette.cp.editor.LineClipper;
 
 /**
@@ -43,15 +43,16 @@ public class OriPoint1PickkingState extends OripointPickkingState {
         Vector2d p1 = pickedPoints.get(1);
 
         OriLine line = createPerpendicularBisector(p0, p1,
-                context.inputLineType);
-        CreasePatternHolder.getCP().addLine(line);
+                context.inputLineType, context.getCP().getCutLines());
+        context.getCP().addLine(line);
         pickedPoints.clear();
     }
 
     private OriLine createPerpendicularBisector(
             Vector2d v0,
             Vector2d v1,
-            LineType type) {
+            LineType type,
+            Set<OriLine> cutLines) {
 
         Vector2d centerPoint = (new Vector2d(v0));
         centerPoint.add(v1);
@@ -68,7 +69,7 @@ public class OriPoint1PickkingState extends OripointPickkingState {
                 new OriPoint(centerPoint.x - dir.x, centerPoint.y - dir.y),
                 new OriPoint(centerPoint.x + dir.x, centerPoint.y + dir.y),
                 type);
-        bisector = LineClipper.clipByCutLines(bisector);
+        bisector = LineClipper.clipByCutLines(bisector, cutLines);
         return bisector;
     }
 }
