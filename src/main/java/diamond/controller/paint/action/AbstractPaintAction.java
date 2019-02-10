@@ -16,7 +16,6 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
-import diamond.view.paint.EditMode;
 import diamond.view.paint.screen.draw.OriDrawer;
 import diamond.view.resource.color.ColorStyle;
 import diamond.view.resource.graphic.LineStrokeSetting;
@@ -27,8 +26,6 @@ import diamond.view.resource.graphic.VertexSetting;
  *
  */
 public abstract class AbstractPaintAction implements PaintActionInterface {
-    private EditMode editMode = EditMode.INPUT;
-    private boolean needSelect = false;
     private PaintStateInterface state;
 
     protected final void setActionState(PaintStateInterface state) {
@@ -37,24 +34,6 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected final PaintStateInterface getActionState() {
         return state;
-    }
-
-    @Override
-    public final boolean needSelect() {
-        return needSelect;
-    }
-
-    protected final void setNeedSelect(boolean selectable) {
-        this.needSelect = selectable;
-    }
-
-    protected final void setEditMode(EditMode mode) {
-        editMode = mode;
-    }
-
-    @Override
-    public final EditMode getEditMode() {
-        return editMode;
     }
 
     @Override
@@ -108,21 +87,16 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     @Override
-    public abstract void onPress(PaintContext context);
+    public void onPress(PaintContext context) {
+    };
 
     @Override
-    public abstract void onDrag(PaintContext context);
+    public void onDrag(PaintContext context) {
+    };
 
     @Override
-    public abstract void onRelease(PaintContext context);
-
-    @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPickedLines(g2d, context);
-        drawPickedVertices(g2d, context);
-        drawTemporaryLine(g2d, context);
-        drawPointedVertex(g2d, context);
-    }
+    public void onRelease(PaintContext context) {
+    };
 
     protected void drawPickedLines(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedLines().size(); i++) {

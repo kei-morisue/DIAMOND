@@ -13,9 +13,9 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.Axiom2Action;
 import diamond.controller.paint.action.Axiom3Action;
+import diamond.controller.paint.action.Axiom4Action;
 import diamond.controller.paint.action.DeleteLineAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
-import diamond.controller.paint.action.LazyPaintAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
@@ -46,7 +46,7 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             break;
         case AXIOM4:
             setIcons("axiom4");
-            this.paintAction = new LazyPaintAction();
+            this.paintAction = new Axiom4Action();
             break;
         case FLIP_LINE_TYPE:
             this.setText(ResourceHolder.getLabelString(label));

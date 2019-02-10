@@ -10,17 +10,12 @@ import java.awt.geom.Point2D;
 import javax.vecmath.Vector2d;
 
 import diamond.controller.paint.PaintContext;
-import diamond.view.paint.EditMode;
 
 /**
  * @author long_
  *
  */
 public interface PaintActionInterface {
-
-    public abstract boolean needSelect();
-
-    public abstract EditMode getEditMode();
 
     public abstract void doAction(
             PaintContext context,

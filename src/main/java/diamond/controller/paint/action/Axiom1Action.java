@@ -4,6 +4,8 @@
  */
 package diamond.controller.paint.action;
 
+import java.awt.Graphics2D;
+
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.axiom1.OriPoint0PickkingState;
 
@@ -18,15 +20,11 @@ public class Axiom1Action extends AbstractPaintAction {
     }
 
     @Override
-    public void onPress(PaintContext context) {
-    }
-
-    @Override
-    public void onDrag(PaintContext context) {
-    }
-
-    @Override
-    public void onRelease(PaintContext context) {
+    public void onDraw(Graphics2D g2d, PaintContext context) {
+        drawPickedLines(g2d, context);
+        drawPickedVertices(g2d, context);
+        drawTemporaryLine(g2d, context);
+        drawPointedVertex(g2d, context);
     }
 
 }

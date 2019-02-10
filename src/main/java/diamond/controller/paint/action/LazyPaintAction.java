@@ -4,6 +4,8 @@
  */
 package diamond.controller.paint.action;
 
+import java.awt.Graphics2D;
+
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.LazyState;
 
@@ -18,15 +20,7 @@ public class LazyPaintAction extends AbstractPaintAction {
     }
 
     @Override
-    public void onPress(PaintContext context) {
-    }
-
-    @Override
-    public void onDrag(PaintContext context) {
-    }
-
-    @Override
-    public void onRelease(PaintContext context) {
+    public void onDraw(Graphics2D g2d, PaintContext context) {
     }
 
 }
