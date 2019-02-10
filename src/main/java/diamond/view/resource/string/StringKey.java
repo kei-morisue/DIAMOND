@@ -8,13 +8,13 @@ public class StringKey {
         AXIOM2,
         AXIOM3,
         AXIOM4,
-        STAR,
         MOUNTAIN,
         VALLEY,
         CUT,
         AUX,
         FLIP_LINE_TYPE,
-        DELETE_LINE
+        DELETE_LINE,
+        SYMMETRIC
     }
 
     public enum HINT {
@@ -22,7 +22,6 @@ public class StringKey {
         AXIOM2,
         AXIOM3,
         AXIOM4,
-        STAR
     }
 
     public enum WARNING {

@@ -7,28 +7,21 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.axiom3.OriLine0PickkingState;
-import diamond.controller.paint.state.axiom3.OriPoint0PickkingState;
+import diamond.controller.paint.state.symmetric.OriPoint0PickkingState;
 
 /**
  * @author long_
  *
  */
-public class Axiom3Action extends AbstractPaintAction {
+public class SymmetricLineAction extends AbstractPaintAction {
 
-    public Axiom3Action() {
+    public SymmetricLineAction() {
         setActionState(new OriPoint0PickkingState());
     }
 
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPickedLines(g2d, context);
         drawPickedVertices(g2d, context);
         drawPointedVertex(g2d, context);
-        if (getActionState().getClass() == OriLine0PickkingState.class) {
-            drawPointedLine(g2d, context);
-        } else {
-            drawPointedVertex(g2d, context);
-        }
     }
 }

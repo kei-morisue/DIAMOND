@@ -4,6 +4,7 @@
  */
 package diamond.model.palette.cp;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,10 @@ public class CreasePattern {
 
     public void addLine(OriLine line) {
         new LineAdder().addLine(line, lines);
+    }
+
+    public void addAll(Collection<OriLine> lines) {
+        new LineAdder().addAll(lines, this.lines);
     }
 
     public Set<OriLine> getCutLines() {

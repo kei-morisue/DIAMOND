@@ -27,6 +27,8 @@ public class Axiom4Action extends AbstractPaintAction {
         drawPointedVertex(g2d, context);
         if (getActionState().getClass() == OriLine0PickkingState.class) {
             drawPointedLine(g2d, context);
+        } else {
+            drawPointedVertex(g2d, context);
         }
     }
 }

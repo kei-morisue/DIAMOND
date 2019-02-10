@@ -22,7 +22,7 @@ public class Debugger {
         describe(g2d, paintContext.pointedOriPoint, "Pointed Point", 30);
         describe(g2d, paintContext.getPickedPoints(), "Picked Points", 40);
         describe(g2d, paintContext.getPickedLines(), "Picked Lines", 50);
-        describe(g2d, paintContext.coordinateTransform.getScale(), "Scale", 80);
+        describe(g2d, paintContext.getScale(), "Scale", 80);
         describe(g2d, paintContext.paintAction.getClass().getName(),
                 "Paint Action", 100);
     }

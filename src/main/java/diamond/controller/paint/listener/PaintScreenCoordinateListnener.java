@@ -90,6 +90,7 @@ public class PaintScreenCoordinateListnener
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        e.getComponent().repaint();
     }
 
     @Override

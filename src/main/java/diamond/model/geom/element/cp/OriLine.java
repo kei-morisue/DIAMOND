@@ -58,6 +58,10 @@ public class OriLine implements Comparable<OriLine> {
         return type;
     }
 
+    public Segment getSegment() {
+        return new Segment(p0, p1);
+    }
+
     public void flipType() {
         if (type == LineType.MOUNTAIN) {
             type = LineType.VALLEY;

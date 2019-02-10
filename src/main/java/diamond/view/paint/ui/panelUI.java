@@ -29,13 +29,14 @@ public class panelUI extends JPanel {
     JPanel lineTypePanel = new JPanel();
 
     public panelUI(PaintScreen screen, PaintContext context) {
-        setLayout(new GridLayout(7, 1));
+        setLayout(new GridLayout(8, 1));
         addLineTypePanel(context);
         addPaintActionButton(LABEL.FLIP_LINE_TYPE, context);
         addPaintActionButton(LABEL.AXIOM1, context);
         addPaintActionButton(LABEL.AXIOM2, context);
         addPaintActionButton(LABEL.AXIOM3, context);
         addPaintActionButton(LABEL.AXIOM4, context);
+        addPaintActionButton(LABEL.SYMMETRIC, context);
         addPaintActionButton(LABEL.DELETE_LINE, context);
     }
 

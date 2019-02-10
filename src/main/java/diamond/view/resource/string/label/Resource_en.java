@@ -19,6 +19,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.CUT.name(), "Cut" },
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
             { LABEL.DELETE_LINE.name(), "Delete Line" },
+            { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
+
     };
 
     @Override
