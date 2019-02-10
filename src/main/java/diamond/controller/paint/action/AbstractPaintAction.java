@@ -124,7 +124,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         drawPointedVertex(g2d, context);
     }
 
-    private void drawPickedLines(Graphics2D g2d, PaintContext context) {
+    protected void drawPickedLines(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedLines().size(); i++) {
             OriDrawer.drawLine(
                     g2d,
@@ -134,7 +134,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         }
     }
 
-    private void drawPickedVertices(Graphics2D g2d, PaintContext context) {
+    protected void drawPickedVertices(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedPoints().size(); i++) {
             Vector2d vertex = context.getPickedPoints().get(i);
             OriDrawer.drawPoint(

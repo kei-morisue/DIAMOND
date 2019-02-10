@@ -14,8 +14,8 @@ import diamond.model.geom.util.NearestPointFinder;
  * @author long_
  *
  */
-public abstract class OripointPickkingState extends AbstractPaintState {
-    public OripointPickkingState() {
+public abstract class OriPointPickkingState extends AbstractPaintState {
+    public OriPointPickkingState() {
         super();
     }
 

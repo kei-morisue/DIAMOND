@@ -11,7 +11,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.OripointPickkingState;
+import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -21,7 +21,7 @@ import diamond.model.palette.cp.editor.LineClipper;
  * @author long_
  *
  */
-public class OriPoint1PickkingState extends OripointPickkingState {
+public class OriPoint1PickkingState extends OriPointPickkingState {
     public OriPoint1PickkingState() {
         super();
         initialize();

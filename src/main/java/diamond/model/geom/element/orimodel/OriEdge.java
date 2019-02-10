@@ -64,7 +64,6 @@ public class OriEdge {
         return this.type;
     }
 
-    @Deprecated
     public void setType(LineType type) {
         this.type = type;
     }
@@ -75,5 +74,13 @@ public class OriEdge {
 
     public OriVertex getEv() {
         return this.ev;
+    }
+
+    public void setSv(OriVertex sv) {
+        this.sv = sv;
+    }
+
+    public void setEv(OriVertex ev) {
+        this.ev = ev;
     }
 }

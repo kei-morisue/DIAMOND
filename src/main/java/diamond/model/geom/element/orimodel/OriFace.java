@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.orimodel;
 
-import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,7 +19,12 @@ public class OriFace {
     public HashSet<OriEdge> auxLines = new HashSet<OriEdge>();
     public boolean selected = false;
     public boolean convex = false;
-    public AffineTransform affineTransform = null;
+
+    private boolean faceFront = true;
+    private boolean tmpFlg = false;
+    private int z_order = 0;
+    private int tmpInt = 0;
+
     public GeneralPath outline = new GeneralPath();
     public GeneralPath preOutline = new GeneralPath();
 
@@ -76,5 +80,37 @@ public class OriFace {
         }
         centerVec.scale(1.0 / halfEdges.size());
         return centerVec;
+    }
+
+    public boolean isFaceFront() {
+        return this.faceFront;
+    }
+
+    public void setFaceFront(boolean faceFront) {
+        this.faceFront = faceFront;
+    }
+
+    public boolean isTmpFlg() {
+        return this.tmpFlg;
+    }
+
+    public void setTmpFlg(boolean tmpFlg) {
+        this.tmpFlg = tmpFlg;
+    }
+
+    public int getZ_order() {
+        return this.z_order;
+    }
+
+    public void setZ_order(int z_order) {
+        this.z_order = z_order;
+    }
+
+    public int getTmpInt() {
+        return this.tmpInt;
+    }
+
+    public void setTmpInt(int tmpInt) {
+        this.tmpInt = tmpInt;
     }
 }

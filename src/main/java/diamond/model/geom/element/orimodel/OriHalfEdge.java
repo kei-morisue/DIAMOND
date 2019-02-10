@@ -4,6 +4,8 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import javax.vecmath.Vector2d;
+
 import diamond.model.geom.element.LineType;
 
 /**
@@ -18,6 +20,9 @@ public class OriHalfEdge {
     private OriVertex vertex = null;
     private OriFace face = null;
     private OriEdge edge = null;
+
+    private Vector2d tmpVec = null;
+    private Vector2d positionAfterFolded = new Vector2d();
 
     public OriHalfEdge(OriVertex v, OriEdge e, OriFace f) {
         this.vertex = v;
@@ -95,6 +100,22 @@ public class OriHalfEdge {
 
     public void setFace(OriFace face) {
         this.face = face;
+    }
+
+    public Vector2d getTmpVec() {
+        return this.tmpVec;
+    }
+
+    public void setTmpVec(Vector2d tmpVec) {
+        this.tmpVec = tmpVec;
+    }
+
+    public Vector2d getPositionAfterFolded() {
+        return this.positionAfterFolded;
+    }
+
+    public void setPositionAfterFolded(Vector2d positionAfterFolded) {
+        this.positionAfterFolded = positionAfterFolded;
     }
 
 }

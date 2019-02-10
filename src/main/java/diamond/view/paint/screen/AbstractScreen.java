@@ -27,6 +27,7 @@ public abstract class AbstractScreen extends JPanel
         addMouseListener(coordinateActionListener);
         addMouseMotionListener(coordinateActionListener);
         addMouseWheelListener(coordinateActionListener);
+        paintContext.addObserver(this);
     }
 
     @Override

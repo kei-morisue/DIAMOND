@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.axiom2;
+package diamond.controller.paint.state.axiom3;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
@@ -11,9 +11,9 @@ import diamond.controller.paint.state.OriPointPickkingState;
  * @author long_
  *
  */
-public class OriPoint0PickkingState extends OriPointPickkingState {
+public class OriPoint1PickkingState extends OriPointPickkingState {
 
-    public OriPoint0PickkingState() {
+    public OriPoint1PickkingState() {
         super();
         initialize();
     }
@@ -21,7 +21,7 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);
-        setNextClass(OriPoint1PickkingState.class);
+        setNextClass(OriPoint2PickkingState.class);
     }
 
     @Override

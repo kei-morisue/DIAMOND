@@ -5,13 +5,13 @@
 package diamond.controller.paint.state.axiom1;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.OripointPickkingState;
+import diamond.controller.paint.state.OriPointPickkingState;
 
 /**
  * @author long_
  *
  */
-public class OriPoint0PickkingState extends OripointPickkingState {
+public class OriPoint0PickkingState extends OriPointPickkingState {
     /**
      *
      */

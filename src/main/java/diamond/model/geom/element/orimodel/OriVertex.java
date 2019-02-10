@@ -17,6 +17,8 @@ public class OriVertex {
     private LinkedList<OriEdge> edges = new LinkedList<>();
     private boolean isFoldable = false;
 
+    private boolean tmpFlg = false;
+
     public OriVertex(Vector2d p) {
         this.p.set(p);
     }
@@ -66,6 +68,10 @@ public class OriVertex {
         return this.p;
     }
 
+    public void setP(OriVertex p) {
+        this.p = getP();
+    }
+
     public LinkedList<OriEdge> getEdges() {
         return this.edges;
     }
@@ -85,5 +91,13 @@ public class OriVertex {
     @Override
     public String toString() {
         return "(" + p.x + ", " + p.y + ")";
+    }
+
+    public boolean isTmpFlg() {
+        return this.tmpFlg;
+    }
+
+    public void setTmpFlg(boolean tmpFlg) {
+        this.tmpFlg = tmpFlg;
     }
 }
