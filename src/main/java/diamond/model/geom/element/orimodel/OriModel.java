@@ -12,6 +12,8 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.palette.cp.CreasePattern;
+import diamond.model.palette.cp.simplifier.CollinearCPSimplifier;
+import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
 
 /**
  * @author long_
@@ -21,35 +23,16 @@ public class OriModel {
     private Set<OriFace> faces = new HashSet<OriFace>();
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
+    private boolean isFolded = false;
 
     public OriModel(CreasePattern cp) {
-        //        CollinearCPSimplifier.simplify(cp);
-        //        DuplicatedCPSimplifier.simplify(cp);
+        CollinearCPSimplifier.simplify(cp);
+        DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
         for (OriVertex vertex : vertices) {
-            System.out.println(vertex);
             vertex.setFoldability();
-            System.out.println();
-            for (OriHalfEdge he : vertex.getHalfEdges()) {
-                System.out.println(he);
-            }
-            System.out.println();
         }
-
         buildFaces();
-
-        for (OriFace face : faces) {
-            System.out.println(face);
-            System.out.println();
-            for (OriHalfEdge he : face.getHalfEdges()) {
-                System.out.println(he);
-            }
-            System.out.println();
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println();
-
     }
 
     private void buildFaces() {
@@ -71,7 +54,6 @@ public class OriModel {
                 face.setOutline(0.5);
             }
         }
-
     }
 
     private boolean toBeSkipped(OriHalfEdge he) {
@@ -79,7 +61,7 @@ public class OriModel {
             return true;
         }
         LineType type = he.getType();
-        if (type == LineType.CUT) {
+        if (type == LineType.CUT && isFolded) {
             return true;
         }
         return false;
@@ -94,9 +76,16 @@ public class OriModel {
             OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType());
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.makePair(he1);
-            if (line.getType() == LineType.AUX) {
+            switch (line.getType()) {
+            case AUX:
                 auxLines.add(he0);
                 continue;
+            case MOUNTAIN:
+            case VALLEY:
+                isFolded = true;
+                break;
+            default:
+                break;
             }
             v0.addEdge(he0);
             v1.addEdge(he1);
