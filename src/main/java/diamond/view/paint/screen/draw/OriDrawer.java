@@ -15,6 +15,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
+import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.view.resource.color.ColorStyle;
 
@@ -43,6 +44,14 @@ public class OriDrawer {
         g2d.setStroke(stroke);
         g2d.draw(new Line2D.Double(line.p0.x, line.p0.y, line.p1.x,
                 line.p1.y));
+    }
+
+    public static void drawLine(Graphics2D g2d, OriHalfEdge he, Color color,
+            Stroke stroke) {
+        g2d.setColor(color);
+        g2d.setStroke(stroke);
+        g2d.draw(new Line2D.Double(he.getSv().x, he.getSv().y, he.getEv().x,
+                he.getEv().y));
     }
 
     public static void drawPoint(Graphics2D g2d, Vector2d point,

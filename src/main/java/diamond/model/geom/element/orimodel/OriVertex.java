@@ -6,6 +6,7 @@ package diamond.model.geom.element.orimodel;
 
 import java.util.LinkedList;
 
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.cp.validator.Kawasaki;
 import diamond.model.palette.cp.validator.Maekawa;
@@ -26,8 +27,18 @@ public class OriVertex extends AbstractOriVertex {
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
 
+    public boolean isAuxVertex() {
+        for (OriHalfEdge he : halfEdges) {
+            if (he.getType() != LineType.AUX) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void setFoldability() {
-        isFoldable = Maekawa.isValid(this) && Kawasaki.isValid(this);
+        isFoldable = isAuxVertex()
+                || (Maekawa.isValid(this) && Kawasaki.isValid(this));
     }
 
     // To store and sort in a clockwise direction

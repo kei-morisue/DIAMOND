@@ -29,9 +29,9 @@ public class OriHalfEdge {
         this.type = type;
     }
 
-    public void remove() {
-        getSv().getHalfEdges().remove(this);
-        getEv().getHalfEdges().remove(getPair());
+    public boolean remove() {
+        return getSv().getHalfEdges().remove(this)
+                && getEv().getHalfEdges().remove(getPair());
     }
 
     public double getAngle() {

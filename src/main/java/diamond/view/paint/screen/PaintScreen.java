@@ -25,6 +25,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.listener.PaintActionListnener;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
+import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.model.palette.cp.CreasePattern;
@@ -71,6 +72,10 @@ public class PaintScreen extends AbstractScreen {
         for (OriFace face : model.getFaces()) {
             OriDrawer.drawFace(g2d, face,
                     ColorStyle.ORI_FACE);
+        }
+        for (OriHalfEdge he : model.getAuxLines()) {
+            OriDrawer.drawLine(g2d, he, ColorStyle.ORILINE_AUX,
+                    LineStrokeSetting.STROKE_AUX);
         }
         for (OriVertex vertex : model.getVertices()) {
             OriDrawer.drawVertex(

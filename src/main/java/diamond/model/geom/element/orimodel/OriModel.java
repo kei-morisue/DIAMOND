@@ -20,6 +20,7 @@ import diamond.model.palette.cp.CreasePattern;
 public class OriModel {
     private Set<OriFace> faces = new HashSet<OriFace>();
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
+    private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
 
     public OriModel(CreasePattern cp) {
         //        CollinearCPSimplifier.simplify(cp);
@@ -60,18 +61,17 @@ public class OriModel {
                 }
                 OriFace face = new OriFace();
                 faces.add(face);
-                OriVertex walkV = vertex;
                 OriHalfEdge walkHe = he;
                 do {
                     face.addHalfEdge(walkHe);
                     walkHe.setFace(face);
-                    walkV = walkHe.getEv();
-                    walkHe = walkV.getPrevEdge(walkHe.getPair());
-                } while (walkV != vertex);
+                    walkHe = walkHe.getEv().getPrevEdge(walkHe.getPair());
+                } while (walkHe.getSv() != vertex);
                 face.makeHalfedgeLoop();
                 face.setOutline(0.5);
             }
         }
+
     }
 
     private boolean toBeSkipped(OriHalfEdge he) {
@@ -94,6 +94,10 @@ public class OriModel {
             OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType());
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.makePair(he1);
+            if (line.getType() == LineType.AUX) {
+                auxLines.add(he0);
+                continue;
+            }
             v0.addEdge(he0);
             v1.addEdge(he1);
         }
@@ -115,6 +119,10 @@ public class OriModel {
 
     public Set<OriVertex> getVertices() {
         return this.vertices;
+    }
+
+    public Set<OriHalfEdge> getAuxLines() {
+        return this.auxLines;
     }
 
 }
