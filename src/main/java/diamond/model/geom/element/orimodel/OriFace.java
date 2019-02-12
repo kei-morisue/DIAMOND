@@ -21,7 +21,7 @@ public class OriFace {
 
     private boolean faceFront = true;
 
-    private GeneralPath preOutline = null;
+    private GeneralPath outline = null;
 
     private AffineTransform transform = null;
 
@@ -45,14 +45,14 @@ public class OriFace {
     }
 
     public void setOutline(double scale) {
-        preOutline = new GeneralPath();
+        outline = new GeneralPath();
         Vector2d centerP = new Vector2d();
         for (OriHalfEdge he : halfEdges) {
             centerP.add(he.getSv());
         }
         centerP.scale(1.0 / halfEdges.size());
 
-        preOutline.moveTo(
+        outline.moveTo(
                 (float) (halfEdges.get(0).getSv().x * scale
                         + centerP.x
                                 * (1.0 - scale)),
@@ -66,11 +66,11 @@ public class OriFace {
             float y = (float) (halfEdges.get(i).getSv().y * scale
                     + centerP.y
                             * (1.0 - scale));
-            preOutline.lineTo(
+            outline.lineTo(
                     x,
                     y);
         }
-        preOutline.closePath();
+        outline.closePath();
     }
 
     public boolean isFaceFront() {
@@ -98,11 +98,11 @@ public class OriFace {
     }
 
     public GeneralPath getPreOutline() {
-        return this.preOutline;
+        return this.outline;
     }
 
     public void setPreOutline(GeneralPath preOutline) {
-        this.preOutline = preOutline;
+        this.outline = preOutline;
     }
 
     public AffineTransform getTransform() {

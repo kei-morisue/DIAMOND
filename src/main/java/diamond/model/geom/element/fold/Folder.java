@@ -34,14 +34,12 @@ public class Folder {
 
     public static void setAffine(AffineTransform accumulatedTransform,
             OriHalfEdge he) {
-        if (he.getPair() == null) {
-            return;
-        }
         OriFace face = he.getPair().getFace();
-        if (face.getTransform() != null) {
+        if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO WIRD condition...
             return;
         }
-        face.setTransform(createFlipTransform(he, accumulatedTransform));
+        face.setTransform(
+                createFlipTransform(he.getPair(), accumulatedTransform));
         for (OriHalfEdge walkHe : face.getHalfEdges()) {
             setAffine(face.getTransform(), walkHe);
         }
@@ -50,12 +48,12 @@ public class Folder {
     public static AffineTransform createFlipTransform(OriHalfEdge he,
             AffineTransform accumulatedtransform) {
         Vector2d v0 = he.getSv();
-        Vector2d v1 = he.getNext().getSv();
+        Vector2d v1 = he.getEv();
 
         Point2D p0 = new Point2D.Double();
         Point2D p1 = new Point2D.Double();
         accumulatedtransform.transform(new Point2D.Double(v0.x, v0.y), p0);
-        accumulatedtransform.transform(new Point2D.Double(v1.x, v1.y), p0);
+        accumulatedtransform.transform(new Point2D.Double(v1.x, v1.y), p1);
 
         AffineTransform transform = new AffineTransform();
         double dx = p1.getX() - p0.getX();
@@ -67,7 +65,7 @@ public class Folder {
         transform.translate(x, y);
         transform.rotate(theta);
         transform.scale(1.0, -1.0);
-        transform.rotate(theta);
+        transform.rotate(-theta);
         transform.translate(-x, -y);
         transform.concatenate(accumulatedtransform);
         return transform;
