@@ -15,7 +15,7 @@ import diamond.model.geom.element.cp.OriPoint;
  * @author long_
  *
  */
-public class LineGeomUtil {
+public class LineUtil {
     // Returns false if nothing is in the clip area
     public static boolean clipLine(OriLine l, double halfWidth) {
         Vector2d p = new Vector2d(l.p0);

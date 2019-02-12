@@ -15,7 +15,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.CrossPointUtil;
-import diamond.model.geom.util.MiscGeomUtil;
+import diamond.model.geom.util.GeomUtil;
 
 /**
  * @author long_
@@ -57,7 +57,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
             OriLine l,
             LineType type) {
 
-        Vector2d dir = MiscGeomUtil.getBisectorVec(v0, v1, v2);
+        Vector2d dir = GeomUtil.getBisectorVec(v0, v1, v2);
         Vector2d cp = CrossPointUtil.getCrossPoint(
                 new Line(l.p0, new Vector2d(l.p1.x - l.p0.x, l.p1.y - l.p0.y)),
                 new Line(v1, dir));

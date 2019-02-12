@@ -11,7 +11,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.MiscGeomUtil;
+import diamond.model.geom.util.GeomUtil;
 
 public class SymmetricLineFactory {
 
@@ -82,7 +82,7 @@ public class SymmetricLineFactory {
             Collection<OriLine> creasePattern) {
         BestPair bestPair = new BestPair();
 
-        Vector2d v3 = MiscGeomUtil.getSymmetricPoint(v0, v1, v2);
+        Vector2d v3 = GeomUtil.getSymmetricPoint(v0, v1, v2);
         Line ray = new Line(v1, new Vector2d(v3.x - v1.x, v3.y - v1.y));
 
         double minDist = Double.MAX_VALUE;

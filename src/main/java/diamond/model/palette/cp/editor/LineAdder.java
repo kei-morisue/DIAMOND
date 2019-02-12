@@ -14,7 +14,7 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.LineGeomUtil;
+import diamond.model.geom.util.LineUtil;
 
 public class LineAdder {
     private class PointComparatorX implements Comparator<Vector2d> {
@@ -131,7 +131,7 @@ public class LineAdder {
 
     public void addLine(OriLine inputLine, Collection<OriLine> currentLines) {
         for (OriLine line : currentLines) {
-            if (LineGeomUtil.isSameLineSegment(line, inputLine)) {
+            if (LineUtil.isSameLineSegment(line, inputLine)) {
                 return;
             }
         }

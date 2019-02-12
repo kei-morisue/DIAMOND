@@ -16,7 +16,7 @@ import diamond.model.geom.element.cp.OriPoint;
  * @author long_
  *
  */
-public class MiscGeomUtil {
+public class GeomUtil {
     public static boolean isRightSide(Vector2d p, Line line) {
         Vector3d lineDir = new Vector3d(line.dir.x, line.dir.y, 0);
         Vector3d pointDir = new Vector3d(p.x - line.p.x, p.y - line.p.y, 0);

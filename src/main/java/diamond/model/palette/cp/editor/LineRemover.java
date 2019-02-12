@@ -7,7 +7,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.LineGeomUtil;
+import diamond.model.geom.util.LineUtil;
 
 public class LineRemover {
     public static void removeLine(
@@ -59,7 +59,7 @@ public class LineRemover {
         dir0.normalize();
         dir1.normalize();
 
-        if (!LineGeomUtil.isParallel(dir0, dir1)) {
+        if (!LineUtil.isParallel(dir0, dir1)) {
             return;
         }
 

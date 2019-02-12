@@ -10,7 +10,7 @@ import java.util.Collection;
 import javax.swing.JOptionPane;
 
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.util.LineGeomUtil;
+import diamond.model.geom.util.LineUtil;
 import diamond.model.palette.cp.CreasePattern;
 
 /**
@@ -32,7 +32,7 @@ public class DuplicatedCPSimplifier {
             boolean bSame = false;
             // Test if the line is already in tmpLines to prevent duplicity
             for (OriLine line : tmpLines) {
-                if (LineGeomUtil.isSameLineSegment(line, ll)) {
+                if (LineUtil.isSameLineSegment(line, ll)) {
                     bSame = true;
                     break;
                 }
