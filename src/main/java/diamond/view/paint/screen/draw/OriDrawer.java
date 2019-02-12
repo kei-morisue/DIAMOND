@@ -46,7 +46,7 @@ public class OriDrawer {
                 line.p1.y));
     }
 
-    public static void drawLine(Graphics2D g2d, OriHalfEdge he, Color color,
+    public static void drawHalfEdge(Graphics2D g2d, OriHalfEdge he, Color color,
             Stroke stroke) {
         g2d.setColor(color);
         g2d.setStroke(stroke);

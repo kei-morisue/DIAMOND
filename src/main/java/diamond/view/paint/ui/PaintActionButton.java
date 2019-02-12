@@ -19,7 +19,6 @@ import diamond.controller.paint.action.FlipLineTypeAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.view.resource.ImageIconLoader;
-import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -54,7 +53,7 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             this.paintAction = new SymmetricLineAction();
             break;
         case FLIP_LINE_TYPE:
-            this.setText(ResourceHolder.getLabelString(label));
+            setIcons("flip");
             this.paintAction = new FlipLineTypeAction();
             break;
         case DELETE_LINE:

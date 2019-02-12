@@ -13,19 +13,18 @@ import diamond.model.geom.element.cp.OriLine;
  *
  */
 public class ColorStyle {
-    static public final java.awt.Color FRAME_BG = java.awt.Color.gray;
-    static public final java.awt.Color ORI_POINT = java.awt.Color.white;
+    static public final java.awt.Color FRAME_BG = java.awt.Color.white;
 
     static public final java.awt.Color WRONG_ORI_VERTEX = java.awt.Color.red;
-    static public final java.awt.Color ORI_VERTEX = java.awt.Color.white;
-
+    static public final java.awt.Color ORI_VERTEX = java.awt.Color.black;
     static public final java.awt.Color ORI_FACE = java.awt.Color.gray;
+    static public final java.awt.Color ORI_POINT = java.awt.Color.black;
     static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
 
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;
     final public static Color ORILINE_AUX = Color.LIGHT_GRAY;
-    final public static Color ORILINE_CUT = Color.LIGHT_GRAY;
+    final public static Color ORILINE_CUT = Color.black;
     final public static Color ORILINE_GRID = Color.LIGHT_GRAY;
     final public static Color ORILINE_CANDIDATE = Color.GREEN;
     final public static Color ORILINE_PICKED = Color.GREEN;
@@ -34,7 +33,7 @@ public class ColorStyle {
     public static final Color ORIPOINT_PICKED = Color.green;
     public static final Color ORIPOINT_POINTED = Color.green;
 
-    static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.white;
+    static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 
     public static Color getColor(OriLine l) {
         switch (l.getType()) {

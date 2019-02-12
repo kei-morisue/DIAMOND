@@ -9,7 +9,7 @@ package diamond.view.resource.graphic;
  *
  */
 public class VertexSetting {
-    public static final double VERTEX_SIZE = 10.0;
-    public static final double VERTEX_SIZE_PICKED = 15.0;
-    public static final double VERTEX_SIZE_POINTED = 15.0;
+    public static final double VERTEX_SIZE = 5.0;
+    public static final double VERTEX_SIZE_PICKED = 10.0;
+    public static final double VERTEX_SIZE_POINTED = 10.0;
 }

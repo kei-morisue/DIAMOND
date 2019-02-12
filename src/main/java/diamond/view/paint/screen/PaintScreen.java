@@ -51,7 +51,7 @@ public class PaintScreen extends AbstractScreen {
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        setBackground(ColorStyle.FRAME_BG);
+        g2d.setColor(ColorStyle.FRAME_BG);
         int width = getWidth();
         int height = getHeight();
         g2d.fillRect(0, 0, width, height);
@@ -74,7 +74,7 @@ public class PaintScreen extends AbstractScreen {
                     ColorStyle.ORI_FACE);
         }
         for (OriHalfEdge he : model.getAuxLines()) {
-            OriDrawer.drawLine(g2d, he, ColorStyle.ORILINE_AUX,
+            OriDrawer.drawHalfEdge(g2d, he, ColorStyle.ORILINE_AUX,
                     LineStrokeSetting.STROKE_AUX);
         }
         for (OriVertex vertex : model.getVertices()) {

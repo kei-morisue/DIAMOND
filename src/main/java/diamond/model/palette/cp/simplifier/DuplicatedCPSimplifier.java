@@ -25,7 +25,6 @@ public class DuplicatedCPSimplifier {
     public static boolean simplify(
             CreasePattern cp) {
         Collection<OriLine> creasePattern = cp.getLines();
-        System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
         ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
         for (OriLine l : creasePattern) {
             OriLine ll = l;

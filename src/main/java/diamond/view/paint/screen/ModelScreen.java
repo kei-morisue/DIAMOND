@@ -25,7 +25,7 @@ public class ModelScreen extends AbstractScreen {
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        setBackground(ColorStyle.FRAME_BG);
+        g2d.setColor(ColorStyle.FRAME_BG);
         int width = getWidth();
         int height = getHeight();
         g2d.fillRect(0, 0, width, height);
@@ -37,7 +37,7 @@ public class ModelScreen extends AbstractScreen {
         //            GeneralPath path = null;
         //            for (OriHalfEdge he : face.getHalfEdges()) {
         //                Point2D ptDst = new Point2D.Double();
-        //                Vector2d v = he.getVertex();
+        //                Vector2d v = he.getSv();
         //                Point2D ptSrc = new Point2D.Double(v.x, v.y);
         //                face.getTransform().transform(ptSrc, ptDst);
         //                if (path == null) {
