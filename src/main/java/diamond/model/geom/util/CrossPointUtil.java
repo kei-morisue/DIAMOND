@@ -115,8 +115,8 @@ public class CrossPointUtil {
         Vector2d p0 = new Vector2d(line.p);
 
         Vector2d d0 = new Vector2d(line.dir);
-        Vector2d d1 = new Vector2d(seg.p1.x - seg.p0.x, seg.p1.y - seg.p0.y);
-        Vector2d diff = new Vector2d(seg.p0.x - p0.x, seg.p0.y - p0.y);
+        Vector2d d1 = new Vector2d(seg.ev.x - seg.sv.x, seg.ev.y - seg.sv.y);
+        Vector2d diff = new Vector2d(seg.sv.x - p0.x, seg.sv.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
         double epsilon = Constants.EPS;
@@ -133,8 +133,8 @@ public class CrossPointUtil {
                 return null;
             } else {
                 Vector2d cp = new Vector2d();
-                cp.x = (1.0 - t) * seg.p0.x + t * seg.p1.x;
-                cp.y = (1.0 - t) * seg.p0.y + t * seg.p1.y;
+                cp.x = (1.0 - t) * seg.sv.x + t * seg.ev.x;
+                cp.y = (1.0 - t) * seg.sv.y + t * seg.ev.y;
                 return cp;
             }
         }

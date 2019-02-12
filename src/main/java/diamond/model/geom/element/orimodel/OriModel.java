@@ -11,6 +11,7 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
+import diamond.model.geom.util.LineUtil;
 import diamond.model.palette.cp.CreasePattern;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
 
@@ -27,10 +28,22 @@ public class OriModel {
     public OriModel(CreasePattern cp) {
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
-        for (OriVertex vertex : vertices) {
-            vertex.setFoldability();
-        }
         buildFaces();
+        buildAuxLines();
+    }
+
+    /**
+     *
+     */
+    private void buildAuxLines() {
+        for (OriHalfEdge aux : auxLines) {
+            for (OriFace face : faces) {
+                if (LineUtil.onFace(face, aux)) {
+                    face.addAuxLine(aux);
+                }
+            }
+        }
+
     }
 
     private void buildFaces() {
