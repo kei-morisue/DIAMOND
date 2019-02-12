@@ -51,11 +51,8 @@ public class PaintScreen extends AbstractScreen {
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(ColorStyle.FRAME_BG);
-        int width = getWidth();
-        int height = getHeight();
-        g2d.fillRect(0, 0, width, height);
-        paintContext.coordinateTransform.ResizeWindow(width, height);
+        drawBG(g2d, ColorStyle.PAINT_SCREEN_BG);
+        paintContext.coordinateTransform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(paintContext.coordinateTransform.getTransform());
         paintCreasePattern(g2d);
         if (paintContext.paintAction != null) {

@@ -12,6 +12,8 @@ import javax.vecmath.Vector2d;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.model.geom.util.OriFaceUtil;
 
 /**
  * @author long_
@@ -19,17 +21,22 @@ import diamond.model.geom.element.orimodel.OriModel;
  */
 public class Folder {
     public static void fold(OriModel oriModel) {
-
-        OriFace face = oriModel.getFaces().iterator().next();
+        OriFace face = getBaseFace(oriModel);
         face.setTransform(new AffineTransform());
+        face.setFaceFront(true);
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he);
         }
+    }
 
-        for (OriFace f : oriModel.getFaces()) {
-            System.out.println(f.getTransform());
+    public static OriFace getBaseFace(OriModel oriModel) {
+        OriVertex origin = new OriVertex(0.0, 0.0);
+        for (OriFace face : oriModel.getFaces()) {
+            if (OriFaceUtil.onFace(face, origin)) {
+                return face;
+            }
         }
-        System.out.println();
+        return null;
     }
 
     public static void setAffine(AffineTransform accumulatedTransform,
@@ -38,6 +45,7 @@ public class Folder {
         if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO WIRD condition...
             return;
         }
+        face.setFaceFront(!he.getFace().isFaceFront());
         face.setTransform(
                 createFlipTransform(he.getPair(), accumulatedTransform));
         for (OriHalfEdge walkHe : face.getHalfEdges()) {

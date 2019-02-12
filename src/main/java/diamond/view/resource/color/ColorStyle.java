@@ -13,8 +13,8 @@ import diamond.model.geom.element.cp.OriLine;
  *
  */
 public class ColorStyle {
-    static public final java.awt.Color FRAME_BG = java.awt.Color.white;
-
+    static public final java.awt.Color PAINT_SCREEN_BG = java.awt.Color.white;
+    static public final java.awt.Color MODEL_SCREEN_BG = java.awt.Color.black;
     static public final java.awt.Color WRONG_ORI_VERTEX = java.awt.Color.red;
     static public final java.awt.Color ORI_VERTEX = java.awt.Color.black;
     static public final java.awt.Color ORI_FACE = java.awt.Color.gray;
@@ -32,6 +32,9 @@ public class ColorStyle {
 
     public static final Color ORIPOINT_PICKED = Color.green;
     public static final Color ORIPOINT_POINTED = Color.green;
+
+    public static final Color ORIFACE_FRONT = Color.gray;
+    public static final Color ORIFACE_BACK = Color.white;
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 

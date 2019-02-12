@@ -8,7 +8,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.vecmath.Vector2d;
@@ -16,6 +18,7 @@ import javax.vecmath.Vector2d;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
+import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.view.resource.color.ColorStyle;
 
@@ -80,6 +83,30 @@ public class OriDrawer {
     public static void drawFace(Graphics2D g2d,
             OriFace face, Color color) {
         g2d.setColor(color);
-        g2d.fill(face.getPreOutline());
+        g2d.fill(face.getOutline());
+    }
+
+    public static void drawModel(Graphics2D g2d, OriModel model) {
+        GeneralPath path;
+        Point2D p0 = new Point2D.Double();
+        Point2D p1 = new Point2D.Double();
+        for (OriFace face : model.getFaces()) {
+            path = null;
+            for (OriHalfEdge he : face.getHalfEdges()) {
+                Vector2d v = he.getSv();
+                Point2D ptSrc = new Point2D.Double(v.x, v.y);
+                face.getTransform().transform(ptSrc, p0);
+                if (path == null) {
+                    path = new GeneralPath();
+                    path.moveTo(p0.getX(), p0.getY());
+                } else {
+                    path.lineTo(p0.getX(), p0.getY());
+                }
+            }
+            g2d.setColor((face.isFaceFront()) ? ColorStyle.ORIFACE_FRONT
+                    : ColorStyle.ORIFACE_BACK);
+            path.closePath();
+            g2d.fill(path);
+        }
     }
 }

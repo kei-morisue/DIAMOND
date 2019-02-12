@@ -97,12 +97,8 @@ public class OriFace {
         this.auxLines = auxLines;
     }
 
-    public GeneralPath getPreOutline() {
+    public GeneralPath getOutline() {
         return this.outline;
-    }
-
-    public void setPreOutline(GeneralPath preOutline) {
-        this.outline = preOutline;
     }
 
     public AffineTransform getTransform() {

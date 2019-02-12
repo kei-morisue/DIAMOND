@@ -10,27 +10,12 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
-import diamond.model.geom.element.orimodel.OriVertex;
 
 /**
  * @author long_
  *
  */
 public class LineUtil {
-    public static boolean onFace(OriFace face, OriHalfEdge e) {
-        return onFace(face, e.getSv()) && onFace(face, e.getEv());
-    }
-
-    public static boolean onFace(OriFace face, OriVertex v) {
-        double sumAngle = 0.0;
-        for (OriHalfEdge he : face.getHalfEdges()) {
-            OriVertex sv = he.getSv();
-            sumAngle += Math.atan2(v.y - sv.y, v.x - sv.x);
-        }
-        return Math.abs(sumAngle - Math.PI * 2) < Constants.EPS;
-    }
 
     // Returns false if nothing is in the clip area
     public static boolean clipLine(OriLine l, double halfWidth) {

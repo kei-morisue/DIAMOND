@@ -11,7 +11,7 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.LineUtil;
+import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.CreasePattern;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
 
@@ -38,7 +38,7 @@ public class OriModel {
     private void buildAuxLines() {
         for (OriHalfEdge aux : auxLines) {
             for (OriFace face : faces) {
-                if (LineUtil.onFace(face, aux)) {
+                if (OriFaceUtil.onFace(face, aux)) {
                     face.addAuxLine(aux);
                 }
             }

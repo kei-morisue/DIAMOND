@@ -4,6 +4,8 @@
  */
 package diamond.view.paint.screen;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.Observable;
@@ -28,6 +30,13 @@ public abstract class AbstractScreen extends JPanel
         addMouseMotionListener(coordinateActionListener);
         addMouseWheelListener(coordinateActionListener);
         paintContext.addObserver(this);
+    }
+
+    protected void drawBG(Graphics2D g2d, Color color) {
+        g2d.setColor(color);
+        int width = getWidth();
+        int height = getHeight();
+        g2d.fillRect(0, 0, width, height);
     }
 
     @Override
