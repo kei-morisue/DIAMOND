@@ -15,7 +15,7 @@ import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
+import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.view.resource.color.ColorStyle;
 
 /**
@@ -45,15 +45,6 @@ public class OriDrawer {
                 line.p1.y));
     }
 
-    public static void drawLine(Graphics2D g2d, OriHalfEdge he, Color color,
-            Stroke stroke) {
-        g2d.setColor(color);
-        g2d.setStroke(stroke);
-        Vector2d p0 = he.getVertex().getP();
-        Vector2d p1 = he.getNext().getVertex().getP();
-        g2d.draw(new Line2D.Double(p0.x, p0.y, p1.x, p1.y));
-    }
-
     public static void drawPoint(Graphics2D g2d, Vector2d point,
             double size, Color color) {
         double scaledSize = size;
@@ -65,9 +56,21 @@ public class OriDrawer {
                 scaledSize));
     }
 
+    public static void drawVertex(Graphics2D g2d, OriVertex vertex, double size,
+            Color color) {
+        double scaledSize = size;
+        g2d.setColor(color);
+        Vector2d p = vertex;
+        g2d.fill(new Rectangle2D.Double(
+                p.x - scaledSize * 0.5,
+                p.y - scaledSize * 0.5,
+                scaledSize,
+                scaledSize));
+    }
+
     public static void drawFace(Graphics2D g2d,
             OriFace face, Color color) {
         g2d.setColor(color);
-        g2d.fill(face.preOutline);
+        g2d.fill(face.getPreOutline());
     }
 }

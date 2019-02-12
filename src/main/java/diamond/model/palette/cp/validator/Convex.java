@@ -14,20 +14,20 @@ import diamond.model.geom.util.MiscGeomUtil;
  */
 public class Convex {
     public static boolean isValid(OriFace face) {
-        if (face.halfEdges.size() == 3) {
+        if (face.getHalfEdges().size() == 3) {
             return true;
         }
 
-        OriHalfEdge baseHe = face.halfEdges.get(0);
+        OriHalfEdge baseHe = face.getHalfEdges().get(0);
         boolean baseFlg = MiscGeomUtil.CCWcheck(
-                baseHe.getPrev().getVertex().getP(),
-                baseHe.getVertex().getP(), baseHe.getNext().getVertex().getP());
+                baseHe.getPrev().getSv(),
+                baseHe.getSv(), baseHe.getNext().getSv());
 
-        for (int i = 1; i < face.halfEdges.size(); i++) {
-            OriHalfEdge he = face.halfEdges.get(i);
-            if (MiscGeomUtil.CCWcheck(he.getPrev().getVertex().getP(),
-                    he.getVertex().getP(),
-                    he.getNext().getVertex().getP()) != baseFlg) {
+        for (int i = 1; i < face.getHalfEdges().size(); i++) {
+            OriHalfEdge he = face.getHalfEdges().get(i);
+            if (MiscGeomUtil.CCWcheck(he.getPrev().getSv(),
+                    he.getSv(),
+                    he.getNext().getSv()) != baseFlg) {
                 return false;
             }
 

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.LineType;
-import diamond.model.geom.element.orimodel.OriEdge;
+import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriVertex;
 
 /**
@@ -18,22 +18,21 @@ import diamond.model.geom.element.orimodel.OriVertex;
  */
 public class Kawasaki {
     public static boolean isValid(OriVertex v) {
-        Vector2d p = v.getP();
         double oddSum = 0;
-        LinkedList<OriEdge> edges = v.getEdges();
+        LinkedList<OriHalfEdge> edges = v.getHalfEdges();
         for (int i = 0; i < edges.size(); i++) {
-            OriEdge e = edges.get(i);
+            OriHalfEdge e = edges.get(i);
             if (e.getType() == LineType.CUT) {
                 return true;
             }
 
             Vector2d preP = new Vector2d(
-                    edges.get(i).oppositeVertex(v).getP());
+                    edges.get(i).getPair().getSv());
             Vector2d nxtP = new Vector2d(edges
-                    .get((i + 1) % edges.size()).oppositeVertex(v).getP());
+                    .get((i + 1) % edges.size()).getPair().getSv());
 
-            nxtP.sub(p);
-            preP.sub(p);
+            nxtP.sub(v);
+            preP.sub(v);
 
             if (i % 2 == 0) {
                 oddSum += preP.angle(nxtP);
@@ -41,7 +40,7 @@ public class Kawasaki {
             }
         }
         if (Math.abs(oddSum - Math.PI) > Math.PI / 180 / 2) {
-            System.out.println("edge angle sum invalid");
+            // System.out.println("edge angle sum invalid");
             return false;
         }
         return true;

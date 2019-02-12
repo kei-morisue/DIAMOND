@@ -24,7 +24,7 @@ public class CollinearCPSimplifier {
 
     }
 
-    public boolean simplify(CreasePattern cp) {
+    public static boolean simplify(CreasePattern cp) {
         Set<OriLine> creasePattern = cp.getLines();
         ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
         for (OriLine line : creasePattern) {

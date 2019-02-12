@@ -26,6 +26,7 @@ import diamond.controller.paint.listener.PaintActionListnener;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.screen.debug.Debugger;
 import diamond.view.paint.screen.draw.OriDrawer;
@@ -68,7 +69,16 @@ public class PaintScreen extends AbstractScreen {
         CreasePattern creasePattern = paintContext.getCP();
         OriModel model = new OriModel(creasePattern);
         for (OriFace face : model.getFaces()) {
-            OriDrawer.drawFace(g2d, face, ColorStyle.ORI_FACE);
+            OriDrawer.drawFace(g2d, face,
+                    ColorStyle.ORI_FACE);
+        }
+        for (OriVertex vertex : model.getVertices()) {
+            OriDrawer.drawVertex(
+                    g2d,
+                    vertex,
+                    VertexSetting.VERTEX_SIZE,
+                    (vertex.isFoldable()) ? ColorStyle.ORI_VERTEX
+                            : ColorStyle.WRONG_ORI_VERTEX);
         }
         for (OriLine l : creasePattern.getLines()) {
             OriDrawer.drawLine(
@@ -76,17 +86,6 @@ public class PaintScreen extends AbstractScreen {
                     l,
                     ColorStyle.getColor(l),
                     LineStrokeSetting.STROKE_VALLEY);
-            OriDrawer.drawPoint(
-                    g2d,
-                    l.p0,
-                    VertexSetting.VERTEX_SIZE,
-                    ColorStyle.ORI_POINT);
-            OriDrawer.drawPoint(
-                    g2d,
-                    l.p1,
-                    VertexSetting.VERTEX_SIZE,
-                    ColorStyle.ORI_POINT);
         }
-
     }
 }

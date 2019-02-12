@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,71 +16,61 @@ import javax.vecmath.Vector2d;
  *
  */
 public class OriFace {
-    public ArrayList<OriHalfEdge> halfEdges = new ArrayList<>();
-    public HashSet<OriEdge> auxLines = new HashSet<OriEdge>();
-    public boolean selected = false;
-    public boolean convex = false;
+    private ArrayList<OriHalfEdge> halfEdges = new ArrayList<>();
+    private HashSet<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
 
     private boolean faceFront = true;
-    private boolean tmpFlg = false;
-    private int z_order = 0;
-    private int tmpInt = 0;
 
-    public GeneralPath outline = new GeneralPath();
-    public GeneralPath preOutline = new GeneralPath();
+    private GeneralPath preOutline = null;
 
-    public void addHalfEdge(OriVertex v, OriEdge e) {
-        OriHalfEdge he = new OriHalfEdge(v, e, this);
+    private AffineTransform transform = null;
+
+    public void addHalfEdge(OriHalfEdge he) {
         halfEdges.add(he);
     }
 
-    public void setOutline(OriVertex v, OriEdge e) {
-        outline.moveTo((float) (halfEdges.get(0).getVertex().getP().x),
-                (float) (halfEdges.get(0).getVertex().getP().y));
-        for (int i = 1; i < halfEdges.size(); i++) {
-            outline.lineTo((float) (halfEdges.get(i).getVertex().getP().x),
-                    (float) (halfEdges.get(i).getVertex().getP().y));
+    public void makeHalfedgeLoop() {
+        int heNum = halfEdges.size();
+        for (int i = 0; i < heNum; i++) {
+            OriHalfEdge pre_he = halfEdges.get((i - 1 + heNum) % heNum);
+            OriHalfEdge he = halfEdges.get(i);
+            OriHalfEdge nxt_he = halfEdges.get((i + 1) % heNum);
+            he.setNext(nxt_he);
+            he.setPrev(pre_he);
         }
-        outline.closePath();
     }
 
-    public void setPreviewOutline(OriVertex v, OriEdge e) {
-        preOutline.reset();
+    public void addAuxLine(OriHalfEdge he) {
+        auxLines.add(he);
+    }
+
+    public void setOutline(double scale) {
+        preOutline = new GeneralPath();
         Vector2d centerP = new Vector2d();
         for (OriHalfEdge he : halfEdges) {
-            centerP.add(he.getVertex().getP());
+            centerP.add(he.getSv());
         }
         centerP.scale(1.0 / halfEdges.size());
-        double rate = 0.5;
 
         preOutline.moveTo(
-                (float) (halfEdges.get(0).getVertex().getP().x * rate
+                (float) (halfEdges.get(0).getSv().x * scale
                         + centerP.x
-                                * (1.0 - rate)),
-                (float) (halfEdges.get(0).getVertex().getP().y * rate
+                                * (1.0 - scale)),
+                (float) (halfEdges.get(0).getSv().y * scale
                         + centerP.y
-                                * (1.0 - rate)));
+                                * (1.0 - scale)));
         for (int i = 1; i < halfEdges.size(); i++) {
-            float x = (float) (halfEdges.get(i).getVertex().getP().x * rate
+            float x = (float) (halfEdges.get(i).getSv().x * scale
                     + centerP.x
-                            * (1.0 - rate));
-            float y = (float) (halfEdges.get(i).getVertex().getP().y * rate
+                            * (1.0 - scale));
+            float y = (float) (halfEdges.get(i).getSv().y * scale
                     + centerP.y
-                            * (1.0 - rate));
+                            * (1.0 - scale));
             preOutline.lineTo(
                     x,
                     y);
         }
         preOutline.closePath();
-    }
-
-    public Vector2d getCenter() {
-        Vector2d centerVec = new Vector2d();
-        for (OriHalfEdge he : halfEdges) {
-            centerVec.add(he.getVertex().getP());
-        }
-        centerVec.scale(1.0 / halfEdges.size());
-        return centerVec;
     }
 
     public boolean isFaceFront() {
@@ -90,27 +81,36 @@ public class OriFace {
         this.faceFront = faceFront;
     }
 
-    public boolean isTmpFlg() {
-        return this.tmpFlg;
+    public ArrayList<OriHalfEdge> getHalfEdges() {
+        return this.halfEdges;
     }
 
-    public void setTmpFlg(boolean tmpFlg) {
-        this.tmpFlg = tmpFlg;
+    public void setHalfEdges(ArrayList<OriHalfEdge> halfEdges) {
+        this.halfEdges = halfEdges;
     }
 
-    public int getZ_order() {
-        return this.z_order;
+    public HashSet<OriHalfEdge> getAuxLines() {
+        return this.auxLines;
     }
 
-    public void setZ_order(int z_order) {
-        this.z_order = z_order;
+    public void setAuxLines(HashSet<OriHalfEdge> auxLines) {
+        this.auxLines = auxLines;
     }
 
-    public int getTmpInt() {
-        return this.tmpInt;
+    public GeneralPath getPreOutline() {
+        return this.preOutline;
     }
 
-    public void setTmpInt(int tmpInt) {
-        this.tmpInt = tmpInt;
+    public void setPreOutline(GeneralPath preOutline) {
+        this.preOutline = preOutline;
     }
+
+    public AffineTransform getTransform() {
+        return this.transform;
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
+    }
+
 }

@@ -4,15 +4,12 @@
  */
 package diamond.model.geom.element.orimodel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.vecmath.Vector2d;
+import java.util.HashSet;
+import java.util.Set;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.orimodel.util.OriModelUtil;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.palette.cp.CreasePattern;
 
@@ -21,83 +18,103 @@ import diamond.model.palette.cp.CreasePattern;
  *
  */
 public class OriModel {
-    private List<OriFace> faces = new ArrayList<OriFace>();
-    private List<OriVertex> vertices = new ArrayList<OriVertex>();
-    private List<OriEdge> edges = new ArrayList<OriEdge>();
-    private boolean isFolded = false;
+    private Set<OriFace> faces = new HashSet<OriFace>();
+    private Set<OriVertex> vertices = new HashSet<OriVertex>();
 
     public OriModel(CreasePattern cp) {
-        addOriVertices(cp);
-        addOriFaces();
+        //        CollinearCPSimplifier.simplify(cp);
+        //        DuplicatedCPSimplifier.simplify(cp);
+        buildVertices(cp);
+        for (OriVertex vertex : vertices) {
+            System.out.println(vertex);
+            vertex.setFoldability();
+            System.out.println();
+            for (OriHalfEdge he : vertex.getHalfEdges()) {
+                System.out.println(he);
+            }
+            System.out.println();
+        }
+
+        buildFaces();
+
+        for (OriFace face : faces) {
+            System.out.println(face);
+            System.out.println();
+            for (OriHalfEdge he : face.getHalfEdges()) {
+                System.out.println(he);
+            }
+            System.out.println();
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+
     }
 
-    private void addOriFaces() {
-        for (OriVertex v : vertices) {
-            for (OriEdge e : v.getEdges()) {
-                if (e.getType() == LineType.CUT) {
+    private void buildFaces() {
+        for (OriVertex vertex : vertices) {
+            vertex.setFoldability();
+            for (OriHalfEdge he : vertex.getHalfEdges()) {
+                if (toBeSkipped(he)) {
                     continue;
                 }
-                if (OriModelUtil.faceExistsOnLeft(v, e)) {
-                    continue;
-                }
-                makeGraph(v, e);
+                OriFace face = new OriFace();
+                faces.add(face);
+                OriVertex walkV = vertex;
+                OriHalfEdge walkHe = he;
+                do {
+                    face.addHalfEdge(walkHe);
+                    walkHe.setFace(face);
+                    walkV = walkHe.getEv();
+                    walkHe = walkV.getPrevEdge(walkHe.getPair());
+                } while (walkV != vertex);
+                face.makeHalfedgeLoop();
+                face.setOutline(0.5);
             }
         }
-        // unfolded paper case
-        if (faces.size() == 0) {
-            for (OriVertex v : vertices) {
-                for (OriEdge e : v.getEdges()) {
-                    makeGraph(v, e);
-                }
+    }
+
+    private boolean toBeSkipped(OriHalfEdge he) {
+        if (he.getFace() != null) {
+            return true;
+        }
+        LineType type = he.getType();
+        if (type == LineType.CUT) {
+            return true;
+        }
+        return false;
+    }
+
+    private void buildVertices(CreasePattern cp) {
+        for (OriLine line : cp.getLines()) {
+            OriVertex v0 = new OriVertex(line.p0);
+            OriVertex v1 = new OriVertex(line.p1);
+            v0 = add(v0);
+            v1 = add(v1);
+            OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType());
+            OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
+            he0.makePair(he1);
+            v0.addEdge(he0);
+            v1.addEdge(he1);
+        }
+    }
+
+    private OriVertex add(OriVertex v) {
+        for (OriVertex oriVertex : vertices) {
+            if (DistanceUtil.Distance(v, oriVertex) < Constants.EPS) {
+                return oriVertex;
             }
         }
+        vertices.add(v);
+        return v;
     }
 
-    private OriFace makeGraph(OriVertex v, OriEdge e) {
-        OriFace face = OriModelUtil.makeOriFaceOnLeft(v, e);
-        faces.add(face);
-        OriModelUtil.makePairsAndEdges(edges, faces);
-        return face;
-    }
-
-    private void addOriVertices(CreasePattern cp) {
-        for (OriLine l : cp.getLines()) {
-            OriVertex sv = addOriVertex(l.p0);
-            OriVertex ev = addOriVertex(l.p1);
-            OriEdge eg = new OriEdge(sv, ev, l.getType());
-            edges.add(eg);
-            sv.addEdge(eg);
-            ev.addEdge(eg);
-        }
-    }
-
-    private OriVertex addOriVertex(Vector2d p) {
-        OriVertex vtx = null;
-        for (OriVertex v : vertices) {
-            if (DistanceUtil.Distance(v.getP(), p) < Constants.POINT_EPS) {
-                vtx = v;
-            }
-        }
-        if (vtx == null) {
-            vtx = new OriVertex(p);
-            vertices.add(vtx);
-        }
-        return vtx;
-    }
-
-    public boolean isFolded() {
-        return isFolded;
-    }
-
-    public List<OriFace> getFaces() {
+    public Set<OriFace> getFaces() {
         return this.faces;
     }
 
-    public List<OriVertex> getVertices() {
+    public Set<OriVertex> getVertices() {
         return this.vertices;
     }
 
-    public List<OriEdge> getEdges() {
-        return this.edges;
-    }
 }

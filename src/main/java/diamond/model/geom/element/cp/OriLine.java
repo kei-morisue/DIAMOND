@@ -45,9 +45,9 @@ public class OriLine implements Comparable<OriLine> {
     }
 
     public OriLine(OriLine l) {
-        p0.set(l.p0);
-        p1.set(l.p1);
-        type = l.type;
+        this.p0 = l.p0;
+        this.p1 = l.p1;
+        this.type = l.type;
     }
 
     public double length() {

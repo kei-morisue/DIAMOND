@@ -17,49 +17,32 @@ public class OriHalfEdge {
     private OriHalfEdge prev = null;
     private OriHalfEdge pair = null;
 
-    private OriVertex vertex = null;
+    private OriVertex sv = null;
+    private OriVertex ev = null;
+
     private OriFace face = null;
-    private OriEdge edge = null;
+    private LineType type = null;
 
-    private Vector2d tmpVec = null;
-    private Vector2d positionAfterFolded = new Vector2d();
-
-    public OriHalfEdge(OriVertex v, OriEdge e, OriFace f) {
-        this.vertex = v;
-        this.face = f;
-        this.edge = e;
+    public OriHalfEdge(OriVertex sv, OriVertex ev, LineType type) {
+        this.sv = sv;
+        this.ev = ev;
+        this.type = type;
     }
 
-    public static boolean makePair(OriHalfEdge he0, OriHalfEdge he1) {
-        if (he0.vertex != he1.next.vertex
-                || he0.next.vertex != he1.vertex) {
-            return false;
-        }
-        he0.pair = he1;
-        he1.pair = he0;
+    public void remove() {
+        getSv().getHalfEdges().remove(this);
+        getEv().getHalfEdges().remove(getPair());
+    }
+
+    public double getAngle() {
+        Vector2d dir = new Vector2d(ev.x - sv.x, ev.y - sv.y);
+        return Math.atan2(dir.y, dir.x);
+    }
+
+    public boolean makePair(OriHalfEdge he) {
+        this.pair = he;
+        he.setPair(this);
         return true;
-    }
-
-    public static OriEdge makeOriEdgeByPair(OriHalfEdge he0, OriHalfEdge he1) {
-        OriEdge edge = new OriEdge(
-                he0.vertex,
-                he1.vertex,
-                LineType.AUX);
-        he0.edge = edge;
-        he1.edge = edge;
-        edge.setLeft(he0);
-        edge.setRight(he1);
-        return edge;
-    }
-
-    public static OriEdge makeOriEdgeBySingle(OriHalfEdge he) {
-        OriEdge edge = new OriEdge(
-                he.vertex,
-                he.next.vertex,
-                LineType.CUT);
-        he.edge = edge;
-        edge.setLeft(he);
-        return edge;
     }
 
     public OriHalfEdge getNext() {
@@ -82,16 +65,8 @@ public class OriHalfEdge {
         return this.pair;
     }
 
-    public void setPair(OriHalfEdge pair) {
+    private void setPair(OriHalfEdge pair) {
         this.pair = pair;
-    }
-
-    public OriVertex getVertex() {
-        return this.vertex;
-    }
-
-    public void setVertex(OriVertex vertex) {
-        this.vertex = vertex;
     }
 
     public OriFace getFace() {
@@ -102,20 +77,20 @@ public class OriHalfEdge {
         this.face = face;
     }
 
-    public Vector2d getTmpVec() {
-        return this.tmpVec;
+    public LineType getType() {
+        return this.type;
     }
 
-    public void setTmpVec(Vector2d tmpVec) {
-        this.tmpVec = tmpVec;
+    public void setType(LineType type) {
+        this.type = type;
     }
 
-    public Vector2d getPositionAfterFolded() {
-        return this.positionAfterFolded;
+    public OriVertex getSv() {
+        return this.sv;
     }
 
-    public void setPositionAfterFolded(Vector2d positionAfterFolded) {
-        this.positionAfterFolded = positionAfterFolded;
+    public OriVertex getEv() {
+        return this.ev;
     }
 
 }

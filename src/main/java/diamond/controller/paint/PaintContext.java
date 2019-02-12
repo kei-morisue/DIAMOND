@@ -87,4 +87,5 @@ public class PaintContext extends Observable {
 
         isFinished = false;
     }
+
 }

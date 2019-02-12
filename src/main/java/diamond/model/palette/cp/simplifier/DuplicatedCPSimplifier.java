@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.LineGeomUtil;
+import diamond.model.palette.cp.CreasePattern;
 
 /**
  * @author long_
@@ -22,7 +23,8 @@ public class DuplicatedCPSimplifier {
     }
 
     public static boolean simplify(
-            Collection<OriLine> creasePattern) {
+            CreasePattern cp) {
+        Collection<OriLine> creasePattern = cp.getLines();
         System.out.println("pre cleanDuplicatedLines " + creasePattern.size());
         ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
         for (OriLine l : creasePattern) {
