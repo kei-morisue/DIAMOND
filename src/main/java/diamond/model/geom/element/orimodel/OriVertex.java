@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 import diamond.model.geom.element.LineType;
@@ -18,6 +19,10 @@ import diamond.model.palette.cp.validator.Maekawa;
 public class OriVertex extends AbstractOriVertex {
     public OriVertex(double x, double y) {
         super(x, y);
+    }
+
+    public Point2D toPt2D() {
+        return new Point2D.Double(x, y);
     }
 
     public OriVertex(OriPoint point) {

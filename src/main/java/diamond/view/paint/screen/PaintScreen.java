@@ -67,18 +67,16 @@ public class PaintScreen extends AbstractScreen {
         OriModel model = new OriModel(creasePattern);
         for (OriFace face : model.getFaces()) {
             OriDrawer.drawFace(g2d, face,
-                    ColorStyle.ORI_FACE);
+                    ColorStyle.ORIFACE);
         }
         for (OriVertex vertex : model.getVertices()) {
-            System.out.println(vertex);
             OriDrawer.drawVertex(
                     g2d,
                     vertex,
                     VertexSetting.VERTEX_SIZE,
-                    (vertex.isFoldable()) ? ColorStyle.ORI_VERTEX
-                            : ColorStyle.WRONG_ORI_VERTEX);
+                    (vertex.isFoldable()) ? ColorStyle.ORIVERTEX
+                            : ColorStyle.WRONG_ORIVERTEX);
         }
-        System.out.println();
         for (OriLine l : creasePattern.getLines()) {
             OriDrawer.drawLine(
                     g2d,

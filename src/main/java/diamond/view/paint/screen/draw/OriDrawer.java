@@ -21,6 +21,7 @@ import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.view.resource.color.ColorStyle;
+import diamond.view.resource.graphic.LineStrokeSetting;
 
 /**
  * @author long_
@@ -107,6 +108,33 @@ public class OriDrawer {
                     : ColorStyle.ORIFACE_BACK);
             path.closePath();
             g2d.fill(path);
+            for (OriHalfEdge aux : face.getAuxLines()) {
+                Point2D ptSrc0 = new Point2D.Double(aux.getSv().x,
+                        aux.getSv().y);
+                Point2D ptSrc1 = new Point2D.Double(aux.getEv().x,
+                        aux.getEv().y);
+
+                face.getTransform().transform(ptSrc0, p0);
+                face.getTransform().transform(ptSrc1, p1);
+                g2d.setColor(ColorStyle.ORIHALFEDGE_AUX);
+                g2d.setStroke(LineStrokeSetting.STROKE_CREASE);
+                g2d.draw(new Line2D.Double(p0.getX(), p0.getY(), p1.getX(),
+                        p1.getY()));
+            }
+
+            for (OriHalfEdge he : face.getHalfEdges()) {
+                Point2D ptSrc0 = new Point2D.Double(he.getSv().x,
+                        he.getSv().y);
+                Point2D ptSrc1 = new Point2D.Double(he.getEv().x,
+                        he.getEv().y);
+
+                face.getTransform().transform(ptSrc0, p0);
+                face.getTransform().transform(ptSrc1, p1);
+                g2d.setColor(ColorStyle.ORIHALFEDGE);
+                g2d.setStroke(LineStrokeSetting.STROKE_EDGE);
+                g2d.draw(new Line2D.Double(p0.getX(), p0.getY(), p1.getX(),
+                        p1.getY()));
+            }
         }
     }
 }

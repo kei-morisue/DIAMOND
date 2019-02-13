@@ -14,12 +14,19 @@ import diamond.model.geom.element.cp.OriLine;
  */
 public class ColorStyle {
     static public final java.awt.Color PAINT_SCREEN_BG = java.awt.Color.white;
-    static public final java.awt.Color MODEL_SCREEN_BG = java.awt.Color.black;
-    static public final java.awt.Color WRONG_ORI_VERTEX = java.awt.Color.red;
-    static public final java.awt.Color ORI_VERTEX = java.awt.Color.black;
-    static public final java.awt.Color ORI_FACE = java.awt.Color.gray;
-    static public final java.awt.Color ORI_POINT = java.awt.Color.black;
+    static public final java.awt.Color MODEL_SCREEN_BG = java.awt.Color.white;
+
+    static public final java.awt.Color ORIPOINT = java.awt.Color.black;
+    public static final Color ORIPOINT_PICKED = Color.green;
+    public static final Color ORIPOINT_POINTED = Color.green;
+
+    static public final java.awt.Color ORIVERTEX = java.awt.Color.black;
+    static public final java.awt.Color WRONG_ORIVERTEX = java.awt.Color.red;
+
+    static public final java.awt.Color ORIFACE = java.awt.Color.gray;
     static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
+    public static final Color ORIFACE_FRONT = Color.gray;
+    public static final Color ORIFACE_BACK = Color.white;
 
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;
@@ -30,11 +37,8 @@ public class ColorStyle {
     final public static Color ORILINE_PICKED = Color.GREEN;
     final public static Color ORILINE_POINTED = Color.GREEN;
 
-    public static final Color ORIPOINT_PICKED = Color.green;
-    public static final Color ORIPOINT_POINTED = Color.green;
-
-    public static final Color ORIFACE_FRONT = Color.gray;
-    public static final Color ORIFACE_BACK = Color.white;
+    final public static Color ORIHALFEDGE = Color.black;
+    final public static Color ORIHALFEDGE_AUX = Color.black;
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 

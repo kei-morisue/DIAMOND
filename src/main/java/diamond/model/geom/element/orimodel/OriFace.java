@@ -22,7 +22,7 @@ public class OriFace {
     private boolean faceFront = true;
 
     private GeneralPath outline = null;
-
+    private GeneralPath foldedOutline = null;
     private AffineTransform transform = null;
 
     public void addHalfEdge(OriHalfEdge he) {
@@ -45,32 +45,44 @@ public class OriFace {
     }
 
     public void setOutline(double scale) {
-        outline = new GeneralPath();
+        Vector2d centerP = getCenterPoint();
+        for (OriHalfEdge he : halfEdges) {
+            OriVertex sv = he.getSv();
+            if (outline == null) {
+                outline = new GeneralPath();
+                double x = getXPosition(scale, centerP, sv);
+                double y = getYPosition(scale, centerP, sv);
+                outline.moveTo(x, y);
+            } else {
+            }
+            outline.lineTo(
+                    getXPosition(scale, centerP, sv),
+                    getYPosition(scale, centerP, sv));
+        }
+        outline.closePath();
+    }
+
+    private Vector2d getCenterPoint() {
         Vector2d centerP = new Vector2d();
         for (OriHalfEdge he : halfEdges) {
             centerP.add(he.getSv());
         }
         centerP.scale(1.0 / halfEdges.size());
+        return centerP;
+    }
 
-        outline.moveTo(
-                (float) (halfEdges.get(0).getSv().x * scale
-                        + centerP.x
-                                * (1.0 - scale)),
-                (float) (halfEdges.get(0).getSv().y * scale
-                        + centerP.y
-                                * (1.0 - scale)));
-        for (int i = 1; i < halfEdges.size(); i++) {
-            float x = (float) (halfEdges.get(i).getSv().x * scale
-                    + centerP.x
-                            * (1.0 - scale));
-            float y = (float) (halfEdges.get(i).getSv().y * scale
-                    + centerP.y
-                            * (1.0 - scale));
-            outline.lineTo(
-                    x,
-                    y);
-        }
-        outline.closePath();
+    private double getXPosition(
+            double scale,
+            Vector2d centerP,
+            OriVertex sv) {
+        return sv.x * scale + centerP.x * (1.0 - scale);
+    }
+
+    private double getYPosition(
+            double scale,
+            Vector2d centerP,
+            OriVertex sv) {
+        return sv.y * scale + centerP.y * (1.0 - scale);
     }
 
     public boolean isFaceFront() {
@@ -85,16 +97,8 @@ public class OriFace {
         return this.halfEdges;
     }
 
-    public void setHalfEdges(ArrayList<OriHalfEdge> halfEdges) {
-        this.halfEdges = halfEdges;
-    }
-
     public HashSet<OriHalfEdge> getAuxLines() {
         return this.auxLines;
-    }
-
-    public void setAuxLines(HashSet<OriHalfEdge> auxLines) {
-        this.auxLines = auxLines;
     }
 
     public GeneralPath getOutline() {
