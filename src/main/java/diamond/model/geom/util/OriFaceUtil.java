@@ -27,16 +27,17 @@ public class OriFaceUtil {
     public static boolean onFace(OriFace face, Vector2d v) {
         double sumAngle = 0.0;
         for (OriHalfEdge he : face.getHalfEdges()) {
+            Vector2d p0, p1;
             OriVertex sv = he.getSv();
-            sv.sub(v);
             OriVertex ev = he.getEv();
-            ev.sub(v);
-            double le = ev.length();
-            double ls = sv.length();
+            p0 = new Vector2d(sv.x - v.x, sv.y - v.y);
+            p1 = new Vector2d(ev.x - v.x, ev.y - v.y);
+            double le = p1.length();
+            double ls = p0.length();
             if (le == 0.0 || ls == 0.0) {
                 return true;
             }
-            sumAngle += Math.acos((sv.x * ev.x + sv.y * ev.y) / ls / le);
+            sumAngle += Math.acos((p0.x * p1.x + p0.y * p1.y) / ls / le);
         }
         return Math.abs((sumAngle) % (Math.PI * 2)) < Constants.EPS;
     }

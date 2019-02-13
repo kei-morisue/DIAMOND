@@ -30,7 +30,7 @@ public class Folder {
     }
 
     public static OriFace getBaseFace(OriModel oriModel) {
-        OriVertex origin = new OriVertex(0.0, 0.0);
+        OriVertex origin = new OriVertex(0.0, 0.0);//TODO strange point
         for (OriFace face : oriModel.getFaces()) {
             if (OriFaceUtil.onFace(face, origin)) {
                 return face;
