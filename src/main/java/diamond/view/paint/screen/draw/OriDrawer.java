@@ -58,6 +58,19 @@ public class OriDrawer {
                 he.getEv().y));
     }
 
+    public static void drawFoldedHalfEdge(
+            Graphics2D g2d,
+            OriHalfEdge he,
+            Color color,
+            Stroke stroke) {
+        g2d.setColor(color);
+        g2d.setStroke(stroke);
+        g2d.draw(new Line2D.Double(
+                he.getFoldedSv().getX(),
+                he.getFoldedSv().getY(), he.getFoldedEv().getX(),
+                he.getFoldedEv().getY()));
+    }
+
     public static void drawPoint(Graphics2D g2d, Vector2d point,
             double size, Color color) {
         double scaledSize = size;
@@ -89,19 +102,18 @@ public class OriDrawer {
 
     public static void drawModel(Graphics2D g2d, OriModel model) {
         GeneralPath path;
-        Point2D p0 = new Point2D.Double();
-        Point2D p1 = new Point2D.Double();
+        Point2D p = new Point2D.Double();
         for (OriFace face : model.getFaces()) {
             path = null;
             for (OriHalfEdge he : face.getHalfEdges()) {
                 Vector2d v = he.getSv();
                 Point2D ptSrc = new Point2D.Double(v.x, v.y);
-                face.getTransform().transform(ptSrc, p0);
+                face.getTransform().transform(ptSrc, p);
                 if (path == null) {
                     path = new GeneralPath();
-                    path.moveTo(p0.getX(), p0.getY());
+                    path.moveTo(p.getX(), p.getY());
                 } else {
-                    path.lineTo(p0.getX(), p0.getY());
+                    path.lineTo(p.getX(), p.getY());
                 }
             }
             g2d.setColor((face.isFaceFront()) ? ColorStyle.ORIFACE_FRONT
@@ -109,31 +121,12 @@ public class OriDrawer {
             path.closePath();
             g2d.fill(path);
             for (OriHalfEdge aux : face.getAuxLines()) {
-                Point2D ptSrc0 = new Point2D.Double(aux.getSv().x,
-                        aux.getSv().y);
-                Point2D ptSrc1 = new Point2D.Double(aux.getEv().x,
-                        aux.getEv().y);
-
-                face.getTransform().transform(ptSrc0, p0);
-                face.getTransform().transform(ptSrc1, p1);
-                g2d.setColor(ColorStyle.ORIHALFEDGE_AUX);
-                g2d.setStroke(LineStrokeSetting.STROKE_CREASE);
-                g2d.draw(new Line2D.Double(p0.getX(), p0.getY(), p1.getX(),
-                        p1.getY()));
+                drawFoldedHalfEdge(g2d, aux, ColorStyle.ORIHALFEDGE_AUX,
+                        LineStrokeSetting.STROKE_CREASE);
             }
-
             for (OriHalfEdge he : face.getHalfEdges()) {
-                Point2D ptSrc0 = new Point2D.Double(he.getSv().x,
-                        he.getSv().y);
-                Point2D ptSrc1 = new Point2D.Double(he.getEv().x,
-                        he.getEv().y);
-
-                face.getTransform().transform(ptSrc0, p0);
-                face.getTransform().transform(ptSrc1, p1);
-                g2d.setColor(ColorStyle.ORIHALFEDGE);
-                g2d.setStroke(LineStrokeSetting.STROKE_EDGE);
-                g2d.draw(new Line2D.Double(p0.getX(), p0.getY(), p1.getX(),
-                        p1.getY()));
+                drawFoldedHalfEdge(g2d, he, ColorStyle.ORIHALFEDGE,
+                        LineStrokeSetting.STROKE_EDGE);
             }
         }
     }

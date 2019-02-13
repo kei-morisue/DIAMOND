@@ -66,6 +66,15 @@ public class OriVertex extends AbstractOriVertex {
         return halfEdges.get((index - 1 + eNum) % eNum);
     }
 
+    public boolean onCut() {
+        for (OriHalfEdge he : halfEdges) {
+            if (he.getType() == LineType.CUT) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public LinkedList<OriHalfEdge> getHalfEdges() {
         return this.halfEdges;
     }

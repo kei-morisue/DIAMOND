@@ -6,6 +6,7 @@ package diamond.model.geom.element.orimodel;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -50,9 +51,9 @@ public class OriFace {
             OriVertex sv = he.getSv();
             if (outline == null) {
                 outline = new GeneralPath();
-                double x = getXPosition(scale, centerP, sv);
-                double y = getYPosition(scale, centerP, sv);
-                outline.moveTo(x, y);
+                outline.moveTo(
+                        getXPosition(scale, centerP, sv),
+                        getYPosition(scale, centerP, sv));
             } else {
             }
             outline.lineTo(
@@ -60,6 +61,21 @@ public class OriFace {
                     getYPosition(scale, centerP, sv));
         }
         outline.closePath();
+    }
+
+    public void setFoldedOutline(AffineTransform transform) {
+        for (OriHalfEdge he : halfEdges) {
+            Vector2d v = he.getSv();
+            Point2D p = new Point2D.Double();
+            Point2D ptSrc = new Point2D.Double(v.x, v.y);
+            transform.transform(ptSrc, p);
+            if (foldedOutline == null) {
+                foldedOutline = new GeneralPath();
+                foldedOutline.moveTo(p.getX(), p.getY());
+            } else {
+                foldedOutline.lineTo(p.getX(), p.getY());
+            }
+        }
     }
 
     private Vector2d getCenterPoint() {
@@ -74,8 +90,8 @@ public class OriFace {
     private double getXPosition(
             double scale,
             Vector2d centerP,
-            OriVertex sv) {
-        return sv.x * scale + centerP.x * (1.0 - scale);
+            OriVertex v) {
+        return v.x * scale + centerP.x * (1.0 - scale);
     }
 
     private double getYPosition(
@@ -83,6 +99,38 @@ public class OriFace {
             Vector2d centerP,
             OriVertex sv) {
         return sv.y * scale + centerP.y * (1.0 - scale);
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
+        this.setFoldedOutline(transform);
+        for (OriHalfEdge he : halfEdges) {
+            Point2D ptSrc0 = new Point2D.Double(he.getSv().x,
+                    he.getSv().y);
+            Point2D ptSrc1 = new Point2D.Double(he.getEv().x,
+                    he.getEv().y);
+            transform.transform(ptSrc0, he.getFoldedSv());
+            transform.transform(ptSrc1, he.getFoldedEv());
+        }
+        for (OriHalfEdge he : auxLines) {
+            Vector2d centerP = new Vector2d();
+            OriVertex sv = he.getSv();
+            centerP.add(sv);
+            OriVertex ev = he.getEv();
+            centerP.add(ev);
+            centerP.scale(0.5);
+            double p0 = (sv.onCut()) ? 0.9 : 1.0;
+            Point2D ptSrc0 = new Point2D.Double(
+                    getXPosition(p0, centerP, sv),
+                    getYPosition(p0, centerP, sv));
+
+            double p1 = (ev.onCut()) ? 0.9 : 1.0;
+            Point2D ptSrc1 = new Point2D.Double(
+                    getXPosition(p1, centerP, ev),
+                    getYPosition(p1, centerP, ev));
+            transform.transform(ptSrc0, he.getFoldedSv());
+            transform.transform(ptSrc1, he.getFoldedEv());
+        }
     }
 
     public boolean isFaceFront() {
@@ -107,10 +155,6 @@ public class OriFace {
 
     public AffineTransform getTransform() {
         return this.transform;
-    }
-
-    public void setTransform(AffineTransform transform) {
-        this.transform = transform;
     }
 
 }

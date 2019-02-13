@@ -30,7 +30,7 @@ public class Folder {
     }
 
     public static OriFace getBaseFace(OriModel oriModel) {
-        OriVertex origin = new OriVertex(0.0, 0.0);//TODO strange point
+        OriVertex origin = new OriVertex(0.1, 0.01);//TODO strange point
         for (OriFace face : oriModel.getFaces()) {
             if (OriFaceUtil.onFace(face, origin)) {
                 return face;
@@ -42,7 +42,7 @@ public class Folder {
     public static void setAffine(AffineTransform accumulatedTransform,
             OriHalfEdge he) {
         OriFace face = he.getPair().getFace();
-        if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO WIRD condition...
+        if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO strange condition...
             return;
         }
         face.setFaceFront(!he.getFace().isFaceFront());

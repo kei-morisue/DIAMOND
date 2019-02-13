@@ -4,6 +4,8 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.Point2D;
+
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.LineType;
@@ -19,6 +21,9 @@ public class OriHalfEdge {
 
     private OriVertex sv = null;
     private OriVertex ev = null;
+
+    private Point2D foldedSv = new Point2D.Double();
+    private Point2D foldedEv = new Point2D.Double();
 
     private OriFace face = null;
     private LineType type = null;
@@ -81,16 +86,20 @@ public class OriHalfEdge {
         return this.type;
     }
 
-    public void setType(LineType type) {
-        this.type = type;
-    }
-
     public OriVertex getSv() {
         return this.sv;
     }
 
     public OriVertex getEv() {
         return this.ev;
+    }
+
+    public Point2D getFoldedSv() {
+        return this.foldedSv;
+    }
+
+    public Point2D getFoldedEv() {
+        return this.foldedEv;
     }
 
 }

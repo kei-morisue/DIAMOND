@@ -39,7 +39,8 @@ public class OriFaceUtil {
             }
             sumAngle += Math.acos((p0.x * p1.x + p0.y * p1.y) / ls / le);
         }
-        return Math.abs((sumAngle) % (Math.PI * 2)) < Constants.EPS;
+        return Math.abs(Math.sin(sumAngle)) < Constants.RADIAN_EPS &&
+                Math.abs(Math.cos(sumAngle) - 1.0) < Constants.RADIAN_EPS;
     }
 
 }
