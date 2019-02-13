@@ -66,7 +66,7 @@ public class PaintScreen extends AbstractScreen {
         CreasePattern creasePattern = paintContext.getCP();
         OriModel model = new OriModel(creasePattern);
         for (OriFace face : model.getFaces()) {
-            OriDrawer.drawFace(g2d, face,
+            OriDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORIFACE);
         }
         for (OriVertex vertex : model.getVertices()) {

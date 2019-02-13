@@ -7,8 +7,6 @@ package diamond.model.geom.element.fold;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
@@ -55,13 +53,13 @@ public class Folder {
 
     public static AffineTransform createFlipTransform(OriHalfEdge he,
             AffineTransform accumulatedtransform) {
-        Vector2d v0 = he.getSv();
-        Vector2d v1 = he.getEv();
+        OriVertex v0 = he.getSv();
+        OriVertex v1 = he.getEv();
 
         Point2D p0 = new Point2D.Double();
         Point2D p1 = new Point2D.Double();
-        accumulatedtransform.transform(new Point2D.Double(v0.x, v0.y), p0);
-        accumulatedtransform.transform(new Point2D.Double(v1.x, v1.y), p1);
+        accumulatedtransform.transform(v0.toPt2D(), p0);
+        accumulatedtransform.transform(v1.toPt2D(), p1);
 
         AffineTransform transform = new AffineTransform();
         double dx = p1.getX() - p0.getX();

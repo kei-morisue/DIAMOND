@@ -23,6 +23,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;

@@ -10,7 +10,6 @@ import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.vecmath.Vector2d;
@@ -95,31 +94,14 @@ public class OriDrawer {
     }
 
     public static void drawFace(Graphics2D g2d,
-            OriFace face, Color color) {
+            GeneralPath outLine, Color color) {
         g2d.setColor(color);
-        g2d.fill(face.getOutline());
+        g2d.fill(outLine);
     }
 
     public static void drawModel(Graphics2D g2d, OriModel model) {
-        GeneralPath path;
-        Point2D p = new Point2D.Double();
         for (OriFace face : model.getFaces()) {
-            path = null;
-            for (OriHalfEdge he : face.getHalfEdges()) {
-                Vector2d v = he.getSv();
-                Point2D ptSrc = new Point2D.Double(v.x, v.y);
-                face.getTransform().transform(ptSrc, p);
-                if (path == null) {
-                    path = new GeneralPath();
-                    path.moveTo(p.getX(), p.getY());
-                } else {
-                    path.lineTo(p.getX(), p.getY());
-                }
-            }
-            g2d.setColor((face.isFaceFront()) ? ColorStyle.ORIFACE_FRONT
-                    : ColorStyle.ORIFACE_BACK);
-            path.closePath();
-            g2d.fill(path);
+            drawFace(g2d, face.getFoldedOutline(), face.getColor());
             for (OriHalfEdge aux : face.getAuxLines()) {
                 drawFoldedHalfEdge(g2d, aux, ColorStyle.ORIHALFEDGE_AUX,
                         LineStrokeSetting.STROKE_CREASE);

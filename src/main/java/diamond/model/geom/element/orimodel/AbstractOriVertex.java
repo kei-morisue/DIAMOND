@@ -4,8 +4,6 @@
  */
 package diamond.model.geom.element.orimodel;
 
-import java.awt.geom.Point2D;
-
 import javax.vecmath.Vector2d;
 
 /**
@@ -21,7 +19,4 @@ public class AbstractOriVertex extends Vector2d {
         super(v);
     }
 
-    public Point2D.Double p() {
-        return new Point2D.Double(x, y);
-    }
 }

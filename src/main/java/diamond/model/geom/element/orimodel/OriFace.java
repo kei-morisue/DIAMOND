@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.vecmath.Vector2d;
+
+import diamond.view.resource.color.ColorStyle;
 
 /**
  * @author long_
@@ -105,10 +108,8 @@ public class OriFace {
         this.transform = transform;
         this.setFoldedOutline(transform);
         for (OriHalfEdge he : halfEdges) {
-            Point2D ptSrc0 = new Point2D.Double(he.getSv().x,
-                    he.getSv().y);
-            Point2D ptSrc1 = new Point2D.Double(he.getEv().x,
-                    he.getEv().y);
+            Point2D ptSrc0 = he.getSv().toPt2D();
+            Point2D ptSrc1 = he.getEv().toPt2D();
             transform.transform(ptSrc0, he.getFoldedSv());
             transform.transform(ptSrc1, he.getFoldedEv());
         }
@@ -133,6 +134,11 @@ public class OriFace {
         }
     }
 
+    public Color getColor() {
+        return (isFaceFront()) ? ColorStyle.ORIFACE_FRONT
+                : ColorStyle.ORIFACE_BACK;
+    }
+
     public boolean isFaceFront() {
         return this.faceFront;
     }
@@ -155,6 +161,10 @@ public class OriFace {
 
     public AffineTransform getTransform() {
         return this.transform;
+    }
+
+    public GeneralPath getFoldedOutline() {
+        return this.foldedOutline;
     }
 
 }
