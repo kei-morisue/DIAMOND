@@ -68,10 +68,7 @@ public class OriFace {
 
     public void setFoldedOutline() {
         for (OriHalfEdge he : halfEdges) {
-            Point2D v = he.getFoldedSv();
-            Point2D p = new Point2D.Double();
-            Point2D ptSrc = new Point2D.Double(v.getX(), v.getY());
-            transform.transform(ptSrc, p);
+            Point2D p = he.getFoldedSv();
             if (foldedOutline == null) {
                 foldedOutline = new GeneralPath();
                 foldedOutline.moveTo(p.getX(), p.getY());
@@ -79,6 +76,7 @@ public class OriFace {
                 foldedOutline.lineTo(p.getX(), p.getY());
             }
         }
+        foldedOutline.closePath();
     }
 
     private Vector2d getCenterPoint() {
@@ -113,6 +111,7 @@ public class OriFace {
             transform.transform(ptSrc1, he.getFoldedEv());
         }
         this.setFoldedOutline();
+
         for (OriHalfEdge he : auxLines) {
             Vector2d centerP = new Vector2d();
             OriVertex sv = he.getSv();
