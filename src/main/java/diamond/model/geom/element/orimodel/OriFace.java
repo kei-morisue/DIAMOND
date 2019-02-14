@@ -66,11 +66,11 @@ public class OriFace {
         outline.closePath();
     }
 
-    public void setFoldedOutline(AffineTransform transform) {
+    public void setFoldedOutline() {
         for (OriHalfEdge he : halfEdges) {
-            Vector2d v = he.getSv();
+            Point2D v = he.getFoldedSv();
             Point2D p = new Point2D.Double();
-            Point2D ptSrc = new Point2D.Double(v.x, v.y);
+            Point2D ptSrc = new Point2D.Double(v.getX(), v.getY());
             transform.transform(ptSrc, p);
             if (foldedOutline == null) {
                 foldedOutline = new GeneralPath();
@@ -106,13 +106,13 @@ public class OriFace {
 
     public void setTransform(AffineTransform transform) {
         this.transform = transform;
-        this.setFoldedOutline(transform);
         for (OriHalfEdge he : halfEdges) {
             Point2D ptSrc0 = he.getSv().toPt2D();
             Point2D ptSrc1 = he.getEv().toPt2D();
             transform.transform(ptSrc0, he.getFoldedSv());
             transform.transform(ptSrc1, he.getFoldedEv());
         }
+        this.setFoldedOutline();
         for (OriHalfEdge he : auxLines) {
             Vector2d centerP = new Vector2d();
             OriVertex sv = he.getSv();
