@@ -5,6 +5,7 @@
 package diamond.model.geom.element.orimodel;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import diamond.model.geom.Constants;
@@ -20,7 +21,7 @@ import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
  *
  */
 public class OriModel {
-    private Set<OriFace> faces = new HashSet<OriFace>();
+    private LinkedList<OriFace> faces = new LinkedList<OriFace>();
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
@@ -108,7 +109,7 @@ public class OriModel {
         return v;
     }
 
-    public Set<OriFace> getFaces() {
+    public LinkedList<OriFace> getFaces() {
         return this.faces;
     }
 

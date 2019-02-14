@@ -82,11 +82,10 @@ public class OriFace {
         for (OriHalfEdge he : halfEdges) {
             he.fold(transform);
         }
-        this.setFoldedOutline();
-
         for (OriHalfEdge he : auxLines) {
             he.foldAsAuxLine(transform);
         }
+        this.setFoldedOutline();
     }
 
     public Color getColor() {

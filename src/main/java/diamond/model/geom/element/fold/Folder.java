@@ -25,6 +25,7 @@ public class Folder {
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he);
         }
+        oriModel.getFaces().sort(new OriFaceComparator());
     }
 
     public static OriFace getBaseFace(OriModel oriModel) {
