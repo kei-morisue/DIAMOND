@@ -1,5 +1,5 @@
 /** DIAMOND - Origami Diagram Editor*/
-package diamond.model.palette.file;
+package diamond.controller.file;
 
 import java.util.Set;
 

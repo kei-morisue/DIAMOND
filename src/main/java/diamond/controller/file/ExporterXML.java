@@ -1,6 +1,6 @@
 /** DIAMOND - Origami Diagram Editor*/
 
-package diamond.model.palette.file;
+package diamond.controller.file;
 
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;

@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package diamond.view;
+package diamond.view.paint;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

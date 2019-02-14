@@ -1,6 +1,6 @@
 package diamond;
 
-import diamond.view.PaintFrame;
+import diamond.view.paint.PaintFrame;
 
 public class DIAMOND {
 

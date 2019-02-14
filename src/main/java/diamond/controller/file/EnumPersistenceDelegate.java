@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.file;
+package diamond.controller.file;
 
 import java.beans.Encoder;
 import java.beans.Expression;
