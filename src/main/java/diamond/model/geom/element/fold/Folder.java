@@ -20,7 +20,7 @@ import diamond.model.geom.util.OriFaceUtil;
 public class Folder {
     public static void fold(OriModel oriModel) {
         OriFace face = getBaseFace(oriModel);
-        face.setTransform(new AffineTransform());
+        face.fold(new AffineTransform());
         face.setFaceFront(true);
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he);
@@ -44,7 +44,7 @@ public class Folder {
             return;
         }
         face.setFaceFront(!he.getFace().isFaceFront());
-        face.setTransform(
+        face.fold(
                 createFlipTransform(he.getPair(), accumulatedTransform));
         for (OriHalfEdge walkHe : face.getHalfEdges()) {
             setAffine(face.getTransform(), walkHe);

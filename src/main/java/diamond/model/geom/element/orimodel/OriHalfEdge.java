@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
@@ -48,6 +49,24 @@ public class OriHalfEdge {
         this.pair = he;
         he.setPair(this);
         return true;
+    }
+
+    public void fold(AffineTransform transform) {
+        Point2D ptSrc0 = sv.toPt2D();
+        Point2D ptSrc1 = ev.toPt2D();
+        transform.transform(ptSrc0, getFoldedSv());
+        transform.transform(ptSrc1, getFoldedEv());
+    }
+
+    public void foldAsAuxLine(AffineTransform transform) {
+        Vector2d centerP = OriModelUtil.getCenterPoint(sv, ev);
+        double p0 = (sv.onCut()) ? 0.9 : 1.0;
+        Point2D ptSrc0 = OriModelUtil.getScaledPoint(p0, centerP, sv);
+
+        double p1 = (ev.onCut()) ? 0.9 : 1.0;
+        Point2D ptSrc1 = OriModelUtil.getScaledPoint(p1, centerP, ev);
+        transform.transform(ptSrc0, getFoldedSv());
+        transform.transform(ptSrc1, getFoldedEv());
     }
 
     public OriHalfEdge getNext() {

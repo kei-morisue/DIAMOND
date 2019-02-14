@@ -49,19 +49,17 @@ public class OriFace {
     }
 
     public void setOutline(double scale) {
-        Vector2d centerP = getCenterPoint();
+        Vector2d centerP = OriModelUtil.getCenterPoint(halfEdges);
         for (OriHalfEdge he : halfEdges) {
             OriVertex sv = he.getSv();
+            Point2D scaledPoint = OriModelUtil.getScaledPoint(scale, centerP,
+                    sv);
             if (outline == null) {
                 outline = new GeneralPath();
-                outline.moveTo(
-                        getXPosition(scale, centerP, sv),
-                        getYPosition(scale, centerP, sv));
+                outline.moveTo(scaledPoint.getX(), scaledPoint.getY());
             } else {
             }
-            outline.lineTo(
-                    getXPosition(scale, centerP, sv),
-                    getYPosition(scale, centerP, sv));
+            outline.lineTo(scaledPoint.getX(), scaledPoint.getY());
         }
         outline.closePath();
     }
@@ -79,57 +77,15 @@ public class OriFace {
         foldedOutline.closePath();
     }
 
-    private Vector2d getCenterPoint() {
-        Vector2d centerP = new Vector2d();
-        for (OriHalfEdge he : halfEdges) {
-            centerP.add(he.getSv());
-        }
-        centerP.scale(1.0 / halfEdges.size());
-        return centerP;
-    }
-
-    private double getXPosition(
-            double scale,
-            Vector2d centerP,
-            OriVertex v) {
-        return v.x * scale + centerP.x * (1.0 - scale);
-    }
-
-    private double getYPosition(
-            double scale,
-            Vector2d centerP,
-            OriVertex sv) {
-        return sv.y * scale + centerP.y * (1.0 - scale);
-    }
-
-    public void setTransform(AffineTransform transform) {
+    public void fold(AffineTransform transform) {
         this.transform = transform;
         for (OriHalfEdge he : halfEdges) {
-            Point2D ptSrc0 = he.getSv().toPt2D();
-            Point2D ptSrc1 = he.getEv().toPt2D();
-            transform.transform(ptSrc0, he.getFoldedSv());
-            transform.transform(ptSrc1, he.getFoldedEv());
+            he.fold(transform);
         }
         this.setFoldedOutline();
 
         for (OriHalfEdge he : auxLines) {
-            Vector2d centerP = new Vector2d();
-            OriVertex sv = he.getSv();
-            centerP.add(sv);
-            OriVertex ev = he.getEv();
-            centerP.add(ev);
-            centerP.scale(0.5);
-            double p0 = (sv.onCut()) ? 0.9 : 1.0;
-            Point2D ptSrc0 = new Point2D.Double(
-                    getXPosition(p0, centerP, sv),
-                    getYPosition(p0, centerP, sv));
-
-            double p1 = (ev.onCut()) ? 0.9 : 1.0;
-            Point2D ptSrc1 = new Point2D.Double(
-                    getXPosition(p1, centerP, ev),
-                    getYPosition(p1, centerP, ev));
-            transform.transform(ptSrc0, he.getFoldedSv());
-            transform.transform(ptSrc1, he.getFoldedEv());
+            he.foldAsAuxLine(transform);
         }
     }
 
