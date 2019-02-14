@@ -13,6 +13,11 @@ import javax.vecmath.Vector2d;
  *
  */
 public class OriPoint extends Vector2d implements Comparable<OriPoint> {
+
+    public OriPoint() {
+        super();
+    }
+
     public OriPoint(Double x, Double y) {
         super(x, y);
     }

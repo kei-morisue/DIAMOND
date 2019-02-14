@@ -5,6 +5,7 @@
 package diamond.controller.paint;
 
 import java.awt.geom.Point2D;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Stack;
 
@@ -33,12 +34,17 @@ public class PaintContext extends Observable {
 
     public boolean isFinished;
 
-    private CreasePattern creasePattern = new CreasePattern();
+    private LinkedList<CreasePattern> creasePatterns = new LinkedList<CreasePattern>();
+    private int stepNo = 0;
 
     public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
             0);
 
     public PaintActionInterface paintAction = new Axiom1Action();
+
+    public PaintContext() {
+        creasePatterns.add(new CreasePattern());
+    }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
         OriPoint candidate = pointedOriPoint;
@@ -52,7 +58,7 @@ public class PaintContext extends Observable {
     }
 
     public CreasePattern getCP() {
-        return creasePattern;
+        return creasePatterns.get(stepNo);
     }
 
     public double getScale() {

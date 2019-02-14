@@ -32,16 +32,16 @@ public abstract class AbstractScreen extends JPanel
         paintContext.addObserver(this);
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        repaint();
+    }
+
     protected void drawBG(Graphics2D g2d, Color color) {
         g2d.setColor(color);
         int width = getWidth();
         int height = getHeight();
         g2d.fillRect(0, 0, width, height);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        repaint();
     }
 
     @Override

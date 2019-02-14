@@ -14,7 +14,6 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.LineType;
-import diamond.view.paint.screen.PaintScreen;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -22,22 +21,22 @@ import diamond.view.resource.string.StringKey.LABEL;
  * @author long_
  *
  */
-public class panelUI extends JPanel {
+public class UIPanel extends JPanel {
     ButtonGroup paintActionButtons = new ButtonGroup();
     ButtonGroup lineTypeButtons = new ButtonGroup();
 
     JPanel lineTypePanel = new JPanel();
 
-    public panelUI(PaintScreen screen, PaintContext context) {
+    public UIPanel(PaintContext context) {
         setLayout(new GridLayout(8, 1));
         addLineTypePanel(context);
-        addPaintActionButton(LABEL.FLIP_LINE_TYPE, context);
         addPaintActionButton(LABEL.AXIOM1, context);
         addPaintActionButton(LABEL.AXIOM2, context);
         addPaintActionButton(LABEL.AXIOM3, context);
         addPaintActionButton(LABEL.AXIOM4, context);
         addPaintActionButton(LABEL.SYMMETRIC, context);
         addPaintActionButton(LABEL.DELETE_LINE, context);
+        addPaintActionButton(LABEL.FLIP_LINE_TYPE, context);
     }
 
     /**

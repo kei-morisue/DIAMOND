@@ -18,13 +18,9 @@ import diamond.model.palette.cp.editor.LineAdder;
  */
 public class CreasePattern {
     private Set<OriLine> lines = new HashSet<>();
-    private Set<OriLine> cutLines = new HashSet<>();
 
     public CreasePattern() {
         buildWhitePaper(Initials.PAPER_SIZE, Initials.PAPER_EDGES);
-        for (OriLine line : lines) {
-            cutLines.add(line);
-        }
     }
 
     public void buildWhitePaper(double size, int edges) {
@@ -33,6 +29,10 @@ public class CreasePattern {
 
     public Set<OriLine> getLines() {
         return this.lines;
+    }
+
+    public void clear() {
+        lines.clear();
     }
 
     public void addLine(OriLine line) {
@@ -44,6 +44,10 @@ public class CreasePattern {
     }
 
     public Set<OriLine> getCutLines() {
+        Set<OriLine> cutLines = new HashSet<>();
+        for (OriLine line : lines) {
+            cutLines.add(line);
+        }
         return cutLines;
     }
 

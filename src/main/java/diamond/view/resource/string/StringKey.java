@@ -14,7 +14,11 @@ public class StringKey {
         AUX,
         FLIP_LINE_TYPE,
         DELETE_LINE,
-        SYMMETRIC
+        SYMMETRIC,
+
+        FILE,
+        SAVE,
+        OPEN,
     }
 
     public enum HINT {

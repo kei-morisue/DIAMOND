@@ -29,12 +29,18 @@ import diamond.Initials;
 import diamond.controller.paint.PaintContext;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
-import diamond.view.paint.ui.panelUI;
+import diamond.view.paint.ui.MenuBar;
+import diamond.view.paint.ui.UIPanel;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 public class PaintFrame extends JFrame {
+
+    private PaintContext paintContext = new PaintContext();
+
+    private PaintScreen paintScreen = new PaintScreen(paintContext);
+    private ModelScreen modelScreen = new ModelScreen(paintContext);
 
     public PaintFrame() {
         setSize(Initials.MAIN_FRAME_WIDTH,
@@ -44,16 +50,12 @@ public class PaintFrame extends JFrame {
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
                 LABEL.TITLE));
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
-        PaintContext paintContext = new PaintContext();
-        PaintScreen paintScreen = new PaintScreen(paintContext);
-        panel.add(paintScreen);
-        panel.add(new ModelScreen(paintContext));
-        add(panel, BorderLayout.CENTER);
+        add(buildMainPanel(), BorderLayout.CENTER);
 
-        panelUI ui = new panelUI(paintScreen, paintContext);
+        UIPanel ui = new UIPanel(paintContext);
         add(ui, BorderLayout.WEST);
+
+        setJMenuBar(new MenuBar(paintContext));
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,4 +67,16 @@ public class PaintFrame extends JFrame {
         super.setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
     }
 
+    private JPanel buildMainPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 3));
+        panel.add(paintScreen);
+        panel.add(modelScreen);
+        JPanel result = new JPanel();
+        result.setLayout(new BorderLayout());
+        result.add(panel, BorderLayout.CENTER);
+        result.add(new JScrollBar(JScrollBar.VERTICAL, 1, 1, 1, 10),
+                BorderLayout.EAST);
+        return result;
+    }
 }

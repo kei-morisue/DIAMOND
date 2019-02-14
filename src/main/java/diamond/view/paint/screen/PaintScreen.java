@@ -85,4 +85,5 @@ public class PaintScreen extends AbstractScreen {
                     LineStrokeSetting.STROKE_VALLEY);
         }
     }
+
 }

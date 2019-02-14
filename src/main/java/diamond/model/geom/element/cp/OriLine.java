@@ -25,9 +25,9 @@ import diamond.model.geom.element.Segment;
 
 public class OriLine implements Comparable<OriLine> {
 
-    public OriPoint p0;
-    public OriPoint p1;
-    LineType type;
+    public OriPoint p0 = null;
+    public OriPoint p1 = null;
+    LineType type = LineType.AUX;
 
     public OriLine() {
     }
@@ -109,6 +109,10 @@ public class OriLine implements Comparable<OriLine> {
 
         // differs
         return false;
+    }
+
+    public void setType(LineType type) {
+        this.type = type;
     }
 
 }
