@@ -35,20 +35,9 @@ public class OriHalfEdge {
         this.type = type;
     }
 
-    public boolean remove() {
-        return getSv().getHalfEdges().remove(this)
-                && getEv().getHalfEdges().remove(getPair());
-    }
-
     public double getAngle() {
         Vector2d dir = new Vector2d(ev.x - sv.x, ev.y - sv.y);
         return Math.atan2(dir.y, dir.x);
-    }
-
-    public boolean makePair(OriHalfEdge he) {
-        this.pair = he;
-        he.setPair(this);
-        return true;
     }
 
     public void fold(AffineTransform transform) {
@@ -60,11 +49,10 @@ public class OriHalfEdge {
 
     public void foldAsAuxLine(AffineTransform transform) {
         Vector2d centerP = OriModelUtil.getCenterPoint(sv, ev);
-        double p0 = (sv.onCut()) ? 0.9 : 1.0;
-        Point2D ptSrc0 = OriModelUtil.getScaledPoint(p0, centerP, sv);
-
-        double p1 = (ev.onCut()) ? 0.9 : 1.0;
-        Point2D ptSrc1 = OriModelUtil.getScaledPoint(p1, centerP, ev);
+        double scale0 = (sv.onCut()) ? 0.9 : 1.0;
+        Point2D ptSrc0 = OriModelUtil.getScaledPoint(scale0, centerP, sv);
+        double scale1 = (ev.onCut()) ? 0.9 : 1.0;
+        Point2D ptSrc1 = OriModelUtil.getScaledPoint(scale1, centerP, ev);
         transform.transform(ptSrc0, getFoldedSv());
         transform.transform(ptSrc1, getFoldedEv());
     }
@@ -89,7 +77,7 @@ public class OriHalfEdge {
         return this.pair;
     }
 
-    private void setPair(OriHalfEdge pair) {
+    public void setPair(OriHalfEdge pair) {
         this.pair = pair;
     }
 
