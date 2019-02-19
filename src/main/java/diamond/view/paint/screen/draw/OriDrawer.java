@@ -19,8 +19,6 @@ import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
-import diamond.view.resource.color.ColorStyle;
-import diamond.view.resource.graphic.LineStrokeSetting;
 
 /**
  * @author long_

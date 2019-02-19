@@ -29,10 +29,10 @@ import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
 import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.screen.debug.Debugger;
+import diamond.view.paint.screen.draw.ColorStyle;
+import diamond.view.paint.screen.draw.LineStrokeSetting;
 import diamond.view.paint.screen.draw.OriDrawer;
-import diamond.view.resource.color.ColorStyle;
-import diamond.view.resource.graphic.LineStrokeSetting;
-import diamond.view.resource.graphic.VertexSetting;
+import diamond.view.paint.screen.draw.VertexSetting;
 
 public class PaintScreen extends AbstractScreen {
     private PaintContext paintContext;

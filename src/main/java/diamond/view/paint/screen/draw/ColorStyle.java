@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.view.resource.color;
+package diamond.view.paint.screen.draw;
 
 import java.awt.Color;
 
@@ -39,6 +39,10 @@ public class ColorStyle {
 
     final public static Color ORIHALFEDGE = Color.black;
     final public static Color ORIHALFEDGE_AUX = Color.black;
+
+    final public static Color ARROW_BODY = Color.black;
+    final public static Color ARROW_VALLEY = Color.black;
+    final public static Color ARROW_MOUNTAIN = Color.white;
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 

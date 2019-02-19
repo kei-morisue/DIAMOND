@@ -42,6 +42,10 @@ public class PaintContext extends Observable {
 
     public PaintActionInterface paintAction = new Axiom1Action();
 
+    public void setCreasePatterns(LinkedList<CreasePattern> creasePatterns) {
+        this.creasePatterns = creasePatterns;
+    }
+
     public PaintContext() {
         creasePatterns.add(new CreasePattern());
     }
@@ -58,7 +62,22 @@ public class PaintContext extends Observable {
     }
 
     public CreasePattern getCP() {
+        while (stepNo >= creasePatterns.size()) {
+            creasePatterns.add(new CreasePattern());
+        }
         return creasePatterns.get(stepNo);
+    }
+
+    public LinkedList<CreasePattern> getCreasePatterns() {
+        return this.creasePatterns;
+    }
+
+    public int getStepNo() {
+        return this.stepNo;
+    }
+
+    public void setStepNo(int stepNo) {
+        this.stepNo = stepNo;
     }
 
     public double getScale() {

@@ -16,10 +16,10 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
+import diamond.view.paint.screen.draw.ColorStyle;
+import diamond.view.paint.screen.draw.LineStrokeSetting;
 import diamond.view.paint.screen.draw.OriDrawer;
-import diamond.view.resource.color.ColorStyle;
-import diamond.view.resource.graphic.LineStrokeSetting;
-import diamond.view.resource.graphic.VertexSetting;
+import diamond.view.paint.screen.draw.VertexSetting;
 
 /**
  * @author long_

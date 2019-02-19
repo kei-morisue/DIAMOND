@@ -13,8 +13,6 @@ import javax.swing.JFileChooser;
 import diamond.controller.file.DataSet;
 import diamond.controller.file.LoaderXML;
 import diamond.controller.paint.PaintContext;
-import diamond.model.geom.element.cp.OriLine;
-import diamond.model.palette.cp.CreasePattern;
 
 /**
  * @author long_
@@ -37,11 +35,8 @@ public class LoadAction implements ActionListener {
             LoaderXML loader = new LoaderXML();
             String path = chooser.getSelectedFile().getPath();
             DataSet data = loader.load(path);
-            CreasePattern cp = paintContext.getCP();
-            cp.clear();
-            for (OriLine line : data.getLines()) {
-                cp.addLine(line);
-            }
+            paintContext
+                    .setCreasePatterns(data.getCps());
         }
     }
 }

@@ -23,7 +23,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
@@ -69,14 +68,9 @@ public class PaintFrame extends JFrame {
 
     private JPanel buildMainPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 3));
+        panel.setLayout(new GridLayout(1, 2));
         panel.add(paintScreen);
         panel.add(modelScreen);
-        JPanel result = new JPanel();
-        result.setLayout(new BorderLayout());
-        result.add(panel, BorderLayout.CENTER);
-        result.add(new JScrollBar(JScrollBar.VERTICAL, 1, 1, 1, 10),
-                BorderLayout.EAST);
-        return result;
+        return panel;
     }
 }

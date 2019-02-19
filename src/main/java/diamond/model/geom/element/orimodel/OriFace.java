@@ -13,7 +13,7 @@ import java.util.HashSet;
 
 import javax.vecmath.Vector2d;
 
-import diamond.view.resource.color.ColorStyle;
+import diamond.view.paint.screen.draw.ColorStyle;
 
 /**
  * @author long_

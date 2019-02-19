@@ -1,28 +1,27 @@
 /** DIAMOND - Origami Diagram Editor*/
 package diamond.controller.file;
 
-import java.util.Set;
+import java.util.LinkedList;
 
-import diamond.model.geom.element.cp.OriLine;
 import diamond.model.palette.cp.CreasePattern;
 
 public class DataSet {
-    private Set<OriLine> lines;
+    private LinkedList<CreasePattern> cps;
 
     public DataSet() {
 
     }
 
-    public DataSet(CreasePattern CreasePattern) {
-        lines = CreasePattern.getLines();
+    public DataSet(LinkedList<CreasePattern> CreasePatterns) {
+        cps = CreasePatterns;
     }
 
-    public Set<OriLine> getLines() {
-        return this.lines;
+    public LinkedList<CreasePattern> getCps() {
+        return this.cps;
     }
 
-    public void setLines(Set<OriLine> lines) {
-        this.lines = lines;
+    public void setCps(LinkedList<CreasePattern> cps) {
+        this.cps = cps;
     }
 
 }

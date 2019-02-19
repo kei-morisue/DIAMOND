@@ -19,6 +19,11 @@ import diamond.model.palette.cp.editor.LineAdder;
 public class CreasePattern {
     private Set<OriLine> lines = new HashSet<>();
 
+    @Deprecated // just for XML encorder
+    public void setLines(Set<OriLine> lines) {
+        this.lines = lines;
+    }
+
     public CreasePattern() {
         buildWhitePaper(Initials.PAPER_SIZE, Initials.PAPER_EDGES);
     }
