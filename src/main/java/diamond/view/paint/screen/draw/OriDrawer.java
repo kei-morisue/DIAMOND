@@ -101,12 +101,18 @@ public class OriDrawer {
         for (OriFace face : model.getFaces()) {
             drawFace(g2d, face.getFoldedOutline(), face.getColor());
             for (OriHalfEdge aux : face.getAuxLines()) {
-                drawFoldedHalfEdge(g2d, aux, ColorStyle.ORIHALFEDGE_AUX,
-                        LineStrokeSetting.STROKE_CREASE);
+                drawFoldedHalfEdge(
+                        g2d,
+                        aux,
+                        ColorStyle.getColor(aux.getType()),
+                        LineStrokeSetting.getStroke(aux.getType()));
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
-                drawFoldedHalfEdge(g2d, he, ColorStyle.ORIHALFEDGE,
-                        LineStrokeSetting.STROKE_EDGE);
+                drawFoldedHalfEdge(
+                        g2d,
+                        he,
+                        ColorStyle.getColor(he.getType()),
+                        LineStrokeSetting.getStroke(he.getType()));
             }
         }
     }

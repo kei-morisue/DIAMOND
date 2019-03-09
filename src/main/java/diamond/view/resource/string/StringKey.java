@@ -12,6 +12,8 @@ public class StringKey {
         VALLEY,
         CUT,
         AUX,
+        AUX_VALLEY,
+        AUX_MOUNTAIN,
         FLIP_LINE_TYPE,
         DELETE_LINE,
         SYMMETRIC,

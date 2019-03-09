@@ -46,6 +46,8 @@ public class UIPanel extends JPanel {
         addLineTypeButton(LABEL.MOUNTAIN, LineType.MOUNTAIN, context);
         addLineTypeButton(LABEL.VALLEY, LineType.VALLEY, context);
         addLineTypeButton(LABEL.AUX, LineType.AUX, context);
+        addLineTypeButton(LABEL.AUX_VALLEY, LineType.AUX_VALLEY, context);
+        addLineTypeButton(LABEL.AUX_MOUNTAIN, LineType.AUX_MOUNTAIN, context);
         add(lineTypePanel);
     }
 

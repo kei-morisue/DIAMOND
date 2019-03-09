@@ -91,7 +91,7 @@ public class OriModel {
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);
-            if (line.getType() == LineType.AUX) {
+            if (LineType.isAux(line.getType())) {
                 auxLines.add(he0);
                 continue;
             }

@@ -6,7 +6,7 @@ package diamond.view.paint.screen.draw;
 
 import java.awt.Color;
 
-import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.LineType;
 
 /**
  * @author long_
@@ -31,6 +31,8 @@ public class ColorStyle {
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;
     final public static Color ORILINE_AUX = Color.LIGHT_GRAY;
+    final public static Color ORILINE_AUX_VALLEY = Color.BLUE;
+    final public static Color ORILINE_AUX_MOUNTAIN = Color.RED;
     final public static Color ORILINE_CUT = Color.black;
     final public static Color ORILINE_GRID = Color.LIGHT_GRAY;
     final public static Color ORILINE_CANDIDATE = Color.GREEN;
@@ -46,8 +48,8 @@ public class ColorStyle {
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 
-    public static Color getColor(OriLine l) {
-        switch (l.getType()) {
+    public static Color getColor(LineType lineType) {
+        switch (lineType) {
         case MOUNTAIN:
             return ORILINE_MOUNTAIN;
         case VALLEY:
@@ -56,6 +58,10 @@ public class ColorStyle {
             return ORILINE_CUT;
         case AUX:
             return ORILINE_AUX;
+        case AUX_MOUNTAIN:
+            return ORILINE_AUX_MOUNTAIN;
+        case AUX_VALLEY:
+            return ORILINE_AUX_VALLEY;
         default:
             return ORILINE_AUX;
         }
