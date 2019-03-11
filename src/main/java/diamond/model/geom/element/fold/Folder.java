@@ -18,12 +18,12 @@ import diamond.model.geom.util.OriFaceUtil;
  *
  */
 public class Folder {
-    public static void fold(OriModel oriModel) {
+    public static void fold(OriModel oriModel, FoldPolicy foldPolicy) {
         OriFace face = getBaseFace(oriModel);
-        face.fold(new AffineTransform());
+        face.fold(new AffineTransform(), foldPolicy);
         face.setFaceFront(true);
         for (OriHalfEdge he : face.getHalfEdges()) {
-            setAffine(face.getTransform(), he);
+            setAffine(face.getTransform(), he, foldPolicy);
         }
         oriModel.getFaces().sort(new OriFaceComparator());
     }
@@ -39,16 +39,17 @@ public class Folder {
     }
 
     public static void setAffine(AffineTransform accumulatedTransform,
-            OriHalfEdge he) {
+            OriHalfEdge he, FoldPolicy foldPolicy) {
         OriFace face = he.getPair().getFace();
         if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO strange condition...
             return;
         }
         face.setFaceFront(!he.getFace().isFaceFront());
         face.fold(
-                createFlipTransform(he.getPair(), accumulatedTransform));
+                createFlipTransform(he.getPair(), accumulatedTransform),
+                foldPolicy);
         for (OriHalfEdge walkHe : face.getHalfEdges()) {
-            setAffine(face.getTransform(), walkHe);
+            setAffine(face.getTransform(), walkHe, foldPolicy);
         }
     }
 

@@ -13,6 +13,7 @@ import java.util.HashSet;
 
 import javax.vecmath.Vector2d;
 
+import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.view.paint.screen.draw.ColorStyle;
 
 /**
@@ -77,13 +78,13 @@ public class OriFace {
         foldedOutline.closePath();
     }
 
-    public void fold(AffineTransform transform) {
+    public void fold(AffineTransform transform, FoldPolicy foldPolicy) {
         this.transform = transform;
         for (OriHalfEdge he : halfEdges) {
             he.fold(transform);
         }
         for (OriHalfEdge he : auxLines) {
-            he.foldAsAuxLine(transform);
+            he.foldAsAuxLine(transform, foldPolicy.getAuxClipScale());
         }
         this.setFoldedOutline();
     }

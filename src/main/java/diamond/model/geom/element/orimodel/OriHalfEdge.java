@@ -47,11 +47,11 @@ public class OriHalfEdge {
         transform.transform(ptSrc1, getFoldedEv());
     }
 
-    public void foldAsAuxLine(AffineTransform transform) {
+    public void foldAsAuxLine(AffineTransform transform, double clipScale) {
         Vector2d centerP = OriModelUtil.getCenterPoint(sv, ev);
-        double scale0 = (sv.onCut()) ? 0.9 : 1.0;
+        double scale0 = (sv.onCut()) ? clipScale : 1.0;
         Point2D ptSrc0 = OriModelUtil.getScaledPoint(scale0, centerP, sv);
-        double scale1 = (ev.onCut()) ? 0.9 : 1.0;
+        double scale1 = (ev.onCut()) ? clipScale : 1.0;
         Point2D ptSrc1 = OriModelUtil.getScaledPoint(scale1, centerP, ev);
         transform.transform(ptSrc0, getFoldedSv());
         transform.transform(ptSrc1, getFoldedEv());

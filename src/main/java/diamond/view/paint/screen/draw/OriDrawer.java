@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.vecmath.Vector2d;
 
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
@@ -101,17 +102,19 @@ public class OriDrawer {
         for (OriFace face : model.getFaces()) {
             drawFace(g2d, face.getFoldedOutline(), face.getColor());
             for (OriHalfEdge aux : face.getAuxLines()) {
+                LineType type = aux.getType();
+                type = (face.isFaceFront()) ? type : LineType.getPairType(type);
                 drawFoldedHalfEdge(
                         g2d,
                         aux,
-                        ColorStyle.getColor(aux.getType()),
-                        LineStrokeSetting.getStroke(aux.getType()));
+                        ColorStyle.getColor(type),
+                        LineStrokeSetting.getStroke(type));
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
                 drawFoldedHalfEdge(
                         g2d,
                         he,
-                        ColorStyle.getColor(he.getType()),
+                        ColorStyle.ORIHALFEDGE,
                         LineStrokeSetting.getStroke(he.getType()));
             }
         }

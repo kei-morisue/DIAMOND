@@ -11,5 +11,5 @@ public class Initials {
     final public static int MAIN_FRAME_WIDTH = 1200;
     final public static int MRUFILE_NUM = 10;
     final public static double PAPER_SIZE = 200;
-    final public static int PAPER_EDGES = 5;
+    final public static int PAPER_EDGES = 4;
 }

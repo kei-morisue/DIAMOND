@@ -6,10 +6,9 @@ package diamond.view.paint.screen;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.model.geom.element.diagram.Arrow;
+import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.view.paint.screen.draw.ColorStyle;
@@ -34,14 +33,8 @@ public class ModelScreen extends AbstractScreen {
         paintContext.coordinateTransform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(paintContext.coordinateTransform.getTransform());
         OriModel model = new OriModel(paintContext.getCP());
-        Folder.fold(model);
+        Folder.fold(model, new FoldPolicy());
         OriDrawer.drawModel(g2d, model);
-
-        Arrow arrow = new Arrow(
-                new Point2D.Double(0.0, -200),
-                new Point2D.Double(0.0, 0.0),
-                20);
-        arrow.draw(g2d);
 
     }
 }

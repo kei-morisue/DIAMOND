@@ -20,4 +20,19 @@ public enum LineType {
         }
         return false;
     }
+
+    public static LineType getPairType(LineType lineType) {
+        switch (lineType) {
+        case MOUNTAIN:
+            return LineType.VALLEY;
+        case VALLEY:
+            return LineType.MOUNTAIN;
+        case AUX_MOUNTAIN:
+            return LineType.AUX_VALLEY;
+        case AUX_VALLEY:
+            return LineType.AUX_MOUNTAIN;
+        default:
+            return lineType;
+        }
+    }
 }
