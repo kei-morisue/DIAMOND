@@ -35,4 +35,19 @@ public enum LineType {
             return lineType;
         }
     }
+
+    public static LineType getAuxType(LineType lineType) {
+        switch (lineType) {
+        case MOUNTAIN:
+            return LineType.AUX_MOUNTAIN;
+        case VALLEY:
+            return LineType.AUX_VALLEY;
+        case AUX_MOUNTAIN:
+            return LineType.MOUNTAIN;
+        case AUX_VALLEY:
+            return LineType.VALLEY;
+        default:
+            return lineType;
+        }
+    }
 }

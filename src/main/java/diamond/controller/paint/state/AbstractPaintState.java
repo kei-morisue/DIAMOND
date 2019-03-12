@@ -18,6 +18,10 @@ public abstract class AbstractPaintState implements PaintStateInterface {
     private Class<? extends PaintStateInterface> nextStateClass;
     private Class<? extends PaintStateInterface> prevStateClass;
 
+    public AbstractPaintState() {
+        initialize();
+    }
+
     protected abstract void initialize();
 
     abstract protected void undoAction(PaintContext context);

@@ -21,11 +21,6 @@ import diamond.model.palette.cp.editor.SymmetricLineFactory;
  */
 public class OriPoint2PickkingState extends OriPointPickkingState {
 
-    public OriPoint2PickkingState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);

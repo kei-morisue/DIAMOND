@@ -4,6 +4,11 @@ public class StringKey {
 
     public enum LABEL {
         TITLE,
+
+        INPUT_LINE,
+        LINE_PATTERN,
+        MODIFY_LINE_TYPE,
+
         AXIOM1,
         AXIOM2,
         AXIOM3,
@@ -15,6 +20,8 @@ public class StringKey {
         AUX_VALLEY,
         AUX_MOUNTAIN,
         FLIP_LINE_TYPE,
+        FOLD_UNFOLD,
+        SETTLE_UNSETTLE,
         DELETE_LINE,
         SYMMETRIC,
 

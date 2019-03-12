@@ -5,27 +5,30 @@
 package diamond.controller.paint.state;
 
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.palette.cp.editor.LineRemover;
 
 /**
  * @author long_
  *
  */
-public class DeleteLineState extends OriLinePickkingState {
-
+public class FoldUnfoldLineState extends OriLinePickkingState {
     @Override
     protected void initialize() {
-        setNextClass(DeleteLineState.class);
-        setPrevClass(DeleteLineState.class);
+        setNextClass(FoldUnfoldLineState.class);
+        setPrevClass(FoldUnfoldLineState.class);
     }
 
     @Override
     protected void onResult(PaintContext context) {
+
         OriLine oriLine = context.getPickedLines().get(0);
-        if (oriLine != null) {
-            LineRemover.removeLine(oriLine,
-                    context.getCP().getLines());
+        LineType type = oriLine.getType();
+        if (type != LineType.AUX) {
+            context.memorizedLineType = type;
+            oriLine.setType(LineType.AUX);
+        } else {
+            oriLine.setType(context.memorizedLineType);
         }
         context.getPickedLines().clear();
     }

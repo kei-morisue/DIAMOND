@@ -16,7 +16,9 @@ import diamond.controller.paint.action.Axiom3Action;
 import diamond.controller.paint.action.Axiom4Action;
 import diamond.controller.paint.action.DeleteLineAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
+import diamond.controller.paint.action.FoldUnfoldLineAction;
 import diamond.controller.paint.action.PaintActionInterface;
+import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -56,6 +58,15 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("flip");
             this.paintAction = new FlipLineTypeAction();
             break;
+        case FOLD_UNFOLD:
+            setIcons("fold_unfold");
+            this.paintAction = new FoldUnfoldLineAction();
+            break;
+        case SETTLE_UNSETTLE:
+            setIcons("settle_unsettle");
+            this.paintAction = new SettleUnsettleLineAction();
+            break;
+
         case DELETE_LINE:
             setIcons("delete");
             this.paintAction = new DeleteLineAction();

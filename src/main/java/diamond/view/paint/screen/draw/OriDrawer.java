@@ -107,15 +107,15 @@ public class OriDrawer {
                 drawFoldedHalfEdge(
                         g2d,
                         aux,
-                        ColorStyle.getColor(type),
-                        LineStrokeSetting.getStroke(type));
+                        ColorStyle.getDiagramColor(type),
+                        LineStrokeSetting.getDiagramStroke(type));
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
                 drawFoldedHalfEdge(
                         g2d,
                         he,
-                        ColorStyle.ORIHALFEDGE,
-                        LineStrokeSetting.getStroke(he.getType()));
+                        ColorStyle.ORI_HALFEDGE,
+                        LineStrokeSetting.getDiagramStroke(he.getType()));
             }
         }
     }

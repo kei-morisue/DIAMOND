@@ -15,10 +15,6 @@ import diamond.model.geom.util.NearestLineFinder;
  *
  */
 public abstract class OriLinePickkingState extends AbstractPaintState {
-    public OriLinePickkingState() {
-        super();
-    }
-
     @Override
     protected void undoAction(PaintContext context) {
         if (context.getPickedLines().size() > 0) {

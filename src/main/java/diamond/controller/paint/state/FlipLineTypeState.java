@@ -12,11 +12,6 @@ import diamond.controller.paint.PaintContext;
  */
 public class FlipLineTypeState extends OriLinePickkingState {
 
-    public FlipLineTypeState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setNextClass(FlipLineTypeState.class);

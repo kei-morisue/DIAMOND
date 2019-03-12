@@ -39,8 +39,10 @@ public class ColorStyle {
     final public static Color ORILINE_PICKED = Color.GREEN;
     final public static Color ORILINE_POINTED = Color.GREEN;
 
-    final public static Color ORIHALFEDGE = Color.black;
-    final public static Color ORIHALFEDGE_AUX = Color.black;
+    final public static Color ORI_HALFEDGE = Color.black;
+    final public static Color ORI_HALFEDGE_AUX = Color.black;
+    final public static Color ORI_HALFEDGE_AUX_MOUNTAIN = Color.RED;
+    final public static Color ORI_HALFEDGE_AUX_VALLEY = Color.BLUE;
 
     final public static Color ARROW_BODY = Color.black;
     final public static Color ARROW_VALLEY = Color.black;
@@ -48,7 +50,7 @@ public class ColorStyle {
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 
-    public static Color getColor(LineType lineType) {
+    public static Color getCpColor(LineType lineType) {
         switch (lineType) {
         case MOUNTAIN:
             return ORILINE_MOUNTAIN;
@@ -64,6 +66,21 @@ public class ColorStyle {
             return ORILINE_AUX_VALLEY;
         default:
             return ORILINE_AUX;
+        }
+    }
+
+    public static Color getDiagramColor(LineType lineType) {
+        switch (lineType) {
+        case CUT:
+            return ORILINE_CUT;
+        case AUX:
+            return ORI_HALFEDGE_AUX;
+        case AUX_MOUNTAIN:
+            return ORI_HALFEDGE_AUX_MOUNTAIN;
+        case AUX_VALLEY:
+            return ORI_HALFEDGE_AUX_VALLEY;
+        default:
+            return ORI_HALFEDGE;
         }
     }
 

@@ -18,11 +18,6 @@ import diamond.model.geom.util.LineUtil;
  */
 public class OriLine0PickkingState extends OriLinePickkingState {
 
-    public OriLine0PickkingState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);

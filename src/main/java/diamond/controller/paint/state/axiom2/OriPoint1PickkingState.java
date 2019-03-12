@@ -22,10 +22,6 @@ import diamond.model.palette.cp.editor.LineClipper;
  *
  */
 public class OriPoint1PickkingState extends OriPointPickkingState {
-    public OriPoint1PickkingState() {
-        super();
-        initialize();
-    }
 
     @Override
     protected void initialize() {

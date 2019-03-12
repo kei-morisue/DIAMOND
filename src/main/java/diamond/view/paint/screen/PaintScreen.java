@@ -81,8 +81,8 @@ public class PaintScreen extends AbstractScreen {
             OriDrawer.drawLine(
                     g2d,
                     l,
-                    ColorStyle.getColor(l.getType()),
-                    LineStrokeSetting.getStroke(l.getType()));
+                    ColorStyle.getCpColor(l.getType()),
+                    LineStrokeSetting.getCpStroke(l.getType()));
         }
     }
 

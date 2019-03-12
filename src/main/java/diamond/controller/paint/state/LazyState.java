@@ -13,12 +13,6 @@ import diamond.controller.paint.PaintContext;
  *
  */
 public class LazyState extends AbstractPaintState {
-
-    public LazyState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setPrevClass(LazyState.class);

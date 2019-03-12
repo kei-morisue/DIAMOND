@@ -13,11 +13,6 @@ import diamond.controller.paint.state.OriPointPickkingState;
  */
 public class OriPoint2PickkingState extends OriPointPickkingState {
 
-    public OriPoint2PickkingState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setPrevClass(OriPoint1PickkingState.class);

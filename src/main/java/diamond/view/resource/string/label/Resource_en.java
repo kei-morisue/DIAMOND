@@ -9,6 +9,11 @@ public class Resource_en extends ListResourceBundle {
     static final String[][] strings = {
             { LABEL.TITLE.name(),
                     "DIAMOND : Origami Diagram Editor" },
+
+            { LABEL.INPUT_LINE.name(), "Input New Line" },
+            { LABEL.LINE_PATTERN.name(), "Line Pattern" },
+            { LABEL.MODIFY_LINE_TYPE.name(), "Modify Line Type" },
+
             { LABEL.AXIOM1.name(), "Origami Axiom 1" },
             { LABEL.AXIOM2.name(), "Origami Axiom 2" },
             { LABEL.AXIOM3.name(), "Origami Axiom 3" },
@@ -20,7 +25,10 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.AUX_MOUNTAIN.name(), "New Mountain" },
 
             { LABEL.CUT.name(), "Cut" },
+
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
+            { LABEL.FOLD_UNFOLD.name(), "Fold / Unfold Line" },
+            { LABEL.SETTLE_UNSETTLE.name(), "Settle/ Unsettle Line Type" },
             { LABEL.DELETE_LINE.name(), "Delete Line" },
             { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
 

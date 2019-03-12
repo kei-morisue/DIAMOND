@@ -17,11 +17,6 @@ import diamond.model.geom.element.cp.OriPoint;
  */
 public class OriPoint1PickkingState extends OriPointPickkingState {
 
-    public OriPoint1PickkingState() {
-        super();
-        initialize();
-    }
-
     @Override
     protected void initialize() {
         setNextClass(OriPoint0PickkingState.class);

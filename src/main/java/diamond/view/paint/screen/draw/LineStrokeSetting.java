@@ -54,7 +54,7 @@ public class LineStrokeSetting {
     final public static BasicStroke MODEL_STROKE_CUT = new BasicStroke(1.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
-    public static BasicStroke getStroke(LineType lineType) {
+    public static BasicStroke getCpStroke(LineType lineType) {
         switch (lineType) {
         case AUX:
             return STROKE_AUX;
@@ -64,6 +64,19 @@ public class LineStrokeSetting {
             return STROKE_AUX_MOUNTAIN;
         default:
             return STROKE_MOUNTAIN;
+        }
+    }
+
+    public static BasicStroke getDiagramStroke(LineType lineType) {
+        switch (lineType) {
+        case AUX:
+            return STROKE_AUX;
+        case AUX_VALLEY:
+            return STROKE_AUX_VALLEY;
+        case AUX_MOUNTAIN:
+            return STROKE_AUX_MOUNTAIN;
+        default:
+            return STROKE_EDGE;
         }
     }
 }

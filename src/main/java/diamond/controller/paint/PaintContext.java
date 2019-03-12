@@ -28,6 +28,7 @@ public class PaintContext extends Observable {
     public OriLine pointedOriLine = null;
 
     public LineType inputLineType = LineType.MOUNTAIN;
+    public LineType memorizedLineType = LineType.AUX;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();
