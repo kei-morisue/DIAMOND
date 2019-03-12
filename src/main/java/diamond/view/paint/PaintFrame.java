@@ -19,47 +19,42 @@
 package diamond.view.paint;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import diamond.Config;
-import diamond.Version;
-import diamond.file.ImageResourceLoader;
-import diamond.paint.core.PaintContext;
-import diamond.resource.ResourceHolder;
-import diamond.resource.string.StringKey.LABEL;
-import diamond.view.paint.menubar.MenuBar;
-import diamond.view.paint.menubar.file.Exit;
+import diamond.Initials;
+import diamond.controller.paint.PaintContext;
+import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
-import diamond.view.paint.uipanel.PaintUI;
+import diamond.view.paint.ui.MenuBar;
+import diamond.view.paint.ui.UIPanel;
+import diamond.view.resource.ImageIconLoader;
+import diamond.view.resource.ResourceHolder;
+import diamond.view.resource.string.StringKey.LABEL;
 
-public class PaintFrame extends JFrame implements WindowListener {
+public class PaintFrame extends JFrame {
 
-    private static PaintFrame instance = null;
+    private PaintContext paintContext = new PaintContext();
 
-    public static PaintFrame getInstance() {
-        if (instance == null) {
-            instance = new PaintFrame();
-        }
-        return instance;
-    }
+    private PaintScreen paintScreen = new PaintScreen(paintContext);
+    private ModelScreen modelScreen = new ModelScreen(paintContext);
 
-    private PaintFrame() {
-        addWindowListener(this);
-        setSize(Config.INITIAL_MAIN_FRAME_WIDTH,
-                Config.INITIAL_MAIN_FRAME_HEIGHT);
-        setIconImage(new ImageResourceLoader()
-                .loadAsIcon("icon/diamond.gif", getClass())
-                .getImage());
-        this.setTitle(ResourceHolder.getLabelString(
-                LABEL.DEFAULT_FILE_NAME));
+    public PaintFrame() {
+        setSize(Initials.MAIN_FRAME_WIDTH,
+                Initials.MAIN_FRAME_HEIGHT);
+        setIconImage(
+                new ImageIconLoader().loadAsIcon("icon/diamond.gif")
+                        .getImage());
+        setTitle(ResourceHolder.getLabelString(
+                LABEL.TITLE));
+        add(buildMainPanel(), BorderLayout.CENTER);
 
-        add(new PaintScreen(), BorderLayout.CENTER);
-        add(new PaintUI(PaintContext.getPainterScreen()), BorderLayout.WEST);
-        add(new HintLabel(), BorderLayout.SOUTH);
-        setJMenuBar(MenuBar.getInstance());
+        UIPanel ui = new UIPanel(paintContext);
+        add(ui, BorderLayout.WEST);
+
+        setJMenuBar(new MenuBar(paintContext));
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,38 +63,14 @@ public class PaintFrame extends JFrame implements WindowListener {
 
     @Override
     public void setTitle(String fileName) {
-        super.setTitle(fileName + " - "
-                + String.format(ResourceHolder.getLabelString(
-                        LABEL.MAIN_FRAME_TITLE), Version.VERSION));
+        super.setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
     }
 
-    @Override
-    public void windowActivated(WindowEvent arg0) {
+    private JPanel buildMainPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(paintScreen);
+        panel.add(modelScreen);
+        return panel;
     }
-
-    @Override
-    public void windowClosed(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowClosing(WindowEvent arg0) {
-        Exit.getInstance().doClick();
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowOpened(WindowEvent arg0) {
-    }
-
 }

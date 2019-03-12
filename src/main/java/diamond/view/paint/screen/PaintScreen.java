@@ -18,122 +18,71 @@
 
 package diamond.view.paint.screen;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.geom.AffineTransform;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.swing.JPanel;
+import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.listener.PaintActionListnener;
+import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.orimodel.OriFace;
+import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.model.palette.cp.CreasePattern;
+import diamond.view.paint.screen.debug.Debugger;
+import diamond.view.paint.screen.draw.ColorStyle;
+import diamond.view.paint.screen.draw.LineStrokeSetting;
+import diamond.view.paint.screen.draw.OriDrawer;
+import diamond.view.paint.screen.draw.VertexSetting;
 
-import diamond.doc.DocHolder;
-import diamond.paint.EditMode;
-import diamond.paint.core.PaintConfig;
-import diamond.paint.core.PaintContext;
-import diamond.paint.creasepattern.CreasePattern;
-import diamond.viewsetting.ViewScreenUpdater;
-import diamond.viewsetting.paint.ScreenUpdater;
+public class PaintScreen extends AbstractScreen {
+    private PaintContext paintContext;
 
-public class PaintScreen extends JPanel
-        implements ActionListener, ComponentListener, Observer {
-    private Image bufferImage;
+    public PaintScreen(PaintContext paintContext) {
+        super(paintContext);
+        this.paintContext = paintContext;
 
-    private ScreenAxisTransform screenAxsisTransform = new ScreenAxisTransform(
-            getWidth(), getHeight());
-
-    public PaintScreen() {
-        ScreenMouseAction mouseAction = new ScreenMouseAction(
-                screenAxsisTransform);
-        addMouseListener(mouseAction);
-        addMouseMotionListener(mouseAction);
-        addMouseWheelListener(mouseAction);
-        addComponentListener(this);
-        ScreenUpdater.getInstance().addObserver(this);
-        PaintContext.getInstance().addObserver(this);
-        PaintContext.setPainterScreen(this);//TODO remove this
+        PaintActionListnener paintActionListnener = new PaintActionListnener(
+                paintContext);
+        addMouseListener(paintActionListnener);
+        addMouseMotionListener(paintActionListnener);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        Graphics2D g2d = initializeBufferG2D();
-        CreasePattern creasePattern = DocHolder.getDoc().getCreasePattern();
-        Graphics2DDrawer.drawLines(g2d, creasePattern);
-        if (PaintConfig.getMouseAction().getEditMode() == EditMode.VERTEX
-                || PaintConfig.dispVertex) {
-            Graphics2DDrawer.drawVertexRectangles(g2d,
-                    DocHolder.getDoc().getCreasePattern());
-        }
-        if (PaintContext.getInstance().dispGrid) {
-            Graphics2DDrawer.drawGridLine(g2d,
-                    DocHolder.getDoc().getPaperSize(), PaintConfig.gridDivNum);
+        Graphics2D g2d = (Graphics2D) g;
+        drawBG(g2d, ColorStyle.PAINT_SCREEN_BG);
+        paintContext.coordinateTransform.ResizeWindow(getWidth(), getHeight());
+        g2d.setTransform(paintContext.coordinateTransform.getTransform());
+        paintCreasePattern(g2d);
+        if (paintContext.paintAction != null) {
+            paintContext.paintAction.onDraw(g2d, paintContext);
         }
 
-        if (PaintConfig.bDispCrossLine) {
-            Graphics2DDrawer.drawCrossLines(g2d,
-                    DocHolder.getDoc().getCrossLines());
+        Debugger.debugPaintContext(g2d, paintContext);
+
+    }
+
+    private void paintCreasePattern(Graphics2D g2d) {
+        CreasePattern creasePattern = paintContext.getCP();
+        OriModel model = new OriModel(creasePattern);
+        for (OriFace face : model.getFaces()) {
+            OriDrawer.drawFace(g2d, face.getOutline(),
+                    ColorStyle.ORIFACE);
         }
-        if (PaintConfig.mouseAction != null) {
-            PaintConfig.mouseAction.onDraw(g2d, PaintContext.getInstance());
-            Graphics2DDrawer.showXnY(g2d,
-                    PaintContext.getInstance().pickCandidateV);
+        for (OriVertex vertex : model.getVertices()) {
+            OriDrawer.drawVertex(
+                    g2d,
+                    vertex,
+                    VertexSetting.VERTEX_SIZE,
+                    (vertex.isFoldable()) ? ColorStyle.ORIVERTEX
+                            : ColorStyle.WRONG_ORIVERTEX);
         }
-        g.drawImage(bufferImage, 0, 0, this);
-    }
-
-    private Graphics2D initializeBufferG2D() {
-        bufferImage = createImage(getWidth(), getHeight());
-        Graphics2D bufferg = (Graphics2D) bufferImage.getGraphics();
-        bufferg.setTransform(new AffineTransform());
-        bufferg.setColor(Color.WHITE);
-        bufferg.fillRect(0, 0, getWidth(), getHeight());
-        bufferg.setTransform(screenAxsisTransform.getTransform());
-        return bufferg;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent arg0) {
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent arg0) {
-    }
-
-    @Override
-    public void componentResized(ComponentEvent arg0) {
-        if (getWidth() <= 0 || getHeight() <= 0) {
-            return;
-        }
-        screenAxsisTransform.Resize(getWidth(), getHeight());
-        repaint();
-    }
-
-    @Override
-    public void componentShown(ComponentEvent arg0) {
-    }
-
-    public Image getCreasePatternImage() {
-        return bufferImage;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        String name = o.toString();
-        if (name.equals(ScreenUpdater.getInstance().getName())) {
-            if (arg != null) {
-                if (arg.equals(ViewScreenUpdater.REDRAW_REQUESTED)) {
-                    repaint();
-                }
-            }
+        for (OriLine l : creasePattern.getLines()) {
+            OriDrawer.drawLine(
+                    g2d,
+                    l,
+                    ColorStyle.getCpColor(l.getType()),
+                    LineStrokeSetting.getCpStroke(l.getType()));
         }
     }
 
