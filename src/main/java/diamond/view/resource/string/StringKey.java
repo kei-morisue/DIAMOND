@@ -25,6 +25,8 @@ public class StringKey {
         DELETE_LINE,
         SYMMETRIC,
 
+        MODEL_EDIT,
+
         FILE,
         SAVE,
         OPEN,

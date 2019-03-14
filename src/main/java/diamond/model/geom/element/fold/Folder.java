@@ -7,6 +7,8 @@ package diamond.model.geom.element.fold;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
+import javax.vecmath.Vector2d;
+
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
@@ -29,7 +31,7 @@ public class Folder {
     }
 
     public static OriFace getBaseFace(OriModel oriModel) {
-        OriVertex origin = new OriVertex(0.1, 0.01);//TODO strange point
+        Vector2d origin = oriModel.getOriginPoint();
         for (OriFace face : oriModel.getFaces()) {
             if (OriFaceUtil.onFace(face, origin)) {
                 return face;

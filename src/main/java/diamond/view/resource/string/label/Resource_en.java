@@ -32,6 +32,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.DELETE_LINE.name(), "Delete Line" },
             { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
 
+            { LABEL.MODEL_EDIT.name(), "Edit Model" },
+
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },
             { LABEL.OPEN.name(), "Open" },

@@ -24,7 +24,7 @@ import diamond.view.resource.string.StringKey.LABEL;
  * @author long_
  *
  */
-public class UIPanel extends JPanel {
+public class CpUiPanel extends JPanel {
     ButtonGroup paintActionButtons = new ButtonGroup();
     ButtonGroup lineTypeButtons = new ButtonGroup();
 
@@ -32,7 +32,7 @@ public class UIPanel extends JPanel {
     private JPanel inputLinePanel = new JPanel();
     private JPanel modifyLineTypePanel = new JPanel();
 
-    public UIPanel(PaintContext context) {
+    public CpUiPanel(PaintContext context) {
         setLayout(new GridLayout(2, 1));
         addLineTypePanel(context);
         addInputLinePanel(context);

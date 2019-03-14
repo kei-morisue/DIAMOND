@@ -28,8 +28,9 @@ import diamond.Initials;
 import diamond.controller.paint.PaintContext;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
+import diamond.view.paint.ui.CpUiPanel;
 import diamond.view.paint.ui.MenuBar;
-import diamond.view.paint.ui.UIPanel;
+import diamond.view.paint.ui.ModelUiPanel;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -51,8 +52,11 @@ public class PaintFrame extends JFrame {
                 LABEL.TITLE));
         add(buildMainPanel(), BorderLayout.CENTER);
 
-        UIPanel ui = new UIPanel(paintContext);
-        add(ui, BorderLayout.WEST);
+        CpUiPanel cpUi = new CpUiPanel(paintContext);
+        add(cpUi, BorderLayout.WEST);
+
+        ModelUiPanel modelUi = new ModelUiPanel(paintContext);
+        add(modelUi, BorderLayout.EAST);
 
         setJMenuBar(new MenuBar(paintContext));
 
@@ -68,7 +72,7 @@ public class PaintFrame extends JFrame {
 
     private JPanel buildMainPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(paintScreen);
         panel.add(modelScreen);
         return panel;
