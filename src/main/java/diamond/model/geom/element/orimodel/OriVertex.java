@@ -7,6 +7,8 @@ package diamond.model.geom.element.orimodel;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
+import javax.vecmath.Vector2d;
+
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.cp.validator.Kawasaki;
@@ -17,6 +19,15 @@ import diamond.model.palette.cp.validator.Maekawa;
  *
  */
 public class OriVertex extends AbstractOriVertex {
+    private Vector2d shearVector = new Vector2d(0.0, 0.0);
+
+    public Vector2d getShearVector() {
+        return this.shearVector;
+    }
+
+    public void setShearVector(Vector2d shearVector) {
+        this.shearVector = shearVector;
+    }
 
     public OriVertex(double x, double y) {
         super(x, y);
