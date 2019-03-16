@@ -18,14 +18,14 @@
 
 package diamond.model.geom.element;
 
-import javax.vecmath.Vector2d;
+import diamond.model.geom.element.cp.OriPoint;
 
 public class Line {
 
-    public Vector2d dir; // Unit direction vector
-    public Vector2d p;   // Passing through point
+    public OriPoint dir; // Unit direction vector
+    public OriPoint p; // Passing through point
 
-    public Line(Vector2d p, Vector2d dir) {
+    public Line(OriPoint p, OriPoint dir) {
         this.p = p;
         this.dir = dir;
         dir.normalize();

@@ -4,12 +4,15 @@
  */
 package diamond.model.geom.util;
 
+import java.awt.geom.Point2D;
+
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.Line;
 import diamond.model.geom.element.Segment;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 
 /**
  * @author long_
@@ -19,14 +22,17 @@ public class CrossPointUtil {
     private final static double epsilon = Constants.EPS;
 
     // (Including endpoints) intersection between two line segments
-    public static Vector2d getCrossPoint(Vector2d p0, Vector2d p1, Vector2d q0,
-            Vector2d q1) {
-        Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
-        Vector2d d1 = new Vector2d(q1.x - q0.x, q1.y - q0.y);
-        Vector2d diff = new Vector2d(q0.x - p0.x, q0.y - p0.y);
+    public static OriPoint getCrossPoint(
+            Point2D.Double p0,
+            Point2D.Double p1,
+            Point2D.Double q0,
+            Point2D.Double q1) {
+        Point2D.Double d0 = new Point2D.Double(p1.x - p0.x, p1.y - p0.y);
+        Point2D.Double d1 = new Point2D.Double(q1.x - q0.x, q1.y - q0.y);
+        Point2D.Double diff = new Point2D.Double(q0.x - p0.x, q0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
-        if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
+        if (det * det > epsilon * xxyy(d0) * xxyy(d1)) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
             double invDet = 1.0 / det;
@@ -38,7 +44,7 @@ public class CrossPointUtil {
             } else if (s < 0.0 - epsilon || s > 1.0 + epsilon) {
                 return null;
             } else {
-                Vector2d cp = new Vector2d();
+                OriPoint cp = new OriPoint();
                 cp.x = (1.0 - t) * q0.x + t * q1.x;
                 cp.y = (1.0 - t) * q0.y + t * q1.y;
                 return cp;
@@ -48,7 +54,11 @@ public class CrossPointUtil {
         return null;
     }
 
-    public static Vector2d getCrossPoint(OriLine l0, OriLine l1) {
+    private static double xxyy(Point2D.Double p) {
+        return p.x * p.x + p.y * p.y;
+    }
+
+    public static OriPoint getCrossPoint(OriLine l0, OriLine l1) {
         return getCrossPoint(l0.p0, l0.p1, l1.p0, l1.p1);
     }
 
@@ -76,12 +86,12 @@ public class CrossPointUtil {
 
     // Returns the intersection of the semi straight line and the line segment.
     // Null if not intersect
-    public static Vector2d getCrossPoint(Line line, Segment seg) {
-        Vector2d p0 = new Vector2d(line.p);
+    public static OriPoint getCrossPoint(Line line, Segment seg) {
+        OriPoint p0 = new OriPoint(line.p);
 
-        Vector2d d0 = new Vector2d(line.dir);
-        Vector2d d1 = new Vector2d(seg.ev.x - seg.sv.x, seg.ev.y - seg.sv.y);
-        Vector2d diff = new Vector2d(seg.sv.x - p0.x, seg.sv.y - p0.y);
+        OriPoint d0 = new OriPoint(line.dir);
+        OriPoint d1 = new OriPoint(seg.ev.x - seg.sv.x, seg.ev.y - seg.sv.y);
+        OriPoint diff = new OriPoint(seg.sv.x - p0.x, seg.sv.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
         double epsilon = Constants.EPS;
@@ -97,7 +107,7 @@ public class CrossPointUtil {
             } else if (s < 0.0 - epsilon) {
                 return null;
             } else {
-                Vector2d cp = new Vector2d();
+                OriPoint cp = new OriPoint();
                 cp.x = (1.0 - t) * seg.sv.x + t * seg.ev.x;
                 cp.y = (1.0 - t) * seg.sv.y + t * seg.ev.y;
                 return cp;
@@ -107,14 +117,14 @@ public class CrossPointUtil {
     }
 
     // Compute the intersection of straight lines
-    public static Vector2d getCrossPoint(Line l0, Line l1) {
-        Vector2d p0 = new Vector2d(l0.p);
-        Vector2d p1 = new Vector2d(l0.p);
-        p1.add(l0.dir);
+    public static OriPoint getCrossPoint(Line l0, Line l1) {
+        OriPoint p0 = new OriPoint(l0.p);
+        OriPoint p1 = new OriPoint(l0.p);
+        p1 = p1.add(l0.dir);
 
-        Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
-        Vector2d d1 = new Vector2d(l1.dir);
-        Vector2d diff = new Vector2d(l1.p.x - p0.x, l1.p.y - p0.y);
+        OriPoint d0 = new OriPoint(p1.x - p0.x, p1.y - p0.y);
+        OriPoint d1 = new OriPoint(l1.dir);
+        OriPoint diff = new OriPoint(l1.p.x - p0.x, l1.p.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
         double epsilon = Constants.EPS;
@@ -124,7 +134,7 @@ public class CrossPointUtil {
             double invDet = 1.0 / det;
             double t = (d0.x * diff.y - d0.y * diff.x) * invDet;
 
-            Vector2d cp = new Vector2d();
+            OriPoint cp = new OriPoint();
             cp.x = (1.0 - t) * l1.p.x + t * (l1.p.x + l1.dir.x);
             cp.y = (1.0 - t) * l1.p.y + t * (l1.p.y + l1.dir.y);
             return cp;
@@ -132,20 +142,30 @@ public class CrossPointUtil {
         return null;
     }
 
-    public static int getCrossPoint(Vector2d ap1, Vector2d ap2,
-            Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4) {
+    private static void set(Point2D.Double p0, Point2D.Double p1) {//TODO
+        p0.x = p1.x;
+        p0.y = p1.y;
+    }
+
+    public static int getCrossPoint(
+            Point2D.Double ap1,
+            Point2D.Double ap2,
+            Point2D.Double p1,
+            Point2D.Double p2,
+            Point2D.Double p3,
+            Point2D.Double p4) {
 
         if (DistanceUtil.Distance(p1, p3) < Constants.EPS
                 && DistanceUtil.Distance(p2, p4) < Constants.EPS) {
-            ap1.set(p1);
-            ap2.set(p2);
+            set(ap1, p1);
+            set(ap2, p2);
             return 2;
         }
 
         if (DistanceUtil.Distance(p1, p4) < Constants.EPS
                 && DistanceUtil.Distance(p2, p3) < Constants.EPS) {
-            ap1.set(p1);
-            ap2.set(p2);
+            set(ap1, p1);
+            set(ap2, p2);
             return 2;
         }
 
@@ -165,21 +185,21 @@ public class CrossPointUtil {
             }
 
             if (isRange(p3, p4, p1)) {
-                ap1.set(p1);
+                set(ap1, p1);
             } else if (isRange(p1, p4, p3)) {
-                ap1.set(p3);
+                set(ap1, p3);
             } else if (isRange(p1, p3, p4)) {
-                ap1.set(p4);
+                set(ap1, p4);
             } else {
                 return 0;
             }
 
             if (isRange(p3, p4, p2)) {
-                ap2.set(p2);
+                set(ap2, p2);
             } else if (isRange(p2, p4, p3)) {
-                ap2.set(p3);
+                set(ap2, p3);
             } else if (isRange(p2, p3, p4)) {
-                ap2.set(p4);
+                set(ap2, p4);
             } else {
                 return 0;
             }
@@ -206,7 +226,10 @@ public class CrossPointUtil {
         return Math.min(p1, p2) <= p3 && p3 <= Math.max(p1, p2);
     }
 
-    public static boolean isRange(Vector2d p1, Vector2d p2, Vector2d p3) {
+    public static boolean isRange(
+            Point2D.Double p1,
+            Point2D.Double p2,
+            Point2D.Double p3) {
         return isRange(p1.x, p2.x, p3.x) && isRange(p1.y, p2.y, p3.y);
     }
 

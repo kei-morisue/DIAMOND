@@ -9,15 +9,15 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.Line;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.GeomUtil;
 
 public class SymmetricLineFactory {
 
     private class BestPair {
         private OriLine bestLine = null;
-        private Vector2d bestPoint = null;
+        private OriPoint bestPoint = null;
 
         /**
          * @return bestLine
@@ -36,14 +36,14 @@ public class SymmetricLineFactory {
         /**
          * @return bestPoint
          */
-        public Vector2d getBestPoint() {
+        public OriPoint getBestPoint() {
             return bestPoint;
         }
 
         /**
          * @param bestPoint bestPointを登録する
          */
-        public void setBestPoint(Vector2d bestPoint) {
+        public void setBestPoint(OriPoint bestPoint) {
             this.bestPoint = bestPoint;
         }
 
@@ -58,14 +58,42 @@ public class SymmetricLineFactory {
      * @throws PainterCommandFailedException
      */
     public OriLine createSymmetricLine(
-            Vector2d v0, Vector2d v1, Vector2d v2,
+            OriPoint v0, OriPoint v1, OriPoint v2,
             Collection<OriLine> creasePattern, LineType type) {
 
         BestPair pair = findBestPair(v0, v1, v2, creasePattern);
 
-        Vector2d bestPoint = pair.getBestPoint();
+        OriPoint bestPoint = pair.getBestPoint();
 
         return new OriLine(v1, bestPoint, type);
+    }
+
+    private static OriPoint getNearestPointToLine(
+            OriPoint p,
+            OriPoint sp,
+            OriPoint ep) {
+        double x0 = sp.x;
+        double y0 = sp.y;
+        double x1 = ep.x;
+        double y1 = ep.y;
+        double px = p.x;
+        double py = p.y;
+        Vector2d sub0, sub, sub0b;
+
+        sub0 = new Vector2d(x0 - px, y0 - py);
+        sub0b = new Vector2d(-sub0.x, -sub0.y);
+        sub = new Vector2d(x1 - x0, y1 - y0);
+
+        double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
+                / ((sub.x * sub.x) + (sub.y * sub.y));
+
+        return new OriPoint(x0 + t * sub.x, y0 + t * sub.y);
+    }
+
+    public static OriPoint getSymmetricPoint(OriPoint p, OriPoint sp,
+            OriPoint ep) {
+        OriPoint cp = getNearestPointToLine(p, sp, ep);
+        return new OriPoint(2 * cp.x - p.x, 2 * cp.y - p.y);
     }
 
     /**
@@ -78,16 +106,16 @@ public class SymmetricLineFactory {
      * @throws PainterCommandFailedException
      */
     private BestPair findBestPair(
-            Vector2d v0, Vector2d v1, Vector2d v2,
+            OriPoint v0, OriPoint v1, OriPoint v2,
             Collection<OriLine> creasePattern) {
         BestPair bestPair = new BestPair();
 
-        Vector2d v3 = GeomUtil.getSymmetricPoint(v0, v1, v2);
-        Line ray = new Line(v1, new Vector2d(v3.x - v1.x, v3.y - v1.y));
+        OriPoint v3 = getSymmetricPoint(v0, v1, v2);
+        Line ray = new Line(v1, new OriPoint(v3.x - v1.x, v3.y - v1.y));
 
         double minDist = Double.MAX_VALUE;
         for (OriLine l : creasePattern) {
-            Vector2d crossPoint = CrossPointUtil.getCrossPoint(ray,
+            OriPoint crossPoint = CrossPointUtil.getCrossPoint(ray,
                     l.getSegment());
             if (crossPoint == null) {
                 continue;
@@ -124,7 +152,7 @@ public class SymmetricLineFactory {
      * @throws PainterCommandFailedException
      */
     public Collection<OriLine> createSymmetricLineAutoWalk(
-            Vector2d v0, Vector2d v1, Vector2d v2, Vector2d startV,
+            OriPoint v0, OriPoint v1, OriPoint v2, OriPoint startV,
             Collection<OriLine> creasePattern, LineType type) {
 
         LinkedList<OriLine> autoWalkLines = new LinkedList<>();
@@ -147,8 +175,8 @@ public class SymmetricLineFactory {
      * @throws PainterCommandFailedException
      */
     private void addSymmetricLineAutoWalk(
-            Vector2d v0, Vector2d v1, Vector2d v2, int stepCount,
-            Vector2d startV,
+            OriPoint v0, OriPoint v1, OriPoint v2, int stepCount,
+            OriPoint startV,
             Collection<OriLine> creasePattern,
             Collection<OriLine> autoWalkLines,
             LineType type) {
@@ -162,7 +190,7 @@ public class SymmetricLineFactory {
 
         BestPair pair = findBestPair(v0, v1, v2, creasePattern);
 
-        Vector2d bestPoint = pair.getBestPoint();
+        OriPoint bestPoint = pair.getBestPoint();
         if (bestPoint == null) {
             return;
         }

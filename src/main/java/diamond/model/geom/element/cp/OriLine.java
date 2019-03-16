@@ -18,7 +18,7 @@
 
 package diamond.model.geom.element.cp;
 
-import javax.vecmath.Vector2d;
+import java.awt.geom.Point2D;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.Segment;
@@ -38,7 +38,7 @@ public class OriLine implements Comparable<OriLine> {
         this.p1 = p1;
     }
 
-    public OriLine(Vector2d p0, Vector2d p1, LineType type) {
+    public OriLine(Point2D.Double p0, Point2D.Double p1, LineType type) {
         this.type = type;
         this.p0 = new OriPoint(p0.x, p0.y);
         this.p1 = new OriPoint(p1.x, p1.y);

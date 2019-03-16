@@ -17,14 +17,14 @@ import diamond.model.geom.element.orimodel.OriVertex;
  */
 public class OriFaceUtil {
     public static boolean onFace(OriFace face, OriHalfEdge e) {
-        Vector2d centerPoint = new Vector2d();
+        OriVertex centerPoint = new OriVertex();
         centerPoint.add(e.getEv());
         centerPoint.add(e.getSv());
         centerPoint.scale(0.5);
         return onFace(face, centerPoint);
     }
 
-    public static boolean onFace(OriFace face, Vector2d v) {
+    public static boolean onFace(OriFace face, OriVertex v) {
         double sumAngle = 0.0;
         for (OriHalfEdge he : face.getHalfEdges()) {
             Vector2d p0, p1;

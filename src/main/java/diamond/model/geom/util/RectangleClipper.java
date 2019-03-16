@@ -18,7 +18,7 @@
 
 package diamond.model.geom.util;
 
-import javax.vecmath.Vector2d;
+import java.awt.geom.Point2D;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
@@ -44,7 +44,7 @@ public class RectangleClipper {
     /*
      * finding the coordinates after clipping
      */
-    private int calcClippedPoint(int code, OriLine l, Vector2d p) {
+    private int calcClippedPoint(int code, OriLine l, Point2D.Double p) {
         double cx, cy;
 
         // Outside from the left edge of the window

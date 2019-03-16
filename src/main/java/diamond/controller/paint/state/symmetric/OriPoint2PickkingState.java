@@ -7,8 +7,6 @@ package diamond.controller.paint.state.symmetric;
 import java.util.Collection;
 import java.util.Stack;
 
-import javax.vecmath.Vector2d;
-
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
@@ -35,9 +33,9 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
         }
         Collection<OriLine> creasePattern = context.getCP().getLines();
 
-        Vector2d first = pickedPoints.get(0);
-        Vector2d second = pickedPoints.get(1);
-        Vector2d third = pickedPoints.get(2);
+        OriPoint first = pickedPoints.get(0);
+        OriPoint second = pickedPoints.get(1);
+        OriPoint third = pickedPoints.get(2);
 
         SymmetricLineFactory symmetricLineFactory = new SymmetricLineFactory();
         Collection<OriLine> lines = symmetricLineFactory

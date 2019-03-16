@@ -7,8 +7,6 @@ package diamond.controller.paint.state.axiom2;
 import java.util.Set;
 import java.util.Stack;
 
-import javax.vecmath.Vector2d;
-
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
@@ -35,8 +33,8 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
         if (pickedPoints.size() != 2) {
             throw new RuntimeException();
         }
-        Vector2d p0 = pickedPoints.get(0);
-        Vector2d p1 = pickedPoints.get(1);
+        OriPoint p0 = pickedPoints.get(0);
+        OriPoint p1 = pickedPoints.get(1);
 
         OriLine line = createPerpendicularBisector(p0, p1,
                 context.inputLineType, context.getCP().getCutLines());
@@ -45,17 +43,15 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
     }
 
     private OriLine createPerpendicularBisector(
-            Vector2d v0,
-            Vector2d v1,
+            OriPoint v0,
+            OriPoint v1,
             LineType type,
             Set<OriLine> cutLines) {
 
-        Vector2d centerPoint = (new Vector2d(v0));
-        centerPoint.add(v1);
-        centerPoint.scale(0.5);
+        OriPoint centerPoint = v0.add(v1);
+        centerPoint = centerPoint.scale(0.5);
 
-        Vector2d dir = new Vector2d();
-        dir.sub(v0, v1);
+        OriPoint dir = v0.sub(v1);
         double tmp = dir.y;
         dir.y = -dir.x;
         dir.x = tmp;

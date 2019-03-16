@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -27,7 +25,7 @@ public class OriModel {
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
-    private Vector2d originPoint = new Vector2d(0.0, 0.0);
+    private OriVertex originPoint = new OriVertex(0.0, 0.0);
 
     public OriModel(CreasePattern cp) {
         DuplicatedCPSimplifier.simplify(cp);
@@ -125,11 +123,11 @@ public class OriModel {
         return this.auxLines;
     }
 
-    public Vector2d getOriginPoint() {
+    public OriVertex getOriginPoint() {
         return this.originPoint;
     }
 
-    public void setOriginPoint(Vector2d originPoint) {
+    public void setOriginPoint(OriVertex originPoint) {
         this.originPoint = originPoint;
     }
 

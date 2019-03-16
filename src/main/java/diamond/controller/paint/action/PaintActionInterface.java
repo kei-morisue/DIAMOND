@@ -7,8 +7,6 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Vector2d;
-
 import diamond.controller.paint.PaintContext;
 
 /**
@@ -31,7 +29,7 @@ public interface PaintActionInterface {
 
     public abstract PaintActionInterface onRightClick(PaintContext context);
 
-    public abstract Vector2d onMove(PaintContext context);
+    public abstract Point2D.Double onMove(PaintContext context);
 
     public abstract void onPress(PaintContext context);
 

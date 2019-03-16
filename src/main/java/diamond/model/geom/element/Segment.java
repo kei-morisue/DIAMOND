@@ -18,14 +18,14 @@
 
 package diamond.model.geom.element;
 
-import javax.vecmath.Vector2d;
+import java.awt.geom.Point2D;
 
 public class Segment {
 
-    public Vector2d sv;
-    public Vector2d ev;
+    public Point2D.Double sv;
+    public Point2D.Double ev;
 
-    public Segment(Vector2d sv, Vector2d ev) {
+    public Segment(Point2D.Double sv, Point2D.Double ev) {
         this.sv = sv;
         this.ev = ev;
     }

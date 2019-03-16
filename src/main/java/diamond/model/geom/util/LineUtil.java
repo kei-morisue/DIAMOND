@@ -4,6 +4,8 @@
  */
 package diamond.model.geom.util;
 
+import java.awt.geom.Point2D;
+
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
@@ -16,77 +18,83 @@ import diamond.model.geom.element.cp.OriPoint;
  *
  */
 public class LineUtil {
+    private static void set(Point2D.Double p0, double x, double y) {//TODO
+        p0.x = x;
+        p0.y = y;
+    }
 
     // Returns false if nothing is in the clip area
     public static boolean clipLine(OriLine l, double halfWidth) {
-        Vector2d p = new Vector2d(l.p0);
-        Vector2d dir = new Vector2d();
-        dir.sub(l.p1, l.p0);
+        OriPoint p0 = l.p0;
+        OriPoint p1 = l.p1;
+        OriPoint dir = new OriPoint();
+        dir.x = p1.x - p0.x;
+        dir.y = p1.y - p0.y;
 
         // If horizontal
         if (Math.abs(dir.y) < Constants.EPS) {
-            if (p.y < -halfWidth || p.y > halfWidth) {
+            if (p0.y < -halfWidth || p0.y > halfWidth) {
                 return false;
             }
 
-            l.p0.set(-halfWidth, p.y);
-            l.p1.set(halfWidth, p.y);
+            set(p0, -halfWidth, p0.y);
+            set(p1, halfWidth, p0.y);
             return true;
         }
         // If vertical
         if (Math.abs(dir.x) < Constants.EPS) {
-            if (p.x < -halfWidth || p.x > halfWidth) {
+            if (p0.x < -halfWidth || p0.x > halfWidth) {
                 return false;
             }
 
-            l.p0.set(p.x, -halfWidth);
-            l.p1.set(p.x, halfWidth);
+            set(p0, p0.x, -halfWidth);
+            set(p1, p0.x, halfWidth);
             return true;
         }
 
         // If you do not have any horizontal vertical
         // Cut down
         {
-            double up_t = (halfWidth - p.y) / dir.y;
-            double up_x = p.x + up_t * dir.x;
+            double up_t = (halfWidth - p0.y) / dir.y;
+            double up_x = p0.x + up_t * dir.x;
 
             if (up_x < -halfWidth) {
-                double left_t = (-halfWidth - p.x) / dir.x;
-                double left_y = p.y + left_t * dir.y;
+                double left_t = (-halfWidth - p0.x) / dir.x;
+                double left_y = p0.y + left_t * dir.y;
                 if (left_y < -halfWidth) {
                     return false;
                 }
-                l.p0.set(-halfWidth, left_y);
+                set(p0, -halfWidth, left_y);
             } else if (up_x > halfWidth) {
-                double right_t = (halfWidth - p.x) / dir.x;
-                double right_y = p.y + right_t * dir.y;
+                double right_t = (halfWidth - p0.x) / dir.x;
+                double right_y = p0.y + right_t * dir.y;
                 if (right_y < -halfWidth) {
                     return false;
                 }
-                l.p0.set(halfWidth, right_y);
+                set(p0, halfWidth, right_y);
             } else {
-                l.p0.set(up_x, halfWidth);
+                set(p0, up_x, halfWidth);
             }
         }
         {
-            double down_t = (-halfWidth - p.y) / dir.y;
-            double down_x = p.x + down_t * dir.x;
+            double down_t = (-halfWidth - p0.y) / dir.y;
+            double down_x = p0.x + down_t * dir.x;
             if (down_x < -halfWidth) {
-                double left_t = (-halfWidth - p.x) / dir.x;
-                double left_y = p.y + left_t * dir.y;
+                double left_t = (-halfWidth - p0.x) / dir.x;
+                double left_y = p0.y + left_t * dir.y;
                 if (left_y < -halfWidth) {
                     return false;
                 }
-                l.p1.set(-halfWidth, left_y);
+                set(p1, -halfWidth, left_y);
             } else if (down_x > halfWidth) {
-                double right_t = (halfWidth - p.x) / dir.x;
-                double right_y = p.y + right_t * dir.y;
+                double right_t = (halfWidth - p0.x) / dir.x;
+                double right_y = p0.y + right_t * dir.y;
                 if (right_y < -halfWidth) {
                     return false;
                 }
-                l.p1.set(halfWidth, right_y);
+                set(p1, halfWidth, right_y);
             } else {
-                l.p1.set(down_x, -halfWidth);
+                set(p1, down_x, -halfWidth);
             }
         }
 
@@ -94,7 +102,7 @@ public class LineUtil {
     }
 
     public static OriLine getVerticalLine(
-            Vector2d v,
+            OriPoint v,
             OriLine line,
             LineType type) {
         double x0 = line.p0.x;
@@ -119,19 +127,20 @@ public class LineUtil {
                 type);
     }
 
-    public static boolean isParallel(Vector2d dir0, Vector2d dir1) {
+    public static boolean isParallel(OriPoint dir0, OriPoint dir1) {
         // tolerance of 1 degree
         return dir0.angle(dir1) < Math.PI / 180
                 || dir0.angle(dir1) > Math.PI * 179.0 / 180;
     }
 
-    public static boolean isLineSegmentsOverlap(Vector2d s0, Vector2d e0,
-            Vector2d s1, Vector2d e1) {
+    public static boolean isLineSegmentsOverlap(
+            OriPoint s0,
+            OriPoint e0,
+            OriPoint s1,
+            OriPoint e1) {
         // Whether or not is parallel
-        Vector2d dir0 = new Vector2d(e0);
-        dir0.sub(s0);
-        Vector2d dir1 = new Vector2d(e1);
-        dir1.sub(s1);
+        OriPoint dir0 = e0.sub(s0);
+        OriPoint dir1 = e1.sub(s1);
 
         if (!isParallel(dir0, dir1)) {
             return false;

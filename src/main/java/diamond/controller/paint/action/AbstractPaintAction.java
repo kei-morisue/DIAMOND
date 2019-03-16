@@ -7,8 +7,6 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Vector2d;
-
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;
@@ -70,7 +68,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     @Override
-    public Vector2d onMove(PaintContext context) {
+    public Point2D.Double onMove(PaintContext context) {
         setCandidateVertexOnMove(context);
         setCandidateLineOnMove(context);
 
@@ -110,7 +108,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPickedVertices(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedPoints().size(); i++) {
-            Vector2d vertex = context.getPickedPoints().get(i);
+            OriPoint vertex = context.getPickedPoints().get(i);
             OriDrawer.drawPoint(
                     g2d, vertex,
                     VertexSetting.VERTEX_SIZE_PICKED,
@@ -121,7 +119,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     protected void drawPointedVertex(Graphics2D g2d,
             PaintContext context) {
         if (context.pointedOriPoint != null) {
-            Vector2d candidate = context.pointedOriPoint;
+            OriPoint candidate = context.pointedOriPoint;
             OriDrawer.drawPoint(
                     g2d,
                     candidate,
@@ -144,7 +142,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawTemporaryLine(Graphics2D g2d, PaintContext context) {
         if (context.getPickedPoints().size() > 0) {
-            Vector2d picked = context.getPickedPoints().peek();
+            OriPoint picked = context.getPickedPoints().peek();
             OriDrawer.drawLine(g2d,
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),

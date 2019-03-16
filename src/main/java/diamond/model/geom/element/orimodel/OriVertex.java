@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.orimodel;
 
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 import javax.vecmath.Vector2d;
@@ -33,8 +32,24 @@ public class OriVertex extends AbstractOriVertex {
         super(x, y);
     }
 
-    public Point2D toPt2D() {
-        return new Point2D.Double(x, y);
+    public OriVertex() {
+        super(.0, .0);
+    }
+
+    public OriVertex add(OriVertex v) {
+        return new OriVertex(x + v.x, y + v.y);
+    }
+
+    public OriVertex sub(OriVertex v) {
+        return new OriVertex(x - v.x, y - v.y);
+    }
+
+    public OriVertex scale(double scale) {
+        return new OriVertex(x * scale, y * scale);
+    }
+
+    public double angle(OriVertex origin) {
+        return Math.atan2(y - origin.y, x - origin.x);
     }
 
     public OriVertex(OriPoint point) {

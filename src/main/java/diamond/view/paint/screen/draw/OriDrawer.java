@@ -10,12 +10,12 @@ import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
-import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
@@ -69,7 +69,7 @@ public class OriDrawer {
                 he.getFoldedEv().getY()));
     }
 
-    public static void drawPoint(Graphics2D g2d, Vector2d point,
+    public static void drawPoint(Graphics2D g2d, OriPoint point,
             double size, Color color) {
         double scaledSize = size;
         g2d.setColor(color);
@@ -84,7 +84,7 @@ public class OriDrawer {
             Color color) {
         double scaledSize = size;
         g2d.setColor(color);
-        Vector2d p = vertex;
+        Point2D.Double p = vertex;
         g2d.fill(new Rectangle2D.Double(
                 p.x - scaledSize * 0.5,
                 p.y - scaledSize * 0.5,

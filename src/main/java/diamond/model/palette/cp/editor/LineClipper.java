@@ -6,8 +6,6 @@ package diamond.model.palette.cp.editor;
 
 import java.util.Set;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.CrossPointUtil;
@@ -22,7 +20,7 @@ public class LineClipper {//TBD seems wierd
         p0 = null;
         p1 = null;
         for (OriLine cutLine : cutLines) {
-            Vector2d cp = CrossPointUtil.getCrossPoint(line, cutLine);
+            OriPoint cp = CrossPointUtil.getCrossPoint(line, cutLine);
             if (cp != null) {
                 if (p0 == null) {
                     p0 = new OriPoint(cp.x, cp.y);

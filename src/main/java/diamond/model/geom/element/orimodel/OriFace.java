@@ -11,8 +11,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.view.paint.screen.draw.ColorStyle;
 
@@ -50,10 +48,10 @@ public class OriFace {
     }
 
     public void setOutline(double scale) {
-        Vector2d centerP = OriModelUtil.getCenterPoint(halfEdges);
+        OriVertex centerP = OriModelUtil.getCenterPoint(halfEdges);
         for (OriHalfEdge he : halfEdges) {
             OriVertex sv = he.getSv();
-            Point2D scaledPoint = OriModelUtil.getScaledPoint(scale, centerP,
+            OriVertex scaledPoint = OriModelUtil.getScaledPoint(scale, centerP,
                     sv);
             if (outline == null) {
                 outline = new GeneralPath();

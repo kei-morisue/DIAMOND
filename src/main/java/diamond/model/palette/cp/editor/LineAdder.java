@@ -1,5 +1,6 @@
 package diamond.model.palette.cp.editor;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,19 +9,18 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.LineUtil;
 
 public class LineAdder {
-    private class PointComparatorX implements Comparator<Vector2d> {
+    private class PointComparatorX implements Comparator<OriPoint> {
 
         @Override
-        public int compare(Vector2d v1, Vector2d v2) {
+        public int compare(OriPoint v1, OriPoint v2) {
             if (v1.x == v2.x) {
                 return 0;
             }
@@ -28,14 +28,14 @@ public class LineAdder {
         }
     }
 
-    private class PointComparatorY implements Comparator<Vector2d> {
+    private class PointComparatorY implements Comparator<OriPoint> {
 
         @Override
-        public int compare(Vector2d v1, Vector2d v2) {
+        public int compare(OriPoint v1, OriPoint v2) {
             if (v1.y == v2.y) {
                 return 0;
             }
-            return ((Vector2d) v1).y > ((Vector2d) v2).y ? 1 : -1;
+            return ((OriPoint) v1).y > ((OriPoint) v2).y ? 1 : -1;
         }
     }
 
@@ -53,7 +53,8 @@ public class LineAdder {
         for (Iterator<OriLine> iterator = currentLines.iterator(); iterator
                 .hasNext();) {
             OriLine line = iterator.next();
-            Vector2d crossPoint = CrossPointUtil.getCrossPoint(inputLine, line);
+            Point2D.Double crossPoint = CrossPointUtil.getCrossPoint(inputLine,
+                    line);
             if (crossPoint == null) {
                 continue;
             }
@@ -79,9 +80,9 @@ public class LineAdder {
         return true;
     }
 
-    private List<Vector2d> createInputLinePoints(OriLine inputLine,
+    private List<OriPoint> createInputLinePoints(OriLine inputLine,
             Collection<OriLine> currentLines) {
-        ArrayList<Vector2d> points = new ArrayList<Vector2d>();
+        ArrayList<OriPoint> points = new ArrayList<OriPoint>();
         points.add(inputLine.p0);
         points.add(inputLine.p1);
 
@@ -110,7 +111,7 @@ public class LineAdder {
             }
 
             // Calculates the intersection
-            Vector2d crossPoint = CrossPointUtil.getCrossPoint(inputLine, line);
+            OriPoint crossPoint = CrossPointUtil.getCrossPoint(inputLine, line);
             if (crossPoint != null) {
                 points.add(crossPoint);
             }
@@ -138,7 +139,7 @@ public class LineAdder {
 
         divideCurrentLines(inputLine, currentLines);
 
-        List<Vector2d> points = createInputLinePoints(inputLine, currentLines);
+        List<OriPoint> points = createInputLinePoints(inputLine, currentLines);
 
         // sort in order to make points sequential
         boolean sortByX = Math.abs(inputLine.p0.x - inputLine.p1.x) > Math
@@ -149,11 +150,11 @@ public class LineAdder {
             Collections.sort(points, new PointComparatorY());
         }
 
-        Vector2d prePoint = points.get(0);
+        OriPoint prePoint = points.get(0);
 
         // add new lines sequentially
         for (int i = 1; i < points.size(); i++) {
-            Vector2d p = points.get(i);
+            OriPoint p = points.get(i);
             // remove very short line
             if (DistanceUtil.Distance(prePoint,
                     p) < Constants.EPS) {

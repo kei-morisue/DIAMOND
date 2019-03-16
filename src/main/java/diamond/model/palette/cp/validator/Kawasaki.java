@@ -6,8 +6,6 @@ package diamond.model.palette.cp.validator;
 
 import java.util.LinkedList;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriVertex;
@@ -26,10 +24,9 @@ public class Kawasaki {
                 return true;
             }
 
-            Vector2d preP = new Vector2d(
-                    edges.get(i).getPair().getSv());
-            Vector2d nxtP = new Vector2d(edges
-                    .get((i + 1) % edges.size()).getPair().getSv());
+            OriVertex preP = edges.get(i).getPair().getSv();
+            OriVertex nxtP = edges
+                    .get((i + 1) % edges.size()).getPair().getSv();
 
             nxtP.sub(v);
             preP.sub(v);
