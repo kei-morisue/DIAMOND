@@ -16,6 +16,7 @@ import diamond.model.geom.element.cp.OriLine;
  *
  */
 public class CrossPointUtil {
+    private final static double epsilon = Constants.EPS;
 
     // (Including endpoints) intersection between two line segments
     public static Vector2d getCrossPoint(Vector2d p0, Vector2d p1, Vector2d q0,
@@ -25,7 +26,6 @@ public class CrossPointUtil {
         Vector2d diff = new Vector2d(q0.x - p0.x, q0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
-        double epsilon = 1.0e-6;
         if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
@@ -49,44 +49,9 @@ public class CrossPointUtil {
     }
 
     public static Vector2d getCrossPoint(OriLine l0, OriLine l1) {
-        return getCrossPoint(l0, l1, Constants.EPS);
+        return getCrossPoint(l0.p0, l0.p1, l1.p0, l1.p1);
     }
 
-    private static Vector2d getCrossPoint(OriLine l0, OriLine l1,
-            double epsilon) {
-        Vector2d p0 = new Vector2d(l0.p0);
-        Vector2d p1 = new Vector2d(l0.p1);
-
-        Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
-        Vector2d d1 = new Vector2d(l1.p1.x - l1.p0.x, l1.p1.y - l1.p0.y);
-        Vector2d diff = new Vector2d(l1.p0.x - p0.x, l1.p0.y - p0.y);
-        double det = d1.x * d0.y - d1.y * d0.x;
-
-        if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
-            // Lines intersect in a single point.  Return both s and t values for
-            // use by calling functions.
-            double invDet = 1.0 / det;
-            double s = (d1.x * diff.y - d1.y * diff.x) * invDet;
-            double t = (d0.x * diff.y - d0.y * diff.x) * invDet;
-
-            if (t < 0.0 - epsilon || t > 1.0 + epsilon) {
-                return null;
-            } else if (s < 0.0 - epsilon || s > 1.0 + epsilon) {
-                return null;
-            } else {
-                Vector2d cp = new Vector2d();
-                cp.x = (1.0 - t) * l1.p0.x + t * l1.p1.x;
-                cp.y = (1.0 - t) * l1.p0.y + t * l1.p1.y;
-                return cp;
-            }
-
-        }
-        return null;
-    }
-
-    //    Obtain the parameters for the intersection of the segments p0-p1 and q0-q1
-    //    The param stores the position of the intersection
-    //    Returns false if parallel
     public static boolean getCrossPointParam(Vector2d p0, Vector2d p1,
             Vector2d q0, Vector2d q1, double[] param) {
 
