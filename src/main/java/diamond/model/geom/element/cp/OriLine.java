@@ -23,7 +23,7 @@ import java.awt.geom.Point2D;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.Segment;
 
-public class OriLine implements Comparable<OriLine> {
+public class OriLine {
 
     public OriPoint p0 = null;
     public OriPoint p1 = null;
@@ -69,16 +69,6 @@ public class OriLine implements Comparable<OriLine> {
     @Override
     public String toString() {
         return p0.toString() + "," + p1.toString();
-    }
-
-    @Override
-    public int compareTo(OriLine oline) {
-        int comparison00 = this.p0.compareTo(oline.p0);
-        int comparison11 = this.p1.compareTo(oline.p1);
-        if (comparison00 == 0) {
-            return comparison11;
-        }
-        return comparison00;
     }
 
     @Override
