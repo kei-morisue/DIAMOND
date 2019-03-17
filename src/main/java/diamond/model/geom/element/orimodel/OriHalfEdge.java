@@ -5,7 +5,6 @@
 package diamond.model.geom.element.orimodel;
 
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
@@ -23,9 +22,6 @@ public class OriHalfEdge {
     private OriVertex sv = null;
     private OriVertex ev = null;
 
-    private Point2D foldedSv = new Point2D.Double();
-    private Point2D foldedEv = new Point2D.Double();
-
     private OriFace face = null;
     private LineType type = null;
 
@@ -41,18 +37,18 @@ public class OriHalfEdge {
     }
 
     public void fold(AffineTransform transform) {
-        transform.transform(sv, getFoldedSv());
-        transform.transform(ev, getFoldedEv());
+        transform.transform(sv, sv.getFoldedPosition());
+        transform.transform(ev, ev.getFoldedPosition());
     }
 
     public void foldAsAuxLine(AffineTransform transform, double clipScale) {
         OriVertex centerP = OriModelUtil.getCenterPoint(sv, ev);
         double scale0 = (sv.onCut()) ? clipScale : 1.0;
-        Point2D ptSrc0 = OriModelUtil.getScaledPoint(scale0, centerP, sv);
+        OriVertex ptSrc0 = OriModelUtil.getScaledPoint(scale0, centerP, sv);
         double scale1 = (ev.onCut()) ? clipScale : 1.0;
-        Point2D ptSrc1 = OriModelUtil.getScaledPoint(scale1, centerP, ev);
-        transform.transform(ptSrc0, getFoldedSv());
-        transform.transform(ptSrc1, getFoldedEv());
+        OriVertex ptSrc1 = OriModelUtil.getScaledPoint(scale1, centerP, ev);
+        transform.transform(ptSrc0, ptSrc0.getFoldedPosition());
+        transform.transform(ptSrc1, ptSrc0.getFoldedPosition());
     }
 
     public OriHalfEdge getNext() {
@@ -97,14 +93,6 @@ public class OriHalfEdge {
 
     public OriVertex getEv() {
         return this.ev;
-    }
-
-    public Point2D getFoldedSv() {
-        return this.foldedSv;
-    }
-
-    public Point2D getFoldedEv() {
-        return this.foldedEv;
     }
 
 }

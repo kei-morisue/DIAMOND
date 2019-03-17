@@ -64,9 +64,10 @@ public class OriDrawer {
         g2d.setColor(color);
         g2d.setStroke(stroke);
         g2d.draw(new Line2D.Double(
-                he.getFoldedSv().getX(),
-                he.getFoldedSv().getY(), he.getFoldedEv().getX(),
-                he.getFoldedEv().getY()));
+                he.getSv().getFoldedPosition().getX(),
+                he.getSv().getFoldedPosition().getY(),
+                he.getEv().getFoldedPosition().getX(),
+                he.getEv().getFoldedPosition().getY()));
     }
 
     public static void drawPoint(Graphics2D g2d, OriPoint point,

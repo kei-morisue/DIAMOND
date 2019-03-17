@@ -4,9 +4,8 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
-
-import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriPoint;
@@ -18,13 +17,25 @@ import diamond.model.palette.cp.validator.Maekawa;
  *
  */
 public class OriVertex extends AbstractOriVertex {
-    private Vector2d shearVector = new Vector2d(0.0, 0.0);
 
-    public Vector2d getShearVector() {
+    private Point2D.Double shearVector = new Point2D.Double(0.0, 0.0);
+    private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
+    private boolean isFoldable = false;
+    private Point2D foldedPosition = new Point2D.Double();
+
+    public Point2D getFoldedPosition() {
+        return this.foldedPosition;
+    }
+
+    public void setFoldedPosition(Point2D foldedPoision) {
+        this.foldedPosition = foldedPoision;
+    }
+
+    public Point2D.Double getShearVector() {
         return this.shearVector;
     }
 
-    public void setShearVector(Vector2d shearVector) {
+    public void setShearVector(Point2D.Double shearVector) {
         this.shearVector = shearVector;
     }
 
@@ -34,6 +45,10 @@ public class OriVertex extends AbstractOriVertex {
 
     public OriVertex() {
         super(.0, .0);
+    }
+
+    public OriVertex(OriPoint point) {
+        super(point.x, point.y);
     }
 
     public OriVertex add(OriVertex v) {
@@ -52,13 +67,6 @@ public class OriVertex extends AbstractOriVertex {
         return Math.atan2(y - origin.y, x - origin.x);
     }
 
-    public OriVertex(OriPoint point) {
-        super(point.x, point.y);
-    }
-
-    private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
-    private boolean isFoldable = false;
-
     public boolean isAuxVertex() {
         for (OriHalfEdge he : halfEdges) {
             if (he.getType() != LineType.AUX) {
@@ -69,8 +77,19 @@ public class OriVertex extends AbstractOriVertex {
     }
 
     public void setFoldability() {
-        isFoldable = isAuxVertex()
-                || (Maekawa.isValid(this) && Kawasaki.isValid(this));
+        if (isAuxVertex()) {
+            isFoldable = true;
+            return;
+        }
+        if (onCut()) {
+            isFoldable = true;
+            return;
+        }
+        if (Maekawa.isValid(this) && Kawasaki.isValid(this)) {
+            isFoldable = true;
+            return;
+        }
+        isFoldable = false;
     }
 
     // To store and sort in a clockwise direction
@@ -104,6 +123,11 @@ public class OriVertex extends AbstractOriVertex {
 
     public LinkedList<OriHalfEdge> getHalfEdges() {
         return this.halfEdges;
+    }
+
+    @Deprecated
+    public void setHalfEdges(LinkedList<OriHalfEdge> halfEdges) {
+        this.halfEdges = halfEdges;
     }
 
     public void setEdges(LinkedList<OriHalfEdge> edges) {

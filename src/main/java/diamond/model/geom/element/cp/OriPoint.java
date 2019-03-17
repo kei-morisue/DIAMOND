@@ -18,6 +18,16 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
         super();
     }
 
+    @Deprecated
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    @Deprecated
+    public void setY(double y) {
+        this.y = y;
+    }
+
     public OriPoint(double x, double y) {
         super(x, y);
     }

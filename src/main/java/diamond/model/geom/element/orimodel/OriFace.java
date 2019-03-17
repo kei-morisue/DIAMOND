@@ -65,7 +65,7 @@ public class OriFace {
 
     public void setFoldedOutline() {
         for (OriHalfEdge he : halfEdges) {
-            Point2D p = he.getFoldedSv();
+            Point2D p = he.getSv().getFoldedPosition();
             if (foldedOutline == null) {
                 foldedOutline = new GeneralPath();
                 foldedOutline.moveTo(p.getX(), p.getY());

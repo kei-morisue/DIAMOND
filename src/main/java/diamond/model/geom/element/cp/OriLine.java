@@ -29,6 +29,22 @@ public class OriLine {
     public OriPoint p1 = null;
     LineType type = LineType.AUX;
 
+    public OriPoint getP0() {
+        return this.p0;
+    }
+
+    public void setP0(OriPoint p0) {
+        this.p0 = p0;
+    }
+
+    public OriPoint getP1() {
+        return this.p1;
+    }
+
+    public void setP1(OriPoint p1) {
+        this.p1 = p1;
+    }
+
     public OriLine() {
     }
 
