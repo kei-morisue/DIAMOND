@@ -11,9 +11,9 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.vecmath.Vector2d;
 
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.palette.cp.CreasePattern;
 
 /**
  * @author long_
@@ -24,7 +24,7 @@ public class CollinearCPSimplifier {
 
     }
 
-    public static boolean simplify(CreasePattern cp) {
+    public static boolean simplify(Cp cp) {
         Set<OriLine> creasePattern = cp.getLines();
         ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
         for (OriLine line : creasePattern) {

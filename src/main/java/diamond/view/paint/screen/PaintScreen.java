@@ -23,11 +23,11 @@ import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.listener.PaintActionListnener;
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.geom.element.orimodel.OriVertex;
-import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.screen.debug.Debugger;
 import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.LineStrokeSetting;
@@ -63,7 +63,7 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private void paintCreasePattern(Graphics2D g2d) {
-        CreasePattern creasePattern = paintContext.getCP();
+        Cp creasePattern = paintContext.getCP();
         OriModel model = new OriModel(creasePattern);
         for (OriFace face : model.getFaces()) {
             OriDrawer.drawFace(g2d, face.getOutline(),

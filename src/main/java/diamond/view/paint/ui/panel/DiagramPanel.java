@@ -6,6 +6,8 @@ package diamond.view.paint.ui.panel;
 
 import java.awt.Dimension;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -19,16 +21,25 @@ import diamond.view.paint.ui.DiagramIcon;
  * @author long_
  *
  */
-public class DiagramPanel extends JScrollPane {
+public class DiagramPanel extends JScrollPane implements Observer {
     LinkedList<DiagramIcon> diagramIcons = new LinkedList<>();
     PaintContext paintContext;
+    ButtonGroup buttonGroup = new ButtonGroup();
+    JPanel panel;
 
     public DiagramPanel(JPanel panel, PaintContext paintContext) {
         super(panel);
+        this.panel = panel;
         this.paintContext = paintContext;
-        ButtonGroup buttonGroup = new ButtonGroup();
+        paintContext.addObserver(this);
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        for (int i = 0; i < 20; ++i) {
+        initialize(panel, paintContext, buttonGroup);
+    }
+
+    private void initialize(JPanel panel, PaintContext paintContext,
+            ButtonGroup buttonGroup) {
+        for (int i = 0; i < paintContext.getCreasePatterns().size(); ++i) {
             DiagramIcon button = new DiagramIcon();
             button.setPreferredSize(new Dimension(100, 100));
             diagramIcons.add(button);
@@ -37,5 +48,10 @@ public class DiagramPanel extends JScrollPane {
             panel.add(button);
             buttonGroup.add(button);
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.initialize(panel, paintContext, buttonGroup);
     }
 }
