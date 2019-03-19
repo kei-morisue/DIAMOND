@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
+import diamond.view.diagram.DiagramPane;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.ui.CpUiPanel;
@@ -59,6 +60,8 @@ public class PaintFrame extends JFrame {
         add(modelUi, BorderLayout.EAST);
 
         setJMenuBar(new MenuBar(paintContext));
+
+        add(new DiagramPane(new JPanel()), BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

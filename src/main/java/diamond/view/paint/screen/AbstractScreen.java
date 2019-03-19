@@ -37,7 +37,7 @@ public abstract class AbstractScreen extends JPanel
         repaint();
     }
 
-    protected void drawBG(Graphics2D g2d, Color color) {
+    protected void drawBackGround(Graphics2D g2d, Color color) {
         g2d.setColor(color);
         int width = getWidth();
         int height = getHeight();
