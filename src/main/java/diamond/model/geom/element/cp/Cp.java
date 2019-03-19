@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.cp;
 
+import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,7 @@ import diamond.model.palette.cp.editor.LineAdder;
  */
 public class Cp {
     private Set<OriLine> lines = new HashSet<>();
+    private Point2D.Double origin = new Point2D.Double();
 
     @Deprecated // just for XML encorder
     public void setLines(Set<OriLine> lines) {
@@ -31,6 +33,14 @@ public class Cp {
         for (OriLine oriLine : creasePattern.getLines()) {
             lines.add(new OriLine(oriLine));
         }
+    }
+
+    public Point2D.Double getOrigin() {
+        return this.origin;
+    }
+
+    public void setOrigin(Point2D.Double origin) {
+        this.origin = origin;
     }
 
     public void buildWhitePaper(double size, int edges) {

@@ -128,6 +128,18 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         }
     }
 
+    protected void drawMousePoint(Graphics2D g2d,
+            PaintContext context) {
+        if (context.currentLogicalMousePoint != null) {
+            Point2D.Double point = context.currentLogicalMousePoint;
+            OriDrawer.drawPoint(
+                    g2d,
+                    point,
+                    VertexSetting.VERTEX_SIZE_POINTED,
+                    ColorStyle.ORIPOINT_POINTED);
+        }
+    }
+
     protected void drawPointedLine(Graphics2D g2d,
             PaintContext context) {
         if (context.pointedOriLine != null) {

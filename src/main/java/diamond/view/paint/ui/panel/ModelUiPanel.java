@@ -5,12 +5,15 @@
 package diamond.view.paint.ui.panel;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.action.OriginFaceAction;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -29,6 +32,16 @@ public class ModelUiPanel extends JPanel {
     private void addModelEditPanel(PaintContext context) {
         setLayout(new GridLayout(2, 2));
         JRadioButton b1 = new JRadioButton("Select Origin Face");
+        b1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (b1.isSelected()) {
+                    context.paintAction = new OriginFaceAction();
+                }
+
+            }
+        });
         JRadioButton b4 = new JRadioButton("Modify Face Order");
         JRadioButton b2 = new JRadioButton("Modify Vertex Position");
         JRadioButton b3 = new JRadioButton("Modify Line Position");

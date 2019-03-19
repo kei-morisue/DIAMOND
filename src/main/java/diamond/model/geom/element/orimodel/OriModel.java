@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.orimodel;
 
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class OriModel {
 
     public OriModel(Cp cp) {
         DuplicatedCPSimplifier.simplify(cp);
+        setOriginPoint(cp.getOrigin());
         buildVertices(cp);
         buildFaces();
         buildAuxLines();
@@ -127,8 +129,8 @@ public class OriModel {
         return this.originPoint;
     }
 
-    public void setOriginPoint(OriVertex originPoint) {
-        this.originPoint = originPoint;
+    public void setOriginPoint(Point2D.Double originPoint) {
+        this.originPoint = new OriVertex(originPoint.x, originPoint.y);
     }
 
 }

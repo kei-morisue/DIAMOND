@@ -15,11 +15,9 @@ import java.awt.geom.Rectangle2D;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.orimodel.OriFace;
 import diamond.model.geom.element.orimodel.OriHalfEdge;
 import diamond.model.geom.element.orimodel.OriModel;
-import diamond.model.geom.element.orimodel.OriVertex;
 
 /**
  * @author long_
@@ -79,7 +77,7 @@ public class OriDrawer {
                 he.getEv().getFoldedPosition().getY()));
     }
 
-    public static void drawPoint(Graphics2D g2d, OriPoint point,
+    public static void drawPoint(Graphics2D g2d, Point2D.Double point,
             double size, Color color) {
         double scaledSize = size;
         g2d.setColor(color);
@@ -90,7 +88,8 @@ public class OriDrawer {
                 scaledSize));
     }
 
-    public static void drawVertex(Graphics2D g2d, OriVertex vertex, double size,
+    public static void drawVertex(Graphics2D g2d, Point2D.Double vertex,
+            double size,
             Color color) {
         double scaledSize = size;
         g2d.setColor(color);
