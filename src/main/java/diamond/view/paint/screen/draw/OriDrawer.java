@@ -40,6 +40,15 @@ public class OriDrawer {
         return;
     }
 
+    public static void drawStepNo(Graphics2D g2d, int step, int size) {
+        AffineTransform tmpTransform = g2d.getTransform();
+        g2d.setFont(FontSetting.STEP_NO);
+        g2d.setTransform(new AffineTransform());
+        g2d.drawString(String.valueOf(step), 10, FontSetting.STEP_NO.getSize());
+        g2d.setTransform(tmpTransform);
+
+    }
+
     public static void drawLine(Graphics2D g2d, OriLine line, Color color,
             Stroke stroke) {
         g2d.setColor(color);

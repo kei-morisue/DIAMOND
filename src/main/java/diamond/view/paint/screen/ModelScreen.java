@@ -35,6 +35,7 @@ public class ModelScreen extends AbstractScreen {
         OriModel model = new OriModel(paintContext.getCP());
         Folder.fold(model, new FoldPolicy());
         OriDrawer.drawModel(g2d, model);
+        OriDrawer.drawStepNo(g2d, paintContext.getStepNo() + 1, 100);
 
     }
 }
