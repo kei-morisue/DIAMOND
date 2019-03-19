@@ -14,9 +14,9 @@ public class OriModelUtil {
     public static OriVertex getCenterPoint(Collection<OriHalfEdge> halfEdges) {
         OriVertex centerP = new OriVertex();
         for (OriHalfEdge he : halfEdges) {
-            centerP.add(he.getSv());
+            centerP = centerP.add(he.getSv());
         }
-        centerP.scale(1.0 / halfEdges.size());
+        centerP = centerP.scale(1.0 / halfEdges.size());
         return centerP;
     }
 
