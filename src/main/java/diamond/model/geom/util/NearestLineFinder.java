@@ -7,8 +7,8 @@ package diamond.model.geom.util;
 import java.awt.geom.Point2D;
 
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.palette.cp.CreasePattern;
 
 /**
  * @author long_
@@ -19,7 +19,7 @@ public class NearestLineFinder {
             PaintContext context) {
         double minDistance = Double.MAX_VALUE;
         OriLine candidate = null;
-        CreasePattern creasePattern = context.getCP();
+        Cp creasePattern = context.getCP();
         Point2D.Double p = context.currentLogicalMousePoint;
         for (OriLine line : creasePattern.getLines()) {
             double dist = DistanceUtil.DistancePointToSegment(

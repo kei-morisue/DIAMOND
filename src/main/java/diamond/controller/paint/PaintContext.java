@@ -12,9 +12,9 @@ import java.util.Stack;
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.palette.cp.CreasePattern;
 import diamond.view.paint.screen.coordinate.CoodinateTransform;
 
 /**
@@ -35,7 +35,7 @@ public class PaintContext extends Observable {
 
     public boolean isFinished;
 
-    private LinkedList<CreasePattern> creasePatterns = new LinkedList<CreasePattern>();
+    private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
     private int stepNo = 0;
 
     public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
@@ -43,12 +43,12 @@ public class PaintContext extends Observable {
 
     public PaintActionInterface paintAction = new Axiom1Action();
 
-    public void setCreasePatterns(LinkedList<CreasePattern> creasePatterns) {
+    public void setCreasePatterns(LinkedList<Cp> creasePatterns) {
         this.creasePatterns = creasePatterns;
     }
 
     public PaintContext() {
-        creasePatterns.add(new CreasePattern());
+        creasePatterns.add(new Cp());
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
@@ -62,14 +62,16 @@ public class PaintContext extends Observable {
         return candidate;
     }
 
-    public CreasePattern getCP() {
+    public Cp getCP() {
         while (stepNo >= creasePatterns.size()) {
-            creasePatterns.add(new CreasePattern());
+            Cp last = creasePatterns.getLast();
+            creasePatterns.add(new Cp(last));
+            notifyObservers();
         }
         return creasePatterns.get(stepNo);
     }
 
-    public LinkedList<CreasePattern> getCreasePatterns() {
+    public LinkedList<Cp> getCreasePatterns() {
         return this.creasePatterns;
     }
 

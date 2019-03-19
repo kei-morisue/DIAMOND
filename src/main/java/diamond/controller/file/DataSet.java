@@ -3,24 +3,24 @@ package diamond.controller.file;
 
 import java.util.LinkedList;
 
-import diamond.model.palette.cp.CreasePattern;
+import diamond.model.geom.element.cp.Cp;
 
 public class DataSet {
-    private LinkedList<CreasePattern> cps;
+    private LinkedList<Cp> cps;
 
     public DataSet() {
 
     }
 
-    public DataSet(LinkedList<CreasePattern> CreasePatterns) {
+    public DataSet(LinkedList<Cp> CreasePatterns) {
         cps = CreasePatterns;
     }
 
-    public LinkedList<CreasePattern> getCps() {
+    public LinkedList<Cp> getCps() {
         return this.cps;
     }
 
-    public void setCps(LinkedList<CreasePattern> cps) {
+    public void setCps(LinkedList<Cp> cps) {
         this.cps = cps;
     }
 

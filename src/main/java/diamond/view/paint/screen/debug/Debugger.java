@@ -25,6 +25,9 @@ public class Debugger {
         describe(g2d, paintContext.getScale(), "Scale", 80);
         describe(g2d, paintContext.paintAction.getClass().getName(),
                 "Paint Action", 100);
+
+        describe(g2d, paintContext.getCreasePatterns().size(),
+                "Steps", 120);
     }
 
     private static void describe(

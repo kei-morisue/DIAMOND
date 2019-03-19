@@ -10,10 +10,10 @@ import java.util.Set;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriFaceUtil;
-import diamond.model.palette.cp.CreasePattern;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
 
 /**
@@ -27,7 +27,7 @@ public class OriModel {
     private OriFace darkside = null;
     private OriVertex originPoint = new OriVertex(0.0, 0.0);
 
-    public OriModel(CreasePattern cp) {
+    public OriModel(Cp cp) {
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
         buildFaces();
@@ -82,7 +82,7 @@ public class OriModel {
         return true;
     }
 
-    private void buildVertices(CreasePattern cp) {
+    private void buildVertices(Cp cp) {
         for (OriLine line : cp.getLines()) {
             OriVertex v0 = new OriVertex(line.p0);
             OriVertex v1 = new OriVertex(line.p1);

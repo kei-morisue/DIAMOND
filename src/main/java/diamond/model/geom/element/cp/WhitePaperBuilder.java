@@ -2,13 +2,11 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.palette.cp;
+package diamond.model.geom.element.cp;
 
 import java.util.HashSet;
 
 import diamond.model.geom.element.LineType;
-import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.cp.OriPoint;
 
 /**
  * @author long_
