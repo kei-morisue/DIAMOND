@@ -26,12 +26,11 @@ import javax.swing.JPanel;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
-import diamond.view.diagram.DiagramPane;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
-import diamond.view.paint.ui.CpUiPanel;
 import diamond.view.paint.ui.MenuBar;
-import diamond.view.paint.ui.ModelUiPanel;
+import diamond.view.paint.ui.UiPanel;
+import diamond.view.paint.ui.panel.DiagramPanel;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -51,17 +50,14 @@ public class PaintFrame extends JFrame {
                         .getImage());
         setTitle(ResourceHolder.getLabelString(
                 LABEL.TITLE));
-        add(buildMainPanel(), BorderLayout.CENTER);
+        add(buildCenterPanel(), BorderLayout.CENTER);
 
-        CpUiPanel cpUi = new CpUiPanel(paintContext);
+        UiPanel cpUi = new UiPanel(paintContext);
         add(cpUi, BorderLayout.WEST);
-
-        ModelUiPanel modelUi = new ModelUiPanel(paintContext);
-        add(modelUi, BorderLayout.EAST);
 
         setJMenuBar(new MenuBar(paintContext));
 
-        add(new DiagramPane(new JPanel()), BorderLayout.SOUTH);
+        add(new DiagramPanel(new JPanel(), paintContext), BorderLayout.EAST);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +69,23 @@ public class PaintFrame extends JFrame {
         super.setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
     }
 
-    private JPanel buildMainPanel() {
+    private JPanel buildCenterPanel() {
+        JPanel center = new JPanel();
+        center.setLayout(new BorderLayout());
+        JPanel panel = buildScreens();
+        center.add(panel, BorderLayout.CENTER);
+        center.add(
+                new DiagramSwitchButton(DiagramSwitchButton.RIGHT,
+                        paintContext),
+                BorderLayout.EAST);
+        center.add(
+                new DiagramSwitchButton(DiagramSwitchButton.LEFT,
+                        paintContext),
+                BorderLayout.WEST);
+        return center;
+    }
+
+    private JPanel buildScreens() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
         panel.add(paintScreen);
