@@ -15,6 +15,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.orimodel.OriModel;
 import diamond.view.paint.screen.coordinate.CoodinateTransform;
 
 /**
@@ -37,6 +38,19 @@ public class PaintContext extends Observable {
 
     private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
     private int stepNo = 0;
+
+    private OriModel oriModel;
+
+    public OriModel getOriModel() {
+        if (oriModel == null) {
+            return new OriModel(getCP());
+        }
+        return this.oriModel;
+    }
+
+    public void setOriModel(OriModel oriModel) {
+        this.oriModel = oriModel;
+    }
 
     public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
             0);

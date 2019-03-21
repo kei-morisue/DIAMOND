@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.cp;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import diamond.model.palette.cp.editor.LineAdder;
 public class Cp {
     private Set<OriLine> lines = new HashSet<>();
     private Point2D.Double origin = new Point2D.Double();
+    private AffineTransform affineTransform = new AffineTransform();
 
     @Deprecated // just for XML encorder
     public void setLines(Set<OriLine> lines) {
@@ -33,6 +35,14 @@ public class Cp {
         for (OriLine oriLine : creasePattern.getLines()) {
             lines.add(new OriLine(oriLine));
         }
+    }
+
+    public AffineTransform getAffineTransform() {
+        return this.affineTransform;
+    }
+
+    public void setAffineTransform(AffineTransform affineTransform) {
+        this.affineTransform = affineTransform;
     }
 
     public Point2D.Double getOrigin() {

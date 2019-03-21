@@ -32,7 +32,7 @@ public class ModelScreen extends AbstractScreen {
         drawBackGround(g2d, ColorStyle.MODEL_SCREEN_BG);
         paintContext.coordinateTransform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(paintContext.coordinateTransform.getTransform());
-        OriModel model = new OriModel(paintContext.getCP());
+        OriModel model = paintContext.getOriModel();
         Folder.fold(model, new FoldPolicy());
         OriDrawer.drawModel(g2d, model);
         OriDrawer.drawStepNo(g2d, paintContext.getStepNo() + 1, 100);
