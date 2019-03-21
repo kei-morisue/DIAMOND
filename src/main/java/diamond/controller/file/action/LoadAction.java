@@ -35,8 +35,7 @@ public class LoadAction implements ActionListener {
             LoaderXML loader = new LoaderXML();
             String path = chooser.getSelectedFile().getPath();
             DataSet data = loader.load(path);
-            paintContext
-                    .setCreasePatterns(data.getCps());
+            paintContext.palette.setCreasePatterns(data.getCps());
         }
     }
 }

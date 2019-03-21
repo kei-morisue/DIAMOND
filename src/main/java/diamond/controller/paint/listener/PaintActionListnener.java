@@ -26,7 +26,7 @@ public class PaintActionListnener
     @Override
     public void mouseMoved(MouseEvent e) {
         paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
-                paintContext.coordinateTransform.getTransform(),
+                paintContext.transform.getTransform(),
                 e.getPoint());
         paintContext.paintAction.onMove(paintContext);
         e.getComponent().repaint();
@@ -51,7 +51,7 @@ public class PaintActionListnener
     @Override
     public void mousePressed(MouseEvent e) {
         paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
-                paintContext.coordinateTransform.getTransform(),
+                paintContext.transform.getTransform(),
                 e.getPoint());
     }
 

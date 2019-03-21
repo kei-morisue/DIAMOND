@@ -40,7 +40,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         OriLine l = pickedLines.get(0);
         OriLine line = createAngleBisectorLine(v0, v1,
                 v2, l, context.inputLineType);
-        context.getCP().addLine(line);
+        context.palette.getCP().addLine(line);
         pickedPoints.clear();
         pickedLines.clear();
     }

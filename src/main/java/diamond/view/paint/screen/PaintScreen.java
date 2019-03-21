@@ -52,8 +52,8 @@ public class PaintScreen extends AbstractScreen {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, ColorStyle.PAINT_SCREEN_BG);
-        paintContext.coordinateTransform.ResizeWindow(getWidth(), getHeight());
-        g2d.setTransform(paintContext.coordinateTransform.getTransform());
+        paintContext.transform.ResizeWindow(getWidth(), getHeight());
+        g2d.setTransform(paintContext.transform.getTransform());
         paintCreasePattern(g2d);
         if (paintContext.paintAction != null) {
             paintContext.paintAction.onDraw(g2d, paintContext);
@@ -64,7 +64,7 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private void paintCreasePattern(Graphics2D g2d) {
-        Cp creasePattern = paintContext.getCP();
+        Cp creasePattern = paintContext.palette.getCP();
         OriModel model = new OriModel(creasePattern);
         for (OriFace face : model.getFaces()) {
             OriDrawer.drawFace(g2d, face.getOutline(),
@@ -85,7 +85,7 @@ public class PaintScreen extends AbstractScreen {
                     ColorStyle.getCpColor(l.getType()),
                     LineStrokeSetting.getCpStroke(l.getType()));
         }
-        Double origin = paintContext.getCP().getOrigin();
+        Double origin = paintContext.palette.getCP().getOrigin();
         if (origin != null) {
             OriDrawer.drawVertex(
                     g2d,

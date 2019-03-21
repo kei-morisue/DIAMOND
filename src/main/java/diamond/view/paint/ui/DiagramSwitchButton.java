@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.Palette;
 import diamond.view.resource.ImageIconLoader;
 
 /**
@@ -43,14 +44,16 @@ public class DiagramSwitchButton extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (context.getStepNo() == 0 && direction == LEFT) {
+            Palette palette = context.palette;
+            if (palette.getStepNo() == 0 && direction == LEFT) {
                 return;
             }
-            if (context.getCreasePatterns().size() == context.getStepNo()
+            if (palette.getCreasePatterns().size() == palette
+                    .getStepNo()
                     && direction == RIGHT) {
                 return;
             }
-            context.setStepNo(context.getStepNo() + direction);
+            palette.setStepNo(palette.getStepNo() + direction);
 
         }
     }

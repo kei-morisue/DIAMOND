@@ -35,7 +35,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
                 pickedPoints.get(0), pickedLines.get(0),
                 context.inputLineType);
 
-        context.getCP().addLine(line);
+        context.palette.getCP().addLine(line);
         pickedPoints.clear();
         pickedLines.clear();
     }

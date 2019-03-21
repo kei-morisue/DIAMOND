@@ -39,7 +39,8 @@ public class DiagramPanel extends JScrollPane implements Observer {
 
     private void initialize(JPanel panel, PaintContext paintContext,
             ButtonGroup buttonGroup) {
-        for (int i = 0; i < paintContext.getCreasePatterns().size(); ++i) {
+        for (int i = 0; i < paintContext.palette.getCreasePatterns()
+                .size(); ++i) {
             DiagramIcon button = new DiagramIcon();
             button.setPreferredSize(new Dimension(100, 100));
             diagramIcons.add(button);

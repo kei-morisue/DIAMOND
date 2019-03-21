@@ -11,41 +11,41 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.ScreenContext;
 import diamond.controller.paint.util.MouseUtility;
 
 /**
  * @author long_
  *
  */
-public class PaintScreenCoordinateListnener
+public class ScreenAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private PaintContext paintContext;
+    private ScreenContext screenContext;
     public Point2D latestClickedPoint;
 
-    public PaintScreenCoordinateListnener(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public ScreenAction(ScreenContext screenContext) {
+        this.screenContext = screenContext;
     }
 
     private void zoom(MouseWheelEvent e) {
         double scale_ = Math.pow(1.5, -e.getWheelRotation());
-        paintContext.coordinateTransform.zoom(scale_);
+        screenContext.transform.zoom(scale_);
         e.getComponent().repaint();
     }
 
     private void translate(MouseEvent e) {
-        double scale = paintContext.coordinateTransform.getScale();
+        double scale = screenContext.transform.getScale();
         Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
-        paintContext.coordinateTransform.translate(x, y);
+        screenContext.transform.translate(x, y);
         latestClickedPoint = e.getPoint();
         e.getComponent().repaint();
     }
 
     private void rotate(MouseWheelEvent e) {
         double moved = e.getWheelRotation();
-        paintContext.coordinateTransform
+        screenContext.transform
                 .rotate(Math.PI / 8 * ((moved) % 8));
         latestClickedPoint = e.getPoint();
         e.getComponent().repaint();

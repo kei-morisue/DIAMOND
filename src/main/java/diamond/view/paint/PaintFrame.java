@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.Palette;
+import diamond.controller.paint.ScreenContext;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.ui.DiagramSwitchButton;
@@ -36,11 +38,12 @@ import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 public class PaintFrame extends JFrame {
-
-    private PaintContext paintContext = new PaintContext();
+    private Palette palette = new Palette();
+    private PaintContext paintContext = new PaintContext(palette);
+    private ScreenContext screenContext = new ScreenContext(palette);
 
     private PaintScreen paintScreen = new PaintScreen(paintContext);
-    private ModelScreen modelScreen = new ModelScreen(paintContext);
+    private ModelScreen modelScreen = new ModelScreen(screenContext);
 
     public PaintFrame() {
         setSize(Initials.MAIN_FRAME_WIDTH,

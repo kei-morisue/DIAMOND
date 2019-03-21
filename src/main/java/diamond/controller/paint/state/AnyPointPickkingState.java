@@ -27,7 +27,7 @@ public class AnyPointPickkingState extends AbstractPaintState {
 
     @Override
     protected void onResult(PaintContext context) {
-        context.getCP().setOrigin(context.currentLogicalMousePoint);
+        context.palette.getCP().setOrigin(context.currentLogicalMousePoint);
     }
 
     @Override

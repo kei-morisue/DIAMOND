@@ -19,7 +19,7 @@ public class NearestLineFinder {
             PaintContext context) {
         double minDistance = Double.MAX_VALUE;
         OriLine candidate = null;
-        Cp creasePattern = context.getCP();
+        Cp creasePattern = context.palette.getCP();
         Point2D.Double p = context.currentLogicalMousePoint;
         for (OriLine line : creasePattern.getLines()) {
             double dist = DistanceUtil.DistancePointToSegment(
@@ -29,7 +29,7 @@ public class NearestLineFinder {
                 candidate = line;
             }
         }
-        double scale = context.coordinateTransform.getScale();
+        double scale = context.transform.getScale();
         if (minDistance / scale < 10) {
             return candidate;
         } else {

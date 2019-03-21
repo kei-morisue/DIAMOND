@@ -31,7 +31,7 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
         if (pickedPoints.size() != 3) {
             throw new RuntimeException();
         }
-        Collection<OriLine> creasePattern = context.getCP().getLines();
+        Collection<OriLine> creasePattern = context.palette.getCP().getLines();
 
         OriPoint first = pickedPoints.get(0);
         OriPoint second = pickedPoints.get(1);
@@ -45,7 +45,7 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
                         third,
                         first,
                         creasePattern, context.inputLineType);
-        context.getCP().addAll(lines);
+        context.palette.getCP().addAll(lines);
         pickedPoints.clear();
     }
 

@@ -33,7 +33,8 @@ public class ExportAction implements ActionListener {
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             ExporterXML exporterXML = new ExporterXML();
-            DataSet data = new DataSet(paintContext.getCreasePatterns());
+            DataSet data = new DataSet(
+                    paintContext.palette.getCreasePatterns());
             String path = chooser.getSelectedFile().getPath();
             exporterXML.export(data, path);
         }

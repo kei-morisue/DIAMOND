@@ -5,28 +5,19 @@
 package diamond.controller.paint;
 
 import java.awt.geom.Point2D;
-import java.util.LinkedList;
-import java.util.Observable;
 import java.util.Stack;
 
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.LineType;
-import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.element.orimodel.OriModel;
-import diamond.view.paint.screen.coordinate.CoodinateTransform;
 
 /**
  * @author long_
  *
  */
-public class PaintContext extends Observable {
-    public Point2D.Double currentLogicalMousePoint;
-
-    public OriPoint pointedOriPoint = null;
-    public OriLine pointedOriLine = null;
+public class PaintContext extends ScreenContext {
 
     public LineType inputLineType = LineType.MOUNTAIN;
     public LineType memorizedLineType = LineType.AUX;
@@ -34,35 +25,10 @@ public class PaintContext extends Observable {
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();
 
-    public boolean isFinished;
-
-    private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
-    private int stepNo = 0;
-
-    private OriModel oriModel;
-
-    public OriModel getOriModel() {
-        if (oriModel == null) {
-            return new OriModel(getCP());
-        }
-        return this.oriModel;
-    }
-
-    public void setOriModel(OriModel oriModel) {
-        this.oriModel = oriModel;
-    }
-
-    public CoodinateTransform coordinateTransform = new CoodinateTransform(0,
-            0);
-
     public PaintActionInterface paintAction = new Axiom1Action();
 
-    public void setCreasePatterns(LinkedList<Cp> creasePatterns) {
-        this.creasePatterns = creasePatterns;
-    }
-
-    public PaintContext() {
-        creasePatterns.add(new Cp());
+    public PaintContext(Palette palette) {
+        super(palette);
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
@@ -74,31 +40,6 @@ public class PaintContext extends Observable {
         }
 
         return candidate;
-    }
-
-    public Cp getCP() {
-        while (stepNo >= creasePatterns.size()) {
-            Cp last = creasePatterns.getLast();
-            creasePatterns.add(new Cp(last));
-            notifyObservers();
-        }
-        return creasePatterns.get(stepNo);
-    }
-
-    public LinkedList<Cp> getCreasePatterns() {
-        return this.creasePatterns;
-    }
-
-    public int getStepNo() {
-        return this.stepNo;
-    }
-
-    public void setStepNo(int stepNo) {
-        this.stepNo = stepNo;
-    }
-
-    public double getScale() {
-        return coordinateTransform.getScale();
     }
 
     public Stack<OriLine> getPickedLines() {
@@ -126,8 +67,6 @@ public class PaintContext extends Observable {
 
         pointedOriLine = null;
         pointedOriPoint = null;
-
-        isFinished = false;
     }
 
 }
