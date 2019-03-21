@@ -11,7 +11,6 @@ import diamond.model.geom.util.LineUtil;
 public class LineRemover {
     public static void removeLine(
             OriLine l, Collection<OriLine> creasePattern) {
-
         creasePattern.remove(l);
         // merge the lines if possible, to prevent unnecessary vertexes
         merge2LinesAt(l.p0, creasePattern);

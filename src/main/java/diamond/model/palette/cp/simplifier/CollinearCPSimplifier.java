@@ -6,12 +6,10 @@ package diamond.model.palette.cp.simplifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.vecmath.Vector2d;
 
-import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 
@@ -24,8 +22,7 @@ public class CollinearCPSimplifier {
 
     }
 
-    public static boolean simplify(Cp cp) {
-        Set<OriLine> creasePattern = cp.getLines();
+    public static boolean simplify(Collection<OriLine> creasePattern) {
         ArrayList<OriLine> tmpLines = new ArrayList<OriLine>();
         for (OriLine line : creasePattern) {
             add(tmpLines, line);
