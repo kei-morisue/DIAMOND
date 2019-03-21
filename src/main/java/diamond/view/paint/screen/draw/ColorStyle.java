@@ -50,6 +50,8 @@ public class ColorStyle {
 
     static public final java.awt.Color DEBUGGING_STRING = java.awt.Color.black;
 
+    static public final java.awt.Color STEP_NO = java.awt.Color.black;
+
     public static Color getCpColor(LineType lineType) {
         switch (lineType) {
         case MOUNTAIN:

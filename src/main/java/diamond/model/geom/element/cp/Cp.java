@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import diamond.Initials;
+import diamond.model.geom.element.orimodel.OriModel;
 import diamond.model.palette.cp.editor.LineAdder;
 
 /**
@@ -21,6 +22,15 @@ public class Cp {
     private Set<OriLine> lines = new HashSet<>();
     private Point2D.Double origin = new Point2D.Double();
     private AffineTransform affineTransform = new AffineTransform();
+    private OriModel oriModel;
+
+    public OriModel getOriModel() {
+        return this.oriModel;
+    }
+
+    public void setOriModel(OriModel oriModel) {
+        this.oriModel = oriModel;
+    }
 
     @Deprecated // just for XML encorder
     public void setLines(Set<OriLine> lines) {

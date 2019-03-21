@@ -10,7 +10,7 @@ import java.util.Observable;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.view.paint.screen.coordinate.CoodinateTransform;
+import diamond.view.paint.screen.CoodinateTransform;
 
 /**
  * @author long_

@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.view.paint.screen.coordinate;
+package diamond.view.paint.screen;
 
 import java.awt.geom.AffineTransform;
 

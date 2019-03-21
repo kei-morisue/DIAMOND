@@ -42,6 +42,7 @@ public class OriDrawer {
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setFont(FontSetting.STEP_NO);
         g2d.setTransform(new AffineTransform());
+        g2d.setColor(ColorStyle.STEP_NO);
         g2d.drawString(String.valueOf(step), 10, FontSetting.STEP_NO.getSize());
         g2d.setTransform(tmpTransform);
 

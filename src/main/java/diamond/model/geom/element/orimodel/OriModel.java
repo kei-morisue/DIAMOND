@@ -16,6 +16,7 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
+import diamond.model.palette.diagram.Clipper;
 
 /**
  * @author long_
@@ -27,6 +28,7 @@ public class OriModel {
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
     private OriVertex originPoint = new OriVertex(0.0, 0.0);
+    private Clipper clipper;
 
     public OriModel(Cp cp) {
         DuplicatedCPSimplifier.simplify(cp);
@@ -131,6 +133,14 @@ public class OriModel {
 
     public void setOriginPoint(Point2D.Double originPoint) {
         this.originPoint = new OriVertex(originPoint.x, originPoint.y);
+    }
+
+    public Clipper getClipper() {
+        return this.clipper;
+    }
+
+    public void setClipper(Clipper clipper) {
+        this.clipper = clipper;
     }
 
 }

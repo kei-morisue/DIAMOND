@@ -16,21 +16,17 @@ import diamond.model.geom.element.orimodel.OriModel;
 public class Palette {
     private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
     private int stepNo = 0;
-    private OriModel oriModel;
 
     public Palette() {
         creasePatterns.add(new Cp());
     }
 
     public OriModel getOriModel() {
+        OriModel oriModel = getCP().getOriModel();
         if (oriModel == null) {
             return new OriModel(getCP());
         }
-        return this.oriModel;
-    }
-
-    public void setOriModel(OriModel oriModel) {
-        this.oriModel = oriModel;
+        return oriModel;
     }
 
     public void setCreasePatterns(LinkedList<Cp> creasePatterns) {
