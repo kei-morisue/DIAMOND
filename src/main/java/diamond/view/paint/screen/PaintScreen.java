@@ -26,9 +26,9 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.listener.PaintActionListnener;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriModel;
-import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriModel;
+import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.paint.screen.debug.Debugger;
 import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.LineStrokeSetting;
@@ -46,6 +46,7 @@ public class PaintScreen extends AbstractScreen {
                 paintContext);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);
+        paintContext.palette.addObserver(this);
     }
 
     @Override
@@ -64,8 +65,8 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private void paintCreasePattern(Graphics2D g2d) {
-        Cp creasePattern = paintContext.palette.getCP();
-        OriModel model = new OriModel(creasePattern);
+        Cp cp = paintContext.palette.getCP();
+        OriModel model = cp.getOriModel();
         for (OriFace face : model.getFaces()) {
             OriDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORIFACE);
@@ -78,20 +79,20 @@ public class PaintScreen extends AbstractScreen {
                     (vertex.isFoldable()) ? ColorStyle.ORIVERTEX
                             : ColorStyle.WRONG_ORIVERTEX);
         }
-        for (OriLine l : creasePattern.getLines()) {
+        for (OriLine l : cp.getLines()) {
             OriDrawer.drawLine(
                     g2d,
                     l,
                     ColorStyle.getCpColor(l.getType()),
                     LineStrokeSetting.getCpStroke(l.getType()));
         }
-        Double origin = paintContext.palette.getCP().getOrigin();
+        Double origin = model.getOriginPoint();
         if (origin != null) {
             OriDrawer.drawVertex(
                     g2d,
                     origin,
                     VertexSetting.VERTEX_SIZE,
-                    ColorStyle.ORIPOINT_PICKED);
+                    ColorStyle.ORIPOINT_ORIGIN);
         }
     }
 

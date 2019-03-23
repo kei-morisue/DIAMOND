@@ -7,8 +7,8 @@ package diamond.model.palette.cp.validator;
 import java.util.LinkedList;
 
 import diamond.model.geom.element.LineType;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
-import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_

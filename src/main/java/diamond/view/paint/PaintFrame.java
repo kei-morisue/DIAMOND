@@ -30,9 +30,10 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.Palette;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
-import diamond.view.paint.ui.DiagramSwitchButton;
-import diamond.view.paint.ui.MenuBar;
-import diamond.view.paint.ui.UiPanel;
+import diamond.view.paint.ui.button.DiagramSwitchButton;
+import diamond.view.paint.ui.menu.MenuBar;
+import diamond.view.paint.ui.panel.DiagramPanel;
+import diamond.view.paint.ui.panel.UiPanel;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -82,6 +83,8 @@ public class PaintFrame extends JFrame {
                 new DiagramSwitchButton(DiagramSwitchButton.LEFT,
                         paintContext),
                 BorderLayout.WEST);
+        center.add(new DiagramPanel(new JPanel(), paintContext),
+                BorderLayout.SOUTH);
         return center;
     }
 

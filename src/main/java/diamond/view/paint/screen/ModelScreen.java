@@ -14,7 +14,7 @@ import java.awt.geom.Ellipse2D;
 import diamond.controller.paint.ModelContext;
 import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.model.geom.element.fold.Folder;
-import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.origami.OriModel;
 import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.OriDrawer;
 
@@ -30,6 +30,7 @@ public class ModelScreen extends AbstractScreen {
         super(modelContext);
         this.modelContext = modelContext;
         this.transform = modelContext.transform;
+        modelContext.palette.addObserver(this);
     }
 
     @Override

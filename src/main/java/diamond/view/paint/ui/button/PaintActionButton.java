@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.view.paint.ui;
+package diamond.view.paint.ui.button;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +16,10 @@ import diamond.controller.paint.action.Axiom3Action;
 import diamond.controller.paint.action.Axiom4Action;
 import diamond.controller.paint.action.DeleteLineAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
-import diamond.controller.paint.action.FoldUnfoldLineAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
+import diamond.controller.paint.action.UnfoldLineAction;
 import diamond.view.resource.ImageIconLoader;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -58,9 +58,9 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("flip");
             this.paintAction = new FlipLineTypeAction();
             break;
-        case FOLD_UNFOLD:
-            setIcons("fold_unfold");
-            this.paintAction = new FoldUnfoldLineAction();
+        case UNFOLD:
+            setIcons("unfold");
+            this.paintAction = new UnfoldLineAction();
             break;
         case SETTLE_UNSETTLE:
             setIcons("settle_unsettle");

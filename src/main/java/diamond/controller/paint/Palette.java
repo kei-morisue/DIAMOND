@@ -5,15 +5,16 @@
 package diamond.controller.paint;
 
 import java.util.LinkedList;
+import java.util.Observable;
 
 import diamond.model.geom.element.cp.Cp;
-import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.origami.OriModel;
 
 /**
  * @author long_
  *
  */
-public class Palette {
+public class Palette extends Observable {
     private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
     private int stepNo = 0;
 
@@ -37,6 +38,8 @@ public class Palette {
         while (stepNo >= creasePatterns.size()) {
             Cp last = creasePatterns.getLast();
             creasePatterns.add(new Cp(last));
+            setChanged();
+            notifyObservers();
         }
         return creasePatterns.get(stepNo);
     }
@@ -51,5 +54,8 @@ public class Palette {
 
     public void setStepNo(int stepNo) {
         this.stepNo = stepNo;
+        setChanged();
+        notifyObservers();
+
     }
 }

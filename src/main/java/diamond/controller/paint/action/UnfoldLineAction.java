@@ -4,15 +4,15 @@
  */
 package diamond.controller.paint.action;
 
-import diamond.controller.paint.state.FoldUnfoldLineState;
+import diamond.controller.paint.state.UnfoldLineState;
 
 /**
  * @author long_
  *
  */
-public class FoldUnfoldLineAction extends AbstractLineTypeFlipAction {
+public class UnfoldLineAction extends AbstractLineTypeFlipAction {
     @Override
     protected void setPaintState() {
-        setActionState(new FoldUnfoldLineState());
+        setActionState(new UnfoldLineState());
     }
 }

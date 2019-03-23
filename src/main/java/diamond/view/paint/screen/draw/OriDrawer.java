@@ -15,9 +15,9 @@ import java.awt.geom.Rectangle2D;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
-import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriModel;
 
 /**
  * @author long_

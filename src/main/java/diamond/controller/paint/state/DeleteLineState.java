@@ -5,6 +5,7 @@
 package diamond.controller.paint.state;
 
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.palette.cp.editor.LineRemover;
 
@@ -23,10 +24,12 @@ public class DeleteLineState extends OriLinePickkingState {
     @Override
     protected void onResult(PaintContext context) {
         OriLine oriLine = context.getPickedLines().get(0);
+        Cp cp = context.palette.getCP();
         if (oriLine != null) {
             LineRemover.removeLine(oriLine,
-                    context.palette.getCP().getLines());
+                    cp.getLines());
         }
+        cp.rebuildModel();
         context.getPickedLines().clear();
     }
 

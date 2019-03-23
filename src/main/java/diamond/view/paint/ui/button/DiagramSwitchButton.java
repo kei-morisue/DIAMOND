@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.view.paint.ui;
+package diamond.view.paint.ui.button;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

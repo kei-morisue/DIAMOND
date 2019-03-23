@@ -13,7 +13,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import diamond.controller.paint.PaintContext;
-import diamond.view.paint.ui.PaintActionButton;
+import diamond.view.paint.ui.button.PaintActionButton;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**

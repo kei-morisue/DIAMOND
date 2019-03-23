@@ -4,8 +4,8 @@
  */
 package diamond.model.palette.cp.validator;
 
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.util.GeomUtil;
 
 /**

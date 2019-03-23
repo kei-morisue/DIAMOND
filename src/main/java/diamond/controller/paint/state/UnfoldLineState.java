@@ -12,24 +12,18 @@ import diamond.model.geom.element.cp.OriLine;
  * @author long_
  *
  */
-public class FoldUnfoldLineState extends OriLinePickkingState {
+public class UnfoldLineState extends OriLinePickkingState {
     @Override
     protected void initialize() {
-        setNextClass(FoldUnfoldLineState.class);
-        setPrevClass(FoldUnfoldLineState.class);
+        setNextClass(UnfoldLineState.class);
+        setPrevClass(UnfoldLineState.class);
     }
 
     @Override
     protected void onResult(PaintContext context) {
 
         OriLine oriLine = context.getPickedLines().get(0);
-        LineType type = oriLine.getType();
-        if (type != LineType.AUX) {
-            context.memorizedLineType = type;
-            oriLine.setType(LineType.AUX);
-        } else {
-            oriLine.setType(context.memorizedLineType);
-        }
+        oriLine.setType(LineType.AUX);
         context.getPickedLines().clear();
     }
 

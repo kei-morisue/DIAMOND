@@ -34,7 +34,7 @@ public class EditLinePanel extends JPanel {
                 LABEL.SETTLE_UNSETTLE,
                 context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.FOLD_UNFOLD, context);
+                LABEL.UNFOLD, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.DELETE_LINE, context);
         UiPanelUtil.setBorder(

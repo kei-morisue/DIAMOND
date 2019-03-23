@@ -19,6 +19,7 @@ public class ColorStyle {
     static public final java.awt.Color ORIPOINT = java.awt.Color.black;
     public static final Color ORIPOINT_PICKED = Color.green;
     public static final Color ORIPOINT_POINTED = Color.green;
+    public static final Color ORIPOINT_ORIGIN = Color.yellow;
 
     static public final java.awt.Color ORIVERTEX = java.awt.Color.black;
     static public final java.awt.Color WRONG_ORIVERTEX = java.awt.Color.red;

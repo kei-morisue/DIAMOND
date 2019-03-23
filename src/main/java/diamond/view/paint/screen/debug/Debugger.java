@@ -21,7 +21,9 @@ public class Debugger {
         describe(g2d, paintContext.pointedOriLine, "Pointed Line", 20);
         describe(g2d, paintContext.pointedOriPoint, "Pointed Point", 30);
         describe(g2d, paintContext.getPickedPoints(), "Picked Points", 40);
-        describe(g2d, paintContext.palette.getCP().getOrigin(), "Origin Points",
+        describe(g2d,
+                paintContext.palette.getCP().getOriModel().getOriginPoint(),
+                "Origin Points",
                 50);
 
         describe(g2d, paintContext.getPickedLines(), "Picked Lines", 70);
@@ -32,6 +34,8 @@ public class Debugger {
 
         describe(g2d, paintContext.palette.getCreasePatterns().size(),
                 "Steps", 120);
+        describe(g2d, paintContext.palette.getStepNo(),
+                "Focused Step No.", 130);
     }
 
     private static void describe(

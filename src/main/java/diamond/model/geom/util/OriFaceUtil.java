@@ -7,9 +7,9 @@ package diamond.model.geom.util;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
-import diamond.model.geom.element.orimodel.OriVertex;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_

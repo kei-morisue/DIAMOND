@@ -20,7 +20,6 @@ import diamond.model.geom.element.cp.OriPoint;
 public class PaintContext extends ScreenContext {
 
     public LineType inputLineType = LineType.MOUNTAIN;
-    public LineType memorizedLineType = LineType.AUX;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();

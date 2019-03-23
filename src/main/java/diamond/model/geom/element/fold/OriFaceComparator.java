@@ -6,8 +6,8 @@ package diamond.model.geom.element.fold;
 
 import java.util.Comparator;
 
-import diamond.model.geom.element.orimodel.OriFace;
-import diamond.model.geom.element.orimodel.OriHalfEdge;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriHalfEdge;
 
 /**
  * @author long_

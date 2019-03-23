@@ -20,7 +20,7 @@ public class StringKey {
         AUX_VALLEY,
         AUX_MOUNTAIN,
         FLIP_LINE_TYPE,
-        FOLD_UNFOLD,
+        UNFOLD,
         SETTLE_UNSETTLE,
         DELETE_LINE,
         SYMMETRIC,

@@ -5,13 +5,12 @@
 package diamond.model.geom.element.cp;
 
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import diamond.Initials;
-import diamond.model.geom.element.orimodel.OriModel;
+import diamond.model.geom.element.origami.OriModel;
 import diamond.model.palette.cp.editor.LineAdder;
 
 /**
@@ -20,7 +19,6 @@ import diamond.model.palette.cp.editor.LineAdder;
  */
 public class Cp {
     private Set<OriLine> lines = new HashSet<>();
-    private Point2D.Double origin = new Point2D.Double();
     private AffineTransform affineTransform = new AffineTransform();
     private OriModel oriModel;
 
@@ -28,6 +26,11 @@ public class Cp {
         return this.oriModel;
     }
 
+    public void rebuildModel() {
+        oriModel.build(this);
+    }
+
+    @Deprecated // just for XML encorder
     public void setOriModel(OriModel oriModel) {
         this.oriModel = oriModel;
     }
@@ -45,6 +48,7 @@ public class Cp {
         for (OriLine oriLine : creasePattern.getLines()) {
             lines.add(new OriLine(oriLine));
         }
+        oriModel = new OriModel(this);
     }
 
     public AffineTransform getAffineTransform() {
@@ -55,16 +59,10 @@ public class Cp {
         this.affineTransform = affineTransform;
     }
 
-    public Point2D.Double getOrigin() {
-        return this.origin;
-    }
-
-    public void setOrigin(Point2D.Double origin) {
-        this.origin = origin;
-    }
-
     public void buildWhitePaper(double size, int edges) {
         lines = WhitePaperBuilder.build(size, edges);
+        oriModel = new OriModel(this);
+
     }
 
     public Set<OriLine> getLines() {
@@ -77,10 +75,13 @@ public class Cp {
 
     public void addLine(OriLine line) {
         new LineAdder().addLine(line, lines);
+        rebuildModel();
+        ;
     }
 
     public void addAll(Collection<OriLine> lines) {
         new LineAdder().addAll(lines, this.lines);
+        rebuildModel();
     }
 
     public Set<OriLine> getCutLines() {

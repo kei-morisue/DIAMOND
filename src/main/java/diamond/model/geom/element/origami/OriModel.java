@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.element.orimodel;
+package diamond.model.geom.element.origami;
 
 import java.awt.geom.Point2D;
 import java.util.HashSet;
@@ -31,8 +31,11 @@ public class OriModel {
     private Clipper clipper;
 
     public OriModel(Cp cp) {
+        build(cp);
+    }
+
+    public void build(Cp cp) {
         DuplicatedCPSimplifier.simplify(cp);
-        setOriginPoint(cp.getOrigin());
         buildVertices(cp);
         buildFaces();
         buildAuxLines();
