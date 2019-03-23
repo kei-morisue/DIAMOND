@@ -24,17 +24,19 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class LineTypePanel extends JPanel {
     ButtonGroup lineTypeButtons = new ButtonGroup();
 
-    public LineTypePanel(PaintContext context) {
-        addLineTypePanel(context);
+    public LineTypePanel(PaintContext context, ButtonGroup paintActionButtons) {
+        addLineTypePanel(context, paintActionButtons);
     }
 
-    private void addLineTypePanel(PaintContext context) {
+    private void addLineTypePanel(PaintContext context,
+            ButtonGroup paintActionButtons) {
         setLayout(new GridLayout(3, 2));
         addLineTypeButton(LABEL.MOUNTAIN, LineType.MOUNTAIN, context);
         addLineTypeButton(LABEL.AUX_MOUNTAIN, LineType.AUX_MOUNTAIN, context);
         addLineTypeButton(LABEL.VALLEY, LineType.VALLEY, context);
         addLineTypeButton(LABEL.AUX_VALLEY, LineType.AUX_VALLEY, context);
         addLineTypeButton(LABEL.AUX, LineType.AUX, context);
+        add(new InputLinePanel(context, paintActionButtons));
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.INPUT_LINE));

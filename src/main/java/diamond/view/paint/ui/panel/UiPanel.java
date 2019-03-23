@@ -19,8 +19,7 @@ public class UiPanel extends JPanel {
 
     public UiPanel(PaintContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new LineTypePanel(context));
-        add(new InputLinePanel(context, paintActionButtons));
+        add(new LineTypePanel(context, paintActionButtons));
         add(new EditLinePanel(context, paintActionButtons));
         add(new ModelUiPanel(context, paintActionButtons));
     }

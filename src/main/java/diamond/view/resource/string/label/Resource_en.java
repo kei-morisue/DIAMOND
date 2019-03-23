@@ -10,7 +10,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.TITLE.name(),
                     "DIAMOND : Origami Diagram Editor" },
 
-            { LABEL.INPUT_LINE.name(), "Input New Line" },
+            { LABEL.INPUT_LINE.name(), "Input Line" },
             { LABEL.LINE_PATTERN.name(), "Line Pattern" },
             { LABEL.MODIFY_LINE_TYPE.name(), "Modify Line Type" },
 
