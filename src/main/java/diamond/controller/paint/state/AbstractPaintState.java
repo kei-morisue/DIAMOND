@@ -40,6 +40,7 @@ public abstract class AbstractPaintState implements PaintStateInterface {
             return this;
         }
         onResult(context);
+        context.palette.getCP().rebuildModel();
         PaintStateInterface nextState = getNextState();
         return nextState;
     }
