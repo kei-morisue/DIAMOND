@@ -75,13 +75,10 @@ public class Cp {
 
     public void addLine(OriLine line) {
         new LineAdder().addLine(line, lines);
-        rebuildModel();
-        ;
     }
 
     public void addAll(Collection<OriLine> lines) {
         new LineAdder().addAll(lines, this.lines);
-        rebuildModel();
     }
 
     public Set<OriLine> getCutLines() {

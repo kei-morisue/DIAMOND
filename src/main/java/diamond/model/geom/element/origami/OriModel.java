@@ -35,6 +35,10 @@ public class OriModel {
     }
 
     public void build(Cp cp) {
+        faces.clear();
+        vertices.clear();
+        auxLines.clear();
+        darkside = null;
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
         buildFaces();
