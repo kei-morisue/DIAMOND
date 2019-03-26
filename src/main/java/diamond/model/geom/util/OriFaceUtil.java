@@ -17,10 +17,7 @@ import diamond.model.geom.element.origami.OriVertex;
  */
 public class OriFaceUtil {
     public static boolean onFace(OriFace face, OriHalfEdge e) {
-        OriVertex centerPoint = new OriVertex();
-        centerPoint.add(e.getEv());
-        centerPoint.add(e.getSv());
-        centerPoint.scale(0.5);
+        OriVertex centerPoint = e.getSv().add(e.getEv()).scale(0.5);
         return onFace(face, centerPoint);
     }
 

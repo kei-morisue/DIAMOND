@@ -28,6 +28,12 @@ public class OriFace {
     private GeneralPath foldedOutline = null;
     private AffineTransform transform = null;
 
+    public void initialize() {
+        faceFront = true;
+        foldedOutline = null;
+        transform = null;
+    }
+
     public void addHalfEdge(OriHalfEdge he) {
         halfEdges.add(he);
     }
@@ -63,6 +69,10 @@ public class OriFace {
         outline.closePath();
     }
 
+    public void setFoldedOutline(GeneralPath foldedOutline) {
+        this.foldedOutline = foldedOutline;
+    }
+
     public void setFoldedOutline() {
         for (OriHalfEdge he : halfEdges) {
             Point2D p = he.getSv().getFoldedPosition();
@@ -90,6 +100,10 @@ public class OriFace {
     public Color getColor() {
         return (isFaceFront()) ? ColorStyle.ORIFACE_FRONT
                 : ColorStyle.ORIFACE_BACK;
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
     }
 
     public boolean isFaceFront() {

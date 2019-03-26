@@ -19,6 +19,9 @@ import diamond.model.geom.util.OriFaceUtil;
  */
 public class Folder {
     public static void fold(OriModel oriModel, FoldPolicy foldPolicy) {
+        for (OriFace face : oriModel.getFaces()) {
+            face.initialize();
+        }
         OriFace face = getBaseFace(oriModel);
         face.fold(new AffineTransform(), foldPolicy);
         face.setFaceFront(true);
