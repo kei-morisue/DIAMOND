@@ -20,11 +20,9 @@ public class Debugger {
                 "Current Logocal Point", 10);
         describe(g2d, paintContext.pointedOriLine, "Pointed Line", 20);
         describe(g2d, paintContext.pointedOriPoint, "Pointed Point", 30);
-        describe(g2d, paintContext.getPickedPoints(), "Picked Points", 40);
-        describe(g2d,
-                paintContext.palette.getCP().getOriModel().getOriginPoint(),
-                "Origin Points",
-                50);
+        describe(g2d, paintContext.pointedOriFace, "Pointed Face", 40);
+
+        describe(g2d, paintContext.getPickedPoints(), "Picked Points", 50);
 
         describe(g2d, paintContext.getPickedLines(), "Picked Lines", 70);
 
