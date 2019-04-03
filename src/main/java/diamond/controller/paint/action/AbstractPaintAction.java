@@ -6,14 +6,18 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
+import diamond.model.geom.util.OriFaceUtil;
 import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.LineStrokeSetting;
 import diamond.view.paint.screen.draw.OriDrawer;
@@ -149,6 +153,23 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     candidate,
                     ColorStyle.ORILINE_POINTED,
                     LineStrokeSetting.STROKE_POINTED);
+        }
+    }
+
+    protected void drawPointedFace(Graphics2D g2d,
+            PaintContext context) {
+        Double point = context.currentLogicalMousePoint;
+        if (point != null) {
+            OriVertex orivertex = new OriVertex(point.x, point.y);
+            for (OriFace face : context.getCp().getOriModel().getFaces()) {
+                if (OriFaceUtil.onFace(face, orivertex)) {
+                    OriDrawer.drawFace(g2d, face.getOutline(),
+                            ColorStyle.ORI_FACE_POINTED);
+                    ;
+                }
+                ;
+
+            }
         }
     }
 

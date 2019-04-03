@@ -23,7 +23,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.listener.PaintActionListnener;
+import diamond.controller.paint.action.PaintActionListnener;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.origami.OriFace;

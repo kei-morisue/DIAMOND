@@ -14,7 +14,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import diamond.controller.paint.ScreenContext;
-import diamond.controller.paint.listener.ScreenAction;
+import diamond.controller.paint.action.ScreenAction;
 
 /**
  * @author long_

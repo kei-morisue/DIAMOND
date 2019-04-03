@@ -98,8 +98,8 @@ public class OriFace {
     }
 
     public Color getColor() {
-        return (isFaceFront()) ? ColorStyle.ORIFACE_FRONT
-                : ColorStyle.ORIFACE_BACK;
+        return (isFaceFront()) ? ColorStyle.ORI_FACE_FRONT
+                : ColorStyle.ORI_FACE_BACK;
     }
 
     public void setTransform(AffineTransform transform) {

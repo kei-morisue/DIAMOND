@@ -20,6 +20,6 @@ public class OriginFaceAction extends AbstractPaintAction {
 
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawMousePoint(g2d, context);
+        drawPointedFace(g2d, context);
     }
 }

@@ -26,8 +26,10 @@ public class ColorStyle {
 
     static public final java.awt.Color ORIFACE = java.awt.Color.gray;
     static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
-    public static final Color ORIFACE_FRONT = Color.gray;
-    public static final Color ORIFACE_BACK = Color.white;
+    public static final Color ORI_FACE_FRONT = Color.gray;
+    public static final Color ORI_FACE_BACK = Color.white;
+    public static final Color ORI_FACE_PICKED = Color.green;
+    public static final Color ORI_FACE_POINTED = Color.green;
 
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;

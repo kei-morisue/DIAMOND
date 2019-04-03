@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.controller.paint.listener;
+package diamond.controller.paint.action;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
