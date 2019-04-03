@@ -7,7 +7,7 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.AnyPointPickkingState;
+import diamond.controller.paint.state.OriFacePickkingState;
 
 /**
  * @author long_
@@ -15,7 +15,7 @@ import diamond.controller.paint.state.AnyPointPickkingState;
  */
 public class OriginFaceAction extends AbstractPaintAction {
     public OriginFaceAction() {
-        setActionState(new AnyPointPickkingState());
+        setActionState(new OriFacePickkingState());
     }
 
     @Override

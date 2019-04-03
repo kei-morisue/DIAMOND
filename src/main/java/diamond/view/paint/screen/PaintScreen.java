@@ -20,7 +20,6 @@ package diamond.view.paint.screen;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.PaintActionListnener;
@@ -85,14 +84,6 @@ public class PaintScreen extends AbstractScreen {
                     l,
                     ColorStyle.getCpColor(l.getType()),
                     LineStrokeSetting.getCpStroke(l.getType()));
-        }
-        Double origin = model.getOriginPoint();
-        if (origin != null) {
-            OriDrawer.drawVertex(
-                    g2d,
-                    origin,
-                    VertexSetting.VERTEX_SIZE,
-                    ColorStyle.ORIPOINT_ORIGIN);
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.Observable;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.origami.OriFace;
 import diamond.view.paint.screen.CoodinateTransform;
 
 /**
@@ -21,6 +22,8 @@ public class ScreenContext extends Observable {
 
     public OriPoint pointedOriPoint = null;
     public OriLine pointedOriLine = null;
+    public OriFace pointedOriFace = null;
+
     public CoodinateTransform transform = new CoodinateTransform(0,
             0);
     public Palette palette;

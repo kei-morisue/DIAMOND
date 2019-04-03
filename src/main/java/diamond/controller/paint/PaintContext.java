@@ -12,6 +12,7 @@ import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.origami.OriFace;
 
 /**
  * @author long_
@@ -23,6 +24,7 @@ public class PaintContext extends ScreenContext {
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();
+    private Stack<OriFace> pickedOriFaces = new Stack<>();
 
     public PaintActionInterface paintAction = new Axiom1Action();
 
@@ -47,6 +49,10 @@ public class PaintContext extends ScreenContext {
 
     public Stack<OriPoint> getPickedPoints() {
         return pickedOriPoints;
+    }
+
+    public Stack<OriFace> getPickedOriFaces() {
+        return this.pickedOriFaces;
     }
 
     public void popLatestPickedPoint() {
