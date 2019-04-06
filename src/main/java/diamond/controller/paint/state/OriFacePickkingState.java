@@ -22,6 +22,18 @@ public class OriFacePickkingState extends AbstractPaintState {
     }
 
     @Override
+    public PaintStateInterface doAction(PaintContext context,
+            Double currentPoint) {
+        if (!onAction(context, currentPoint)) {
+            return this;
+        }
+        onResult(context);
+        context.palette.getOriModel().fold();
+        PaintStateInterface nextState = getNextState();
+        return nextState;
+    }
+
+    @Override
     protected void undoAction(PaintContext context) {
     }
 

@@ -12,8 +12,6 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 
 import diamond.controller.paint.ModelContext;
-import diamond.model.geom.element.fold.FoldPolicy;
-import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.OriDrawer;
@@ -40,7 +38,6 @@ public class ModelScreen extends AbstractScreen {
         transform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(transform.getTransform());
         OriModel model = modelContext.palette.getOriModel();
-        Folder.fold(model, new FoldPolicy());
         OriDrawer.drawModel(g2d, model);
         if (model.getClipper() != null) {
             Clip(g2d);

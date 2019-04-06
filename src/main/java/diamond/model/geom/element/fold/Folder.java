@@ -11,7 +11,6 @@ import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
-import diamond.model.geom.util.OriFaceUtil;
 
 /**
  * @author long_
@@ -22,23 +21,13 @@ public class Folder {
         for (OriFace face : oriModel.getFaces()) {
             face.initialize();
         }
-        OriFace face = getBaseFace(oriModel);
+        OriFace face = oriModel.getBaseFace();
         face.fold(new AffineTransform(), foldPolicy);
         face.setFaceFront(true);
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he, foldPolicy);
         }
         oriModel.getFaces().sort(new OriFaceComparator());
-    }
-
-    public static OriFace getBaseFace(OriModel oriModel) {
-        OriVertex origin = oriModel.getOriginPoint();
-        for (OriFace face : oriModel.getFaces()) {
-            if (OriFaceUtil.onFace(face, origin)) {
-                return face;
-            }
-        }
-        return null;
     }
 
     public static void setAffine(AffineTransform accumulatedTransform,

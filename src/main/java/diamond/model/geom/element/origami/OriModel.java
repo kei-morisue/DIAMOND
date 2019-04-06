@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.origami;
 
-import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -13,6 +12,8 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.fold.FoldPolicy;
+import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
@@ -27,7 +28,7 @@ public class OriModel {
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
-    private OriVertex originPoint = new OriVertex(0.0, 0.0);
+    private OriFace baseFace = null;
     private Clipper clipper;
 
     public OriModel(Cp cp) {
@@ -43,6 +44,15 @@ public class OriModel {
         buildVertices(cp);
         buildFaces();
         buildAuxLines();
+        fold();
+    }
+
+    /**
+     *
+     */
+    public void fold() {
+        baseFace = faces.get(0);
+        Folder.fold(this, new FoldPolicy());
     }
 
     /**
@@ -134,12 +144,12 @@ public class OriModel {
         return this.auxLines;
     }
 
-    public OriVertex getOriginPoint() {
-        return this.originPoint;
+    public OriFace getBaseFace() {
+        return this.baseFace;
     }
 
-    public void setOriginPoint(Point2D.Double originPoint) {
-        this.originPoint = new OriVertex(originPoint.x, originPoint.y);
+    public void setBaseFace(OriFace baseFace) {
+        this.baseFace = baseFace;
     }
 
     public Clipper getClipper() {

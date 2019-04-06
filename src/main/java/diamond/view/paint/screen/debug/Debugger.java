@@ -22,13 +22,15 @@ public class Debugger {
         describe(g2d, paintContext.pointedOriPoint, "Pointed Point", 30);
         describe(g2d, paintContext.pointedOriFace, "Pointed Face", 40);
 
-        describe(g2d, paintContext.getPickedPoints(), "Picked Points", 50);
-
+        describe(g2d, paintContext.getPickedPoints(), "Picked Points", 60);
         describe(g2d, paintContext.getPickedLines(), "Picked Lines", 70);
+        describe(g2d, paintContext.getPickedOriFaces(), "Picked Faces", 80);
 
-        describe(g2d, paintContext.getScale(), "Scale", 80);
+        describe(g2d, paintContext.palette.getOriModel().getBaseFace(),
+                "Base Face", 90);
+
         describe(g2d, paintContext.paintAction.getClass().getName(),
-                "Paint Action", 100);
+                "Paint Action", 110);
 
         describe(g2d, paintContext.palette.getCreasePatterns().size(),
                 "Steps", 120);
