@@ -39,6 +39,7 @@ public class OriModel {
         faces.clear();
         vertices.clear();
         auxLines.clear();
+        baseFace = null;
         darkside = null;
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
@@ -51,7 +52,9 @@ public class OriModel {
      *
      */
     public void fold() {
-        baseFace = faces.get(0);
+        if (baseFace == null) {
+            baseFace = faces.get(0);
+        }
         Folder.fold(this, new FoldPolicy());
     }
 

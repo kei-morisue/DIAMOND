@@ -12,14 +12,7 @@ import diamond.controller.paint.PaintContext;
  * @author long_
  *
  */
-public class OriFacePickkingState extends AbstractPaintState {
-
-    @Override
-    protected void initialize() {
-        setNextClass(OriFacePickkingState.class);
-        setPrevClass(OriFacePickkingState.class);
-
-    }
+abstract public class OriFacePickkingState extends AbstractPaintState {
 
     @Override
     public PaintStateInterface doAction(PaintContext context,

@@ -15,9 +15,15 @@ public class BaseFacePickkingState extends OriFacePickkingState {
     @Override
     protected void onResult(PaintContext context) {
         super.onResult(context);
-        OriFace baseFace = context.getPickedOriFaces().get(0);
+        OriFace baseFace = context.pointedOriFace;
         if (baseFace != null) {
             context.getCp().getOriModel().setBaseFace(baseFace);
         }
+    }
+
+    @Override
+    protected void initialize() {
+        setPrevClass(this.getClass());
+        setNextClass(this.getClass());
     }
 }
