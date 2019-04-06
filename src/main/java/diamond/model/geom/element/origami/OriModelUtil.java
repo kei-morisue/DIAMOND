@@ -21,11 +21,7 @@ public class OriModelUtil {
     }
 
     public static OriVertex getCenterPoint(OriVertex v0, OriVertex v1) {
-        OriVertex centerP = new OriVertex();
-        centerP.add(v0);
-        centerP.add(v1);
-        centerP.scale(0.5);
-        return centerP;
+        return v0.add(v1).scale(0.5);
     }
 
     public static OriVertex getScaledPoint(

@@ -5,6 +5,7 @@
 package diamond.model.geom.element.origami;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
@@ -37,18 +38,10 @@ public class OriHalfEdge {
     }
 
     public void fold(AffineTransform transform) {
+        sv.setFoldedPosition(new Point2D.Double());
+        ev.setFoldedPosition(new Point2D.Double());
         transform.transform(sv, sv.getFoldedPosition());
         transform.transform(ev, ev.getFoldedPosition());
-    }
-
-    public void foldAsAuxLine(AffineTransform transform, double clipScale) {
-        OriVertex centerP = OriModelUtil.getCenterPoint(sv, ev);
-        double scale0 = (sv.onCut()) ? clipScale : 1.0;
-        OriVertex ptSrc0 = OriModelUtil.getScaledPoint(scale0, centerP, sv);
-        double scale1 = (ev.onCut()) ? clipScale : 1.0;
-        OriVertex ptSrc1 = OriModelUtil.getScaledPoint(scale1, centerP, ev);
-        transform.transform(ptSrc0, ptSrc0.getFoldedPosition());
-        transform.transform(ptSrc1, ptSrc0.getFoldedPosition());
     }
 
     public OriHalfEdge getNext() {

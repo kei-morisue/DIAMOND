@@ -21,7 +21,7 @@ public class OriVertex extends AbstractOriVertex {
     private Point2D.Double shearVector = new Point2D.Double(0.0, 0.0);
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
-    private Point2D foldedPosition = new Point2D.Double();
+    private Point2D foldedPosition = null;
 
     public Point2D getFoldedPosition() {
         return this.foldedPosition;

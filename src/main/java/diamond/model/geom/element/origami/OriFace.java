@@ -92,7 +92,7 @@ public class OriFace {
             he.fold(transform);
         }
         for (OriHalfEdge he : auxLines) {
-            he.foldAsAuxLine(transform, foldPolicy.getAuxClipScale());
+            he.fold(transform);
         }
         this.setFoldedOutline();
     }

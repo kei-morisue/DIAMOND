@@ -20,7 +20,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.AXIOM4.name(), "Origami Axiom 4" },
             { LABEL.MOUNTAIN.name(), "Mountain" },
             { LABEL.VALLEY.name(), "Valley" },
-            { LABEL.AUX.name(), "Aux" },
+            { LABEL.AUX.name(), "Crease" },
             { LABEL.AUX_VALLEY.name(), "New Valley" },
             { LABEL.AUX_MOUNTAIN.name(), "New Mountain" },
 
