@@ -33,6 +33,9 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
 
             { LABEL.MODEL_EDIT.name(), "Edit Model" },
+            { LABEL.BASE_FACE.name(), "Base Face" },
+            { LABEL.FACE_TOP.name(), "Set the face top" },
+            { LABEL.FACE_BOTTOM.name(), "Set the face botom" },
 
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },

@@ -5,8 +5,10 @@
 package diamond.controller.paint.state;
 
 import java.awt.geom.Point2D.Double;
+import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.origami.OriFace;
 
 /**
  * @author long_
@@ -22,8 +24,7 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
         }
         onResult(context);
         context.palette.getOriModel().fold();
-        PaintStateInterface nextState = getNextState();
-        return nextState;
+        return getNextState();
     }
 
     @Override
@@ -33,8 +34,11 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
     @Override
     protected void onResult(PaintContext context) {
         if (context.pointedOriFace != null) {
-            context.getPickedOriFaces().push(context.pointedOriFace);
+            Stack<OriFace> pickedOriFaces = context.getPickedOriFaces();
+            pickedOriFaces.clear();
+            pickedOriFaces.push(context.pointedOriFace);
         }
+
     }
 
     @Override

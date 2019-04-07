@@ -8,14 +8,14 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.BaseFacePickkingState;
+import diamond.controller.paint.state.baseface.BaseFacePickkingState;
 
 /**
  * @author long_
  *
  */
-public class OriginFaceAction extends AbstractPaintAction {
-    public OriginFaceAction() {
+public class BaseFaceAction extends AbstractPaintAction {
+    public BaseFaceAction() {
         setActionState(new BaseFacePickkingState());
     }
 

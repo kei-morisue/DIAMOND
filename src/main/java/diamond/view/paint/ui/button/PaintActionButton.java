@@ -15,7 +15,9 @@ import diamond.controller.paint.action.Axiom2Action;
 import diamond.controller.paint.action.Axiom3Action;
 import diamond.controller.paint.action.Axiom4Action;
 import diamond.controller.paint.action.DeleteLineAction;
+import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
+import diamond.controller.paint.action.BaseFaceAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
@@ -66,10 +68,21 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("settle_unsettle");
             this.paintAction = new SettleUnsettleLineAction();
             break;
-
         case DELETE_LINE:
             setIcons("delete");
             this.paintAction = new DeleteLineAction();
+            break;
+        case BASE_FACE:
+            setIcons("base_face");
+            this.paintAction = new BaseFaceAction();
+            break;
+        case FACE_TOP:
+            setIcons("face_top");
+            this.paintAction = new FaceOrderingAction();
+            break;
+        case FACE_BOTTOM:
+            setIcons("face_bottom");
+            this.paintAction = new FaceOrderingAction();
             break;
         default:
             break;

@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.face.OriFace0PickkingState;
+import diamond.controller.paint.state.topface.OriFace0PickkingState;
 
 /**
  * @author long_

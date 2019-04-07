@@ -26,6 +26,9 @@ public class StringKey {
         SYMMETRIC,
 
         MODEL_EDIT,
+        BASE_FACE,
+        FACE_TOP,
+        FACE_BOTTOM,
 
         FILE,
         SAVE,
