@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.OriginFaceAction;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -44,6 +45,16 @@ public class ModelUiPanel extends JPanel {
         });
         JRadioButton b4 = new JRadioButton("Modify Face Order");
         JRadioButton b2 = new JRadioButton("Modify Vertex Position");
+        b2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (b2.isSelected()) {
+                    context.paintAction = new FaceOrderingAction();
+                }
+
+            }
+        });
         JRadioButton b3 = new JRadioButton("Modify Line Position");
         paintActionButtons.add(b1);
         paintActionButtons.add(b2);

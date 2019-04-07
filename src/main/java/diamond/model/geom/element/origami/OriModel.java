@@ -46,6 +46,7 @@ public class OriModel {
         buildFaces();
         buildAuxLines();
         fold();
+        faces.sort(new OriFaceComparator());
     }
 
     /**

@@ -27,7 +27,6 @@ public class Folder {
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he, foldPolicy);
         }
-        oriModel.getFaces().sort(new OriFaceComparator());
     }
 
     public static void setAffine(AffineTransform accumulatedTransform,

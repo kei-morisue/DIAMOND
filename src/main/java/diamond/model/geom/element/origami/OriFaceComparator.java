@@ -2,12 +2,9 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.element.fold;
+package diamond.model.geom.element.origami;
 
 import java.util.Comparator;
-
-import diamond.model.geom.element.origami.OriFace;
-import diamond.model.geom.element.origami.OriHalfEdge;
 
 /**
  * @author long_
@@ -22,12 +19,14 @@ public class OriFaceComparator implements Comparator<OriFace> {
                 if (he1.getPair() == he2) {
                     switch (he1.getType()) {
                     case MOUNTAIN:
+                    case AUX_MOUNTAIN:
                         if (f1.isFaceFront()) {
                             return 1;
                         } else {
                             return -1;
                         }
                     case VALLEY:
+                    case AUX_VALLEY:
                         if (f1.isFaceFront()) {
                             return -1;
                         } else {
