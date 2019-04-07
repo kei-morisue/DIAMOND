@@ -20,7 +20,7 @@ import diamond.model.geom.element.origami.OriFace;
  */
 public class PaintContext extends ScreenContext {
 
-    public LineType inputLineType = LineType.MOUNTAIN;
+    public LineType inputLineType = LineType.AUX_VALLEY;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();

@@ -30,11 +30,9 @@ public class LineTypePanel extends JPanel {
 
     private void addLineTypePanel(PaintContext context,
             ButtonGroup paintActionButtons) {
-        setLayout(new GridLayout(3, 2));
-        addLineTypeButton(LABEL.MOUNTAIN, LineType.MOUNTAIN, context);
-        addLineTypeButton(LABEL.AUX_MOUNTAIN, LineType.AUX_MOUNTAIN, context);
-        addLineTypeButton(LABEL.VALLEY, LineType.VALLEY, context);
+        setLayout(new GridLayout(2, 2));
         addLineTypeButton(LABEL.AUX_VALLEY, LineType.AUX_VALLEY, context);
+        addLineTypeButton(LABEL.AUX_MOUNTAIN, LineType.AUX_MOUNTAIN, context);
         addLineTypeButton(LABEL.AUX, LineType.AUX, context);
         add(new InputLinePanel(context, paintActionButtons));
         UiPanelUtil.setBorder(
@@ -66,7 +64,7 @@ public class LineTypePanel extends JPanel {
         button.addActionListener(new LinetypeButtonAction(type, context));
         lineTypeButtons.add(button);
         add(button);
-        if (label == LABEL.MOUNTAIN) {
+        if (label == LABEL.AUX_VALLEY) {
             button.setSelected(true);
         }
     }

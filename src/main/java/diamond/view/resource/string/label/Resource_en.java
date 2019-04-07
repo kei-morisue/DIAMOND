@@ -21,8 +21,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.MOUNTAIN.name(), "Mountain" },
             { LABEL.VALLEY.name(), "Valley" },
             { LABEL.AUX.name(), "Crease" },
-            { LABEL.AUX_VALLEY.name(), "New Valley" },
-            { LABEL.AUX_MOUNTAIN.name(), "New Mountain" },
+            { LABEL.AUX_VALLEY.name(), "Valley" },
+            { LABEL.AUX_MOUNTAIN.name(), "Mountain" },
 
             { LABEL.CUT.name(), "Cut" },
 
