@@ -48,6 +48,11 @@ public class Palette extends Observable {
         return creasePatterns.get(stepNo);
     }
 
+    public void insertCp() {
+        creasePatterns.add(stepNo + 1, new Cp(getCP()));
+        stepNo += 1;
+    }
+
     public LinkedList<Cp> getCreasePatterns() {
         return this.creasePatterns;
     }
@@ -68,8 +73,5 @@ public class Palette extends Observable {
 
     public void setStepNo(int stepNo) {
         this.stepNo = stepNo;
-        setChanged();
-        notifyObservers();
-
     }
 }

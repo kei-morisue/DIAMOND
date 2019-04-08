@@ -31,6 +31,7 @@ import diamond.controller.paint.Palette;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
 import diamond.view.paint.ui.button.DiagramDestroyButton;
+import diamond.view.paint.ui.button.DiagramInsertButton;
 import diamond.view.paint.ui.button.DiagramSwitchButton;
 import diamond.view.paint.ui.menu.MenuBar;
 import diamond.view.paint.ui.panel.UiPanel;
@@ -86,6 +87,9 @@ public class PaintFrame extends JFrame {
         center.add(
                 new DiagramDestroyButton(paintContext),
                 BorderLayout.SOUTH);
+        center.add(
+                new DiagramInsertButton(paintContext),
+                BorderLayout.NORTH);
         return center;
     }
 
