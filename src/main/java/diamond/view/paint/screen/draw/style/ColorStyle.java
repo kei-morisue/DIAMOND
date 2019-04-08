@@ -13,6 +13,9 @@ import diamond.model.geom.element.LineType;
  *
  */
 public class ColorStyle {
+    public static Color ORI_FACE_FRONT = Color.gray;
+    public static Color ORI_FACE_BACK = Color.white;
+
     static public final java.awt.Color PAINT_SCREEN_BG = java.awt.Color.white;
     static public final java.awt.Color MODEL_SCREEN_BG = java.awt.Color.white;
 
@@ -26,8 +29,6 @@ public class ColorStyle {
 
     static public final java.awt.Color ORIFACE = java.awt.Color.gray;
     static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
-    public static Color ORI_FACE_FRONT = Color.gray;
-    public static Color ORI_FACE_BACK = Color.white;
     public static final Color ORI_FACE_PICKED = Color.green;
     public static final Color ORI_FACE_POINTED = Color.green;
 

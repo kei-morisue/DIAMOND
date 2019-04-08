@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import diamond.controller.option.FaceBackColorStyleAction;
 import diamond.controller.option.FaceFrontColorStyleAction;
@@ -22,6 +24,20 @@ public class StyleFrame extends JFrame {
     public StyleFrame() {
         setTitle(ResourceHolder.getLabelString(LABEL.STYLE));
         setSize(300, 300);
+        JTabbedPane pane = new JTabbedPane();
+        pane.addTab("Line", buildLineTab());
+        pane.addTab("Face", buildFaceTab());
+
+        add(pane);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private JPanel buildLineTab() {
+        return new JPanel();//TODO
+    }
+
+    private JPanel buildFaceTab() {
         String faceFrontLabel = ResourceHolder
                 .getLabelString(LABEL.FACE_FRONT_STYLE);
         String faceBackLabel = ResourceHolder
@@ -34,10 +50,11 @@ public class StyleFrame extends JFrame {
 
         faceFront.addActionListener(new FaceFrontColorStyleAction<JButton>());
         faceBack.addActionListener(new FaceBackColorStyleAction<JButton>());
-        getContentPane().setLayout(new GridLayout(2, 1));
-        getContentPane().add(faceFront);
-        getContentPane().add(faceBack);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        JPanel tab = new JPanel();
+
+        tab.setLayout(new GridLayout(2, 1));
+        tab.add(faceFront);
+        tab.add(faceBack);
+        return tab;
     }
 }
