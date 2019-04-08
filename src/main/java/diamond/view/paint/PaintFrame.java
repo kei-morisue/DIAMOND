@@ -43,8 +43,9 @@ public class PaintFrame extends JFrame {
     private Palette palette = new Palette();
     private PaintContext paintContext = new PaintContext(palette);
     private PaintScreen paintScreen = new PaintScreen(paintContext);
+    private ModelContext modelContext = new ModelContext(palette);
     private ModelScreen modelScreen = new ModelScreen(
-            new ModelContext(palette));
+            modelContext);
 
     public PaintFrame() {
         setSize(Initials.MAIN_FRAME_WIDTH,
@@ -77,11 +78,11 @@ public class PaintFrame extends JFrame {
         center.add(panel, BorderLayout.CENTER);
         center.add(
                 new DiagramSwitchButton(DiagramSwitchButton.NEXT,
-                        paintContext),
+                        modelContext),
                 BorderLayout.EAST);
         center.add(
                 new DiagramSwitchButton(DiagramSwitchButton.PREV,
-                        paintContext),
+                        modelContext),
                 BorderLayout.WEST);
         center.add(
                 new DiagramDestroyButton(paintContext),

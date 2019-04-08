@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import diamond.Initials;
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.palette.cp.editor.LineAdder;
 
@@ -21,6 +22,7 @@ public class Cp {
     private Set<OriLine> lines = new HashSet<>();
     private AffineTransform affineTransform = new AffineTransform();
     private OriModel oriModel;
+    private Diagram diagram = new Diagram();
 
     public OriModel getOriModel() {
         return this.oriModel;
@@ -87,6 +89,14 @@ public class Cp {
             cutLines.add(line);
         }
         return cutLines;
+    }
+
+    public Diagram getDiagram() {
+        return diagram;
+    }
+
+    public void setDiagram(Diagram diagram) {
+        this.diagram = diagram;
     }
 
 }

@@ -10,7 +10,7 @@ import java.awt.geom.AffineTransform;
  * @author long_
  *
  */
-public class CoodinateTransform {
+public class ScreenTransform {
     private AffineTransform focus = AffineTransform
             .getTranslateInstance(0, 0);
     private AffineTransform zoom = AffineTransform.getScaleInstance(1.0, 1.0);
@@ -20,7 +20,7 @@ public class CoodinateTransform {
 
     private AffineTransform affineTransform = new AffineTransform();
 
-    public CoodinateTransform(int width, int height) {
+    public ScreenTransform(int width, int height) {
         focus(width, height);
     }
 

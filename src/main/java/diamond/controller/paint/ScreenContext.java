@@ -11,7 +11,7 @@ import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriFace;
-import diamond.view.paint.screen.CoodinateTransform;
+import diamond.view.paint.screen.ScreenTransform;
 
 /**
  * @author long_
@@ -24,7 +24,7 @@ public class ScreenContext extends Observable {
     public OriLine pointedOriLine = null;
     public OriFace pointedOriFace = null;
 
-    public CoodinateTransform transform = new CoodinateTransform(0,
+    public ScreenTransform transform = new ScreenTransform(0,
             0);
     public Palette palette;
 

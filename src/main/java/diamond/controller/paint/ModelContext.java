@@ -9,7 +9,6 @@ package diamond.controller.paint;
  *
  */
 public class ModelContext extends ScreenContext {
-
     public ModelContext(Palette palette) {
         super(palette);
     }
