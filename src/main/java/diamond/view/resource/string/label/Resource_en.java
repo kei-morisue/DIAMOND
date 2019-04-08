@@ -10,6 +10,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.TITLE.name(),
                     "DIAMOND : Origami Diagram Editor" },
 
+            { LABEL.CP.name(), "Edit Crease Pattern" },
             { LABEL.INPUT_LINE.name(), "Input Line" },
             { LABEL.LINE_PATTERN.name(), "Line Pattern" },
             { LABEL.MODIFY_LINE_TYPE.name(), "Modify Line Type" },
@@ -32,7 +33,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.DELETE_LINE.name(), "Delete Line" },
             { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
 
-            { LABEL.MODEL_EDIT.name(), "Edit Model" },
+            { LABEL.FOLDED.name(), "Edit Folded Model" },
+            { LABEL.FACE.name(), "Edit Face Order" },
             { LABEL.BASE_FACE.name(), "Base Face" },
             { LABEL.FACE_TOP.name(), "Set the face top" },
             { LABEL.FACE_BOTTOM.name(), "Set the face botom" },

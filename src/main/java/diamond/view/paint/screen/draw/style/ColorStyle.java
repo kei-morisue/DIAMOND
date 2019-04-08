@@ -24,11 +24,10 @@ public class ColorStyle {
     public static final Color ORIPOINT_POINTED = Color.green;
     public static final Color ORIPOINT_ORIGIN = Color.yellow;
 
-    static public final java.awt.Color ORIVERTEX = java.awt.Color.black;
-    static public final java.awt.Color WRONG_ORIVERTEX = java.awt.Color.red;
+    static public final java.awt.Color CP_ORI_VERTEX = java.awt.Color.black;
+    static public final java.awt.Color WRONG_ORI_VERTEX = java.awt.Color.red;
 
-    static public final java.awt.Color ORIFACE = java.awt.Color.gray;
-    static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
+    static public final java.awt.Color CP_BASE_ORI_FACE = java.awt.Color.green;
     public static final Color ORI_FACE_PICKED = Color.green;
     public static final Color ORI_FACE_POINTED = Color.green;
 
@@ -38,8 +37,6 @@ public class ColorStyle {
     final public static Color ORILINE_AUX_VALLEY = Color.BLUE;
     final public static Color ORILINE_AUX_MOUNTAIN = Color.RED;
     final public static Color ORILINE_CUT = Color.black;
-    final public static Color ORILINE_GRID = Color.LIGHT_GRAY;
-    final public static Color ORILINE_CANDIDATE = Color.GREEN;
     final public static Color ORILINE_PICKED = Color.GREEN;
     final public static Color ORILINE_POINTED = Color.GREEN;
 

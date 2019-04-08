@@ -52,18 +52,13 @@ public class PaintScreen extends AbstractScreen {
     private void paintCreasePattern(Graphics2D g2d) {
         Cp cp = paintContext.palette.getCP();
         OriModel model = cp.getOriModel();
-        for (OriFace face : model.getFaces()) {
-            OriDrawer.drawFace(g2d, face.getOutline(),
-                    ColorStyle.ORIFACE);
-        }
-        for (OriVertex vertex : model.getVertices()) {
-            OriDrawer.drawVertex(
-                    g2d,
-                    vertex,
-                    VertexStyle.VERTEX_SIZE,
-                    (vertex.isFoldable()) ? ColorStyle.ORIVERTEX
-                            : ColorStyle.WRONG_ORIVERTEX);
-        }
+        paintFaces(g2d, model);
+        paintVertices(g2d, model);
+        paintLines(g2d, cp);
+
+    }
+
+    private void paintLines(Graphics2D g2d, Cp cp) {
         for (OriLine l : cp.getLines()) {
             OriDrawer.drawLine(
                     g2d,
@@ -71,6 +66,26 @@ public class PaintScreen extends AbstractScreen {
                     ColorStyle.getCpColor(l.getType()),
                     LineStrokeStyle.getCpStroke(l.getType()));
         }
+    }
+
+    private void paintVertices(Graphics2D g2d, OriModel model) {
+        for (OriVertex vertex : model.getVertices()) {
+            OriDrawer.drawVertex(
+                    g2d,
+                    vertex,
+                    VertexStyle.VERTEX_SIZE,
+                    (vertex.isFoldable()) ? ColorStyle.CP_ORI_VERTEX
+                            : ColorStyle.WRONG_ORI_VERTEX);
+        }
+    }
+
+    private void paintFaces(Graphics2D g2d, OriModel model) {
+        for (OriFace face : model.getFaces()) {
+            OriDrawer.drawFace(g2d, face.getOutline(),
+                    ColorStyle.ORI_FACE_FRONT);
+        }
+        OriDrawer.drawFace(g2d, model.getBaseFace().getOutline(),
+                ColorStyle.CP_BASE_ORI_FACE);
     }
 
 }

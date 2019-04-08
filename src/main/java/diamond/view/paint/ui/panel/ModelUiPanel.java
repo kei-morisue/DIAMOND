@@ -34,7 +34,7 @@ public class ModelUiPanel extends JPanel {
                 LABEL.FACE_TOP, context);
         UiPanelUtil.setBorder(
                 this,
-                ResourceHolder.getLabelString(LABEL.MODEL_EDIT));
+                ResourceHolder.getLabelString(LABEL.FACE));
     }
 
 }

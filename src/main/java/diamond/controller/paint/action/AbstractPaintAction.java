@@ -175,7 +175,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),
                             LineType.AUX),
-                    ColorStyle.ORILINE_CANDIDATE,
+                    ColorStyle.ORILINE_PICKED,
                     LineStrokeStyle.STROKE_MOVING);
         }
 

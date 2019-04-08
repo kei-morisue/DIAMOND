@@ -5,6 +5,8 @@ public class StringKey {
     public enum LABEL {
         TITLE,
 
+        CP,
+
         INPUT_LINE,
         LINE_PATTERN,
         MODIFY_LINE_TYPE,
@@ -25,7 +27,8 @@ public class StringKey {
         DELETE_LINE,
         SYMMETRIC,
 
-        MODEL_EDIT,
+        FOLDED,
+        FACE,
         BASE_FACE,
         FACE_TOP,
         FACE_BOTTOM,

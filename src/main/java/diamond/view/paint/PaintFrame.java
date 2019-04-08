@@ -56,8 +56,7 @@ public class PaintFrame extends JFrame {
                 LABEL.TITLE));
         add(buildCenterPanel(), BorderLayout.CENTER);
 
-        UiPanel cpUi = new UiPanel(paintContext);
-        add(cpUi, BorderLayout.WEST);
+        add(new UiPanel(paintContext), BorderLayout.WEST);
 
         setJMenuBar(new MenuBar(paintContext));
 
