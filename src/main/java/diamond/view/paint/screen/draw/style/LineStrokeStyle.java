@@ -1,10 +1,10 @@
-package diamond.view.paint.screen.draw;
+package diamond.view.paint.screen.draw.style;
 
 import java.awt.BasicStroke;
 
 import diamond.model.geom.element.LineType;
 
-public class LineStrokeSetting {
+public class LineStrokeStyle {
 
     final public static BasicStroke STROKE_CUT = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);

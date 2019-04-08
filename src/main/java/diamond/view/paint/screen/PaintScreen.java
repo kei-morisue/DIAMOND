@@ -29,10 +29,10 @@ import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.paint.screen.debug.Debugger;
-import diamond.view.paint.screen.draw.ColorStyle;
-import diamond.view.paint.screen.draw.LineStrokeSetting;
 import diamond.view.paint.screen.draw.OriDrawer;
-import diamond.view.paint.screen.draw.VertexSetting;
+import diamond.view.paint.screen.draw.style.ColorStyle;
+import diamond.view.paint.screen.draw.style.LineStrokeStyle;
+import diamond.view.paint.screen.draw.style.VertexStyle;
 
 public class PaintScreen extends AbstractScreen {
     private PaintContext paintContext;
@@ -74,7 +74,7 @@ public class PaintScreen extends AbstractScreen {
             OriDrawer.drawVertex(
                     g2d,
                     vertex,
-                    VertexSetting.VERTEX_SIZE,
+                    VertexStyle.VERTEX_SIZE,
                     (vertex.isFoldable()) ? ColorStyle.ORIVERTEX
                             : ColorStyle.WRONG_ORIVERTEX);
         }
@@ -83,7 +83,7 @@ public class PaintScreen extends AbstractScreen {
                     g2d,
                     l,
                     ColorStyle.getCpColor(l.getType()),
-                    LineStrokeSetting.getCpStroke(l.getType()));
+                    LineStrokeStyle.getCpStroke(l.getType()));
         }
     }
 

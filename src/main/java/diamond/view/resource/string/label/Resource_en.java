@@ -40,6 +40,12 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },
             { LABEL.OPEN.name(), "Open" },
+
+            { LABEL.OPTION.name(), "Option" },
+            { LABEL.STYLE.name(), "Style" },
+            { LABEL.FACE_FRONT_STYLE.name(), "Face Front Style" },
+            { LABEL.FACE_BACK_STYLE.name(), "Face Back Style" },
+
     };
 
     @Override

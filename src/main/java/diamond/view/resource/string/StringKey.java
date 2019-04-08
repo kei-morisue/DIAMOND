@@ -33,6 +33,12 @@ public class StringKey {
         FILE,
         SAVE,
         OPEN,
+
+        OPTION,
+        STYLE,
+        FACE_FRONT_STYLE,
+        FACE_BACK_STYLE,
+
     }
 
     public enum HINT {

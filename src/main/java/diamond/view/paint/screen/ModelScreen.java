@@ -13,8 +13,8 @@ import java.awt.geom.Ellipse2D;
 
 import diamond.controller.paint.ModelContext;
 import diamond.model.geom.element.origami.OriModel;
-import diamond.view.paint.screen.draw.ColorStyle;
 import diamond.view.paint.screen.draw.OriDrawer;
+import diamond.view.paint.screen.draw.style.ColorStyle;
 
 /**
  * @author long_

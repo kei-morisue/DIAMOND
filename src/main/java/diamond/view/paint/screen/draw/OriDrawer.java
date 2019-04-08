@@ -18,6 +18,9 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriModel;
+import diamond.view.paint.screen.draw.style.ColorStyle;
+import diamond.view.paint.screen.draw.style.FontStyle;
+import diamond.view.paint.screen.draw.style.LineStrokeStyle;
 
 /**
  * @author long_
@@ -40,10 +43,10 @@ public class OriDrawer {
 
     public static void drawStepNo(Graphics2D g2d, int step, int size) {
         AffineTransform tmpTransform = g2d.getTransform();
-        g2d.setFont(FontSetting.STEP_NO);
+        g2d.setFont(FontStyle.STEP_NO);
         g2d.setTransform(new AffineTransform());
         g2d.setColor(ColorStyle.STEP_NO);
-        g2d.drawString(String.valueOf(step), 10, FontSetting.STEP_NO.getSize());
+        g2d.drawString(String.valueOf(step), 10, FontStyle.STEP_NO.getSize());
         g2d.setTransform(tmpTransform);
 
     }
@@ -118,14 +121,14 @@ public class OriDrawer {
                         g2d,
                         aux,
                         ColorStyle.getDiagramColor(type),
-                        LineStrokeSetting.getDiagramStroke(type));
+                        LineStrokeStyle.getDiagramStroke(type));
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
                 drawFoldedHalfEdge(
                         g2d,
                         he,
                         ColorStyle.ORI_HALFEDGE,
-                        LineStrokeSetting.getDiagramStroke(he.getType()));
+                        LineStrokeStyle.getDiagramStroke(he.getType()));
             }
         }
     }

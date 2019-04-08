@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.view.paint.screen.draw;
+package diamond.view.paint.screen.draw.style;
 
 import java.awt.Color;
 
@@ -26,8 +26,8 @@ public class ColorStyle {
 
     static public final java.awt.Color ORIFACE = java.awt.Color.gray;
     static public final java.awt.Color WRONG_ORI_FACE = java.awt.Color.red;
-    public static final Color ORI_FACE_FRONT = Color.gray;
-    public static final Color ORI_FACE_BACK = Color.white;
+    public static Color ORI_FACE_FRONT = Color.gray;
+    public static Color ORI_FACE_BACK = Color.white;
     public static final Color ORI_FACE_PICKED = Color.green;
     public static final Color ORI_FACE_POINTED = Color.green;
 
