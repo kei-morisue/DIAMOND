@@ -19,8 +19,8 @@ import diamond.view.resource.ImageIconLoader;
  *
  */
 public class DiagramSwitchButton extends JButton {
-    public static final int LEFT = -1;
-    public static final int RIGHT = 1;
+    public static final int PREV = -1;
+    public static final int NEXT = 1;
 
     private int direction;
     private PaintContext context;
@@ -31,7 +31,7 @@ public class DiagramSwitchButton extends JButton {
         this.context = context;
         ImageIconLoader imgLoader = new ImageIconLoader();
         switch (direction) {
-        case LEFT:
+        case PREV:
             setIcon(imgLoader.loadAsIcon("icon/left.gif"));
             break;
         default:
@@ -45,12 +45,12 @@ public class DiagramSwitchButton extends JButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             Palette palette = context.palette;
-            if (palette.getStepNo() == 0 && direction == LEFT) {
+            if (palette.getStepNo() == 0 && direction == PREV) {
                 return;
             }
             if (palette.getCreasePatterns().size() == palette
                     .getStepNo()
-                    && direction == RIGHT) {
+                    && direction == NEXT) {
                 return;
             }
             palette.setStepNo(palette.getStepNo() + direction);

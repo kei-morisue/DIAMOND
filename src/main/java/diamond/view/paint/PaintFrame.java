@@ -30,6 +30,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.Palette;
 import diamond.view.paint.screen.ModelScreen;
 import diamond.view.paint.screen.PaintScreen;
+import diamond.view.paint.ui.button.DiagramDestroyButton;
 import diamond.view.paint.ui.button.DiagramSwitchButton;
 import diamond.view.paint.ui.menu.MenuBar;
 import diamond.view.paint.ui.panel.UiPanel;
@@ -75,13 +76,16 @@ public class PaintFrame extends JFrame {
         JPanel panel = buildScreens();
         center.add(panel, BorderLayout.CENTER);
         center.add(
-                new DiagramSwitchButton(DiagramSwitchButton.RIGHT,
+                new DiagramSwitchButton(DiagramSwitchButton.NEXT,
                         paintContext),
                 BorderLayout.EAST);
         center.add(
-                new DiagramSwitchButton(DiagramSwitchButton.LEFT,
+                new DiagramSwitchButton(DiagramSwitchButton.PREV,
                         paintContext),
                 BorderLayout.WEST);
+        center.add(
+                new DiagramDestroyButton(paintContext),
+                BorderLayout.SOUTH);
         return center;
     }
 

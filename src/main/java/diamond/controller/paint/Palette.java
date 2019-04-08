@@ -48,6 +48,16 @@ public class Palette extends Observable {
         return this.creasePatterns;
     }
 
+    public void remove(Cp cp) {
+        int index = creasePatterns.indexOf(cp);
+        if (index == creasePatterns.size() - 1) {
+            stepNo -= 1;
+        }
+        if (index != -1) {
+            creasePatterns.remove(cp);
+        }
+    }
+
     public int getStepNo() {
         return this.stepNo;
     }

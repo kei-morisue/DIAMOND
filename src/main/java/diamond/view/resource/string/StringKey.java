@@ -54,5 +54,6 @@ public class StringKey {
         SAVE_FAILED,
         FOLD_FAILED,
         SAME_FILE_EXISTS,
+        DESTROY,
     }
 }
