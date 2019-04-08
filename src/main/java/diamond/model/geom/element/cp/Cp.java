@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import diamond.Initials;
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.palette.cp.editor.LineAdder;
 
@@ -46,7 +47,14 @@ public class Cp {
 
     public Cp(Cp creasePattern) {
         for (OriLine oriLine : creasePattern.getLines()) {
-            lines.add(new OriLine(oriLine));
+            OriLine line = new OriLine(oriLine);
+            if (line.getType() == LineType.AUX_MOUNTAIN) {
+                line.setType(LineType.MOUNTAIN);
+            }
+            if (line.getType() == LineType.AUX_VALLEY) {
+                line.setType(LineType.VALLEY);
+            }
+            lines.add(line);
         }
         oriModel = new OriModel(this);
     }
