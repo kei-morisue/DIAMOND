@@ -95,7 +95,7 @@ public class PaintFrame extends JFrame {
 
     private JPanel buildScreens() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1));
+        panel.setLayout(new GridLayout(1, 2));
         panel.add(paintScreen);
         panel.add(modelScreen);
         return panel;

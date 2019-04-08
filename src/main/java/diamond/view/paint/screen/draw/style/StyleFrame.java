@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import diamond.Initials;
 import diamond.controller.option.FaceBackColorStyleAction;
 import diamond.controller.option.FaceFrontColorStyleAction;
 import diamond.view.resource.ResourceHolder;
@@ -23,7 +24,7 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class StyleFrame extends JFrame {
     public StyleFrame() {
         setTitle(ResourceHolder.getLabelString(LABEL.STYLE));
-        setSize(300, 300);
+        setSize(Initials.STYLE_FRAME_WIDTH, Initials.STYLE_FRAME_HEIGHT);
         JTabbedPane pane = new JTabbedPane();
         pane.addTab("Line", buildLineTab());
         pane.addTab("Face", buildFaceTab());
