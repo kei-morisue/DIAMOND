@@ -7,9 +7,9 @@ package diamond.controller.paint;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 
-import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.view.paint.screen.ScreenTransform;
 
@@ -36,7 +36,7 @@ public class ScreenContext extends Observable {
         return transform.getScale();
     }
 
-    public Cp getCp() {
-        return palette.getCP();
+    public Diagram getDiagram() {
+        return palette.getDiagram();
     }
 }

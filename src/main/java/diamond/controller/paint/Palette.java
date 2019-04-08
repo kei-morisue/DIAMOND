@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 
 import diamond.model.geom.element.cp.Cp;
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriModel;
 
 /**
@@ -15,15 +16,15 @@ import diamond.model.geom.element.origami.OriModel;
  *
  */
 public class Palette extends Observable {
-    private LinkedList<Cp> creasePatterns = new LinkedList<Cp>();
+    private LinkedList<Diagram> diagrams = new LinkedList<Diagram>();
     private int stepNo = 0;
 
     public Palette() {
-        creasePatterns.add(new Cp());
+        diagrams.add(new Diagram());
     }
 
     public int size() {
-        return creasePatterns.size();
+        return diagrams.size();
     }
 
     public OriModel getOriModel() {
@@ -34,36 +35,40 @@ public class Palette extends Observable {
         return oriModel;
     }
 
-    public void setCreasePatterns(LinkedList<Cp> creasePatterns) {
-        this.creasePatterns = creasePatterns;
+    public void setDiagrams(LinkedList<Diagram> diagrams) {
+        this.diagrams = diagrams;
     }
 
     public Cp getCP() {
-        while (stepNo >= creasePatterns.size()) {
-            Cp last = creasePatterns.getLast();
-            creasePatterns.add(new Cp(last));
+        return getDiagram().getCp();
+    }
+
+    public Diagram getDiagram() {
+        while (stepNo >= diagrams.size()) {
+            Diagram last = diagrams.getLast();
+            diagrams.add(new Diagram(last));
             setChanged();
             notifyObservers();
         }
-        return creasePatterns.get(stepNo);
+        return diagrams.get(stepNo);
     }
 
     public void insertCp() {
-        creasePatterns.add(stepNo + 1, new Cp(getCP()));
+        diagrams.add(stepNo + 1, new Diagram(getDiagram()));
         stepNo += 1;
     }
 
-    public LinkedList<Cp> getCreasePatterns() {
-        return this.creasePatterns;
+    public LinkedList<Diagram> getDiagrams() {
+        return this.diagrams;
     }
 
-    public void remove(Cp cp) {
-        int index = creasePatterns.indexOf(cp);
-        if (index == creasePatterns.size() - 1) {
+    public void remove(Diagram diagram) {
+        int index = diagrams.indexOf(diagram);
+        if (index == diagrams.size() - 1) {
             stepNo -= 1;
         }
         if (index != -1) {
-            creasePatterns.remove(cp);
+            diagrams.remove(diagram);
         }
     }
 

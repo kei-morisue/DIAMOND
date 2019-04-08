@@ -52,9 +52,9 @@ public class DiagramSwitchButton extends JButton {
                     && direction == NEXT) {
                 return;
             }
-            palette.getCP().getDiagram().setTransform(context.transform);
+            palette.getDiagram().setTransform(context.transform);
             palette.setStepNo(palette.getStepNo() + direction);
-            context.transform = palette.getCP().getDiagram().getTransform();
+            context.transform = palette.getDiagram().getTransform();
 
         }
     }

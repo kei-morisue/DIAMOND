@@ -24,6 +24,13 @@ public class ScreenTransform {
         focus(width, height);
     }
 
+    public ScreenTransform(ScreenTransform transform) {
+        this.focus = new AffineTransform(transform.translate);
+        this.zoom = new AffineTransform(transform.zoom);
+        this.translate = new AffineTransform(transform.translate);
+        this.rotate = new AffineTransform(transform.rotate);
+    }
+
     public AffineTransform getTransform() {
         affineTransform.setToIdentity();
         affineTransform.concatenate(focus);

@@ -12,4 +12,8 @@ public class Clipper {
     public Clipper() {
 
     }
+
+    public Clipper(Clipper clipper) {
+    }
+
 }

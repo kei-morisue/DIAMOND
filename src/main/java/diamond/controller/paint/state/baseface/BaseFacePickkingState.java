@@ -18,7 +18,8 @@ public class BaseFacePickkingState extends OriFacePickkingState {
         super.onResult(context);
         OriFace baseFace = context.pointedOriFace;
         if (baseFace != null) {
-            context.getCp().getOriModel().setBaseFace(baseFace);
+            context.palette.getDiagram().getCp().getOriModel()
+                    .setBaseFace(baseFace);
         }
     }
 

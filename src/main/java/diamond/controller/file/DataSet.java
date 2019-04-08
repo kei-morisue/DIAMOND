@@ -3,25 +3,25 @@ package diamond.controller.file;
 
 import java.util.LinkedList;
 
-import diamond.model.geom.element.cp.Cp;
+import diamond.model.geom.element.diagram.Diagram;
 
 public class DataSet {
-    private LinkedList<Cp> cps;
+    private LinkedList<Diagram> diagrams;
 
     public DataSet() {
 
     }
 
-    public DataSet(LinkedList<Cp> CreasePatterns) {
-        cps = CreasePatterns;
+    public DataSet(LinkedList<Diagram> diagrams) {
+        this.diagrams = diagrams;
     }
 
-    public LinkedList<Cp> getCps() {
-        return this.cps;
+    public LinkedList<Diagram> getDiagrams() {
+        return this.diagrams;
     }
 
-    public void setCps(LinkedList<Cp> cps) {
-        this.cps = cps;
+    public void setDiagrams(LinkedList<Diagram> diagrams) {
+        this.diagrams = diagrams;
     }
 
 }

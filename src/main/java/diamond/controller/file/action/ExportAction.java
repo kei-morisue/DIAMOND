@@ -34,7 +34,7 @@ public class ExportAction implements ActionListener {
                 .showSaveDialog(parentComponent)) {
             ExporterXML exporterXML = new ExporterXML();
             DataSet data = new DataSet(
-                    paintContext.palette.getCreasePatterns());
+                    paintContext.palette.getDiagrams());
             String path = chooser.getSelectedFile().getPath();
             exporterXML.export(data, path);
         }

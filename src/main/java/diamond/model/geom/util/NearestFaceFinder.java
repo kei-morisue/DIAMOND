@@ -19,7 +19,8 @@ public class NearestFaceFinder {
             PaintContext context) {
         Double point = context.currentLogicalMousePoint;
         OriVertex orivertex = new OriVertex(point.x, point.y);
-        for (OriFace face : context.getCp().getOriModel().getFaces()) {
+        for (OriFace face : context.palette.getDiagram().getCp().getOriModel()
+                .getFaces()) {
             if (OriFaceUtil.onFace(face, orivertex)) {
                 return face;
             }
