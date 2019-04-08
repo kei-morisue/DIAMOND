@@ -34,7 +34,8 @@ public class DiagramDestroyButton extends JButton {
             public void actionPerformed(ActionEvent e) {
                 if (JOptionPane.showConfirmDialog(null,
                         ResourceHolder
-                                .getWarningString(WARNING.DESTROY)) == 0) {
+                                .getWarningString(WARNING.DESTROY)) == 0
+                        && paintContext.palette.size() != 1) {
                     paintContext.palette.remove(paintContext.getCp());
                 }
 

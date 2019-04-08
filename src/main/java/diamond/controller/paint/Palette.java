@@ -22,6 +22,10 @@ public class Palette extends Observable {
         creasePatterns.add(new Cp());
     }
 
+    public int size() {
+        return creasePatterns.size();
+    }
+
     public OriModel getOriModel() {
         OriModel oriModel = getCP().getOriModel();
         if (oriModel == null) {

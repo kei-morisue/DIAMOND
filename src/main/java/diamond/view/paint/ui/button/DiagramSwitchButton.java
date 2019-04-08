@@ -48,8 +48,7 @@ public class DiagramSwitchButton extends JButton {
             if (palette.getStepNo() == 0 && direction == PREV) {
                 return;
             }
-            if (palette.getCreasePatterns().size() == palette
-                    .getStepNo()
+            if (palette.size() == palette.getStepNo()
                     && direction == NEXT) {
                 return;
             }

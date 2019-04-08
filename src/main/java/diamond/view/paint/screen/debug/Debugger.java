@@ -32,7 +32,7 @@ public class Debugger {
         describe(g2d, paintContext.paintAction.getClass().getName(),
                 "Paint Action", 110);
 
-        describe(g2d, paintContext.palette.getCreasePatterns().size(),
+        describe(g2d, paintContext.palette.size(),
                 "Steps", 120);
         describe(g2d, paintContext.palette.getStepNo(),
                 "Focused Step No.", 130);
