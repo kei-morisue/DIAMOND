@@ -5,6 +5,8 @@ public class StringKey {
     public enum LABEL {
         TITLE,
 
+        BUILD_PAGES,
+
         CP,
 
         INPUT_LINE,
