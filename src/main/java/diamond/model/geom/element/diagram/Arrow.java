@@ -7,8 +7,8 @@ package diamond.model.geom.element.diagram;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import diamond.view.paint.screen.draw.style.ColorStyle;
-import diamond.view.paint.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.ColorStyle;
+import diamond.view.screen.draw.style.LineStrokeStyle;
 
 /**
  * @author long_

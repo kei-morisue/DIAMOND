@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.model.geom.element.fold.FoldPolicy;
-import diamond.view.paint.screen.draw.style.ColorStyle;
+import diamond.view.screen.draw.style.ColorStyle;
 
 /**
  * @author long_

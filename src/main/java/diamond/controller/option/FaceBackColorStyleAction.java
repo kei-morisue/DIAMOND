@@ -7,9 +7,9 @@ package diamond.controller.option;
 import java.awt.Color;
 import java.awt.Component;
 
-import diamond.view.paint.screen.draw.style.ColorStyle;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
+import diamond.view.screen.draw.style.ColorStyle;
 
 /**
  * @author long_

@@ -11,7 +11,7 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriFace;
-import diamond.view.paint.screen.ScreenTransform;
+import diamond.view.screen.ScreenTransform;
 
 /**
  * @author long_

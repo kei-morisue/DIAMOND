@@ -16,10 +16,10 @@ import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.util.NearestFaceFinder;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
-import diamond.view.paint.screen.draw.OriDrawer;
-import diamond.view.paint.screen.draw.style.ColorStyle;
-import diamond.view.paint.screen.draw.style.LineStrokeStyle;
-import diamond.view.paint.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.style.ColorStyle;
+import diamond.view.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.VertexStyle;
 
 /**
  * @author long_

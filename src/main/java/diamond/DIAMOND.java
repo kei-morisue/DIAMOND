@@ -1,10 +1,10 @@
 package diamond;
 
-import diamond.view.paint.PaintFrame;
+import diamond.view.MainFrame;
 
 public class DIAMOND {
 
     public static void main(String[] args) {
-        new PaintFrame();
+        new MainFrame();
     }
 }
