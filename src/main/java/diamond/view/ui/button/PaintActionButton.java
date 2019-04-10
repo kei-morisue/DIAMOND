@@ -18,6 +18,7 @@ import diamond.controller.paint.action.BaseFaceAction;
 import diamond.controller.paint.action.DeleteLineAction;
 import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
+import diamond.controller.paint.action.ModifyContourAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
@@ -72,6 +73,11 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("delete");
             this.paintAction = new DeleteLineAction();
             break;
+        case CONTOUR:
+            setIcons("contour");
+            this.paintAction = new ModifyContourAction();
+            break;
+
         case BASE_FACE:
             setIcons("base_face");
             this.paintAction = new BaseFaceAction();
@@ -92,7 +98,7 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
 
     private void setIcons(String iconBaseName) {
         IconSetter.set(this, iconBaseName + ".gif");
-        IconSetter.set(this, iconBaseName + "_p.gif");
+        IconSetter.setSelected(this, iconBaseName + "_p.gif");
     }
 
     @Override

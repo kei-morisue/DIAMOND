@@ -73,4 +73,9 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
         this.x /= length;
         this.y /= length;
     }
+
+    @Override
+    public String toString() {
+        return "(" + String.valueOf(x) + "," + String.valueOf(y) + ")";
+    }
 }

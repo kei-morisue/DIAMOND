@@ -23,12 +23,12 @@ public class Axiom3Action extends AbstractPaintAction {
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
         drawPickedLines(g2d, context);
-        drawPickedVertices(g2d, context);
-        drawPointedVertex(g2d, context);
+        drawPickedPoints(g2d, context);
+        drawPointedPoint(g2d, context);
         if (getActionState().getClass() == OriLine0PickkingState.class) {
             drawPointedLine(g2d, context);
         } else {
-            drawPointedVertex(g2d, context);
+            drawPointedPoint(g2d, context);
         }
     }
 }

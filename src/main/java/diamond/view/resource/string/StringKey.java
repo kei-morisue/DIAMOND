@@ -11,7 +11,7 @@ public class StringKey {
 
         INPUT_LINE,
         LINE_PATTERN,
-        MODIFY_LINE_TYPE,
+        MODIFY_LINE,
 
         AXIOM1,
         AXIOM2,
@@ -28,6 +28,7 @@ public class StringKey {
         SETTLE_UNSETTLE,
         DELETE_LINE,
         SYMMETRIC,
+        CONTOUR,
 
         FOLDED,
         FACE,

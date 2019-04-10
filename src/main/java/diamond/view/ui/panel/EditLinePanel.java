@@ -26,7 +26,7 @@ public class EditLinePanel extends JPanel {
     }
 
     private void addEditLineTypePanel(PaintContext context) {
-        setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(3, 2));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.FLIP_LINE_TYPE,
                 context);
@@ -37,9 +37,11 @@ public class EditLinePanel extends JPanel {
                 LABEL.UNFOLD, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.DELETE_LINE, context);
+        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+                LABEL.CONTOUR, context);
         UiPanelUtil.setBorder(
                 this,
-                ResourceHolder.getLabelString(LABEL.MODIFY_LINE_TYPE));
+                ResourceHolder.getLabelString(LABEL.MODIFY_LINE));
     }
 
 }

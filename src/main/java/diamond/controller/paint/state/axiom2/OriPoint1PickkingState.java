@@ -24,7 +24,7 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
     @Override
     protected void initialize() {
         setPrevClass(OriPoint1PickkingState.class);
-        setNextClass(OriPoint1PickkingState.class);
+        setNextClass(OriPoint0PickkingState.class);
     }
 
     @Override

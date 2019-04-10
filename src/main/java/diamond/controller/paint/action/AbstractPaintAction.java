@@ -112,17 +112,17 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         }
     }
 
-    protected void drawPickedVertices(Graphics2D g2d, PaintContext context) {
+    protected void drawPickedPoints(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedPoints().size(); i++) {
-            OriPoint vertex = context.getPickedPoints().get(i);
+            OriPoint point = context.getPickedPoints().get(i);
             OriDrawer.drawPoint(
-                    g2d, vertex,
+                    g2d, point,
                     VertexStyle.VERTEX_SIZE_PICKED,
                     ColorStyle.ORIPOINT_PICKED);
         }
     }
 
-    protected void drawPointedVertex(Graphics2D g2d,
+    protected void drawPointedPoint(Graphics2D g2d,
             PaintContext context) {
         if (context.pointedOriPoint != null) {
             OriPoint candidate = context.pointedOriPoint;

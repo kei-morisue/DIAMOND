@@ -15,25 +15,26 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.CP.name(), "Edit Crease Pattern" },
             { LABEL.INPUT_LINE.name(), "Input Line" },
             { LABEL.LINE_PATTERN.name(), "Line Pattern" },
-            { LABEL.MODIFY_LINE_TYPE.name(), "Modify Line Type" },
+            { LABEL.MODIFY_LINE.name(), "Modify Line" },
 
             { LABEL.AXIOM1.name(), "Origami Axiom 1" },
             { LABEL.AXIOM2.name(), "Origami Axiom 2" },
             { LABEL.AXIOM3.name(), "Origami Axiom 3" },
             { LABEL.AXIOM4.name(), "Origami Axiom 4" },
+            { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
+
             { LABEL.MOUNTAIN.name(), "Mountain" },
             { LABEL.VALLEY.name(), "Valley" },
             { LABEL.AUX.name(), "Crease" },
             { LABEL.AUX_VALLEY.name(), "Valley" },
             { LABEL.AUX_MOUNTAIN.name(), "Mountain" },
-
             { LABEL.CUT.name(), "Cut" },
 
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
             { LABEL.UNFOLD.name(), "Fold / Unfold Line" },
             { LABEL.SETTLE_UNSETTLE.name(), "Settle/ Unsettle Line Type" },
             { LABEL.DELETE_LINE.name(), "Delete Line" },
-            { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
+            { LABEL.CONTOUR.name(), "Modify the paper form" },
 
             { LABEL.FOLDED.name(), "Edit Folded Model" },
             { LABEL.FACE.name(), "Edit Face Order" },

@@ -7,21 +7,22 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.symmetric.OriPoint0PickkingState;
+import diamond.controller.paint.state.modifycontour.OriLine0PickkingState;
 
 /**
  * @author long_
  *
  */
-public class SymmetricLineAction extends AbstractPaintAction {
-
-    public SymmetricLineAction() {
-        setActionState(new OriPoint0PickkingState());
+public class ModifyContourAction extends AbstractPaintAction {
+    public ModifyContourAction() {
+        super();
+        setActionState(new OriLine0PickkingState());
     }
 
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPickedPoints(g2d, context);
-        drawPointedPoint(g2d, context);
+        drawPointedLine(g2d, context);
+        drawTemporaryLine(g2d, context);
     }
+
 }
