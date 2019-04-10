@@ -49,7 +49,7 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     }
 
     public double angle(OriPoint origin) {
-        return Math.atan2(this.y - y, this.x - x);
+        return Math.atan2(this.y - origin.y, this.x - origin.x);
     }
 
     public double lengthSquared() {

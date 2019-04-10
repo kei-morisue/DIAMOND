@@ -129,7 +129,7 @@ public class LineUtil {
 
     public static boolean isParallel(OriPoint dir0, OriPoint dir1) {
         // tolerance of 1 degree
-        return Math.abs(Math.sin(dir0.angle(dir1))) < 0.001;
+        return Math.abs(Math.sin(dir0.angle(dir1))) < Constants.EPS;
     }
 
     public static boolean isLineSegmentsOverlap(
