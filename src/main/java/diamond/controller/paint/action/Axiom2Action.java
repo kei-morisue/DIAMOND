@@ -22,7 +22,6 @@ public class Axiom2Action extends AbstractPaintAction {
     public void onDraw(Graphics2D g2d, PaintContext context) {
         drawPickedLines(g2d, context);
         drawPickedPoints(g2d, context);
-        drawTemporaryLine(g2d, context);
         drawPointedPoint(g2d, context);
     }
 }

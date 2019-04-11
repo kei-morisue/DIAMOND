@@ -92,7 +92,9 @@ public class Cp {
     public Set<OriLine> getCutLines() {
         Set<OriLine> cutLines = new HashSet<>();
         for (OriLine line : lines) {
-            cutLines.add(line);
+            if (line.type == LineType.CUT) {
+                cutLines.add(line);
+            }
         }
         return cutLines;
     }
