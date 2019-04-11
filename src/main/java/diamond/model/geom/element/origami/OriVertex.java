@@ -63,8 +63,8 @@ public class OriVertex extends AbstractOriVertex {
         return new OriVertex(x * scale, y * scale);
     }
 
-    public double angle(OriVertex origin) {
-        return Math.atan2(y - origin.y, x - origin.x);
+    public double angle(OriVertex vertex) {
+        return Math.atan2(y, x) - Math.atan2(vertex.y, vertex.x);
     }
 
     public boolean isAuxVertex() {
