@@ -28,8 +28,8 @@ public class Kawasaki {
             OriVertex nxtP = edges
                     .get((i + 1) % edges.size()).getPair().getSv();
 
-            nxtP.sub(v);
-            preP.sub(v);
+            nxtP = nxtP.sub(v);
+            preP = preP.sub(v);
 
             if (i % 2 == 0) {
                 oddSum += preP.angle(nxtP);
