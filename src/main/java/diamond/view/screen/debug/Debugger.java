@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
 import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.style.FontStyle;
 
 /**
  * @author long_
@@ -16,6 +17,7 @@ import diamond.view.screen.draw.OriDrawer;
 public class Debugger {
     public static void debugPaintContext(Graphics2D g2d,
             PaintContext paintContext) {
+        g2d.setFont(FontStyle.DEBUG);
         describe(g2d, paintContext.currentLogicalMousePoint,
                 "Current Logocal Point", 10);
         describe(g2d, paintContext.pointedOriLine, "Pointed Line", 20);

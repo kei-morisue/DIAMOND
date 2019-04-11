@@ -6,6 +6,7 @@ package diamond.model.palette.cp.validator;
 
 import java.util.LinkedList;
 
+import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriVertex;
@@ -23,7 +24,6 @@ public class Kawasaki {
             if (e.getType() == LineType.CUT) {
                 return true;
             }
-
             OriVertex preP = edges.get(i).getPair().getSv();
             OriVertex nxtP = edges
                     .get((i + 1) % edges.size()).getPair().getSv();
@@ -36,8 +36,7 @@ public class Kawasaki {
             } else {
             }
         }
-        if (Math.abs(oddSum - Math.PI) > Math.PI / 180 / 2) {
-            // System.out.println("edge angle sum invalid");
+        if (Math.abs(Math.sin(oddSum - Math.PI)) > Constants.EPS) {
             return false;
         }
         return true;

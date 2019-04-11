@@ -54,7 +54,7 @@ public class OriFace {
     }
 
     public void setOutline(double scale) {
-        OriVertex centerP = OriModelUtil.getCenterPoint(halfEdges);
+        OriVertex centerP = OriModelUtil.getCenterPoint(this);
         for (OriHalfEdge he : halfEdges) {
             OriVertex sv = he.getSv();
             OriVertex scaledPoint = OriModelUtil.getScaledPoint(scale, centerP,

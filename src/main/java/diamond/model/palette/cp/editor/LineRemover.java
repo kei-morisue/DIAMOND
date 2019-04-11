@@ -51,8 +51,8 @@ public class LineRemover {
         }
 
         // Check if the lines have the same angle
-        OriPoint dir0 = new OriPoint(l0.p1.x - l0.p0.x, l0.p1.y - l0.p0.y);
-        OriPoint dir1 = new OriPoint(l1.p1.x - l1.p0.x, l1.p1.y - l1.p0.y);
+        OriPoint dir0 = l0.p1.sub(l0.p0);
+        OriPoint dir1 = l1.p1.sub(l1.p0);
 
         dir0.normalize();
         dir1.normalize();

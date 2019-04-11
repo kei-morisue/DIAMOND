@@ -6,6 +6,7 @@ package diamond.view.screen;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.LinkedList;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.PaintActionListnener;
@@ -80,12 +81,17 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private void paintFaces(Graphics2D g2d, OriModel model) {
-        for (OriFace face : model.getFaces()) {
+        LinkedList<OriFace> faces = model.getFaces();
+        for (OriFace face : faces) {
             OriDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORI_FACE_FRONT);
+            OriDrawer.drawFaceNo(g2d, face, faces);
         }
-        OriDrawer.drawFace(g2d, model.getBaseFace().getOutline(),
+        OriFace baseFace = model.getBaseFace();
+        OriDrawer.drawFace(g2d, baseFace.getOutline(),
                 ColorStyle.CP_BASE_ORI_FACE);
+        OriDrawer.drawFaceNo(g2d, baseFace, faces);
+
     }
 
 }

@@ -23,9 +23,9 @@ public class LineClipper {
             OriPoint cp = CrossPointUtil.getCrossPoint(line, cutLine);
             if (cp != null) {
                 if (p0 == null) {
-                    p0 = new OriPoint(cp.x, cp.y);
+                    p0 = cp;
                 } else {
-                    p1 = new OriPoint(cp.x, cp.y);
+                    p1 = cp;
                 }
             }
         }
