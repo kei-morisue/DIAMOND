@@ -5,12 +5,18 @@
 package diamond.model.geom.element.origami;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author long_
  *
  */
 public class OriFaceComparator implements Comparator<OriFace> {
+    List<OriFace> faces;
+
+    public OriFaceComparator(List<OriFace> faces) {
+        this.faces = faces;
+    }
 
     @Override
     public int compare(OriFace f1, OriFace f2) {

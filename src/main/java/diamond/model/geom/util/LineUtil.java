@@ -6,8 +6,6 @@ package diamond.model.geom.util;
 
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Vector2d;
-
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -105,65 +103,22 @@ public class LineUtil {
             OriPoint v,
             OriLine line,
             LineType type) {
-        double x0 = line.p0.x;
-        double y0 = line.p0.y;
-        double x1 = line.p1.x;
-        double y1 = line.p1.y;
-        double px = v.x;
-        double py = v.y;
-        Vector2d sub0, sub, sub0b;
+        OriPoint p0 = line.p0;
+        OriPoint p1 = line.p1;
+        OriPoint sub0, sub, sub0b;
 
-        sub0 = new Vector2d(x0 - px, y0 - py);
-
-        sub0b = new Vector2d(-sub0.x, -sub0.y);
-        sub = new Vector2d(x1 - x0, y1 - y0);
+        sub0 = p0.sub(v);
+        sub0b = sub0.negate();
+        sub = p1.sub(p0);
 
         double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
                 / ((sub.x * sub.x) + (sub.y * sub.y));
 
-        return new OriLine(
-                new OriPoint(x0 + t * sub.x, y0 + t * sub.y),
-                new OriPoint(px, py),
-                type);
+        return new OriLine(p0.add(sub.scale(t)), v, type);
     }
 
     public static boolean isParallel(OriPoint dir0, OriPoint dir1) {
-        // tolerance of 1 degree
         return Math.abs(Math.sin(dir0.angle(dir1))) < Constants.EPS;
-    }
-
-    public static boolean isLineSegmentsOverlap(
-            OriPoint s0,
-            OriPoint e0,
-            OriPoint s1,
-            OriPoint e1) {
-        // Whether or not is parallel
-        OriPoint dir0 = e0.sub(s0);
-        OriPoint dir1 = e1.sub(s1);
-
-        if (!isParallel(dir0, dir1)) {
-            return false;
-        }
-
-        int cnt = 0;
-        if (DistanceUtil.DistancePointToSegment(s0, s1, e1) < Constants.EPS) {
-            cnt++;
-        }
-        if (DistanceUtil.DistancePointToSegment(e0, s1, e1) < Constants.EPS) {
-            cnt++;
-        }
-        if (DistanceUtil.DistancePointToSegment(s1, s0, e0) < Constants.EPS) {
-            cnt++;
-        }
-        if (DistanceUtil.DistancePointToSegment(e1, s0, e0) < Constants.EPS) {
-            cnt++;
-        }
-
-        if (cnt >= 2) {
-            return true;
-        }
-        return false;
-
     }
 
     public static boolean isSameLineSegment(OriLine l0, OriLine l1) {
@@ -179,56 +134,4 @@ public class LineUtil {
         return false;
     }
 
-    public static boolean isSegmentsCross(Vector2d p0, Vector2d p1, Vector2d q0,
-            Vector2d q1) {
-
-        // Rough check
-        // Check by coordinates x
-        if (p0.x >= p1.x) {
-            if ((p0.x < q0.x && p0.x < q1.x) || (p1.x > q0.x && p1.x > q1.x)) {
-                return false;
-            }
-        } else {
-            if ((p1.x < q0.x && p1.x < q1.x) || (p0.x > q0.x && p0.x > q1.x)) {
-                return false;
-            }
-        }
-
-        // checked by the coordinate y
-        if (p0.y >= p1.y) {
-            if ((p0.y < q0.y && p0.y < q1.y) || (p1.y > q0.y && p1.y > q1.y)) {
-                return false;
-            }
-        } else {
-            if ((p1.y < q0.y && p1.y < q1.y) || (p0.y > q0.y && p0.y > q1.y)) {
-                return false;
-            }
-        }
-
-        // >= 0.0 means that when p0 == q0, for example, returns false
-        if (((p0.x - p1.x) * (q0.y - p0.y) + (p0.y - p1.y) * (p0.x - q0.x))
-                * ((p0.x - p1.x) * (q1.y - p0.y)
-                        + (p0.y - p1.y) * (p0.x - q1.x)) >= 0.0) {
-            return false;
-        }
-
-        if (((q0.x - q1.x) * (p0.y - q0.y) + (q0.y - q1.y) * (q0.x - p0.x))
-                * ((q0.x - q1.x) * (p1.y - q0.y)
-                        + (q0.y - q1.y) * (q0.x - p1.x)) >= 0.0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public static OriLine getLineByValue(OriPoint sv, double length,
-            double deg_angle, LineType type) {
-        OriPoint ev = new OriPoint(sv);
-        double rad_angle = Math.toRadians(deg_angle);
-        OriPoint dir = new OriPoint(length * Math.cos(rad_angle),
-                length * Math.sin(rad_angle));
-        ev.add(dir);
-        return new OriLine(new OriPoint(sv.x, sv.y), new OriPoint(ev.x, ev.y),
-                type);
-    }
 }

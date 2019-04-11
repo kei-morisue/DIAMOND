@@ -60,6 +60,10 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
         return new OriPoint(this.x - p.x, this.y - p.y);
     }
 
+    public OriPoint negate() {
+        return new OriPoint(-this.x, -this.y);
+    }
+
     public OriPoint add(OriPoint p) {
         return new OriPoint(this.x + p.x, this.y + p.y);
     }

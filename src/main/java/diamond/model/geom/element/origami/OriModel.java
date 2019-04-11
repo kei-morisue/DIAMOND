@@ -54,7 +54,7 @@ public class OriModel {
             baseFace = faces.get(0);
         }
         Folder.fold(this, new FoldPolicy());
-        faces.sort(new OriFaceComparator());
+        faces.sort(new OriFaceComparator(faces));
     }
 
     /**
