@@ -14,8 +14,8 @@ import diamond.model.geom.util.CrossPointUtil;
  * @author long_
  *
  */
-public class LineClipper {//TBD seems wierd
-    public static OriLine clipByCutLines(OriLine line, Set<OriLine> cutLines) {
+public class LineClipper {
+    public static OriLine clip(OriLine line, Set<OriLine> cutLines) {
         OriPoint p0, p1;
         p0 = null;
         p1 = null;

@@ -8,12 +8,9 @@ import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriLinePickkingState;
-import diamond.model.geom.element.Line;
-import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.util.CrossPointUtil;
-import diamond.model.geom.util.GeomUtil;
+import diamond.model.geom.util.BisectorUtil;
 
 /**
  * @author long_
@@ -38,25 +35,10 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         OriPoint v1 = pickedPoints.get(1);
         OriPoint v2 = pickedPoints.get(2);
         OriLine l = pickedLines.get(0);
-        OriLine line = createAngleBisectorLine(v0, v1,
+        OriLine line = BisectorUtil.getOriLine(v0, v1,
                 v2, l, context.inputLineType);
         context.palette.getCP().addLine(line);
         pickedPoints.clear();
         pickedLines.clear();
-    }
-
-    public OriLine createAngleBisectorLine(
-            OriPoint v0, OriPoint v1, OriPoint v2,
-            OriLine l,
-            LineType type) {
-
-        OriPoint dir = GeomUtil.getBisectorVec(v0, v1, v2);
-        OriPoint cp = CrossPointUtil.getCrossPoint(
-                new Line(l.p0, new OriPoint(l.p1.x - l.p0.x, l.p1.y - l.p0.y)),
-                new Line(v1, dir));
-
-        OriLine bisector = new OriLine(v1, cp, type);
-        return bisector;
-
     }
 }

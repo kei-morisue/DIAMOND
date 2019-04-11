@@ -220,4 +220,15 @@ public class LineUtil {
 
         return true;
     }
+
+    public static OriLine getLineByValue(OriPoint sv, double length,
+            double deg_angle, LineType type) {
+        OriPoint ev = new OriPoint(sv);
+        double rad_angle = Math.toRadians(deg_angle);
+        OriPoint dir = new OriPoint(length * Math.cos(rad_angle),
+                length * Math.sin(rad_angle));
+        ev.add(dir);
+        return new OriLine(new OriPoint(sv.x, sv.y), new OriPoint(ev.x, ev.y),
+                type);
+    }
 }

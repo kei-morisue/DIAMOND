@@ -18,6 +18,7 @@
 
 package diamond.model.geom.element;
 
+import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 
 public class Line {
@@ -28,6 +29,12 @@ public class Line {
     public Line(OriPoint p, OriPoint dir) {
         this.p = p;
         this.dir = dir;
+        dir.normalize();
+    }
+
+    public Line(OriLine l) {
+        this.p = l.p0;
+        this.dir = new OriPoint(l.p1.x - l.p0.x, l.p1.y - l.p0.y);
         dir.normalize();
     }
 }

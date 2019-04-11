@@ -24,8 +24,6 @@ public class UiPanel extends JTabbedPane {
         addTab(ResourceHolder.getLabelString(LABEL.CP), buildCpUi(context));
         addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
                 buildModelU(context));
-        addTab(ResourceHolder.getLabelString(LABEL.BUILD_PAGES),
-                buildPreviewUi(context));
 
     }
 
@@ -42,9 +40,5 @@ public class UiPanel extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new ModelUiPanel(context, paintActionButtons));
         return panel;
-    }
-
-    private JPanel buildPreviewUi(PaintContext context) {
-        return new BuildPagesPanel(context);
     }
 }

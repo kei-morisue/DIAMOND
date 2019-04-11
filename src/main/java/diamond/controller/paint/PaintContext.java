@@ -69,7 +69,7 @@ public class PaintContext extends ScreenContext {
     public void initialize() {
         pickedOriLines.clear();
         pickedOriPoints.clear();
-
+        pickedOriFaces.clear();
         pointedOriLine = null;
         pointedOriPoint = null;
     }

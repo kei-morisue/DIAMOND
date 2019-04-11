@@ -104,6 +104,7 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (isSelected()) {
+            paintContext.initialize();
             paintContext.paintAction = paintAction;
         }
     }
