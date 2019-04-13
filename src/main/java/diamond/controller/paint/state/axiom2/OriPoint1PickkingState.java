@@ -39,4 +39,9 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
         pickedPoints.clear();
     }
 
+    @Override
+    protected void rebuild(PaintContext context) {
+        context.palette.getCP().rebuildModel();
+    }
+
 }

@@ -17,18 +17,13 @@ import diamond.model.geom.element.origami.OriFace;
 abstract public class OriFacePickkingState extends AbstractPaintState {
 
     @Override
-    public PaintStateInterface doAction(PaintContext context,
-            Double currentPoint) {
-        if (!onAction(context, currentPoint)) {
-            return this;
-        }
-        onResult(context);
-        context.palette.getOriModel().fold();
-        return getNextState();
+    protected void undoAction(PaintContext context) {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void rebuild(PaintContext context) {
+        context.palette.getOriModel().fold();
+
     }
 
     @Override

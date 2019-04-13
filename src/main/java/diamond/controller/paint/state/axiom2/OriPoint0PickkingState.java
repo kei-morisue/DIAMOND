@@ -23,4 +23,8 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     protected void onResult(PaintContext context) {
     }
 
+    @Override
+    protected void rebuild(PaintContext context) {
+    }
+
 }

@@ -28,6 +28,8 @@ public abstract class AbstractPaintState implements PaintStateInterface {
 
     protected abstract void onResult(PaintContext context);
 
+    protected abstract void rebuild(PaintContext context);
+
     protected abstract boolean onAction(
             PaintContext context,
             Point2D.Double currentPoint);
@@ -40,7 +42,7 @@ public abstract class AbstractPaintState implements PaintStateInterface {
             return this;
         }
         onResult(context);
-        context.palette.getCP().rebuildModel();
+        rebuild(context);
         PaintStateInterface nextState = getNextState();
         return nextState;
     }

@@ -23,6 +23,11 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
     }
 
     @Override
+    protected void rebuild(PaintContext context) {
+        context.palette.getCP().rebuildModel();
+    }
+
+    @Override
     protected boolean onAction(
             PaintContext context,
             Double currentPoint) {

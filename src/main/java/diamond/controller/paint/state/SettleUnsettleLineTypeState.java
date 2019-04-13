@@ -27,4 +27,10 @@ public class SettleUnsettleLineTypeState extends OriLinePickkingState {
         context.getPickedLines().clear();
     }
 
+    @Override
+    protected void rebuild(PaintContext context) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
 }

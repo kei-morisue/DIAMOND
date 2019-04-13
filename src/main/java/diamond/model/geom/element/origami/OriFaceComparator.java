@@ -24,11 +24,16 @@ public class OriFaceComparator implements Comparator<OriFace> {
 
     @Override
     public int compare(OriFace f0, OriFace f1) {
-        for (OriFace oriFace : faces) {
-            oriFace.footPrint = false;
-        }
-        res = 0;
         tryCompare(f0, f1, null);
+        for (OriFace face : faces) {
+            tryCompare(face, f0, null);
+            if (res == 0) {
+                tryCompare(face, f1, null);
+                if (res != 0) {
+                    return res;
+                }
+            }
+        }
         return res;
     }
 
@@ -37,26 +42,34 @@ public class OriFaceComparator implements Comparator<OriFace> {
      * @param f1
      */
     private void tryCompare(OriFace f0, OriFace f1, LineType type) {
+        for (OriFace oriFace : faces) {
+            oriFace.footPrint = false;
+        }
+        res = 0;
+
         for (OriHalfEdge he1 : f0.getHalfEdges()) {
             if (he1.getPair().getFace() == f1 && he1.getType() != type) {
                 determine(f0, he1);
+                return;
             }
         }
-        f0.footPrint = true;
-
         for (OriHalfEdge halfEdge : f0.getHalfEdges()) {
             if (halfEdge.getType() == LineType.CUT) {
+                continue;
+            }
+            if (halfEdge.getType() == type) {
                 continue;
             }
             OriFace face = halfEdge.getPair().getFace();
             if (face.footPrint) {
                 continue;
             }
-            if (halfEdge.getType() == type) {
-                continue;
-            }
             tryCompare(face, f1, halfEdge.getType());
+            if (res != 0) {
+                return;
+            }
         }
+        f0.footPrint = true;
     }
 
     private void determine(OriFace f1, OriHalfEdge he1) {
