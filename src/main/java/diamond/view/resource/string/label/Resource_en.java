@@ -31,7 +31,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.CUT.name(), "Cut" },
 
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
-            { LABEL.UNFOLD.name(), "Fold / Unfold Line" },
+            { LABEL.FOLD_UNFOLD.name(), "Fold / Unfold Line" },
             { LABEL.SETTLE_UNSETTLE.name(), "Settle/ Unsettle Line Type" },
             { LABEL.DELETE_LINE.name(), "Delete Line" },
             { LABEL.CONTOUR.name(), "Modify the paper form" },

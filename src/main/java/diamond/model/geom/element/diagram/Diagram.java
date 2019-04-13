@@ -21,7 +21,7 @@ public class Diagram {
     }
 
     public Diagram(Diagram diagram) {
-        this.transform = new ScreenTransform(transform);
+        this.transform = new ScreenTransform(diagram.getTransform());
         this.cp = new Cp(diagram.cp);
         this.clipper = new Clipper(diagram.clipper);
     }

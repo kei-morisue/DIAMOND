@@ -26,7 +26,7 @@ public class OriFaceComparator implements Comparator<OriFace> {
     public int compare(OriFace f0, OriFace f1) {
         tryCompare(f0, f1, null);
         for (OriFace face : faces) {
-            tryCompare(face, f0, null);
+            tryCompare(f0, face, null);
             if (res == 0) {
                 tryCompare(face, f1, null);
                 if (res != 0) {

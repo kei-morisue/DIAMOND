@@ -24,7 +24,7 @@ public class StringKey {
         AUX_VALLEY,
         AUX_MOUNTAIN,
         FLIP_LINE_TYPE,
-        UNFOLD,
+        FOLD_UNFOLD,
         SETTLE_UNSETTLE,
         DELETE_LINE,
         SYMMETRIC,

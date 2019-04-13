@@ -61,8 +61,8 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("flip");
             this.paintAction = new FlipLineTypeAction();
             break;
-        case UNFOLD:
-            setIcons("unfold");
+        case FOLD_UNFOLD:
+            setIcons("fold_unfold");
             this.paintAction = new UnfoldLineAction();
             break;
         case SETTLE_UNSETTLE:

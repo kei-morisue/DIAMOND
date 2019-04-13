@@ -23,7 +23,11 @@ public class UnfoldLineState extends OriLinePickkingState {
     protected void onResult(PaintContext context) {
 
         OriLine oriLine = context.getPickedLines().get(0);
-        oriLine.setType(LineType.AUX);
+        if (oriLine.getType() != LineType.AUX) {
+            oriLine.setType(LineType.AUX);
+        } else {
+            oriLine.setType(LineType.AUX_MOUNTAIN);
+        }
         context.getPickedLines().clear();
     }
 
