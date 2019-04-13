@@ -165,7 +165,6 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORI_FACE_POINTED);
         }
-
     }
 
     protected void drawTemporaryLine(Graphics2D g2d, PaintContext context) {

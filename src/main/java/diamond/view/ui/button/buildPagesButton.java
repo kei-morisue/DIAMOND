@@ -24,6 +24,7 @@ public class buildPagesButton extends JButton {
 
     public buildPagesButton(PaintContext paintContext) {
         setBackground(Color.white);
+        setSize(30, 30);
         IconSetter.set(this, "build.gif");
         this.paintContext = paintContext;
         this.paintContext = paintContext;

@@ -27,6 +27,7 @@ public class OriFace {
     private GeneralPath outline = null;
     private GeneralPath foldedOutline = null;
     private AffineTransform transform = null;
+    public boolean footPrint = false;
 
     public void initialize() {
         faceFront = true;
