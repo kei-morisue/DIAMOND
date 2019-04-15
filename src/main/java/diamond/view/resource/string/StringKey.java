@@ -28,6 +28,8 @@ public class StringKey {
         SETTLE_UNSETTLE,
         DELETE_LINE,
         SYMMETRIC,
+        MIRROR,
+
         CONTOUR,
 
         FOLDED,

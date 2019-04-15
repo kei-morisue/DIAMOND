@@ -10,7 +10,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.util.LineUtil;
+import diamond.model.geom.util.OriLineUtil;
 
 /**
  * @author long_
@@ -31,7 +31,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         if (pickedLines.size() != 1 || pickedPoints.size() != 1) {
             throw new RuntimeException();
         }
-        OriLine line = LineUtil.getVerticalLine(
+        OriLine line = OriLineUtil.getVerticalLine(
                 pickedPoints.get(0), pickedLines.get(0),
                 context.inputLineType);
 

@@ -21,7 +21,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.AXIOM2.name(), "Origami Axiom 2" },
             { LABEL.AXIOM3.name(), "Origami Axiom 3" },
             { LABEL.AXIOM4.name(), "Origami Axiom 4" },
-            { LABEL.SYMMETRIC.name(), "Mirroring the Line" },
+            { LABEL.SYMMETRIC.name(), "Revursive Mirroring the Line" },
+            { LABEL.MIRROR.name(), "Mirroring the Line" },
 
             { LABEL.MOUNTAIN.name(), "Mountain" },
             { LABEL.VALLEY.name(), "Valley" },

@@ -15,7 +15,7 @@ import diamond.model.geom.element.cp.OriPoint;
  * @author long_
  *
  */
-public class LineUtil {
+public class OriLineUtil {
     private static void set(Point2D.Double p0, double x, double y) {//TODO
         p0.x = x;
         p0.y = y;
@@ -134,4 +134,10 @@ public class LineUtil {
         return false;
     }
 
+    public static OriLine mirroredLine(OriLine line,
+            OriLine baseOriLine) {
+        OriPoint q0 = OriPointUtil.mirroredPoint(line.p0, baseOriLine);
+        OriPoint q1 = OriPointUtil.mirroredPoint(line.p1, baseOriLine);
+        return new OriLine(q0, q1, line.getType());
+    }
 }

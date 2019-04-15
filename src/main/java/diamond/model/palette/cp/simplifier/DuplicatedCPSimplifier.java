@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.util.LineUtil;
+import diamond.model.geom.util.OriLineUtil;
 
 /**
  * @author long_
@@ -32,7 +32,7 @@ public class DuplicatedCPSimplifier {
             boolean bSame = false;
             // Test if the line is already in tmpLines to prevent duplicity
             for (OriLine line : tmpLines) {
-                if (LineUtil.isSameLineSegment(line, ll)) {
+                if (OriLineUtil.isSameLineSegment(line, ll)) {
                     bSame = true;
                     break;
                 }

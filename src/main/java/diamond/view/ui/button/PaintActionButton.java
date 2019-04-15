@@ -18,6 +18,7 @@ import diamond.controller.paint.action.BaseFaceAction;
 import diamond.controller.paint.action.DeleteLineAction;
 import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
+import diamond.controller.paint.action.MirrorAction;
 import diamond.controller.paint.action.ModifyContourAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
@@ -56,6 +57,10 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
         case SYMMETRIC:
             setIcons("symmetric");
             this.paintAction = new SymmetricLineAction();
+            break;
+        case MIRROR:
+            setIcons("mirror");
+            this.paintAction = new MirrorAction();
             break;
         case FLIP_LINE_TYPE:
             setIcons("flip");

@@ -14,10 +14,10 @@ import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.CrossPointUtil;
 import diamond.model.geom.util.DistanceUtil;
-import diamond.model.geom.util.LineUtil;
+import diamond.model.geom.util.OriLineUtil;
 
 public class LineAdder {
-    private class PointComparatorX implements Comparator<OriPoint> {
+    private static class PointComparatorX implements Comparator<OriPoint> {
 
         @Override
         public int compare(OriPoint v1, OriPoint v2) {
@@ -28,7 +28,7 @@ public class LineAdder {
         }
     }
 
-    private class PointComparatorY implements Comparator<OriPoint> {
+    private static class PointComparatorY implements Comparator<OriPoint> {
 
         @Override
         public int compare(OriPoint v1, OriPoint v2) {
@@ -45,7 +45,7 @@ public class LineAdder {
      * @param currentLines
      * @return true.
      */
-    private boolean divideCurrentLines(OriLine inputLine,
+    private static boolean divideCurrentLines(OriLine inputLine,
             Collection<OriLine> currentLines) {
 
         LinkedList<OriLine> toBeAdded = new LinkedList<>();
@@ -80,7 +80,7 @@ public class LineAdder {
         return true;
     }
 
-    private List<OriPoint> createInputLinePoints(OriLine inputLine,
+    private static List<OriPoint> createInputLinePoints(OriLine inputLine,
             Collection<OriLine> currentLines) {
         ArrayList<OriPoint> points = new ArrayList<OriPoint>();
         points.add(inputLine.p0);
@@ -130,9 +130,10 @@ public class LineAdder {
      * 						new lines are added and unnecessary lines are removed.
      */
 
-    public void addLine(OriLine inputLine, Collection<OriLine> currentLines) {
+    public static void addLine(OriLine inputLine,
+            Collection<OriLine> currentLines) {
         for (OriLine line : currentLines) {
-            if (LineUtil.isSameLineSegment(line, inputLine)) {
+            if (OriLineUtil.isSameLineSegment(line, inputLine)) {
                 return;
             }
         }
@@ -172,7 +173,7 @@ public class LineAdder {
      * @param lines        lines to be added
      * @param destination  collection as a destination
      */
-    public void addAll(Collection<OriLine> lines,
+    public static void addAll(Collection<OriLine> lines,
             Collection<OriLine> destination) {
         for (OriLine line : lines) {
             addLine(line, destination);

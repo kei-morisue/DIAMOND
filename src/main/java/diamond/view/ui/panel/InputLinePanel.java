@@ -33,14 +33,14 @@ public class InputLinePanel extends JPanel {
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.AXIOM2, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-
                 LABEL.AXIOM3, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-
                 LABEL.AXIOM4, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-
                 LABEL.SYMMETRIC, context);
+        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+                LABEL.MIRROR, context);
+
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.LINE_PATTERN));
