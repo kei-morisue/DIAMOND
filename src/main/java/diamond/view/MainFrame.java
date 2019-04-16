@@ -37,7 +37,6 @@ import diamond.view.ui.button.DiagramDestroyButton;
 import diamond.view.ui.button.DiagramInsertButton;
 import diamond.view.ui.button.DiagramSwitchButton;
 import diamond.view.ui.menu.MenuBar;
-import diamond.view.ui.panel.BuildPagesPanel;
 import diamond.view.ui.panel.UiPanel;
 
 public class MainFrame extends JFrame {
@@ -57,7 +56,6 @@ public class MainFrame extends JFrame {
         add(buildCenterPanel(), BorderLayout.CENTER);
 
         add(new UiPanel(paintContext), BorderLayout.WEST);
-        add(new BuildPagesPanel(paintContext), BorderLayout.NORTH);
         setJMenuBar(new MenuBar(paintContext));
 
         setLocationRelativeTo(null);

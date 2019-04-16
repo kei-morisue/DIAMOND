@@ -27,11 +27,19 @@ import diamond.view.screen.draw.style.StyleFrame;
 public class MenuBar extends JMenuBar {
 
     public MenuBar(PaintContext paintContext) {
-        buildFileMenu(paintContext);
-        buildOptionMenu(paintContext);
+        add(buildFileMenu(paintContext));
+        add(buildRunMenu(paintContext));
+        add(buildOptionMenu(paintContext));
     }
 
-    private void buildOptionMenu(PaintContext paintContext) {
+    /**
+     *
+     */
+    private JMenu buildRunMenu(PaintContext paintContext) {
+        return new BuildPagesMenu(paintContext);
+    }
+
+    private JMenu buildOptionMenu(PaintContext paintContext) {
         JMenu menu = new JMenu(ResourceHolder.getLabelString(LABEL.OPTION));
         JMenuItem style = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.STYLE));
@@ -42,10 +50,10 @@ public class MenuBar extends JMenuBar {
                 new StyleFrame();
             }
         });
-        add(menu);
+        return menu;
     }
 
-    private void buildFileMenu(PaintContext paintContext) {
+    private JMenu buildFileMenu(PaintContext paintContext) {
         JMenu menu = new JMenu(ResourceHolder.getLabelString(LABEL.FILE));
         JMenuItem save = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.SAVE));
@@ -53,10 +61,10 @@ public class MenuBar extends JMenuBar {
                 ResourceHolder.getLabelString(LABEL.OPEN));
         menu.add(open);
         menu.add(save);
-        add(menu);
         save.addActionListener(new ExportAction(paintContext, save));
         open.addActionListener(new LoadAction(paintContext, open));
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
+        return menu;
     }
 }
