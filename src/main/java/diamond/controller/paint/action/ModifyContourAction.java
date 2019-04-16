@@ -22,7 +22,7 @@ public class ModifyContourAction extends AbstractPaintAction {
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
         drawPointedLine(g2d, context);
-        drawTemporaryLine(g2d, context);
+        drawPickedLines(g2d, context);
     }
 
 }

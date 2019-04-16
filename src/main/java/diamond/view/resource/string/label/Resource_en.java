@@ -10,8 +10,6 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.TITLE.name(),
                     "DIAMOND : Origami Diagram Editor" },
 
-            { LABEL.BUILD_PAGES.name(), "Preview Pages" },
-
             { LABEL.CP.name(), "Edit Crease Pattern" },
             { LABEL.INPUT_LINE.name(), "Input Line" },
             { LABEL.LINE_PATTERN.name(), "Line Pattern" },
@@ -33,7 +31,7 @@ public class Resource_en extends ListResourceBundle {
 
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
             { LABEL.FOLD_UNFOLD.name(), "Fold / Unfold Line" },
-            { LABEL.SETTLE_UNSETTLE.name(), "Settle/ Unsettle Line Type" },
+            { LABEL.SETTLE_UNSETTLE.name(), "Settle / Unsettle Line Type" },
             { LABEL.DELETE_LINE.name(), "Delete Line" },
             { LABEL.CONTOUR.name(), "Modify the paper form" },
 
@@ -46,6 +44,9 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },
             { LABEL.OPEN.name(), "Open" },
+
+            { LABEL.RUN.name(), "Run" },
+            { LABEL.PREVIEW.name(), "Preview Pages" },
 
             { LABEL.OPTION.name(), "Option" },
             { LABEL.STYLE.name(), "Style" },

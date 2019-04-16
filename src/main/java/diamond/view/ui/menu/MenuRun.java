@@ -14,21 +14,24 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import diamond.controller.paint.PaintContext;
+import diamond.view.resource.ResourceHolder;
+import diamond.view.resource.string.StringKey.LABEL;
 
 /**
  * @author long_
  *
  */
-public class BuildPagesMenu extends JMenu {
-    public BuildPagesMenu(PaintContext paintContext) {
-        super("Run");
-        add(buildRun(paintContext));
+public class MenuRun extends JMenu {
+    public MenuRun(PaintContext paintContext) {
+        super(ResourceHolder.getLabelString(LABEL.RUN));
+        add(buildPreview(paintContext));
     }
 
-    public JMenuItem buildRun(PaintContext paintContext) {
-        JMenuItem item = new JMenuItem("Run");
+    public JMenuItem buildPreview(PaintContext paintContext) {
+        JMenuItem item = new JMenuItem(
+                ResourceHolder.getLabelString(LABEL.PREVIEW));
         item.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+                KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         item.addActionListener(new ActionListener() {
 
             @Override

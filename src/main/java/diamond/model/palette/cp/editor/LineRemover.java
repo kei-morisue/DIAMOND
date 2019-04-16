@@ -9,7 +9,14 @@ import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriLineUtil;
 
 public class LineRemover {
-    public static void removeLine(
+    public static void remove(
+            Collection<OriLine> removed, Collection<OriLine> creasePattern) {
+        for (OriLine l : removed) {
+            remove(l, creasePattern);
+        }
+    }
+
+    public static void remove(
             OriLine l, Collection<OriLine> creasePattern) {
         creasePattern.remove(l);
         // merge the lines if possible, to prevent unnecessary vertexes

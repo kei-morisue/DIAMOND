@@ -26,7 +26,7 @@ public class DeleteLineState extends OriLinePickkingState {
         OriLine oriLine = context.getPickedLines().get(0);
         Cp cp = context.palette.getCP();
         if (oriLine != null) {
-            LineRemover.removeLine(oriLine,
+            LineRemover.remove(oriLine,
                     cp.getLines());
         }
         context.getPickedLines().clear();

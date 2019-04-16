@@ -134,6 +134,22 @@ public class OriLineUtil {
         return false;
     }
 
+    public static boolean isConnected(OriLine l0, OriLine l1) {
+        if (DistanceUtil.Distance(l0.p0, l1.p0) < Constants.EPS) {
+            return true;
+        }
+        if (DistanceUtil.Distance(l0.p0, l1.p1) < Constants.EPS) {
+            return true;
+        }
+        if (DistanceUtil.Distance(l0.p1, l1.p0) < Constants.EPS) {
+            return true;
+        }
+        if (DistanceUtil.Distance(l0.p1, l1.p1) < Constants.EPS) {
+            return true;
+        }
+        return false;
+    }
+
     public static OriLine mirroredLine(OriLine line,
             OriLine baseOriLine) {
         OriPoint q0 = OriPointUtil.mirroredPoint(line.p0, baseOriLine);

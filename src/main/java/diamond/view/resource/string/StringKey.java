@@ -5,8 +5,6 @@ public class StringKey {
     public enum LABEL {
         TITLE,
 
-        BUILD_PAGES,
-
         CP,
 
         INPUT_LINE,
@@ -41,6 +39,9 @@ public class StringKey {
         FILE,
         SAVE,
         OPEN,
+
+        RUN,
+        PREVIEW,
 
         OPTION,
         STYLE,
