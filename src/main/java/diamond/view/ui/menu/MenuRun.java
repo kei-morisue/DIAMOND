@@ -5,15 +5,14 @@
 package diamond.view.ui.menu;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.run.PreviewAction;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -32,14 +31,7 @@ public class MenuRun extends JMenu {
                 ResourceHolder.getLabelString(LABEL.PREVIEW));
         item.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
-        item.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "WIP");//TODO Do it
-
-            }
-        });
+        item.addActionListener(new PreviewAction(paintContext));
         return item;
     }
 }

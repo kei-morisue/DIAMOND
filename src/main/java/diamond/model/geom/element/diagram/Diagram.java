@@ -5,7 +5,6 @@
 package diamond.model.geom.element.diagram;
 
 import diamond.model.geom.element.cp.Cp;
-import diamond.model.palette.diagram.Clipper;
 import diamond.view.screen.ScreenTransform;
 
 /**

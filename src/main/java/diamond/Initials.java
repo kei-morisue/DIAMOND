@@ -15,4 +15,5 @@ public class Initials {
 
     final public static double PAPER_SIZE = 400;
     final public static int PAPER_EDGES = 4;
+
 }

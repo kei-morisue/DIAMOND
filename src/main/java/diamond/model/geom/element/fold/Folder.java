@@ -32,7 +32,7 @@ public class Folder {
     public static void setAffine(AffineTransform accumulatedTransform,
             OriHalfEdge he, FoldPolicy foldPolicy) {
         OriFace face = he.getPair().getFace();
-        if (face.getTransform() != null || he.getPair().getNext() == null) {//TODO strange condition...
+        if (face.getTransform() != null || he.getPair().getNext() == null) {
             return;
         }
         face.setFaceFront(!he.getFace().isFaceFront());

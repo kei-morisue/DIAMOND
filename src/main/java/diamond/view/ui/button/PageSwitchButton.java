@@ -10,25 +10,26 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.Palette;
 import diamond.view.resource.IconSetter;
+import diamond.view.screen.PreviewScreen;
 
 /**
  * @author long_
  *
  */
-public class DiagramSwitchButton extends JButton {
+public class PageSwitchButton extends JButton {
     public static final int PREV = -1;
     public static final int NEXT = 1;
 
     private int direction;
-    private PaintContext context;
+    private PreviewScreen screen;
 
-    public DiagramSwitchButton(Integer direction, PaintContext context) {
+    public PageSwitchButton(
+            PreviewScreen screen,
+            Integer direction) {
         setBackground(Color.white);
+        this.screen = screen;
         this.direction = direction;
-        this.context = context;
         switch (direction) {
         case PREV:
             IconSetter.set(this, "left.gif");
@@ -43,18 +44,8 @@ public class DiagramSwitchButton extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Palette palette = context.palette;
-            if (palette.getStepNo() == 0 && direction == PREV) {
-                return;
-            }
-            if (palette.size() == palette.getStepNo()
-                    && direction == NEXT) {
-                return;
-            }
-            palette.getDiagram().setTransform(context.transform);
-            palette.setStepNo(palette.getStepNo() + direction);
-            context.transform = palette.getDiagram().getTransform();
-
+            screen.nextPage(direction);
+            screen.build();
         }
     }
 }

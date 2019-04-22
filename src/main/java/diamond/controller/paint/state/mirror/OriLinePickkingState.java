@@ -28,7 +28,6 @@ public class OriLinePickkingState
 
     @Override
     protected void undoAction(PaintContext context) {
-        //TODO strange implementation
         OriLine pointedOriLine = context.pointedOriLine;
         ArrayList<OriLine> mirroredLines = new ArrayList<OriLine>();
         if (pointedOriLine != null) {

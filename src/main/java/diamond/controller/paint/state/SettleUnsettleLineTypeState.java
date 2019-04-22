@@ -29,7 +29,6 @@ public class SettleUnsettleLineTypeState extends OriLinePickkingState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        // TODO 自動生成されたメソッド・スタブ
 
     }
 

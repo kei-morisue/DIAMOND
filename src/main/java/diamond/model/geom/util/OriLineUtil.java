@@ -16,7 +16,7 @@ import diamond.model.geom.element.cp.OriPoint;
  *
  */
 public class OriLineUtil {
-    private static void set(Point2D.Double p0, double x, double y) {//TODO
+    private static void set(Point2D.Double p0, double x, double y) {
         p0.x = x;
         p0.y = y;
     }

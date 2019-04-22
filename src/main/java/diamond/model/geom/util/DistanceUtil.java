@@ -71,7 +71,7 @@ public class DistanceUtil {
 
     }
 
-    private static void set(Point2D.Double p0, Point2D.Double p1) {//TODO
+    private static void set(Point2D.Double p0, Point2D.Double p1) {
         p0.x = p1.x;
         p0.y = p1.y;
     }
