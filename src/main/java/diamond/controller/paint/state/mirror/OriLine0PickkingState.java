@@ -7,6 +7,7 @@ package diamond.controller.paint.state.mirror;
 import java.util.ArrayList;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.OriLineUtil;
 import diamond.model.palette.cp.editor.LineAdder;
@@ -15,8 +16,7 @@ import diamond.model.palette.cp.editor.LineAdder;
  * @author long_
  *
  */
-public class OriLinePickkingState
-        extends diamond.controller.paint.state.OriLinePickkingState {
+public class OriLine0PickkingState extends OriLinePickkingState {
     @Override
     protected void initialize() {
         setPrevClass(this.getClass());

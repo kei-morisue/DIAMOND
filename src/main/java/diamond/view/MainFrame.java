@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import diamond.Initials;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.Palette;
+import diamond.controller.paint.ScreenContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -42,7 +43,7 @@ public class MainFrame extends JFrame {
     private Palette palette = new Palette();
     private PaintContext paintContext = new PaintContext(palette);
     private PaintScreen paintScreen = new PaintScreen(paintContext);
-    private PaintContext modelContext = new PaintContext(palette);
+    private ScreenContext modelContext = new ScreenContext(palette);
     private ModelScreen modelScreen = new ModelScreen(modelContext);
 
     public MainFrame() {

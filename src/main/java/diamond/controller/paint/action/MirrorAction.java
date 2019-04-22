@@ -7,7 +7,7 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.mirror.OriLinePickkingState;
+import diamond.controller.paint.state.mirror.OriLine0PickkingState;
 
 /**
  * @author long_
@@ -15,7 +15,7 @@ import diamond.controller.paint.state.mirror.OriLinePickkingState;
  */
 public class MirrorAction extends AbstractPaintAction {
     public MirrorAction() {
-        setActionState(new OriLinePickkingState());
+        setActionState(new OriLine0PickkingState());
     }
 
     @Override
