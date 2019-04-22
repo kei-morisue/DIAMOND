@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import diamond.controller.paint.ModelContext;
 import diamond.controller.paint.Palette;
-import diamond.controller.paint.ScreenContext;
 import diamond.view.resource.IconSetter;
 
 /**
@@ -23,9 +23,9 @@ public class DiagramSwitchButton extends JButton {
     public static final int NEXT = 1;
 
     private int direction;
-    private ScreenContext context;
+    private ModelContext context;
 
-    public DiagramSwitchButton(Integer direction, ScreenContext context) {
+    public DiagramSwitchButton(Integer direction, ModelContext context) {
         setBackground(Color.white);
         this.direction = direction;
         this.context = context;

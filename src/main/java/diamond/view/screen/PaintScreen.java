@@ -23,16 +23,18 @@ import diamond.view.screen.draw.style.VertexStyle;
 
 public class PaintScreen extends AbstractScreen {
     private PaintContext paintContext;
+    private ModelScreen modelScreen;
 
-    public PaintScreen(PaintContext paintContext) {
+    public PaintScreen(PaintContext paintContext, ModelScreen modelScreen) {
         super(paintContext);
         this.paintContext = paintContext;
-
+        this.modelScreen = modelScreen;
         PaintActionListnener paintActionListnener = new PaintActionListnener(
                 paintContext);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);
         paintContext.palette.addObserver(this);
+
     }
 
     @Override
@@ -45,7 +47,7 @@ public class PaintScreen extends AbstractScreen {
         if (paintContext.paintAction != null) {
             paintContext.paintAction.onDraw(g2d, paintContext);
         }
-
+        modelScreen.repaint();
         Debugger.debugPaintContext(g2d, paintContext);
 
     }

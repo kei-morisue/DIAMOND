@@ -7,7 +7,7 @@ package diamond.view.screen;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.ScreenContext;
+import diamond.controller.paint.ModelContext;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.screen.draw.OriDrawer;
 import diamond.view.screen.draw.style.ColorStyle;
@@ -17,9 +17,9 @@ import diamond.view.screen.draw.style.ColorStyle;
  *
  */
 public class ModelScreen extends AbstractScreen {
-    private ScreenContext context;
+    private ModelContext context;
 
-    public ModelScreen(ScreenContext modelContext) {
+    public ModelScreen(ModelContext modelContext) {
         super(modelContext);
         this.context = modelContext;
         modelContext.palette.addObserver(this);

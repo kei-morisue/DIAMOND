@@ -29,9 +29,10 @@ public class PaintContext extends ScreenContext {
     private Stack<OriVertex> pickedOriVertices = new Stack<>();
 
     public PaintActionInterface paintAction = new Axiom1Action();
+    public Palette palette;
 
     public PaintContext(Palette palette) {
-        super(palette);
+        this.palette = palette;
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {

@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import diamond.Initials;
+import diamond.controller.paint.ModelContext;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.Palette;
-import diamond.controller.paint.ScreenContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -24,10 +24,13 @@ import diamond.view.ui.panel.UiPanel;
 
 public class MainFrame extends JFrame {
     private Palette palette = new Palette();
-    private PaintContext paintContext = new PaintContext(palette);
-    private PaintScreen paintScreen = new PaintScreen(paintContext);
-    private ScreenContext modelContext = new ScreenContext(palette);
+
+    private ModelContext modelContext = new ModelContext(palette);
     private ModelScreen modelScreen = new ModelScreen(modelContext);
+
+    private PaintContext paintContext = new PaintContext(palette);
+    private PaintScreen paintScreen = new PaintScreen(paintContext,
+            modelScreen);
 
     public MainFrame() {
         setSize(Initials.MAIN_FRAME_WIDTH,

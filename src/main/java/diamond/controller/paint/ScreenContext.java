@@ -9,7 +9,6 @@ import java.util.Observable;
 
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.view.screen.ScreenTransform;
 
@@ -26,17 +25,12 @@ public class ScreenContext extends Observable {
 
     public ScreenTransform transform = new ScreenTransform(0,
             0);
-    public Palette palette;
 
-    public ScreenContext(Palette palette) {
-        this.palette = palette;
+    public ScreenContext() {
     }
 
     public double getScale() {
         return transform.getScale();
     }
 
-    public Diagram getDiagram() {
-        return palette.getDiagram();
-    }
 }
