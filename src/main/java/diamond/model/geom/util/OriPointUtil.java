@@ -38,4 +38,5 @@ public class OriPointUtil {
         crossVec.cross(pointDir, lineDir);
         return crossVec.z > 0;
     }
+
 }

@@ -4,9 +4,7 @@
  */
 package diamond.controller.paint.state.mirror;
 
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.cp.OriLine;
@@ -39,19 +37,6 @@ public class OriLinePickkingState
         }
         LineAdder.addAll(mirroredLines, context.palette.getCP().getLines());
         context.getPickedLines().clear();
-    }
-
-    protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriLine pointedOriLine = context.pointedOriLine;
-        if (pointedOriLine != null) {
-            Stack<OriLine> pickedLines = context.getPickedLines();
-            if (pickedLines.contains(pointedOriLine)) {
-                pickedLines.remove(pointedOriLine);
-            } else {
-                pickedLines.push(pointedOriLine);
-            }
-        }
-        return true;
     }
 
     @Override

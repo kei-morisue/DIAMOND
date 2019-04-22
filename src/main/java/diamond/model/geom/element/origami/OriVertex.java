@@ -18,7 +18,7 @@ import diamond.model.palette.cp.validator.Maekawa;
  */
 public class OriVertex extends AbstractOriVertex {
 
-    private Point2D.Double shearVector = new Point2D.Double(0.0, 0.0);
+    private Point2D.Double offset = new Point2D.Double(0.0, 0.0);
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
     private Point2D foldedPosition = null;
@@ -31,12 +31,12 @@ public class OriVertex extends AbstractOriVertex {
         this.foldedPosition = foldedPoision;
     }
 
-    public Point2D.Double getShearVector() {
-        return this.shearVector;
+    public Point2D.Double getOffset() {
+        return this.offset;
     }
 
-    public void setShearVector(Point2D.Double shearVector) {
-        this.shearVector = shearVector;
+    public void setOffset(Point2D.Double offset) {
+        this.offset = offset;
     }
 
     public OriVertex(double x, double y) {

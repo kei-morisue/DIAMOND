@@ -47,7 +47,7 @@ public class StringKey {
         STYLE,
         FACE_FRONT_STYLE,
         FACE_BACK_STYLE,
-
+        OFFSET,
     }
 
     public enum HINT {

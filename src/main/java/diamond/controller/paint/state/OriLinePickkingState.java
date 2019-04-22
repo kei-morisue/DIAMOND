@@ -5,10 +5,10 @@
 package diamond.controller.paint.state;
 
 import java.awt.geom.Point2D.Double;
+import java.util.Stack;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.util.NearestLineFinder;
 
 /**
  * @author long_
@@ -31,12 +31,16 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
     protected boolean onAction(
             PaintContext context,
             Double currentPoint) {
-        OriLine picked = NearestLineFinder.findAround(context);
-        if (picked == null) {
-            return false;
+        OriLine pointedOriLine = context.pointedOriLine;
+        if (pointedOriLine != null) {
+            Stack<OriLine> pickedLines = context.getPickedLines();
+            if (pickedLines.contains(pointedOriLine)) {
+                pickedLines.remove(pointedOriLine);
+            } else {
+                pickedLines.push(pointedOriLine);
+            }
+            return true;
         }
-        context.getPickedLines().push(picked);
-        context.pointedOriLine = picked;
-        return true;
+        return false;
     }
 }

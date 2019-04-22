@@ -95,26 +95,15 @@ public class OriDrawer {
                 he.getEv().getFoldedPosition().getY()));
     }
 
-    public static void drawPoint(Graphics2D g2d, Point2D.Double point,
+    public static void drawPoint(
+            Graphics2D g2d,
+            Point2D.Double point,
             double size, Color color) {
         double scaledSize = size;
         g2d.setColor(color);
         g2d.fill(new Rectangle2D.Double(
                 point.x - scaledSize * 0.5,
                 point.y - scaledSize * 0.5,
-                scaledSize,
-                scaledSize));
-    }
-
-    public static void drawVertex(Graphics2D g2d, Point2D.Double vertex,
-            double size,
-            Color color) {
-        double scaledSize = size;
-        g2d.setColor(color);
-        Point2D.Double p = vertex;
-        g2d.fill(new Rectangle2D.Double(
-                p.x - scaledSize * 0.5,
-                p.y - scaledSize * 0.5,
                 scaledSize,
                 scaledSize));
     }

@@ -117,7 +117,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriPoint point = context.getPickedPoints().get(i);
             OriDrawer.drawPoint(
                     g2d, point,
-                    VertexStyle.VERTEX_SIZE_PICKED,
+                    VertexStyle.SIZE_PICKED,
                     ColorStyle.ORIPOINT_PICKED);
         }
     }
@@ -129,7 +129,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriDrawer.drawPoint(
                     g2d,
                     candidate,
-                    VertexStyle.VERTEX_SIZE_POINTED,
+                    VertexStyle.SIZE_POINTED,
                     ColorStyle.ORIPOINT_POINTED);
         }
     }
@@ -141,7 +141,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriDrawer.drawPoint(
                     g2d,
                     point,
-                    VertexStyle.VERTEX_SIZE_POINTED,
+                    VertexStyle.SIZE_POINTED,
                     ColorStyle.ORIPOINT_POINTED);
         }
     }

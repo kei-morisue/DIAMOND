@@ -20,6 +20,7 @@ import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
 import diamond.controller.paint.action.MirrorAction;
 import diamond.controller.paint.action.ModifyContourAction;
+import diamond.controller.paint.action.OffsetAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
@@ -95,6 +96,11 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("face_bottom");
             this.paintAction = new FaceOrderingAction();
             break;
+        case OFFSET:
+            setIcons("offset");
+            this.paintAction = new OffsetAction();
+            break;
+
         default:
             break;
         }

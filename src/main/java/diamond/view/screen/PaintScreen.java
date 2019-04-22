@@ -71,10 +71,10 @@ public class PaintScreen extends AbstractScreen {
 
     private void paintVertices(Graphics2D g2d, OriModel model) {
         for (OriVertex vertex : model.getVertices()) {
-            OriDrawer.drawVertex(
+            OriDrawer.drawPoint(
                     g2d,
                     vertex,
-                    VertexStyle.VERTEX_SIZE,
+                    VertexStyle.SIZE,
                     (vertex.isFoldable()) ? ColorStyle.CP_ORI_VERTEX
                             : ColorStyle.WRONG_ORI_VERTEX);
         }

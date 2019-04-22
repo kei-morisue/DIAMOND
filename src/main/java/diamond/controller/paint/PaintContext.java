@@ -13,6 +13,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_
@@ -25,6 +26,7 @@ public class PaintContext extends ScreenContext {
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();
     private Stack<OriFace> pickedOriFaces = new Stack<>();
+    private Stack<OriVertex> pickedOriVertices = new Stack<>();
 
     public PaintActionInterface paintAction = new Axiom1Action();
 
@@ -72,6 +74,10 @@ public class PaintContext extends ScreenContext {
         pickedOriFaces.clear();
         pointedOriLine = null;
         pointedOriPoint = null;
+    }
+
+    public Stack<OriVertex> getPickedOriVertices() {
+        return pickedOriVertices;
     }
 
 }

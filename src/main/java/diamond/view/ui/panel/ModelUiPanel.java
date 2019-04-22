@@ -26,12 +26,15 @@ public class ModelUiPanel extends JPanel {
     }
 
     private void addModelEditPanel(PaintContext context) {
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(2, 2));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.BASE_FACE,
                 context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.FACE_TOP, context);
+        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+                LABEL.OFFSET, context);
+
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.FACE));
