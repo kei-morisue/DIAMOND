@@ -35,6 +35,5 @@ public class ModelScreen extends AbstractScreen {
         OriModel model = context.palette.getOriModel();
         OriDrawer.drawModel(g2d, model);
         OriDrawer.drawStepNo(g2d, context.palette.getStepNo() + 1);
-
     }
 }

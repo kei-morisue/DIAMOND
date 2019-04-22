@@ -25,6 +25,7 @@ import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.style.ColorStyle;
 import diamond.view.screen.draw.style.FontStyle;
 import diamond.view.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.VertexStyle;
 
 /**
  * @author long_
@@ -99,19 +100,33 @@ public class OriDrawer {
             Graphics2D g2d,
             Point2D.Double point,
             double size, Color color) {
-        double scaledSize = size;
         g2d.setColor(color);
         g2d.fill(new Rectangle2D.Double(
-                point.x - scaledSize * 0.5,
-                point.y - scaledSize * 0.5,
-                scaledSize,
-                scaledSize));
+                point.x - size * 0.5,
+                point.y - size * 0.5,
+                size,
+                size));
+    }
+
+    public static void drawVertex(Graphics2D g2d, OriVertex v, double size) {
+        g2d.setColor(VertexStyle.COLOR_SELECTED);
+        Point2D foldedPosition = v.getFoldedPosition();
+        g2d.fill(new Rectangle2D.Double(
+                foldedPosition.getX() - size * 0.5,
+                foldedPosition.getY() - size * 0.5,
+                size,
+                size));
     }
 
     public static void drawFace(Graphics2D g2d,
             GeneralPath outLine, Color color) {
         g2d.setColor(color);
         g2d.fill(outLine);
+    }
+
+    private static double getScale(Graphics2D g2d) {
+        AffineTransform transform = g2d.getTransform();
+        return Math.hypot(transform.getScaleX(), transform.getScaleY());
     }
 
     public static void drawModel(Graphics2D g2d, OriModel model) {
@@ -127,6 +142,11 @@ public class OriDrawer {
                         LineStrokeStyle.getDiagramStroke(type));
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
+                OriVertex sv = he.getSv();
+                if (sv.isPickked()) {
+                    OriDrawer.drawVertex(g2d, sv,
+                            VertexStyle.SIZE_PICKED / getScale(g2d));
+                }
                 drawFoldedHalfEdge(
                         g2d,
                         he,

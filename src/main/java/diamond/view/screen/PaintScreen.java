@@ -4,6 +4,7 @@
 
 package diamond.view.screen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
@@ -76,10 +77,26 @@ public class PaintScreen extends AbstractScreen {
             OriDrawer.drawPoint(
                     g2d,
                     vertex,
-                    VertexStyle.SIZE,
-                    (vertex.isFoldable()) ? ColorStyle.CP_ORI_VERTEX
-                            : ColorStyle.WRONG_ORI_VERTEX);
+                    getVertexSize(vertex),
+                    getColor(vertex));
         }
+    }
+
+    private double getVertexSize(OriVertex vertex) {
+        if (vertex.isPickked()) {
+            return VertexStyle.SIZE_PICKED / paintContext.transform.getScale();
+        }
+        return VertexStyle.SIZE / paintContext.transform.getScale();
+    }
+
+    private Color getColor(OriVertex vertex) {
+        if (!vertex.isFoldable()) {
+            return ColorStyle.WRONG_ORI_VERTEX;
+        }
+        if (vertex.isPickked()) {
+            return VertexStyle.COLOR_SELECTED;
+        }
+        return ColorStyle.CP_ORI_VERTEX;
     }
 
     private void paintFaces(Graphics2D g2d, OriModel model) {

@@ -21,6 +21,8 @@ public class OriVertex extends AbstractOriVertex {
     private Point2D.Double offset = new Point2D.Double(0.0, 0.0);
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
+    private boolean isPickked = false;
+
     private Point2D foldedPosition = null;
 
     public Point2D getFoldedPosition() {
@@ -140,6 +142,14 @@ public class OriVertex extends AbstractOriVertex {
 
     public void setFoldable(boolean isFoldable) {
         this.isFoldable = isFoldable;
+    }
+
+    public boolean isPickked() {
+        return isPickked;
+    }
+
+    public void setPickked(boolean isPickked) {
+        this.isPickked = isPickked;
     }
 
 }
