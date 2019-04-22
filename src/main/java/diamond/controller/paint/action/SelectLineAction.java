@@ -7,21 +7,21 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.selectv.OriPoint0PickkingState;
+import diamond.controller.paint.state.mirror.OriLine0PickkingState;
 
 /**
  * @author long_
  *
  */
-public class OffsetAction extends AbstractPaintAction {
-
-    public OffsetAction() {
-        setActionState(new OriPoint0PickkingState());//TODO
+public class SelectLineAction extends AbstractPaintAction {
+    public SelectLineAction() {
+        setActionState(new OriLine0PickkingState());//TODO
     }
 
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
-        //TODO
+        drawPickedLines(g2d, context);
+        drawPointedLine(g2d, context);
     }
 
 }

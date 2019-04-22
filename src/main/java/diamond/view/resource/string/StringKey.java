@@ -29,6 +29,7 @@ public class StringKey {
         MIRROR,
 
         CONTOUR,
+        SELECT_LINE,
 
         FOLDED,
         FACE,
@@ -47,6 +48,7 @@ public class StringKey {
         STYLE,
         FACE_FRONT_STYLE,
         FACE_BACK_STYLE,
+        SELECT_VERTEX,
         OFFSET,
     }
 

@@ -33,6 +33,8 @@ public class ModelUiPanel extends JPanel {
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.FACE_TOP, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+                LABEL.SELECT_VERTEX, context);
+        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.OFFSET, context);
 
         UiPanelUtil.setBorder(

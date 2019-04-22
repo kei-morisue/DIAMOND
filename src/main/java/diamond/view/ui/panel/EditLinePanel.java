@@ -39,6 +39,8 @@ public class EditLinePanel extends JPanel {
                 LABEL.DELETE_LINE, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.CONTOUR, context);
+        //        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+        //                LABEL.SELECT_LINE, context);
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.MODIFY_LINE));
