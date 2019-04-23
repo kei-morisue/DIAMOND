@@ -30,7 +30,18 @@ public class LineOption extends JPanel {
         clipScale.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LineStyle.CLIP_SCALE = Integer.parseInt(clipScale.getText());
+                int scale = LineStyle.CLIP_SCALE;
+                try {
+                    scale = Integer.parseInt(clipScale.getText());
+                } catch (NumberFormatException e1) {
+                    clipScale.setText(String.valueOf(scale));
+                    return;
+                }
+                if (scale > 100 || scale < 0) {
+                    clipScale.setText(String.valueOf(LineStyle.CLIP_SCALE));
+                    return;
+                }
+                LineStyle.CLIP_SCALE = scale;
             }
         });
         clipScale.setHorizontalAlignment(JTextField.RIGHT);
