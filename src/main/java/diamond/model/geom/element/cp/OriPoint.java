@@ -13,6 +13,7 @@ import javax.vecmath.Vector2d;
  *
  */
 public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
+    private Double offset = new Double(.0, .0);
 
     public OriPoint() {
         super();
@@ -34,6 +35,11 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
 
     public OriPoint(Point2D p) {
         super(p.getX(), p.getY());
+    }
+
+    public OriPoint(OriPoint p) {
+        super(p.x, p.y);
+        this.offset = p.offset;
     }
 
     @Override
@@ -81,5 +87,18 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     @Override
     public String toString() {
         return "(" + String.valueOf(x) + "," + String.valueOf(y) + ")";
+    }
+
+    public Double getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Double offset) {
+        this.offset = offset;
+    }
+
+    public void setOffset(double x, double y) {
+        this.offset.x = x;
+        this.offset.y = y;
     }
 }

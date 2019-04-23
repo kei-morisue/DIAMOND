@@ -9,19 +9,22 @@ import java.util.Set;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.AbstractPaintState;
+import diamond.model.geom.Constants;
+import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.origami.OriVertex;
+import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.Point2DUtil;
 
 /**
  * @author long_
  *
  */
-public class AnyPointPickkingState extends AbstractPaintState {
+public class OffsetGettingState extends AbstractPaintState {
 
     @Override
     protected void initialize() {
-        setPrevClass(AnyPointPickkingState.class);
-        setNextClass(AnyPointPickkingState.class);
+        setPrevClass(OffsetGettingState.class);
+        setNextClass(OffsetGettingState.class);
     }
 
     @Override
@@ -30,7 +33,18 @@ public class AnyPointPickkingState extends AbstractPaintState {
                 .getVertices();
         for (OriVertex v : vertices) {
             if (v.isPickked()) {
-                v.setOffset(new Double(.0, .0));
+                v.setOffset(.0, .0);
+                Set<OriLine> lines = context.palette.getCP().getLines();
+                for (OriLine l : lines) {
+                    if (DistanceUtil.Distance(v, l.p0) < Constants.EPS) {
+                        l.p0.setOffset(.0, .0);
+                    } else {
+                        if (DistanceUtil.Distance(v,
+                                l.p1) < Constants.EPS) {
+                            l.p1.setOffset(.0, .0);
+                        }
+                    }
+                }
             }
         }
         context.palette.getOriModel().fold();
@@ -53,7 +67,19 @@ public class AnyPointPickkingState extends AbstractPaintState {
                     .getVertices();
             for (OriVertex v : vertices) {
                 if (v.isPickked()) {
-                    v.setOffset(Point2DUtil.scale(p, 0.1));
+                    Double offset = Point2DUtil.scale(p, .1);
+                    v.setOffset(offset);
+                    Set<OriLine> lines = context.palette.getCP().getLines();
+                    for (OriLine l : lines) {
+                        if (DistanceUtil.Distance(v, l.p0) < Constants.EPS) {
+                            l.p0.setOffset(offset);
+                        } else {
+                            if (DistanceUtil.Distance(v,
+                                    l.p1) < Constants.EPS) {
+                                l.p1.setOffset(offset);
+                            }
+                        }
+                    }
                 }
             }
             return true;

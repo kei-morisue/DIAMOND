@@ -41,6 +41,11 @@ public class OriVertex extends AbstractOriVertex {
         this.offset = offset;
     }
 
+    public void setOffset(double x, double y) {
+        this.offset.x = x;
+        this.offset.y = y;
+    }
+
     public OriVertex(double x, double y) {
         super(x, y);
     }
@@ -51,6 +56,7 @@ public class OriVertex extends AbstractOriVertex {
 
     public OriVertex(OriPoint point) {
         super(point.x, point.y);
+        offset = point.getOffset();
     }
 
     public OriVertex add(OriVertex v) {
@@ -132,6 +138,7 @@ public class OriVertex extends AbstractOriVertex {
         this.halfEdges = halfEdges;
     }
 
+    @Deprecated
     public void setEdges(LinkedList<OriHalfEdge> edges) {
         this.halfEdges = edges;
     }
