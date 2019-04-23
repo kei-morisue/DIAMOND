@@ -12,6 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriModelUtil;
 import diamond.model.geom.element.origami.OriVertex;
+import diamond.model.geom.util.Point2DUtil;
 import diamond.view.screen.draw.style.ColorStyle;
 import diamond.view.screen.draw.style.FontStyle;
 import diamond.view.screen.draw.style.LineStrokeStyle;
@@ -89,11 +91,15 @@ public class OriDrawer {
             Stroke stroke) {
         g2d.setColor(color);
         g2d.setStroke(stroke);
+        Double sv = he.getSv().getFoldedPosition();
+        Double ev = he.getEv().getFoldedPosition();
+        sv = Point2DUtil.plus(sv, he.getSv().getOffset());
+        ev = Point2DUtil.plus(ev, he.getEv().getOffset());
         g2d.draw(new Line2D.Double(
-                he.getSv().getFoldedPosition().getX(),
-                he.getSv().getFoldedPosition().getY(),
-                he.getEv().getFoldedPosition().getX(),
-                he.getEv().getFoldedPosition().getY()));
+                sv.getX(),
+                sv.getY(),
+                ev.getX(),
+                ev.getY()));
     }
 
     public static void drawPoint(
@@ -111,9 +117,10 @@ public class OriDrawer {
     public static void drawVertex(Graphics2D g2d, OriVertex v, double size) {
         g2d.setColor(VertexStyle.COLOR_SELECTED);
         Point2D foldedPosition = v.getFoldedPosition();
+        Double offset = v.getOffset();
         g2d.fill(new Rectangle2D.Double(
-                foldedPosition.getX() - size * 0.5,
-                foldedPosition.getY() - size * 0.5,
+                foldedPosition.getX() + offset.x - size * 0.5,
+                foldedPosition.getY() + offset.y - size * 0.5,
                 size,
                 size));
     }

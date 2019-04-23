@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.action.PaintActionListnener;
+import diamond.controller.paint.action.PaintScreenAction;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.origami.OriFace;
@@ -30,7 +30,7 @@ public class PaintScreen extends AbstractScreen {
         super(paintContext);
         this.paintContext = paintContext;
         this.modelScreen = modelScreen;
-        PaintActionListnener paintActionListnener = new PaintActionListnener(
+        PaintScreenAction paintActionListnener = new PaintScreenAction(
                 paintContext);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);

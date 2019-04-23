@@ -15,11 +15,11 @@ import diamond.controller.paint.util.MouseUtility;
  * @author long_
  *
  */
-public class PaintActionListnener
+public class PaintScreenAction
         implements MouseListener, MouseMotionListener {
     private PaintContext paintContext;
 
-    public PaintActionListnener(PaintContext paintContext) {
+    public PaintScreenAction(PaintContext paintContext) {
         this.paintContext = paintContext;
     }
 

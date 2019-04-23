@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.model.geom.element.fold.FoldPolicy;
+import diamond.model.geom.util.Point2DUtil;
 import diamond.view.screen.draw.style.ColorStyle;
 
 /**
@@ -76,12 +77,17 @@ public class OriFace {
 
     public void setFoldedOutline() {
         for (OriHalfEdge he : halfEdges) {
-            Point2D p = he.getSv().getFoldedPosition();
+            OriVertex sv = he.getSv();
+            Point2D p = Point2DUtil.plus(
+                    sv.getFoldedPosition(),
+                    sv.getOffset());
+            double x = p.getX();
+            double y = p.getY();
             if (foldedOutline == null) {
                 foldedOutline = new GeneralPath();
-                foldedOutline.moveTo(p.getX(), p.getY());
+                foldedOutline.moveTo(x, y);
             } else {
-                foldedOutline.lineTo(p.getX(), p.getY());
+                foldedOutline.lineTo(x, y);
             }
         }
         foldedOutline.closePath();

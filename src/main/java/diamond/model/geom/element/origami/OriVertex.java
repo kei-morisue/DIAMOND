@@ -23,13 +23,13 @@ public class OriVertex extends AbstractOriVertex {
     private boolean isFoldable = false;
     private boolean isPickked = false;
 
-    private Point2D foldedPosition = null;
+    private Point2D.Double foldedPosition = null;
 
-    public Point2D getFoldedPosition() {
+    public Point2D.Double getFoldedPosition() {
         return this.foldedPosition;
     }
 
-    public void setFoldedPosition(Point2D foldedPoision) {
+    public void setFoldedPosition(Point2D.Double foldedPoision) {
         this.foldedPosition = foldedPoision;
     }
 
