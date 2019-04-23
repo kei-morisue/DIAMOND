@@ -27,7 +27,7 @@ public class OriLine {
 
     public OriPoint p0 = null;
     public OriPoint p1 = null;
-    LineType type = LineType.AUX;
+    LineType type = LineType.CREASE;
 
     public OriPoint getP0() {
         return this.p0;

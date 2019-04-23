@@ -14,7 +14,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.topface.OriFace0PickkingState;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriFaceComparator;
-import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.OriFaceDrawer;
 
 /**
  * @author long_
@@ -60,7 +60,7 @@ public class FaceOrderingAction extends AbstractPaintAction {
                     color = Color.green;
                     break;
                 }
-                OriDrawer.drawFace(g2d, face.getOutline(),
+                OriFaceDrawer.drawFace(g2d, face.getOutline(),
                         color);
             }
         }

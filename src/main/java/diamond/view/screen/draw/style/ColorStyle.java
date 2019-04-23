@@ -61,11 +61,11 @@ public class ColorStyle {
             return ORILINE_VALLEY;
         case CUT:
             return ORILINE_CUT;
-        case AUX:
+        case CREASE:
             return ORILINE_AUX;
-        case AUX_MOUNTAIN:
+        case UNSETTLED_MOUNTAIN:
             return ORILINE_AUX_MOUNTAIN;
-        case AUX_VALLEY:
+        case UNSETTLED_VALLEY:
             return ORILINE_AUX_VALLEY;
         default:
             return ORILINE_AUX;
@@ -76,11 +76,11 @@ public class ColorStyle {
         switch (lineType) {
         case CUT:
             return ORILINE_CUT;
-        case AUX:
+        case CREASE:
             return ORI_HALFEDGE_AUX;
-        case AUX_MOUNTAIN:
+        case UNSETTLED_MOUNTAIN:
             return ORI_HALFEDGE_AUX_MOUNTAIN;
-        case AUX_VALLEY:
+        case UNSETTLED_VALLEY:
             return ORI_HALFEDGE_AUX_VALLEY;
         default:
             return ORI_HALFEDGE;

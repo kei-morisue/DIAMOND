@@ -48,10 +48,10 @@ public class Cp {
     public Cp(Cp creasePattern) {
         for (OriLine oriLine : creasePattern.getLines()) {
             OriLine line = new OriLine(oriLine);
-            if (line.getType() == LineType.AUX_MOUNTAIN) {
+            if (line.getType() == LineType.UNSETTLED_MOUNTAIN) {
                 line.setType(LineType.MOUNTAIN);
             }
-            if (line.getType() == LineType.AUX_VALLEY) {
+            if (line.getType() == LineType.UNSETTLED_VALLEY) {
                 line.setType(LineType.VALLEY);
             }
             lines.add(line);

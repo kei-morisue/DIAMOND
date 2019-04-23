@@ -24,9 +24,9 @@ public class Resource_en extends ListResourceBundle {
 
             { LABEL.MOUNTAIN.name(), "Mountain" },
             { LABEL.VALLEY.name(), "Valley" },
-            { LABEL.AUX.name(), "Crease" },
-            { LABEL.AUX_VALLEY.name(), "Valley" },
-            { LABEL.AUX_MOUNTAIN.name(), "Mountain" },
+            { LABEL.CREASE.name(), "Crease" },
+            { LABEL.UNSETTLED_VALLEY.name(), "Valley" },
+            { LABEL.UNSETTLED_MOUNTAIN.name(), "Mountain" },
             { LABEL.CUT.name(), "Cut" },
 
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
@@ -50,6 +50,9 @@ public class Resource_en extends ListResourceBundle {
 
             { LABEL.OPTION.name(), "Option" },
             { LABEL.STYLE.name(), "Style" },
+            { LABEL.LINE_TAB.name(), "Line" },
+            { LABEL.CLIPPING_SCALE.name(), "Clipping scale for crease lines" },
+            { LABEL.FACE_TAB.name(), "Face" },
             { LABEL.FACE_FRONT_STYLE.name(), "Face Front Style" },
             { LABEL.FACE_BACK_STYLE.name(), "Face Back Style" },
 

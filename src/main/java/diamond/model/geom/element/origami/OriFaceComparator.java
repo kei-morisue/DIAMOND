@@ -75,11 +75,11 @@ public class OriFaceComparator implements Comparator<OriFace> {
     private void determine(OriFace f1, OriHalfEdge he1) {
         switch (he1.getType()) {
         case MOUNTAIN:
-        case AUX_MOUNTAIN:
+        case UNSETTLED_MOUNTAIN:
             res = (f1.isFaceFront()) ? 1 : -1;
             break;
         case VALLEY:
-        case AUX_VALLEY:
+        case UNSETTLED_VALLEY:
             res = (f1.isFaceFront()) ? -1 : 1;
             break;
         default:

@@ -8,8 +8,10 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import diamond.Initials;
 import diamond.controller.option.FaceBackColorStyleAction;
@@ -26,8 +28,12 @@ public class StyleFrame extends JFrame {
         setTitle(ResourceHolder.getLabelString(LABEL.STYLE));
         setSize(Initials.STYLE_FRAME_WIDTH, Initials.STYLE_FRAME_HEIGHT);
         JTabbedPane pane = new JTabbedPane();
-        pane.addTab("Line", buildLineTab());
-        pane.addTab("Face", buildFaceTab());
+        pane.addTab(
+                ResourceHolder.getLabelString(LABEL.LINE_TAB),
+                buildLineTab());
+        pane.addTab(
+                ResourceHolder.getLabelString(LABEL.FACE_TAB),
+                buildFaceTab());
 
         add(pane);
         setLocationRelativeTo(null);
@@ -35,7 +41,13 @@ public class StyleFrame extends JFrame {
     }
 
     private JPanel buildLineTab() {
-        return new JPanel();//TODO
+        JPanel tab = new JPanel();
+        tab.add(new JLabel(
+                ResourceHolder.getLabelString(LABEL.CLIPPING_SCALE)));
+        JTextField clipScale = new JTextField(
+                String.valueOf(LineStyle.CLIP_SCALE));
+        tab.add(clipScale);
+        return tab;
     }
 
     private JPanel buildFaceTab() {

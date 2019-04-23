@@ -18,9 +18,9 @@ public class StringKey {
         MOUNTAIN,
         VALLEY,
         CUT,
-        AUX,
-        AUX_VALLEY,
-        AUX_MOUNTAIN,
+        CREASE,
+        UNSETTLED_VALLEY,
+        UNSETTLED_MOUNTAIN,
         FLIP_LINE_TYPE,
         FOLD_UNFOLD,
         SETTLE_UNSETTLE,
@@ -45,7 +45,12 @@ public class StringKey {
         PREVIEW,
 
         OPTION,
+
         STYLE,
+        LINE_TAB,
+        CLIPPING_SCALE,
+
+        FACE_TAB,
         FACE_FRONT_STYLE,
         FACE_BACK_STYLE,
         SELECT_VERTEX,

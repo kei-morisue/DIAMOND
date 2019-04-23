@@ -21,7 +21,7 @@ import diamond.model.geom.element.origami.OriVertex;
  */
 public class PaintContext extends ScreenContext {
 
-    public LineType inputLineType = LineType.AUX_VALLEY;
+    public LineType inputLineType = LineType.UNSETTLED_VALLEY;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();

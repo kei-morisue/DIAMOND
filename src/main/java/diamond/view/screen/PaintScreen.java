@@ -17,9 +17,12 @@ import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.debug.Debugger;
-import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.OriFaceDrawer;
+import diamond.view.screen.draw.OriLineDrawer;
+import diamond.view.screen.draw.OriPointDrawer;
+import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.ColorStyle;
-import diamond.view.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
 
 public class PaintScreen extends AbstractScreen {
@@ -64,17 +67,17 @@ public class PaintScreen extends AbstractScreen {
 
     private void paintLines(Graphics2D g2d, Cp cp) {
         for (OriLine l : cp.getLines()) {
-            OriDrawer.drawLine(
+            OriLineDrawer.drawLine(
                     g2d,
                     l,
                     ColorStyle.getCpColor(l.getType()),
-                    LineStrokeStyle.getCpStroke(l.getType()));
+                    LineStyle.getCpStroke(l.getType()));
         }
     }
 
     private void paintVertices(Graphics2D g2d, OriModel model) {
         for (OriVertex vertex : model.getVertices()) {
-            OriDrawer.drawPoint(
+            OriPointDrawer.drawPoint(
                     g2d,
                     vertex,
                     getVertexSize(vertex),
@@ -102,14 +105,14 @@ public class PaintScreen extends AbstractScreen {
     private void paintFaces(Graphics2D g2d, OriModel model) {
         LinkedList<OriFace> faces = model.getFaces();
         for (OriFace face : faces) {
-            OriDrawer.drawFace(g2d, face.getOutline(),
+            OriFaceDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORI_FACE_FRONT);
-            OriDrawer.drawFaceNo(g2d, face, faces);
+            StringDrawer.drawFaceNo(g2d, face, faces);
         }
         OriFace baseFace = model.getBaseFace();
-        OriDrawer.drawFace(g2d, baseFace.getOutline(),
+        OriFaceDrawer.drawFace(g2d, baseFace.getOutline(),
                 ColorStyle.CP_BASE_ORI_FACE);
-        OriDrawer.drawFaceNo(g2d, baseFace, faces);
+        StringDrawer.drawFaceNo(g2d, baseFace, faces);
 
     }
 

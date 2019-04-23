@@ -11,7 +11,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.model.geom.util.Point2DUtil;
 import diamond.view.screen.draw.style.ColorStyle;
 
@@ -22,6 +21,7 @@ import diamond.view.screen.draw.style.ColorStyle;
 public class OriFace {
     private ArrayList<OriHalfEdge> halfEdges = new ArrayList<>();
     private HashSet<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
+    private HashSet<OriHalfEdge> unettledLines = new HashSet<OriHalfEdge>();
 
     private boolean faceFront = true;
 
@@ -49,10 +49,6 @@ public class OriFace {
             he.setNext(nxt_he);
             he.setPrev(pre_he);
         }
-    }
-
-    public void addAuxLine(OriHalfEdge he) {
-        auxLines.add(he);
     }
 
     public void setOutline(double scale) {
@@ -93,12 +89,15 @@ public class OriFace {
         foldedOutline.closePath();
     }
 
-    public void fold(AffineTransform transform, FoldPolicy foldPolicy) {
+    public void fold(AffineTransform transform) {
         this.transform = transform;
         for (OriHalfEdge he : halfEdges) {
             he.fold(transform);
         }
         for (OriHalfEdge he : auxLines) {
+            he.fold(transform);
+        }
+        for (OriHalfEdge he : unettledLines) {
             he.fold(transform);
         }
         this.setFoldedOutline();
@@ -139,6 +138,14 @@ public class OriFace {
 
     public GeneralPath getFoldedOutline() {
         return this.foldedOutline;
+    }
+
+    public HashSet<OriHalfEdge> getUnettledLines() {
+        return unettledLines;
+    }
+
+    public void setUnettledLines(HashSet<OriHalfEdge> unettledLines) {
+        this.unettledLines = unettledLines;
     }
 
 }

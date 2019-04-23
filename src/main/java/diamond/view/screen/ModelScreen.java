@@ -9,7 +9,8 @@ import java.awt.Graphics2D;
 
 import diamond.controller.paint.ModelContext;
 import diamond.model.geom.element.origami.OriModel;
-import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.OriModelDrawer;
+import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.ColorStyle;
 
 /**
@@ -33,7 +34,7 @@ public class ModelScreen extends AbstractScreen {
         transform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(transform.getTransform());
         OriModel model = context.palette.getOriModel();
-        OriDrawer.drawModel(g2d, model);
-        OriDrawer.drawStepNo(g2d, context.palette.getStepNo() + 1);
+        OriModelDrawer.drawModel(g2d, model);
+        StringDrawer.drawStepNo(g2d, context.palette.getStepNo() + 1);
     }
 }

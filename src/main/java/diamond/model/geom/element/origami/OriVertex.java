@@ -77,7 +77,7 @@ public class OriVertex extends AbstractOriVertex {
 
     public boolean isAuxVertex() {
         for (OriHalfEdge he : halfEdges) {
-            if (he.getType() != LineType.AUX) {
+            if (he.getType() != LineType.CREASE) {
                 return false;
             }
         }

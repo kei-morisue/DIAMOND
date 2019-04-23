@@ -16,9 +16,11 @@ import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.util.NearestFaceFinder;
 import diamond.model.geom.util.NearestLineFinder;
 import diamond.model.geom.util.NearestPointFinder;
-import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.OriFaceDrawer;
+import diamond.view.screen.draw.OriLineDrawer;
+import diamond.view.screen.draw.OriPointDrawer;
 import diamond.view.screen.draw.style.ColorStyle;
-import diamond.view.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
 
 /**
@@ -104,18 +106,18 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPickedLines(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedLines().size(); i++) {
-            OriDrawer.drawLine(
+            OriLineDrawer.drawLine(
                     g2d,
                     context.getPickedLines().get(i),
                     ColorStyle.ORILINE_PICKED,
-                    LineStrokeStyle.STROKE_PICKED);
+                    LineStyle.STROKE_PICKED);
         }
     }
 
     protected void drawPickedPoints(Graphics2D g2d, PaintContext context) {
         for (int i = 0; i < context.getPickedPoints().size(); i++) {
             OriPoint point = context.getPickedPoints().get(i);
-            OriDrawer.drawPoint(
+            OriPointDrawer.drawPoint(
                     g2d, point,
                     VertexStyle.SIZE_PICKED / context.transform.getScale(),
                     ColorStyle.ORIPOINT_PICKED);
@@ -126,7 +128,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             PaintContext context) {
         if (context.pointedOriPoint != null) {
             OriPoint candidate = context.pointedOriPoint;
-            OriDrawer.drawPoint(
+            OriPointDrawer.drawPoint(
                     g2d,
                     candidate,
                     VertexStyle.SIZE_POINTED / context.transform.getScale(),
@@ -138,7 +140,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             PaintContext context) {
         if (context.currentLogicalMousePoint != null) {
             Point2D.Double point = context.currentLogicalMousePoint;
-            OriDrawer.drawPoint(
+            OriPointDrawer.drawPoint(
                     g2d,
                     point,
                     VertexStyle.SIZE_POINTED / context.transform.getScale(),
@@ -150,11 +152,11 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             PaintContext context) {
         if (context.pointedOriLine != null) {
             OriLine candidate = context.pointedOriLine;
-            OriDrawer.drawLine(
+            OriLineDrawer.drawLine(
                     g2d,
                     candidate,
                     ColorStyle.ORILINE_POINTED,
-                    LineStrokeStyle.STROKE_POINTED);
+                    LineStyle.STROKE_POINTED);
         }
     }
 
@@ -162,7 +164,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             PaintContext context) {
         OriFace face = context.pointedOriFace;
         if (face != null) {
-            OriDrawer.drawFace(g2d, face.getOutline(),
+            OriFaceDrawer.drawFace(g2d, face.getOutline(),
                     ColorStyle.ORI_FACE_POINTED);
         }
     }
@@ -170,12 +172,12 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     protected void drawTemporaryLine(Graphics2D g2d, PaintContext context) {
         if (context.getPickedPoints().size() > 0) {
             OriPoint picked = context.getPickedPoints().peek();
-            OriDrawer.drawLine(g2d,
+            OriLineDrawer.drawLine(g2d,
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),
-                            LineType.AUX),
+                            LineType.CREASE),
                     ColorStyle.ORILINE_PICKED,
-                    LineStrokeStyle.STROKE_TEMPORARY);
+                    LineStyle.STROKE_TEMPORARY);
         }
 
     }

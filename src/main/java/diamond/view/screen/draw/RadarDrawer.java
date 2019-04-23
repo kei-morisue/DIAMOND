@@ -11,7 +11,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.PaintContext;
-import diamond.view.screen.draw.style.LineStrokeStyle;
+import diamond.view.screen.draw.style.LineStyle;
 
 /**
  * @author long_
@@ -34,7 +34,7 @@ public class RadarDrawer {
     private static void drawDiscs(Graphics2D g2d, int height, int width,
             int r) {
         g2d.setColor(Color.red);
-        g2d.setStroke(LineStrokeStyle.STROKE_RADAR);
+        g2d.setStroke(LineStyle.STROKE_RADAR);
         drawDisc(g2d, height, width, r);
         drawDisc(g2d, height, width, r >> 1);
         drawDisc(g2d, height, width, r >> 2);
@@ -74,7 +74,7 @@ public class RadarDrawer {
         width = getDimension(g2d).width;
         if (p != null) {
             g2d.setColor(Color.green);
-            g2d.setStroke(LineStrokeStyle.STROKE_OFFSET);
+            g2d.setStroke(LineStyle.STROKE_OFFSET);
             g2d.drawLine(
                     width >> 1,
                     height >> 1,

@@ -12,7 +12,6 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
-import diamond.model.geom.element.fold.FoldPolicy;
 import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriFaceUtil;
@@ -26,6 +25,7 @@ public class OriModel {
     private LinkedList<OriFace> faces = new LinkedList<OriFace>();
     private Set<OriVertex> vertices = new HashSet<OriVertex>();
     private Set<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
+    private Set<OriHalfEdge> unsettledLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
     private OriFace baseFace = null;
 
@@ -37,6 +37,7 @@ public class OriModel {
         faces.clear();
         vertices.clear();
         auxLines.clear();
+        unsettledLines.clear();
         baseFace = null;
         darkside = null;
         DuplicatedCPSimplifier.simplify(cp);
@@ -53,7 +54,7 @@ public class OriModel {
         if (baseFace == null) {
             baseFace = faces.get(0);
         }
-        Folder.fold(this, new FoldPolicy());
+        Folder.fold(this);
         faces.sort(new OriFaceComparator(faces));
     }
 
@@ -63,8 +64,17 @@ public class OriModel {
     private void buildAuxLines() {
         for (OriHalfEdge aux : auxLines) {
             for (OriFace face : faces) {
+                HashSet<OriHalfEdge> lines = face.getAuxLines();
                 if (OriFaceUtil.onFace(face, aux)) {
-                    face.addAuxLine(aux);
+                    lines.add(aux);
+                }
+            }
+        }
+        for (OriHalfEdge aux : unsettledLines) {
+            for (OriFace face : faces) {
+                HashSet<OriHalfEdge> lines = face.getUnettledLines();
+                if (OriFaceUtil.onFace(face, aux)) {
+                    lines.add(aux);
                 }
             }
         }
@@ -115,8 +125,13 @@ public class OriModel {
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);
-            if (LineType.isAux(line.getType())) {
+            if (line.getType() == LineType.CREASE) {
                 auxLines.add(he0);
+                continue;
+            }
+            if (line.getType() == LineType.UNSETTLED_MOUNTAIN
+                    || line.getType() == LineType.UNSETTLED_VALLEY) {
+                unsettledLines.add(he0);
                 continue;
             }
             v0.addEdge(he0);

@@ -7,7 +7,7 @@ package diamond.view.screen.debug;
 import java.awt.Graphics2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.view.screen.draw.OriDrawer;
+import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.FontStyle;
 
 /**
@@ -46,9 +46,9 @@ public class Debugger {
             String s,
             int height) {
         if (o == null) {
-            OriDrawer.describe(g2d, s + " : " + "null", 0, height);
+            StringDrawer.describe(g2d, s + " : " + "null", 0, height);
         } else {
-            OriDrawer.describe(g2d, s + " : " + o.toString(), 0, height);
+            StringDrawer.describe(g2d, s + " : " + o.toString(), 0, height);
         }
     }
 }

@@ -4,8 +4,8 @@ import java.awt.BasicStroke;
 
 import diamond.model.geom.element.LineType;
 
-public class LineStrokeStyle {
-
+public class LineStyle {
+    public static int CLIP_SCALE = 10;
     final public static BasicStroke STROKE_CUT = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_VALLEY = new BasicStroke(0.0f,
@@ -48,11 +48,6 @@ public class LineStrokeStyle {
 
     final static float dash[] = { 3.0f };
 
-    final public static BasicStroke STROKE_SELECT_BY_AREA = new BasicStroke(
-            0.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash,
-            0.0f);
-
-    // Editing outlines (?)
     final public static BasicStroke STROKE_TMP_OUTLINE = new BasicStroke(3.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke MODEL_STROKE_CUT = new BasicStroke(1.0f,
@@ -60,11 +55,11 @@ public class LineStrokeStyle {
 
     public static BasicStroke getCpStroke(LineType lineType) {
         switch (lineType) {
-        case AUX:
+        case CREASE:
             return STROKE_AUX;
-        case AUX_VALLEY:
+        case UNSETTLED_VALLEY:
             return STROKE_AUX_VALLEY;
-        case AUX_MOUNTAIN:
+        case UNSETTLED_MOUNTAIN:
             return STROKE_AUX_MOUNTAIN;
         default:
             return STROKE_MOUNTAIN;
@@ -73,11 +68,11 @@ public class LineStrokeStyle {
 
     public static BasicStroke getDiagramStroke(LineType lineType) {
         switch (lineType) {
-        case AUX:
+        case CREASE:
             return STROKE_AUX;
-        case AUX_VALLEY:
+        case UNSETTLED_VALLEY:
             return STROKE_AUX_VALLEY;
-        case AUX_MOUNTAIN:
+        case UNSETTLED_MOUNTAIN:
             return STROKE_AUX_MOUNTAIN;
         default:
             return STROKE_EDGE;
