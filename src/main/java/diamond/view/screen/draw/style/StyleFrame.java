@@ -4,20 +4,14 @@
  */
 package diamond.view.screen.draw.style;
 
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 
 import diamond.Initials;
-import diamond.controller.option.FaceBackColorStyleAction;
-import diamond.controller.option.FaceFrontColorStyleAction;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
+import diamond.view.ui.panel.FaceOption;
+import diamond.view.ui.panel.LineOption;
 
 /**
  * @author long_
@@ -30,44 +24,14 @@ public class StyleFrame extends JFrame {
         JTabbedPane pane = new JTabbedPane();
         pane.addTab(
                 ResourceHolder.getLabelString(LABEL.LINE_TAB),
-                buildLineTab());
+                new LineOption());
         pane.addTab(
                 ResourceHolder.getLabelString(LABEL.FACE_TAB),
-                buildFaceTab());
+                new FaceOption());
 
         add(pane);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private JPanel buildLineTab() {
-        JPanel tab = new JPanel();
-        tab.add(new JLabel(
-                ResourceHolder.getLabelString(LABEL.CLIPPING_SCALE)));
-        JTextField clipScale = new JTextField(
-                String.valueOf(LineStyle.CLIP_SCALE));
-        tab.add(clipScale);
-        return tab;
-    }
-
-    private JPanel buildFaceTab() {
-        String faceFrontLabel = ResourceHolder
-                .getLabelString(LABEL.FACE_FRONT_STYLE);
-        String faceBackLabel = ResourceHolder
-                .getLabelString(LABEL.FACE_BACK_STYLE);
-        JButton faceFront = new JButton(faceFrontLabel);
-        JButton faceBack = new JButton(faceBackLabel);
-
-        faceFront.setBackground(ColorStyle.ORI_FACE_FRONT);
-        faceBack.setBackground(ColorStyle.ORI_FACE_BACK);
-
-        faceFront.addActionListener(new FaceFrontColorStyleAction<JButton>());
-        faceBack.addActionListener(new FaceBackColorStyleAction<JButton>());
-        JPanel tab = new JPanel();
-
-        tab.setLayout(new GridLayout(2, 1));
-        tab.add(faceFront);
-        tab.add(faceBack);
-        return tab;
-    }
 }
