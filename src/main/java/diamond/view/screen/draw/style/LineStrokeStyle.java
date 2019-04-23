@@ -20,6 +20,10 @@ public class LineStrokeStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_AUX = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    final public static BasicStroke STROKE_RADAR = new BasicStroke(0.0f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    final public static BasicStroke STROKE_OFFSET = new BasicStroke(2.0f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
     final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
@@ -31,7 +35,7 @@ public class LineStrokeStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
 
-    final public static BasicStroke STROKE_MOVING = new BasicStroke(0.0f,
+    final public static BasicStroke STROKE_TEMPORARY = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     final public static BasicStroke STROKE_EDGE = new BasicStroke(2.0f,

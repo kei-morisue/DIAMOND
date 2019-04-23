@@ -10,6 +10,7 @@ import java.util.Set;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.element.origami.OriVertex;
+import diamond.model.geom.util.Point2DUtil;
 
 /**
  * @author long_
@@ -25,6 +26,14 @@ public class AnyPointPickkingState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {
+        Set<OriVertex> vertices = context.palette.getOriModel()
+                .getVertices();
+        for (OriVertex v : vertices) {
+            if (v.isPickked()) {
+                v.setOffset(new Double(.0, .0));
+            }
+        }
+        context.palette.getOriModel().fold();
     }
 
     @Override
@@ -44,7 +53,7 @@ public class AnyPointPickkingState extends AbstractPaintState {
                     .getVertices();
             for (OriVertex v : vertices) {
                 if (v.isPickked()) {
-                    v.setOffset(p);
+                    v.setOffset(Point2DUtil.scale(p, 0.1));
                 }
             }
             return true;
