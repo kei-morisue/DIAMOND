@@ -16,12 +16,12 @@ import diamond.model.geom.element.diagram.Diagram;
  *
  */
 public class DiagramPanel extends JPanel {
-    private Diagram diagram;
-    private int stepNo;
+    //    private Diagram diagram;
+    //    private int stepNo;
 
     public DiagramPanel(Diagram diagram, int stepNo) {
-        this.diagram = diagram;
-        this.stepNo = stepNo;
+        //        this.diagram = diagram;
+        //        this.stepNo = stepNo;
 
         setBorder(new LineBorder(Color.red));
         //add(new JLabel(String.valueOf(stepNo + 1)));

@@ -18,6 +18,7 @@ class EnumPersistenceDelegate extends PersistenceDelegate {
     }
 
     protected Expression instantiate(Object oldInstance, Encoder out) {
+        @SuppressWarnings("rawtypes")
         Enum e = (Enum) oldInstance;
         return new Expression(e, e.getClass(), "valueOf",
                 new Object[] { e.name() });

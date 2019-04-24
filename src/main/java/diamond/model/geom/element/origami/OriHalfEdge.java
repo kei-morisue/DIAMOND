@@ -26,6 +26,10 @@ public class OriHalfEdge {
     private OriFace face = null;
     private LineType type = null;
 
+    public OriHalfEdge() {
+
+    }
+
     public OriHalfEdge(OriVertex sv, OriVertex ev, LineType type) {
         this.sv = sv;
         this.ev = ev;

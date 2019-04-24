@@ -16,7 +16,6 @@ import diamond.model.geom.util.Point2DUtil;
  *
  */
 public class ArrowHead {
-    private double size = 10.0;
     public static final double kurtosis = Math.PI / 9;
     private Point2D.Double o = new Point2D.Double();
     private Point2D.Double p;
@@ -30,7 +29,6 @@ public class ArrowHead {
     }
 
     public ArrowHead(CurvedArrowBody arrowBody, double size, boolean isTail) {
-        this.size = size;
         this.p = new Point2D.Double(
                 -size * Math.cos(kurtosis),
                 size * Math.sin(kurtosis));

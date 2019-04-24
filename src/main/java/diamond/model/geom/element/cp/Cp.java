@@ -82,11 +82,11 @@ public class Cp {
     }
 
     public void addLine(OriLine line) {
-        new LineAdder().addLine(line, lines);
+        LineAdder.addLine(line, lines);
     }
 
     public void addAll(Collection<OriLine> lines) {
-        new LineAdder().addAll(lines, this.lines);
+        LineAdder.addAll(lines, this.lines);
     }
 
     public Set<OriLine> getCutLines() {

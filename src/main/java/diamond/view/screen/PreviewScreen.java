@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
@@ -57,21 +56,21 @@ public class PreviewScreen extends AbstractScreen {
         }
     }
 
-    private void buildFirstPage() {
-        add(buildDescription());
-        add(buildGoal());
-    }
+    //    private void buildFirstPage() {
+    //        add(buildDescription());
+    //        add(buildGoal());
+    //    }
 
     private JComponent buildDiagram(Diagram diagram) {
         return new DiagramPanel(diagram,
                 paintContext.palette.getDiagrams().indexOf(diagram));
     }
 
-    private JComponent buildGoal() {
-        return buildDiagram(paintContext.palette.getDiagrams().getLast());
-    }
-
-    private JComponent buildDescription() {
-        return new JPanel();
-    }
+    //    private JComponent buildGoal() {
+    //        return buildDiagram(paintContext.palette.getDiagrams().getLast());
+    //    }
+    //
+    //    private JComponent buildDescription() {
+    //        return new JPanel();
+    //    }
 }

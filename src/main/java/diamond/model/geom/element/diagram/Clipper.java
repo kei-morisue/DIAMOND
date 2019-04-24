@@ -9,6 +9,11 @@ package diamond.model.geom.element.diagram;
  *
  */
 public class Clipper {
+
+    public Clipper() {
+
+    }
+
     public Clipper(Clipper clipper) {
 
     }
