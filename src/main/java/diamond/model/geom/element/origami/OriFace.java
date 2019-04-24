@@ -24,6 +24,10 @@ public class OriFace {
     private AffineTransform transform = null;
     public boolean footPrint = false;
 
+    public OriFace() {
+
+    }
+
     public void initialize() {
         faceFront = true;
         transform = null;
@@ -107,6 +111,21 @@ public class OriFace {
 
     public void setUnettledLines(HashSet<OriHalfEdge> unettledLines) {
         this.unettledLines = unettledLines;
+    }
+
+    @Deprecated
+    public void setHalfEdges(ArrayList<OriHalfEdge> halfEdges) {
+        this.halfEdges = halfEdges;
+    }
+
+    @Deprecated
+    public void setAuxLines(HashSet<OriHalfEdge> auxLines) {
+        this.auxLines = auxLines;
+    }
+
+    @Deprecated
+    public void setOutline(GeneralPath outline) {
+        this.outline = outline;
     }
 
 }

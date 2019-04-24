@@ -29,6 +29,9 @@ public class OriModel {
     private OriFace darkside = null;
     private OriFace baseFace = null;
 
+    public OriModel() {
+    }
+
     public OriModel(Cp cp) {
         build(cp);
     }
@@ -167,6 +170,41 @@ public class OriModel {
 
     public void setBaseFace(OriFace baseFace) {
         this.baseFace = baseFace;
+    }
+
+    @Deprecated
+    public Set<OriHalfEdge> getUnsettledLines() {
+        return this.unsettledLines;
+    }
+
+    @Deprecated
+    public void setUnsettledLines(Set<OriHalfEdge> unsettledLines) {
+        this.unsettledLines = unsettledLines;
+    }
+
+    @Deprecated
+    public OriFace getDarkside() {
+        return this.darkside;
+    }
+
+    @Deprecated
+    public void setDarkside(OriFace darkside) {
+        this.darkside = darkside;
+    }
+
+    @Deprecated
+    public void setFaces(LinkedList<OriFace> faces) {
+        this.faces = faces;
+    }
+
+    @Deprecated
+    public void setVertices(Set<OriVertex> vertices) {
+        this.vertices = vertices;
+    }
+
+    @Deprecated
+    public void setAuxLines(Set<OriHalfEdge> auxLines) {
+        this.auxLines = auxLines;
     }
 
 }

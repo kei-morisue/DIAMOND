@@ -37,6 +37,7 @@ public class Palette extends Observable {
 
     public void setDiagrams(LinkedList<Diagram> diagrams) {
         this.diagrams = diagrams;
+        notifyObservers();
     }
 
     public Cp getCP() {
@@ -47,8 +48,6 @@ public class Palette extends Observable {
         while (stepNo >= diagrams.size()) {
             Diagram last = diagrams.getLast();
             diagrams.add(new Diagram(last));
-            setChanged();
-            notifyObservers();
         }
         return diagrams.get(stepNo);
     }

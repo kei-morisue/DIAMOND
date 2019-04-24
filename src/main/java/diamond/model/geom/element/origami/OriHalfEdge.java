@@ -92,4 +92,19 @@ public class OriHalfEdge {
         return this.ev;
     }
 
+    @Deprecated
+    public void setSv(OriVertex sv) {
+        this.sv = sv;
+    }
+
+    @Deprecated
+    public void setEv(OriVertex ev) {
+        this.ev = ev;
+    }
+
+    @Deprecated
+    public void setType(LineType type) {
+        this.type = type;
+    }
+
 }
