@@ -10,7 +10,9 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D.Double;
 
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.geom.util.Point2DUtil;
 
 /**
@@ -19,7 +21,7 @@ import diamond.model.geom.util.Point2DUtil;
  */
 public class OriHalfEdgeDrawer {
 
-    public static void drawFoldedAuxLine(
+    public static void drawFoldedCreaseLine(
             Graphics2D g2d,
             OriHalfEdge he,
             Color color,
@@ -27,22 +29,44 @@ public class OriHalfEdgeDrawer {
             double clipScale) {
         g2d.setColor(color);
         g2d.setStroke(stroke);
-        Double sv = he.getSv().getFoldedPosition();
-        Double ev = he.getEv().getFoldedPosition();
-        sv = Point2DUtil.plus(sv, he.getSv().getOffset());
-        ev = Point2DUtil.plus(ev, he.getEv().getOffset());
+        OriVertex s = he.getSv();
+        OriVertex e = he.getEv();
+
+        Double ev = e.getFoldedPosition();
+        Double sv = s.getFoldedPosition();
+        sv = Point2DUtil.plus(sv, s.getRotatedOffset(g2d));
+        ev = Point2DUtil.plus(ev, e.getRotatedOffset(g2d));
         Double center = Point2DUtil.scale(Point2DUtil.plus(sv, ev), 0.5);
-        sv = Point2DUtil.plus(
-                Point2DUtil.scale(sv, 1.0 - clipScale),
-                Point2DUtil.scale(center, clipScale));
-        ev = Point2DUtil.plus(
-                Point2DUtil.scale(ev, 1.0 - clipScale),
-                Point2DUtil.scale(center, clipScale));
+        sv = clip(sv, clipScale, center, !isCreaseVertex(s));
+        ev = clip(ev, clipScale, center, !isCreaseVertex(e));
         g2d.draw(new Line2D.Double(
                 sv.getX(),
                 sv.getY(),
                 ev.getX(),
                 ev.getY()));
+    }
+
+    private static Double clip(
+            Double vertex,
+            double clipScale,
+            Double center,
+            boolean clip) {
+        if (clip) {
+            return Point2DUtil.plus(
+                    Point2DUtil.scale(vertex, 1.0 - clipScale),
+                    Point2DUtil.scale(center, clipScale));
+        } else {
+            return vertex;
+        }
+    }
+
+    private static boolean isCreaseVertex(OriVertex v) {
+        for (OriHalfEdge he : v.getHalfEdges()) {
+            if (he.getType() != LineType.CREASE) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void drawFoldedHalfEdge(
@@ -52,10 +76,13 @@ public class OriHalfEdgeDrawer {
             Stroke stroke) {
         g2d.setColor(color);
         g2d.setStroke(stroke);
-        Double sv = he.getSv().getFoldedPosition();
-        Double ev = he.getEv().getFoldedPosition();
-        sv = Point2DUtil.plus(sv, he.getSv().getOffset());
-        ev = Point2DUtil.plus(ev, he.getEv().getOffset());
+        OriVertex s = he.getSv();
+        OriVertex e = he.getEv();
+
+        Double sv = s.getFoldedPosition();
+        Double ev = e.getFoldedPosition();
+        sv = Point2DUtil.plus(sv, s.getRotatedOffset(g2d));
+        ev = Point2DUtil.plus(ev, e.getRotatedOffset(g2d));
         g2d.draw(new Line2D.Double(
                 sv.getX(),
                 sv.getY(),

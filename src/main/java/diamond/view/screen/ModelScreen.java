@@ -11,7 +11,7 @@ import diamond.controller.paint.ModelContext;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.screen.draw.OriModelDrawer;
 import diamond.view.screen.draw.StringDrawer;
-import diamond.view.screen.draw.style.ColorStyle;
+import diamond.view.screen.draw.style.color.Ui;
 
 /**
  * @author long_
@@ -29,7 +29,7 @@ public class ModelScreen extends AbstractScreen {
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        drawBackGround(g2d, ColorStyle.MODEL_SCREEN_BG);
+        drawBackGround(g2d, Ui.MODEL_SCREEN_BG);
         ScreenTransform transform = context.transform;
         transform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(transform.getTransform());

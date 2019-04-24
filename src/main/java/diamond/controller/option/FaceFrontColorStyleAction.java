@@ -9,7 +9,7 @@ import java.awt.Component;
 
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
-import diamond.view.screen.draw.style.ColorStyle;
+import diamond.view.screen.draw.style.color.OriFace;
 
 /**
  * @author long_
@@ -20,17 +20,17 @@ public class FaceFrontColorStyleAction<T extends Component>
     @Override
     protected String getTitle() {
         return ResourceHolder
-                .getLabelString(LABEL.FACE_FRONT_STYLE);
+                .getLabelString(LABEL.FACE_FRONT_COLOR);
     }
 
     @Override
     protected Color getColorStyle() {
-        return ColorStyle.ORI_FACE_FRONT;
+        return OriFace.ORI_FACE_FRONT;
     }
 
     @Override
     protected void setColorStyle(Color color) {
-        ColorStyle.ORI_FACE_FRONT = color;
+        OriFace.ORI_FACE_FRONT = color;
     }
 
 }

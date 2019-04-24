@@ -4,6 +4,8 @@
  */
 package diamond.model.geom.element.origami;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
@@ -11,6 +13,7 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.cp.validator.Kawasaki;
 import diamond.model.palette.cp.validator.Maekawa;
+import diamond.view.screen.draw.G2DUtil;
 
 /**
  * @author long_
@@ -33,6 +36,15 @@ public class OriVertex extends AbstractOriVertex {
         this.foldedPosition = foldedPoision;
     }
 
+    public Double getRotatedOffset(Graphics2D g2d) {
+        Double ptDst = new Double();
+        double theta = G2DUtil.getTheta(g2d);
+        AffineTransform rotation = AffineTransform.getRotateInstance(-theta);
+        rotation.transform(offset, ptDst);
+        return ptDst;
+    }
+
+    @Deprecated
     public Point2D.Double getOffset() {
         return this.offset;
     }

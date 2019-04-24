@@ -4,15 +4,10 @@
  */
 package diamond.model.geom.element.origami;
 
-import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import diamond.model.geom.util.Point2DUtil;
-import diamond.view.screen.draw.style.ColorStyle;
 
 /**
  * @author long_
@@ -26,13 +21,11 @@ public class OriFace {
     private boolean faceFront = true;
 
     private GeneralPath outline = null;
-    private GeneralPath foldedOutline = null;
     private AffineTransform transform = null;
     public boolean footPrint = false;
 
     public void initialize() {
         faceFront = true;
-        foldedOutline = null;
         transform = null;
     }
 
@@ -67,28 +60,6 @@ public class OriFace {
         outline.closePath();
     }
 
-    public void setFoldedOutline(GeneralPath foldedOutline) {
-        this.foldedOutline = foldedOutline;
-    }
-
-    public void setFoldedOutline() {
-        for (OriHalfEdge he : halfEdges) {
-            OriVertex sv = he.getSv();
-            Point2D p = Point2DUtil.plus(
-                    sv.getFoldedPosition(),
-                    sv.getOffset());
-            double x = p.getX();
-            double y = p.getY();
-            if (foldedOutline == null) {
-                foldedOutline = new GeneralPath();
-                foldedOutline.moveTo(x, y);
-            } else {
-                foldedOutline.lineTo(x, y);
-            }
-        }
-        foldedOutline.closePath();
-    }
-
     public void fold(AffineTransform transform) {
         this.transform = transform;
         for (OriHalfEdge he : halfEdges) {
@@ -100,12 +71,6 @@ public class OriFace {
         for (OriHalfEdge he : unettledLines) {
             he.fold(transform);
         }
-        this.setFoldedOutline();
-    }
-
-    public Color getColor() {
-        return (isFaceFront()) ? ColorStyle.ORI_FACE_FRONT
-                : ColorStyle.ORI_FACE_BACK;
     }
 
     public void setTransform(AffineTransform transform) {
@@ -134,10 +99,6 @@ public class OriFace {
 
     public AffineTransform getTransform() {
         return this.transform;
-    }
-
-    public GeneralPath getFoldedOutline() {
-        return this.foldedOutline;
     }
 
     public HashSet<OriHalfEdge> getUnettledLines() {

@@ -53,8 +53,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.LINE_TAB.name(), "Line" },
             { LABEL.CLIPPING_SCALE.name(), "Clipping scale for crease lines" },
             { LABEL.FACE_TAB.name(), "Face" },
-            { LABEL.FACE_FRONT_STYLE.name(), "Face Front Style" },
-            { LABEL.FACE_BACK_STYLE.name(), "Face Back Style" },
+            { LABEL.FACE_FRONT_COLOR.name(), "Face Front Color" },
+            { LABEL.FACE_BACK_COLOR.name(), "Face Back Color" },
 
     };
 

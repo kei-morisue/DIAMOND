@@ -60,8 +60,7 @@ public class FaceOrderingAction extends AbstractPaintAction {
                     color = Color.green;
                     break;
                 }
-                OriFaceDrawer.drawFace(g2d, face.getOutline(),
-                        color);
+                OriFaceDrawer.drawFace(g2d, face, color);
             }
         }
     }

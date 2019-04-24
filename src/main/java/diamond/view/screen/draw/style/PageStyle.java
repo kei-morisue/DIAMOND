@@ -10,8 +10,8 @@ package diamond.view.screen.draw.style;
  */
 public class PageStyle {
 
-    public static int FRAME_HEIGHT = 800;
-    public static int FRAME_WIDTH = 600;
+    public final static int FRAME_HEIGHT = 800;
+    public final static int FRAME_WIDTH = 600;
     public static int DIAGRAM_ROW = 4;
     public static int DIAGRAM_COL = 3;
 

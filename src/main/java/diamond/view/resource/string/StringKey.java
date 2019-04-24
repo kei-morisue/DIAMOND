@@ -51,8 +51,8 @@ public class StringKey {
         CLIPPING_SCALE,
 
         FACE_TAB,
-        FACE_FRONT_STYLE,
-        FACE_BACK_STYLE,
+        FACE_FRONT_COLOR,
+        FACE_BACK_COLOR,
         SELECT_VERTEX,
         OFFSET,
     }

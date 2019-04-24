@@ -19,7 +19,6 @@ import diamond.model.geom.util.NearestPointFinder;
 import diamond.view.screen.draw.OriFaceDrawer;
 import diamond.view.screen.draw.OriLineDrawer;
 import diamond.view.screen.draw.OriPointDrawer;
-import diamond.view.screen.draw.style.ColorStyle;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
 
@@ -109,7 +108,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriLineDrawer.drawLine(
                     g2d,
                     context.getPickedLines().get(i),
-                    ColorStyle.ORILINE_PICKED,
+                    diamond.view.screen.draw.style.color.OriLine.ORILINE_PICKED,
                     LineStyle.STROKE_PICKED);
         }
     }
@@ -120,7 +119,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriPointDrawer.drawPoint(
                     g2d, point,
                     VertexStyle.SIZE_PICKED / context.transform.getScale(),
-                    ColorStyle.ORIPOINT_PICKED);
+                    diamond.view.screen.draw.style.color.OriPoint.ORIPOINT_PICKED);
         }
     }
 
@@ -132,7 +131,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     g2d,
                     candidate,
                     VertexStyle.SIZE_POINTED / context.transform.getScale(),
-                    ColorStyle.ORIPOINT_POINTED);
+                    diamond.view.screen.draw.style.color.OriPoint.ORIPOINT_POINTED);
         }
     }
 
@@ -144,7 +143,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     g2d,
                     point,
                     VertexStyle.SIZE_POINTED / context.transform.getScale(),
-                    ColorStyle.ORIPOINT_POINTED);
+                    diamond.view.screen.draw.style.color.OriPoint.ORIPOINT_POINTED);
         }
     }
 
@@ -155,7 +154,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriLineDrawer.drawLine(
                     g2d,
                     candidate,
-                    ColorStyle.ORILINE_POINTED,
+                    diamond.view.screen.draw.style.color.OriLine.ORILINE_POINTED,
                     LineStyle.STROKE_POINTED);
         }
     }
@@ -164,8 +163,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             PaintContext context) {
         OriFace face = context.pointedOriFace;
         if (face != null) {
-            OriFaceDrawer.drawFace(g2d, face.getOutline(),
-                    ColorStyle.ORI_FACE_POINTED);
+            OriFaceDrawer.drawFace(g2d, face,
+                    diamond.view.screen.draw.style.color.OriFace.ORI_FACE_POINTED);
         }
     }
 
@@ -176,7 +175,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),
                             LineType.CREASE),
-                    ColorStyle.ORILINE_PICKED,
+                    diamond.view.screen.draw.style.color.OriLine.ORILINE_PICKED,
                     LineStyle.STROKE_TEMPORARY);
         }
 
