@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import diamond.controller.file.action.ExportAction;
 import diamond.controller.file.action.LoadAction;
+import diamond.controller.paint.ModelContext;
 import diamond.controller.paint.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -22,16 +23,18 @@ import diamond.view.resource.string.StringKey.LABEL;
  *
  */
 public class MenuFile extends JMenu {
-    public MenuFile(PaintContext paintContext) {
+    public MenuFile(PaintContext paintContext, ModelContext modelContext) {
         super(ResourceHolder.getLabelString(LABEL.FILE));
-        add(buildOpen(paintContext));
+        add(buildOpen(paintContext, modelContext));
         add(buildSave(paintContext));
     }
 
-    private JMenuItem buildOpen(PaintContext paintContext) {
+    private JMenuItem buildOpen(PaintContext paintContext,
+            ModelContext modelContext) {
         JMenuItem item = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.OPEN));
-        item.addActionListener(new LoadAction(paintContext, item));
+        item.addActionListener(
+                new LoadAction(paintContext, modelContext, item));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));
         return item;

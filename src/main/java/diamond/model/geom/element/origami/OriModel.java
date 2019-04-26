@@ -104,7 +104,7 @@ public class OriModel {
                 }
                 faces.add(face);
                 face.makeHalfedgeLoop();
-                face.setOutline(0.5);
+                face.buildOutline(0.5);
             }
         }
     }

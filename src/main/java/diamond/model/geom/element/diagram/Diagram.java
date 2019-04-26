@@ -12,16 +12,16 @@ import diamond.view.screen.ScreenTransform;
  *
  */
 public class Diagram {
-    private ScreenTransform transform = new ScreenTransform(0, 0);
     private Cp cp = new Cp();
+    private ScreenTransform transform = new ScreenTransform(0, 0);
     private Clipper clipper;
 
     public Diagram() {
     }
 
     public Diagram(Diagram diagram) {
-        this.transform = new ScreenTransform(diagram.getTransform());
         this.cp = new Cp(diagram.cp);
+        this.transform = new ScreenTransform(diagram.transform);
         this.clipper = new Clipper(diagram.clipper);
     }
 

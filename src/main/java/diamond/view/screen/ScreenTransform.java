@@ -20,6 +20,10 @@ public class ScreenTransform {
 
     private AffineTransform affineTransform = new AffineTransform();
 
+    public ScreenTransform() {
+
+    }
+
     public ScreenTransform(int width, int height) {
         focus(width, height);
     }
@@ -61,8 +65,60 @@ public class ScreenTransform {
         focus(width, height);
     }
 
+    @Deprecated
     public double getScale() {
         return this.zoom.getScaleX();
+    }
+
+    @Deprecated
+
+    public AffineTransform getFocus() {
+        return this.focus;
+    }
+
+    @Deprecated
+    public void setFocus(AffineTransform focus) {
+        this.focus = focus;
+    }
+
+    @Deprecated
+    public AffineTransform getZoom() {
+        return this.zoom;
+    }
+
+    @Deprecated
+    public void setZoom(AffineTransform zoom) {
+        this.zoom = zoom;
+    }
+
+    @Deprecated
+    public AffineTransform getTranslate() {
+        return this.translate;
+    }
+
+    @Deprecated
+    public void setTranslate(AffineTransform translate) {
+        this.translate = translate;
+    }
+
+    @Deprecated
+    public AffineTransform getRotate() {
+        return this.rotate;
+    }
+
+    @Deprecated
+    public void setRotate(AffineTransform rotate) {
+        this.rotate = rotate;
+    }
+
+    @Deprecated
+    public AffineTransform getAffineTransform() {
+        return this.affineTransform;
+    }
+
+    @Deprecated
+    public void setAffineTransform(AffineTransform affineTransform) {
+        this.affineTransform = affineTransform;
     }
 
 }

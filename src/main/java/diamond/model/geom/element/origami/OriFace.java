@@ -31,6 +31,7 @@ public class OriFace {
     public void initialize() {
         faceFront = true;
         transform = null;
+        footPrint = false;
     }
 
     public void addHalfEdge(OriHalfEdge he) {
@@ -48,7 +49,7 @@ public class OriFace {
         }
     }
 
-    public void setOutline(double scale) {
+    public void buildOutline(double scale) {
         OriVertex centerP = OriModelUtil.getCenterPoint(this);
         for (OriHalfEdge he : halfEdges) {
             OriVertex sv = he.getSv();

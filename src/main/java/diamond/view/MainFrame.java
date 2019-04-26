@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
         add(buildCenterPanel(), BorderLayout.CENTER);
 
         add(new UiPanel(paintContext), BorderLayout.WEST);
-        setJMenuBar(new MenuBar(paintContext));
+        setJMenuBar(new MenuBar(paintContext, modelContext));
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
