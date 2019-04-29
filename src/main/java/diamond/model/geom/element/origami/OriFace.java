@@ -129,4 +129,14 @@ public class OriFace {
         this.outline = outline;
     }
 
+    @Deprecated
+    public boolean isFootPrint() {
+        return this.footPrint;
+    }
+
+    @Deprecated
+    public void setFootPrint(boolean footPrint) {
+        this.footPrint = footPrint;
+    }
+
 }

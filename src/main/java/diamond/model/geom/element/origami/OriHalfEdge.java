@@ -5,7 +5,6 @@
 package diamond.model.geom.element.origami;
 
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
@@ -42,8 +41,6 @@ public class OriHalfEdge {
     }
 
     public void fold(AffineTransform transform) {
-        sv.setFoldedPosition(new Point2D.Double());
-        ev.setFoldedPosition(new Point2D.Double());
         transform.transform(sv, sv.getFoldedPosition());
         transform.transform(ev, ev.getFoldedPosition());
     }

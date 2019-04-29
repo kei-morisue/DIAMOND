@@ -11,6 +11,13 @@ import java.awt.geom.Point2D;
  *
  */
 public class AbstractOriVertex extends Point2D.Double {
+    /**
+     *
+     */
+    public AbstractOriVertex() {
+        super();
+    }
+
     public AbstractOriVertex(double x, double y) {
         super(x, y);
     }

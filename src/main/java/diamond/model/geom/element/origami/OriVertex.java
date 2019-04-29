@@ -21,12 +21,12 @@ import diamond.view.screen.draw.G2DUtil;
  */
 public class OriVertex extends AbstractOriVertex {
 
-    private Point2D.Double offset = new Point2D.Double(0.0, 0.0);
+    private Point2D.Double offset = new Point2D.Double();
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
     private boolean isPickked = false;
 
-    private Point2D.Double foldedPosition = null;
+    private Point2D.Double foldedPosition = new Point2D.Double();
 
     public Point2D.Double getFoldedPosition() {
         return this.foldedPosition;
@@ -63,7 +63,7 @@ public class OriVertex extends AbstractOriVertex {
     }
 
     public OriVertex() {
-        super(.0, .0);
+        super();
     }
 
     public OriVertex(OriPoint point) {
