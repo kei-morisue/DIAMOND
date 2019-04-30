@@ -18,6 +18,7 @@ import diamond.view.screen.draw.style.color.OriArrow;
  *
  */
 public class CurvedArrowBody extends AbstractArrowBody {
+    protected boolean isLHS = false;
 
     public GeneralPath getStroke(Double p0, Double p1) {
         GeneralPath path = new GeneralPath();
@@ -31,7 +32,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
     }
 
     public Double getMiddlePoint(Double p0, Double p1) {
-        Double middlePoint = p0;
+        Double middlePoint = isLHS ? p1 : p0;
 
         Point2D.Double dir = Point2DUtil.sub(p1, p0);
         double length = Point2DUtil.diatance(p0, p1);
@@ -71,6 +72,11 @@ public class CurvedArrowBody extends AbstractArrowBody {
         Double p = Point2DUtil.sub(rotatedP1,
                 getMiddlePoint(rotatedP0, rotatedP1));
         return Point2DUtil.angle(p);
+    }
+
+    @Override
+    public void flip() {
+        isLHS = !isLHS;
     }
 
 }

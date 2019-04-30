@@ -14,7 +14,6 @@ import diamond.model.geom.util.Point2DUtil;
  *
  */
 public abstract class AbstractArrowBody {
-    protected boolean isLHS = false;
 
     protected AbstractArrowBody() {
 
@@ -38,9 +37,7 @@ public abstract class AbstractArrowBody {
         return Point2DUtil.plus(center, dir);
     };
 
-    public void flip() {
-        this.isLHS = !isLHS;
-    }
+    public abstract void flip();
 
     public abstract void draw(Graphics2D g2d, Double p0, Double p1);
 
