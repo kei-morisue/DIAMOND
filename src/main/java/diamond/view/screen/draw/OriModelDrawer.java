@@ -35,6 +35,9 @@ public class OriModelDrawer {
                                 .getDiagramColor(LineType.CREASE),
                         LineStyle.getDiagramStroke(LineType.CREASE),
                         LineStyle.CLIP_SCALE * 0.01);
+                if (aux.getArrow() != null) {
+                    aux.getArrow().draw(g2d, aux);
+                }
             }
             for (OriHalfEdge he : face.getUnettledLines()) {
                 OriHalfEdgeDrawer.drawFoldedHalfEdge(
@@ -43,12 +46,19 @@ public class OriModelDrawer {
                         diamond.view.screen.draw.style.color.OriHalfEdge
                                 .getDiagramColor(he.getType()),
                         LineStyle.getDiagramStroke(he.getType()));
+                if (he.getArrow() != null) {
+                    he.getArrow().draw(g2d, he);
+                }
+
             }
             for (OriHalfEdge he : face.getHalfEdges()) {
                 OriVertex sv = he.getSv();
                 if (sv.isPickked()) {
                     OriVertexDrawer.drawVertex(g2d, sv,
                             VertexStyle.SIZE_PICKED / scale);
+                }
+                if (he.getArrow() != null) {
+                    he.getArrow().draw(g2d, he);
                 }
                 OriHalfEdgeDrawer.drawFoldedHalfEdge(
                         g2d,

@@ -22,28 +22,14 @@ import java.awt.geom.Point2D;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.Segment;
+import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
 public class OriLine {
 
     public OriPoint p0 = null;
     public OriPoint p1 = null;
     LineType type = LineType.CREASE;
-
-    public OriPoint getP0() {
-        return this.p0;
-    }
-
-    public void setP0(OriPoint p0) {
-        this.p0 = p0;
-    }
-
-    public OriPoint getP1() {
-        return this.p1;
-    }
-
-    public void setP1(OriPoint p1) {
-        this.p1 = p1;
-    }
+    private AbstractArrow arrow = null;
 
     public OriLine() {
     }
@@ -64,6 +50,7 @@ public class OriLine {
         this.p0 = l.p0;
         this.p1 = l.p1;
         this.type = l.type;
+        this.arrow = l.arrow;
     }
 
     public double length() {
@@ -72,6 +59,24 @@ public class OriLine {
 
     public LineType getType() {
         return type;
+    }
+
+    public OriPoint getP0() {
+        return this.p0;
+    }
+
+    @Deprecated
+    public void setP0(OriPoint p0) {
+        this.p0 = p0;
+    }
+
+    public OriPoint getP1() {
+        return this.p1;
+    }
+
+    @Deprecated
+    public void setP1(OriPoint p1) {
+        this.p1 = p1;
     }
 
     public Segment getSegment() {
@@ -115,6 +120,14 @@ public class OriLine {
 
     public void setType(LineType type) {
         this.type = type;
+    }
+
+    public AbstractArrow getArrow() {
+        return arrow;
+    }
+
+    public void setArrow(AbstractArrow arrow) {
+        this.arrow = arrow;
     }
 
 }

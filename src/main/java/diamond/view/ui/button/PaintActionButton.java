@@ -27,7 +27,9 @@ import diamond.controller.paint.action.SelectVertexAction;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.controller.paint.action.UnfoldLineAction;
+import diamond.controller.paint.action.ValleyFoldArrowAddingAction;
 import diamond.view.resource.IconSetter;
+import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -109,6 +111,10 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("offset");
             this.paintAction = new OffsetAction();
             break;
+        case VALLEY_ARROW:
+            setText(ResourceHolder.getLabelString(LABEL.VALLEY_ARROW));
+            this.paintAction = new ValleyFoldArrowAddingAction() {
+            };
         default:
             break;
         }

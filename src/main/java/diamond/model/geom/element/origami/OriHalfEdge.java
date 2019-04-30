@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
 /**
  * @author long_
@@ -25,8 +26,18 @@ public class OriHalfEdge {
     private OriFace face = null;
     private LineType type = null;
 
+    private AbstractArrow arrow = null;
+
     public OriHalfEdge() {
 
+    }
+
+    public OriHalfEdge(OriVertex sv, OriVertex ev, LineType type,
+            AbstractArrow arrow) {
+        this.sv = sv;
+        this.ev = ev;
+        this.type = type;
+        this.arrow = arrow;
     }
 
     public OriHalfEdge(OriVertex sv, OriVertex ev, LineType type) {
@@ -102,6 +113,14 @@ public class OriHalfEdge {
     @Deprecated
     public void setType(LineType type) {
         this.type = type;
+    }
+
+    public AbstractArrow getArrow() {
+        return this.arrow;
+    }
+
+    public void setArrow(AbstractArrow arrow) {
+        this.arrow = arrow;
     }
 
 }

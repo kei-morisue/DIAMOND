@@ -21,10 +21,12 @@ public class UiPanel extends JTabbedPane {
     private ButtonGroup paintActionButtons = new ButtonGroup();
 
     public UiPanel(PaintContext context) {
-        addTab(ResourceHolder.getLabelString(LABEL.CP), buildCpUi(context));
+        addTab(ResourceHolder.getLabelString(LABEL.CP),
+                buildCpUi(context));
         addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
-                buildModelU(context));
-
+                buildModelUi(context));
+        addTab(ResourceHolder.getLabelString(LABEL.ARROW_TAB),
+                buildArrowUi(context));
     }
 
     private JPanel buildCpUi(PaintContext context) {
@@ -35,10 +37,20 @@ public class UiPanel extends JTabbedPane {
         return panel;
     }
 
-    private JPanel buildModelU(PaintContext context) {
+    private JPanel buildModelUi(PaintContext context) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new ModelUiPanel(context, paintActionButtons));
+        return panel;
+    }
+
+    /**
+     *
+     */
+    private JPanel buildArrowUi(PaintContext context) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(new ArrowPanel(context, paintActionButtons));
         return panel;
     }
 }

@@ -55,6 +55,13 @@ public class StringKey {
         FACE_BACK_COLOR,
         SELECT_VERTEX,
         OFFSET,
+
+        ARROW_TAB,
+        VALLEY_ARROW,
+        MOUNTAIN_ARROW,
+        CREASE_ARROW,
+        SINK_ARROW,
+        PLEAT_ARROW,
     }
 
     public enum HINT {

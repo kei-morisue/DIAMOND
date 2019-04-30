@@ -41,6 +41,13 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.FACE_TOP.name(), "Set the face top" },
             { LABEL.FACE_BOTTOM.name(), "Set the face botom" },
 
+            { LABEL.ARROW_TAB.name(), "Add Arrows" },
+            { LABEL.VALLEY_ARROW.name(), "Valley Fold" },
+            { LABEL.MOUNTAIN_ARROW.name(), "Mountai Fold" },
+            { LABEL.CREASE_ARROW.name(), "Fold/Unfold" },
+            { LABEL.SINK_ARROW.name(), "Sink Fold" },
+            { LABEL.PLEAT_ARROW.name(), "Pleat Fold" },
+
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },
             { LABEL.OPEN.name(), "Open" },

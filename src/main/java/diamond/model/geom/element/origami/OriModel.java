@@ -124,7 +124,8 @@ public class OriModel {
             OriVertex v1 = new OriVertex(line.p1);
             v0 = add(v0);
             v1 = add(v1);
-            OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType());
+            OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType(),
+                    line.getArrow());
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);

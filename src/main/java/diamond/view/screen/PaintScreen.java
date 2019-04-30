@@ -72,6 +72,10 @@ public class PaintScreen extends AbstractScreen {
                     diamond.view.screen.draw.style.color.OriLine
                             .getCpColor(l.getType()),
                     LineStyle.getCpStroke(l.getType()));
+            //TODO delete
+            if (l.getArrow() != null) {
+                l.getArrow().draw(g2d, l);
+            }
         }
     }
 
