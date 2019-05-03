@@ -21,7 +21,7 @@ public class OriVertexDrawer {
     public static void drawVertex(Graphics2D g2d, OriVertex v, double size) {
         g2d.setColor(VertexStyle.COLOR_SELECTED);
         Point2D foldedPosition = v.getFoldedPosition();
-        Double offset = v.getRotatedOffset(g2d);
+        Double offset = v.getOffset();
         g2d.fill(new Rectangle2D.Double(
                 foldedPosition.getX() + offset.x - size * 0.5,
                 foldedPosition.getY() + offset.y - size * 0.5,

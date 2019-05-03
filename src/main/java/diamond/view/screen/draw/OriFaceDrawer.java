@@ -58,7 +58,7 @@ public class OriFaceDrawer {
             OriVertex sv = he.getSv();
             Point2D p = Point2DUtil.plus(
                     sv.getFoldedPosition(),
-                    sv.getRotatedOffset(g2d));
+                    sv.getOffset());
             double x = p.getX();
             double y = p.getY();
             if (foldedOutline == null) {

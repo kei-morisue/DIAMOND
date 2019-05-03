@@ -4,6 +4,7 @@
  */
 package diamond.controller.paint.state.offset;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
@@ -49,10 +50,21 @@ public class OffsetSettingState extends AbstractPaintState {
             Set<OriVertex> vertices = context.palette.getOriModel()
                     .getVertices();
             Cp cp = context.palette.getCP();
-            OffsetSetter.set(cp, p, vertices);
+            Double rotated = getRotatedPoint(context, p);
+            OffsetSetter.set(cp, rotated, vertices);
             return true;
         }
         return false;
+    }
+
+    private Double getRotatedPoint(PaintContext context, Double p) {
+        Double rotated = new Double();
+        AffineTransform transform = context.palette.getDiagram()
+                .getTransform().getTransform();
+        double theta = Math.atan2(-transform.getShearX(),
+                transform.getScaleX());
+        AffineTransform.getRotateInstance(-theta).transform(p, rotated);
+        return rotated;
     }
 
 }

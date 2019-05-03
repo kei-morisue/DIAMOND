@@ -34,8 +34,8 @@ public class OriHalfEdgeDrawer {
 
         Double ev = e.getFoldedPosition();
         Double sv = s.getFoldedPosition();
-        sv = Point2DUtil.plus(sv, s.getRotatedOffset(g2d));
-        ev = Point2DUtil.plus(ev, e.getRotatedOffset(g2d));
+        sv = Point2DUtil.plus(sv, s.getOffset());
+        ev = Point2DUtil.plus(ev, e.getOffset());
         Double center = Point2DUtil.center(sv, ev);
         sv = clip(sv, clipScale, center, !isCreaseVertex(s));
         ev = clip(ev, clipScale, center, !isCreaseVertex(e));
@@ -81,8 +81,8 @@ public class OriHalfEdgeDrawer {
 
         Double sv = s.getFoldedPosition();
         Double ev = e.getFoldedPosition();
-        sv = Point2DUtil.plus(sv, s.getRotatedOffset(g2d));
-        ev = Point2DUtil.plus(ev, e.getRotatedOffset(g2d));
+        sv = Point2DUtil.plus(sv, s.getOffset());
+        ev = Point2DUtil.plus(ev, e.getOffset());
         g2d.draw(new Line2D.Double(
                 sv.getX(),
                 sv.getY(),
