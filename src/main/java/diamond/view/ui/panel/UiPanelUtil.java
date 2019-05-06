@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 
 import diamond.controller.paint.PaintContext;
 import diamond.view.resource.string.StringKey.LABEL;
+import diamond.view.ui.button.ArrowPaintButton;
 import diamond.view.ui.button.PaintActionButton;
 
 /**
@@ -41,5 +42,15 @@ public class UiPanelUtil {
         if (label == LABEL.AXIOM1) {
             button.setSelected(true);
         }
+    }
+
+    public static void addArrowPaintButton(
+            JPanel parent,
+            ButtonGroup buttonGroup,
+            LABEL label,
+            PaintContext context) {
+        JRadioButton button = new ArrowPaintButton(label, context);
+        parent.add(button);
+        buttonGroup.add(button);
     }
 }

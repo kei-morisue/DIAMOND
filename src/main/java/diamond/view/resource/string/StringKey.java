@@ -59,7 +59,7 @@ public class StringKey {
         ARROW_TAB,
         VALLEY_ARROW,
         MOUNTAIN_ARROW,
-        CREASE_ARROW,
+        FOLD_UNFOLD_ARROW,
         SINK_ARROW,
         PLEAT_ARROW,
     }

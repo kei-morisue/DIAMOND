@@ -15,7 +15,7 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public abstract class ArrowAddingState extends AbstractPaintState {
+public abstract class ArrowPaintState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {

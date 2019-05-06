@@ -11,12 +11,12 @@ import diamond.model.geom.element.diagram.arrow.ValleyFoldArrow;
  * @author long_
  *
  */
-public class ValleyFoldArrowAddingState extends ArrowAddingState {
+public class ValleyArrowPaintState extends ArrowPaintState {
 
     @Override
     protected void initialize() {
-        setNextClass(ValleyFoldArrowAddingState.class);
-        setPrevClass(ValleyFoldArrowAddingState.class);
+        setNextClass(ValleyArrowPaintState.class);
+        setPrevClass(ValleyArrowPaintState.class);
     }
 
     @Override

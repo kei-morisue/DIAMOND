@@ -44,7 +44,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.ARROW_TAB.name(), "Add Arrows" },
             { LABEL.VALLEY_ARROW.name(), "Valley Fold" },
             { LABEL.MOUNTAIN_ARROW.name(), "Mountai Fold" },
-            { LABEL.CREASE_ARROW.name(), "Fold/Unfold" },
+            { LABEL.FOLD_UNFOLD_ARROW.name(), "Fold/Unfold" },
             { LABEL.SINK_ARROW.name(), "Sink Fold" },
             { LABEL.PLEAT_ARROW.name(), "Pleat Fold" },
 

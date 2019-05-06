@@ -16,15 +16,16 @@ import diamond.view.screen.draw.style.color.OriArrowColor;
  * @author long_
  *
  */
-public class ValleyFoldArrowHead extends AbstractArrowHead {
+public class MountainFoldArrowHead extends AbstractArrowHead {
     public static final double kurtosis = Math.PI / 7;
     private final static double size = 15.0;
 
-    public ValleyFoldArrowHead(AbstractArrowBody body, boolean isTail) {
+    public MountainFoldArrowHead(AbstractArrowBody body, boolean isTail) {
         super(body, isTail);
     }
 
-    private GeneralPath getShape(Double p0, Double p1) {
+    @Override
+    public void draw(Graphics2D g2d, Double p0, Double p1) {
         GeneralPath path = new GeneralPath();
         AffineTransform affineTransform = new AffineTransform();
         Double position = getPosition(p0, p1);
@@ -33,7 +34,6 @@ public class ValleyFoldArrowHead extends AbstractArrowHead {
         Double o = new Double(size, 0);
         Double p = new Double(-size, size * Math.sin(kurtosis));
         Double q = new Double(-size, -size * Math.sin(kurtosis));
-
         affineTransform.transform(o, o);
         affineTransform.transform(p, p);
         affineTransform.transform(q, q);
@@ -41,13 +41,12 @@ public class ValleyFoldArrowHead extends AbstractArrowHead {
         path.lineTo(p.x, p.y);
         path.lineTo(q.x, q.y);
         path.closePath();
-        return path;
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
+        g2d.setColor(OriArrowColor.ARROW_MOUNTAIN);
+        g2d.fill(path);
         g2d.setColor(OriArrowColor.ARROW_VALLEY);
-        g2d.fill(getShape(p0, p1));
+        g2d.draw(path);
+        ;
+
     }
 
 }

@@ -6,13 +6,13 @@ package diamond.model.geom.element.diagram.arrow;
 
 import diamond.model.geom.element.diagram.arrow.body.CurvedArrowBody;
 import diamond.model.geom.element.diagram.arrow.head.EmptyArrowHead;
-import diamond.model.geom.element.diagram.arrow.head.ValleyFoldArrowHead;
+import diamond.model.geom.element.diagram.arrow.head.MountainFoldArrowHead;
 
 /**
  * @author long_
  *
  */
-public class ValleyFoldArrow extends AbstractArrow {
+public class MountainFoldArrow extends AbstractArrow {
 
     @Override
     protected void buildHead0() {
@@ -21,7 +21,7 @@ public class ValleyFoldArrow extends AbstractArrow {
 
     @Override
     protected void buildHead1() {
-        head1 = new ValleyFoldArrowHead(body, false);
+        head1 = new MountainFoldArrowHead(body, false);
 
     }
 
