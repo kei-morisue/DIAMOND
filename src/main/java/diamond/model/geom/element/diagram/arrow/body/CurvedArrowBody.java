@@ -11,7 +11,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.model.geom.util.Point2DUtil;
 import diamond.view.screen.draw.style.LineStyle;
-import diamond.view.screen.draw.style.color.OriArrow;
+import diamond.view.screen.draw.style.color.OriArrowColor;
 
 /**
  * @author long_
@@ -51,7 +51,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
 
     @Override
     public void draw(Graphics2D g2d, Double p0, Double p1) {
-        g2d.setColor(OriArrow.ARROW_BODY);
+        g2d.setColor(OriArrowColor.ARROW_BODY);
         g2d.setStroke(LineStyle.STROKE_ARROW);
         g2d.draw(getStroke(getP0(p0, p1), getP1(p0, p1)));
     }

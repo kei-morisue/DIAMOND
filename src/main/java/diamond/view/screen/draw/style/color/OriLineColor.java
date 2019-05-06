@@ -12,7 +12,7 @@ import diamond.model.geom.element.LineType;
  * @author long_
  *
  */
-public class OriLine {
+public class OriLineColor {
 
     final public static Color ORILINE_VALLEY = Color.BLUE;
     final public static Color ORILINE_MOUNTAIN = Color.RED;

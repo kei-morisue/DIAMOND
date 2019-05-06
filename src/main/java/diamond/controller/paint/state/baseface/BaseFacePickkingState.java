@@ -7,6 +7,7 @@ package diamond.controller.paint.state.baseface;
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.state.OriFacePickkingState;
 import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriModel;
 
 /**
  * @author long_
@@ -17,8 +18,12 @@ public class BaseFacePickkingState extends OriFacePickkingState {
     protected void onResult(PaintContext context) {
         super.onResult(context);
         OriFace baseFace = context.pointedOriFace;
+        OriModel oriModel = context.palette.getOriModel();
+        if (oriModel.getFaces().size() == 1) {
+            oriModel.flip();
+        }
         if (baseFace != null) {
-            context.palette.getDiagram().getCp().getOriModel()
+            oriModel
                     .setBaseFace(baseFace);
         }
     }

@@ -10,7 +10,7 @@ import java.awt.Color;
  * @author long_
  *
  */
-public class OriVertex {
+public class OriVertexColor {
 
     static public final Color CP_ORI_VERTEX = Color.black;
     static public final Color WRONG_ORI_VERTEX = Color.red;

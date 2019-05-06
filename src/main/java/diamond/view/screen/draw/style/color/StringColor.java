@@ -10,7 +10,7 @@ import java.awt.Color;
  * @author long_
  *
  */
-public class String {
+public class StringColor {
 
     static public final Color DEBUGGING_STRING = Color.black;
     static public final Color STEP_NO = Color.black;

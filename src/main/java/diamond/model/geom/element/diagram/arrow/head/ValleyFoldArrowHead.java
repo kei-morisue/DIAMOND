@@ -10,7 +10,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D.Double;
 
 import diamond.model.geom.element.diagram.arrow.body.AbstractArrowBody;
-import diamond.view.screen.draw.style.color.OriArrow;
+import diamond.view.screen.draw.style.color.OriArrowColor;
 
 /**
  * @author long_
@@ -46,7 +46,7 @@ public class ValleyFoldArrowHead extends AbstractArrowHead {
 
     @Override
     public void draw(Graphics2D g2d, Double p0, Double p1) {
-        g2d.setColor(OriArrow.ARROW_VALLEY);
+        g2d.setColor(OriArrowColor.ARROW_VALLEY);
         g2d.fill(getShape(p0, p1));
     }
 

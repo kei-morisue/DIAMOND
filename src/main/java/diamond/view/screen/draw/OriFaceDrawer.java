@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriModelUtil;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.geom.util.Point2DUtil;
@@ -35,11 +36,12 @@ public class OriFaceDrawer {
     }
 
     public static void drawBaseFace(Graphics2D g2d,
-            OriFace face) {
-        g2d.setColor(diamond.view.screen.draw.style.color.OriFace
-                .getBaseFaceColor());
-        g2d.fill(face.getOutline());
-        OriVertex centerPoint = OriModelUtil.getCenterPoint(face);
+            OriModel oriModel) {
+        g2d.setColor(diamond.view.screen.draw.style.color.OriFaceColor
+                .getBaseFaceColor(oriModel));
+        OriFace baseFace = oriModel.getBaseFace();
+        g2d.fill(baseFace.getOutline());
+        OriVertex centerPoint = OriModelUtil.getCenterPoint(baseFace);
         drawCross(g2d, (int) centerPoint.x, (int) centerPoint.y);
     }
 

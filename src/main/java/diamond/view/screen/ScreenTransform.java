@@ -65,7 +65,6 @@ public class ScreenTransform {
         focus(width, height);
     }
 
-    @Deprecated
     public double getScale() {
         return this.zoom.getScaleX();
     }

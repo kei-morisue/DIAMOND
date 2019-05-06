@@ -10,7 +10,7 @@ import java.awt.Color;
  * @author long_
  *
  */
-public class OriPoint {
+public class OriPointColor {
 
     static public final Color ORIPOINT = Color.black;
     public static final Color ORIPOINT_PICKED = Color.green;

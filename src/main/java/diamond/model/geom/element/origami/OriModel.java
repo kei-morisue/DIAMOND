@@ -28,6 +28,7 @@ public class OriModel {
     private Set<OriHalfEdge> unsettledLines = new HashSet<OriHalfEdge>();
     private OriFace darkside = null;
     private OriFace baseFace = null;
+    private boolean isFlip = false;
 
     public OriModel() {
     }
@@ -43,6 +44,7 @@ public class OriModel {
         unsettledLines.clear();
         baseFace = null;
         darkside = null;
+        isFlip = false;
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
         buildFaces();
@@ -67,7 +69,7 @@ public class OriModel {
     private void buildAuxLines() {
         for (OriHalfEdge aux : auxLines) {
             for (OriFace face : faces) {
-                HashSet<OriHalfEdge> lines = face.getAuxLines();
+                HashSet<OriHalfEdge> lines = face.getCreaseLines();
                 if (OriFaceUtil.onFace(face, aux)) {
                     lines.add(aux);
                 }
@@ -206,6 +208,19 @@ public class OriModel {
     @Deprecated
     public void setAuxLines(Set<OriHalfEdge> auxLines) {
         this.auxLines = auxLines;
+    }
+
+    public boolean isFlip() {
+        return isFlip;
+    }
+
+    @Deprecated
+    public void setFlip(boolean isFlip) {
+        this.isFlip = isFlip;
+    }
+
+    public void flip() {
+        isFlip = !isFlip;
     }
 
 }

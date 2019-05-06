@@ -44,6 +44,10 @@ public class OriHalfEdgeDrawer {
                 sv.getY(),
                 ev.getX(),
                 ev.getY()));
+        if (he.getArrow() != null) {
+            he.getArrow().draw(g2d, he);
+        }
+
     }
 
     private static Double clip(
@@ -88,6 +92,9 @@ public class OriHalfEdgeDrawer {
                 sv.getY(),
                 ev.getX(),
                 ev.getY()));
+        if (he.getArrow() != null) {
+            he.getArrow().draw(g2d, he);
+        }
     }
 
 }

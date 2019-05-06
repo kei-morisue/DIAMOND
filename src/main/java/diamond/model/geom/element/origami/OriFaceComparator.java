@@ -76,11 +76,11 @@ public class OriFaceComparator implements Comparator<OriFace> {
         switch (he1.getType()) {
         case MOUNTAIN:
         case UNSETTLED_MOUNTAIN:
-            res = (f1.isFaceFront()) ? 1 : -1;
+            res = (f1.isFaceFront()) ? -1 : 1;
             break;
         case VALLEY:
         case UNSETTLED_VALLEY:
-            res = (f1.isFaceFront()) ? -1 : 1;
+            res = (f1.isFaceFront()) ? 1 : -1;
             break;
         default:
             System.out.println("Irregular face adjacent");

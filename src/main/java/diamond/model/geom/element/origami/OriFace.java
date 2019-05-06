@@ -15,7 +15,7 @@ import java.util.HashSet;
  */
 public class OriFace {
     private ArrayList<OriHalfEdge> halfEdges = new ArrayList<>();
-    private HashSet<OriHalfEdge> auxLines = new HashSet<OriHalfEdge>();
+    private HashSet<OriHalfEdge> creaseLines = new HashSet<OriHalfEdge>();
     private HashSet<OriHalfEdge> unettledLines = new HashSet<OriHalfEdge>();
 
     private boolean faceFront = true;
@@ -70,7 +70,7 @@ public class OriFace {
         for (OriHalfEdge he : halfEdges) {
             he.fold(transform);
         }
-        for (OriHalfEdge he : auxLines) {
+        for (OriHalfEdge he : creaseLines) {
             he.fold(transform);
         }
         for (OriHalfEdge he : unettledLines) {
@@ -94,8 +94,8 @@ public class OriFace {
         return this.halfEdges;
     }
 
-    public HashSet<OriHalfEdge> getAuxLines() {
-        return this.auxLines;
+    public HashSet<OriHalfEdge> getCreaseLines() {
+        return this.creaseLines;
     }
 
     public GeneralPath getOutline() {
@@ -121,7 +121,7 @@ public class OriFace {
 
     @Deprecated
     public void setAuxLines(HashSet<OriHalfEdge> auxLines) {
-        this.auxLines = auxLines;
+        this.creaseLines = auxLines;
     }
 
     @Deprecated

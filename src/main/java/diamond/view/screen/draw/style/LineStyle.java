@@ -27,7 +27,6 @@ public class LineStyle {
 
     final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
     final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
-
     final public static BasicStroke STROKE_UNSETTLED_VALLEY = new BasicStroke(
             2.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
@@ -36,21 +35,16 @@ public class LineStyle {
             2.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
+    final public static BasicStroke STROKE_EDGE = new BasicStroke(2.0f,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+    final public static BasicStroke STROKE_ARROW = new BasicStroke(2.0f,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 
     final public static BasicStroke STROKE_TEMPORARY = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
-    final public static BasicStroke STROKE_EDGE = new BasicStroke(2.0f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-
-    final public static BasicStroke STROKE_ARROW = new BasicStroke(2.0f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-
     final static float dash[] = { 3.0f };
-
     final public static BasicStroke STROKE_TMP_OUTLINE = new BasicStroke(3.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke MODEL_STROKE_CUT = new BasicStroke(1.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     public static BasicStroke getCpStroke(LineType lineType) {

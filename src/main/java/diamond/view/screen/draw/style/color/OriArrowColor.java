@@ -10,7 +10,7 @@ import java.awt.Color;
  * @author long_
  *
  */
-public class OriArrow {
+public class OriArrowColor {
 
     final public static Color ARROW_BODY = Color.black;
     final public static Color ARROW_VALLEY = Color.black;

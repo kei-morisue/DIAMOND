@@ -22,7 +22,7 @@ import diamond.view.screen.draw.style.FontStyle;
 public class StringDrawer {
 
     public static void describe(Graphics2D g2d, Object pointed, int x, int y) {
-        g2d.setColor(diamond.view.screen.draw.style.color.String.DEBUGGING_STRING);
+        g2d.setColor(diamond.view.screen.draw.style.color.StringColor.DEBUGGING_STRING);
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
         if (pointed == null) {
@@ -39,7 +39,7 @@ public class StringDrawer {
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setFont(FontStyle.STEP_NO);
         g2d.setTransform(new AffineTransform());
-        g2d.setColor(diamond.view.screen.draw.style.color.String.STEP_NO);
+        g2d.setColor(diamond.view.screen.draw.style.color.StringColor.STEP_NO);
         g2d.drawString(String.valueOf(step), 10, FontStyle.STEP_NO.getSize());
         g2d.setTransform(tmpTransform);
     }

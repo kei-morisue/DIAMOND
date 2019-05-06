@@ -13,6 +13,8 @@ import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.style.color.OriFaceColor;
+import diamond.view.screen.draw.style.color.OriHalfEdgeColor;
 
 /**
  * @author long_
@@ -25,47 +27,56 @@ public class OriModelDrawer {
 
         for (OriFace face : model.getFaces()) {
             OriFaceDrawer.drawFoldedFace(g2d, face,
-                    diamond.view.screen.draw.style.color.OriFace
+                    OriFaceColor
                             .getColor(face.isFaceFront()));
-            for (OriHalfEdge aux : face.getAuxLines()) {
-                OriHalfEdgeDrawer.drawFoldedCreaseLine(
-                        g2d,
-                        aux,
-                        diamond.view.screen.draw.style.color.OriHalfEdge
-                                .getDiagramColor(LineType.CREASE),
-                        LineStyle.getDiagramStroke(LineType.CREASE),
-                        LineStyle.CLIP_SCALE * 0.01);
-                if (aux.getArrow() != null) {
-                    aux.getArrow().draw(g2d, aux);
-                }
-            }
-            for (OriHalfEdge he : face.getUnettledLines()) {
-                OriHalfEdgeDrawer.drawFoldedHalfEdge(
-                        g2d,
-                        he,
-                        diamond.view.screen.draw.style.color.OriHalfEdge
-                                .getDiagramColor(he.getType()),
-                        LineStyle.getDiagramStroke(he.getType()));
-                if (he.getArrow() != null) {
-                    he.getArrow().draw(g2d, he);
-                }
+            drawCreaseLines(g2d, face);
+            drawUnsettledLines(g2d, face);
+            drawEdges(g2d, scale, face);
+        }
+    }
 
+    private static void drawEdges(Graphics2D g2d, double scale, OriFace face) {
+        for (OriHalfEdge he : face.getHalfEdges()) {
+            OriVertex sv = he.getSv();
+            if (sv.isPickked()) {
+                OriVertexDrawer.drawVertex(g2d, sv,
+                        VertexStyle.SIZE_PICKED / scale);
             }
-            for (OriHalfEdge he : face.getHalfEdges()) {
-                OriVertex sv = he.getSv();
-                if (sv.isPickked()) {
-                    OriVertexDrawer.drawVertex(g2d, sv,
-                            VertexStyle.SIZE_PICKED / scale);
-                }
-                if (he.getArrow() != null) {
-                    he.getArrow().draw(g2d, he);
-                }
-                OriHalfEdgeDrawer.drawFoldedHalfEdge(
-                        g2d,
-                        he,
-                        diamond.view.screen.draw.style.color.OriHalfEdge.ORI_HALFEDGE,
-                        LineStyle.getDiagramStroke(he.getType()));
+
+            LineType type = he.getType();
+            OriHalfEdgeDrawer.drawFoldedHalfEdge(
+                    g2d,
+                    he,
+                    OriHalfEdgeColor.ORI_HALFEDGE,
+                    LineStyle.getDiagramStroke(type));
+        }
+    }
+
+    private static void drawUnsettledLines(Graphics2D g2d, OriFace face) {
+        for (OriHalfEdge he : face.getUnettledLines()) {
+            LineType type = he.getType();
+            if (face.isFaceFront()) {
+                type = LineType.getPairType(type);
             }
+            OriHalfEdgeDrawer.drawFoldedHalfEdge(
+                    g2d,
+                    he,
+                    OriHalfEdgeColor
+                            .getDiagramColor(type),
+                    LineStyle.getDiagramStroke(type));
+
+        }
+    }
+
+    private static void drawCreaseLines(Graphics2D g2d, OriFace face) {
+        for (OriHalfEdge he : face.getCreaseLines()) {
+            OriHalfEdgeDrawer.drawFoldedCreaseLine(
+                    g2d,
+                    he,
+                    OriHalfEdgeColor
+                            .getDiagramColor(LineType.CREASE),
+                    LineStyle.getDiagramStroke(LineType.CREASE),
+                    LineStyle.CLIP_SCALE * 0.01);
         }
     }
 }

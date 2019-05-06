@@ -69,7 +69,7 @@ public class PaintScreen extends AbstractScreen {
             OriLineDrawer.drawLine(
                     g2d,
                     l,
-                    diamond.view.screen.draw.style.color.OriLine
+                    diamond.view.screen.draw.style.color.OriLineColor
                             .getCpColor(l.getType()),
                     LineStyle.getCpStroke(l.getType()));
             //TODO delete
@@ -98,24 +98,21 @@ public class PaintScreen extends AbstractScreen {
 
     private Color getColor(OriVertex vertex) {
         if (!vertex.isFoldable()) {
-            return diamond.view.screen.draw.style.color.OriVertex.WRONG_ORI_VERTEX;
+            return diamond.view.screen.draw.style.color.OriVertexColor.WRONG_ORI_VERTEX;
         }
         if (vertex.isPickked()) {
             return VertexStyle.COLOR_SELECTED;
         }
-        return diamond.view.screen.draw.style.color.OriVertex.CP_ORI_VERTEX;
+        return diamond.view.screen.draw.style.color.OriVertexColor.CP_ORI_VERTEX;
     }
 
     private void paintFaces(Graphics2D g2d, OriModel model) {
         LinkedList<OriFace> faces = model.getFaces();
         for (OriFace face : faces) {
             OriFaceDrawer.drawFace(g2d, face,
-                    diamond.view.screen.draw.style.color.OriFace.ORI_FACE_FRONT);
-            //StringDrawer.drawFaceNo(g2d, face, faces);
+                    diamond.view.screen.draw.style.color.OriFaceColor.ORI_FACE_BACK);
         }
-        OriFace baseFace = model.getBaseFace();
-        OriFaceDrawer.drawBaseFace(g2d, baseFace);
-        //StringDrawer.drawFaceNo(g2d, baseFace, faces);
+        OriFaceDrawer.drawBaseFace(g2d, model);
     }
 
 }

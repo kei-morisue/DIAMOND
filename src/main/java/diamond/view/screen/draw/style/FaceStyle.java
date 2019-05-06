@@ -9,5 +9,4 @@ package diamond.view.screen.draw.style;
  *
  */
 public class FaceStyle {
-    public static boolean START_FROM_FRONT_FACE = false;
 }

@@ -12,7 +12,7 @@ import diamond.model.geom.element.LineType;
  * @author long_
  *
  */
-public class OriHalfEdge {
+public class OriHalfEdgeColor {
 
     final public static Color ORI_HALFEDGE = Color.black;
     final public static Color ORI_HALFEDGE_AUX = Color.black;
@@ -21,7 +21,7 @@ public class OriHalfEdge {
     public static Color getDiagramColor(LineType lineType) {
         switch (lineType) {
         case CUT:
-            return OriLine.ORILINE_CUT;
+            return OriLineColor.ORILINE_CUT;
         case CREASE:
             return ORI_HALFEDGE_AUX;
         case UNSETTLED_MOUNTAIN:

@@ -22,8 +22,15 @@ public class Folder {
             face.initialize();
         }
         OriFace face = oriModel.getBaseFace();
-        face.fold(new AffineTransform());
-        face.setFaceFront(true);
+        if (oriModel.isFlip()) {
+            face.fold(AffineTransform.getScaleInstance(-1.0, 1.0));
+            face.setFaceFront(true);
+
+        } else {
+            face.fold(new AffineTransform());
+            face.setFaceFront(false);
+
+        }
         for (OriHalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he);
         }
