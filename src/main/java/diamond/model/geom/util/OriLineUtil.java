@@ -122,12 +122,12 @@ public class OriLineUtil {
     }
 
     public static boolean isSameLineSegment(OriLine l0, OriLine l1) {
-        if (DistanceUtil.Distance(l0.p0, l1.p0) < Constants.EPS
-                && DistanceUtil.Distance(l0.p1, l1.p1) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p0, l1.p0) < Constants.EPS
+                && DistanceUtil.distance(l0.p1, l1.p1) < Constants.EPS) {
             return true;
         }
-        if (DistanceUtil.Distance(l0.p0, l1.p1) < Constants.EPS
-                && DistanceUtil.Distance(l0.p1, l1.p0) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p0, l1.p1) < Constants.EPS
+                && DistanceUtil.distance(l0.p1, l1.p0) < Constants.EPS) {
             return true;
         }
 
@@ -135,16 +135,16 @@ public class OriLineUtil {
     }
 
     public static boolean isConnected(OriLine l0, OriLine l1) {
-        if (DistanceUtil.Distance(l0.p0, l1.p0) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p0, l1.p0) < Constants.EPS) {
             return true;
         }
-        if (DistanceUtil.Distance(l0.p0, l1.p1) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p0, l1.p1) < Constants.EPS) {
             return true;
         }
-        if (DistanceUtil.Distance(l0.p1, l1.p0) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p1, l1.p0) < Constants.EPS) {
             return true;
         }
-        if (DistanceUtil.Distance(l0.p1, l1.p1) < Constants.EPS) {
+        if (DistanceUtil.distance(l0.p1, l1.p1) < Constants.EPS) {
             return true;
         }
         return false;

@@ -28,7 +28,7 @@ public class OriPointUtil {
             dir0 = new OriPoint(baseLine.dir.y, -baseLine.dir.x);
         }
         dir0.normalize();
-        return p.add(dir0.scale(2.0 * DistanceUtil.Distance(p, baseLine)));
+        return p.add(dir0.scale(2.0 * DistanceUtil.distance(p, baseLine)));
     }
 
     public static boolean isRightSide(Point2D.Double p, Line line) {

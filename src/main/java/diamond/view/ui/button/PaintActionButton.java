@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.action.AddVertexAction;
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.Axiom2Action;
 import diamond.controller.paint.action.Axiom3Action;
 import diamond.controller.paint.action.Axiom4Action;
 import diamond.controller.paint.action.BaseFaceAction;
 import diamond.controller.paint.action.DeleteLineAction;
+import diamond.controller.paint.action.DeleteVertexAction;
 import diamond.controller.paint.action.FaceOrderingAction;
 import diamond.controller.paint.action.FlipLineTypeAction;
 import diamond.controller.paint.action.MirrorAction;
@@ -88,6 +90,14 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
         case SELECT_LINE:
             setIcons("select_l");
             this.paintAction = new SelectLineAction();
+            break;
+        case ADD_VERTEX:
+            setIcons("add_v");
+            this.paintAction = new AddVertexAction();
+            break;
+        case DELETE_VERTEX:
+            setIcons("delete_v");
+            this.paintAction = new DeleteVertexAction();
             break;
         case BASE_FACE:
             setIcons("base_face");

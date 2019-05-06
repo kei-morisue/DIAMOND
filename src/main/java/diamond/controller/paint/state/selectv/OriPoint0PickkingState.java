@@ -7,7 +7,7 @@ package diamond.controller.paint.state.selectv;
 import java.util.Set;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.OriVertexPickkingState;
+import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriVertex;
@@ -17,7 +17,7 @@ import diamond.model.geom.util.DistanceUtil;
  * @author long_
  *
  */
-public class OriPoint0PickkingState extends OriVertexPickkingState {
+public class OriPoint0PickkingState extends OriPointPickkingState {
 
     @Override
     protected void initialize() {
@@ -31,7 +31,7 @@ public class OriPoint0PickkingState extends OriVertexPickkingState {
         OriPoint p = context.getPickedPoints().get(0);
         Set<OriVertex> vertices = context.palette.getOriModel().getVertices();
         for (OriVertex vertex : vertices) {
-            if (DistanceUtil.Distance(p, vertex) < Constants.EPS) {
+            if (DistanceUtil.distance(p, vertex) < Constants.EPS) {
                 vertex.setPickked(!vertex.isPickked());
             }
         }

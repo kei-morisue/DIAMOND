@@ -147,7 +147,7 @@ public class OriModel {
 
     private OriVertex add(OriVertex v) {
         for (OriVertex oriVertex : vertices) {
-            if (DistanceUtil.Distance(v, oriVertex) < Constants.EPS) {
+            if (DistanceUtil.distance(v, oriVertex) < Constants.EPS) {
                 return oriVertex;
             }
         }

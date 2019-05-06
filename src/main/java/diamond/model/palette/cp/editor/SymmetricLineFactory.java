@@ -120,7 +120,7 @@ public class SymmetricLineFactory {
             if (crossPoint == null) {
                 continue;
             }
-            double distance = DistanceUtil.Distance(crossPoint, v1);
+            double distance = DistanceUtil.distance(crossPoint, v1);
             if (distance < Constants.POINT_EPS) {
                 continue;
             }
@@ -201,7 +201,7 @@ public class SymmetricLineFactory {
 
         autoWalkLines.add(autoWalk);
 
-        if (DistanceUtil.Distance(bestPoint,
+        if (DistanceUtil.distance(bestPoint,
                 startV) < Constants.POINT_EPS) {
             return;
         }

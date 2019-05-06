@@ -61,12 +61,12 @@ public class LineAdder {
 
             iterator.remove();
 
-            if (DistanceUtil.Distance(line.p0,
+            if (DistanceUtil.distance(line.p0,
                     crossPoint) > Constants.EPS) {
                 toBeAdded.add(new OriLine(line.p0, crossPoint, line.getType()));
             }
 
-            if (DistanceUtil.Distance(line.p1,
+            if (DistanceUtil.distance(line.p1,
                     crossPoint) > Constants.EPS) {
                 toBeAdded.add(new OriLine(line.p1, crossPoint, line.getType()));
             }
@@ -88,24 +88,24 @@ public class LineAdder {
 
         for (OriLine line : currentLines) {
 
-            if (DistanceUtil.Distance(inputLine.p0,
+            if (DistanceUtil.distance(inputLine.p0,
                     line.p0) < Constants.EPS ||
-                    DistanceUtil.Distance(inputLine.p0,
+                    DistanceUtil.distance(inputLine.p0,
                             line.p1) < Constants.EPS
                     ||
-                    DistanceUtil.Distance(inputLine.p1,
+                    DistanceUtil.distance(inputLine.p1,
                             line.p0) < Constants.EPS
                     ||
-                    DistanceUtil.Distance(inputLine.p1,
+                    DistanceUtil.distance(inputLine.p1,
                             line.p1) < Constants.EPS) {
                 continue;
             }
 
-            if (DistanceUtil.DistancePointToSegment(line.p0, inputLine.p0,
+            if (DistanceUtil.distancePointToSegment(line.p0, inputLine.p0,
                     inputLine.p1) < Constants.EPS) {
                 points.add(line.p0);
             }
-            if (DistanceUtil.DistancePointToSegment(line.p1, inputLine.p0,
+            if (DistanceUtil.distancePointToSegment(line.p1, inputLine.p0,
                     inputLine.p1) < Constants.EPS) {
                 points.add(line.p1);
             }
@@ -157,7 +157,7 @@ public class LineAdder {
         for (int i = 1; i < points.size(); i++) {
             OriPoint p = points.get(i);
             // remove very short line
-            if (DistanceUtil.Distance(prePoint,
+            if (DistanceUtil.distance(prePoint,
                     p) < Constants.EPS) {
                 continue;
             }

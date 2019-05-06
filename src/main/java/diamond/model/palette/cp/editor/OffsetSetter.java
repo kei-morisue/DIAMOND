@@ -23,10 +23,10 @@ public class OffsetSetter {
     public static void set(Cp cp, OriVertex v, Double offset) {
         Set<OriLine> lines = cp.getLines();
         for (OriLine l : lines) {
-            if (DistanceUtil.Distance(v, l.p0) < Constants.EPS) {
+            if (DistanceUtil.distance(v, l.p0) < Constants.EPS) {
                 l.p0.setOffset(offset);
             } else {
-                if (DistanceUtil.Distance(v,
+                if (DistanceUtil.distance(v,
                         l.p1) < Constants.EPS) {
                     l.p1.setOffset(offset);
                 }
@@ -47,10 +47,10 @@ public class OffsetSetter {
     public static void reset(Cp cp, OriVertex v) {
         Set<OriLine> lines = cp.getLines();
         for (OriLine l : lines) {
-            if (DistanceUtil.Distance(v, l.p0) < Constants.EPS) {
+            if (DistanceUtil.distance(v, l.p0) < Constants.EPS) {
                 l.p0.setOffset(.0, .0);
             } else {
-                if (DistanceUtil.Distance(v,
+                if (DistanceUtil.distance(v,
                         l.p1) < Constants.EPS) {
                     l.p1.setOffset(.0, .0);
                 }

@@ -155,15 +155,15 @@ public class CrossPointUtil {
             Point2D.Double p3,
             Point2D.Double p4) {
 
-        if (DistanceUtil.Distance(p1, p3) < Constants.EPS
-                && DistanceUtil.Distance(p2, p4) < Constants.EPS) {
+        if (DistanceUtil.distance(p1, p3) < Constants.EPS
+                && DistanceUtil.distance(p2, p4) < Constants.EPS) {
             set(ap1, p1);
             set(ap2, p2);
             return 2;
         }
 
-        if (DistanceUtil.Distance(p1, p4) < Constants.EPS
-                && DistanceUtil.Distance(p2, p3) < Constants.EPS) {
+        if (DistanceUtil.distance(p1, p4) < Constants.EPS
+                && DistanceUtil.distance(p2, p3) < Constants.EPS) {
             set(ap1, p1);
             set(ap2, p2);
             return 2;

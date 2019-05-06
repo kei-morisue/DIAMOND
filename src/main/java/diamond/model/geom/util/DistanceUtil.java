@@ -15,15 +15,15 @@ import diamond.model.geom.element.Line;
  *
  */
 public class DistanceUtil {
-    public static double Distance(Point2D.Double p0, Point2D.Double p1) {
+    public static double distance(Point2D.Double p0, Point2D.Double p1) {
         return Distance(p0.x, p0.y, p1.x, p1.y);
     }
 
-    public static double DistanceSquared(Point2D.Double p0, Point2D.Double p1) {
-        return DistanceSquared(p0.x, p0.y, p1.x, p1.y);
+    public static double distanceSquared(Point2D.Double p0, Point2D.Double p1) {
+        return distanceSquared(p0.x, p0.y, p1.x, p1.y);
     }
 
-    public static double DistanceSquared(double x0, double y0, double x1,
+    public static double distanceSquared(double x0, double y0, double x1,
             double y1) {
         return (x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1);
     }
@@ -31,9 +31,9 @@ public class DistanceUtil {
     public static Point2D.Double getIncenter(Point2D.Double v0,
             Point2D.Double v1,
             Point2D.Double v2) {
-        double l0 = Distance(v1, v2);
-        double l1 = Distance(v0, v2);
-        double l2 = Distance(v0, v1);
+        double l0 = distance(v1, v2);
+        double l1 = distance(v0, v2);
+        double l2 = distance(v0, v1);
 
         Point2D.Double vc = new Point2D.Double();
         vc.x = (v0.x * l0 + v1.x * l1 + v2.x * l2) / (l0 + l1 + l2);
@@ -42,7 +42,7 @@ public class DistanceUtil {
         return vc;
     }
 
-    public static double DistancePointToSegment(
+    public static double distancePointToSegment(
             Point2D.Double p,
             Point2D.Double sp,
             Point2D.Double ep) {
@@ -76,7 +76,7 @@ public class DistanceUtil {
         p0.y = p1.y;
     }
 
-    public static double DistancePointToSegment(
+    public static double distancePointToSegment(
             Point2D.Double p,
             Point2D.Double sp,
             Point2D.Double ep,
@@ -110,7 +110,7 @@ public class DistanceUtil {
 
     }
 
-    public static double DistancePointToLine(Point2D.Double p, Line line) {
+    public static double distancePointToLine(Point2D.Double p, Line line) {
         double x0 = line.p.x;
         double y0 = line.p.y;
         double x1 = line.p.x + line.dir.x;
@@ -130,7 +130,7 @@ public class DistanceUtil {
 
     }
 
-    public static double Distance(Point2D.Double p, Line line, double[] param) {
+    public static double distance(Point2D.Double p, Line line, double[] param) {
         Vector2d sub0, sub, sub0b;
         double x0 = line.p.x;
         double y0 = line.p.y;
@@ -150,7 +150,7 @@ public class DistanceUtil {
         return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
     }
 
-    public static double Distance(Point2D.Double p, Line line) {
+    public static double distance(Point2D.Double p, Line line) {
         Vector2d sub0, sub, sub0b;
         double x0 = line.p.x;
         double y0 = line.p.y;

@@ -28,6 +28,9 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.UNSETTLED_VALLEY.name(), "Valley" },
             { LABEL.UNSETTLED_MOUNTAIN.name(), "Mountain" },
             { LABEL.CUT.name(), "Cut" },
+            { LABEL.EDIT_VERTEX.name(), "Edit Vertex" },
+            { LABEL.ADD_VERTEX.name(), "Add Vertex" },
+            { LABEL.DELETE_VERTEX.name(), "Delete Vertex" },
 
             { LABEL.FLIP_LINE_TYPE.name(), "Flip Line Type(M <-> V)" },
             { LABEL.FOLD_UNFOLD.name(), "Fold / Unfold Line" },
@@ -41,7 +44,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.FACE_TOP.name(), "Set the face top" },
             { LABEL.FACE_BOTTOM.name(), "Set the face botom" },
 
-            { LABEL.ARROW_TAB.name(), "Add Arrows" },
+            { LABEL.ARROW_TAB.name(), "Arrows" },
             { LABEL.VALLEY_ARROW.name(), "Valley Fold" },
             { LABEL.MOUNTAIN_ARROW.name(), "Mountai Fold" },
             { LABEL.FOLD_UNFOLD_ARROW.name(), "Fold/Unfold" },

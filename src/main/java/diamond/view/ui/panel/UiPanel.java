@@ -34,6 +34,7 @@ public class UiPanel extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new LineTypePanel(context, paintActionButtons));
         panel.add(new EditLinePanel(context, paintActionButtons));
+        panel.add(new EditVertexPanel(context, paintActionButtons));
         return panel;
     }
 

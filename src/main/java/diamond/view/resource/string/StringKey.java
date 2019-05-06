@@ -27,6 +27,9 @@ public class StringKey {
         DELETE_LINE,
         SYMMETRIC,
         MIRROR,
+        EDIT_VERTEX,
+        ADD_VERTEX,
+        DELETE_VERTEX,
 
         CONTOUR,
         SELECT_LINE,

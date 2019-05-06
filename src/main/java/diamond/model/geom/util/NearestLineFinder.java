@@ -22,7 +22,7 @@ public class NearestLineFinder {
         Cp creasePattern = context.palette.getCP();
         Point2D.Double p = context.currentLogicalMousePoint;
         for (OriLine line : creasePattern.getLines()) {
-            double dist = DistanceUtil.DistancePointToSegment(
+            double dist = DistanceUtil.distancePointToSegment(
                     p, line.p0, line.p1);
             if (dist < minDistance) {
                 minDistance = dist;

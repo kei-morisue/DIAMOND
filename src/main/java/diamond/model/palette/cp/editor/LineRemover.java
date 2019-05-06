@@ -19,29 +19,23 @@ public class LineRemover {
     public static void remove(
             OriLine l, Collection<OriLine> creasePattern) {
         creasePattern.remove(l);
-        // merge the lines if possible, to prevent unnecessary vertexes
         merge2LinesAt(l.p0, creasePattern);
         merge2LinesAt(l.p1, creasePattern);
     }
 
-    /**
-     * remove vertex from crease pattern
-     * @param v
-     * @param creasePattern
-     */
     public static void removeVertex(
             OriPoint v, Collection<OriLine> creasePattern) {
 
         merge2LinesAt(v, creasePattern);
     }
 
-    private static void merge2LinesAt(
+    public static void merge2LinesAt(
             OriPoint p, Collection<OriLine> creasePattern) {
 
         ArrayList<OriLine> sharedLines = new ArrayList<OriLine>();
         for (OriLine line : creasePattern) {
-            if (DistanceUtil.Distance(line.p0, p) < 0.001
-                    || DistanceUtil.Distance(line.p1, p) < 0.001) {
+            if (DistanceUtil.distance(line.p0, p) < 0.001
+                    || DistanceUtil.distance(line.p1, p) < 0.001) {
                 sharedLines.add(line);
             }
         }
@@ -72,14 +66,14 @@ public class LineRemover {
         OriPoint p0 = new OriPoint();
         OriPoint p1 = new OriPoint();
 
-        if (DistanceUtil.Distance(l0.p0, p) < 0.001) {
+        if (DistanceUtil.distance(l0.p0, p) < 0.001) {
             p0.x = l0.p1.x;
             p0.y = l0.p1.y;
         } else {
             p0.x = l0.p0.x;
             p0.y = l0.p0.y;
         }
-        if (DistanceUtil.Distance(l1.p0, p) < 0.001) {
+        if (DistanceUtil.distance(l1.p0, p) < 0.001) {
             p1.x = l1.p1.x;
             p1.y = l1.p1.y;
         } else {
