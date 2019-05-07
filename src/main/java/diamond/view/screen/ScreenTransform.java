@@ -29,7 +29,7 @@ public class ScreenTransform {
     }
 
     public ScreenTransform(ScreenTransform transform) {
-        this.focus = new AffineTransform(transform.translate);
+        this.focus = new AffineTransform(transform.focus);
         this.zoom = new AffineTransform(transform.zoom);
         this.translate = new AffineTransform(transform.translate);
         this.rotate = new AffineTransform(transform.rotate);
@@ -44,7 +44,7 @@ public class ScreenTransform {
         return affineTransform;
     }
 
-    private void focus(int width, int height) {
+    public void focus(int width, int height) {
         focus.setToIdentity();
         focus.translate(width * 0.5, height * 0.5);
     }

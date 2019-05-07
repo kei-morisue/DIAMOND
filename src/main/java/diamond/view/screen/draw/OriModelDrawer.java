@@ -29,9 +29,9 @@ public class OriModelDrawer {
             OriFaceDrawer.drawFoldedFace(g2d, face,
                     OriFaceColor
                             .getColor(face.isFaceFront()));
+            drawEdges(g2d, scale, face);
             drawCreaseLines(g2d, face);
             drawUnsettledLines(g2d, face);
-            drawEdges(g2d, scale, face);
         }
     }
 
@@ -53,7 +53,7 @@ public class OriModelDrawer {
     }
 
     private static void drawUnsettledLines(Graphics2D g2d, OriFace face) {
-        for (OriHalfEdge he : face.getUnettledLines()) {
+        for (OriHalfEdge he : face.getUnsettledLines()) {
             LineType type = he.getType();
             if (face.isFaceFront()) {
                 type = LineType.getPairType(type);

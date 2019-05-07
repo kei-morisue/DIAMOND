@@ -25,8 +25,6 @@ public class UiPanel extends JTabbedPane {
                 buildCpUi(context));
         addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
                 buildModelUi(context));
-        addTab(ResourceHolder.getLabelString(LABEL.ARROW_TAB),
-                buildArrowUi(context));
     }
 
     private JPanel buildCpUi(PaintContext context) {
@@ -34,6 +32,7 @@ public class UiPanel extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new LineTypePanel(context, paintActionButtons));
         panel.add(new EditLinePanel(context, paintActionButtons));
+        panel.add(new DiagramUiPanel(context, paintActionButtons));
         panel.add(new EditVertexPanel(context, paintActionButtons));
         return panel;
     }
@@ -45,13 +44,4 @@ public class UiPanel extends JTabbedPane {
         return panel;
     }
 
-    /**
-     *
-     */
-    private JPanel buildArrowUi(PaintContext context) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new ArrowPanel(context, paintActionButtons));
-        return panel;
-    }
 }

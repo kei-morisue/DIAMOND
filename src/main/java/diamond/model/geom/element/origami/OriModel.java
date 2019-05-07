@@ -77,7 +77,7 @@ public class OriModel {
         }
         for (OriHalfEdge aux : unsettledLines) {
             for (OriFace face : faces) {
-                HashSet<OriHalfEdge> lines = face.getUnettledLines();
+                HashSet<OriHalfEdge> lines = face.getUnsettledLines();
                 if (OriFaceUtil.onFace(face, aux)) {
                     lines.add(aux);
                 }

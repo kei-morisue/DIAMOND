@@ -50,7 +50,6 @@ public class OriLine {
         this.p0 = l.p0;
         this.p1 = l.p1;
         this.type = l.type;
-        this.arrow = l.arrow;
     }
 
     public double length() {

@@ -15,7 +15,7 @@ public class ExporterXML implements Exporter {
         try {
             XMLEncoder enc = new XMLEncoder(
                     new BufferedOutputStream(
-                            new FileOutputStream(filePath + ".dmd")));
+                            new FileOutputStream(filePath)));
             enc.setPersistenceDelegate(LineType.class,
                     new EnumPersistenceDelegate());
             enc.writeObject(data);

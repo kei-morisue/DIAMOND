@@ -14,7 +14,6 @@ import diamond.controller.file.DataSet;
 import diamond.controller.file.LoaderXML;
 import diamond.controller.paint.ModelContext;
 import diamond.controller.paint.PaintContext;
-import diamond.model.geom.element.diagram.Diagram;
 
 /**
  * @author long_
@@ -44,9 +43,9 @@ public class LoadAction implements ActionListener {
             paintContext.palette.setStepNo(0);
             modelContext.transform = modelContext.palette.getDiagram()
                     .getTransform();
-            for (Diagram diagram : paintContext.palette.getDiagrams()) {
-                diagram.getCp().rebuildModel();
-            }
+            //            for (Diagram diagram : paintContext.palette.getDiagrams()) {
+            //                diagram.getCp().rebuildModel();
+            //            }
         }
     }
 }

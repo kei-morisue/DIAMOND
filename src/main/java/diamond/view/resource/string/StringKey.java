@@ -59,7 +59,7 @@ public class StringKey {
         SELECT_VERTEX,
         OFFSET,
 
-        ARROW_TAB,
+        DIAGRAM_TAB,
         VALLEY_ARROW,
         MOUNTAIN_ARROW,
         FOLD_UNFOLD_ARROW,

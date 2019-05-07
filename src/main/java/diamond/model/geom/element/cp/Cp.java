@@ -59,6 +59,15 @@ public class Cp {
         oriModel = new OriModel(this);
     }
 
+    public void clone(Cp cp) {
+        for (OriLine oriLine : cp.getLines()) {
+            OriLine line = new OriLine(oriLine);
+            this.lines.add(line);
+        }
+        this.affineTransform = cp.affineTransform;
+        this.oriModel = cp.getOriModel();
+    }
+
     public AffineTransform getAffineTransform() {
         return this.affineTransform;
     }

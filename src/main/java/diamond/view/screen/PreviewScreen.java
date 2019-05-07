@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 
 import javax.swing.JComponent;
+import javax.swing.border.LineBorder;
 
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
@@ -30,7 +31,8 @@ public class PreviewScreen extends AbstractScreen {
     public PreviewScreen(PaintContext paintContext) {
         super(paintContext);
         this.paintContext = paintContext;
-        setBackground(Color.black);
+        setBackground(Color.white);
+        setBorder(new LineBorder(Color.white));
         build();
     }
 

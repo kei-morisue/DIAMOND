@@ -44,7 +44,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.FACE_TOP.name(), "Set the face top" },
             { LABEL.FACE_BOTTOM.name(), "Set the face botom" },
 
-            { LABEL.ARROW_TAB.name(), "Arrows" },
+            { LABEL.DIAGRAM_TAB.name(), "Diagram" },
             { LABEL.VALLEY_ARROW.name(), "Valley Fold" },
             { LABEL.MOUNTAIN_ARROW.name(), "Mountai Fold" },
             { LABEL.FOLD_UNFOLD_ARROW.name(), "Fold/Unfold" },
