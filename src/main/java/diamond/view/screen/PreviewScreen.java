@@ -5,10 +5,13 @@
 package diamond.view.screen;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.LinkedList;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import diamond.controller.paint.PaintContext;
@@ -20,16 +23,17 @@ import diamond.view.ui.panel.DiagramPanel;
  * @author long_
  *
  */
-public class PreviewScreen extends AbstractScreen {
-    int page = 0;
-    PaintContext paintContext;
+public class PreviewScreen extends JPanel {
+    private int page = 0;
+    private PaintContext paintContext;
+    private Image bufferImage = null;
+    private Graphics bufferg = null;
 
     public void nextPage(int pages) {
         page = Math.max(0, page + pages);
     }
 
     public PreviewScreen(PaintContext paintContext) {
-        super(paintContext);
         this.paintContext = paintContext;
         setBackground(Color.white);
         setBorder(new LineBorder(Color.white));
@@ -58,15 +62,14 @@ public class PreviewScreen extends AbstractScreen {
         }
     }
 
+    private JComponent buildDiagram(Diagram diagram) {
+        int stepNo = paintContext.palette.getDiagrams().indexOf(diagram);
+        return new DiagramPanel(diagram, stepNo);
+    }
     //    private void buildFirstPage() {
     //        add(buildDescription());
     //        add(buildGoal());
     //    }
-
-    private JComponent buildDiagram(Diagram diagram) {
-        return new DiagramPanel(diagram,
-                paintContext.palette.getDiagrams().indexOf(diagram));
-    }
 
     //    private JComponent buildGoal() {
     //        return buildDiagram(paintContext.palette.getDiagrams().getLast());
@@ -75,4 +78,8 @@ public class PreviewScreen extends AbstractScreen {
     //    private JComponent buildDescription() {
     //        return new JPanel();
     //    }
+
+    public Image getBufferImage() {
+        return this.bufferImage;
+    }
 }

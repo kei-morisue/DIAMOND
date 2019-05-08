@@ -9,6 +9,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
 import diamond.controller.paint.PaintContext;
 import diamond.view.resource.ResourceHolder;
@@ -16,27 +17,33 @@ import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;
 import diamond.view.screen.draw.style.PageStyle;
 import diamond.view.ui.button.PageSwitchButton;
+import diamond.view.ui.menu.MenuDiagramFile;
 
 /**
  * @author long_
  *
  */
 public class PreviewFrame extends JFrame {
-    PaintContext paintContext;
+    private PaintContext paintContext;
+    private PreviewScreen screen;
 
     public PreviewFrame(PaintContext paintContext) {
         this.paintContext = paintContext;
+        this.screen = new PreviewScreen(this.paintContext);
         setVisible(true);
         setTitle(ResourceHolder.getLabelString(LABEL.PREVIEW));
-        build(getContentPane());
+        buildContents(getContentPane());
+        buildMenu();
     }
 
-    /**
-     *
-     */
-    private void build(Container panel) {
+    private void buildMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(new MenuDiagramFile(paintContext, screen));
+        setJMenuBar(menuBar);
+    }
+
+    private void buildContents(Container panel) {
         panel.setLayout(new BorderLayout());
-        PreviewScreen screen = new PreviewScreen(paintContext);
         panel.add(screen, BorderLayout.CENTER);
         panel.add(new PageSwitchButton(
                 screen,
