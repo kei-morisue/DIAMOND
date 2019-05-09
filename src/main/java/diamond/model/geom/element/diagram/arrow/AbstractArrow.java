@@ -68,5 +68,40 @@ public abstract class AbstractArrow {
     public void draw(Graphics2D g2d, OriHalfEdge he) {
         draw(g2d, he.getSv().getFoldedPosition(),
                 he.getEv().getFoldedPosition());
+    }
+
+    @Deprecated
+    public AbstractArrowBody getBody() {
+        return this.body;
+    }
+
+    @Deprecated
+
+    public void setBody(AbstractArrowBody body) {
+        this.body = body;
+    }
+
+    @Deprecated
+
+    public AbstractArrowHead getHead0() {
+        return this.head0;
+    }
+
+    @Deprecated
+
+    public void setHead0(AbstractArrowHead head0) {
+        this.head0 = head0;
+    }
+
+    @Deprecated
+
+    public AbstractArrowHead getHead1() {
+        return this.head1;
+    }
+
+    @Deprecated
+
+    public void setHead1(AbstractArrowHead head1) {
+        this.head1 = head1;
     };
 }

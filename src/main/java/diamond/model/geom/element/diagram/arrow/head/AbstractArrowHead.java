@@ -46,4 +46,19 @@ public abstract class AbstractArrowHead {
         return this.isTail;
     }
 
+    @Deprecated
+    public AbstractArrowBody getBody() {
+        return this.body;
+    }
+
+    @Deprecated
+    public void setBody(AbstractArrowBody body) {
+        this.body = body;
+    }
+
+    @Deprecated
+    public void setTail(boolean isTail) {
+        this.isTail = isTail;
+    }
+
 }

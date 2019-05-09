@@ -46,4 +46,9 @@ public abstract class AbstractArrowBody {
         return this.isLHS;
     }
 
+    @Deprecated
+    public void setLHS(boolean isLHS) {
+        this.isLHS = isLHS;
+    }
+
 }
