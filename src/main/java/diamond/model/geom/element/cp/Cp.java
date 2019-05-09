@@ -12,6 +12,7 @@ import java.util.Set;
 
 import diamond.Initials;
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.editor.LineAdder;
@@ -38,6 +39,11 @@ public class Cp {
             }
             if (line.getType() == LineType.UNSETTLED_VALLEY) {
                 line.setType(LineType.VALLEY);
+            }
+            if (oriLine.getArrow() != null) {
+                if (oriLine.getArrow().getClass() == FoldUnfoldArrow.class) {
+                    line.setType(LineType.CREASE);
+                }
             }
             lines.add(line);
         }
