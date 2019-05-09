@@ -31,7 +31,6 @@ public abstract class ArrowPaintState extends AbstractPaintState {
 
     @Override
     protected void onResult(PaintContext context) {
-
     }
 
     @Override
