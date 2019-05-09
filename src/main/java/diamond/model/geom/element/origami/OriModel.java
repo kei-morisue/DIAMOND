@@ -64,7 +64,7 @@ public class OriModel {
         for (OriFace face : faces) {
             if (OriFaceUtil.onFace(face, c)) {
                 baseFace = face;
-                cp.setBaseFaceCenter(OriFaceUtil.getCenterPoint(face));
+                cp.setBaseFaceCenter(OriFaceUtil.getCenterPoint(baseFace));
                 return;
             }
         }
