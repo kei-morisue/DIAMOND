@@ -30,9 +30,11 @@ public abstract class AbstractArrow {
     }
 
     public void flip() {
-        head0.flip();
-        head1.flip();
         body.flip();
+        if (body.isLHS()) {
+            head0.flip();
+            head1.flip();
+        }
     }
 
     protected abstract void buildHead1();

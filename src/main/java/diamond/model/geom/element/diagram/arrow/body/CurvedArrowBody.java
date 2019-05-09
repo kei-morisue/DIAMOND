@@ -18,7 +18,6 @@ import diamond.view.screen.draw.style.color.OriArrowColor;
  *
  */
 public class CurvedArrowBody extends AbstractArrowBody {
-    protected boolean isLHS = false;
     double scale;
 
     public CurvedArrowBody(double middlePoint) {

@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.util;
+package diamond.model.palette.cp.editor;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.util.DistanceUtil;
 
 /**
  * @author long_

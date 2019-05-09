@@ -42,4 +42,8 @@ public abstract class AbstractArrowHead {
 
     public abstract void draw(Graphics2D g2d, Double p0, Double p1);
 
+    public boolean isTail() {
+        return this.isTail;
+    }
+
 }

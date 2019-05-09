@@ -9,7 +9,7 @@ import java.awt.geom.Point2D.Double;
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.util.LineDivider;
+import diamond.model.palette.cp.editor.LineDivider;
 
 /**
  * @author long_
