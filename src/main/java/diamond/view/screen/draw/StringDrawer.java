@@ -36,12 +36,13 @@ public class StringDrawer {
         return;
     }
 
-    public static void drawStepNo(Graphics2D g2d, int step, Font font) {
+    public static void drawStepNo(Graphics2D g2d, int step, Font font, int x,
+            int y) {
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setFont(font);
         g2d.setTransform(new AffineTransform());
         g2d.setColor(StringColor.STEP_NO);
-        g2d.drawString(String.valueOf(step), 10, font.getSize());
+        g2d.drawString(String.valueOf(step), 10 + x, font.getSize() + y);
         g2d.setTransform(tmpTransform);
     }
 

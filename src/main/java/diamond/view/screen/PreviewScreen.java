@@ -27,6 +27,7 @@ import diamond.view.ui.panel.DiagramPanel;
 public class PreviewScreen extends JPanel {
     private int page = 0;
     private PaintContext paintContext;
+    private JPanel mainScreen = new JPanel();
 
     public void nextPage(int pages) {
         page = Math.max(0, page + pages);
@@ -35,36 +36,35 @@ public class PreviewScreen extends JPanel {
     public PreviewScreen(PaintContext paintContext) {
         this.paintContext = paintContext;
         setBackground(Color.white);
-        setBorder(new LineBorder(Color.white));
+        setBorder(new LineBorder(Color.black));
         setLayout(new BorderLayout());
-        add(build(), BorderLayout.CENTER);
+        build();
+        add(mainScreen, BorderLayout.CENTER);
         add(new PageNorthernLabel(), BorderLayout.NORTH);
         add(new PageSouthernLabel(page + 1), BorderLayout.SOUTH);
     }
 
-    public JPanel build() {
+    public void build() {
         if (page == 0) {
             //buildFirstPage();
-            return buildNormalPage();
+            buildNormalPage();
         } else {
-            return buildNormalPage();
+            buildNormalPage();
         }
     }
 
-    private JPanel buildNormalPage() {
+    private void buildNormalPage() {
         int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(
+        mainScreen.setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));
-        panel.setBackground(Color.white);
+        mainScreen.setBackground(Color.white);
         LinkedList<Diagram> diagrams = paintContext.palette.getDiagrams();
         for (int i = page * n; i < (1 + page) * n; ++i) {
             if (i < diagrams.size()) {
-                panel.add(buildDiagram(diagrams.get(i)));
+                mainScreen.add(buildDiagram(diagrams.get(i)));
             }
         }
-        return panel;
     }
 
     private JComponent buildDiagram(Diagram diagram) {

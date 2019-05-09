@@ -46,7 +46,7 @@ public class ScreenTransform {
 
     public void focus(int width, int height) {
         focus.setToIdentity();
-        focus.translate(width * 0.5, height * 0.5);
+        focus.translate(width >> 1, height >> 1);
     }
 
     public void translate(double x, double y) {

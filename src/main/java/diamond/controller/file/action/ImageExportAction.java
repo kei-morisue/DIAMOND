@@ -43,8 +43,8 @@ public class ImageExportAction implements ActionListener {
                         BufferedImage.TYPE_INT_RGB);
 
                 Graphics2D g2 = image.createGraphics();
-                screen.paint(g2);
                 screen.paintComponents(g2);
+
                 g2.dispose();
                 String filePath = chooser.getSelectedFile().getPath();
                 File file = new File(filePath);
@@ -55,7 +55,5 @@ public class ImageExportAction implements ActionListener {
                 System.err.println(exception);
             }
         }
-        ;
-
     }
 }

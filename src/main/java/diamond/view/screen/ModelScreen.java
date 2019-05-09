@@ -39,6 +39,6 @@ public class ModelScreen extends AbstractScreen {
         StringDrawer.drawStepNo(
                 g2d,
                 context.palette.getStepNo() + 1,
-                FontStyle.MODEL_STEP_NO);
+                FontStyle.MODEL_STEP_NO, 0, 0);
     }
 }
