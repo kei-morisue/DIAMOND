@@ -11,8 +11,8 @@ import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import diamond.model.geom.element.origami.OriFace;
-import diamond.model.geom.element.origami.OriModelUtil;
 import diamond.model.geom.element.origami.OriVertex;
+import diamond.model.geom.util.OriFaceUtil;
 import diamond.view.screen.draw.style.color.StringColor;
 
 /**
@@ -48,7 +48,7 @@ public class StringDrawer {
 
     public static void drawFaceNo(Graphics2D g2d, OriFace oriFace,
             List<OriFace> faces) {
-        OriVertex centerPoint = OriModelUtil.getCenterPoint(oriFace);
+        OriVertex centerPoint = OriFaceUtil.getCenterPoint(oriFace);
         double scaleY = g2d.getTransform().getScaleY();
         g2d.setFont(new Font("Arial", Font.BOLD, (int) (10 / scaleY)));
         g2d.setColor(Color.BLACK);

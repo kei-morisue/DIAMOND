@@ -37,7 +37,6 @@ public abstract class ArrowPaintState extends AbstractPaintState {
     @Override
     protected void rebuild(PaintContext context) {
         context.palette.getCP().rebuildModel();
-
     }
 
     protected abstract AbstractArrow buildArrow();

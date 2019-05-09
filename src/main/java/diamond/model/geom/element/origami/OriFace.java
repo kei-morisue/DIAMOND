@@ -9,6 +9,9 @@ import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.geom.util.OriFaceUtil;
+import diamond.model.geom.util.OriVertexUtil;
+
 /**
  * @author long_
  *
@@ -50,10 +53,10 @@ public class OriFace {
     }
 
     public void buildOutline(double scale) {
-        OriVertex centerP = OriModelUtil.getCenterPoint(this);
+        OriVertex centerP = OriFaceUtil.getCenterPoint(this);
         for (OriHalfEdge he : halfEdges) {
             OriVertex sv = he.getSv();
-            OriVertex scaledPoint = OriModelUtil.getScaledPoint(scale, centerP,
+            OriVertex scaledPoint = OriVertexUtil.getScaledPoint(scale, centerP,
                     sv);
             if (outline == null) {
                 outline = new GeneralPath();

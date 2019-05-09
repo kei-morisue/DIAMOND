@@ -42,7 +42,7 @@ public class Point2DUtil {
         return scale(plus(p0, p1), 0.5);
     }
 
-    public static Double center(Collection<Double> ps) {
+    public static Double center(Collection<? extends Double> ps) {
         Double sum = new Double();
         for (Double p : ps) {
             sum = plus(sum, p);

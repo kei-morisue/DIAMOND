@@ -4,6 +4,8 @@
  */
 package diamond.model.geom.util;
 
+import java.util.Collection;
+
 import javax.vecmath.Vector2d;
 
 import diamond.model.geom.Constants;
@@ -21,7 +23,7 @@ public class OriFaceUtil {
         return onFace(face, centerPoint);
     }
 
-    public static boolean onFace(OriFace face, OriVertex v) {
+    public static boolean onFace(OriFace face, java.awt.geom.Point2D.Double v) {
         double sumAngle = 0.0;
         for (OriHalfEdge he : face.getHalfEdges()) {
             Vector2d p0, p1;
@@ -38,6 +40,16 @@ public class OriFaceUtil {
         }
         return Math.abs(Math.sin(sumAngle)) < Constants.RADIAN_EPS &&
                 Math.abs(Math.cos(sumAngle) - 1.0) < Constants.RADIAN_EPS;
+    }
+
+    public static OriVertex getCenterPoint(OriFace oriFace) {
+        Collection<OriHalfEdge> halfEdges = oriFace.getHalfEdges();
+        OriVertex centerP = new OriVertex();
+        for (OriHalfEdge he : halfEdges) {
+            centerP = centerP.add(he.getSv());
+        }
+        centerP = centerP.scale(1.0 / halfEdges.size());
+        return centerP;
     }
 
 }

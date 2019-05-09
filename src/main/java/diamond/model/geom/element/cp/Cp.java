@@ -5,6 +5,7 @@
 package diamond.model.geom.element.cp;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D.Double;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 import diamond.Initials;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriModel;
+import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.editor.LineAdder;
 
 /**
@@ -21,32 +23,15 @@ import diamond.model.palette.cp.editor.LineAdder;
 public class Cp {
     private Set<OriLine> lines = new HashSet<>();
     private AffineTransform affineTransform = new AffineTransform();
+    private Double baseFaceCenter = new Double();
     private OriModel oriModel;
-
-    public OriModel getOriModel() {
-        return this.oriModel;
-    }
-
-    public void rebuildModel() {
-        oriModel.build(this);
-    }
-
-    @Deprecated // just for XML encorder
-    public void setOriModel(OriModel oriModel) {
-        this.oriModel = oriModel;
-    }
-
-    @Deprecated // just for XML encorder
-    public void setLines(Set<OriLine> lines) {
-        this.lines = lines;
-    }
 
     public Cp() {
         buildWhitePaper(Initials.PAPER_SIZE, Initials.PAPER_EDGES);
     }
 
-    public Cp(Cp creasePattern) {
-        for (OriLine oriLine : creasePattern.getLines()) {
+    public Cp(Cp cp) {
+        for (OriLine oriLine : cp.getLines()) {
             OriLine line = new OriLine(oriLine);
             if (line.getType() == LineType.UNSETTLED_MOUNTAIN) {
                 line.setType(LineType.MOUNTAIN);
@@ -56,16 +41,12 @@ public class Cp {
             }
             lines.add(line);
         }
+        baseFaceCenter = OriFaceUtil.getCenterPoint(cp.oriModel.getBaseFace());
         oriModel = new OriModel(this);
     }
 
-    public void clone(Cp cp) {
-        for (OriLine oriLine : cp.getLines()) {
-            OriLine line = new OriLine(oriLine);
-            this.lines.add(line);
-        }
-        this.affineTransform = cp.affineTransform;
-        this.oriModel = cp.getOriModel();
+    public void rebuildModel() {
+        oriModel.build(this);
     }
 
     public AffineTransform getAffineTransform() {
@@ -106,6 +87,28 @@ public class Cp {
             }
         }
         return cutLines;
+    }
+
+    public OriModel getOriModel() {
+        return this.oriModel;
+    }
+
+    @Deprecated // just for XML encorder
+    public void setOriModel(OriModel oriModel) {
+        this.oriModel = oriModel;
+    }
+
+    @Deprecated // just for XML encorder
+    public void setLines(Set<OriLine> lines) {
+        this.lines = lines;
+    }
+
+    public Double getBaseFaceCenter() {
+        return baseFaceCenter;
+    }
+
+    public void setBaseFaceCenter(Double baseFaceCenter) {
+        this.baseFaceCenter = baseFaceCenter;
     }
 
 }

@@ -2,25 +2,15 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.element.origami;
+package diamond.model.geom.util;
 
-import java.util.Collection;
+import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_
  *
  */
-public class OriModelUtil {
-    public static OriVertex getCenterPoint(OriFace oriFace) {
-        Collection<OriHalfEdge> halfEdges = oriFace.getHalfEdges();
-        OriVertex centerP = new OriVertex();
-        for (OriHalfEdge he : halfEdges) {
-            centerP = centerP.add(he.getSv());
-        }
-        centerP = centerP.scale(1.0 / halfEdges.size());
-        return centerP;
-    }
-
+public class OriVertexUtil {
     public static OriVertex getCenterPoint(OriVertex v0, OriVertex v1) {
         return v0.add(v1).scale(0.5);
     }

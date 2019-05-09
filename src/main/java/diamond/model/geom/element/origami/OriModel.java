@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.element.origami;
 
+import java.awt.geom.Point2D.Double;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -48,24 +49,29 @@ public class OriModel {
         DuplicatedCPSimplifier.simplify(cp);
         buildVertices(cp);
         buildFaces();
+        findBaseFace(cp);
         buildAuxLines();
         fold();
     }
 
-    /**
-     *
-     */
     public void fold() {
-        if (baseFace == null) {
-            baseFace = faces.get(0);
-        }
         Folder.fold(this);
         faces.sort(new OriFaceComparator(faces));
     }
 
-    /**
-     *
-     */
+    private void findBaseFace(Cp cp) {
+        Double c = cp.getBaseFaceCenter();
+        for (OriFace face : faces) {
+            if (OriFaceUtil.onFace(face, c)) {
+                baseFace = face;
+                cp.setBaseFaceCenter(OriFaceUtil.getCenterPoint(face));
+                return;
+            }
+        }
+        baseFace = faces.get(0);
+        cp.setBaseFaceCenter(OriFaceUtil.getCenterPoint(baseFace));
+    }
+
     private void buildAuxLines() {
         for (OriHalfEdge aux : auxLines) {
             for (OriFace face : faces) {
@@ -155,6 +161,14 @@ public class OriModel {
         return v;
     }
 
+    public boolean isFlip() {
+        return isFlip;
+    }
+
+    public void flip() {
+        isFlip = !isFlip;
+    }
+
     public LinkedList<OriFace> getFaces() {
         return this.faces;
     }
@@ -210,17 +224,9 @@ public class OriModel {
         this.auxLines = auxLines;
     }
 
-    public boolean isFlip() {
-        return isFlip;
-    }
-
     @Deprecated
     public void setFlip(boolean isFlip) {
         this.isFlip = isFlip;
-    }
-
-    public void flip() {
-        isFlip = !isFlip;
     }
 
 }
