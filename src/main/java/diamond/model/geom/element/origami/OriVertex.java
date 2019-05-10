@@ -158,5 +158,13 @@ public class OriVertex extends AbstractOriVertex {
     public void setPickked(boolean isPickked) {
         this.isPickked = isPickked;
     }
+    @Deprecated
+    public void setX(double x) {
+        this.x = x;
+    }
 
+    @Deprecated
+    public void setY(double y) {
+        this.y = y;
+    }
 }

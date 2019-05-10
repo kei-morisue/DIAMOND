@@ -29,6 +29,7 @@ public abstract class AbstractScreen extends JPanel
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
         screenContext.addObserver(this);
+        screenContext.screen = this;
     }
 
     @Override

@@ -54,6 +54,7 @@ public class DiagramSwitchButton extends JButton {
             palette.getDiagram().setTransform(context.transform);
             palette.setStepNo(palette.getStepNo() + direction);
             context.transform = palette.getDiagram().getTransform();
+            context.screen.repaint();
 
         }
     }

@@ -5,8 +5,12 @@
 package diamond.view.screen.debug;
 
 import java.awt.Graphics2D;
+import java.util.Set;
 
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.element.origami.OriModel;
+import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.FontStyle;
 
@@ -18,26 +22,35 @@ public class Debugger {
     public static void debugPaintContext(Graphics2D g2d,
             PaintContext paintContext) {
         g2d.setFont(FontStyle.DEBUG);
-        describe(g2d, paintContext.currentLogicalMousePoint,
-                "Current Logocal Point", 10);
-        describe(g2d, paintContext.pointedOriLine, "Pointed Line", 20);
-        describe(g2d, paintContext.pointedOriPoint, "Pointed Point", 30);
-        describe(g2d, paintContext.pointedOriFace, "Pointed Face", 40);
-
-        describe(g2d, paintContext.getPickedPoints(), "Picked Points", 60);
-        describe(g2d, paintContext.getPickedLines(), "Picked Lines", 70);
-        describe(g2d, paintContext.getPickedOriFaces(), "Picked Faces", 80);
-
-        describe(g2d, paintContext.palette.getOriModel().getBaseFace(),
-                "Base Face", 90);
 
         describe(g2d, paintContext.paintAction.getClass().getName(),
-                "Paint Action", 110);
+                "Paint Action", 10);
+        OriModel oriModel = paintContext.palette.getOriModel();
+        describe(g2d, oriModel.getFaces().size(), "Faces", 20);
+        Set<OriVertex> vertices = oriModel.getVertices();
+        describe(g2d, vertices.size(), "Vertices", 30);
+        int i = 0;
+        for (OriVertex v : vertices) {
+            describe(g2d, v.getHalfEdges().size(), v.toString() + " HalfEdges",
+                    40 + 10 * i);
+            ++i;
+        }
+        i = 0;
+        for (OriHalfEdge he : oriModel.getUnsettledLines()) {
+            describe(g2d, he.getEv().toString(), "Ev",
+                    100 + 10 * i * 2);
+            describe(g2d, he.getSv().toString(), "Sv",
+                    100 + 10 * (i * 2 + 1));
 
-        describe(g2d, paintContext.palette.size(),
-                "Steps", 120);
-        describe(g2d, paintContext.palette.getStepNo(),
-                "Focused Step No.", 130);
+        }
+        i = 0;
+        for (OriHalfEdge he : oriModel.getAuxLines()) {
+            describe(g2d, he.getEv().toString(), "Ev",
+                    200 + 10 * i * 2);
+            describe(g2d, he.getSv().toString(), "Sv",
+                    200 + 10 * (i * 2 + 1));
+        }
+
     }
 
     private static void describe(
