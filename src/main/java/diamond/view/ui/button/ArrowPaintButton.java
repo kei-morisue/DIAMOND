@@ -16,6 +16,7 @@ import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.diagram.arrow.MountainFoldArrow;
 import diamond.model.geom.element.diagram.arrow.RotateArrow;
+import diamond.model.geom.element.diagram.arrow.SinkArrow;
 import diamond.model.geom.element.diagram.arrow.ValleyFoldArrow;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
@@ -47,6 +48,12 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
             this.paintAction = new ArrowPaintAction(FoldUnfoldArrow.class) {
             };
             break;
+        case SINK_ARROW:
+            setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new ArrowPaintAction(SinkArrow.class) {
+            };
+            break;
+
         case FLIP_ARROW:
             setText(ResourceHolder.getLabelString(label));
             this.paintAction = new ArrowPaintAction(FlipArrow.class) {

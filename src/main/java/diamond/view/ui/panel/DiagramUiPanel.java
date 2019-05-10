@@ -27,6 +27,9 @@ public class DiagramUiPanel extends JPanel {
                 LABEL.MOUNTAIN_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.FOLD_UNFOLD_ARROW, context);
+
+        UiPanelUtil.addArrowPaintButton(this, buttonGroup,
+                LABEL.SINK_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.FLIP_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,

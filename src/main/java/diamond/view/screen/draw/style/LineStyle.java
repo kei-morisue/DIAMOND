@@ -25,6 +25,9 @@ public class LineStyle {
     final public static BasicStroke STROKE_OFFSET = new BasicStroke(2.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
+    final public static BasicStroke SINK_ARROW_OUTLINE = new BasicStroke(2.0f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+
     final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
     final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
     final public static BasicStroke STROKE_UNSETTLED_VALLEY = new BasicStroke(
