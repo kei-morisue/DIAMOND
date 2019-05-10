@@ -29,7 +29,8 @@ public class DiagramUiPanel extends JPanel {
                 LABEL.FOLD_UNFOLD_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.FLIP_ARROW, context);
-
+        UiPanelUtil.addArrowPaintButton(this, buttonGroup,
+                LABEL.ROTATE_ARROW, context);
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.DIAGRAM_TAB));
