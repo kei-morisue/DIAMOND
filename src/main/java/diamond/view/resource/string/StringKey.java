@@ -63,6 +63,8 @@ public class StringKey {
         VALLEY_ARROW,
         MOUNTAIN_ARROW,
         FOLD_UNFOLD_ARROW,
+        FLIP_ARROW,
+        ROTATE_ARROW,
         SINK_ARROW,
         PLEAT_ARROW,
     }

@@ -60,8 +60,7 @@ public abstract class AbstractPaintState implements PaintStateInterface {
         try {
             stateInterface = c.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            stateInterface = this;//TODO tricky implementation
         }
         return stateInterface;
     }

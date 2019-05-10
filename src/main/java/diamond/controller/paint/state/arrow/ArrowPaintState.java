@@ -15,7 +15,12 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public abstract class ArrowPaintState extends AbstractPaintState {
+public class ArrowPaintState extends AbstractPaintState {
+    private AbstractArrow arrow;
+
+    public ArrowPaintState(AbstractArrow arrow) {
+        this.arrow = arrow;
+    }
 
     @Override
     protected void undoAction(PaintContext context) {
@@ -38,8 +43,6 @@ public abstract class ArrowPaintState extends AbstractPaintState {
         context.palette.getCP().rebuildModel();
     }
 
-    protected abstract AbstractArrow buildArrow();
-
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
         OriLine pointedOriLine = context.pointedOriLine;
@@ -48,12 +51,18 @@ public abstract class ArrowPaintState extends AbstractPaintState {
             if (arrow != null) {
                 arrow.flip();
             } else {
-                pointedOriLine.setArrow(buildArrow());
+                pointedOriLine.setArrow(this.arrow);
             }
             return true;
         }
 
         return false;
+    }
+
+    @Override
+    protected void initialize() {
+        setPrevClass(ArrowPaintState.class);
+        setNextClass(ArrowPaintState.class);
     }
 
 }

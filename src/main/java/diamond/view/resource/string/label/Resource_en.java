@@ -48,6 +48,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.VALLEY_ARROW.name(), "Valley Fold" },
             { LABEL.MOUNTAIN_ARROW.name(), "Mountai Fold" },
             { LABEL.FOLD_UNFOLD_ARROW.name(), "Fold/Unfold" },
+            { LABEL.FLIP_ARROW.name(), "Flip" },
+            { LABEL.ROTATE_ARROW.name(), "rotate" },
             { LABEL.SINK_ARROW.name(), "Sink Fold" },
             { LABEL.PLEAT_ARROW.name(), "Pleat Fold" },
 
