@@ -27,7 +27,7 @@ public class ValleyFoldArrow extends AbstractArrow {
 
     @Override
     protected void buildBody() {
-        body = new CurvedArrowBody(0.25);
+        body = new CurvedArrowBody(-0.25);
     }
 
 }

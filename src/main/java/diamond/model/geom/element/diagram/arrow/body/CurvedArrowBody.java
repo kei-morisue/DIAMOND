@@ -19,6 +19,7 @@ import diamond.view.screen.draw.style.color.OriArrowColor;
  */
 public class CurvedArrowBody extends AbstractArrowBody {
     double scale;
+    boolean isClockwise = false;
 
     public CurvedArrowBody(double middlePoint) {
         this.scale = middlePoint;
@@ -27,16 +28,16 @@ public class CurvedArrowBody extends AbstractArrowBody {
 
     public GeneralPath getStroke(Double p0, Double p1) {
         GeneralPath path = new GeneralPath();
-        Double center = getMiddlePoint(p0, p1);
+        Double p2 = getP2(p0, p1);
         path.moveTo(p0.x, p0.y);
         path.curveTo(
                 p0.x, p0.y,
-                center.x, center.y,
+                p2.x, p2.y,
                 p1.x, p1.y);
         return path;
     }
 
-    public Double getMiddlePoint(Double p0, Double p1) {
+    public Double getP2(Double p0, Double p1) {
         Point2D.Double dir = Point2DUtil.sub(p1, p0);
         double length = Point2DUtil.diatance(p0, p1);
         double angle = Point2DUtil.angle(dir);
@@ -44,7 +45,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
         Double middlePoint = Point2DUtil.sub(
                 isLHS ? p1 : p0,
                 Point2DUtil.scale(dir, this.scale * (isLHS ? 1.0 : -1.0)));
-        if (isLHS) {
+        if (isClockwise) {
             angle -= Math.PI / 2;
         } else {
             angle += Math.PI / 2;
@@ -66,7 +67,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
         Double rotatedP0 = getP0(p0, p1);
         Double rotatedP1 = getP1(p0, p1);
         Double p = Point2DUtil.sub(rotatedP0,
-                getMiddlePoint(rotatedP0, rotatedP1));
+                getP2(rotatedP0, rotatedP1));
         return Point2DUtil.angle(p);
     }
 
@@ -75,13 +76,16 @@ public class CurvedArrowBody extends AbstractArrowBody {
         Double rotatedP1 = getP1(p0, p1);
         Double rotatedP0 = getP0(p0, p1);
         Double p = Point2DUtil.sub(rotatedP1,
-                getMiddlePoint(rotatedP0, rotatedP1));
+                getP2(rotatedP0, rotatedP1));
         return Point2DUtil.angle(p);
     }
 
     @Override
     public void flip() {
         isLHS = !isLHS;
+        if (isClockwise) {
+            isClockwise = !isClockwise;
+        }
     }
 
 }
