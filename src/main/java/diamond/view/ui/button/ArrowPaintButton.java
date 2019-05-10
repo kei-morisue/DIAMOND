@@ -34,27 +34,27 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
         switch (label) {
         case VALLEY_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(new ValleyFoldArrow()) {
+            this.paintAction = new ArrowPaintAction(ValleyFoldArrow.class) {
             };
             break;
         case MOUNTAIN_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(new MountainFoldArrow()) {
+            this.paintAction = new ArrowPaintAction(MountainFoldArrow.class) {
             };
             break;
         case FOLD_UNFOLD_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(new FoldUnfoldArrow()) {
+            this.paintAction = new ArrowPaintAction(FoldUnfoldArrow.class) {
             };
             break;
         case FLIP_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(new FlipArrow()) {
+            this.paintAction = new ArrowPaintAction(FlipArrow.class) {
             };
             break;
         case ROTATE_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(new RotateArrow()) {
+            this.paintAction = new ArrowPaintAction(RotateArrow.class) {
             };
             break;
 

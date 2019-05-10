@@ -15,8 +15,8 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  *
  */
 public class ArrowPaintAction extends AbstractPaintAction {
-    public ArrowPaintAction(AbstractArrow arrow) {
-        setActionState(new ArrowPaintState(arrow));
+    public ArrowPaintAction(Class<? extends AbstractArrow> arrowClass) {
+        setActionState(new ArrowPaintState(arrowClass));
     }
 
     @Override

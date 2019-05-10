@@ -16,10 +16,10 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  *
  */
 public class ArrowPaintState extends AbstractPaintState {
-    private AbstractArrow arrow;
+    private Class<? extends AbstractArrow> arrowClass;
 
-    public ArrowPaintState(AbstractArrow arrow) {
-        this.arrow = arrow;
+    public ArrowPaintState(Class<? extends AbstractArrow> arrowClass) {
+        this.arrowClass = arrowClass;
     }
 
     @Override
@@ -51,7 +51,12 @@ public class ArrowPaintState extends AbstractPaintState {
             if (arrow != null) {
                 arrow.flip();
             } else {
-                pointedOriLine.setArrow(this.arrow);
+                try {
+                    pointedOriLine
+                            .setArrow(arrowClass.newInstance());
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
             return true;
         }

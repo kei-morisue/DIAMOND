@@ -83,7 +83,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
     @Override
     public void flip() {
         isLHS = !isLHS;
-        if (isClockwise) {
+        if (isLHS) {
             isClockwise = !isClockwise;
         }
     }
