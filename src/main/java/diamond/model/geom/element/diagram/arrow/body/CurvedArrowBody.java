@@ -21,8 +21,8 @@ public class CurvedArrowBody extends AbstractArrowBody {
     double scale;
     boolean isClockwise = false;
 
-    public CurvedArrowBody(double middlePoint) {
-        this.scale = middlePoint;
+    public CurvedArrowBody(double scale) {
+        this.scale = scale;
 
     }
 
@@ -86,6 +86,29 @@ public class CurvedArrowBody extends AbstractArrowBody {
         if (isLHS) {
             isClockwise = !isClockwise;
         }
+    }
+
+    @Deprecated
+    public double getScale() {
+        return this.scale;
+    }
+
+    @Deprecated
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
+
+    @Deprecated
+
+    public boolean isClockwise() {
+        return this.isClockwise;
+    }
+
+    @Deprecated
+
+    public void setClockwise(boolean isClockwise) {
+        this.isClockwise = isClockwise;
     }
 
 }

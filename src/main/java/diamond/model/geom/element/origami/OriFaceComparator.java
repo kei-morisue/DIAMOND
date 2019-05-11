@@ -16,7 +16,7 @@ import diamond.model.geom.element.LineType;
  */
 public class OriFaceComparator implements Comparator<OriFace> {
     private List<OriFace> faces = new ArrayList<>();
-    int res = 0;
+    private int res = 0;
 
     public OriFaceComparator(List<OriFace> faces) {
         this.faces.addAll(faces);
@@ -24,29 +24,25 @@ public class OriFaceComparator implements Comparator<OriFace> {
 
     @Override
     public int compare(OriFace f0, OriFace f1) {
+        initialize();
         tryCompare(f0, f1, null);
-        for (OriFace face : faces) {
-            tryCompare(f0, face, null);
-            if (res == 0) {
-                tryCompare(face, f1, null);
-                if (res != 0) {
-                    return res;
+        if (res == 0) {
+            for (OriFace face : faces) {
+                initialize();
+                tryCompare(f0, face, null);
+                if (res == 0) {
+                    initialize();
+                    tryCompare(face, f1, null);
+                    if (res != 0) {
+                        return res;
+                    }
                 }
             }
         }
         return res;
     }
 
-    /**
-     * @param f0
-     * @param f1
-     */
     private void tryCompare(OriFace f0, OriFace f1, LineType type) {
-        for (OriFace oriFace : faces) {
-            oriFace.footPrint = false;
-        }
-        res = 0;
-
         for (OriHalfEdge he1 : f0.getHalfEdges()) {
             if (he1.getPair().getFace() == f1 && he1.getType() != type) {
                 determine(f0, he1);
@@ -70,6 +66,13 @@ public class OriFaceComparator implements Comparator<OriFace> {
             }
         }
         f0.footPrint = true;
+    }
+
+    private void initialize() {
+        for (OriFace oriFace : faces) {
+            oriFace.footPrint = false;
+        }
+        res = 0;
     }
 
     private void determine(OriFace f1, OriHalfEdge he1) {
