@@ -43,29 +43,28 @@ public class OriFaceComparator implements Comparator<OriFace> {
     }
 
     private void tryCompare(OriFace f0, OriFace f1, LineType type) {
-        for (OriHalfEdge he1 : f0.getHalfEdges()) {
-            if (he1.getPair().getFace() == f1 && he1.getType() != type) {
-                determine(f0, he1);
+        for (OriHalfEdge he : f0.getHalfEdges()) {
+            if (he.getPair().getFace() == f1 && he.getType() != type) {
+                determine(f0, he);
                 return;
             }
-        }
-        for (OriHalfEdge halfEdge : f0.getHalfEdges()) {
-            if (halfEdge.getType() == LineType.CUT) {
+            f0.footPrint = true;
+
+            if (he.getType() == LineType.CUT) {
                 continue;
             }
-            if (halfEdge.getType() == type) {
+            if (he.getType() == type) {
                 continue;
             }
-            OriFace face = halfEdge.getPair().getFace();
+            OriFace face = he.getPair().getFace();
             if (face.footPrint) {
                 continue;
             }
-            tryCompare(face, f1, halfEdge.getType());
+            tryCompare(face, f1, he.getType());
             if (res != 0) {
                 return;
             }
         }
-        f0.footPrint = true;
     }
 
     private void initialize() {
