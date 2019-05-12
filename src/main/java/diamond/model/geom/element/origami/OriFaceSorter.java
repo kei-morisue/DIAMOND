@@ -29,7 +29,9 @@ public class OriFaceSorter {
     private static void add(LinkedList<OriFace> faces,
             LinkedList<OriFace> sorted) {
         OriFace face = faces.getFirst();
-        for (OriFace f1 : sorted) {
+        LinkedList<OriFace> tmpSorted = new LinkedList<>();
+        tmpSorted.addAll(sorted);
+        for (OriFace f1 : tmpSorted) {
             if (insertFace(face, f1, sorted, faces)) {
                 faces.removeFirst();
                 return;
@@ -42,23 +44,18 @@ public class OriFaceSorter {
 
     private static boolean insertFace(OriFace face, OriFace f1,
             LinkedList<OriFace> sorted, LinkedList<OriFace> faces) {
-        int result = tryCompare(face, f1, null);
         int index = sorted.indexOf(f1);
-        switch (result) {
+        switch (tryCompare(face, f1, null)) {
         case -1:
             sorted.add(index, face);
             return true;
         case 1:
-            if (index == sorted.size() - 1) {
-                sorted.addLast(face);
-                return true;
-            }
             do {
-                ++index;
                 if (index == sorted.size() - 1) {
                     sorted.addLast(face);
                     return true;
                 }
+                ++index;
                 f1 = sorted.get(index);
             } while (tryCompare(face, f1, null) != -1);
             sorted.add(index, face);
