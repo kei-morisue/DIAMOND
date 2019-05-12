@@ -31,11 +31,13 @@ public class OriFaceSorter {
         OriFace face = faces.getFirst();
         for (OriFace f1 : sorted) {
             if (insertFace(face, f1, sorted, faces)) {
+                faces.removeFirst();
                 return;
             }
         }
         faces.addLast(face);
         faces.pop();
+        return;
     }
 
     private static boolean insertFace(OriFace face, OriFace f1,
@@ -44,27 +46,26 @@ public class OriFaceSorter {
         int index = sorted.indexOf(f1);
         switch (result) {
         case -1:
-            insertBehind(face, sorted, faces, index);
-            break;
+            sorted.add(index, face);
+            return true;
         case 1:
             if (index == sorted.size() - 1) {
-                insertBehind(face, sorted, faces, index + 1);
-                break;
+                sorted.addLast(face);
+                return true;
             }
-            f1 = sorted.get(index + 1);
-            insertFace(face, f1, sorted, faces);
-            break;
+            do {
+                ++index;
+                if (index == sorted.size() - 1) {
+                    sorted.addLast(face);
+                    return true;
+                }
+                f1 = sorted.get(index);
+            } while (tryCompare(face, f1, null) != -1);
+            sorted.add(index, face);
+            return true;
         default:
             return false;
         }
-        faces.remove(face);
-        return true;
-    }
-
-    private static void insertBehind(OriFace face, LinkedList<OriFace> sorted,
-            LinkedList<OriFace> faces, int index) {
-        sorted.add(index, face);
-        faces.removeFirst();
     }
 
     private static int tryCompare(OriFace f0, OriFace f1, LineType type) {
