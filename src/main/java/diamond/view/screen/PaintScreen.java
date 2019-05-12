@@ -20,6 +20,7 @@ import diamond.view.screen.debug.Debugger;
 import diamond.view.screen.draw.OriFaceDrawer;
 import diamond.view.screen.draw.OriLineDrawer;
 import diamond.view.screen.draw.OriPointDrawer;
+import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
 import diamond.view.screen.draw.style.color.Ui;
@@ -72,7 +73,6 @@ public class PaintScreen extends AbstractScreen {
                     diamond.view.screen.draw.style.color.OriLineColor
                             .getCpColor(l.getType()),
                     LineStyle.getCpStroke(l.getType()));
-            //TODO delete
             if (l.getArrow() != null) {
                 l.getArrow().draw(g2d, l);
             }
@@ -113,6 +113,10 @@ public class PaintScreen extends AbstractScreen {
                     diamond.view.screen.draw.style.color.OriFaceColor.ORI_FACE_BACK);
         }
         OriFaceDrawer.drawBaseFace(g2d, model);
+        for (OriFace face : faces) {
+            StringDrawer.drawFaceNo(g2d, face, faces);
+        }
+
     }
 
 }

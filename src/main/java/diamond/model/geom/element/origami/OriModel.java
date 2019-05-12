@@ -56,7 +56,7 @@ public class OriModel {
 
     public void fold() {
         Folder.fold(this);
-        faces.sort(new OriFaceComparator(faces));
+        faces = OriFaceSorter.sort(faces);
     }
 
     private void findBaseFace(Cp cp) {
