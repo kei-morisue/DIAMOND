@@ -45,13 +45,12 @@ public class LandmarkPaintState extends AbstractPaintState {
         OriPoint p = context.pointedOriPoint;
         if (p != null) {
             for (OriLine l : context.palette.getCP().getLines()) {
-                if (DistanceUtil.distance(p, l.p0) < Constants.EPS) {
-                    l.p0.setLandmark(!p.isLandmark());
-
+                if (DistanceUtil.distance(p, l.p0) < Constants.POINT_EPS) {
+                    l.p0.setLandmark(!l.p0.isLandmark());
+                    continue;
                 }
-                if (DistanceUtil.distance(p, l.p1) < Constants.EPS) {
-                    l.p1.setLandmark(!p.isLandmark());
-
+                if (DistanceUtil.distance(p, l.p1) < Constants.POINT_EPS) {
+                    l.p1.setLandmark(!l.p1.isLandmark());
                 }
             }
             return true;

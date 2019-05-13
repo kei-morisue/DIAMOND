@@ -50,6 +50,9 @@ public class OriLine {
         this.p0 = l.p0;
         this.p1 = l.p1;
         this.type = l.type;
+        this.p0.setLandmark(false);
+        this.p1.setLandmark(false);
+
     }
 
     public double length() {

@@ -53,6 +53,11 @@ public class OriModelDrawer {
             if (sv.isLandmark()) {
                 OriVertexDrawer.drawLandMark(g2d, sv);
             }
+            OriVertex ev = he.getEv();
+            if (ev.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, ev);
+            }
+
         }
 
     }
@@ -82,6 +87,17 @@ public class OriModelDrawer {
                             .getDiagramColor(LineType.CREASE),
                     LineStyle.getDiagramStroke(LineType.CREASE),
                     LineStyle.CLIP_SCALE * 0.01);
+        }
+        for (OriHalfEdge he : face.getCreaseLines()) {
+            OriVertex sv = he.getSv();
+            if (sv.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, sv);
+            }
+            OriVertex ev = he.getEv();
+            if (ev.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, ev);
+            }
+
         }
     }
 }

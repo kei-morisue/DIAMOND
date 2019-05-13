@@ -20,6 +20,7 @@ import diamond.view.screen.debug.Debugger;
 import diamond.view.screen.draw.OriFaceDrawer;
 import diamond.view.screen.draw.OriLineDrawer;
 import diamond.view.screen.draw.OriPointDrawer;
+import diamond.view.screen.draw.OriVertexDrawer;
 import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
@@ -76,6 +77,13 @@ public class PaintScreen extends AbstractScreen {
             if (l.getArrow() != null) {
                 l.getArrow().draw(g2d, l);
             }
+            if (l.p0.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, l.p0);
+            }
+            if (l.p1.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, l.p1);
+            }
+
         }
     }
 

@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
 
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.style.VertexStyle;
 
@@ -36,6 +37,18 @@ public class OriVertexDrawer {
         Double offset = v.getOffset();
         int x = (int) (foldedPosition.getX() + offset.x);
         int y = (int) (foldedPosition.getY() + offset.y);
+        drawLandmark(g2d, x, y);
+    }
+
+    public static void drawLandMark(
+            Graphics2D g2d,
+            OriPoint p) {
+        int x = (int) p.x;
+        int y = (int) p.y;
+        drawLandmark(g2d, x, y);
+    }
+
+    private static void drawLandmark(Graphics2D g2d, int x, int y) {
         int size = VertexStyle.SIZE_LANDMARK_EDGE;
         int half = size >> 1;
         g2d.setColor(VertexStyle.COLOR_LANDMARK_EDGE);
@@ -47,4 +60,5 @@ public class OriVertexDrawer {
         half = size >> 1;
         g2d.drawOval(x - half, y - half, size - 1, size);
     }
+
 }
