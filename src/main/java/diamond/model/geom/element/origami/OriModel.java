@@ -15,6 +15,7 @@ import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.util.DistanceUtil;
+import diamond.model.geom.util.OriFaceSorter;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
 
