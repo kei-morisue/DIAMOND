@@ -34,6 +34,10 @@ public class DiagramUiPanel extends JPanel {
                 LABEL.FLIP_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.ROTATE_ARROW, context);
+
+        UiPanelUtil.addLandmarkPaintButton(this, buttonGroup,
+                LABEL.LANDMARK, context);
+
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.DIAGRAM_TAB));

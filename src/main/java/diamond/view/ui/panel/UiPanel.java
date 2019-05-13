@@ -23,8 +23,8 @@ public class UiPanel extends JTabbedPane {
     public UiPanel(PaintContext context) {
         addTab(ResourceHolder.getLabelString(LABEL.CP),
                 buildCpUi(context));
-        addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
-                buildModelUi(context));
+        //        addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
+        //                buildModelUi(context));
     }
 
     private JPanel buildCpUi(PaintContext context) {
@@ -34,6 +34,7 @@ public class UiPanel extends JTabbedPane {
         panel.add(new EditLinePanel(context, paintActionButtons));
         panel.add(new DiagramUiPanel(context, paintActionButtons));
         panel.add(new EditVertexPanel(context, paintActionButtons));
+        panel.add(new ModelUiPanel(context, paintActionButtons));
         return panel;
     }
 

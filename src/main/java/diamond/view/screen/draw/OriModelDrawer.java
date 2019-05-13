@@ -37,12 +37,6 @@ public class OriModelDrawer {
 
     private static void drawEdges(Graphics2D g2d, double scale, OriFace face) {
         for (OriHalfEdge he : face.getHalfEdges()) {
-            OriVertex sv = he.getSv();
-            if (sv.isPickked()) {
-                OriVertexDrawer.drawVertex(g2d, sv,
-                        VertexStyle.SIZE_PICKED / scale);
-            }
-
             LineType type = he.getType();
             OriHalfEdgeDrawer.drawFoldedHalfEdge(
                     g2d,
@@ -50,6 +44,17 @@ public class OriModelDrawer {
                     OriHalfEdgeColor.ORI_HALFEDGE,
                     LineStyle.getDiagramStroke(type));
         }
+        for (OriHalfEdge he : face.getHalfEdges()) {
+            OriVertex sv = he.getSv();
+            if (sv.isPickked()) {
+                OriVertexDrawer.drawVertex(g2d, sv,
+                        VertexStyle.SIZE_PICKED / scale);
+            }
+            if (sv.isLandmark()) {
+                OriVertexDrawer.drawLandMark(g2d, sv);
+            }
+        }
+
     }
 
     private static void drawUnsettledLines(Graphics2D g2d, OriFace face) {

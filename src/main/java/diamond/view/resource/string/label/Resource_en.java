@@ -53,6 +53,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.SINK_ARROW.name(), "Sink Fold" },
             { LABEL.PLEAT_ARROW.name(), "Pleat Fold" },
 
+            { LABEL.LANDMARK.name(), "Landmark" },
+
             { LABEL.FILE.name(), "File" },
             { LABEL.SAVE.name(), "Save" },
             { LABEL.OPEN.name(), "Open" },

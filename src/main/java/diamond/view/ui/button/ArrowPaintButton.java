@@ -18,7 +18,6 @@ import diamond.model.geom.element.diagram.arrow.MountainFoldArrow;
 import diamond.model.geom.element.diagram.arrow.RotateArrow;
 import diamond.model.geom.element.diagram.arrow.SinkArrow;
 import diamond.model.geom.element.diagram.arrow.ValleyFoldArrow;
-import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -69,11 +68,6 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
             break;
         }
         addActionListener(this);
-    }
-
-    private void setIcons(String iconBaseName) {
-        IconSetter.set(this, iconBaseName + ".gif");
-        IconSetter.setSelected(this, iconBaseName + "_p.gif");
     }
 
     @Override

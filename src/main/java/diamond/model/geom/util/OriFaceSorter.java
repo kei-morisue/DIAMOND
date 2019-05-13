@@ -13,13 +13,19 @@ import diamond.model.geom.element.origami.OriFace;
  *
  */
 public class OriFaceSorter {
+    private static int debugCount = 0;;
 
     public static LinkedList<OriFace> sort(LinkedList<OriFace> faces) {
         validate(faces);
+        debugCount = 0;
         return faces;
     }
 
     private static void validate(LinkedList<OriFace> faces) {
+        debugCount++;
+        if (debugCount > 1000) {
+            return;
+        }
         for (int i = 0; i < faces.size() - 1; ++i) {
             for (int j = i + 1; j < faces.size(); ++j) {
                 OriFace f0 = faces.get(i);
@@ -37,22 +43,6 @@ public class OriFaceSorter {
     private static void liftFace(int i, int j,
             LinkedList<OriFace> faces) {
         swap(i, j, faces);
-
-        //        OriFace f1 = faces.get(j);
-        //        for (int k = 1; k < j - i - 1; ++k) {
-        //            int l = j - k;
-        //            OriFace f2 = faces.get(l);
-        //            switch (OriFaceComparator.tryCompare(f2, f1, null)) {
-        //            case 1:
-        //                liftFace(i, l, faces);
-        //                break;
-        //            case -1:
-        //            default:
-        //                faces.remove(f1);
-        //                faces.add(l, f1);
-        //                break;
-        //            }
-        //        }
     }
 
     private static void swap(int i, int j, LinkedList<OriFace> faces) {

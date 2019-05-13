@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import diamond.controller.file.DataSet;
 import diamond.controller.file.ExporterXML;
 import diamond.controller.paint.PaintContext;
+import diamond.view.ProgressFrame;
 
 /**
  * @author long_
@@ -36,7 +37,9 @@ public class ExportAction implements ActionListener {
             DataSet data = new DataSet(
                     paintContext.palette.getDiagrams());
             String path = chooser.getSelectedFile().getPath();
+            ProgressFrame frame = new ProgressFrame("saving");
             exporterXML.export(data, path);
+            frame.done();
         }
     }
 

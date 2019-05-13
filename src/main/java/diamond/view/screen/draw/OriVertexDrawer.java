@@ -29,4 +29,22 @@ public class OriVertexDrawer {
                 size));
     }
 
+    public static void drawLandMark(
+            Graphics2D g2d,
+            OriVertex v) {
+        Point2D foldedPosition = v.getFoldedPosition();
+        Double offset = v.getOffset();
+        int x = (int) (foldedPosition.getX() + offset.x);
+        int y = (int) (foldedPosition.getY() + offset.y);
+        int size = VertexStyle.SIZE_LANDMARK_EDGE;
+        int half = size >> 1;
+        g2d.setColor(VertexStyle.COLOR_LANDMARK_EDGE);
+        g2d.setStroke(VertexStyle.STROKE_LANDMARK_EDGE);
+        g2d.drawOval(x - half, y - half, size, size);
+        g2d.setColor(VertexStyle.COLOR_LANDMARK_BODY);
+        g2d.setStroke(VertexStyle.STROKE_LANDMARK_BODY);
+        size = VertexStyle.SIZE_LANDMARK_BODY;
+        half = size >> 1;
+        g2d.drawOval(x - half, y - half, size - 1, size);
+    }
 }

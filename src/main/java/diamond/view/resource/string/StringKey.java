@@ -67,6 +67,7 @@ public class StringKey {
         ROTATE_ARROW,
         SINK_ARROW,
         PLEAT_ARROW,
+        LANDMARK,
     }
 
     public enum HINT {

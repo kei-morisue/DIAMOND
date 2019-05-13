@@ -42,7 +42,7 @@ public class DiagramPanel extends JPanel {
         ScreenTransform transform = new ScreenTransform(diagram.getTransform());
         setBackground(Color.white);
         transform.focus(getWidth(), getHeight());
-        transform.zoom(0.45);
+        transform.zoom(0.3);
 
         AffineTransform transform2 = g2d.getTransform();
         int x = (int) transform2.getTranslateX();

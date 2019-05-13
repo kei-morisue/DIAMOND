@@ -14,6 +14,7 @@ import javax.vecmath.Vector2d;
  */
 public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     private Double offset = new Double(.0, .0);
+    private boolean isLandmark = false;
 
     public OriPoint() {
         super();
@@ -100,5 +101,13 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     public void setOffset(double x, double y) {
         this.offset.x = x;
         this.offset.y = y;
+    }
+
+    public boolean isLandmark() {
+        return this.isLandmark;
+    }
+
+    public void setLandmark(boolean isLandmark) {
+        this.isLandmark = isLandmark;
     }
 }

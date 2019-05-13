@@ -22,7 +22,7 @@ public class OriVertex extends AbstractOriVertex {
     private LinkedList<OriHalfEdge> halfEdges = new LinkedList<>();
     private boolean isFoldable = false;
     private boolean isPickked = false;
-
+    private boolean isLandmark = false;
     private Point2D.Double foldedPosition = new Point2D.Double();
 
     public Point2D.Double getFoldedPosition() {
@@ -57,6 +57,7 @@ public class OriVertex extends AbstractOriVertex {
     public OriVertex(OriPoint point) {
         super(point.x, point.y);
         offset = point.getOffset();
+        isLandmark = point.isLandmark();
     }
 
     public OriVertex add(OriVertex v) {
@@ -158,6 +159,7 @@ public class OriVertex extends AbstractOriVertex {
     public void setPickked(boolean isPickked) {
         this.isPickked = isPickked;
     }
+
     @Deprecated
     public void setX(double x) {
         this.x = x;
@@ -166,5 +168,13 @@ public class OriVertex extends AbstractOriVertex {
     @Deprecated
     public void setY(double y) {
         this.y = y;
+    }
+
+    public boolean isLandmark() {
+        return isLandmark;
+    }
+
+    public void setLandmark(boolean isLandmark) {
+        this.isLandmark = isLandmark;
     }
 }

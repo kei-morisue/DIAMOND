@@ -15,6 +15,7 @@ import diamond.controller.file.LoaderXML;
 import diamond.controller.paint.ModelContext;
 import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
+import diamond.view.ProgressFrame;
 
 /**
  * @author long_
@@ -39,6 +40,7 @@ public class LoadAction implements ActionListener {
                 .showOpenDialog(parentComponent)) {
             LoaderXML loader = new LoaderXML();
             String path = chooser.getSelectedFile().getPath();
+            ProgressFrame frame = new ProgressFrame("loading");
             DataSet data = loader.load(path);
             paintContext.palette.setDiagrams(data.getDiagrams());
             paintContext.palette.setStepNo(0);
@@ -47,6 +49,7 @@ public class LoadAction implements ActionListener {
             for (Diagram diagram : paintContext.palette.getDiagrams()) {
                 diagram.getCp().rebuildModel();
             }
+            frame.done();
         }
     }
 }
