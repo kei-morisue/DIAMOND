@@ -115,6 +115,9 @@ public class SymmetricLineFactory {
 
         double minDist = Double.MAX_VALUE;
         for (OriLine l : creasePattern) {
+            if (!LineType.isSettled(l.getType())) {
+                continue;
+            }
             OriPoint crossPoint = CrossPointUtil.getCrossPoint(ray,
                     l.getSegment());
             if (crossPoint == null) {

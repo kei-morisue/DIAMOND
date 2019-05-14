@@ -23,6 +23,17 @@ public enum LineType {
         }
     }
 
+    public static boolean isSettled(LineType lineType) {
+        switch (lineType) {
+        case CREASE:
+        case UNSETTLED_MOUNTAIN:
+        case UNSETTLED_VALLEY:
+            return false;
+        default:
+            return true;
+        }
+    }
+
     public static LineType getAuxType(LineType lineType) {
         switch (lineType) {
         case MOUNTAIN:
