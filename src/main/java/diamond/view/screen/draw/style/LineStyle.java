@@ -5,7 +5,7 @@ import java.awt.BasicStroke;
 import diamond.model.geom.element.LineType;
 
 public class LineStyle {
-    public static int CLIP_SCALE = 10;
+    public static int CLIP_SCALE = 5;
     final public static BasicStroke STROKE_CUT = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_VALLEY = new BasicStroke(0.0f,

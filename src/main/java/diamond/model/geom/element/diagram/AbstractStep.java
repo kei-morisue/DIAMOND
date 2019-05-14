@@ -18,11 +18,11 @@ import diamond.view.screen.ScreenTransform;
  *
  */
 public abstract class AbstractStep extends JPanel {
-    private Diagram diagram;
+    protected Diagram diagram;
     protected int x = 0;
     protected int y = 0;
 
-    public AbstractStep(Diagram diagram, int stepNo) {
+    public AbstractStep(Diagram diagram) {
         super();
         this.diagram = diagram;
         setBackground(Color.white);

@@ -4,8 +4,10 @@
  */
 package diamond.model.geom.element.diagram;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
+
+import javax.swing.border.BevelBorder;
 
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.screen.draw.OriModelDrawer;
@@ -15,12 +17,9 @@ import diamond.view.screen.draw.OriModelDrawer;
  *
  */
 public class Goal extends AbstractStep {
-    private Diagram diagram;
-
-    public Goal(Diagram diagram, int stepNo) {
-        super(diagram, stepNo);
-        this.diagram = diagram;
-        setBackground(Color.white);
+    public Goal(List<Diagram> diagrams) {
+        super(diagrams.get(diagrams.size() - 1));
+        setBorder(new BevelBorder(BevelBorder.RAISED));
     }
 
     @Override

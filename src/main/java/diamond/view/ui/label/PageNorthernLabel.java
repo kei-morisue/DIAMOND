@@ -4,9 +4,9 @@
  */
 package diamond.view.ui.label;
 
-import java.awt.Color;
-
 import javax.swing.JLabel;
+
+import diamond.view.screen.draw.style.color.OriFaceColor;
 
 /**
  * @author long_
@@ -20,7 +20,7 @@ public class PageNorthernLabel extends JLabel {
 
     public PageNorthernLabel() {
         super(label, JLabel.CENTER);
-        setBackground(Color.gray);
+        setBackground(OriFaceColor.ORI_FACE_FRONT);
         setOpaque(true);
     }
 }

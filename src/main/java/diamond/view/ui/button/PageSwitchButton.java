@@ -45,7 +45,6 @@ public class PageSwitchButton extends JButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             screen.nextPage(direction);
-            screen.buildPage();
         }
     }
 }

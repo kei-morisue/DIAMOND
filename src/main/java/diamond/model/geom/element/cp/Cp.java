@@ -102,11 +102,6 @@ public class Cp {
     }
 
     @Deprecated // just for XML encorder
-    public void setOriModel(OriModel oriModel) {
-        this.oriModel = oriModel;
-    }
-
-    @Deprecated // just for XML encorder
     public void setLines(Set<OriLine> lines) {
         this.lines = lines;
     }

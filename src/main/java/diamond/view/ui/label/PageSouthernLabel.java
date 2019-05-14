@@ -4,9 +4,9 @@
  */
 package diamond.view.ui.label;
 
-import java.awt.Color;
-
 import javax.swing.JLabel;
+
+import diamond.view.screen.draw.style.color.OriFaceColor;
 
 /**
  * @author long_
@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 public class PageSouthernLabel extends JLabel {
     public PageSouthernLabel(int page) {
         super(String.valueOf(page), JLabel.CENTER);
-        setBackground(Color.gray);
+        setBackground(OriFaceColor.ORI_FACE_FRONT);
         setOpaque(true);
 
     }
