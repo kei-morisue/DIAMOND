@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.util;
+package diamond.model.geom.element.fold;
 
 import java.util.LinkedList;
 
@@ -23,7 +23,7 @@ public class OriFaceSorter {
 
     private static void validate(LinkedList<OriFace> faces) {
         debugCount++;
-        if (debugCount > 1000) {
+        if (debugCount > 10000) {
             return;
         }
         for (int i = 0; i < faces.size() - 1; ++i) {

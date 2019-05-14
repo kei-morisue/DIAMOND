@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.model.geom.util;
+package diamond.model.geom.element.fold;
 
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriFace;
