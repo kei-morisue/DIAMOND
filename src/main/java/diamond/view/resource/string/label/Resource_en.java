@@ -39,7 +39,7 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.CONTOUR.name(), "Modify the paper form" },
 
             { LABEL.FOLDED.name(), "Edit Folded Model" },
-            { LABEL.FACE.name(), "Edit Face Order" },
+            { LABEL.FACE.name(), "Edit Face" },
             { LABEL.BASE_FACE.name(), "Base Face" },
             { LABEL.FACE_TOP.name(), "Set the face top" },
             { LABEL.FACE_BOTTOM.name(), "Set the face botom" },
