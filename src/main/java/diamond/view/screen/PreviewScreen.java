@@ -62,6 +62,14 @@ public class PreviewScreen extends JPanel {
         repaint();
     }
 
+    public void setToTop() {
+        pageNo = 0;
+        removeAll();
+        build();
+        validate();
+        repaint();
+    }
+
     public int maxPageNo() {
         int steps = paintContext.palette.getDiagrams().size();
         int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;

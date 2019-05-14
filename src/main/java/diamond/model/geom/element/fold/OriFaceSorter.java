@@ -23,26 +23,21 @@ public class OriFaceSorter {
 
     private static void validate(LinkedList<OriFace> faces) {
         debugCount++;
-        if (debugCount > 10000) {
+        if (debugCount > 5000) {
             return;
         }
-        for (int i = 0; i < faces.size() - 1; ++i) {
-            for (int j = i + 1; j < faces.size(); ++j) {
+        for (int i = 0; i < faces.size() - 1; i++) {
+            for (int j = faces.size() - 1; j > i; j--) {
                 OriFace f0 = faces.get(i);
                 OriFace f1 = faces.get(j);
                 if (OriFaceComparator.tryCompare(f0, f1, null) == 1) {
-                    liftFace(i, j, faces);
+                    swap(i, j, faces);
                     validate(faces);
                     return;
                 }
             }
         }
         return;
-    }
-
-    private static void liftFace(int i, int j,
-            LinkedList<OriFace> faces) {
-        swap(i, j, faces);
     }
 
     private static void swap(int i, int j, LinkedList<OriFace> faces) {

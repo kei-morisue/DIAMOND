@@ -37,7 +37,6 @@ public class Palette extends Observable {
 
     public void setDiagrams(LinkedList<Diagram> diagrams) {
         this.diagrams = diagrams;
-        notifyObservers();
     }
 
     public Cp getCP() {

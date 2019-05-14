@@ -33,27 +33,47 @@ public class ImageExportAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (chooser.showSaveDialog(
                 parent) == JFileChooser.APPROVE_OPTION) {
+            screen.setToTop();
             try {
-                int w = screen.getWidth();
-                int h = screen.getHeight();
-
-                BufferedImage image = new BufferedImage(w, h,
-                        BufferedImage.TYPE_INT_RGB);
-
-                Graphics2D g2 = image.createGraphics();
-                screen.paintComponents(g2);
-
-                g2.dispose();
                 String filePath = chooser.getSelectedFile().getPath();
-                File file = new File(filePath);
-                ImageIO.write(image,
-                        filePath.substring(filePath.lastIndexOf(".") + 1),
-                        file);
+                for (int i = 0; i < screen.maxPageNo() + 1; ++i) {
+                    BufferedImage image = getImage();
+                    String pathname = fileName(filePath, i);
+                    File file = new File(pathname + formatName());
+                    ImageIO.write(image, formatName(), file);
+                    screen.nextPage(1);
+                }
             } catch (IOException exception) {
                 System.err.println(exception);
             }
+            screen.setToTop();
         }
+    }
+
+    private String fileName(String filePath, int i) {
+        String pathname = filePath + "/page_"
+                + String.format("%03d", i + 1) + ".";
+        return pathname;
+    }
+
+    /**
+     * @return
+     */
+    private String formatName() {
+        return "png";
+    }
+
+    private BufferedImage getImage() {
+        int w = screen.getWidth();
+        int h = screen.getHeight();
+        BufferedImage image = new BufferedImage(w, h,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        screen.paintComponents(g2);
+        g2.dispose();
+        return image;
     }
 }
