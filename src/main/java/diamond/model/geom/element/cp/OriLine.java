@@ -36,8 +36,8 @@ public class OriLine {
 
     public OriLine(OriPoint p0, OriPoint p1, LineType type) {
         this.type = type;
-        this.p0 = p0;
-        this.p1 = p1;
+        this.p0 = new OriPoint(p0);
+        this.p1 = new OriPoint(p1);
     }
 
     public OriLine(Point2D.Double p0, Point2D.Double p1, LineType type) {
@@ -47,8 +47,8 @@ public class OriLine {
     }
 
     public OriLine(OriLine l) {
-        this.p0 = l.p0;
-        this.p1 = l.p1;
+        this.p0 = new OriPoint(l.p0);
+        this.p1 = new OriPoint(l.p1);
         this.type = l.type;
 
     }

@@ -45,8 +45,7 @@ public class Cp {
                     line.setType(LineType.CREASE);
                 }
             }
-            oriLine.p0.setLandmark(false);
-            oriLine.p1.setLandmark(false);
+
             lines.add(line);
         }
         baseFaceCenter = OriFaceUtil.getCenterPoint(cp.oriModel.getBaseFace());

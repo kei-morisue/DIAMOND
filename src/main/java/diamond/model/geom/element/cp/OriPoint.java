@@ -18,17 +18,6 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
 
     public OriPoint() {
         super();
-        isLandmark = false;
-    }
-
-    @Deprecated
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    @Deprecated
-    public void setY(double y) {
-        this.y = y;
     }
 
     public OriPoint(double x, double y) {
@@ -42,6 +31,15 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     public OriPoint(OriPoint p) {
         super(p.x, p.y);
         this.offset = p.offset;
+        this.isLandmark = p.isLandmark;
+    }
+
+    public void flipLandmark() {
+        isLandmark = !isLandmark;
+    }
+
+    public void disableLandmark() {
+        isLandmark = false;
     }
 
     @Override
@@ -108,12 +106,14 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
         return this.isLandmark;
     }
 
-    public void flipLandmark() {
-        isLandmark = !isLandmark;
+    @Deprecated
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public void disableLandmark() {
-        isLandmark = false;
+    @Deprecated
+    public void setY(double y) {
+        this.y = y;
     }
 
     @Deprecated
