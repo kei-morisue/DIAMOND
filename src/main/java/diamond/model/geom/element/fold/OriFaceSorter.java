@@ -16,8 +16,8 @@ public class OriFaceSorter {
     private static int debugCount = 0;;
 
     public static LinkedList<OriFace> sort(LinkedList<OriFace> faces) {
-        validate(faces);
         debugCount = 0;
+        validate(faces);
         return faces;
     }
 
