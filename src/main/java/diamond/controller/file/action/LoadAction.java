@@ -7,6 +7,7 @@ package diamond.controller.file.action;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 
@@ -42,11 +43,13 @@ public class LoadAction implements ActionListener {
             String path = chooser.getSelectedFile().getPath();
             ProgressFrame frame = new ProgressFrame("loading");
             DataSet data = loader.load(path);
+
             paintContext.palette.setDiagrams(data.getDiagrams());
-            paintContext.palette.setStepNo(0);
+            LinkedList<Diagram> diagrams = paintContext.palette.getDiagrams();
+            paintContext.palette.setStepNo(diagrams.size() - 1);
             modelContext.transform = modelContext.palette.getDiagram()
                     .getTransform();
-            for (Diagram diagram : paintContext.palette.getDiagrams()) {
+            for (Diagram diagram : diagrams) {
                 diagram.getCp().rebuildModel();
             }
             frame.done();
