@@ -33,11 +33,30 @@ public class OriFaceSorter {
                 if (OriFaceComparator.tryCompare(f0, f1, null) == 1) {
                     swap(i, j, faces);
                     validate(faces);
-                    return;
                 }
+                if (validateCollision(i, j, f0, f1, faces)) {
+                    validate(faces);
+                }
+                ;
             }
         }
         return;
+    }
+
+    private static boolean validateCollision(int i, int j, OriFace f0,
+            OriFace f1, LinkedList<OriFace> faces) {
+        //        for (OriHalfEdge he : f0.getHalfEdges()) {
+        //            if (he.getPair().getFace() == f1) {
+        //                for (int k = i + 1; k < j; k++) {
+        //                    OriFace f2 = faces.get(k);
+        //                    if (!OriFaceUtil.offFace(f2, he)) {
+        //                        swap(k, (Math.random() > 0.5) ? j : i, faces);
+        //                        return true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        return false;
     }
 
     private static void swap(int i, int j, LinkedList<OriFace> faces) {

@@ -30,7 +30,8 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
 
     public OriPoint(OriPoint p) {
         super(p.x, p.y);
-        this.offset = p.offset;
+        this.offset.x = p.offset.x;
+        this.offset.y = p.offset.y;
         this.isLandmark = p.isLandmark;
     }
 

@@ -4,6 +4,7 @@
  */
 package diamond.model.geom.util;
 
+import java.awt.geom.Point2D.Double;
 import java.util.Collection;
 
 import javax.vecmath.Vector2d;
@@ -23,7 +24,11 @@ public class OriFaceUtil {
         return onFace(face, centerPoint);
     }
 
-    public static boolean onFace(OriFace face, java.awt.geom.Point2D.Double v) {
+    public static boolean offFace(OriFace face, OriHalfEdge e) {
+        return offFace(face, e.getSv()) && offFace(face, e.getEv());
+    }
+
+    public static boolean onFace(OriFace face, Double v) {
         double sumAngle = 0.0;
         for (OriHalfEdge he : face.getHalfEdges()) {
             Vector2d p0, p1;
@@ -33,7 +38,7 @@ public class OriFaceUtil {
             p1 = new Vector2d(ev.x - v.x, ev.y - v.y);
             double le = p1.length();
             double ls = p0.length();
-            if (le == 0.0 || ls == 0.0) {
+            if (le < Constants.EPS || ls < Constants.EPS) {
                 return true;
             }
             sumAngle += Math.acos((p0.x * p1.x + p0.y * p1.y) / ls / le);
@@ -52,4 +57,22 @@ public class OriFaceUtil {
         return centerP;
     }
 
+    public static boolean offFace(OriFace face, Double v) {
+        double sumAngle = 0.0;
+        for (OriHalfEdge he : face.getHalfEdges()) {
+            Vector2d p0, p1;
+            OriVertex sv = he.getSv();
+            OriVertex ev = he.getEv();
+            p0 = new Vector2d(sv.x - v.x, sv.y - v.y);
+            p1 = new Vector2d(ev.x - v.x, ev.y - v.y);
+            double le = p1.length();
+            double ls = p0.length();
+            if (le < Constants.EPS || ls < Constants.EPS) {
+                return true;
+            }
+            sumAngle += Math.acos((p0.x * p1.x + p0.y * p1.y) / ls / le);
+        }
+        return Math.abs(Math.sin(sumAngle)) > Constants.RADIAN_EPS ||
+                Math.abs(Math.cos(sumAngle) - 1.0) > Constants.RADIAN_EPS;
+    }
 }
