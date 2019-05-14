@@ -24,11 +24,12 @@ public class OrdinalPage extends JPanel {
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));
         setBackground(Color.white);
-        for (int i = pageNo * n; i < (pageNo + 1) * n; ++i) {
+        for (int i = pageNo * n - 1; i < (pageNo + 1) * n; ++i) {
             if (i < diagrams.size()) {
                 Diagram diagram = diagrams.get(i);
                 add(new Step(diagram, i));
             }
         }
     }
+
 }

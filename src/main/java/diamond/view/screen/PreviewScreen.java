@@ -15,6 +15,7 @@ import diamond.controller.paint.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.diagram.OrdinalPage;
 import diamond.model.geom.element.diagram.TopPage;
+import diamond.view.screen.draw.style.PageStyle;
 import diamond.view.ui.label.PageNorthernLabel;
 import diamond.view.ui.label.PageSouthernLabel;
 
@@ -54,10 +55,20 @@ public class PreviewScreen extends JPanel {
 
     public void nextPage(int pages) {
         pageNo = Math.max(0, pageNo + pages);
+        pageNo = Math.min(pageNo, maxPageNo());
         removeAll();
         build();
         validate();
         repaint();
     }
 
+    public int maxPageNo() {
+        int steps = paintContext.palette.getDiagrams().size();
+        int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
+        if (steps < n) {
+            return 0;
+        }
+        int rest = steps - n + 1;
+        return (rest / n) + ((rest % n == 0) ? 0 : 1);
+    }
 }
