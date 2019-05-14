@@ -7,6 +7,8 @@ package diamond.model.geom.element.fold;
 import java.util.LinkedList;
 
 import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.element.origami.OriHalfEdge;
+import diamond.model.geom.util.OriFaceUtil;
 
 /**
  * @author long_
@@ -45,17 +47,17 @@ public class OriFaceSorter {
 
     private static boolean validateCollision(int i, int j, OriFace f0,
             OriFace f1, LinkedList<OriFace> faces) {
-        //        for (OriHalfEdge he : f0.getHalfEdges()) {
-        //            if (he.getPair().getFace() == f1) {
-        //                for (int k = i + 1; k < j; k++) {
-        //                    OriFace f2 = faces.get(k);
-        //                    if (!OriFaceUtil.offFace(f2, he)) {
-        //                        swap(k, (Math.random() > 0.5) ? j : i, faces);
-        //                        return true;
-        //                    }
-        //                }
-        //            }
-        //        }
+        for (OriHalfEdge he : f0.getHalfEdges()) {
+            if (he.getPair().getFace() == f1) {
+                for (int k = i + 1; k < j; k++) {
+                    OriFace f2 = faces.get(k);
+                    if (!OriFaceUtil.offFace(f2, he)) {
+                        swap(k, (Math.random() > 0.5) ? j : i, faces);
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 

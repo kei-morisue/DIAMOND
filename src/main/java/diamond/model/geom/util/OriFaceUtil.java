@@ -61,8 +61,8 @@ public class OriFaceUtil {
         double sumAngle = 0.0;
         for (OriHalfEdge he : face.getHalfEdges()) {
             Vector2d p0, p1;
-            OriVertex sv = he.getSv();
-            OriVertex ev = he.getEv();
+            Double sv = he.getSv().getFoldedPosition();
+            Double ev = he.getEv().getFoldedPosition();
             p0 = new Vector2d(sv.x - v.x, sv.y - v.y);
             p1 = new Vector2d(ev.x - v.x, ev.y - v.y);
             double le = p1.length();
