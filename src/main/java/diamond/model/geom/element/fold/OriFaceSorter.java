@@ -51,11 +51,16 @@ public class OriFaceSorter {
         boolean result = false;
         for (OriHalfEdge he : f0.getHalfEdges()) {
             if (he.getPair().getFace() == f1) {
-                for (int k = i + 1; k < j; k++) {
+                for (int k = i + 1; k < j && i < k; k++) {
                     OriFace f2 = faces.get(k);
                     if (!OriFaceUtil.offFace(f2, he)) {
-                        swap(k, (Math.random() > 0.5) ? j : i, faces);
-                        result = true;
+                        if (Math.random() > 0.5) {
+                            swap(k, i, faces);
+                            result = true;
+                        } else {
+                            swap(k, j, faces);
+                            result = true;
+                        }
                     }
                 }
             }
