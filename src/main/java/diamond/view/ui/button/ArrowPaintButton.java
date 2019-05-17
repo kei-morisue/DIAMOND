@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.ArrowPaintAction;
+import diamond.controller.paint.action.ArrowScalingAction;
 import diamond.controller.paint.action.ArrowSelectAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.diagram.arrow.FlipArrow;
@@ -60,6 +61,10 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
         case SELECT_ARROW:
             setText(ResourceHolder.getLabelString(label));
             this.paintAction = new ArrowSelectAction();
+            break;
+        case SCALE_ARROW:
+            setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new ArrowScalingAction();
             break;
 
         default:

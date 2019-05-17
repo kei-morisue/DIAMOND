@@ -123,4 +123,8 @@ public abstract class AbstractArrow {
     public void unselect() {
         isSelected = false;
     }
+
+    public boolean isSelected() {
+        return this.isSelected;
+    }
 }
