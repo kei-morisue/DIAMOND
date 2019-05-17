@@ -20,6 +20,7 @@ public class Goal extends AbstractStep {
     public Goal(List<Diagram> diagrams) {
         super(diagrams.get(diagrams.size() - 1));
         setBorder(new BevelBorder(BevelBorder.RAISED));
+
     }
 
     @Override

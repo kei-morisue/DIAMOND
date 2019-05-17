@@ -56,9 +56,11 @@ public class OriFaceSorter {
                         if (Math.random() > 0.5) {
                             swap(k, i, faces);
                             result = true;
+                            i++;
                         } else {
                             swap(k, j, faces);
                             result = true;
+                            k--;
                         }
                     }
                 }

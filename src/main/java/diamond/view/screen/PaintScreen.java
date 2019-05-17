@@ -24,6 +24,7 @@ import diamond.view.screen.draw.OriVertexDrawer;
 import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.style.color.OriVertexColor;
 import diamond.view.screen.draw.style.color.Ui;
 
 public class PaintScreen extends AbstractScreen {
@@ -98,20 +99,24 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private double getVertexSize(OriVertex vertex) {
+        double scale = paintContext.transform.getScale();
         if (vertex.isPickked()) {
-            return VertexStyle.SIZE_PICKED / paintContext.transform.getScale();
+            return VertexStyle.SIZE_PICKED / scale;
         }
-        return VertexStyle.SIZE / paintContext.transform.getScale();
+        if (!vertex.isFoldable()) {
+            return VertexStyle.SIZE_WRONG / scale;
+        }
+        return VertexStyle.SIZE / scale;
     }
 
     private Color getColor(OriVertex vertex) {
         if (!vertex.isFoldable()) {
-            return diamond.view.screen.draw.style.color.OriVertexColor.WRONG_ORI_VERTEX;
+            return OriVertexColor.WRONG_ORI_VERTEX;
         }
         if (vertex.isPickked()) {
             return VertexStyle.COLOR_SELECTED;
         }
-        return diamond.view.screen.draw.style.color.OriVertexColor.CP_ORI_VERTEX;
+        return OriVertexColor.CP_ORI_VERTEX;
     }
 
     private void paintFaces(Graphics2D g2d, OriModel model) {

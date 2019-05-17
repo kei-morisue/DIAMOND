@@ -13,6 +13,7 @@ import java.awt.Color;
  */
 public class VertexStyle {
     public static final double SIZE = 5.0;
+    public static final double SIZE_WRONG = 10.0;
     public static final double SIZE_PICKED = 10.0;
     public static final double SIZE_POINTED = 10.0;
 
