@@ -30,7 +30,7 @@ public class SinkArrowBody extends AbstractArrowBody {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
+    public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
 
     }
 }

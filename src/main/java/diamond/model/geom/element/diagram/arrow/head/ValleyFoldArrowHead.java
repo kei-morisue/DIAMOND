@@ -45,8 +45,9 @@ public class ValleyFoldArrowHead extends AbstractArrowHead {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
-        g2d.setColor(OriArrowColor.ARROW_VALLEY);
+    public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
+        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+                : OriArrowColor.ARROW_BODY);
         g2d.fill(getShape(p0, p1));
     }
 

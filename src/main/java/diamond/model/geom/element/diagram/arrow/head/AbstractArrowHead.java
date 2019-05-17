@@ -40,7 +40,8 @@ public abstract class AbstractArrowHead {
         isTail = !isTail;
     }
 
-    public abstract void draw(Graphics2D g2d, Double p0, Double p1);
+    public abstract void draw(Graphics2D g2d, Double p0, Double p1,
+            boolean isSelected);
 
     public boolean isTail() {
         return this.isTail;

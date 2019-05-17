@@ -44,8 +44,10 @@ public class FlipArrowBody extends AbstractArrowBody {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
-        g2d.setColor(OriArrowColor.ARROW_BODY);
+    public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
+        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+                : OriArrowColor.ARROW_BODY);
+
         g2d.setStroke(LineStyle.STROKE_ARROW);
         Double o = Point2DUtil.center(p0, p1);
         double r = DistanceUtil.distance(p0, p1) / 4;

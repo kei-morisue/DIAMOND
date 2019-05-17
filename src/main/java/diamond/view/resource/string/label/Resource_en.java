@@ -52,6 +52,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.ROTATE_ARROW.name(), "rotate" },
             { LABEL.SINK_ARROW.name(), "Sink Fold" },
             { LABEL.PLEAT_ARROW.name(), "Pleat Fold" },
+            { LABEL.SELECT_ARROW.name(), "Select Arrow" },
+            { LABEL.SCALE_ARROW.name(), "Scale Arrow" },
 
             { LABEL.LANDMARK.name(), "Landmark" },
 

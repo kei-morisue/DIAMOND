@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.ArrowPaintAction;
+import diamond.controller.paint.action.ArrowSelectAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
@@ -34,34 +35,31 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
         switch (label) {
         case VALLEY_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(ValleyFoldArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(ValleyFoldArrow.class);
             break;
         case MOUNTAIN_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(MountainFoldArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(MountainFoldArrow.class);
             break;
         case FOLD_UNFOLD_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(FoldUnfoldArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(FoldUnfoldArrow.class);
             break;
         case SINK_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(SinkArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(SinkArrow.class);
             break;
-
         case FLIP_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(FlipArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(FlipArrow.class);
             break;
         case ROTATE_ARROW:
             setText(ResourceHolder.getLabelString(label));
-            this.paintAction = new ArrowPaintAction(RotateArrow.class) {
-            };
+            this.paintAction = new ArrowPaintAction(RotateArrow.class);
+            break;
+        case SELECT_ARROW:
+            setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new ArrowSelectAction();
             break;
 
         default:

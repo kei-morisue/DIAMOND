@@ -68,6 +68,9 @@ public class StringKey {
         SINK_ARROW,
         PLEAT_ARROW,
         LANDMARK,
+        SELECT_ARROW,
+        SCALE_ARROW,
+
     }
 
     public enum HINT {

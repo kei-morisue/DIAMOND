@@ -25,7 +25,7 @@ public class MountainFoldArrowHead extends AbstractArrowHead {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
+    public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
         GeneralPath path = new GeneralPath();
         AffineTransform affineTransform = new AffineTransform();
         Double position = getPosition(p0, p1);
@@ -43,7 +43,8 @@ public class MountainFoldArrowHead extends AbstractArrowHead {
         path.closePath();
         g2d.setColor(OriArrowColor.ARROW_MOUNTAIN);
         g2d.fill(path);
-        g2d.setColor(OriArrowColor.ARROW_VALLEY);
+        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+                : OriArrowColor.ARROW_VALLEY);
         g2d.draw(path);
     }
 

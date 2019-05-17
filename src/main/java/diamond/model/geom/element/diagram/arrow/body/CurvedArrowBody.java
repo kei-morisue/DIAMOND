@@ -56,8 +56,9 @@ public class CurvedArrowBody extends AbstractArrowBody {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Double p0, Double p1) {
-        g2d.setColor(OriArrowColor.ARROW_BODY);
+    public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
+        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+                : OriArrowColor.ARROW_BODY);
         g2d.setStroke(LineStyle.STROKE_ARROW);
         g2d.draw(getStroke(getP0(p0, p1), getP1(p0, p1)));
     }

@@ -56,4 +56,10 @@ public class Point2DUtil {
         return result;
     }
 
+    public static Double pivotScale(Double p0, Double p1, double scale) {
+        Double center = Point2DUtil.center(p0, p1);
+        return Point2DUtil.plus(center,
+                Point2DUtil.scale(Point2DUtil.sub(p0, p1), scale / 2));
+    }
+
 }
