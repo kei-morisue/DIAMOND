@@ -59,14 +59,21 @@ public class OriFaceUtil {
         Double p1 = he0.getEv().getFoldedPosition();
         OriPoint cp0 = null;
         OriPoint cp1 = null;
+        double[] param = new double[2];
         for (OriHalfEdge he1 : face.getHalfEdges()) {
             Double q0 = he1.getSv().getFoldedPosition();
             Double q1 = he1.getEv().getFoldedPosition();
-            if (cp0 == null) {
-                cp0 = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            OriPoint crossPoint = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            if (!CrossPointUtil.getCrossPointParam(p0, p1, q0, q1,
+                    param)) {
+                return false;
             }
-            if (cp0 != null && cp1 == null) {
-                cp1 = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            if (cp0 == null) {
+                cp0 = crossPoint;
+                if (cp0 == null) {
+                }
+            } else if (cp0 != null && cp1 == null) {
+                cp1 = crossPoint;
                 if (cp1 != null) {
                     if (cp0.distance(cp1) < Constants.EPS) {
                         cp1 = null;
@@ -75,9 +82,7 @@ public class OriFaceUtil {
             }
         }
         if (cp0 != null && cp1 != null) {
-            if (!isSame(p0, p1, cp0) || !isSame(p0, p1, cp1)) {
-                return true;
-            }
+            return true;
         }
         return false;
     }

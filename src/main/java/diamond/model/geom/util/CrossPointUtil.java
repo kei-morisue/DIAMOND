@@ -5,8 +5,7 @@
 package diamond.model.geom.util;
 
 import java.awt.geom.Point2D;
-
-import javax.vecmath.Vector2d;
+import java.awt.geom.Point2D.Double;
 
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.Line;
@@ -23,13 +22,13 @@ public class CrossPointUtil {
 
     // (Including endpoints) intersection between two line segments
     public static OriPoint getCrossPoint(
-            Point2D.Double p0,
-            Point2D.Double p1,
-            Point2D.Double q0,
-            Point2D.Double q1) {
-        Point2D.Double d0 = new Point2D.Double(p1.x - p0.x, p1.y - p0.y);
-        Point2D.Double d1 = new Point2D.Double(q1.x - q0.x, q1.y - q0.y);
-        Point2D.Double diff = new Point2D.Double(q0.x - p0.x, q0.y - p0.y);
+            Double p0,
+            Double p1,
+            Double q0,
+            Double q1) {
+        Double d0 = new Double(p1.x - p0.x, p1.y - p0.y);
+        Double d1 = new Double(q1.x - q0.x, q1.y - q0.y);
+        Double diff = new Double(q0.x - p0.x, q0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
         if (det * det > epsilon * xxyy(d0) * xxyy(d1)) {
@@ -54,7 +53,7 @@ public class CrossPointUtil {
         return null;
     }
 
-    private static double xxyy(Point2D.Double p) {
+    private static double xxyy(Double p) {
         return p.x * p.x + p.y * p.y;
     }
 
@@ -62,16 +61,17 @@ public class CrossPointUtil {
         return getCrossPoint(l0.p0, l0.p1, l1.p0, l1.p1);
     }
 
-    public static boolean getCrossPointParam(Vector2d p0, Vector2d p1,
-            Vector2d q0, Vector2d q1, double[] param) {
+    public static boolean getCrossPointParam(Double p0,
+            Double p1,
+            Double q0, Double q1, double[] param) {
 
-        Vector2d d0 = new Vector2d(p1.x - p0.x, p1.y - p0.y);
-        Vector2d d1 = new Vector2d(q1.x - q0.x, q1.y - q0.y);
-        Vector2d diff = new Vector2d(q0.x - p0.x, q0.y - p0.y);
+        Double d0 = new Double(p1.x - p0.x, p1.y - p0.y);
+        Double d1 = new Double(q1.x - q0.x, q1.y - q0.y);
+        Double diff = new Double(q0.x - p0.x, q0.y - p0.y);
         double det = d1.x * d0.y - d1.y * d0.x;
 
         double epsilon = Constants.EPS;
-        if (det * det > epsilon * d0.lengthSquared() * d1.lengthSquared()) {
+        if (det * det > epsilon * xxyy(d0) * xxyy(d1)) {
             // Lines intersect in a single point.  Return both s and t values for
             // use by calling functions.
             double invDet = 1.0 / det;
