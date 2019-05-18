@@ -75,7 +75,7 @@ public class OriFaceUtil {
             } else if (cp0 != null && cp1 == null) {
                 cp1 = crossPoint;
                 if (cp1 != null) {
-                    if (cp0.distance(cp1) < Constants.EPS) {
+                    if (isSame(cp0, cp1)) {
                         cp1 = null;
                     }
                 }
@@ -87,8 +87,7 @@ public class OriFaceUtil {
         return false;
     }
 
-    private static boolean isSame(Double p0, Double p1, OriPoint cp) {
-        return cp.distance(p0) < Constants.EPS
-                || cp.distance(p1) < Constants.EPS;
+    private static boolean isSame(Double p0, Double p1) {
+        return p0.distance(p1) < Constants.EPS;
     }
 }
