@@ -57,19 +57,27 @@ public class OriFaceUtil {
     public static boolean offFace(OriFace face, OriHalfEdge he0) {
         Double p0 = he0.getSv().getFoldedPosition();
         Double p1 = he0.getEv().getFoldedPosition();
+        OriPoint cp0 = null;
+        OriPoint cp1 = null;
         for (OriHalfEdge he1 : face.getHalfEdges()) {
             Double q0 = he1.getSv().getFoldedPosition();
             Double q1 = he1.getEv().getFoldedPosition();
-            OriPoint cp = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
-            if (cp != null) {
-                if (cp.distance(p0) > Constants.EPS
-                        && cp.distance(p1) > Constants.EPS
-                        && cp.distance(q0) > Constants.EPS
-                        && cp.distance(q1) > Constants.EPS) {
-                    return false;
-                }
+            if (cp0 == null) {
+                cp0 = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            } else if (cp1 == null) {
+                cp1 = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            }
+        }
+        if (cp0 != null && cp1 != null) {
+            if (!isSame(p0, p1, cp0) || !isSame(p0, p1, cp1)) {
+                return false;
             }
         }
         return true;
+    }
+
+    private static boolean isSame(Double p0, Double p1, OriPoint cp) {
+        return cp.distance(p0) < Constants.EPS
+                || cp.distance(p1) < Constants.EPS;
     }
 }

@@ -26,7 +26,7 @@ public class OriFaceSorter {
     }
 
     private static boolean validate(LinkedList<OriFace> faces) {
-        if (debugCount > 1000) {
+        if (debugCount > 5000) {
             return true;
         }
         for (int i = 0; i < faces.size() - 1; i++) {
@@ -49,23 +49,21 @@ public class OriFaceSorter {
             int i, int j, OriFace f0,
             OriFace f1, LinkedList<OriFace> faces) {
         boolean result = false;
-        int i0 = i;
-        int j0 = j;
         for (OriHalfEdge he : f0.getHalfEdges()) {
             if (he.getPair().getFace() == f1) {
-                for (int k = i0 + 1; k < j0 && i0 < k; k++) {
+                for (int k = i + 1; k < j && i < k; k++) {
                     OriFace f2 = faces.get(k);
                     if (!OriFaceUtil.offFace(f2, he)) {
                         if (Math.random() > 0.5) {
-                            swap(k, i0, faces);
+                            swap(i, k, faces);
                             result = true;
-                            i0++;
+                            i++;
                             k++;
                         } else {
-                            swap(k, j0, faces);
+                            swap(k, j, faces);
                             result = true;
                             k--;
-                            j0--;
+                            j--;
                         }
                     }
                 }
