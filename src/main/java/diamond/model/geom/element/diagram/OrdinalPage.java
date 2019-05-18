@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.diagram;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.LinkedList;
 
@@ -23,7 +22,7 @@ public class OrdinalPage extends JPanel {
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));
-        setBackground(Color.white);
+        setBackground(PageStyle.bg);
         for (int i = pageNo * n - 1; i < (pageNo + 1) * n - 1; ++i) {
             if (i < diagrams.size()) {
                 Diagram diagram = diagrams.get(i);

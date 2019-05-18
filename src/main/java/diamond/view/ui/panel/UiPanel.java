@@ -38,11 +38,11 @@ public class UiPanel extends JTabbedPane {
         return panel;
     }
 
-    private JPanel buildModelUi(PaintContext context) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new ModelUiPanel(context, paintActionButtons));
-        return panel;
-    }
+    //    private JPanel buildModelUi(PaintContext context) {
+    //        JPanel panel = new JPanel();
+    //        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    //        panel.add(new ModelUiPanel(context, paintActionButtons));
+    //        return panel;
+    //    }
 
 }

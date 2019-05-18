@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.diagram;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.LinkedList;
 
@@ -24,7 +23,7 @@ public class TopPage extends JPanel {
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));
-        setBackground(Color.white);
+        setBackground(PageStyle.bg);
         add(new Goal(diagrams));
         for (int i = 0; i < n; ++i) {
             if (i < diagrams.size()) {

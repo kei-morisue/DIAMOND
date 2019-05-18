@@ -11,11 +11,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import diamond.Initials;
 import diamond.controller.paint.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;
-import diamond.view.screen.draw.style.PageStyle;
 import diamond.view.ui.button.PageSwitchButton;
 import diamond.view.ui.menu.MenuDiagramFile;
 
@@ -53,7 +53,7 @@ public class PreviewFrame extends JFrame {
                 screen,
                 PageSwitchButton.PREV),
                 BorderLayout.WEST);
-        setSize(new Dimension(PageStyle.FRAME_WIDTH, PageStyle.FRAME_HEIGHT));
+        setSize(new Dimension(Initials.FRAME_WIDTH, Initials.FRAME_HEIGHT));
         setLocationRelativeTo(null);
     }
 }

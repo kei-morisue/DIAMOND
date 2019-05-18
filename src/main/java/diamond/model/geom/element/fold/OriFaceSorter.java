@@ -45,25 +45,31 @@ public class OriFaceSorter {
         return true;
     }
 
-    public static boolean validateCollision(int i, int j, OriFace f0,
+    public static boolean validateCollision(
+            int i, int j, OriFace f0,
             OriFace f1, LinkedList<OriFace> faces) {
         boolean result = false;
+        int i0 = i;
+        int j0 = j;
         for (OriHalfEdge he : f0.getHalfEdges()) {
             if (he.getPair().getFace() == f1) {
-                for (int k = i + 1; k < j && i < k; k++) {
+                for (int k = i0 + 1; k < j0 && i0 < k; k++) {
                     OriFace f2 = faces.get(k);
                     if (!OriFaceUtil.offFace(f2, he)) {
                         if (Math.random() > 0.5) {
-                            swap(k, i, faces);
+                            swap(k, i0, faces);
                             result = true;
-                            i++;
+                            i0++;
+                            k++;
                         } else {
-                            swap(k, j, faces);
+                            swap(k, j0, faces);
                             result = true;
                             k--;
+                            j0--;
                         }
                     }
                 }
+                return result;
             }
         }
         return result;
