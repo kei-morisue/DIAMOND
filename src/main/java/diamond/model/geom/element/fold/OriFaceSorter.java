@@ -53,7 +53,7 @@ public class OriFaceSorter {
             if (he.getPair().getFace() == f1) {
                 for (int k = i + 1; k < j && i < k; k++) {
                     OriFace f2 = faces.get(k);
-                    if (!OriFaceUtil.offFace(f2, he)) {
+                    if (OriFaceUtil.crossFace(f2, he)) {
                         if (Math.random() > 0.5) {
                             swap(i, k, faces);
                             result = true;
