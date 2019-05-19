@@ -58,7 +58,7 @@ public class OriVertexDrawer {
         g2d.setStroke(VertexStyle.STROKE_LANDMARK_BODY);
         size = VertexStyle.SIZE_LANDMARK_BODY;
         half = size >> 1;
-        g2d.drawOval(x - half, y - half, size - 1, size);
+        g2d.drawOval(x - half, y - half, size, size);
     }
 
 }
