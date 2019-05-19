@@ -57,31 +57,24 @@ public class OriFaceUtil {
     public static boolean crossFace(OriFace face, OriHalfEdge he0) {
         Double p0 = he0.getSv().getFoldedPosition();
         Double p1 = he0.getEv().getFoldedPosition();
-        OriPoint cp0 = null;
-        OriPoint cp1 = null;
+        OriPoint cp = null;
+        boolean isCorner = false;
         double[] param = new double[2];
         for (OriHalfEdge he1 : face.getHalfEdges()) {
             Double q0 = he1.getSv().getFoldedPosition();
             Double q1 = he1.getEv().getFoldedPosition();
-            OriPoint crossPoint = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
             if (!CrossPointUtil.getCrossPointParam(p0, p1, q0, q1,
                     param)) {
                 return false;
             }
-            if (cp0 == null) {
-                cp0 = crossPoint;
-                if (cp0 == null) {
-                }
-            } else if (cp0 != null && cp1 == null) {
-                cp1 = crossPoint;
-                if (cp1 != null) {
-                    if (isSame(cp0, cp1)) {
-                        cp1 = null;
-                    }
+            cp = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
+            if (cp != null) {
+                if (isSame(q0, cp) || isSame(q1, cp)) {
+                    isCorner = true;
                 }
             }
         }
-        if (cp0 != null && cp1 != null) {
+        if (cp != null && !isCorner) {
             return true;
         }
         return false;
@@ -90,4 +83,5 @@ public class OriFaceUtil {
     private static boolean isSame(Double p0, Double p1) {
         return p0.distance(p1) < Constants.EPS;
     }
+
 }
