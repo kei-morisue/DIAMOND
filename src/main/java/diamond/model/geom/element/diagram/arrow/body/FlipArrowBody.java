@@ -21,7 +21,7 @@ public class FlipArrowBody extends AbstractArrowBody {
     private static final double angle1 = -Math.PI / 4;
 
     private static final int theta0 = -135;
-    private static final int theta = 90;
+    private static final int theta1 = 90;
     private static final Double dir0 = new Double(-Math.sqrt(2) / 2,
             Math.sqrt(2) / 2);
     private static final Double dir1 = new Double(Math.sqrt(2) / 2,
@@ -57,7 +57,7 @@ public class FlipArrowBody extends AbstractArrowBody {
         int y = (int) corner0.y;
         g2d.drawOval(x, y, (int) r * 2, (int) r * 2);
         g2d.drawArc(x - (int) r, y - (int) r * 2, (int) r * 4, (int) r * 4,
-                theta0, theta);
+                theta0, theta1);
     }
 
     @Override

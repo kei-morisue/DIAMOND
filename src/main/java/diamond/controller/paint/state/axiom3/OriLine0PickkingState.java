@@ -29,7 +29,8 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         Stack<OriLine> pickedLines = context.getPickedLines();
         Stack<OriPoint> pickedPoints = context.getPickedPoints();
         if (pickedLines.size() != 1 || pickedPoints.size() != 3) {
-            throw new RuntimeException();
+            initialize();
+            return;
         }
         OriPoint v0 = pickedPoints.get(0);
         OriPoint v1 = pickedPoints.get(1);

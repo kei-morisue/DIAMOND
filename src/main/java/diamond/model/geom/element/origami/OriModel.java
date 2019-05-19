@@ -95,7 +95,7 @@ public class OriModel {
     }
 
     private void buildFaces() {
-        removeDirtyVertices();
+        cleanVertex();
         for (OriVertex vertex : vertices) {
             vertex.setFoldability();
             for (OriHalfEdge he : vertex.getHalfEdges()) {
@@ -123,7 +123,7 @@ public class OriModel {
     /**
      *
      */
-    private void removeDirtyVertices() {
+    private void cleanVertex() {
         HashSet<OriVertex> vs = new HashSet<OriVertex>();
         for (OriVertex vertex : vertices) {
             if (vertex.getHalfEdges().size() == 2) {
@@ -138,8 +138,7 @@ public class OriModel {
                             : h0.getArrow();
                     OriHalfEdge h2 = new OriHalfEdge(p0, p1, h0.getType(),
                             arrow);
-                    OriHalfEdge h3 = new OriHalfEdge(p1, p0, h0.getType(),
-                            arrow);
+                    OriHalfEdge h3 = new OriHalfEdge(p1, p0, h0.getType());
                     h2.setPair(h3);
                     h3.setPair(h2);
                     p0.getHalfEdges().remove(h0.getPair());
@@ -173,8 +172,7 @@ public class OriModel {
             v1 = add(v1);
             OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType(),
                     line.getArrow());
-            OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType(),
-                    line.getArrow());
+            OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);
             if (line.getType() == LineType.CREASE) {
