@@ -58,7 +58,6 @@ public class OriFaceUtil {
         Double p0 = he0.getSv().getFoldedPosition();
         Double p1 = he0.getEv().getFoldedPosition();
         OriPoint cp = null;
-        boolean isCorner = false;
         double[] param = new double[2];
         for (OriHalfEdge he1 : face.getHalfEdges()) {
             Double q0 = he1.getSv().getFoldedPosition();
@@ -69,13 +68,13 @@ public class OriFaceUtil {
             }
             cp = CrossPointUtil.getCrossPoint(p0, p1, q0, q1);
             if (cp != null) {
-                if (isSame(q0, cp) || isSame(q1, cp)) {
-                    isCorner = true;
+                if (isSame(q0, cp) || isSame(q1, cp) || isSame(p0, cp)
+                        || isSame(p1, cp)) {
+                    cp = null;
+                    continue;
                 }
+                return true;
             }
-        }
-        if (cp != null && !isCorner) {
-            return true;
         }
         return false;
     }
