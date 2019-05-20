@@ -5,10 +5,12 @@
 package diamond.model.geom.element.diagram.arrow.body;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.Point2DUtil;
+import diamond.view.screen.draw.G2DUtil;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.color.OriArrowColor;
 
@@ -49,15 +51,22 @@ public class FlipArrowBody extends AbstractArrowBody {
                 : OriArrowColor.ARROW_BODY);
 
         g2d.setStroke(LineStyle.STROKE_ARROW);
+        AffineTransform transform = g2d.getTransform();
+
         Double o = Point2DUtil.center(p0, p1);
-        double r = DistanceUtil.distance(p0, p1) / 4;
+        transform.transform(o, o);
+        double scale = G2DUtil.getScale(g2d);
+        g2d.setTransform(new AffineTransform());
+        double r = DistanceUtil.distance(p0, p1) / 4 * scale;
         Double corner0 = Point2DUtil.sub(o,
                 Point2DUtil.scale(dir11, r));
         int x = (int) corner0.x;
         int y = (int) corner0.y;
-        g2d.drawOval(x, y, (int) r * 2, (int) r * 2);
-        g2d.drawArc(x - (int) r, y - (int) r * 2, (int) r * 4, (int) r * 4,
+        g2d.drawOval(x, y, (int) (r * 2), (int) (r * 2));
+        g2d.drawArc(x - (int) r, y - (int) (r * 2), (int) (r * 4),
+                (int) (r * 4),
                 theta0, theta1);
+        g2d.setTransform(transform);
     }
 
     @Override

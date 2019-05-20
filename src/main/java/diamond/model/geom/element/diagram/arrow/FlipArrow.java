@@ -6,7 +6,7 @@ package diamond.model.geom.element.diagram.arrow;
 
 import diamond.model.geom.element.diagram.arrow.body.FlipArrowBody;
 import diamond.model.geom.element.diagram.arrow.head.EmptyArrowHead;
-import diamond.model.geom.element.diagram.arrow.head.ValleyFoldArrowHead;
+import diamond.model.geom.element.diagram.arrow.head.FlipArrowHead;
 
 /**
  * @author long_
@@ -21,7 +21,7 @@ public class FlipArrow extends AbstractArrow {
 
     @Override
     protected void buildHead1() {
-        head1 = new ValleyFoldArrowHead(body, false);
+        head1 = new FlipArrowHead(body, false);
 
     }
 
