@@ -19,10 +19,10 @@ import diamond.model.geom.util.Point2DUtil;
  *
  */
 public abstract class AbstractArrow {
-    AbstractArrowBody body;
-    AbstractArrowHead head0;
-    AbstractArrowHead head1;
-    static final double scaleOriLine = 0.10;
+    private AbstractArrowBody body;
+    private AbstractArrowHead head0;
+    private AbstractArrowHead head1;
+    private static final double scaleOriLine = 0.10;
     private double scale = 1.0;
     private boolean isSelected = false;
 
