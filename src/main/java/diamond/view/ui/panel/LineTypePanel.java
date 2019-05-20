@@ -30,10 +30,14 @@ public class LineTypePanel extends JPanel {
 
     private void addLineTypePanel(PaintContext context,
             ButtonGroup paintActionButtons) {
-        setLayout(new GridLayout(2, 2));
-        addLineTypeButton(LABEL.UNSETTLED_VALLEY, LineType.UNSETTLED_VALLEY, context);
-        addLineTypeButton(LABEL.UNSETTLED_MOUNTAIN, LineType.UNSETTLED_MOUNTAIN, context);
+        setLayout(new GridLayout(2, 3));
+        addLineTypeButton(LABEL.UNSETTLED_VALLEY, LineType.UNSETTLED_VALLEY,
+                context);
+        addLineTypeButton(LABEL.UNSETTLED_MOUNTAIN, LineType.UNSETTLED_MOUNTAIN,
+                context);
         addLineTypeButton(LABEL.CREASE, LineType.CREASE, context);
+        addLineTypeButton(LABEL.NONE, LineType.NONE, context);
+
         add(new InputLinePanel(context, paintActionButtons));
         UiPanelUtil.setBorder(
                 this,

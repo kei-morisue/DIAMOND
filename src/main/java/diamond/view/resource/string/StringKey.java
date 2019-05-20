@@ -21,6 +21,8 @@ public class StringKey {
         CREASE,
         UNSETTLED_VALLEY,
         UNSETTLED_MOUNTAIN,
+        NONE,
+
         FLIP_LINE_TYPE,
         FOLD_UNFOLD,
         SETTLE_UNSETTLE,

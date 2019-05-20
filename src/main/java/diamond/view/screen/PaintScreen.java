@@ -24,6 +24,7 @@ import diamond.view.screen.draw.OriVertexDrawer;
 import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.style.color.OriLineColor;
 import diamond.view.screen.draw.style.color.OriVertexColor;
 import diamond.view.screen.draw.style.color.Ui;
 
@@ -72,7 +73,7 @@ public class PaintScreen extends AbstractScreen {
             OriLineDrawer.drawLine(
                     g2d,
                     l,
-                    diamond.view.screen.draw.style.color.OriLineColor
+                    OriLineColor
                             .getCpColor(l.getType()),
                     LineStyle.getCpStroke(l.getType()));
             if (l.getArrow() != null) {

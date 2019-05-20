@@ -42,10 +42,10 @@ public class OriFaceDrawer {
         OriFace baseFace = oriModel.getBaseFace();
         g2d.fill(baseFace.getOutline());
         OriVertex centerPoint = OriFaceUtil.getCenterPoint(baseFace);
-        drawCross(g2d, (int) centerPoint.x, (int) centerPoint.y);
+        drawRedCross(g2d, (int) centerPoint.x, (int) centerPoint.y);
     }
 
-    private static void drawCross(
+    private static void drawRedCross(
             Graphics2D g2d, int x, int y) {
         g2d.setColor(Color.red);
         int size = (int) (2.0 / G2DUtil.getScale(g2d));

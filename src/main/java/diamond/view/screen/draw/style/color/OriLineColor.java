@@ -38,6 +38,8 @@ public class OriLineColor {
             return UNSETTLED_MOUNTAIN;
         case UNSETTLED_VALLEY:
             return UNSETTLED_VALLEY;
+        case NONE:
+            return NONE;
         default:
             return CREASE;
         }

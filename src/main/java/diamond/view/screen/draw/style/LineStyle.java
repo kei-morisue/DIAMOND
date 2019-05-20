@@ -62,6 +62,8 @@ public class LineStyle {
             return STROKE_UNSETTLED_VALLEY;
         case UNSETTLED_MOUNTAIN:
             return STROKE_UNSETTLED_MOUNTAIN;
+        case NONE:
+            return STROKE_NONE;
         default:
             return STROKE_MOUNTAIN;
         }

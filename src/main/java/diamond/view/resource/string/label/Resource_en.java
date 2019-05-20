@@ -28,6 +28,8 @@ public class Resource_en extends ListResourceBundle {
             { LABEL.UNSETTLED_VALLEY.name(), "Valley" },
             { LABEL.UNSETTLED_MOUNTAIN.name(), "Mountain" },
             { LABEL.CUT.name(), "Cut" },
+            { LABEL.NONE.name(), "None" },
+
             { LABEL.EDIT_VERTEX.name(), "Edit Vertex" },
             { LABEL.ADD_VERTEX.name(), "Add Vertex" },
             { LABEL.DELETE_VERTEX.name(), "Delete Vertex" },
