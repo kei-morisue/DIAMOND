@@ -14,30 +14,32 @@ import diamond.model.geom.element.LineType;
  */
 public class OriLineColor {
 
-    final public static Color ORILINE_VALLEY = Color.BLUE;
-    final public static Color ORILINE_MOUNTAIN = Color.RED;
-    final public static Color ORILINE_AUX = Color.LIGHT_GRAY;
-    final public static Color ORILINE_AUX_VALLEY = Color.BLUE;
-    final public static Color ORILINE_AUX_MOUNTAIN = Color.RED;
+    final public static Color VALLEY = Color.BLUE;
+    final public static Color MOUNTAIN = Color.RED;
+    final public static Color CREASE = Color.LIGHT_GRAY;
+    final public static Color UNSETTLED_VALLEY = Color.BLUE;
+    final public static Color UNSETTLED_MOUNTAIN = Color.RED;
     final public static Color ORILINE_CUT = Color.black;
-    final public static Color ORILINE_PICKED = Color.GREEN;
-    final public static Color ORILINE_POINTED = Color.GREEN;
+    final public static Color NONE = new Color(255, 0, 255);
+    final public static Color PICKED = Color.GREEN;
+    final public static Color POINTED = Color.GREEN;
+
     public static Color getCpColor(LineType lineType) {
         switch (lineType) {
         case MOUNTAIN:
-            return ORILINE_MOUNTAIN;
+            return MOUNTAIN;
         case VALLEY:
-            return ORILINE_VALLEY;
+            return VALLEY;
         case CUT:
             return ORILINE_CUT;
         case CREASE:
-            return ORILINE_AUX;
+            return CREASE;
         case UNSETTLED_MOUNTAIN:
-            return ORILINE_AUX_MOUNTAIN;
+            return UNSETTLED_MOUNTAIN;
         case UNSETTLED_VALLEY:
-            return ORILINE_AUX_VALLEY;
+            return UNSETTLED_VALLEY;
         default:
-            return ORILINE_AUX;
+            return CREASE;
         }
     }
 

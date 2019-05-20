@@ -20,6 +20,9 @@ public class LineStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_CREASE = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    final public static BasicStroke STROKE_NONE = new BasicStroke(0.0f,
+            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+
     final public static BasicStroke STROKE_RADAR = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_OFFSET = new BasicStroke(2.0f,
@@ -38,6 +41,7 @@ public class LineStyle {
             2.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
+
     final public static BasicStroke STROKE_EDGE = new BasicStroke(2.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_ARROW = new BasicStroke(2.0f,

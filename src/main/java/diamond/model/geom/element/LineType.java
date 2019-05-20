@@ -6,7 +6,8 @@ public enum LineType {
     UNSETTLED_MOUNTAIN,
     CUT,
     VALLEY,
-    MOUNTAIN;
+    MOUNTAIN,
+    NONE;
 
     public static LineType getPairType(LineType lineType) {
         switch (lineType) {
