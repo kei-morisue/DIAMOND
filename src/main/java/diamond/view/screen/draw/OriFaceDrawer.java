@@ -16,6 +16,7 @@ import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.geom.util.Point2DUtil;
+import diamond.view.screen.draw.style.color.OriFaceColor;
 
 /**
  * @author long_
@@ -37,7 +38,7 @@ public class OriFaceDrawer {
 
     public static void drawBaseFace(Graphics2D g2d,
             OriModel oriModel) {
-        g2d.setColor(diamond.view.screen.draw.style.color.OriFaceColor
+        g2d.setColor(OriFaceColor
                 .getBaseFaceColor(oriModel));
         OriFace baseFace = oriModel.getBaseFace();
         g2d.fill(baseFace.getOutline());

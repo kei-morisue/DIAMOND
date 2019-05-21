@@ -44,6 +44,8 @@ public class OriFaceComparator {
             return (f1.isFaceFront()) ? -1 : 1;
         case VALLEY:
             return (f1.isFaceFront()) ? 1 : -1;
+        case NONE:
+            return 0;
         default:
             System.out.println("Irregular face adjacent");
             return 0;

@@ -25,6 +25,9 @@ public class Maekawa {
                 return true;
             }
         }
+        if (mountainCount == 0 && valleyCount == 0) {
+            return true;
+        }
         if (Math.abs(mountainCount - valleyCount) != 2) {
             System.out.println("edge type count invalid: " + v + " "
                     + Math.abs(mountainCount - valleyCount));

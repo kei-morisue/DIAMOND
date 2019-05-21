@@ -7,6 +7,7 @@ package diamond.model.geom.element.fold;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
+import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriModel;
@@ -42,12 +43,18 @@ public class Folder {
         if (face.getTransform() != null || he.getPair().getNext() == null) {
             return;
         }
-        face.setFaceFront(!he.getFace().isFaceFront());
-        face.fold(
-                createFlipTransform(he.getPair(), accumulatedTransform));
+        if (he.getType() != LineType.NONE) {
+            face.setFaceFront(!he.getFace().isFaceFront());
+            face.fold(
+                    createFlipTransform(he.getPair(), accumulatedTransform));
+        } else {
+            face.setFaceFront(he.getFace().isFaceFront());
+            face.fold(accumulatedTransform);
+        }
         for (OriHalfEdge walkHe : face.getHalfEdges()) {
             setAffine(face.getTransform(), walkHe);
         }
+
     }
 
     public static AffineTransform createFlipTransform(OriHalfEdge he,
