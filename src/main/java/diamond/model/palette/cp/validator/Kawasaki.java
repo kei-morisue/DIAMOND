@@ -19,11 +19,17 @@ public class Kawasaki {
     public static boolean isValid(OriVertex v) {
         double oddSum = 0;
         LinkedList<OriHalfEdge> edges = v.getHalfEdges();
+        int odd = 0;
         for (int i = 0; i < edges.size(); i++) {
             OriHalfEdge e = edges.get(i);
             if (e.getType() == LineType.CUT) {
                 return true;
             }
+            if (e.getType() == LineType.NONE) {
+                odd++;
+                continue;
+            }
+
             OriVertex preP = edges.get(i).getPair().getSv();
             OriVertex nxtP = edges
                     .get((i + 1) % edges.size()).getPair().getSv();
@@ -31,7 +37,7 @@ public class Kawasaki {
             nxtP = nxtP.sub(v);
             preP = preP.sub(v);
 
-            if (i % 2 == 0) {
+            if (i % 2 == odd) {
                 oddSum += preP.angle(nxtP);
             } else {
             }
