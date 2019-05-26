@@ -54,6 +54,25 @@ public class OriModel {
         findBaseFace(cp);
         buildAuxLines();
         fold();
+        liftArrows();
+    }
+
+    private void liftArrows() {
+        for (OriFace face : faces) {
+            for (OriHalfEdge he : face.getHalfEdges()) {
+                if (he.getArrow() != null) {
+                    OriHalfEdge pair = he.getPair();
+                    OriFace f0 = pair.getFace();
+                    int i = faces.indexOf(face);
+                    int i0 = faces.indexOf(f0);
+                    if (i < i0) {
+                        pair.setArrow(he.getArrow());
+                        he.setArrow(null);
+                    }
+                }
+            }
+        }
+
     }
 
     public void fold() {

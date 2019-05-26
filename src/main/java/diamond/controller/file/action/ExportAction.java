@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import diamond.controller.file.DataSet;
 import diamond.controller.file.ExporterXML;
 import diamond.controller.paint.PaintContext;
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.view.ProgressFrame;
 
 /**
@@ -34,7 +35,9 @@ public class ExportAction implements ActionListener {
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             ExporterXML exporterXML = new ExporterXML();
-            paintContext.palette.getCP().saveOrder();
+            for (Diagram diagram : paintContext.palette.getDiagrams()) {
+                diagram.getCp().saveOrder();
+            }
             DataSet data = new DataSet(
                     paintContext.palette.getDiagrams());
             String path = chooser.getSelectedFile().getPath();
