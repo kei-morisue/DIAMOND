@@ -28,6 +28,13 @@ public class OriFace1PickkingState extends OriFacePickkingState {
     }
 
     @Override
+    protected void undoAction(PaintContext context) {
+        if (context.getPickedOriFaces().size() == 1) {
+            context.getPickedOriFaces().pop();
+        }
+    }
+
+    @Override
     protected void onResult(PaintContext context) {
         Stack<OriFace> picked = context.getPickedOriFaces();
         if (picked.size() == 2) {
