@@ -26,7 +26,7 @@ public class OriFaceSorter {
     }
 
     private static boolean validate(LinkedList<OriFace> faces) {
-        if (debugCount > 50000) {
+        if (debugCount > 255) {
             return true;
         }
         for (int i = 0; i < faces.size() - 1; i++) {

@@ -34,6 +34,7 @@ public class ExportAction implements ActionListener {
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             ExporterXML exporterXML = new ExporterXML();
+            paintContext.palette.getCP().saveOrder();
             DataSet data = new DataSet(
                     paintContext.palette.getDiagrams());
             String path = chooser.getSelectedFile().getPath();

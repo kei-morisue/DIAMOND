@@ -4,7 +4,6 @@
  */
 package diamond.model.geom.element.cp;
 
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 import java.util.Collection;
 import java.util.HashSet;
@@ -13,6 +12,7 @@ import java.util.Set;
 import diamond.Initials;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
+import diamond.model.geom.element.fold.OriFaceOrder;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.editor.LineAdder;
@@ -23,8 +23,8 @@ import diamond.model.palette.cp.editor.LineAdder;
  */
 public class Cp {
     private Set<OriLine> lines = new HashSet<>();
-    private AffineTransform affineTransform = new AffineTransform();
     private Double baseFaceCenter = new Double();
+    private OriFaceOrder order = new OriFaceOrder();
     private OriModel oriModel;
 
     public Cp() {
@@ -54,14 +54,6 @@ public class Cp {
 
     public void rebuildModel() {
         oriModel.build(this);
-    }
-
-    public AffineTransform getAffineTransform() {
-        return this.affineTransform;
-    }
-
-    public void setAffineTransform(AffineTransform affineTransform) {
-        this.affineTransform = affineTransform;
     }
 
     public void buildWhitePaper(double size, int edges) {
@@ -96,6 +88,14 @@ public class Cp {
         return cutLines;
     }
 
+    public void saveOrder() {
+        order.save(this);
+    }
+
+    public void loadOrder() {
+        order.order(this);
+    }
+
     public OriModel getOriModel() {
         return this.oriModel;
     }
@@ -111,6 +111,16 @@ public class Cp {
 
     public void setBaseFaceCenter(Double baseFaceCenter) {
         this.baseFaceCenter = baseFaceCenter;
+    }
+
+    @Deprecated
+    public OriFaceOrder getOrder() {
+        return this.order;
+    }
+
+    @Deprecated
+    public void setOrder(OriFaceOrder order) {
+        this.order = order;
     }
 
 }

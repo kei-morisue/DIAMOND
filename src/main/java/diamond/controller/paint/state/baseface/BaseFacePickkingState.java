@@ -17,7 +17,6 @@ import diamond.model.geom.util.OriFaceUtil;
 public class BaseFacePickkingState extends OriFacePickkingState {
     @Override
     protected void onResult(PaintContext context) {
-        super.onResult(context);
         OriFace baseFace = context.pointedOriFace;
         OriModel oriModel = context.palette.getOriModel();
         if (oriModel.getFaces().size() == 1) {
@@ -29,6 +28,7 @@ public class BaseFacePickkingState extends OriFacePickkingState {
             context.palette.getCP()
                     .setBaseFaceCenter(OriFaceUtil.getCenterPoint(baseFace));
         }
+        context.initialize();
     }
 
     @Override

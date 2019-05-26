@@ -52,6 +52,7 @@ public class LoadAction implements ActionListener {
             for (Diagram diagram : diagrams) {
                 diagram.getCp().rebuildModel();
             }
+            paintContext.palette.getCP().loadOrder();
             data.getStyleSet().apply();
             frame.done();
         }

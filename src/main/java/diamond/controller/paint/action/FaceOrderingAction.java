@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.state.topface.OriFace0PickkingState;
+import diamond.controller.paint.state.faceorder.OriFace0PickkingState;
 
 /**
  * @author long_
@@ -22,6 +22,7 @@ public class FaceOrderingAction extends AbstractPaintAction {
     @Override
     public void onDraw(Graphics2D g2d, PaintContext context) {
         drawPointedFace(g2d, context);
+        drawPickedFaces(g2d, context);
     }
 
     @Override
