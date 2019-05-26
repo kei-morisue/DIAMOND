@@ -93,7 +93,7 @@ public class Cp {
     }
 
     public void loadOrder() {
-        order.order(this);
+        order.load(this);
     }
 
     public OriModel getOriModel() {

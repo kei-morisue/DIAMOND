@@ -53,7 +53,7 @@ public class PreviewFrame extends JFrame {
                 screen,
                 PageSwitchButton.PREV),
                 BorderLayout.WEST);
-        setSize(new Dimension(Initials.FRAME_WIDTH, Initials.FRAME_HEIGHT));
+        setSize(new Dimension(Initials.PREVIEW_FRAME_WIDTH, Initials.PREVIEW_FRAME_HEIGHT));
         setLocationRelativeTo(null);
     }
 }

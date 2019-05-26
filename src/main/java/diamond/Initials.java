@@ -13,8 +13,8 @@ public class Initials {
     final public static int STYLE_FRAME_HEIGHT = 300;
     final public static int STYLE_FRAME_WIDTH = 300;
 
-    final public static int FRAME_WIDTH = 800;
-    final public static int FRAME_HEIGHT = 1000;
+    final public static int PREVIEW_FRAME_WIDTH = 1000;
+    final public static int PREVIEW_FRAME_HEIGHT = 1000;
 
     final public static double PAPER_SIZE = 400;
     final public static int PAPER_EDGES = 4;

@@ -33,7 +33,7 @@ public class OriFaceOrder {
         }
     }
 
-    public void order(Cp cp) {
+    public void load(Cp cp) {
         List<OriFace> faces = cp.getOriModel().getFaces();
         ArrayList<OriFace> ordered = new ArrayList<>();
         for (Double c1 : centerPoints) {
