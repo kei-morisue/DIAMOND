@@ -44,7 +44,6 @@ public class ArrowScalingState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getOriModel().fold();
     }
 
     @Override
