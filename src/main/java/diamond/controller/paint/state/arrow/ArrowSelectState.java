@@ -37,7 +37,6 @@ public class ArrowSelectState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getOriModel().fold();
     }
 
     @Override
