@@ -174,6 +174,12 @@ public class OriVertex extends AbstractOriVertex {
         return isLandmark;
     }
 
+    public void flipLandmark() {
+        isLandmark = !isLandmark;
+
+    }
+
+    @Deprecated
     public void setLandmark(boolean isLandmark) {
         this.isLandmark = isLandmark;
     }

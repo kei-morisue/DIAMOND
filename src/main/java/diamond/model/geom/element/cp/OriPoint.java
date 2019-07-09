@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 
 import javax.vecmath.Vector2d;
 
+import diamond.model.geom.element.origami.OriVertex;
+
 /**
  * @author long_
  *
@@ -15,6 +17,7 @@ import javax.vecmath.Vector2d;
 public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     private Double offset = new Double(.0, .0);
     private boolean isLandmark = false;
+    private OriVertex v = new OriVertex();
 
     public OriPoint() {
         super();
@@ -120,5 +123,13 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
     @Deprecated
     public void setLandmark(boolean isLandmark) {
         this.isLandmark = isLandmark;
+    }
+
+    public OriVertex getV() {
+        return v;
+    }
+
+    public void setV(OriVertex v) {
+        this.v = v;
     }
 }

@@ -13,6 +13,7 @@ import diamond.model.geom.Constants;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.element.fold.OriFaceSorter;
@@ -185,12 +186,11 @@ public class OriModel {
 
     private void buildVertices(Cp cp) {
         for (OriLine line : cp.getLines()) {
-            OriVertex v0 = new OriVertex(line.p0);
-            OriVertex v1 = new OriVertex(line.p1);
-            v0 = add(v0);
-            v1 = add(v1);
+            OriVertex v0 = buildVertex(line.p0);
+            OriVertex v1 = buildVertex(line.p1);
             OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType(),
                     line.getArrow());
+            line.setHe(he0);
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);
@@ -206,6 +206,13 @@ public class OriModel {
             v0.addEdge(he0);
             v1.addEdge(he1);
         }
+    }
+
+    private OriVertex buildVertex(OriPoint p) {
+        OriVertex v = new OriVertex(p);
+        p.setV(v);
+        v = add(v);
+        return v;
     }
 
     private OriVertex add(OriVertex v) {

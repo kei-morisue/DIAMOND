@@ -11,6 +11,7 @@ import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_
@@ -36,7 +37,6 @@ public class LandmarkPaintState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
     }
 
     @Override
@@ -47,10 +47,14 @@ public class LandmarkPaintState extends AbstractPaintState {
                 OriPoint p0 = l.p0;
                 if (p.distance(p0) < Constants.EPS) {
                     p0.flipLandmark();
+                    OriVertex v = p0.getV();
+                    v.flipLandmark();
                 }
                 OriPoint p1 = l.p1;
                 if (p.distance(p1) < Constants.EPS) {
+                    OriVertex v = p1.getV();
                     p1.flipLandmark();
+                    v.flipLandmark();
                 }
             }
             return true;

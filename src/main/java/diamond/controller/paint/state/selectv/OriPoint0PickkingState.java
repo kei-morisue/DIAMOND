@@ -49,8 +49,6 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getOriModel().fold();
-
     }
 
 }

@@ -23,6 +23,7 @@ import java.awt.geom.Point2D;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.Segment;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
+import diamond.model.geom.element.origami.OriHalfEdge;
 
 public class OriLine {
 
@@ -30,6 +31,8 @@ public class OriLine {
     public OriPoint p1 = null;
     LineType type = LineType.CREASE;
     private AbstractArrow arrow = null;
+
+    private OriHalfEdge he = new OriHalfEdge();
 
     public OriLine() {
     }
@@ -128,6 +131,14 @@ public class OriLine {
 
     public void setArrow(AbstractArrow arrow) {
         this.arrow = arrow;
+    }
+
+    public OriHalfEdge getHe() {
+        return he;
+    }
+
+    public void setHe(OriHalfEdge he) {
+        this.he = he;
     }
 
 }

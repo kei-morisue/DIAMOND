@@ -40,7 +40,7 @@ public class ArrowPaintState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        //context.palette.getCP().rebuildModel();
     }
 
     @Override
@@ -52,8 +52,10 @@ public class ArrowPaintState extends AbstractPaintState {
                 arrow.flip();
             } else {
                 try {
+                    AbstractArrow newArrow = arrowClass.newInstance();
                     pointedOriLine
-                            .setArrow(arrowClass.newInstance());
+                            .setArrow(newArrow);
+                    pointedOriLine.getHe().setArrow(newArrow);
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
