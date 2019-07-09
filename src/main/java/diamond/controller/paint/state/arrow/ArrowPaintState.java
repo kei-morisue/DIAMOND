@@ -29,6 +29,7 @@ public class ArrowPaintState extends AbstractPaintState {
             AbstractArrow arrow = pointedOriLine.getArrow();
             if (arrow != null) {
                 pointedOriLine.setArrow(null);
+                pointedOriLine.getHe().setArrow(null);
             }
         }
         rebuild(context);
@@ -40,7 +41,6 @@ public class ArrowPaintState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        //context.palette.getCP().rebuildModel();
     }
 
     @Override
