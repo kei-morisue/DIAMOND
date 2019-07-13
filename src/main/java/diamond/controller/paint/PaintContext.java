@@ -5,6 +5,7 @@
 package diamond.controller.paint;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.Stack;
 
 import diamond.controller.paint.action.Axiom1Action;
@@ -30,6 +31,8 @@ public class PaintContext extends ScreenContext {
 
     public PaintActionInterface paintAction = new Axiom1Action();
     public Palette palette;
+
+    public File file = null;
 
     public PaintContext(Palette palette) {
         this.palette = palette;

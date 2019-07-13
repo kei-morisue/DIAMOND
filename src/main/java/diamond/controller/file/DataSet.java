@@ -18,6 +18,10 @@ public class DataSet {
         StyleSet style = new StyleSet();
         style.write();
         this.styleSet = style;
+        for (Diagram diagram : diagrams) {
+            diagram.getCp().saveOrder();
+        }
+
     }
 
     public LinkedList<Diagram> getDiagrams() {

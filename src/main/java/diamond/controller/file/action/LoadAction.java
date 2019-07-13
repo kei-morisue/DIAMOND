@@ -7,6 +7,7 @@ package diamond.controller.file.action;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
@@ -55,6 +56,7 @@ public class LoadAction implements ActionListener {
             }
             data.getStyleSet().apply();
             frame.done();
+            paintContext.file = new File(path);
         }
     }
 }

@@ -7,13 +7,13 @@ package diamond.controller.file.action;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 
 import diamond.controller.file.DataSet;
 import diamond.controller.file.ExporterXML;
 import diamond.controller.paint.PaintContext;
-import diamond.model.geom.element.diagram.Diagram;
 import diamond.view.ProgressFrame;
 
 /**
@@ -32,19 +32,23 @@ public class ExportAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
-        if (JFileChooser.APPROVE_OPTION == chooser
+        String path = null;
+        if (paintContext.file != null) {
+            path = paintContext.file.getPath();
+        } else if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
-            ExporterXML exporterXML = new ExporterXML();
-            for (Diagram diagram : paintContext.palette.getDiagrams()) {
-                diagram.getCp().saveOrder();
-            }
-            DataSet data = new DataSet(
-                    paintContext.palette.getDiagrams());
-            String path = chooser.getSelectedFile().getPath();
-            ProgressFrame frame = new ProgressFrame("saving");
-            exporterXML.export(data, path);
-            frame.done();
+            path = chooser.getSelectedFile().getPath();
         }
+        DataSet data = new DataSet(
+                paintContext.palette.getDiagrams());
+
+        paintContext.file = new File(path);
+        ProgressFrame frame = new ProgressFrame("saving");
+
+        ExporterXML exporterXML = new ExporterXML();
+        exporterXML.export(data, path);
+        frame.done();
+
     }
 
 }
