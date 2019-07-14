@@ -176,7 +176,10 @@ public class OriVertex extends AbstractOriVertex {
 
     public void flipLandmark() {
         isLandmark = !isLandmark;
+    }
 
+    public void disableLandmark() {
+        isLandmark = false;
     }
 
     @Deprecated

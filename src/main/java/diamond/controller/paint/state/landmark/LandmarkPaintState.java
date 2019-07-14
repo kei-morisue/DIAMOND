@@ -25,8 +25,12 @@ public class LandmarkPaintState extends AbstractPaintState {
     @Override
     protected void undoAction(PaintContext context) {
         for (OriLine l : context.palette.getCP().getLines()) {
-            l.p0.disableLandmark();
-            l.p1.disableLandmark();
+            OriPoint p0 = l.p0;
+            p0.disableLandmark();
+            p0.getV().disableLandmark();
+            OriPoint p1 = l.p1;
+            p1.disableLandmark();
+            p1.getV().disableLandmark();
         }
         rebuild(context);
     }
