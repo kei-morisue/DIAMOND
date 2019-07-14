@@ -14,7 +14,6 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 import diamond.model.geom.element.fold.Folder;
 import diamond.model.geom.element.fold.OriFaceSorter;
 import diamond.model.geom.util.DistanceUtil;
@@ -115,7 +114,6 @@ public class OriModel {
     }
 
     private void buildFaces() {
-        cleanVertex();
         for (OriVertex vertex : vertices) {
             vertex.setFoldability();
             for (OriHalfEdge he : vertex.getHalfEdges()) {
@@ -138,41 +136,6 @@ public class OriModel {
                 face.buildOutline(0.5);
             }
         }
-    }
-
-    /**
-     *
-     */
-    private void cleanVertex() {
-        HashSet<OriVertex> vs = new HashSet<OriVertex>();
-        for (OriVertex vertex : vertices) {
-            if (vertex.getHalfEdges().size() == 2) {
-                OriHalfEdge h0 = vertex.getHalfEdges().get(0);
-                OriHalfEdge h1 = vertex.getHalfEdges().get(1);
-                double dt = Math.abs(h0.getAngle() - h1.getPair().getAngle());
-                if (h0.getType() == h1.getType() && dt < Constants.RADIAN_EPS) {
-                    OriVertex p0 = h0.getEv();
-                    OriVertex p1 = h1.getEv();
-                    AbstractArrow arrow = (h0.getArrow() == null)
-                            ? h1.getArrow()
-                            : h0.getArrow();
-                    OriHalfEdge h2 = new OriHalfEdge(p0, p1, h0.getType(),
-                            arrow);
-                    OriHalfEdge h3 = new OriHalfEdge(p1, p0, h0.getType());
-                    h2.setPair(h3);
-                    h3.setPair(h2);
-                    p0.getHalfEdges().remove(h0.getPair());
-                    p1.getHalfEdges().remove(h1.getPair());
-                    p0.addEdge(h2);
-                    p1.addEdge(h3);
-                } else {
-                    vs.add(vertex);
-                }
-            } else {
-                vs.add(vertex);
-            }
-        }
-        vertices = vs;
     }
 
     private boolean isCut(OriFace face) {
