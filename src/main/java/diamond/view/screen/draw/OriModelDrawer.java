@@ -33,6 +33,27 @@ public class OriModelDrawer {
             drawCreaseLines(g2d, face);
             drawUnsettledLines(g2d, face);
         }
+        drawArrows(g2d, model);
+    }
+
+    private static void drawArrows(Graphics2D g2d, OriModel model) {
+        for (OriFace face : model.getFaces()) {
+            for (OriHalfEdge he : face.getHalfEdges()) {
+                drawArrow(g2d, he);
+            }
+            for (OriHalfEdge he : face.getCreaseLines()) {
+                drawArrow(g2d, he);
+            }
+            for (OriHalfEdge he : face.getUnsettledLines()) {
+                drawArrow(g2d, he);
+            }
+        }
+    }
+
+    private static void drawArrow(Graphics2D g2d, OriHalfEdge he) {
+        if (he.getArrow() != null) {
+            he.getArrow().draw(g2d, he);
+        }
     }
 
     private static void drawEdges(Graphics2D g2d, double scale, OriFace face) {
