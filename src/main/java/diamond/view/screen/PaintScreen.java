@@ -24,6 +24,7 @@ import diamond.view.screen.draw.OriVertexDrawer;
 import diamond.view.screen.draw.StringDrawer;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.style.color.OriFaceColor;
 import diamond.view.screen.draw.style.color.OriLineColor;
 import diamond.view.screen.draw.style.color.OriVertexColor;
 import diamond.view.screen.draw.style.color.Ui;
@@ -123,8 +124,7 @@ public class PaintScreen extends AbstractScreen {
     private void paintFaces(Graphics2D g2d, OriModel model) {
         LinkedList<OriFace> faces = model.getFaces();
         for (OriFace face : faces) {
-            OriFaceDrawer.drawFace(g2d, face,
-                    diamond.view.screen.draw.style.color.OriFaceColor.ORI_FACE_BACK);
+            OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_BACK);
         }
         OriFaceDrawer.drawBaseFace(g2d, model);
         for (OriFace face : faces) {
