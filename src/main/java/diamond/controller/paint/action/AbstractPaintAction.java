@@ -91,7 +91,13 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     protected final void setCandidateFaceOnMove(PaintContext context) {
+        if (context.pointedOriFace != null) {
+            context.pointedOriFace.isPointed = false;
+        }
         context.pointedOriFace = NearestFaceFinder.findAround(context);
+        if (context.pointedOriFace != null) {
+            context.pointedOriFace.isPointed = true;
+        }
     }
 
     @Override

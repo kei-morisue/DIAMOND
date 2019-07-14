@@ -27,8 +27,7 @@ public class OriModelDrawer {
 
         for (OriFace face : model.getFaces()) {
             OriFaceDrawer.drawFoldedFace(g2d, face,
-                    OriFaceColor
-                            .getColor(face.isFaceFront()));
+                    OriFaceColor.getColor(face));
             drawEdges(g2d, scale, face);
             drawCreaseLines(g2d, face);
             drawUnsettledLines(g2d, face);

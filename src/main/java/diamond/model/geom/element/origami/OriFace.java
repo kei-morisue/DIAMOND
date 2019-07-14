@@ -26,6 +26,7 @@ public class OriFace {
     private GeneralPath outline = null;
     private AffineTransform transform = null;
     public boolean footPrint = false;
+    public boolean isPointed = false;
 
     public OriFace() {
 
