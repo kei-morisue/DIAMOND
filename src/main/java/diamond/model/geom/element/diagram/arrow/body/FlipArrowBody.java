@@ -50,7 +50,7 @@ public class FlipArrowBody extends AbstractArrowBody {
         g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
                 : OriArrowColor.ARROW_BODY);
 
-        g2d.setStroke(LineStyle.STROKE_ARROW);
+        g2d.setStroke(LineStyle.STROKE_FLIP_ARROW);
         AffineTransform transform = g2d.getTransform();
 
         Double o = Point2DUtil.center(p0, p1);
