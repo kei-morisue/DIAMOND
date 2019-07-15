@@ -28,6 +28,7 @@ public class BaseFacePickkingState extends OriFacePickkingState {
             context.palette.getCP()
                     .setBaseFaceCenter(OriFaceUtil.getCenterPoint(baseFace));
         }
+        context.palette.getCP().saveOrder();
         context.initialize();
     }
 

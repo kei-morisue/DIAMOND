@@ -15,7 +15,7 @@ import diamond.controller.paint.PaintContext;
  *
  */
 public class UiPanel extends JPanel {
-    private ButtonGroup paintActionButtons = new ButtonGroup();
+    private ButtonGroup buttons = new ButtonGroup();
 
     public UiPanel(PaintContext context) {
         buildCpUi(context);
@@ -23,11 +23,11 @@ public class UiPanel extends JPanel {
 
     private void buildCpUi(PaintContext context) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new LineTypePanel(context, paintActionButtons));
-        add(new EditLinePanel(context, paintActionButtons));
-        add(new DiagramUiPanel(context, paintActionButtons));
-        add(new EditVertexPanel(context, paintActionButtons));
-        add(new ModelUiPanel(context, paintActionButtons));
+        add(new LineTypePanel(context, buttons));
+        add(new EditLinePanel(context, buttons));
+        add(new DiagramUiPanel(context, buttons));
+        add(new EditVertexPanel(context, buttons));
+        add(new ModelUiPanel(context, buttons));
     }
 
 }

@@ -48,6 +48,7 @@ public class OriFace1PickkingState extends OriFacePickkingState {
                 faces.add(i1, f0);
             }
         }
+        context.palette.getCP().saveOrder();
         context.initialize();
     }
 }
