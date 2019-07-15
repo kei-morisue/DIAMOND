@@ -22,7 +22,12 @@ public class OriFaceOrder {
     private ArrayList<Double> centerPoints = new ArrayList<>();
 
     public OriFaceOrder() {
+    }
 
+    public OriFaceOrder(OriFaceOrder order) {
+        for (Double c : order.centerPoints) {
+            this.centerPoints.add(c);
+        }
     }
 
     public void save(Cp cp) {

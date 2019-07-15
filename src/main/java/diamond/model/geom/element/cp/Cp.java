@@ -48,6 +48,7 @@ public class Cp {
 
             lines.add(line);
         }
+        order = new OriFaceOrder(cp.order);
         baseFaceCenter = OriFaceUtil.getCenterPoint(cp.oriModel.getBaseFace());
         oriModel = new OriModel(this);
     }
