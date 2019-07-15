@@ -15,7 +15,6 @@ import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.fold.Folder;
-import diamond.model.geom.element.fold.OriFaceSorter;
 import diamond.model.geom.util.DistanceUtil;
 import diamond.model.geom.util.OriFaceUtil;
 import diamond.model.palette.cp.simplifier.DuplicatedCPSimplifier;
@@ -77,7 +76,7 @@ public class OriModel {
 
     public void fold() {
         Folder.fold(this);
-        faces = OriFaceSorter.sort(faces);
+        //faces = OriFaceSorter.sort(faces);
     }
 
     private void findBaseFace(Cp cp) {
