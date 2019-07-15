@@ -119,16 +119,6 @@ public class OriFace {
     }
 
     @Deprecated
-    public void setHalfEdges(ArrayList<OriHalfEdge> halfEdges) {
-        this.halfEdges = halfEdges;
-    }
-
-    @Deprecated
-    public void setAuxLines(HashSet<OriHalfEdge> auxLines) {
-        this.creaseLines = auxLines;
-    }
-
-    @Deprecated
     public void setOutline(GeneralPath outline) {
         this.outline = outline;
     }

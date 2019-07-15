@@ -129,7 +129,7 @@ public class OriPoint extends Point2D.Double implements Comparable<OriPoint> {
         return v;
     }
 
-    public void setV(OriVertex v) {
+    public void set(OriVertex v) {
         this.v = v;
     }
 }

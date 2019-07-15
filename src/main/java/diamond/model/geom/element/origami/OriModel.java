@@ -152,7 +152,7 @@ public class OriModel {
             OriVertex v1 = buildVertex(line.p1);
             OriHalfEdge he0 = new OriHalfEdge(v0, v1, line.getType(),
                     line.getArrow());
-            line.setHe(he0);
+            line.set(he0);
             OriHalfEdge he1 = new OriHalfEdge(v1, v0, line.getType());
             he0.setPair(he1);
             he1.setPair(he0);
@@ -172,7 +172,7 @@ public class OriModel {
 
     private OriVertex buildVertex(OriPoint p) {
         OriVertex v = new OriVertex(p);
-        p.setV(v);
+        p.set(v);
         v = add(v);
         return v;
     }
@@ -203,26 +203,12 @@ public class OriModel {
         return this.vertices;
     }
 
-    public Set<OriHalfEdge> getAuxLines() {
-        return this.auxLines;
-    }
-
     public OriFace getBaseFace() {
         return this.baseFace;
     }
 
     public void setBaseFace(OriFace baseFace) {
         this.baseFace = baseFace;
-    }
-
-    @Deprecated
-    public Set<OriHalfEdge> getUnsettledLines() {
-        return this.unsettledLines;
-    }
-
-    @Deprecated
-    public void setUnsettledLines(Set<OriHalfEdge> unsettledLines) {
-        this.unsettledLines = unsettledLines;
     }
 
     @Deprecated
@@ -243,11 +229,6 @@ public class OriModel {
     @Deprecated
     public void setVertices(Set<OriVertex> vertices) {
         this.vertices = vertices;
-    }
-
-    @Deprecated
-    public void setAuxLines(Set<OriHalfEdge> auxLines) {
-        this.auxLines = auxLines;
     }
 
     @Deprecated

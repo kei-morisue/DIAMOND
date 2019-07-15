@@ -137,7 +137,7 @@ public class OriLine {
         return he;
     }
 
-    public void setHe(OriHalfEdge he) {
+    public void set(OriHalfEdge he) {
         this.he = he;
     }
 
