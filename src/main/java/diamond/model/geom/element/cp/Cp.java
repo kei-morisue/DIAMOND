@@ -55,6 +55,7 @@ public class Cp {
 
     public void rebuildModel() {
         oriModel.build(this);
+        loadOrder();
     }
 
     public void buildWhitePaper(double size, int edges) {
