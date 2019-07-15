@@ -26,7 +26,7 @@ public class ModelUiPanel extends JPanel {
     }
 
     private void addModelEditPanel(PaintContext context) {
-        setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(2, 3));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.BASE_FACE,
                 context);
@@ -35,8 +35,9 @@ public class ModelUiPanel extends JPanel {
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.SELECT_VERTEX, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
+                LABEL.SELECT_ALL_VERTEX, context);
+        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.OFFSET, context);
-
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.FACE));

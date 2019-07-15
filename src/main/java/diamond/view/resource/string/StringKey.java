@@ -59,6 +59,7 @@ public class StringKey {
         FACE_FRONT_COLOR,
         FACE_BACK_COLOR,
         SELECT_VERTEX,
+        SELECT_ALL_VERTEX,
         OFFSET,
 
         DIAGRAM_TAB,
