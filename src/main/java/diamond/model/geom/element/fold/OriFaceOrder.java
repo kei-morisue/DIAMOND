@@ -48,7 +48,7 @@ public class OriFaceOrder {
                 if (c0.distance(c1) < Constants.EPS) {
                     ordered.add(face0);
                     faces.remove(i);
-                    i--;
+                    continue;
                 }
             }
         }
