@@ -7,42 +7,27 @@ package diamond.view.ui.panel;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 import diamond.controller.paint.PaintContext;
-import diamond.view.resource.ResourceHolder;
-import diamond.view.resource.string.StringKey.LABEL;
 
 /**
  * @author long_
  *
  */
-public class UiPanel extends JTabbedPane {
+public class UiPanel extends JPanel {
     private ButtonGroup paintActionButtons = new ButtonGroup();
 
     public UiPanel(PaintContext context) {
-        addTab(ResourceHolder.getLabelString(LABEL.CP),
-                buildCpUi(context));
-        //        addTab(ResourceHolder.getLabelString(LABEL.FOLDED),
-        //                buildModelUi(context));
+        buildCpUi(context);
     }
 
-    private JPanel buildCpUi(PaintContext context) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new LineTypePanel(context, paintActionButtons));
-        panel.add(new EditLinePanel(context, paintActionButtons));
-        panel.add(new DiagramUiPanel(context, paintActionButtons));
-        panel.add(new EditVertexPanel(context, paintActionButtons));
-        panel.add(new ModelUiPanel(context, paintActionButtons));
-        return panel;
+    private void buildCpUi(PaintContext context) {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(new LineTypePanel(context, paintActionButtons));
+        add(new EditLinePanel(context, paintActionButtons));
+        add(new DiagramUiPanel(context, paintActionButtons));
+        add(new EditVertexPanel(context, paintActionButtons));
+        add(new ModelUiPanel(context, paintActionButtons));
     }
-
-    //    private JPanel buildModelUi(PaintContext context) {
-    //        JPanel panel = new JPanel();
-    //        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    //        panel.add(new ModelUiPanel(context, paintActionButtons));
-    //        return panel;
-    //    }
 
 }
