@@ -22,13 +22,13 @@ public class Debugger {
             PaintContext paintContext) {
         g2d.setFont(FontStyle.DEBUG);
 
-        describe(g2d, paintContext.paintAction.getClass().getName(),
+        describe(g2d, paintContext.getPaintAction().getClass().getName(),
                 "Paint Action", 10);
         OriModel oriModel = paintContext.palette.getOriModel();
         describe(g2d, oriModel.getFaces().size(), "Faces", 20);
         Set<OriVertex> vertices = oriModel.getVertices();
         describe(g2d, vertices.size(), "Vertices", 30);
-        describe(g2d, paintContext.pointedOriFace, "OriFace", 50);
+        describe(g2d, paintContext.getPointedOriFace(), "OriFace", 50);
     }
 
     private static void describe(

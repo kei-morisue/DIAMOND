@@ -33,7 +33,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         }
         OriLine line = OriLineUtil.getVerticalLine(
                 pickedPoints.get(0), pickedLines.get(0),
-                context.inputLineType);
+                context.getInputLineType());
 
         context.palette.getCP().addLine(line);
         pickedPoints.clear();

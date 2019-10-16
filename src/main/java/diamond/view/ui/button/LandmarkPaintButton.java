@@ -41,7 +41,7 @@ public class LandmarkPaintButton extends JRadioButton
     public void actionPerformed(ActionEvent e) {
         if (isSelected()) {
             paintContext.initialize();
-            paintContext.paintAction = paintAction;
+            paintContext.setPaintAction(paintAction);
         }
     }
 }

@@ -67,7 +67,7 @@ public class RadarDrawer {
     private static void drawPointer(
             Graphics2D g2d,
             PaintContext context) {
-        Double p = context.currentLogicalMousePoint;
+        Double p = context.getCurrentLogicalMousePoint();
         g2d.setTransform(new AffineTransform());
         int height, width;
         height = getDimension(g2d).height;

@@ -44,7 +44,7 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
                         second,
                         third,
                         first,
-                        creasePattern, context.inputLineType);
+                        creasePattern, context.getInputLineType());
         context.palette.getCP().addAll(lines);
         pickedPoints.clear();
     }

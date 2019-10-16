@@ -28,9 +28,9 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        if (context.pointedOriFace != null) {
+        if (context.getPointedOriFace() != null) {
             Stack<OriFace> pickedOriFaces = context.getPickedOriFaces();
-            pickedOriFaces.push(context.pointedOriFace);
+            pickedOriFaces.push(context.getPointedOriFace());
             return true;
         }
         return false;

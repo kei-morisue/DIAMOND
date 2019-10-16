@@ -17,7 +17,7 @@ import diamond.model.geom.element.origami.OriVertex;
 public class NearestFaceFinder {
     public static OriFace findAround(
             PaintContext context) {
-        Double point = context.currentLogicalMousePoint;
+        Double point = context.getCurrentLogicalMousePoint();
         OriVertex orivertex = new OriVertex(point.x, point.y);
         for (OriFace face : context.palette.getDiagram().getCp().getOriModel()
                 .getFaces()) {

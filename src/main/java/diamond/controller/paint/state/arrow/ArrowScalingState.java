@@ -48,7 +48,7 @@ public class ArrowScalingState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        Double p = context.currentLogicalMousePoint;
+        Double p = context.getCurrentLogicalMousePoint();
         if (p != null) {
             Cp cp = context.palette.getCP();
             for (OriLine line : cp.getLines()) {

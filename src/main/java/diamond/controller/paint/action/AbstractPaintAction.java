@@ -51,7 +51,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     @Override
     public PaintActionInterface onLeftClick(PaintContext context) {
-        doAction(context, context.currentLogicalMousePoint);
+        doAction(context, context.getCurrentLogicalMousePoint());
         return this;
     }
 
@@ -78,25 +78,25 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         setCandidateVertexOnMove(context);
         setCandidateLineOnMove(context);
 
-        return context.pointedOriPoint;
+        return context.getPointedOriPoint();
     }
 
     protected final void setCandidateVertexOnMove(PaintContext context) {
-        context.pointedOriPoint = NearestPointFinder.findAround(context);
+        context.setPointedOriPoint(NearestPointFinder.findAround(context));
 
     }
 
     protected final void setCandidateLineOnMove(PaintContext context) {
-        context.pointedOriLine = NearestLineFinder.findAround(context);
+        context.setPointedOriLine(NearestLineFinder.findAround(context));
     }
 
     protected final void setCandidateFaceOnMove(PaintContext context) {
-        if (context.pointedOriFace != null) {
-            context.pointedOriFace.isPointed = false;
+        if (context.getPointedOriFace() != null) {
+            context.getPointedOriFace().isPointed = false;
         }
-        context.pointedOriFace = NearestFaceFinder.findAround(context);
-        if (context.pointedOriFace != null) {
-            context.pointedOriFace.isPointed = true;
+        context.setPointedOriFace(NearestFaceFinder.findAround(context));
+        if (context.getPointedOriFace() != null) {
+            context.getPointedOriFace().isPointed = true;
         }
     }
 
@@ -134,8 +134,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedPoint(Graphics2D g2d,
             PaintContext context) {
-        if (context.pointedOriPoint != null) {
-            OriPoint candidate = context.pointedOriPoint;
+        if (context.getPointedOriPoint() != null) {
+            OriPoint candidate = context.getPointedOriPoint();
             OriPointDrawer.drawPoint(
                     g2d,
                     candidate,
@@ -146,8 +146,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawMousePoint(Graphics2D g2d,
             PaintContext context) {
-        if (context.currentLogicalMousePoint != null) {
-            Point2D.Double point = context.currentLogicalMousePoint;
+        if (context.getCurrentLogicalMousePoint() != null) {
+            Point2D.Double point = context.getCurrentLogicalMousePoint();
             OriPointDrawer.drawPoint(
                     g2d,
                     point,
@@ -158,8 +158,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedLine(Graphics2D g2d,
             PaintContext context) {
-        if (context.pointedOriLine != null) {
-            OriLine candidate = context.pointedOriLine;
+        if (context.getPointedOriLine() != null) {
+            OriLine candidate = context.getPointedOriLine();
             OriLineDrawer.drawLine(
                     g2d,
                     candidate,
@@ -170,7 +170,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedFace(Graphics2D g2d,
             PaintContext context) {
-        OriFace face = context.pointedOriFace;
+        OriFace face = context.getPointedOriFace();
         if (face != null) {
             OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_POINTED);
         }

@@ -16,7 +16,7 @@ import diamond.model.geom.element.cp.OriPoint;
 public class NearestPointFinder {
     public static OriPoint findAround(PaintContext context) {
         double boundary = Constants.CLOSE_THRESHOLD / context.getScale();
-        OriPoint center = new OriPoint(context.currentLogicalMousePoint);
+        OriPoint center = new OriPoint(context.getCurrentLogicalMousePoint());
         OriPoint nearest = null;
         double shortestDistance = boundary;
         for (OriLine line : context.palette.getCP().getLines()) {

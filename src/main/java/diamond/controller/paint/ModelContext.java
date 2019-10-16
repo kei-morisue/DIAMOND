@@ -10,10 +10,8 @@ package diamond.controller.paint;
  */
 public class ModelContext extends ScreenContext {
 
-    public Palette palette;
-
     public ModelContext(Palette palette) {
-        this.palette = palette;
+        super(palette);
         transform = palette.getDiagram().getTransform();
     }
 

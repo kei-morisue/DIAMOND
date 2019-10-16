@@ -22,20 +22,25 @@ import diamond.model.geom.element.origami.OriVertex;
  */
 public class PaintContext extends ScreenContext {
 
-    public LineType inputLineType = LineType.UNSETTLED_VALLEY;
+    private LineType inputLineType = LineType.UNSETTLED_VALLEY;
+
+    private Point2D.Double currentLogicalMousePoint = null;
+
+    private OriPoint pointedOriPoint = null;
+    private OriLine pointedOriLine = null;
+    private OriFace pointedOriFace = null;
 
     private Stack<OriPoint> pickedOriPoints = new Stack<>();
     private Stack<OriLine> pickedOriLines = new Stack<>();
     private Stack<OriFace> pickedOriFaces = new Stack<>();
     private Stack<OriVertex> pickedOriVertices = new Stack<>();
 
-    public PaintActionInterface paintAction = new Axiom1Action();
-    public Palette palette;
+    private PaintActionInterface paintAction = new Axiom1Action();
 
-    public File file = null;
+    private File file = null;
 
     public PaintContext(Palette palette) {
-        this.palette = palette;
+        super(palette);
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
@@ -83,6 +88,63 @@ public class PaintContext extends ScreenContext {
 
     public Stack<OriVertex> getPickedOriVertices() {
         return pickedOriVertices;
+    }
+
+    public PaintActionInterface getPaintAction() {
+        return paintAction;
+    }
+
+    public void setPaintAction(PaintActionInterface paintAction) {
+        this.paintAction = paintAction;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public OriFace getPointedOriFace() {
+        return pointedOriFace;
+    }
+
+    public void setPointedOriFace(OriFace pointedOriFace) {
+        this.pointedOriFace = pointedOriFace;
+    }
+
+    public OriLine getPointedOriLine() {
+        return pointedOriLine;
+    }
+
+    public void setPointedOriLine(OriLine pointedOriLine) {
+        this.pointedOriLine = pointedOriLine;
+    }
+
+    public OriPoint getPointedOriPoint() {
+        return pointedOriPoint;
+    }
+
+    public void setPointedOriPoint(OriPoint pointedOriPoint) {
+        this.pointedOriPoint = pointedOriPoint;
+    }
+
+    public Point2D.Double getCurrentLogicalMousePoint() {
+        return currentLogicalMousePoint;
+    }
+
+    public void setCurrentLogicalMousePoint(
+            Point2D.Double currentLogicalMousePoint) {
+        this.currentLogicalMousePoint = currentLogicalMousePoint;
+    }
+
+    public LineType getInputLineType() {
+        return inputLineType;
+    }
+
+    public void setInputLineType(LineType inputLineType) {
+        this.inputLineType = inputLineType;
     }
 
 }

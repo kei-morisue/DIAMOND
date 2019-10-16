@@ -45,7 +45,7 @@ public class OffsetSettingState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        Double p = context.currentLogicalMousePoint;
+        Double p = context.getCurrentLogicalMousePoint();
         if (p != null) {
             Set<OriVertex> vertices = context.palette.getOriModel()
                     .getVertices();

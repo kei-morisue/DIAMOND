@@ -32,7 +32,7 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
             return false;
         }
         context.pushPoint(picked);
-        context.pointedOriPoint = picked;
+        context.setPointedOriPoint(picked);
         return true;
     }
 

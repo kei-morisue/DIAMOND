@@ -37,7 +37,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         OriPoint v2 = pickedPoints.get(2);
         OriLine l = pickedLines.get(0);
         OriLine line = BisectorUtil.getOriLine(v0, v1,
-                v2, l, context.inputLineType);
+                v2, l, context.getInputLineType());
         context.palette.getCP().addLine(line);
         pickedPoints.clear();
         pickedLines.clear();

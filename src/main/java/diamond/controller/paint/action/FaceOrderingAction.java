@@ -28,7 +28,7 @@ public class FaceOrderingAction extends AbstractPaintAction {
     @Override
     public Point2D.Double onMove(PaintContext context) {
         setCandidateFaceOnMove(context);
-        return context.pointedOriPoint;
+        return context.getPointedOriPoint();
     }
 
 }

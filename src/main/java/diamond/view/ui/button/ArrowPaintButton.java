@@ -77,7 +77,7 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (isSelected()) {
             paintContext.initialize();
-            paintContext.paintAction = paintAction;
+            paintContext.setPaintAction(paintAction);
         }
     }
 }

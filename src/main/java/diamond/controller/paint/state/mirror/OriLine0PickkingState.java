@@ -26,7 +26,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        OriLine pointedOriLine = context.pointedOriLine;
+        OriLine pointedOriLine = context.getPointedOriLine();
         ArrayList<OriLine> mirroredLines = new ArrayList<OriLine>();
         if (pointedOriLine != null) {
             for (OriLine line : context.getPickedLines()) {

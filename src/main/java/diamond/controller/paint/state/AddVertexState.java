@@ -41,8 +41,8 @@ public class AddVertexState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriPoint pointedOriPoint = context.pointedOriPoint;
-        OriLine pointedOriLine = context.pointedOriLine;
+        OriPoint pointedOriPoint = context.getPointedOriPoint();
+        OriLine pointedOriLine = context.getPointedOriLine();
         if (pointedOriPoint != null && pointedOriLine != null) {
             LineDivider.divide(
                     pointedOriLine,

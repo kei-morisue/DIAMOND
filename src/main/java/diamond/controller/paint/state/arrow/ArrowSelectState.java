@@ -45,7 +45,7 @@ public class ArrowSelectState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriLine line = context.pointedOriLine;
+        OriLine line = context.getPointedOriLine();
         if (line != null) {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {

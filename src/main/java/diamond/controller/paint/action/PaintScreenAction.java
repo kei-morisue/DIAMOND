@@ -25,10 +25,10 @@ public class PaintScreenAction
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
+        paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
                 paintContext.transform.getTransform(),
-                e.getPoint());
-        paintContext.paintAction.onMove(paintContext);
+                e.getPoint()));
+        paintContext.getPaintAction().onMove(paintContext);
         e.getComponent().repaint();
     }
 
@@ -39,10 +39,10 @@ public class PaintScreenAction
     @Override
     public void mouseClicked(MouseEvent e) {
         if (MouseUtility.isLeftClick(e)) {
-            paintContext.paintAction.onLeftClick(paintContext);
+            paintContext.getPaintAction().onLeftClick(paintContext);
         }
         if (MouseUtility.isRightClick(e)) {
-            paintContext.paintAction.onRightClick(paintContext);
+            paintContext.getPaintAction().onRightClick(paintContext);
         }
         e.getComponent().repaint();
         return;
@@ -50,9 +50,9 @@ public class PaintScreenAction
 
     @Override
     public void mousePressed(MouseEvent e) {
-        paintContext.currentLogicalMousePoint = MouseUtility.getLogicalPoint(
+        paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
                 paintContext.transform.getTransform(),
-                e.getPoint());
+                e.getPoint()));
     }
 
     @Override

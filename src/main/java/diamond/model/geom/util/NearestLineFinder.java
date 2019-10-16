@@ -20,7 +20,7 @@ public class NearestLineFinder {
         double minDistance = Double.MAX_VALUE;
         OriLine candidate = null;
         Cp creasePattern = context.palette.getCP();
-        Point2D.Double p = context.currentLogicalMousePoint;
+        Point2D.Double p = context.getCurrentLogicalMousePoint();
         for (OriLine line : creasePattern.getLines()) {
             double dist = DistanceUtil.distancePointToSegment(
                     p, line.p0, line.p1);

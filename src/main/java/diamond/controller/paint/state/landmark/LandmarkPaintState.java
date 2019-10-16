@@ -45,7 +45,7 @@ public class LandmarkPaintState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriPoint p = context.pointedOriPoint;
+        OriPoint p = context.getPointedOriPoint();
         if (p != null) {
             for (OriLine l : context.palette.getCP().getLines()) {
                 OriPoint p0 = l.p0;

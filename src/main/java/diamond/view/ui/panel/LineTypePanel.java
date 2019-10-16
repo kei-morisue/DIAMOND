@@ -56,7 +56,7 @@ public class LineTypePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (((JRadioButton) e.getSource()).isSelected()) {
-                context.inputLineType = this.type;
+                context.setInputLineType(this.type);
             }
         }
     }

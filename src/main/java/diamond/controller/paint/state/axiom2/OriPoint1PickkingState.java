@@ -34,7 +34,7 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
         OriPoint p1 = pickedPoints.get(1);
 
         OriLine line = BisectorUtil.getPerpendicularOriLine(p0, p1,
-                context.inputLineType, context.palette.getCP().getCutLines());
+                context.getInputLineType(), context.palette.getCP().getCutLines());
         context.palette.getCP().addLine(line);
         pickedPoints.clear();
     }

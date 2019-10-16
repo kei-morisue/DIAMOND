@@ -26,16 +26,16 @@ public class AddVertexAction extends AbstractPaintAction {
     @Override
     public Point2D.Double onMove(PaintContext context) {
         setCandidateLineOnMove(context);
-        OriLine pointedOriLine = context.pointedOriLine;
+        OriLine pointedOriLine = context.getPointedOriLine();
         if (pointedOriLine != null) {
-            context.pointedOriPoint = new OriPoint();
+            context.setPointedOriPoint(new OriPoint());
             DistanceUtil.distancePointToSegment(
-                    context.currentLogicalMousePoint,
+                    context.getCurrentLogicalMousePoint(),
                     pointedOriLine.p0,
                     pointedOriLine.p1,
-                    context.pointedOriPoint);
+                    context.getPointedOriPoint());
         }
-        return context.pointedOriPoint;
+        return context.getPointedOriPoint();
     }
 
     @Override

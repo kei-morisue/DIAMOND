@@ -40,7 +40,7 @@ public class DeleteVertexState extends AbstractPaintState {
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriPoint pointedOriPoint = context.pointedOriPoint;
+        OriPoint pointedOriPoint = context.getPointedOriPoint();
         if (pointedOriPoint != null) {
             LineRemover.merge2LinesAt(
                     pointedOriPoint,

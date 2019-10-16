@@ -31,7 +31,7 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
     protected boolean onAction(
             PaintContext context,
             Double currentPoint) {
-        OriLine pointedOriLine = context.pointedOriLine;
+        OriLine pointedOriLine = context.getPointedOriLine();
         if (pointedOriLine != null) {
             Stack<OriLine> pickedLines = context.getPickedLines();
             if (pickedLines.contains(pointedOriLine)) {

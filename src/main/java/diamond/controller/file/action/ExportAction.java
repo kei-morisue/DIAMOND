@@ -33,8 +33,8 @@ public class ExportAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
         String path = null;
-        if (paintContext.file != null) {
-            path = paintContext.file.getPath();
+        if (paintContext.getFile() != null) {
+            path = paintContext.getFile().getPath();
         } else if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             path = chooser.getSelectedFile().getPath();
@@ -42,7 +42,7 @@ public class ExportAction implements ActionListener {
         DataSet data = new DataSet(
                 paintContext.palette.getDiagrams());
 
-        paintContext.file = new File(path);
+        paintContext.setFile(new File(path));
         ProgressFrame frame = new ProgressFrame("saving");
 
         ExporterXML exporterXML = new ExporterXML();

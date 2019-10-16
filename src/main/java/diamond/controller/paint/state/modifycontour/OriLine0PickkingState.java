@@ -40,13 +40,13 @@ public class OriLine0PickkingState extends OriLinePickkingState {
             return false;
         }
         pickedLines.push(picked);
-        context.pointedOriLine = picked;
+        context.setPointedOriLine(picked);
         return true;
     }
 
     @Override
     protected void onResult(PaintContext context) {
-        OriLine pointedOriLine = context.pointedOriLine;
+        OriLine pointedOriLine = context.getPointedOriLine();
         Stack<OriLine> pickedLines = context.getPickedLines();
         if (pointedOriLine != null && pickedLines.size() > 2) {
             if (OriLineUtil.isConnected(pointedOriLine, pickedLines.get(0))) {

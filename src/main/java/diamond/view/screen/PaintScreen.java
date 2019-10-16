@@ -52,8 +52,8 @@ public class PaintScreen extends AbstractScreen {
         paintContext.transform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(paintContext.transform.getTransform());
         paintCreasePattern(g2d);
-        if (paintContext.paintAction != null) {
-            paintContext.paintAction.onDraw(g2d, paintContext);
+        if (paintContext.getPaintAction() != null) {
+            paintContext.getPaintAction().onDraw(g2d, paintContext);
         }
         modelScreen.repaint();
         Debugger.debugPaintContext(g2d, paintContext);
