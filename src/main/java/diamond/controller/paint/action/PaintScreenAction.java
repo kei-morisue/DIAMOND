@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.util.MouseUtility;
 
 /**

@@ -6,7 +6,7 @@ package diamond.controller.paint.state.mirror;
 
 import java.util.ArrayList;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.OriLineUtil;

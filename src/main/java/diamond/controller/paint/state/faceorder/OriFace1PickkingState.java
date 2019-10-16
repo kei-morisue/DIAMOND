@@ -7,7 +7,7 @@ package diamond.controller.paint.state.faceorder;
 import java.util.LinkedList;
 import java.util.Stack;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriFacePickkingState;
 import diamond.model.geom.element.origami.OriFace;
 

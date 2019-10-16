@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import diamond.Initials;
-import diamond.controller.paint.ModelContext;
-import diamond.controller.paint.PaintContext;
-import diamond.controller.paint.Palette;
+import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Palette;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;

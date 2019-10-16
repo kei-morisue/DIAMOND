@@ -6,7 +6,7 @@ package diamond.model.geom.util;
 
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriVertex;
 

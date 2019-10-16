@@ -7,7 +7,7 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;

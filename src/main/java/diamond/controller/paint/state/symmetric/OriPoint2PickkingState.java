@@ -7,7 +7,7 @@ package diamond.controller.paint.state.symmetric;
 import java.util.Collection;
 import java.util.Stack;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;

@@ -13,7 +13,7 @@ import javax.swing.JFileChooser;
 
 import diamond.controller.file.DataSet;
 import diamond.controller.file.ExporterXML;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.ProgressFrame;
 
 /**

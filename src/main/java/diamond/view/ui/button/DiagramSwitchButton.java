@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.ModelContext;
-import diamond.controller.paint.Palette;
+import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.Palette;
 import diamond.view.resource.IconSetter;
 
 /**

@@ -11,7 +11,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.ScreenContext;
+import diamond.controller.paint.context.ScreenContext;
 import diamond.controller.paint.util.MouseUtility;
 
 /**

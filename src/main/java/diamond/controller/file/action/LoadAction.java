@@ -14,8 +14,8 @@ import javax.swing.JFileChooser;
 
 import diamond.controller.file.DataSet;
 import diamond.controller.file.LoaderXML;
-import diamond.controller.paint.ModelContext;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.view.ProgressFrame;
 

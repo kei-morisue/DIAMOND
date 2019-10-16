@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.file.action.ImageExportAction;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;

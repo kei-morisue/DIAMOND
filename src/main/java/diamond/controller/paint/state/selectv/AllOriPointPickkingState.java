@@ -7,7 +7,7 @@ package diamond.controller.paint.state.selectv;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.origami.OriVertex;
 

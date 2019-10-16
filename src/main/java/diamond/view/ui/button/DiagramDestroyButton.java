@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.WARNING;

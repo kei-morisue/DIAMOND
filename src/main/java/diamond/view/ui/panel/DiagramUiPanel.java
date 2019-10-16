@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 

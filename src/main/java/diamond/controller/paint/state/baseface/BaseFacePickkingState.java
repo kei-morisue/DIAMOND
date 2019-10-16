@@ -4,7 +4,7 @@
  */
 package diamond.controller.paint.state.baseface;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriFacePickkingState;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriModel;

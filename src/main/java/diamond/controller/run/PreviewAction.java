@@ -7,7 +7,7 @@ package diamond.controller.run;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.PreviewFrame;
 
 /**

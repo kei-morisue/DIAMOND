@@ -6,8 +6,8 @@ package diamond.view.ui.menu;
 
 import javax.swing.JMenuBar;
 
-import diamond.controller.paint.ModelContext;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.PaintContext;
 
 /**
  * @author long_

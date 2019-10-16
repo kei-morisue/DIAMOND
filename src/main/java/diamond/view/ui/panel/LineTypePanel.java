@@ -12,7 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.LineType;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JRadioButton;
 
-import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.AddVertexAction;
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.Axiom2Action;
@@ -30,6 +29,7 @@ import diamond.controller.paint.action.SelectVertexAction;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.controller.paint.action.UnfoldLineAction;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.string.StringKey.LABEL;
 

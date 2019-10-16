@@ -13,8 +13,8 @@ import javax.swing.KeyStroke;
 
 import diamond.controller.file.action.ExportAction;
 import diamond.controller.file.action.LoadAction;
-import diamond.controller.paint.ModelContext;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 

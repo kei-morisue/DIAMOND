@@ -7,7 +7,7 @@ package diamond.view.screen.debug;
 import java.awt.Graphics2D;
 import java.util.Set;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.StringDrawer;

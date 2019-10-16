@@ -9,8 +9,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
 
-import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.PaintScreenAction;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.origami.OriFace;

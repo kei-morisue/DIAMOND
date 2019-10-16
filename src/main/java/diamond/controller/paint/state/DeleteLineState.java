@@ -4,7 +4,7 @@
  */
 package diamond.controller.paint.state;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.palette.cp.editor.LineRemover;

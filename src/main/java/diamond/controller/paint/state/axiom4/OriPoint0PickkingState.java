@@ -4,7 +4,7 @@
  */
 package diamond.controller.paint.state.axiom4;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 
 /**

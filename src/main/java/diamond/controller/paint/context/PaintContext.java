@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.controller.paint;
+package diamond.controller.paint.context;
 
 import java.awt.geom.Point2D;
 import java.io.File;
@@ -14,7 +14,6 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriFace;
-import diamond.model.geom.element.origami.OriVertex;
 
 /**
  * @author long_
@@ -30,10 +29,7 @@ public class PaintContext extends ScreenContext {
     private OriLine pointedOriLine = null;
     private OriFace pointedOriFace = null;
 
-    private Stack<OriPoint> pickedOriPoints = new Stack<>();
-    private Stack<OriLine> pickedOriLines = new Stack<>();
-    private Stack<OriFace> pickedOriFaces = new Stack<>();
-    private Stack<OriVertex> pickedOriVertices = new Stack<>();
+    private PickedElements pickedElements = new PickedElements();
 
     private PaintActionInterface paintAction = new Axiom1Action();
 
@@ -55,39 +51,33 @@ public class PaintContext extends ScreenContext {
     }
 
     public Stack<OriLine> getPickedLines() {
-        return pickedOriLines;
+        return pickedElements.getOriLines();
     }
 
     public Stack<OriPoint> getPickedPoints() {
-        return pickedOriPoints;
+        return pickedElements.getOriPoints();
     }
 
     public Stack<OriFace> getPickedOriFaces() {
-        return this.pickedOriFaces;
+        return pickedElements.getOriFaces();
     }
 
     public void popLatestPickedPoint() {
-        if (pickedOriPoints.isEmpty()) {
+        if (getPickedPoints().isEmpty()) {
             return;
         }
-        pickedOriPoints.pop();
+        getPickedPoints().pop();
     }
 
     public void pushPoint(OriPoint p) {
-        pickedOriPoints.push(p);
+        getPickedPoints().push(p);
     }
 
     public void initialize() {
         screen.repaint();
-        pickedOriLines.clear();
-        pickedOriPoints.clear();
-        pickedOriFaces.clear();
+        pickedElements.clear();
         pointedOriLine = null;
         pointedOriPoint = null;
-    }
-
-    public Stack<OriVertex> getPickedOriVertices() {
-        return pickedOriVertices;
     }
 
     public PaintActionInterface getPaintAction() {

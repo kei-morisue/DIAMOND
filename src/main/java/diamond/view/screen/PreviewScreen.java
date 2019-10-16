@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.diagram.OrdinalPage;
 import diamond.model.geom.element.diagram.TopPage;

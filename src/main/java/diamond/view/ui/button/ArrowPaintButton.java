@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JRadioButton;
 
-import diamond.controller.paint.PaintContext;
 import diamond.controller.paint.action.ArrowPaintAction;
 import diamond.controller.paint.action.ArrowScalingAction;
 import diamond.controller.paint.action.ArrowSelectAction;
 import diamond.controller.paint.action.PaintActionInterface;
+import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.diagram.arrow.MountainFoldArrow;

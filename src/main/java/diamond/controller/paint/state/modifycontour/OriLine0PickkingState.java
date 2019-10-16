@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;

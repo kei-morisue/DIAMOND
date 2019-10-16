@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.ui.button.ArrowPaintButton;
 import diamond.view.ui.button.LandmarkPaintButton;

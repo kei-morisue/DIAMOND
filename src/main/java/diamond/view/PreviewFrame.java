@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import diamond.Initials;
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;

@@ -6,7 +6,7 @@ package diamond.controller.paint.state.arrow;
 
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;

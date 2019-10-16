@@ -6,7 +6,7 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.PaintContext;
+import diamond.controller.paint.context.PaintContext;
 import diamond.controller.paint.state.axiom3.OriLine0PickkingState;
 import diamond.controller.paint.state.axiom3.OriPoint0PickkingState;
 

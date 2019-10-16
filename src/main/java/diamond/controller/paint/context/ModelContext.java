@@ -2,7 +2,7 @@
  * DIAMOND - Origami Editor
  * Copyright (C) 2018 Kei Morisue
  */
-package diamond.controller.paint;
+package diamond.controller.paint.context;
 
 /**
  * @author long_

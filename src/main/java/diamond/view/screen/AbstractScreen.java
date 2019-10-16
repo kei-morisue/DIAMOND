@@ -13,8 +13,8 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import diamond.controller.paint.ScreenContext;
 import diamond.controller.paint.action.ScreenAction;
+import diamond.controller.paint.context.ScreenContext;
 
 /**
  * @author long_
