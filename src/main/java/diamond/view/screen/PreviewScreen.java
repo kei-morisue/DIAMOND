@@ -44,7 +44,7 @@ public class PreviewScreen extends JPanel {
     }
 
     public JPanel buildPage() {
-        LinkedList<Diagram> diagrams = paintContext.palette.getDiagrams();
+        LinkedList<Diagram> diagrams = paintContext.getPalette().getDiagrams();
         if (pageNo == 0) {
             return new TopPage(diagrams);
 
@@ -71,7 +71,7 @@ public class PreviewScreen extends JPanel {
     }
 
     public int maxPageNo() {
-        int steps = paintContext.palette.getDiagrams().size();
+        int steps = paintContext.getPalette().getDiagrams().size();
         int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
         if (steps < n) {
             return 0;

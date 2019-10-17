@@ -34,13 +34,13 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
                 pickedPoint.get(0),
                 pickedPoint.get(1),
                 context.getInputLineType());
-        context.palette.getCP().addLine(line);
+        context.getPalette().getCP().addLine(line);
         pickedPoint.clear();
     }
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        context.getPalette().getCP().rebuildModel();
     }
 
 }

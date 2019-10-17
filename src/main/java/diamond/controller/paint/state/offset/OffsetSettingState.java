@@ -27,11 +27,11 @@ public class OffsetSettingState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        Set<OriVertex> vertices = context.palette.getOriModel()
+        Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
-        Cp cp = context.palette.getCP();
+        Cp cp = context.getPalette().getCP();
         OffsetSetter.reset(vertices, cp);
-        context.palette.getOriModel().fold();
+        context.getPalette().getOriModel().fold();
     }
 
     @Override
@@ -40,16 +40,16 @@ public class OffsetSettingState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getOriModel().fold();
+        context.getPalette().getOriModel().fold();
     }
 
     @Override
     protected boolean onAction(PaintContext context, Double currentPoint) {
         Double p = context.getCurrentLogicalMousePoint();
         if (p != null) {
-            Set<OriVertex> vertices = context.palette.getOriModel()
+            Set<OriVertex> vertices = context.getPalette().getOriModel()
                     .getVertices();
-            Cp cp = context.palette.getCP();
+            Cp cp = context.getPalette().getCP();
             Double rotated = getRotatedPoint(context, p);
             OffsetSetter.set(cp, rotated, vertices);
             return true;
@@ -59,7 +59,7 @@ public class OffsetSettingState extends AbstractPaintState {
 
     private Double getRotatedPoint(PaintContext context, Double p) {
         Double rotated = new Double();
-        AffineTransform transform = context.palette.getDiagram()
+        AffineTransform transform = context.getPalette().getDiagram()
                 .getTransform().getTransform();
         double theta = Math.atan2(-transform.getShearX(),
                 transform.getScaleX());

@@ -40,7 +40,7 @@ public class ExportAction implements ActionListener {
             path = chooser.getSelectedFile().getPath();
         }
         DataSet data = new DataSet(
-                paintContext.palette.getDiagrams());
+                paintContext.getPalette().getDiagrams());
 
         paintContext.setFile(new File(path));
         ProgressFrame frame = new ProgressFrame("saving");

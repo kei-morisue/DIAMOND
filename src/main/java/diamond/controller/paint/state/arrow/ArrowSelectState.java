@@ -26,7 +26,7 @@ public class ArrowSelectState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        Set<OriLine> lines = context.palette.getCP().getLines();
+        Set<OriLine> lines = context.getPalette().getCP().getLines();
         for (OriLine line : lines) {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {

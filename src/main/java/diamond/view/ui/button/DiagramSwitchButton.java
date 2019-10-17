@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.AbstractScreenContext;
 import diamond.controller.paint.context.Palette;
 import diamond.view.resource.IconSetter;
+import diamond.view.screen.ModelScreen;
+import diamond.view.screen.PaintScreen;
 
 /**
  * @author long_
@@ -23,12 +25,15 @@ public class DiagramSwitchButton extends JButton {
     public static final int NEXT = 1;
 
     private int direction;
-    private ModelContext context;
+    private ModelScreen modelScreen;
+    private PaintScreen paintScreen;
 
-    public DiagramSwitchButton(Integer direction, ModelContext context) {
+    public DiagramSwitchButton(Integer direction, PaintScreen paintScreen,
+            ModelScreen modelScreen) {
         setBackground(Color.white);
         this.direction = direction;
-        this.context = context;
+        this.modelScreen = modelScreen;
+        this.paintScreen = paintScreen;
         switch (direction) {
         case PREV:
             IconSetter.set(this, "left.gif");
@@ -43,7 +48,8 @@ public class DiagramSwitchButton extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Palette palette = context.palette;
+            AbstractScreenContext modelContext = modelScreen.getContext();
+            Palette palette = modelContext.getPalette();
             if (palette.getStepNo() == 0 && direction == PREV) {
                 return;
             }
@@ -51,10 +57,11 @@ public class DiagramSwitchButton extends JButton {
                     && direction == NEXT) {
                 return;
             }
-            palette.getDiagram().setTransform(context.transform);
+            palette.getDiagram().setTransform(modelContext.getTransform());
             palette.setStepNo(palette.getStepNo() + direction);
-            context.transform = palette.getDiagram().getTransform();
-            context.screen.repaint();
+            modelContext.setTransform(palette.getDiagram().getTransform());
+            modelScreen.repaint();
+            paintScreen.repaint();
 
         }
     }

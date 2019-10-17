@@ -17,7 +17,7 @@ import diamond.model.geom.element.origami.OriModel;
  */
 public class Palette extends Observable {
     private LinkedList<Diagram> diagrams = new LinkedList<Diagram>();
-    private int stepNo = 0;
+    private int stepNo = 0;// TODO move to PaintContext
 
     public Palette() {
         diagrams.add(new Diagram());

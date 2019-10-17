@@ -12,7 +12,7 @@ import java.awt.geom.AffineTransform;
  */
 public class ScreenTransform {
     private AffineTransform focus = AffineTransform
-            .getTranslateInstance(0, 0);
+            .getTranslateInstance(0.0, 0.0);
     private AffineTransform zoom = AffineTransform.getScaleInstance(1.0, 1.0);
     private AffineTransform translate = AffineTransform
             .getTranslateInstance(0.0, 0.0);

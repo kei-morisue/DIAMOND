@@ -19,7 +19,7 @@ import diamond.model.geom.element.origami.OriFace;
  * @author long_
  *
  */
-public class PaintContext extends ScreenContext {
+public class PaintContext extends AbstractScreenContext {
 
     private LineType inputLineType = LineType.UNSETTLED_VALLEY;
     private Point2D.Double currentLogicalMousePoint = null;
@@ -67,7 +67,6 @@ public class PaintContext extends ScreenContext {
     }
 
     public void initialize() {
-        screen.repaint();
         pickedElements.clear();
         pointedElement.clear();
     }

@@ -22,7 +22,7 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getOriModel().fold();
+        context.getPalette().getOriModel().fold();
 
     }
 

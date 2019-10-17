@@ -24,7 +24,7 @@ public class LandmarkPaintState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        for (OriLine l : context.palette.getCP().getLines()) {
+        for (OriLine l : context.getPalette().getCP().getLines()) {
             OriPoint p0 = l.p0;
             p0.disableLandmark();
             p0.getV().disableLandmark();
@@ -47,7 +47,7 @@ public class LandmarkPaintState extends AbstractPaintState {
     protected boolean onAction(PaintContext context, Double currentPoint) {
         OriPoint p = context.getPointedOriPoint();
         if (p != null) {
-            for (OriLine l : context.palette.getCP().getLines()) {
+            for (OriLine l : context.getPalette().getCP().getLines()) {
                 OriPoint p0 = l.p0;
                 if (p.distance(p0) < Constants.EPS) {
                     p0.flipLandmark();

@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 import diamond.controller.paint.action.PaintScreenAction;
+import diamond.controller.paint.context.AbstractScreenContext;
 import diamond.controller.paint.context.PaintContext;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
@@ -30,38 +31,36 @@ import diamond.view.screen.draw.style.color.OriVertexColor;
 import diamond.view.screen.draw.style.color.Ui;
 
 public class PaintScreen extends AbstractScreen {
-    private PaintContext paintContext;
-    private ModelScreen modelScreen;
+    private PaintContext context;
+    private ModelScreen modelScreen;//TODO Screen cant have a screen
 
     public PaintScreen(PaintContext paintContext, ModelScreen modelScreen) {
         super(paintContext);
-        this.paintContext = paintContext;
+        this.context = paintContext;
         this.modelScreen = modelScreen;
         PaintScreenAction paintActionListnener = new PaintScreenAction(
                 paintContext);
         addMouseListener(paintActionListnener);
         addMouseMotionListener(paintActionListnener);
-        paintContext.palette.addObserver(this);
-
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, Ui.PAINT_SCREEN_BG);
-        paintContext.transform.ResizeWindow(getWidth(), getHeight());
-        g2d.setTransform(paintContext.transform.getTransform());
+        context.getTransform().ResizeWindow(getWidth(), getHeight());
+        g2d.setTransform(context.getTransform().getTransform());
         paintCreasePattern(g2d);
-        if (paintContext.getPaintAction() != null) {
-            paintContext.getPaintAction().onDraw(g2d, paintContext);
+        if (context.getPaintAction() != null) {
+            context.getPaintAction().onDraw(g2d, context);
         }
         modelScreen.repaint();
-        Debugger.debugPaintContext(g2d, paintContext);
+        Debugger.debugPaintContext(g2d, context);
 
     }
 
     private void paintCreasePattern(Graphics2D g2d) {
-        Cp cp = paintContext.palette.getCP();
+        Cp cp = context.getPalette().getCP();
         OriModel model = cp.getOriModel();
         paintFaces(g2d, model);
         paintVertices(g2d, model);
@@ -101,7 +100,7 @@ public class PaintScreen extends AbstractScreen {
     }
 
     private double getVertexSize(OriVertex vertex) {
-        double scale = paintContext.transform.getScale();
+        double scale = context.getTransform().getScale();
         if (vertex.isPickked()) {
             return VertexStyle.SIZE_PICKED / scale;
         }
@@ -131,6 +130,11 @@ public class PaintScreen extends AbstractScreen {
             StringDrawer.drawFaceNo(g2d, face, faces);
         }
 
+    }
+
+    @Override
+    public AbstractScreenContext getContext() {
+        return context;
     }
 
 }

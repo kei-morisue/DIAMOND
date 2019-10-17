@@ -8,11 +8,11 @@ package diamond.controller.paint.context;
  * @author long_
  *
  */
-public class ModelContext extends ScreenContext {
+public class ModelContext extends AbstractScreenContext {
 
     public ModelContext(Palette palette) {
         super(palette);
-        transform = palette.getDiagram().getTransform();
+        setTransform(palette.getDiagram().getTransform());
     }
 
 }

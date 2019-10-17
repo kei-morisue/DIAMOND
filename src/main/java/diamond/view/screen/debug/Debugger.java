@@ -24,7 +24,7 @@ public class Debugger {
 
         describe(g2d, paintContext.getPaintAction().getClass().getName(),
                 "Paint Action", 10);
-        OriModel oriModel = paintContext.palette.getOriModel();
+        OriModel oriModel = paintContext.getPalette().getOriModel();
         describe(g2d, oriModel.getFaces().size(), "Faces", 20);
         Set<OriVertex> vertices = oriModel.getVertices();
         describe(g2d, vertices.size(), "Vertices", 30);

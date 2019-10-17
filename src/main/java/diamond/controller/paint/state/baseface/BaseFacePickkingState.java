@@ -18,17 +18,17 @@ public class BaseFacePickkingState extends OriFacePickkingState {
     @Override
     protected void onResult(PaintContext context) {
         OriFace baseFace = context.getPointedOriFace();
-        OriModel oriModel = context.palette.getOriModel();
+        OriModel oriModel = context.getPalette().getOriModel();
         if (oriModel.getFaces().size() == 1) {
             oriModel.flip();
         }
         if (baseFace != null) {
             oriModel
                     .setBaseFace(baseFace);
-            context.palette.getCP()
+            context.getPalette().getCP()
                     .setBaseFaceCenter(OriFaceUtil.getCenterPoint(baseFace));
         }
-        context.palette.getCP().saveOrder();
+        context.getPalette().getCP().saveOrder();
         context.initialize();
     }
 

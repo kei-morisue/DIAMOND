@@ -28,7 +28,7 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        Set<OriVertex> vertices = context.palette.getOriModel()
+        Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         for (OriVertex vertex : vertices) {
             vertex.setPickked(false);
@@ -38,7 +38,7 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     @Override
     protected void onResult(PaintContext context) {
         OriPoint p = context.getPickedPoints().get(0);
-        Set<OriVertex> vertices = context.palette.getOriModel().getVertices();
+        Set<OriVertex> vertices = context.getPalette().getOriModel().getVertices();
         for (OriVertex vertex : vertices) {
             if (DistanceUtil.distance(p, vertex) < Constants.EPS) {
                 vertex.setPickked(!vertex.isPickked());

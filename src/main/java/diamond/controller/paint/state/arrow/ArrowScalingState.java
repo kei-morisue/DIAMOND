@@ -27,7 +27,7 @@ public class ArrowScalingState extends AbstractPaintState {
 
     @Override
     protected void undoAction(PaintContext context) {
-        Set<OriLine> lines = context.palette.getCP().getLines();
+        Set<OriLine> lines = context.getPalette().getCP().getLines();
         for (OriLine line : lines) {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {
@@ -50,7 +50,7 @@ public class ArrowScalingState extends AbstractPaintState {
     protected boolean onAction(PaintContext context, Double currentPoint) {
         Double p = context.getCurrentLogicalMousePoint();
         if (p != null) {
-            Cp cp = context.palette.getCP();
+            Cp cp = context.getPalette().getCP();
             for (OriLine line : cp.getLines()) {
                 AbstractArrow arrow = line.getArrow();
                 if (arrow != null) {

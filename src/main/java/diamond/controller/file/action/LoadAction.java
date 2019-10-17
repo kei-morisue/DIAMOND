@@ -45,11 +45,11 @@ public class LoadAction implements ActionListener {
             ProgressFrame frame = new ProgressFrame("loading");
             DataSet data = loader.load(path);
 
-            paintContext.palette.setDiagrams(data.getDiagrams());
-            LinkedList<Diagram> diagrams = paintContext.palette.getDiagrams();
-            paintContext.palette.setStepNo(diagrams.size() - 1);
-            modelContext.transform = modelContext.palette.getDiagram()
-                    .getTransform();
+            paintContext.getPalette().setDiagrams(data.getDiagrams());
+            LinkedList<Diagram> diagrams = paintContext.getPalette().getDiagrams();
+            paintContext.getPalette().setStepNo(diagrams.size() - 1);
+            modelContext.setTransform(modelContext.getPalette().getDiagram()
+                    .getTransform());
             for (Diagram diagram : diagrams) {
                 diagram.getCp().rebuildModel();
                 diagram.getCp().loadOrder();

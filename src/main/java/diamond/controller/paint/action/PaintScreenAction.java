@@ -26,7 +26,7 @@ public class PaintScreenAction
     @Override
     public void mouseMoved(MouseEvent e) {
         paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
-                paintContext.transform.getTransform(),
+                paintContext.getTransform().getTransform(),
                 e.getPoint()));
         paintContext.getPaintAction().onMove(paintContext);
         e.getComponent().repaint();
@@ -51,7 +51,7 @@ public class PaintScreenAction
     @Override
     public void mousePressed(MouseEvent e) {
         paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
-                paintContext.transform.getTransform(),
+                paintContext.getTransform().getTransform(),
                 e.getPoint()));
     }
 

@@ -28,7 +28,7 @@ public class DiagramInsertButton extends JButton {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                paintContext.palette.insertCp();
+                paintContext.getPalette().insertCp();
             }
         });
     }

@@ -53,7 +53,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
                 for (OriLine line : pickedLines) {
                     line.setType(LineType.CUT);
                 }
-                Set<OriLine> lines = context.palette.getCP().getLines();
+                Set<OriLine> lines = context.getPalette().getCP().getLines();
                 HashSet<OriLine> remove = new HashSet<OriLine>();
                 for (OriLine line : lines) {
                     if (!pickedLines.contains(line)
@@ -69,7 +69,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        context.getPalette().getCP().rebuildModel();
     }
 
 }

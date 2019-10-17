@@ -34,7 +34,7 @@ public class DeleteVertexState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        context.getPalette().getCP().rebuildModel();
 
     }
 
@@ -44,7 +44,7 @@ public class DeleteVertexState extends AbstractPaintState {
         if (pointedOriPoint != null) {
             LineRemover.merge2LinesAt(
                     pointedOriPoint,
-                    context.palette.getCP().getLines());
+                    context.getPalette().getCP().getLines());
             return true;
         }
         return false;

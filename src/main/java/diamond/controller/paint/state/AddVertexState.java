@@ -35,7 +35,7 @@ public class AddVertexState extends AbstractPaintState {
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        context.getPalette().getCP().rebuildModel();
 
     }
 
@@ -47,7 +47,7 @@ public class AddVertexState extends AbstractPaintState {
             LineDivider.divide(
                     pointedOriLine,
                     pointedOriPoint,
-                    context.palette.getCP().getLines());
+                    context.getPalette().getCP().getLines());
             return true;
         }
         return false;

@@ -8,34 +8,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JPanel;
 
 import diamond.controller.paint.action.ScreenAction;
-import diamond.controller.paint.context.ScreenContext;
+import diamond.controller.paint.context.AbstractScreenContext;
 
 /**
  * @author long_
  *
  */
 public abstract class AbstractScreen extends JPanel
-        implements ComponentListener, Observer {
-    public AbstractScreen(ScreenContext screenContext) {
+        implements ComponentListener {
+    public AbstractScreen(AbstractScreenContext screenContext) {
         addComponentListener(this);
         ScreenAction screenAction = new ScreenAction(screenContext);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
-        screenContext.addObserver(this);
-        screenContext.screen = this;
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        repaint();
-    }
+    public abstract AbstractScreenContext getContext();
 
     protected void drawBackGround(Graphics2D g2d, Color color) {
         g2d.setColor(color);

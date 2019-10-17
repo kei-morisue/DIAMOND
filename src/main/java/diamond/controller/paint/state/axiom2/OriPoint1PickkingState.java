@@ -34,14 +34,14 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
         OriPoint p1 = pickedPoints.get(1);
 
         OriLine line = BisectorUtil.getPerpendicularOriLine(p0, p1,
-                context.getInputLineType(), context.palette.getCP().getCutLines());
-        context.palette.getCP().addLine(line);
+                context.getInputLineType(), context.getPalette().getCP().getCutLines());
+        context.getPalette().getCP().addLine(line);
         pickedPoints.clear();
     }
 
     @Override
     protected void rebuild(PaintContext context) {
-        context.palette.getCP().rebuildModel();
+        context.getPalette().getCP().rebuildModel();
     }
 
 }

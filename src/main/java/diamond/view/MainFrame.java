@@ -60,11 +60,11 @@ public class MainFrame extends JFrame {
         center.add(panel, BorderLayout.CENTER);
         center.add(
                 new DiagramSwitchButton(DiagramSwitchButton.NEXT,
-                        modelContext),
+                        paintScreen, modelScreen),
                 BorderLayout.EAST);
         center.add(
                 new DiagramSwitchButton(DiagramSwitchButton.PREV,
-                        modelContext),
+                        paintScreen, modelScreen),
                 BorderLayout.WEST);
         center.add(
                 new DiagramDestroyButton(paintContext),

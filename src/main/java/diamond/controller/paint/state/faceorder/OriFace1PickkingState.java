@@ -41,14 +41,14 @@ public class OriFace1PickkingState extends OriFacePickkingState {
             OriFace f0 = picked.get(0);
             OriFace f1 = picked.get(1);
             if (f0 != f1) {
-                LinkedList<OriFace> faces = context.palette.getOriModel()
+                LinkedList<OriFace> faces = context.getPalette().getOriModel()
                         .getFaces();
                 faces.remove(f0);
                 int i1 = faces.indexOf(f1);
                 faces.add(i1, f0);
             }
         }
-        context.palette.getCP().saveOrder();
+        context.getPalette().getCP().saveOrder();
         context.initialize();
     }
 }
