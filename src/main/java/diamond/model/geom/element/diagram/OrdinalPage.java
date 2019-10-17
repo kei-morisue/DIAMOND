@@ -5,7 +5,7 @@
 package diamond.model.geom.element.diagram;
 
 import java.awt.GridLayout;
-import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -18,7 +18,7 @@ import diamond.view.screen.draw.style.PageStyle;
 public class OrdinalPage extends JPanel {
     private final static int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
 
-    public OrdinalPage(int pageNo, LinkedList<Diagram> diagrams) {
+    public OrdinalPage(int pageNo, Vector<Diagram> diagrams) {
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));

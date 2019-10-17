@@ -7,9 +7,7 @@ public class StringKey {
 
         CP,
 
-        INPUT_LINE,
         LINE_PATTERN,
-        MODIFY_LINE,
 
         AXIOM1,
         AXIOM2,
@@ -29,7 +27,7 @@ public class StringKey {
         DELETE_LINE,
         SYMMETRIC,
         MIRROR,
-        EDIT_VERTEX,
+        OFFSET_VERTEX_TAB,
         ADD_VERTEX,
         DELETE_VERTEX,
 
@@ -52,17 +50,16 @@ public class StringKey {
         OPTION,
 
         STYLE,
-        LINE_TAB,
+        LINE_STYLE_TAB,
+        FACE_STYLE_TAB,
         CLIPPING_SCALE,
 
-        FACE_TAB,
         FACE_FRONT_COLOR,
         FACE_BACK_COLOR,
         SELECT_VERTEX,
         SELECT_ALL_VERTEX,
         OFFSET,
 
-        DIAGRAM_TAB,
         VALLEY_ARROW,
         MOUNTAIN_ARROW,
         FOLD_UNFOLD_ARROW,
@@ -73,6 +70,11 @@ public class StringKey {
         LANDMARK,
         SELECT_ARROW,
         SCALE_ARROW,
+
+        FACE_MANAGEMENT_TAB,
+        ALTER_LINE_TYPE_TAB,
+        PAINT_LINES_TAB,
+        SIGNS_TAB,
 
     }
 

@@ -20,10 +20,10 @@ import diamond.view.resource.string.StringKey.WARNING;
  * @author long_
  *
  */
-public class DiagramDestroyButton extends JButton {
-    public DiagramDestroyButton(AbstractScreenContext context) {
+public class DestroyCpButton extends JButton {
+    public DestroyCpButton(AbstractScreenContext context) {
         setBackground(Color.white);
-        IconSetter.set(this, "destroy.gif");
+        IconSetter.set(this, "destroy.png");
         addActionListener(new ActionListener() {
 
             @Override
@@ -33,7 +33,7 @@ public class DiagramDestroyButton extends JButton {
                                 .getWarningString(WARNING.DESTROY)) == 0
                         && context.getPalette().size() != 1) {
                     context.getPalette()
-                            .remove(context.getPalette().getDiagram());
+                            .removeCp(context.getPalette().getDiagram());
                 }
 
             }

@@ -23,10 +23,10 @@ public class StyleFrame extends JFrame {
         setSize(Initials.STYLE_FRAME_WIDTH, Initials.STYLE_FRAME_HEIGHT);
         JTabbedPane pane = new JTabbedPane();
         pane.addTab(
-                ResourceHolder.getLabelString(LABEL.LINE_TAB),
+                ResourceHolder.getLabelString(LABEL.LINE_STYLE_TAB),
                 new LineOption());
         pane.addTab(
-                ResourceHolder.getLabelString(LABEL.FACE_TAB),
+                ResourceHolder.getLabelString(LABEL.FACE_STYLE_TAB),
                 new FaceOption());
 
         add(pane);

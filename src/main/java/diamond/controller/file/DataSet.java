@@ -1,19 +1,19 @@
 /** DIAMOND - Origami Diagram Editor*/
 package diamond.controller.file;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 import diamond.model.geom.element.diagram.Diagram;
 
 public class DataSet {
-    private LinkedList<Diagram> diagrams;
+    private Vector<Diagram> diagrams;
     private StyleSet styleSet;
 
     public DataSet() {
 
     }
 
-    public DataSet(LinkedList<Diagram> diagrams) {
+    public DataSet(Vector<Diagram> diagrams) {
         this.diagrams = diagrams;
         StyleSet style = new StyleSet();
         style.write();
@@ -24,11 +24,11 @@ public class DataSet {
 
     }
 
-    public LinkedList<Diagram> getDiagrams() {
+    public Vector<Diagram> getDiagrams() {
         return this.diagrams;
     }
 
-    public void setDiagrams(LinkedList<Diagram> diagrams) {
+    public void setDiagrams(Vector<Diagram> diagrams) {
         this.diagrams = diagrams;
     }
 

@@ -4,8 +4,8 @@
  */
 package diamond.controller.paint.context;
 
-import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Vector;
 
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.diagram.Diagram;
@@ -16,7 +16,7 @@ import diamond.model.geom.element.origami.OriModel;
  *
  */
 public class Palette extends Observable {
-    private LinkedList<Diagram> diagrams = new LinkedList<Diagram>();
+    private Vector<Diagram> diagrams = new Vector<Diagram>();
     private int stepNo = 0;// TODO move to PaintContext
 
     public Palette() {
@@ -35,7 +35,7 @@ public class Palette extends Observable {
         return oriModel;
     }
 
-    public void setDiagrams(LinkedList<Diagram> diagrams) {
+    public void setDiagrams(Vector<Diagram> diagrams) {
         this.diagrams = diagrams;
     }
 
@@ -45,7 +45,7 @@ public class Palette extends Observable {
 
     public Diagram getDiagram() {
         while (stepNo >= diagrams.size()) {
-            Diagram last = diagrams.getLast();
+            Diagram last = diagrams.lastElement();
             diagrams.add(new Diagram(last));
         }
         return diagrams.get(stepNo);
@@ -56,11 +56,11 @@ public class Palette extends Observable {
         stepNo += 1;
     }
 
-    public LinkedList<Diagram> getDiagrams() {
+    public Vector<Diagram> getDiagrams() {
         return this.diagrams;
     }
 
-    public void remove(Diagram diagram) {
+    public void removeCp(Diagram diagram) {
         int index = diagrams.indexOf(diagram);
         if (index == diagrams.size() - 1) {
             stepNo -= 1;

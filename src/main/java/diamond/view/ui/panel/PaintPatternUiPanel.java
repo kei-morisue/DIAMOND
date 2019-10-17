@@ -17,10 +17,10 @@ import diamond.view.resource.string.StringKey.LABEL;
  * @author long_
  *
  */
-public class InputLinePanel extends JPanel {
+public class PaintPatternUiPanel extends JPanel {
     ButtonGroup paintActionButtons;
 
-    public InputLinePanel(PaintContext context,
+    public PaintPatternUiPanel(PaintContext context,
             ButtonGroup paintActionButtons) {
         this.paintActionButtons = paintActionButtons;
         addInputLinePanel(context);
@@ -40,7 +40,6 @@ public class InputLinePanel extends JPanel {
                 LABEL.SYMMETRIC, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.MIRROR, context);
-
         UiPanelUtil.setBorder(
                 this,
                 ResourceHolder.getLabelString(LABEL.LINE_PATTERN));

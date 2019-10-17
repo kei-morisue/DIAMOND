@@ -5,13 +5,9 @@
 package diamond.view.screen.debug;
 
 import java.awt.Graphics2D;
-import java.util.Set;
 
 import diamond.controller.paint.context.PaintContext;
-import diamond.model.geom.element.origami.OriModel;
-import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.StringDrawer;
-import diamond.view.screen.draw.style.FontStyle;
 
 /**
  * @author long_
@@ -20,15 +16,14 @@ import diamond.view.screen.draw.style.FontStyle;
 public class Debugger {
     public static void debugPaintContext(Graphics2D g2d,
             PaintContext paintContext) {
-        g2d.setFont(FontStyle.DEBUG);
-
-        describe(g2d, paintContext.getPaintAction().getClass().getName(),
-                "Paint Action", 10);
-        OriModel oriModel = paintContext.getPalette().getOriModel();
-        describe(g2d, oriModel.getFaces().size(), "Faces", 20);
-        Set<OriVertex> vertices = oriModel.getVertices();
-        describe(g2d, vertices.size(), "Vertices", 30);
-        describe(g2d, paintContext.getPointedOriFace(), "OriFace", 50);
+        //        g2d.setFont(FontStyle.DEBUG);
+        //        describe(g2d, paintContext.getPaintAction().getClass().getName(),
+        //                "Paint Action", 10);
+        //        OriModel oriModel = paintContext.getPalette().getOriModel();
+        //        describe(g2d, oriModel.getFaces().size(), "Faces", 20);
+        //        Set<OriVertex> vertices = oriModel.getVertices();
+        //        describe(g2d, vertices.size(), "Vertices", 30);
+        //        describe(g2d, paintContext.getPointedOriFace(), "OriFace", 50);
     }
 
     private static void describe(

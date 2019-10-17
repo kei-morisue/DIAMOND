@@ -5,7 +5,7 @@
 package diamond.model.geom.element.diagram;
 
 import java.awt.GridLayout;
-import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
@@ -19,7 +19,7 @@ public class TopPage extends JPanel {
     private final static int n = PageStyle.DIAGRAM_ROW
             * PageStyle.DIAGRAM_COL - 1;
 
-    public TopPage(LinkedList<Diagram> diagrams) {
+    public TopPage(Vector<Diagram> diagrams) {
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));

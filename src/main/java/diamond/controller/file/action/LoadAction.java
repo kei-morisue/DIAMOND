@@ -8,7 +8,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 
@@ -46,7 +46,7 @@ public class LoadAction implements ActionListener {
             DataSet data = loader.load(path);
 
             paintContext.getPalette().setDiagrams(data.getDiagrams());
-            LinkedList<Diagram> diagrams = paintContext.getPalette().getDiagrams();
+            Vector<Diagram> diagrams = paintContext.getPalette().getDiagrams();
             paintContext.getPalette().setStepNo(diagrams.size() - 1);
             modelContext.setTransform(modelContext.getPalette().getDiagram()
                     .getTransform());

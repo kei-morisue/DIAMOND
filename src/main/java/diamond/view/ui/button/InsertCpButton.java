@@ -17,10 +17,10 @@ import diamond.view.resource.IconSetter;
  * @author long_
  *
  */
-public class DiagramInsertButton extends JButton {
-    public DiagramInsertButton(AbstractScreenContext context) {
+public class InsertCpButton extends JButton {
+    public InsertCpButton(AbstractScreenContext context) {
         setBackground(Color.white);
-        IconSetter.set(this, "insert.gif");
+        IconSetter.set(this, "insert.png");
         addActionListener(new ActionListener() {
 
             @Override

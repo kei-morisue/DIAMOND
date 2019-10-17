@@ -20,7 +20,7 @@ import diamond.view.screen.PaintScreen;
  * @author long_
  *
  */
-public class DiagramSwitchButton extends JButton {
+public class ModelSwitchButton extends JButton {
     public static final int PREV = -1;
     public static final int NEXT = 1;
 
@@ -28,7 +28,7 @@ public class DiagramSwitchButton extends JButton {
     private ModelScreen modelScreen;
     private PaintScreen paintScreen;
 
-    public DiagramSwitchButton(Integer direction, PaintScreen paintScreen,
+    public ModelSwitchButton(int direction, PaintScreen paintScreen,
             ModelScreen modelScreen) {
         setBackground(Color.white);
         this.direction = direction;
@@ -36,10 +36,10 @@ public class DiagramSwitchButton extends JButton {
         this.paintScreen = paintScreen;
         switch (direction) {
         case PREV:
-            IconSetter.set(this, "left.gif");
+            IconSetter.set(this, "left.png");
             break;
         default:
-            IconSetter.set(this, "right.gif");
+            IconSetter.set(this, "right.png");
             break;
         }
         addActionListener(new Action());
@@ -62,7 +62,6 @@ public class DiagramSwitchButton extends JButton {
             modelContext.setTransform(palette.getDiagram().getTransform());
             modelScreen.repaint();
             paintScreen.repaint();
-
         }
     }
 }

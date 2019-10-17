@@ -1,7 +1,7 @@
 
 package diamond.view;
 
-import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
@@ -15,16 +15,16 @@ import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.ModelScreen;
 import diamond.view.screen.PaintScreen;
 import diamond.view.ui.menu.MenuBar;
-import diamond.view.ui.panel.CenterPanel;
-import diamond.view.ui.panel.UiPanel;
+import diamond.view.ui.panel.EasternPane;
+import diamond.view.ui.panel.WesternPane;
 
 public class MainFrame extends JFrame {
     private Palette palette = new Palette();
 
     private ModelContext modelContext = new ModelContext(palette);
-    private ModelScreen modelScreen = new ModelScreen(modelContext);
-
     private PaintContext paintContext = new PaintContext(palette);
+
+    private ModelScreen modelScreen = new ModelScreen(modelContext);
     private PaintScreen paintScreen = new PaintScreen(paintContext,
             modelScreen);
 
@@ -32,11 +32,10 @@ public class MainFrame extends JFrame {
         setSize(Initials.MAIN_FRAME_WIDTH,
                 Initials.MAIN_FRAME_HEIGHT);
         IconSetter.set(this, "diamond.gif");
-        setTitle(ResourceHolder.getLabelString(
-                LABEL.TITLE));
-        add(new CenterPanel(paintScreen, modelScreen), BorderLayout.CENTER);
-
-        add(new UiPanel(paintContext), BorderLayout.WEST);
+        setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
+        setLayout(new GridLayout(1, 2));
+        add(new WesternPane(paintContext, modelScreen));
+        add(new EasternPane(paintScreen, modelScreen));
         setJMenuBar(new MenuBar(paintContext, modelContext));
 
         setLocationRelativeTo(null);

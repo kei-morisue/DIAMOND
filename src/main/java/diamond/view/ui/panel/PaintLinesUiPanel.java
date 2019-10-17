@@ -21,10 +21,10 @@ import diamond.view.resource.string.StringKey.LABEL;
  * @author long_
  *
  */
-public class LineTypePanel extends JPanel {
+public class PaintLinesUiPanel extends JPanel {
     ButtonGroup lineTypeButtons = new ButtonGroup();
 
-    public LineTypePanel(PaintContext context, ButtonGroup paintActionButtons) {
+    public PaintLinesUiPanel(PaintContext context, ButtonGroup paintActionButtons) {
         addLineTypePanel(context, paintActionButtons);
     }
 
@@ -38,10 +38,7 @@ public class LineTypePanel extends JPanel {
         addLineTypeButton(LABEL.CREASE, LineType.CREASE, context);
         addLineTypeButton(LABEL.NONE, LineType.NONE, context);
 
-        add(new InputLinePanel(context, paintActionButtons));
-        UiPanelUtil.setBorder(
-                this,
-                ResourceHolder.getLabelString(LABEL.INPUT_LINE));
+        add(new PaintPatternUiPanel(context, paintActionButtons));
     }
 
     private class LinetypeButtonAction implements ActionListener {

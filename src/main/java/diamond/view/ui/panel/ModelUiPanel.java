@@ -10,7 +10,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import diamond.controller.paint.context.PaintContext;
-import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -26,21 +25,12 @@ public class ModelUiPanel extends JPanel {
     }
 
     private void addModelEditPanel(PaintContext context) {
-        setLayout(new GridLayout(2, 3));
+        setLayout(new GridLayout(1, 2));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.BASE_FACE,
                 context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.FACE_TOP, context);
-        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.SELECT_VERTEX, context);
-        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.SELECT_ALL_VERTEX, context);
-        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.OFFSET, context);
-        UiPanelUtil.setBorder(
-                this,
-                ResourceHolder.getLabelString(LABEL.FACE));
     }
 
 }

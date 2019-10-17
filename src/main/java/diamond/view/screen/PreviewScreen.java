@@ -6,7 +6,7 @@ package diamond.view.screen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -44,7 +44,7 @@ public class PreviewScreen extends JPanel {
     }
 
     public JPanel buildPage() {
-        LinkedList<Diagram> diagrams = paintContext.getPalette().getDiagrams();
+        Vector<Diagram> diagrams = paintContext.getPalette().getDiagrams();
         if (pageNo == 0) {
             return new TopPage(diagrams);
 
