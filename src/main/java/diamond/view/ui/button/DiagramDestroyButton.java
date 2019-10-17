@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.AbstractScreenContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.WARNING;
@@ -21,10 +21,7 @@ import diamond.view.resource.string.StringKey.WARNING;
  *
  */
 public class DiagramDestroyButton extends JButton {
-    PaintContext paintContext;
-
-    public DiagramDestroyButton(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public DiagramDestroyButton(AbstractScreenContext context) {
         setBackground(Color.white);
         IconSetter.set(this, "destroy.gif");
         addActionListener(new ActionListener() {
@@ -34,9 +31,9 @@ public class DiagramDestroyButton extends JButton {
                 if (JOptionPane.showConfirmDialog(null,
                         ResourceHolder
                                 .getWarningString(WARNING.DESTROY)) == 0
-                        && paintContext.getPalette().size() != 1) {
-                    paintContext.getPalette()
-                            .remove(paintContext.getPalette().getDiagram());
+                        && context.getPalette().size() != 1) {
+                    context.getPalette()
+                            .remove(context.getPalette().getDiagram());
                 }
 
             }

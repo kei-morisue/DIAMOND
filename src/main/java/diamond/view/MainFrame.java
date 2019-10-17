@@ -2,10 +2,8 @@
 package diamond.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import diamond.Initials;
 import diamond.controller.paint.context.ModelContext;
@@ -16,10 +14,8 @@ import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.ModelScreen;
 import diamond.view.screen.PaintScreen;
-import diamond.view.ui.button.DiagramDestroyButton;
-import diamond.view.ui.button.DiagramInsertButton;
-import diamond.view.ui.button.DiagramSwitchButton;
 import diamond.view.ui.menu.MenuBar;
+import diamond.view.ui.panel.CenterPanel;
 import diamond.view.ui.panel.UiPanel;
 
 public class MainFrame extends JFrame {
@@ -38,7 +34,7 @@ public class MainFrame extends JFrame {
         IconSetter.set(this, "diamond.gif");
         setTitle(ResourceHolder.getLabelString(
                 LABEL.TITLE));
-        add(buildCenterPanel(), BorderLayout.CENTER);
+        add(new CenterPanel(paintScreen, modelScreen), BorderLayout.CENTER);
 
         add(new UiPanel(paintContext), BorderLayout.WEST);
         setJMenuBar(new MenuBar(paintContext, modelContext));
@@ -53,33 +49,4 @@ public class MainFrame extends JFrame {
         super.setTitle(ResourceHolder.getLabelString(LABEL.TITLE));
     }
 
-    private JPanel buildCenterPanel() {
-        JPanel center = new JPanel();
-        center.setLayout(new BorderLayout());
-        JPanel panel = buildScreens();
-        center.add(panel, BorderLayout.CENTER);
-        center.add(
-                new DiagramSwitchButton(DiagramSwitchButton.NEXT,
-                        paintScreen, modelScreen),
-                BorderLayout.EAST);
-        center.add(
-                new DiagramSwitchButton(DiagramSwitchButton.PREV,
-                        paintScreen, modelScreen),
-                BorderLayout.WEST);
-        center.add(
-                new DiagramDestroyButton(paintContext),
-                BorderLayout.SOUTH);
-        center.add(
-                new DiagramInsertButton(paintContext),
-                BorderLayout.NORTH);
-        return center;
-    }
-
-    private JPanel buildScreens() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
-        panel.add(paintScreen);
-        panel.add(modelScreen);
-        return panel;
-    }
 }

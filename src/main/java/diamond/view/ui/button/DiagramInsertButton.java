@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.AbstractScreenContext;
 import diamond.view.resource.IconSetter;
 
 /**
@@ -18,17 +18,14 @@ import diamond.view.resource.IconSetter;
  *
  */
 public class DiagramInsertButton extends JButton {
-    PaintContext paintContext;
-
-    public DiagramInsertButton(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public DiagramInsertButton(AbstractScreenContext context) {
         setBackground(Color.white);
         IconSetter.set(this, "insert.gif");
         addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                paintContext.getPalette().insertCp();
+                context.getPalette().insertCp();
             }
         });
     }
