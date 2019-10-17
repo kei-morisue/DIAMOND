@@ -21,7 +21,7 @@ public class ScreenTransform {
     private AffineTransform affineTransform = new AffineTransform();
 
     public ScreenTransform() {
-
+        focus(0, 0);
     }
 
     public ScreenTransform(int width, int height) {

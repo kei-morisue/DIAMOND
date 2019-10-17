@@ -22,17 +22,10 @@ import diamond.model.geom.element.origami.OriFace;
 public class PaintContext extends ScreenContext {
 
     private LineType inputLineType = LineType.UNSETTLED_VALLEY;
-
     private Point2D.Double currentLogicalMousePoint = null;
-
-    private OriPoint pointedOriPoint = null;
-    private OriLine pointedOriLine = null;
-    private OriFace pointedOriFace = null;
-
+    private PointedElement pointedElement = new PointedElement();
     private PickedElements pickedElements = new PickedElements();
-
     private PaintActionInterface paintAction = new Axiom1Action();
-
     private File file = null;
 
     public PaintContext(Palette palette) {
@@ -40,7 +33,7 @@ public class PaintContext extends ScreenContext {
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
-        OriPoint candidate = pointedOriPoint;
+        OriPoint candidate = pointedElement.getOriPoint();
 
         if (candidate == null && enableFreePoint) {
             Point2D.Double mp = currentLogicalMousePoint;
@@ -76,8 +69,7 @@ public class PaintContext extends ScreenContext {
     public void initialize() {
         screen.repaint();
         pickedElements.clear();
-        pointedOriLine = null;
-        pointedOriPoint = null;
+        pointedElement.clear();
     }
 
     public PaintActionInterface getPaintAction() {
@@ -97,27 +89,27 @@ public class PaintContext extends ScreenContext {
     }
 
     public OriFace getPointedOriFace() {
-        return pointedOriFace;
+        return pointedElement.getOriFace();
     }
 
-    public void setPointedOriFace(OriFace pointedOriFace) {
-        this.pointedOriFace = pointedOriFace;
+    public void setPointedOriFace(OriFace oriFace) {
+        pointedElement.setOriFace(oriFace);
     }
 
     public OriLine getPointedOriLine() {
-        return pointedOriLine;
+        return pointedElement.getOriLine();
     }
 
-    public void setPointedOriLine(OriLine pointedOriLine) {
-        this.pointedOriLine = pointedOriLine;
+    public void setPointedOriLine(OriLine oriLine) {
+        pointedElement.setOriLine(oriLine);
     }
 
     public OriPoint getPointedOriPoint() {
-        return pointedOriPoint;
+        return pointedElement.getOriPoint();
     }
 
-    public void setPointedOriPoint(OriPoint pointedOriPoint) {
-        this.pointedOriPoint = pointedOriPoint;
+    public void setPointedOriPoint(OriPoint oriPoint) {
+        pointedElement.setOriPoint(oriPoint);
     }
 
     public Point2D.Double getCurrentLogicalMousePoint() {

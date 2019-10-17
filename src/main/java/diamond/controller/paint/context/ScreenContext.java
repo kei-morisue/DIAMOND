@@ -16,8 +16,7 @@ import diamond.view.screen.ScreenTransform;
 public class ScreenContext extends Observable {
     public AbstractScreen screen;
     public Palette palette;
-    public ScreenTransform transform = new ScreenTransform(0,
-            0);
+    public ScreenTransform transform = new ScreenTransform();
 
     public ScreenContext(Palette palette) {
         this.palette = palette;

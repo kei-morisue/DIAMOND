@@ -14,11 +14,42 @@ import diamond.model.geom.element.origami.OriFace;
  */
 public class PointedElement {
 
-    private OriPoint pointedOriPoint = null;
-    private OriLine pointedOriLine = null;
-    private OriFace pointedOriFace = null;
+    private OriPoint oriPoint = null;
+    private OriLine oriLine = null;
+    private OriFace oriFace = null;
 
     public PointedElement() {
 
     }
+
+    public void clear() {
+        oriLine = null;
+        oriPoint = null;
+        oriFace = null;
+    }
+
+    public OriPoint getOriPoint() {
+        return oriPoint;
+    }
+
+    public void setOriPoint(OriPoint oriPoint) {
+        this.oriPoint = oriPoint;
+    }
+
+    public OriLine getOriLine() {
+        return oriLine;
+    }
+
+    public void setOriLine(OriLine oriLine) {
+        this.oriLine = oriLine;
+    }
+
+    public OriFace getOriFace() {
+        return oriFace;
+    }
+
+    public void setOriFace(OriFace oriFace) {
+        this.oriFace = oriFace;
+    }
+
 }
