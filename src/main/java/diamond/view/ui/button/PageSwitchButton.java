@@ -32,10 +32,10 @@ public class PageSwitchButton extends JButton {
         this.direction = direction;
         switch (direction) {
         case PREV:
-            IconSetter.set(this, "left.gif");
+            IconSetter.set(this, "left.png");
             break;
         default:
-            IconSetter.set(this, "right.gif");
+            IconSetter.set(this, "right.png");
             break;
         }
         addActionListener(new Action());
