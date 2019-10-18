@@ -35,8 +35,8 @@ public class ExportAction implements ActionListener {
         JFileChooser chooser = new JFileChooser();
         String path = null;
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        if (paintScreenContext.getFile() != null) {
-            path = paintScreenContext.getFile().getPath();
+        if (paintScreenContext.getFileInformation() != null) {
+            path = paintScreenContext.getFileInformation().getPath();
         } else if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             path = chooser.getSelectedFile().getPath();
@@ -44,7 +44,7 @@ public class ExportAction implements ActionListener {
         DataSet data = new DataSet(
                 context.getPalette().getDiagrams());
 
-        paintScreenContext.setFile(new File(path));
+        paintScreenContext.setFileInformation(new File(path));
         ProgressFrame frame = new ProgressFrame("saving");
 
         ExporterXML exporterXML = new ExporterXML();

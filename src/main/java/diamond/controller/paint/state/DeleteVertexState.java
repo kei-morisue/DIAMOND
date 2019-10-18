@@ -8,6 +8,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.cp.editor.LineRemover;
 
@@ -43,7 +44,9 @@ public class DeleteVertexState extends AbstractPaintState {
     protected boolean onAction(Context context,
             Double currentPoint) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriPoint pointedOriPoint = paintScreenContext.getPointedOriPoint();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriPoint pointedOriPoint = pointedElements.getOriPoint();
         if (pointedOriPoint != null) {
             LineRemover.merge2LinesAt(
                     pointedOriPoint,

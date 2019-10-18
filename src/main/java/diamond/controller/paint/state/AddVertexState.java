@@ -8,6 +8,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.palette.cp.editor.LineDivider;
@@ -44,9 +45,10 @@ public class AddVertexState extends AbstractPaintState {
     protected boolean onAction(Context context,
             Double currentPoint) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriPoint pointedOriPoint = paintScreenContext
-                .getPointedOriPoint();
-        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriPoint pointedOriPoint = pointedElements.getOriPoint();
+        OriLine pointedOriLine = pointedElements.getOriLine();
         if (pointedOriPoint != null && pointedOriLine != null) {
             LineDivider.divide(
                     pointedOriLine,

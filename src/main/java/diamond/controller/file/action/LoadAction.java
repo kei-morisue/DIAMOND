@@ -58,7 +58,7 @@ public class LoadAction implements ActionListener {
             }
             data.getStyleSet().apply();
             frame.done();
-            context.getPaintScreenContext().setFile(new File(path));
+            context.getPaintScreenContext().setFileInformation(new File(path));
         }
     }
 }

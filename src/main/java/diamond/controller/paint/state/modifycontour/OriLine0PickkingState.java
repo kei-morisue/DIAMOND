@@ -11,6 +11,8 @@ import java.util.Stack;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -36,21 +38,25 @@ public class OriLine0PickkingState extends OriLinePickkingState {
             return false;
         }
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        Stack<OriLine> pickedLines = pickedElements.getOriLines();
         if (pickedLines.size() > 0
                 && !OriLineUtil.isConnected(picked, pickedLines.peek())) {
             return false;
         }
         pickedLines.push(picked);
-        paintScreenContext.setPointedOriLine(picked);
+        paintScreenContext.getPointedElements().setOriLine(picked);
         return true;
     }
 
     @Override
     protected void onResult(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
-        Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriLine pointedOriLine = pointedElements.getOriLine();
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        Stack<OriLine> pickedLines = pickedElements.getOriLines();
         if (pointedOriLine != null && pickedLines.size() > 2) {
             if (OriLineUtil.isConnected(pointedOriLine, pickedLines.get(0))) {
                 for (OriLine line : pickedLines) {

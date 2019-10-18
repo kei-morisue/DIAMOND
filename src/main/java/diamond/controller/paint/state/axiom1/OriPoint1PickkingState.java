@@ -28,7 +28,8 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
     @Override
     protected void onResult(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        Stack<OriPoint> pickedPoint = paintScreenContext.getPickedPoints();
+        Stack<OriPoint> pickedPoint = paintScreenContext.getPickedElements()
+                .getOriPoints();
         if (pickedPoint.size() != 2) {
             throw new RuntimeException();
         }

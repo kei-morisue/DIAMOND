@@ -11,9 +11,7 @@ import java.util.Stack;
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.model.geom.element.LineType;
-import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
-import diamond.model.geom.element.origami.OriFace;
 import diamond.view.screen.ScreenTransform;
 
 /**
@@ -29,31 +27,31 @@ public class PaintScreenContext implements ScreenContext {
     private PaintActionInterface paintAction = new Axiom1Action();
     protected ScreenTransform transform = new ScreenTransform();
 
-    private File file = null;
+    private File fileInformation = null;
 
     public PaintScreenContext(Palette palette) {
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
         OriPoint candidate = pointedElement.getOriPoint();
-
         if (candidate == null && enableFreePoint) {
             Point2D.Double mp = currentLogicalMousePoint;
             candidate = new OriPoint(mp.x, mp.y);
         }
-
         return candidate;
     }
 
     public void popLatestPickedPoint() {
-        if (getPickedPoints().isEmpty()) {
+        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
+        if (oriPoints.isEmpty()) {
             return;
         }
-        getPickedPoints().pop();
+        oriPoints.pop();
     }
 
     public void pushPoint(OriPoint p) {
-        getPickedPoints().push(p);
+        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
+        oriPoints.push(p);
     }
 
     @Override
@@ -70,12 +68,12 @@ public class PaintScreenContext implements ScreenContext {
         this.paintAction = paintAction;
     }
 
-    public File getFile() {
-        return file;
+    public File getFileInformation() {
+        return fileInformation;
     }
 
-    public void setFile(File file) {
-        this.file = file;
+    public void setFileInformation(File file) {
+        this.fileInformation = file;
     }
 
     public Point2D.Double getCurrentLogicalMousePoint() {
@@ -113,40 +111,40 @@ public class PaintScreenContext implements ScreenContext {
         return pointedElement;
     }
 
-    public Stack<OriLine> getPickedLines() {
-        return pickedElements.getOriLines();
-    }
-
-    public Stack<OriPoint> getPickedPoints() {
-        return pickedElements.getOriPoints();
-    }
-
-    public Stack<OriFace> getPickedOriFaces() {
-        return pickedElements.getOriFaces();
-    }
-
-    public OriFace getPointedOriFace() {
-        return pointedElement.getOriFace();
-    }
-
-    public OriLine getPointedOriLine() {
-        return pointedElement.getOriLine();
-    }
-
-    public OriPoint getPointedOriPoint() {
-        return pointedElement.getOriPoint();
-    }
-
-    public void setPointedOriLine(OriLine oriLine) {
-        pointedElement.setOriLine(oriLine);
-    }
-
-    public void setPointedOriPoint(OriPoint oriPoint) {
-        pointedElement.setOriPoint(oriPoint);
-    }
-
-    public void setPointedOriFace(OriFace oriFace) {
-        pointedElement.setOriFace(oriFace);
-    }
+    //    public Stack<OriLine> getPickedLines() {
+    //        return pickedElements.getOriLines();
+    //    }
+    //
+    //    public Stack<OriPoint> getPickedPoints() {
+    //        return pickedElements.getOriPoints();
+    //    }
+    //
+    //    public Stack<OriFace> getPickedOriFaces() {
+    //        return pickedElements.getOriFaces();
+    //    }
+    //
+    //    public OriFace getPointedOriFace() {
+    //        return pointedElement.getOriFace();
+    //    }
+    //
+    //    public OriLine getPointedOriLine() {
+    //        return pointedElement.getOriLine();
+    //    }
+    //
+    //    public OriPoint getPointedOriPoint() {
+    //        return pointedElement.getOriPoint();
+    //    }
+    //
+    //    public void setPointedOriLine(OriLine oriLine) {
+    //        pointedElement.setOriLine(oriLine);
+    //    }
+    //
+    //    public void setPointedOriPoint(OriPoint oriPoint) {
+    //        pointedElement.setOriPoint(oriPoint);
+    //    }
+    //
+    //    public void setPointedOriFace(OriFace oriFace) {
+    //        pointedElement.setOriFace(oriFace);
+    //    }
 
 }

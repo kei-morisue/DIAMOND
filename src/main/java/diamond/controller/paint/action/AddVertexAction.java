@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.AddVertexState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -28,16 +29,19 @@ public class AddVertexAction extends AbstractPaintAction {
     public Point2D.Double onMove(Context context) {
         setCandidateLineOnMove(context);
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriLine pointedOriLine = pointedElements.getOriLine();
+        OriPoint oriPoint = pointedElements.getOriPoint();
         if (pointedOriLine != null) {
-            paintScreenContext.setPointedOriPoint(new OriPoint());
+            pointedElements.setOriPoint(new OriPoint());
             DistanceUtil.distancePointToSegment(
                     paintScreenContext.getCurrentLogicalMousePoint(),
                     pointedOriLine.p0,
                     pointedOriLine.p1,
-                    paintScreenContext.getPointedOriPoint());
+                    oriPoint);
         }
-        return paintScreenContext.getPointedOriPoint();
+        return oriPoint;
     }
 
     @Override

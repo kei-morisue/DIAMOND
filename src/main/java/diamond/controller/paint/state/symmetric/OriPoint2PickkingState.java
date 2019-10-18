@@ -9,6 +9,7 @@ import java.util.Stack;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -29,7 +30,8 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
     @Override
     protected void onResult(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        Stack<OriPoint> pickedPoints = paintScreenContext.getPickedPoints();
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        Stack<OriPoint> pickedPoints = pickedElements.getOriPoints();
         if (pickedPoints.size() != 3) {
             throw new RuntimeException();
         }

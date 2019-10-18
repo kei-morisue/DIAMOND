@@ -8,6 +8,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
@@ -47,7 +48,9 @@ public class LandmarkPaintState extends AbstractPaintState {
     @Override
     protected boolean onAction(Context context, Double currentPoint) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriPoint p = paintScreenContext.getPointedOriPoint();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriPoint p = pointedElements.getOriPoint();
         if (p != null) {
             for (OriLine l : context.getPalette().getCP().getLines()) {
                 OriPoint p0 = l.p0;

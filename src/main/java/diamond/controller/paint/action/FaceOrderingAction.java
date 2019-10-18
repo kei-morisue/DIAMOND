@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.faceorder.OriFace0PickkingState;
 
 /**
@@ -31,7 +32,8 @@ public class FaceOrderingAction extends AbstractPaintAction {
     public Point2D.Double onMove(Context context) {
         setCandidateFaceOnMove(context);
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        return paintScreenContext.getPointedOriPoint();
+        PointedElement pointedElements = paintScreenContext.getPointedElements();
+        return pointedElements.getOriPoint();
     }
 
 }

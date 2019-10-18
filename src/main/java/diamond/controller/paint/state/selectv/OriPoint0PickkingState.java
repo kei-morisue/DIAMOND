@@ -8,6 +8,7 @@ import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriPoint;
@@ -39,7 +40,8 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     @Override
     protected void onResult(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriPoint p = paintScreenContext.getPickedPoints().get(0);
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        OriPoint p = pickedElements.getOriPoints().get(0);
         Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         for (OriVertex vertex : vertices) {
@@ -47,7 +49,7 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
                 vertex.setPickked(!vertex.isPickked());
             }
         }
-        paintScreenContext.getPickedPoints().clear();
+        paintScreenContext.initialize();
     }
 
     @Override

@@ -9,6 +9,8 @@ import java.util.Stack;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
+import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriLine;
 
 /**
@@ -19,7 +21,8 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
     @Override
     protected void undoAction(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        if (paintScreenContext.getPickedLines().size() > 0) {
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        if (pickedElements.getOriLines().size() > 0) {
             paintScreenContext.popLatestPickedPoint();
         }
     }
@@ -32,9 +35,13 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
     @Override
     protected boolean onAction(Context context, Double currentPoint) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriLine pointedOriLine = pointedElements.getOriLine();
         if (pointedOriLine != null) {
-            Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
+            PickedElements pickedElements = paintScreenContext
+                    .getPickedElements();
+            Stack<OriLine> pickedLines = pickedElements.getOriLines();
             if (pickedLines.contains(pointedOriLine)) {
                 pickedLines.remove(pointedOriLine);
             } else {

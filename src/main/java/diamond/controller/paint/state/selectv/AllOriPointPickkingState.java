@@ -42,7 +42,7 @@ public class AllOriPointPickkingState extends OriPointPickkingState {
             vertex.setPickked(true);
         }
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        paintScreenContext.getPickedPoints().clear();
+        paintScreenContext.initialize();
     }
 
     @Override

@@ -8,6 +8,8 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
+import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.util.NearestPointFinder;
 
@@ -20,7 +22,8 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
     @Override
     protected void undoAction(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        if (paintScreenContext.getPickedPoints().size() > 0) {
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        if (pickedElements.getOriPoints().size() > 0) {
             paintScreenContext.popLatestPickedPoint();
         }
     }
@@ -35,7 +38,8 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
         }
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         paintScreenContext.pushPoint(picked);
-        paintScreenContext.setPointedOriPoint(picked);
+        PointedElement pointedElements = paintScreenContext.getPointedElements();
+        pointedElements.setOriPoint(picked);
         return true;
     }
 

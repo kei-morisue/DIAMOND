@@ -6,6 +6,7 @@ package diamond.controller.paint.state;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 
@@ -24,10 +25,10 @@ public class SettleUnsettleLineTypeState extends OriLinePickkingState {
     @Override
     protected void onResult(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        OriLine oriLine = paintScreenContext.getPickedLines()
-                .get(0);
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        OriLine oriLine = pickedElements.getOriLines().get(0);
         oriLine.setType(LineType.getAuxType(oriLine.getType()));
-        paintScreenContext.getPickedLines().clear();
+        paintScreenContext.initialize();
     }
 
 }

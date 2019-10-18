@@ -7,9 +7,12 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
+import java.util.Stack;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -82,31 +85,40 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         setCandidateLineOnMove(context);
 
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        return paintScreenContext.getPointedOriPoint();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        return pointedElements.getOriPoint();
     }
 
     protected final void setCandidateVertexOnMove(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        paintScreenContext
-                .setPointedOriPoint(NearestPointFinder.findAround(context));
+        OriPoint findAround = NearestPointFinder.findAround(context);
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.setOriPoint(findAround);
 
     }
 
     protected final void setCandidateLineOnMove(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        paintScreenContext
-                .setPointedOriLine(NearestLineFinder.findAround(context));
+        OriLine findAround = NearestLineFinder.findAround(context);
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.setOriLine(findAround);
     }
 
     protected final void setCandidateFaceOnMove(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        if (paintScreenContext.getPointedOriFace() != null) {
-            paintScreenContext.getPointedOriFace().isPointed = false;
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriFace oriFace = pointedElements.getOriFace();
+        if (oriFace != null) {
+            oriFace.isPointed = false;
         }
-        paintScreenContext
-                .setPointedOriFace(NearestFaceFinder.findAround(context));
-        if (paintScreenContext.getPointedOriFace() != null) {
-            paintScreenContext.getPointedOriFace().isPointed = true;
+        OriFace findAround = NearestFaceFinder.findAround(context);
+        paintScreenContext.getPointedElements().setOriFace(findAround);
+        if (oriFace != null) {
+            oriFace.isPointed = true;
         }
     }
 
@@ -123,10 +135,12 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     };
 
     protected void drawPickedLines(Graphics2D g2d, PaintScreenContext context) {
-        for (int i = 0; i < context.getPickedLines().size(); i++) {
+        PickedElements pickedElements = context.getPickedElements();
+        Stack<OriLine> oriLines = pickedElements.getOriLines();
+        for (int i = 0; i < oriLines.size(); i++) {
             OriLineDrawer.drawLine(
                     g2d,
-                    context.getPickedLines().get(i),
+                    oriLines.get(i),
                     OriLineColor.PICKED,
                     LineStyle.STROKE_PICKED);
         }
@@ -134,8 +148,10 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPickedPoints(Graphics2D g2d,
             PaintScreenContext context) {
-        for (int i = 0; i < context.getPickedPoints().size(); i++) {
-            OriPoint point = context.getPickedPoints().get(i);
+        PickedElements pickedElements = context.getPickedElements();
+        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
+        for (int i = 0; i < oriPoints.size(); i++) {
+            OriPoint point = oriPoints.get(i);
             OriPointDrawer.drawPoint(
                     g2d, point,
                     VertexStyle.SIZE_PICKED / context.getTransform().getScale(),
@@ -145,11 +161,12 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedPoint(Graphics2D g2d,
             PaintScreenContext context) {
-        if (context.getPointedOriPoint() != null) {
-            OriPoint candidate = context.getPointedOriPoint();
+        PointedElement pointedElements = context.getPointedElements();
+        OriPoint oriPoint = pointedElements.getOriPoint();
+        if (oriPoint != null) {
             OriPointDrawer.drawPoint(
                     g2d,
-                    candidate,
+                    oriPoint,
                     VertexStyle.SIZE_POINTED
                             / context.getTransform().getScale(),
                     OriPointColor.ORIPOINT_POINTED);
@@ -171,11 +188,12 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedLine(Graphics2D g2d,
             PaintScreenContext context) {
-        if (context.getPointedOriLine() != null) {
-            OriLine candidate = context.getPointedOriLine();
+        PointedElement pointedElements = context.getPointedElements();
+        OriLine oriLine = pointedElements.getOriLine();
+        if (oriLine != null) {
             OriLineDrawer.drawLine(
                     g2d,
-                    candidate,
+                    oriLine,
                     OriLineColor.POINTED,
                     LineStyle.STROKE_POINTED);
         }
@@ -183,7 +201,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPointedFace(Graphics2D g2d,
             PaintScreenContext context) {
-        OriFace face = context.getPointedOriFace();
+        PointedElement pointedElements = context.getPointedElements();
+        OriFace face = pointedElements.getOriFace();
         if (face != null) {
             OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_POINTED);
         }
@@ -191,15 +210,18 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     protected void drawPickedFaces(Graphics2D g2d,
             PaintScreenContext context) {
-        for (OriFace face : context.getPickedOriFaces()) {
+        PickedElements pickedElements = context.getPickedElements();
+        for (OriFace face : pickedElements.getOriFaces()) {
             OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_PICKED);
         }
     }
 
     protected void drawTemporaryLine(Graphics2D g2d,
             PaintScreenContext context) {
-        if (context.getPickedPoints().size() > 0) {
-            OriPoint picked = context.getPickedPoints().peek();
+        PickedElements pickedElements = context.getPickedElements();
+        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
+        if (oriPoints.size() > 0) {
+            OriPoint picked = oriPoints.peek();
             OriLineDrawer.drawLine(g2d,
                     new OriLine(new OriPoint(picked.x, picked.y),
                             context.getCandidateOriPoint(true),

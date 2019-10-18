@@ -25,7 +25,7 @@ public class ArrowPaintState extends AbstractPaintState {
     @Override
     protected void undoAction(Context context) {
         OriLine pointedOriLine = context.getPaintScreenContext()
-                .getPointedOriLine();
+                .getPointedElements().getOriLine();
         if (pointedOriLine != null) {
             AbstractArrow arrow = pointedOriLine.getArrow();
             if (arrow != null) {
@@ -47,7 +47,7 @@ public class ArrowPaintState extends AbstractPaintState {
     @Override
     protected boolean onAction(Context context, Double currentPoint) {
         OriLine pointedOriLine = context.getPaintScreenContext()
-                .getPointedOriLine();
+                .getPointedElements().getOriLine();
         if (pointedOriLine != null) {
             AbstractArrow arrow = pointedOriLine.getArrow();
             if (arrow != null) {
