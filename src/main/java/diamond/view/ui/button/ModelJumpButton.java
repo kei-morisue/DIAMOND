@@ -22,26 +22,26 @@ import diamond.view.screen.PaintScreen;
  * @author long_
  *
  */
-public class ModelSwitchButton extends JButton {
-    public static final int PREV = -1;
-    public static final int NEXT = 1;
+public class ModelJumpButton extends JButton {
+    public static final int BOTTOM = -1;
+    public static final int TOP = 1;
 
     private int direction;
     private ModelScreen modelScreen;
     private PaintScreen paintScreen;
 
-    public ModelSwitchButton(int direction, PaintScreen paintScreen,
+    public ModelJumpButton(int direction, PaintScreen paintScreen,
             ModelScreen modelScreen) {
         setBackground(Color.white);
         this.direction = direction;
         this.modelScreen = modelScreen;
         this.paintScreen = paintScreen;
         switch (direction) {
-        case PREV:
-            IconSetter.set(this, "left.png");
+        case BOTTOM:
+            IconSetter.set(this, "dleft.png");
             break;
         default:
-            IconSetter.set(this, "right.png");
+            IconSetter.set(this, "dright.png");
             break;
         }
         addActionListener(new Action());
@@ -52,15 +52,15 @@ public class ModelSwitchButton extends JButton {
         public void actionPerformed(ActionEvent e) {
             Context context = modelScreen.getContext();
             Palette palette = context.getPalette();
-            if (palette.getStepNo() == 0 && direction == PREV) {
-                return;
+            switch (direction) {
+            case BOTTOM:
+                palette.setStepNo(0, context);
+                break;
+            default:
+                Vector<Diagram> diagrams = palette.getDiagrams();
+                palette.setStepNo(diagrams.size() - 1, context);
+                break;
             }
-            Vector<Diagram> diagrams = palette.getDiagrams();
-            if (diagrams.size() == palette.getStepNo()
-                    && direction == NEXT) {
-                return;
-            }
-            palette.setStepNo(palette.getStepNo() + direction, context);
             modelScreen.repaint();
             paintScreen.repaint();
         }

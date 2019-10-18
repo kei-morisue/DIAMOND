@@ -25,7 +25,6 @@ public class PaintScreenContext implements ScreenContext {
     private PickedElements pickedElements = new PickedElements();
     private PaintActionInterface paintAction = new Axiom1Action();
     protected ScreenTransform transform = new ScreenTransform();
-
     private File fileInformation = null;
 
     public PaintScreenContext(Palette palette) {

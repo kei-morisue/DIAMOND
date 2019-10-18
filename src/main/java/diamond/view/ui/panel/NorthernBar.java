@@ -4,6 +4,7 @@
  */
 package diamond.view.ui.panel;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import diamond.controller.paint.context.Context;
 import diamond.view.screen.ModelScreen;
 import diamond.view.screen.PaintScreen;
+import diamond.view.ui.button.ModelJumpButton;
 import diamond.view.ui.button.ModelSwitchButton;
 
 /**
@@ -20,14 +22,27 @@ import diamond.view.ui.button.ModelSwitchButton;
 public class NorthernBar extends JPanel {
     public NorthernBar(PaintScreen paintScreen,
             ModelScreen modelScreen) {
-        setLayout(new FlowLayout());
-        add(new ModelSwitchButton(ModelSwitchButton.PREV,
+        setLayout(new BorderLayout());
+        add(new ModelJumpButton(ModelJumpButton.TOP,
+                paintScreen, modelScreen), BorderLayout.EAST);
+        add(new ModelJumpButton(ModelJumpButton.BOTTOM,
+                paintScreen, modelScreen), BorderLayout.WEST);
+
+        add(builCenterPanel(paintScreen, modelScreen), BorderLayout.CENTER);
+
+    }
+
+    private JPanel builCenterPanel(PaintScreen paintScreen,
+            ModelScreen modelScreen) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(new ModelSwitchButton(ModelSwitchButton.PREV,
                 paintScreen, modelScreen));
-        add(new ModelSwitchButton(ModelSwitchButton.NEXT,
+        panel.add(new ModelSwitchButton(ModelSwitchButton.NEXT,
                 paintScreen, modelScreen));
         Context context = paintScreen.getContext();
-        add(new StepNoComboBox(
+        panel.add(new StepNoComboBox(
                 context.getPalette()));
-
+        return panel;
     }
 }

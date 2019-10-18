@@ -10,6 +10,7 @@ import java.util.Vector;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.origami.OriModel;
+import diamond.view.screen.ScreenTransform;
 
 /**
  * @author long_
@@ -17,14 +18,10 @@ import diamond.model.geom.element.origami.OriModel;
  */
 public class Palette extends Observable {
     private Vector<Diagram> diagrams = new Vector<Diagram>();
-    private int stepNo = 0;// TODO move to PaintContext
+    private int stepNo = 0;// TODO move to Context
 
     public Palette() {
         diagrams.add(new Diagram());
-    }
-
-    public int size() {
-        return diagrams.size();
     }
 
     public OriModel getOriModel() {
@@ -74,7 +71,15 @@ public class Palette extends Observable {
         return this.stepNo;
     }
 
-    public void setStepNo(int stepNo) {
+    public void setStepNo(int stepNo, Context context) {
+        ModelScreenContext modelScreenContext = context.getModelScreenContext();
+        ScreenTransform transform = modelScreenContext.getTransform();
+        Diagram diagram = context.getPalette().getDiagram();
+        diagram.setTransform(transform);
         this.stepNo = stepNo;
+        diagram = getDiagram();
+        transform = diagram.getTransform();
+        modelScreenContext.setTransform(transform);
+
     }
 }
