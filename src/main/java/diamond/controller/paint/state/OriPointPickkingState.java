@@ -24,7 +24,7 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PickedElements pickedElements = paintScreenContext.getPickedElements();
         if (pickedElements.getOriPoints().size() > 0) {
-            paintScreenContext.popLatestPickedPoint();
+            pickedElements.popOriPoint();
         }
     }
 
@@ -37,8 +37,10 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
             return false;
         }
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        paintScreenContext.pushPoint(picked);
-        PointedElement pointedElements = paintScreenContext.getPointedElements();
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pickedElements.pushOriPoint(picked);
         pointedElements.setOriPoint(picked);
         return true;
     }

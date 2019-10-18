@@ -30,6 +30,17 @@ public class PickedElements {
         oriFaces.clear();
     }
 
+    public void popOriPoint() {
+        if (oriPoints.isEmpty()) {
+            return;
+        }
+        oriPoints.pop();
+    }
+
+    public void pushOriPoint(OriPoint p) {
+        oriPoints.push(p);
+    }
+
     public Stack<OriPoint> getOriPoints() {
         return oriPoints;
     }

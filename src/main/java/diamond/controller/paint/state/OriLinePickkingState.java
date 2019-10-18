@@ -23,7 +23,7 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PickedElements pickedElements = paintScreenContext.getPickedElements();
         if (pickedElements.getOriLines().size() > 0) {
-            paintScreenContext.popLatestPickedPoint();
+            pickedElements.popOriPoint();
         }
     }
 

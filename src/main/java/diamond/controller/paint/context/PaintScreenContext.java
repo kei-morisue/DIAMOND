@@ -6,7 +6,6 @@ package diamond.controller.paint.context;
 
 import java.awt.geom.Point2D;
 import java.io.File;
-import java.util.Stack;
 
 import diamond.controller.paint.action.Axiom1Action;
 import diamond.controller.paint.action.PaintActionInterface;
@@ -32,32 +31,13 @@ public class PaintScreenContext implements ScreenContext {
     public PaintScreenContext(Palette palette) {
     }
 
-    public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
+    public OriPoint getCandidateOriPoint() {
         OriPoint candidate = pointedElement.getOriPoint();
-        if (candidate == null && enableFreePoint) {
+        if (candidate == null) {
             Point2D.Double mp = currentLogicalMousePoint;
             candidate = new OriPoint(mp.x, mp.y);
         }
         return candidate;
-    }
-
-    public void popLatestPickedPoint() {
-        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
-        if (oriPoints.isEmpty()) {
-            return;
-        }
-        oriPoints.pop();
-    }
-
-    public void pushPoint(OriPoint p) {
-        Stack<OriPoint> oriPoints = pickedElements.getOriPoints();
-        oriPoints.push(p);
-    }
-
-    @Override
-    public void initialize() {
-        pickedElements.clear();
-        pointedElement.clear();
     }
 
     public PaintActionInterface getPaintAction() {
@@ -94,6 +74,12 @@ public class PaintScreenContext implements ScreenContext {
     }
 
     @Override
+    public void initialize() {
+        pickedElements.clear();
+        pointedElement.clear();
+    }
+
+    @Override
     public ScreenTransform getTransform() {
         return transform;
     }
@@ -110,41 +96,5 @@ public class PaintScreenContext implements ScreenContext {
     public PointedElement getPointedElements() {
         return pointedElement;
     }
-
-    //    public Stack<OriLine> getPickedLines() {
-    //        return pickedElements.getOriLines();
-    //    }
-    //
-    //    public Stack<OriPoint> getPickedPoints() {
-    //        return pickedElements.getOriPoints();
-    //    }
-    //
-    //    public Stack<OriFace> getPickedOriFaces() {
-    //        return pickedElements.getOriFaces();
-    //    }
-    //
-    //    public OriFace getPointedOriFace() {
-    //        return pointedElement.getOriFace();
-    //    }
-    //
-    //    public OriLine getPointedOriLine() {
-    //        return pointedElement.getOriLine();
-    //    }
-    //
-    //    public OriPoint getPointedOriPoint() {
-    //        return pointedElement.getOriPoint();
-    //    }
-    //
-    //    public void setPointedOriLine(OriLine oriLine) {
-    //        pointedElement.setOriLine(oriLine);
-    //    }
-    //
-    //    public void setPointedOriPoint(OriPoint oriPoint) {
-    //        pointedElement.setOriPoint(oriPoint);
-    //    }
-    //
-    //    public void setPointedOriFace(OriFace oriFace) {
-    //        pointedElement.setOriFace(oriFace);
-    //    }
 
 }

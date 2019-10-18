@@ -224,7 +224,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
             OriPoint picked = oriPoints.peek();
             OriLineDrawer.drawLine(g2d,
                     new OriLine(new OriPoint(picked.x, picked.y),
-                            context.getCandidateOriPoint(true),
+                            context.getCandidateOriPoint(),
                             LineType.CREASE),
                     OriLineColor.PICKED,
                     LineStyle.STROKE_TEMPORARY);
