@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.ModelScreenContext;
 import diamond.controller.paint.context.Palette;
 import diamond.view.resource.IconSetter;
 import diamond.view.screen.ModelScreen;
@@ -48,8 +49,8 @@ public class ModelSwitchButton extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            AbstractScreenContext modelContext = modelScreen.getContext();
-            Palette palette = modelContext.getPalette();
+            Context context = modelScreen.getContext();
+            Palette palette = context.getPalette();
             if (palette.getStepNo() == 0 && direction == PREV) {
                 return;
             }
@@ -57,9 +58,13 @@ public class ModelSwitchButton extends JButton {
                     && direction == NEXT) {
                 return;
             }
-            palette.getDiagram().setTransform(modelContext.getTransform());
+            ModelScreenContext modelScreenContext = context
+                    .getModelScreenContext();
+            palette.getDiagram()
+                    .setTransform(modelScreenContext.getTransform());
             palette.setStepNo(palette.getStepNo() + direction);
-            modelContext.setTransform(palette.getDiagram().getTransform());
+            modelScreenContext
+                    .setTransform(palette.getDiagram().getTransform());
             modelScreen.repaint();
             paintScreen.repaint();
         }

@@ -6,7 +6,8 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.modifycontour.OriLine0PickkingState;
 
 /**
@@ -20,9 +21,10 @@ public class ModifyContourAction extends AbstractPaintAction {
     }
 
     @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPointedLine(g2d, context);
-        drawPickedLines(g2d, context);
+    public void onDraw(Graphics2D g2d, Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        drawPointedLine(g2d, paintScreenContext);
+        drawPickedLines(g2d, paintScreenContext);
     }
 
 }

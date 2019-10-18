@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -18,7 +18,7 @@ import diamond.view.resource.string.StringKey.LABEL;
  */
 public class SignsUiPanel extends JPanel {
 
-    public SignsUiPanel(PaintContext context, ButtonGroup buttonGroup) {
+    public SignsUiPanel(PaintScreenContext context, ButtonGroup buttonGroup) {
         setLayout(new GridLayout(3, 3));
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.VALLEY_ARROW, context);

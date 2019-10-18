@@ -7,7 +7,7 @@ package diamond.controller.paint.state;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 
 /**
  * @author long_
@@ -24,20 +24,18 @@ public abstract class AbstractPaintState implements PaintStateInterface {
 
     protected abstract void initialize();
 
-    abstract protected void undoAction(PaintContext context);
+    abstract protected void undoAction(Context context);
 
-    protected abstract void onResult(PaintContext context);
+    protected abstract void onResult(Context context);
 
-    protected abstract void rebuild(PaintContext context);
+    protected abstract void rebuild(Context context);
 
     protected abstract boolean onAction(
-            PaintContext context,
+            Context context,
             Point2D.Double currentPoint);
 
     @Override
-    public PaintStateInterface doAction(
-            PaintContext context,
-            Double currentPoint) {
+    public PaintStateInterface doAction(Context context, Double currentPoint) {
         if (!onAction(context, currentPoint)) {
             return this;
         }
@@ -48,7 +46,7 @@ public abstract class AbstractPaintState implements PaintStateInterface {
     }
 
     @Override
-    public final PaintStateInterface undo(PaintContext context) {
+    public final PaintStateInterface undo(Context context) {
         undoAction(context);
         PaintStateInterface prevState = getPreviousState();
         return prevState;

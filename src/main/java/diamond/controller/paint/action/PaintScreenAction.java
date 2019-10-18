@@ -8,7 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.util.MouseUtility;
 
 /**
@@ -17,18 +18,21 @@ import diamond.controller.paint.util.MouseUtility;
  */
 public class PaintScreenAction
         implements MouseListener, MouseMotionListener {
-    private PaintContext paintContext;
+    private Context context;
+    private PaintScreenContext paintScreenContext;
 
-    public PaintScreenAction(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public PaintScreenAction(Context context) {
+        this.context = context;
+        this.paintScreenContext = context.getPaintScreenContext();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
-                paintContext.getTransform().getTransform(),
-                e.getPoint()));
-        paintContext.getPaintAction().onMove(paintContext);
+        paintScreenContext
+                .setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
+                        paintScreenContext.getTransform().getTransform(),
+                        e.getPoint()));
+        paintScreenContext.getPaintAction().onMove(context);
         e.getComponent().repaint();
     }
 
@@ -39,10 +43,10 @@ public class PaintScreenAction
     @Override
     public void mouseClicked(MouseEvent e) {
         if (MouseUtility.isLeftClick(e)) {
-            paintContext.getPaintAction().onLeftClick(paintContext);
+            paintScreenContext.getPaintAction().onLeftClick(context);
         }
         if (MouseUtility.isRightClick(e)) {
-            paintContext.getPaintAction().onRightClick(paintContext);
+            paintScreenContext.getPaintAction().onRightClick(context);
         }
         e.getComponent().repaint();
         return;
@@ -50,9 +54,10 @@ public class PaintScreenAction
 
     @Override
     public void mousePressed(MouseEvent e) {
-        paintContext.setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
-                paintContext.getTransform().getTransform(),
-                e.getPoint()));
+        paintScreenContext
+                .setCurrentLogicalMousePoint(MouseUtility.getLogicalPoint(
+                        paintScreenContext.getTransform().getTransform(),
+                        e.getPoint()));
     }
 
     @Override

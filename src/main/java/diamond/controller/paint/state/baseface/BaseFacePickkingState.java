@@ -4,7 +4,8 @@
  */
 package diamond.controller.paint.state.baseface;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriFacePickkingState;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriModel;
@@ -16,8 +17,9 @@ import diamond.model.geom.util.OriFaceUtil;
  */
 public class BaseFacePickkingState extends OriFacePickkingState {
     @Override
-    protected void onResult(PaintContext context) {
-        OriFace baseFace = context.getPointedOriFace();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriFace baseFace = paintScreenContext.getPointedOriFace();
         OriModel oriModel = context.getPalette().getOriModel();
         if (oriModel.getFaces().size() == 1) {
             oriModel.flip();

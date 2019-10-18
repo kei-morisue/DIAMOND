@@ -11,7 +11,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.ScreenContext;
 import diamond.controller.paint.util.MouseUtility;
 
 /**
@@ -20,10 +20,10 @@ import diamond.controller.paint.util.MouseUtility;
  */
 public class ScreenAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private AbstractScreenContext screenContext;
+    private ScreenContext screenContext;
     public Point2D latestClickedPoint;
 
-    public ScreenAction(AbstractScreenContext screenContext) {
+    public ScreenAction(ScreenContext screenContext) {
         this.screenContext = screenContext;
     }
 

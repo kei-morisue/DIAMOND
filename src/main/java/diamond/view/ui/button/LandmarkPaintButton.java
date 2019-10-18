@@ -11,7 +11,7 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.paint.action.LandmarkPaintAction;
 import diamond.controller.paint.action.PaintActionInterface;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -21,10 +21,10 @@ import diamond.view.resource.string.StringKey.LABEL;
  */
 public class LandmarkPaintButton extends JRadioButton
         implements ActionListener {
-    private PaintContext paintContext;
+    private PaintScreenContext paintContext;
     private PaintActionInterface paintAction;
 
-    public LandmarkPaintButton(LABEL label, PaintContext context) {
+    public LandmarkPaintButton(LABEL label, PaintScreenContext context) {
         this.paintContext = context;
         switch (label) {
         case LANDMARK:

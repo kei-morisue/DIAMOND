@@ -7,7 +7,7 @@ package diamond.controller.run;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.PreviewFrame;
 
 /**
@@ -15,15 +15,15 @@ import diamond.view.PreviewFrame;
  *
  */
 public class PreviewAction implements ActionListener {
-    PaintContext paintContext;
+    Context context;
 
-    public PreviewAction(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public PreviewAction(Context context) {
+        this.context = context;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new PreviewFrame(paintContext);
+        new PreviewFrame(context);
     }
 
 }

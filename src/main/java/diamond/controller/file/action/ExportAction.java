@@ -13,7 +13,8 @@ import javax.swing.JFileChooser;
 
 import diamond.controller.file.DataSet;
 import diamond.controller.file.ExporterXML;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.ProgressFrame;
 
 /**
@@ -21,11 +22,11 @@ import diamond.view.ProgressFrame;
  *
  */
 public class ExportAction implements ActionListener {
-    PaintContext paintContext;
+    Context context;
     Component parentComponent;
 
-    public ExportAction(PaintContext context, Component parent) {
-        this.paintContext = context;
+    public ExportAction(Context context, Component parent) {
+        this.context = context;
         this.parentComponent = parent;
     }
 
@@ -33,16 +34,17 @@ public class ExportAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
         String path = null;
-        if (paintContext.getFile() != null) {
-            path = paintContext.getFile().getPath();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        if (paintScreenContext.getFile() != null) {
+            path = paintScreenContext.getFile().getPath();
         } else if (JFileChooser.APPROVE_OPTION == chooser
                 .showSaveDialog(parentComponent)) {
             path = chooser.getSelectedFile().getPath();
         }
         DataSet data = new DataSet(
-                paintContext.getPalette().getDiagrams());
+                context.getPalette().getDiagrams());
 
-        paintContext.setFile(new File(path));
+        paintScreenContext.setFile(new File(path));
         ProgressFrame frame = new ProgressFrame("saving");
 
         ExporterXML exporterXML = new ExporterXML();

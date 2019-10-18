@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.diagram.OrdinalPage;
 import diamond.model.geom.element.diagram.TopPage;
@@ -25,11 +25,11 @@ import diamond.view.ui.label.PageSouthernLabel;
  */
 public class PreviewScreen extends JPanel {
     private int pageNo = 0;
-    private PaintContext paintContext;
+    private Context context;
     private JPanel page;
 
-    public PreviewScreen(PaintContext paintContext) {
-        this.paintContext = paintContext;
+    public PreviewScreen(Context context) {
+        this.context = context;
         build();
     }
 
@@ -44,7 +44,7 @@ public class PreviewScreen extends JPanel {
     }
 
     public JPanel buildPage() {
-        Vector<Diagram> diagrams = paintContext.getPalette().getDiagrams();
+        Vector<Diagram> diagrams = context.getPalette().getDiagrams();
         if (pageNo == 0) {
             return new TopPage(diagrams);
 
@@ -71,7 +71,7 @@ public class PreviewScreen extends JPanel {
     }
 
     public int maxPageNo() {
-        int steps = paintContext.getPalette().getDiagrams().size();
+        int steps = context.getPalette().getDiagrams().size();
         int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
         if (steps < n) {
             return 0;

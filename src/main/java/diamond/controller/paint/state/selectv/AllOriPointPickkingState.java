@@ -7,7 +7,8 @@ package diamond.controller.paint.state.selectv;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.origami.OriVertex;
 
@@ -25,7 +26,7 @@ public class AllOriPointPickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void undoAction(Context context) {
         Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         for (OriVertex vertex : vertices) {
@@ -34,22 +35,23 @@ public class AllOriPointPickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
         Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         for (OriVertex vertex : vertices) {
             vertex.setPickked(true);
         }
-        context.getPickedPoints().clear();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        paintScreenContext.getPickedPoints().clear();
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
+    protected boolean onAction(Context context, Double currentPoint) {
         return true;
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
 }

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.WARNING;
@@ -21,7 +21,7 @@ import diamond.view.resource.string.StringKey.WARNING;
  *
  */
 public class DestroyCpButton extends JButton {
-    public DestroyCpButton(AbstractScreenContext context) {
+    public DestroyCpButton(Context context) {
         setBackground(Color.white);
         IconSetter.set(this, "destroy.png");
         addActionListener(new ActionListener() {

@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -19,12 +19,12 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class ModelUiPanel extends JPanel {
     private ButtonGroup paintActionButtons;
 
-    public ModelUiPanel(PaintContext context, ButtonGroup paintActionButtons) {
+    public ModelUiPanel(PaintScreenContext context, ButtonGroup paintActionButtons) {
         this.paintActionButtons = paintActionButtons;
         addModelEditPanel(context);
     }
 
-    private void addModelEditPanel(PaintContext context) {
+    private void addModelEditPanel(PaintScreenContext context) {
         setLayout(new GridLayout(1, 2));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.BASE_FACE,

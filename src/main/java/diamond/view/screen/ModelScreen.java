@@ -7,8 +7,8 @@ package diamond.view.screen;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.AbstractScreenContext;
-import diamond.controller.paint.context.ModelContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.ModelScreenContext;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.screen.draw.OriModelDrawer;
 import diamond.view.screen.draw.StringDrawer;
@@ -20,18 +20,19 @@ import diamond.view.screen.draw.style.color.Ui;
  *
  */
 public class ModelScreen extends AbstractScreen {
-    private ModelContext context;
+    private Context context;
 
-    public ModelScreen(ModelContext modelContext) {
-        super(modelContext);
-        this.context = modelContext;
+    public ModelScreen(Context context) {
+        super(context.getModelScreenContext());
+        this.context = context;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, Ui.MODEL_SCREEN_BG);
-        ScreenTransform transform = context.getTransform();
+        ModelScreenContext modelContext = context.getModelScreenContext();
+        ScreenTransform transform = modelContext.getTransform();
         transform.ResizeWindow(getWidth(), getHeight());
         g2d.setTransform(transform.getTransform());
         OriModel model = context.getPalette().getOriModel();
@@ -43,7 +44,7 @@ public class ModelScreen extends AbstractScreen {
     }
 
     @Override
-    public AbstractScreenContext getContext() {
+    public Context getContext() {
         return context;
     }
 }

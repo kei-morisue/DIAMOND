@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.run.PreviewAction;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -21,17 +21,17 @@ import diamond.view.resource.string.StringKey.LABEL;
  *
  */
 public class MenuRun extends JMenu {
-    public MenuRun(PaintContext paintContext) {
+    public MenuRun(Context context) {
         super(ResourceHolder.getLabelString(LABEL.RUN));
-        add(buildPreview(paintContext));
+        add(buildPreview(context));
     }
 
-    public JMenuItem buildPreview(PaintContext paintContext) {
+    public JMenuItem buildPreview(Context context) {
         JMenuItem item = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.PREVIEW));
         item.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
-        item.addActionListener(new PreviewAction(paintContext));
+        item.addActionListener(new PreviewAction(context));
         return item;
     }
 }

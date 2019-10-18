@@ -4,7 +4,7 @@
  */
 package diamond.controller.paint.state.faceorder;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.OriFacePickkingState;
 
 /**
@@ -20,10 +20,10 @@ public class OriFace0PickkingState extends OriFacePickkingState {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 }

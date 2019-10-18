@@ -6,7 +6,7 @@ package diamond.model.geom.util;
 
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriVertex;
 
@@ -15,11 +15,12 @@ import diamond.model.geom.element.origami.OriVertex;
  *
  */
 public class NearestFaceFinder {
-    public static OriFace findAround(
-            PaintContext context) {
-        Double point = context.getCurrentLogicalMousePoint();
+    public static OriFace findAround(Context context) {
+        Double point = context.getPaintScreenContext()
+                .getCurrentLogicalMousePoint();
         OriVertex orivertex = new OriVertex(point.x, point.y);
-        for (OriFace face : context.getPalette().getDiagram().getCp().getOriModel()
+        for (OriFace face : context.getPalette().getDiagram().getCp()
+                .getOriModel()
                 .getFaces()) {
             if (OriFaceUtil.onFace(face, orivertex)) {
                 return face;

@@ -29,7 +29,7 @@ import diamond.controller.paint.action.SelectVertexAction;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.controller.paint.action.UnfoldLineAction;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.IconSetter;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -38,10 +38,10 @@ import diamond.view.resource.string.StringKey.LABEL;
  *
  */
 public class PaintActionButton extends JRadioButton implements ActionListener {
-    private PaintContext paintContext;
+    private PaintScreenContext paintContext;
     private PaintActionInterface paintAction;
 
-    public PaintActionButton(LABEL label, PaintContext context) {
+    public PaintActionButton(LABEL label, PaintScreenContext context) {
         this.paintContext = context;
         switch (label) {
         case AXIOM1:

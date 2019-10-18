@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.screen.draw.style.LineStyle;
 
 /**
@@ -18,7 +18,7 @@ import diamond.view.screen.draw.style.LineStyle;
  *
  */
 public class RadarDrawer {
-    public static void draw(Graphics2D g2d, PaintContext context) {
+    public static void draw(Graphics2D g2d, PaintScreenContext context) {
         AffineTransform transform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
         int height = getDimension(g2d).height;
@@ -66,7 +66,7 @@ public class RadarDrawer {
 
     private static void drawPointer(
             Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         Double p = context.getCurrentLogicalMousePoint();
         g2d.setTransform(new AffineTransform());
         int height, width;

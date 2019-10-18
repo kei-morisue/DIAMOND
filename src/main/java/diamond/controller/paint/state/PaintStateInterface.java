@@ -6,18 +6,17 @@ package diamond.controller.paint.state;
 
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 
 /**
  * @author long_
  *
  */
 public interface PaintStateInterface {
-    public PaintStateInterface doAction(
-            PaintContext context,
+    public PaintStateInterface doAction(Context context,
             Point2D.Double currentPoint);
 
-    public PaintStateInterface undo(PaintContext paintContext);
+    public PaintStateInterface undo(Context context);
 
     public void setNextState(PaintStateInterface state);
 

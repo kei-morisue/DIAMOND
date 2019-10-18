@@ -4,7 +4,8 @@
  */
 package diamond.model.geom.util;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -14,10 +15,12 @@ import diamond.model.geom.element.cp.OriPoint;
  *
  */
 public class NearestPointFinder {
-    public static OriPoint findAround(PaintContext context) {
-        double scale = context.getTransform().getScale();
+    public static OriPoint findAround(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        double scale = paintScreenContext.getTransform().getScale();
         double boundary = Constants.CLOSE_THRESHOLD / scale;
-        OriPoint center = new OriPoint(context.getCurrentLogicalMousePoint());
+        OriPoint center = new OriPoint(
+                paintScreenContext.getCurrentLogicalMousePoint());
         OriPoint nearest = null;
         double shortestDistance = boundary;
         for (OriLine line : context.getPalette().getCP().getLines()) {

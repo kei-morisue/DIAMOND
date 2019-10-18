@@ -4,7 +4,8 @@
  */
 package diamond.controller.paint.state;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 
@@ -20,15 +21,17 @@ public class UnfoldLineState extends OriLinePickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
 
-        OriLine oriLine = context.getPickedLines().get(0);
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine oriLine = paintScreenContext.getPickedLines()
+                .get(0);
         if (oriLine.getType() != LineType.CREASE) {
             oriLine.setType(LineType.CREASE);
         } else {
             oriLine.setType(LineType.UNSETTLED_MOUNTAIN);
         }
-        context.getPickedLines().clear();
+        paintScreenContext.getPickedLines().clear();
     }
 
 }

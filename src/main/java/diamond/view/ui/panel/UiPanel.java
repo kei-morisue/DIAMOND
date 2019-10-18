@@ -7,7 +7,7 @@ package diamond.view.ui.panel;
 import javax.swing.ButtonGroup;
 import javax.swing.JTabbedPane;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -18,7 +18,7 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class UiPanel extends JTabbedPane {
     private ButtonGroup buttons = new ButtonGroup();
 
-    public UiPanel(PaintContext context) {
+    public UiPanel(PaintScreenContext context) {
         addTab(ResourceHolder.getLabelString(LABEL.PAINT_LINES_TAB),
                 new PaintLinesUiPanel(context, buttons));
         addTab(ResourceHolder.getLabelString(LABEL.ALTER_LINE_TYPE_TAB),

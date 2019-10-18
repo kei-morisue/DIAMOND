@@ -7,7 +7,8 @@ package diamond.controller.paint.state.faceorder;
 import java.util.LinkedList;
 import java.util.Stack;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriFacePickkingState;
 import diamond.model.geom.element.origami.OriFace;
 
@@ -24,19 +25,21 @@ public class OriFace1PickkingState extends OriFacePickkingState {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
-        if (context.getPickedOriFaces().size() == 1) {
-            context.getPickedOriFaces().pop();
+    protected void undoAction(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        if (paintScreenContext.getPickedOriFaces().size() == 1) {
+            paintScreenContext.getPickedOriFaces().pop();
         }
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        Stack<OriFace> picked = context.getPickedOriFaces();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Stack<OriFace> picked = paintScreenContext.getPickedOriFaces();
         if (picked.size() == 2) {
             OriFace f0 = picked.get(0);
             OriFace f1 = picked.get(1);

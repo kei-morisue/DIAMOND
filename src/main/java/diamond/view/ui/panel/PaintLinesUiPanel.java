@@ -12,7 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.LineType;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
@@ -24,11 +24,11 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class PaintLinesUiPanel extends JPanel {
     ButtonGroup lineTypeButtons = new ButtonGroup();
 
-    public PaintLinesUiPanel(PaintContext context, ButtonGroup paintActionButtons) {
+    public PaintLinesUiPanel(PaintScreenContext context, ButtonGroup paintActionButtons) {
         addLineTypePanel(context, paintActionButtons);
     }
 
-    private void addLineTypePanel(PaintContext context,
+    private void addLineTypePanel(PaintScreenContext context,
             ButtonGroup paintActionButtons) {
         setLayout(new GridLayout(2, 3));
         addLineTypeButton(LABEL.UNSETTLED_VALLEY, LineType.UNSETTLED_VALLEY,
@@ -42,10 +42,10 @@ public class PaintLinesUiPanel extends JPanel {
     }
 
     private class LinetypeButtonAction implements ActionListener {
-        PaintContext context;
+        PaintScreenContext context;
         LineType type;
 
-        public LinetypeButtonAction(LineType type, PaintContext context) {
+        public LinetypeButtonAction(LineType type, PaintScreenContext context) {
             this.context = context;
             this.type = type;
         }
@@ -59,7 +59,7 @@ public class PaintLinesUiPanel extends JPanel {
     }
 
     private void addLineTypeButton(LABEL label, LineType type,
-            PaintContext context) {
+            PaintScreenContext context) {
         JRadioButton button = new JRadioButton(
                 ResourceHolder.getLabelString(label));
         button.addActionListener(new LinetypeButtonAction(type, context));

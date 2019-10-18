@@ -6,7 +6,7 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.offset.OffsetSettingState;
 import diamond.view.screen.draw.RadarDrawer;
 
@@ -21,8 +21,8 @@ public class OffsetAction extends AbstractPaintAction {
     }
 
     @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        RadarDrawer.draw(g2d, context);
+    public void onDraw(Graphics2D g2d, Context context) {
+        RadarDrawer.draw(g2d, context.getPaintScreenContext());
     }
 
 }

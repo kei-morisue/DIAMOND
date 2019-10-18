@@ -13,7 +13,7 @@ import diamond.controller.paint.action.ArrowPaintAction;
 import diamond.controller.paint.action.ArrowScalingAction;
 import diamond.controller.paint.action.ArrowSelectAction;
 import diamond.controller.paint.action.PaintActionInterface;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.diagram.arrow.MountainFoldArrow;
@@ -28,10 +28,10 @@ import diamond.view.resource.string.StringKey.LABEL;
  *
  */
 public class ArrowPaintButton extends JRadioButton implements ActionListener {
-    private PaintContext paintContext;
+    private PaintScreenContext paintContext;
     private PaintActionInterface paintAction;
 
-    public ArrowPaintButton(LABEL label, PaintContext context) {
+    public ArrowPaintButton(LABEL label, PaintScreenContext context) {
         this.paintContext = context;
         switch (label) {
         case VALLEY_ARROW:

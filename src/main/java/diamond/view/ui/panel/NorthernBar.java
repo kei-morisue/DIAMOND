@@ -8,7 +8,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.screen.ModelScreen;
 import diamond.view.screen.PaintScreen;
 import diamond.view.ui.button.ModelSwitchButton;
@@ -25,7 +25,7 @@ public class NorthernBar extends JPanel {
                 paintScreen, modelScreen));
         add(new ModelSwitchButton(ModelSwitchButton.NEXT,
                 paintScreen, modelScreen));
-        AbstractScreenContext context = paintScreen.getContext();
+        Context context = paintScreen.getContext();
         add(new StepNoComboBox(
                 context.getPalette()));
 

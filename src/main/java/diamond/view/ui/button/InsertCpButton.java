@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.resource.IconSetter;
 
 /**
@@ -18,7 +18,7 @@ import diamond.view.resource.IconSetter;
  *
  */
 public class InsertCpButton extends JButton {
-    public InsertCpButton(AbstractScreenContext context) {
+    public InsertCpButton(Context context) {
         setBackground(Color.white);
         IconSetter.set(this, "insert.png");
         addActionListener(new ActionListener() {

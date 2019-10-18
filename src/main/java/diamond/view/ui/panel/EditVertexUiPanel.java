@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -19,13 +19,13 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class EditVertexUiPanel extends JPanel {
     private ButtonGroup paintActionButtons;
 
-    public EditVertexUiPanel(PaintContext context,
+    public EditVertexUiPanel(PaintScreenContext context,
             ButtonGroup paintActionButtons) {
         this.paintActionButtons = paintActionButtons;
         addEditVertexPanel(context);
     }
 
-    private void addEditVertexPanel(PaintContext context) {
+    private void addEditVertexPanel(PaintScreenContext context) {
         setLayout(new GridLayout(2, 3));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.ADD_VERTEX,

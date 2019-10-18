@@ -14,22 +14,24 @@ import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriFace;
+import diamond.view.screen.ScreenTransform;
 
 /**
  * @author long_
  *
  */
-public class PaintContext extends AbstractScreenContext {
+public class PaintScreenContext implements ScreenContext {
 
     private LineType inputLineType = LineType.UNSETTLED_VALLEY;
     private Point2D.Double currentLogicalMousePoint = null;
     private PointedElement pointedElement = new PointedElement();
     private PickedElements pickedElements = new PickedElements();
     private PaintActionInterface paintAction = new Axiom1Action();
+    protected ScreenTransform transform = new ScreenTransform();
+
     private File file = null;
 
-    public PaintContext(Palette palette) {
-        super(palette);
+    public PaintScreenContext(Palette palette) {
     }
 
     public OriPoint getCandidateOriPoint(boolean enableFreePoint) {
@@ -43,18 +45,6 @@ public class PaintContext extends AbstractScreenContext {
         return candidate;
     }
 
-    public Stack<OriLine> getPickedLines() {
-        return pickedElements.getOriLines();
-    }
-
-    public Stack<OriPoint> getPickedPoints() {
-        return pickedElements.getOriPoints();
-    }
-
-    public Stack<OriFace> getPickedOriFaces() {
-        return pickedElements.getOriFaces();
-    }
-
     public void popLatestPickedPoint() {
         if (getPickedPoints().isEmpty()) {
             return;
@@ -66,6 +56,7 @@ public class PaintContext extends AbstractScreenContext {
         getPickedPoints().push(p);
     }
 
+    @Override
     public void initialize() {
         pickedElements.clear();
         pointedElement.clear();
@@ -87,30 +78,6 @@ public class PaintContext extends AbstractScreenContext {
         this.file = file;
     }
 
-    public OriFace getPointedOriFace() {
-        return pointedElement.getOriFace();
-    }
-
-    public void setPointedOriFace(OriFace oriFace) {
-        pointedElement.setOriFace(oriFace);
-    }
-
-    public OriLine getPointedOriLine() {
-        return pointedElement.getOriLine();
-    }
-
-    public void setPointedOriLine(OriLine oriLine) {
-        pointedElement.setOriLine(oriLine);
-    }
-
-    public OriPoint getPointedOriPoint() {
-        return pointedElement.getOriPoint();
-    }
-
-    public void setPointedOriPoint(OriPoint oriPoint) {
-        pointedElement.setOriPoint(oriPoint);
-    }
-
     public Point2D.Double getCurrentLogicalMousePoint() {
         return currentLogicalMousePoint;
     }
@@ -126,6 +93,60 @@ public class PaintContext extends AbstractScreenContext {
 
     public void setInputLineType(LineType inputLineType) {
         this.inputLineType = inputLineType;
+    }
+
+    @Override
+    public ScreenTransform getTransform() {
+        return transform;
+    }
+
+    @Override
+    public void setTransform(ScreenTransform transform) {
+        this.transform = transform;
+    }
+
+    public PickedElements getPickedElements() {
+        return pickedElements;
+    }
+
+    public PointedElement getPointedElements() {
+        return pointedElement;
+    }
+
+    public Stack<OriLine> getPickedLines() {
+        return pickedElements.getOriLines();
+    }
+
+    public Stack<OriPoint> getPickedPoints() {
+        return pickedElements.getOriPoints();
+    }
+
+    public Stack<OriFace> getPickedOriFaces() {
+        return pickedElements.getOriFaces();
+    }
+
+    public OriFace getPointedOriFace() {
+        return pointedElement.getOriFace();
+    }
+
+    public OriLine getPointedOriLine() {
+        return pointedElement.getOriLine();
+    }
+
+    public OriPoint getPointedOriPoint() {
+        return pointedElement.getOriPoint();
+    }
+
+    public void setPointedOriLine(OriLine oriLine) {
+        pointedElement.setOriLine(oriLine);
+    }
+
+    public void setPointedOriPoint(OriPoint oriPoint) {
+        pointedElement.setOriPoint(oriPoint);
+    }
+
+    public void setPointedOriFace(OriFace oriFace) {
+        pointedElement.setOriFace(oriFace);
     }
 
 }

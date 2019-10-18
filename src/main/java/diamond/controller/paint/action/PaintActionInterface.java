@@ -7,7 +7,7 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 
 /**
  * @author long_
@@ -16,27 +16,27 @@ import diamond.controller.paint.context.PaintContext;
 public interface PaintActionInterface {
 
     public abstract void doAction(
-            PaintContext context,
+            Context context,
             Point2D.Double clickedPoint);
 
-    public abstract void undo(PaintContext context);
+    public abstract void undo(Context context);
 
-    public abstract void destroy(PaintContext context);
+    public abstract void destroy(Context context);
 
-    public abstract void recover(PaintContext context);
+    public abstract void recover(Context context);
 
-    public abstract PaintActionInterface onLeftClick(PaintContext context);
+    public abstract PaintActionInterface onLeftClick(Context context);
 
-    public abstract PaintActionInterface onRightClick(PaintContext context);
+    public abstract PaintActionInterface onRightClick(Context context);
 
-    public abstract Point2D.Double onMove(PaintContext context);
+    public abstract Point2D.Double onMove(Context context);
 
-    public abstract void onPress(PaintContext context);
+    public abstract void onPress(Context context);
 
-    public abstract void onDrag(PaintContext context);
+    public abstract void onDrag(Context context);
 
-    public abstract void onRelease(PaintContext context);
+    public abstract void onRelease(Context context);
 
-    public abstract void onDraw(Graphics2D g2d, PaintContext context);
+    public abstract void onDraw(Graphics2D g2d, Context context);
 
 }

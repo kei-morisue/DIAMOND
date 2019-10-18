@@ -6,7 +6,8 @@ package diamond.controller.paint.state.mirror;
 
 import java.util.ArrayList;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.util.OriLineUtil;
@@ -25,22 +26,24 @@ public class OriLine0PickkingState extends OriLinePickkingState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
-        OriLine pointedOriLine = context.getPointedOriLine();
+    protected void undoAction(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
         ArrayList<OriLine> mirroredLines = new ArrayList<OriLine>();
         if (pointedOriLine != null) {
-            for (OriLine line : context.getPickedLines()) {
+            for (OriLine line : paintScreenContext.getPickedLines()) {
                 OriLine mirroredLine = OriLineUtil.mirroredLine(line,
                         pointedOriLine);
                 mirroredLines.add(mirroredLine);
             }
         }
-        LineAdder.addAll(mirroredLines, context.getPalette().getCP().getLines());
-        context.getPickedLines().clear();
+        LineAdder.addAll(mirroredLines,
+                context.getPalette().getCP().getLines());
+        paintScreenContext.getPickedLines().clear();
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 
 }

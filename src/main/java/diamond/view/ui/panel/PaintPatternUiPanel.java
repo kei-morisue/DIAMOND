@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -20,13 +20,13 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class PaintPatternUiPanel extends JPanel {
     ButtonGroup paintActionButtons;
 
-    public PaintPatternUiPanel(PaintContext context,
+    public PaintPatternUiPanel(PaintScreenContext context,
             ButtonGroup paintActionButtons) {
         this.paintActionButtons = paintActionButtons;
         addInputLinePanel(context);
     }
 
-    private void addInputLinePanel(PaintContext context) {
+    private void addInputLinePanel(PaintScreenContext context) {
         setLayout(new GridLayout(2, 3));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.AXIOM1, context);

@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import diamond.Initials;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;
@@ -24,12 +24,12 @@ import diamond.view.ui.menu.MenuDiagramFile;
  *
  */
 public class PreviewFrame extends JFrame {
-    private PaintContext paintContext;
+    private Context context;
     private PreviewScreen screen;
 
-    public PreviewFrame(PaintContext paintContext) {
-        this.paintContext = paintContext;
-        this.screen = new PreviewScreen(this.paintContext);
+    public PreviewFrame(Context context) {
+        this.context = context;
+        this.screen = new PreviewScreen(this.context);
         setVisible(true);
         setTitle(ResourceHolder.getLabelString(LABEL.PREVIEW));
         buildContents(getContentPane());
@@ -38,7 +38,7 @@ public class PreviewFrame extends JFrame {
 
     private void buildMenu() {
         JMenuBar menuBar = new JMenuBar();
-        menuBar.add(new MenuDiagramFile(paintContext, screen));
+        menuBar.add(new MenuDiagramFile(context, screen));
         setJMenuBar(menuBar);
     }
 
@@ -53,7 +53,8 @@ public class PreviewFrame extends JFrame {
                 screen,
                 PageSwitchButton.PREV),
                 BorderLayout.WEST);
-        setSize(new Dimension(Initials.PREVIEW_FRAME_WIDTH, Initials.PREVIEW_FRAME_HEIGHT));
+        setSize(new Dimension(Initials.PREVIEW_FRAME_WIDTH,
+                Initials.PREVIEW_FRAME_HEIGHT));
         setLocationRelativeTo(null);
     }
 }

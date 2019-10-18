@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.file.action.ImageExportAction;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.screen.PreviewScreen;
@@ -23,12 +23,12 @@ import diamond.view.screen.PreviewScreen;
  */
 public class MenuDiagramFile extends JMenu {
 
-    PaintContext paintContext;
-    PreviewScreen screen;
+    private Context context;
+    private PreviewScreen screen;
 
-    public MenuDiagramFile(PaintContext paintContext, PreviewScreen screen) {
+    public MenuDiagramFile(Context context, PreviewScreen screen) {
         super(ResourceHolder.getLabelString(LABEL.FILE));
-        this.paintContext = paintContext;
+        this.context = context;
         this.screen = screen;
         add(buildSave());
     }

@@ -4,7 +4,8 @@
  */
 package diamond.controller.paint.state;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 
 /**
  * @author long_
@@ -19,9 +20,10 @@ public class FlipLineTypeState extends OriLinePickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        context.getPickedLines().get(0).flipType();
-        context.getPickedLines().clear();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        paintScreenContext.getPickedLines().get(0).flipType();
+        paintScreenContext.getPickedLines().clear();
     }
 
 }

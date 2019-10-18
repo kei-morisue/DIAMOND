@@ -6,7 +6,8 @@ package diamond.controller.paint.state.selectv;
 
 import java.util.Set;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriPoint;
@@ -27,7 +28,7 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void undoAction(Context context) {
         Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         for (OriVertex vertex : vertices) {
@@ -36,19 +37,21 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        OriPoint p = context.getPickedPoints().get(0);
-        Set<OriVertex> vertices = context.getPalette().getOriModel().getVertices();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriPoint p = paintScreenContext.getPickedPoints().get(0);
+        Set<OriVertex> vertices = context.getPalette().getOriModel()
+                .getVertices();
         for (OriVertex vertex : vertices) {
             if (DistanceUtil.distance(p, vertex) < Constants.EPS) {
                 vertex.setPickked(!vertex.isPickked());
             }
         }
-        context.getPickedPoints().clear();
+        paintScreenContext.getPickedPoints().clear();
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
 }

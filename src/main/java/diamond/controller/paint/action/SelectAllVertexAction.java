@@ -6,7 +6,7 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.selectv.AllOriPointPickkingState;
 
 /**
@@ -20,8 +20,8 @@ public class SelectAllVertexAction extends AbstractPaintAction {
     }
 
     @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPickedPoints(g2d, context);
+    public void onDraw(Graphics2D g2d, Context context) {
+        drawPickedPoints(g2d, context.getPaintScreenContext());
     }
 
 }

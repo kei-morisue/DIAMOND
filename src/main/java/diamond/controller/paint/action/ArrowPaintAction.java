@@ -6,7 +6,7 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.arrow.ArrowPaintState;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
@@ -20,9 +20,8 @@ public class ArrowPaintAction extends AbstractPaintAction {
     }
 
     @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPointedLine(g2d, context);
-
+    public void onDraw(Graphics2D g2d, Context context) {
+        drawPointedLine(g2d, context.getPaintScreenContext());
     }
 
 }

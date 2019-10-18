@@ -6,7 +6,7 @@ package diamond.controller.paint.state.arrow;
 
 import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
@@ -23,8 +23,9 @@ public class ArrowPaintState extends AbstractPaintState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
-        OriLine pointedOriLine = context.getPointedOriLine();
+    protected void undoAction(Context context) {
+        OriLine pointedOriLine = context.getPaintScreenContext()
+                .getPointedOriLine();
         if (pointedOriLine != null) {
             AbstractArrow arrow = pointedOriLine.getArrow();
             if (arrow != null) {
@@ -36,16 +37,17 @@ public class ArrowPaintState extends AbstractPaintState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriLine pointedOriLine = context.getPointedOriLine();
+    protected boolean onAction(Context context, Double currentPoint) {
+        OriLine pointedOriLine = context.getPaintScreenContext()
+                .getPointedOriLine();
         if (pointedOriLine != null) {
             AbstractArrow arrow = pointedOriLine.getArrow();
             if (arrow != null) {

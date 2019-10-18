@@ -4,7 +4,7 @@
  */
 package diamond.controller.paint.state.axiom3;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.controller.paint.state.OriPointPickkingState;
 
 /**
@@ -20,11 +20,11 @@ public class OriPoint1PickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
 }

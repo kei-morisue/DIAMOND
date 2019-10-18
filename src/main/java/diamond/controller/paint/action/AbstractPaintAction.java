@@ -6,8 +6,10 @@ package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.PaintStateInterface;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -41,78 +43,86 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     @Override
-    public void destroy(PaintContext context) {
+    public void destroy(Context context) {
         context.initialize();
     }
 
     @Override
-    public void recover(PaintContext context) {
+    public void recover(Context context) {
     }
 
     @Override
-    public PaintActionInterface onLeftClick(PaintContext context) {
-        doAction(context, context.getCurrentLogicalMousePoint());
+    public PaintActionInterface onLeftClick(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Double currentLogicalMousePoint = paintScreenContext
+                .getCurrentLogicalMousePoint();
+        doAction(context, currentLogicalMousePoint);
         return this;
     }
 
     @Override
-    public PaintActionInterface onRightClick(PaintContext context) {
+    public PaintActionInterface onRightClick(Context context) {
         undo(context);
         return this;
     }
 
     @Override
-    public void doAction(
-            PaintContext context,
-            Point2D.Double clickedPoint) {
+    public void doAction(Context context, Point2D.Double clickedPoint) {
         state = state.doAction(context, clickedPoint);
     }
 
     @Override
-    public void undo(PaintContext paintContext) {
+    public void undo(Context paintContext) {
         state = state.undo(paintContext);
     }
 
     @Override
-    public Point2D.Double onMove(PaintContext context) {
+    public Point2D.Double onMove(Context context) {
         setCandidateVertexOnMove(context);
         setCandidateLineOnMove(context);
 
-        return context.getPointedOriPoint();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        return paintScreenContext.getPointedOriPoint();
     }
 
-    protected final void setCandidateVertexOnMove(PaintContext context) {
-        context.setPointedOriPoint(NearestPointFinder.findAround(context));
+    protected final void setCandidateVertexOnMove(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        paintScreenContext
+                .setPointedOriPoint(NearestPointFinder.findAround(context));
 
     }
 
-    protected final void setCandidateLineOnMove(PaintContext context) {
-        context.setPointedOriLine(NearestLineFinder.findAround(context));
+    protected final void setCandidateLineOnMove(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        paintScreenContext
+                .setPointedOriLine(NearestLineFinder.findAround(context));
     }
 
-    protected final void setCandidateFaceOnMove(PaintContext context) {
-        if (context.getPointedOriFace() != null) {
-            context.getPointedOriFace().isPointed = false;
+    protected final void setCandidateFaceOnMove(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        if (paintScreenContext.getPointedOriFace() != null) {
+            paintScreenContext.getPointedOriFace().isPointed = false;
         }
-        context.setPointedOriFace(NearestFaceFinder.findAround(context));
-        if (context.getPointedOriFace() != null) {
-            context.getPointedOriFace().isPointed = true;
+        paintScreenContext
+                .setPointedOriFace(NearestFaceFinder.findAround(context));
+        if (paintScreenContext.getPointedOriFace() != null) {
+            paintScreenContext.getPointedOriFace().isPointed = true;
         }
     }
 
     @Override
-    public void onPress(PaintContext context) {
+    public void onPress(Context context) {
     };
 
     @Override
-    public void onDrag(PaintContext context) {
+    public void onDrag(Context context) {
     };
 
     @Override
-    public void onRelease(PaintContext context) {
+    public void onRelease(Context context) {
     };
 
-    protected void drawPickedLines(Graphics2D g2d, PaintContext context) {
+    protected void drawPickedLines(Graphics2D g2d, PaintScreenContext context) {
         for (int i = 0; i < context.getPickedLines().size(); i++) {
             OriLineDrawer.drawLine(
                     g2d,
@@ -122,7 +132,8 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
         }
     }
 
-    protected void drawPickedPoints(Graphics2D g2d, PaintContext context) {
+    protected void drawPickedPoints(Graphics2D g2d,
+            PaintScreenContext context) {
         for (int i = 0; i < context.getPickedPoints().size(); i++) {
             OriPoint point = context.getPickedPoints().get(i);
             OriPointDrawer.drawPoint(
@@ -133,31 +144,33 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     protected void drawPointedPoint(Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         if (context.getPointedOriPoint() != null) {
             OriPoint candidate = context.getPointedOriPoint();
             OriPointDrawer.drawPoint(
                     g2d,
                     candidate,
-                    VertexStyle.SIZE_POINTED / context.getTransform().getScale(),
+                    VertexStyle.SIZE_POINTED
+                            / context.getTransform().getScale(),
                     OriPointColor.ORIPOINT_POINTED);
         }
     }
 
     protected void drawMousePoint(Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         if (context.getCurrentLogicalMousePoint() != null) {
             Point2D.Double point = context.getCurrentLogicalMousePoint();
             OriPointDrawer.drawPoint(
                     g2d,
                     point,
-                    VertexStyle.SIZE_POINTED / context.getTransform().getScale(),
+                    VertexStyle.SIZE_POINTED
+                            / context.getTransform().getScale(),
                     OriPointColor.ORIPOINT_POINTED);
         }
     }
 
     protected void drawPointedLine(Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         if (context.getPointedOriLine() != null) {
             OriLine candidate = context.getPointedOriLine();
             OriLineDrawer.drawLine(
@@ -169,7 +182,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     protected void drawPointedFace(Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         OriFace face = context.getPointedOriFace();
         if (face != null) {
             OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_POINTED);
@@ -177,13 +190,14 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     protected void drawPickedFaces(Graphics2D g2d,
-            PaintContext context) {
+            PaintScreenContext context) {
         for (OriFace face : context.getPickedOriFaces()) {
             OriFaceDrawer.drawFace(g2d, face, OriFaceColor.ORI_FACE_PICKED);
         }
     }
 
-    protected void drawTemporaryLine(Graphics2D g2d, PaintContext context) {
+    protected void drawTemporaryLine(Graphics2D g2d,
+            PaintScreenContext context) {
         if (context.getPickedPoints().size() > 0) {
             OriPoint picked = context.getPickedPoints().peek();
             OriLineDrawer.drawLine(g2d,

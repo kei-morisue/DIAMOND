@@ -7,7 +7,8 @@ package diamond.controller.paint.action;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.AddVertexState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -24,23 +25,24 @@ public class AddVertexAction extends AbstractPaintAction {
     }
 
     @Override
-    public Point2D.Double onMove(PaintContext context) {
+    public Point2D.Double onMove(Context context) {
         setCandidateLineOnMove(context);
-        OriLine pointedOriLine = context.getPointedOriLine();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
         if (pointedOriLine != null) {
-            context.setPointedOriPoint(new OriPoint());
+            paintScreenContext.setPointedOriPoint(new OriPoint());
             DistanceUtil.distancePointToSegment(
-                    context.getCurrentLogicalMousePoint(),
+                    paintScreenContext.getCurrentLogicalMousePoint(),
                     pointedOriLine.p0,
                     pointedOriLine.p1,
-                    context.getPointedOriPoint());
+                    paintScreenContext.getPointedOriPoint());
         }
-        return context.getPointedOriPoint();
+        return paintScreenContext.getPointedOriPoint();
     }
 
     @Override
-    public void onDraw(Graphics2D g2d, PaintContext context) {
-        drawPointedPoint(g2d, context);
+    public void onDraw(Graphics2D g2d, Context context) {
+        drawPointedPoint(g2d, context.getPaintScreenContext());
     }
 
 }

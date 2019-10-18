@@ -8,7 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.origami.OriVertex;
@@ -26,7 +27,7 @@ public class OffsetSettingState extends AbstractPaintState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void undoAction(Context context) {
         Set<OriVertex> vertices = context.getPalette().getOriModel()
                 .getVertices();
         Cp cp = context.getPalette().getCP();
@@ -35,17 +36,18 @@ public class OffsetSettingState extends AbstractPaintState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
         context.getPalette().getOriModel().fold();
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
-        Double p = context.getCurrentLogicalMousePoint();
+    protected boolean onAction(Context context, Double currentPoint) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Double p = paintScreenContext.getCurrentLogicalMousePoint();
         if (p != null) {
             Set<OriVertex> vertices = context.getPalette().getOriModel()
                     .getVertices();
@@ -57,7 +59,7 @@ public class OffsetSettingState extends AbstractPaintState {
         return false;
     }
 
-    private Double getRotatedPoint(PaintContext context, Double p) {
+    private Double getRotatedPoint(Context context, Double p) {
         Double rotated = new Double();
         AffineTransform transform = context.getPalette().getDiagram()
                 .getTransform().getTransform();

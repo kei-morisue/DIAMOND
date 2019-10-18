@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.LineType;
 import diamond.model.geom.element.cp.OriLine;
@@ -29,25 +30,27 @@ public class OriLine0PickkingState extends OriLinePickkingState {
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
+    protected boolean onAction(Context context, Double currentPoint) {
         OriLine picked = NearestLineFinder.findAround(context);
         if (picked == null) {
             return false;
         }
-        Stack<OriLine> pickedLines = context.getPickedLines();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
         if (pickedLines.size() > 0
                 && !OriLineUtil.isConnected(picked, pickedLines.peek())) {
             return false;
         }
         pickedLines.push(picked);
-        context.setPointedOriLine(picked);
+        paintScreenContext.setPointedOriLine(picked);
         return true;
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        OriLine pointedOriLine = context.getPointedOriLine();
-        Stack<OriLine> pickedLines = context.getPickedLines();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine pointedOriLine = paintScreenContext.getPointedOriLine();
+        Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
         if (pointedOriLine != null && pickedLines.size() > 2) {
             if (OriLineUtil.isConnected(pointedOriLine, pickedLines.get(0))) {
                 for (OriLine line : pickedLines) {
@@ -68,7 +71,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
         context.getPalette().getCP().rebuildModel();
     }
 

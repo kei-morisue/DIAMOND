@@ -9,7 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.string.StringKey.LABEL;
 
 /**
@@ -19,12 +19,12 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class AlterLineTypeUiPanel extends JPanel {
     private ButtonGroup paintActionButtons;
 
-    public AlterLineTypeUiPanel(PaintContext context, ButtonGroup paintActionButtons) {
+    public AlterLineTypeUiPanel(PaintScreenContext context, ButtonGroup paintActionButtons) {
         this.paintActionButtons = paintActionButtons;
         addEditLineTypePanel(context);
     }
 
-    private void addEditLineTypePanel(PaintContext context) {
+    private void addEditLineTypePanel(PaintScreenContext context) {
         setLayout(new GridLayout(2, 3));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.FLIP_LINE_TYPE,

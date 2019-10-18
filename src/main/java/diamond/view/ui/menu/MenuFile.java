@@ -13,8 +13,7 @@ import javax.swing.KeyStroke;
 
 import diamond.controller.file.action.ExportAction;
 import diamond.controller.file.action.LoadAction;
-import diamond.controller.paint.context.ModelContext;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 import diamond.view.resource.ResourceHolder;
 import diamond.view.resource.string.StringKey.LABEL;
 
@@ -23,27 +22,26 @@ import diamond.view.resource.string.StringKey.LABEL;
  *
  */
 public class MenuFile extends JMenu {
-    public MenuFile(PaintContext paintContext, ModelContext modelContext) {
+    public MenuFile(Context context) {
         super(ResourceHolder.getLabelString(LABEL.FILE));
-        add(buildOpen(paintContext, modelContext));
-        add(buildSave(paintContext));
+        add(buildOpen(context));
+        add(buildSave(context));
     }
 
-    private JMenuItem buildOpen(PaintContext paintContext,
-            ModelContext modelContext) {
+    private JMenuItem buildOpen(Context context) {
         JMenuItem item = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.OPEN));
         item.addActionListener(
-                new LoadAction(paintContext, modelContext, item));
+                new LoadAction(context, item));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));
         return item;
     }
 
-    private JMenuItem buildSave(PaintContext paintContext) {
+    private JMenuItem buildSave(Context context) {
         JMenuItem item = new JMenuItem(
                 ResourceHolder.getLabelString(LABEL.SAVE));
-        item.addActionListener(new ExportAction(paintContext, item));
+        item.addActionListener(new ExportAction(context, item));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         return item;

@@ -6,7 +6,8 @@ package diamond.model.geom.util;
 
 import java.awt.geom.Point2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 
@@ -15,12 +16,13 @@ import diamond.model.geom.element.cp.OriLine;
  *
  */
 public class NearestLineFinder {
-    public static OriLine findAround(
-            PaintContext context) {
+    public static OriLine findAround(Context context) {
         double minDistance = Double.MAX_VALUE;
         OriLine candidate = null;
         Cp creasePattern = context.getPalette().getCP();
-        Point2D.Double p = context.getCurrentLogicalMousePoint();
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Point2D.Double p = paintScreenContext
+                .getCurrentLogicalMousePoint();
         for (OriLine line : creasePattern.getLines()) {
             double dist = DistanceUtil.distancePointToSegment(
                     p, line.p0, line.p1);
@@ -29,7 +31,7 @@ public class NearestLineFinder {
                 candidate = line;
             }
         }
-        double scale = context.getTransform().getScale();
+        double scale = paintScreenContext.getTransform().getScale();
         if (minDistance / scale < 10) {
             return candidate;
         } else {

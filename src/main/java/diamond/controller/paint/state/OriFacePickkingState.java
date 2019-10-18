@@ -7,7 +7,8 @@ package diamond.controller.paint.state;
 import java.awt.geom.Point2D.Double;
 import java.util.Stack;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.origami.OriFace;
 
 /**
@@ -17,20 +18,22 @@ import diamond.model.geom.element.origami.OriFace;
 abstract public class OriFacePickkingState extends AbstractPaintState {
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void undoAction(Context context) {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
         context.getPalette().getOriModel().fold();
 
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
-        if (context.getPointedOriFace() != null) {
-            Stack<OriFace> pickedOriFaces = context.getPickedOriFaces();
-            pickedOriFaces.push(context.getPointedOriFace());
+    protected boolean onAction(Context context, Double currentPoint) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        if (paintScreenContext.getPointedOriFace() != null) {
+            Stack<OriFace> pickedOriFaces = paintScreenContext
+                    .getPickedOriFaces();
+            pickedOriFaces.push(paintScreenContext.getPointedOriFace());
             return true;
         }
         return false;

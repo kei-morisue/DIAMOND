@@ -12,7 +12,8 @@ import java.awt.event.ComponentListener;
 import javax.swing.JPanel;
 
 import diamond.controller.paint.action.ScreenAction;
-import diamond.controller.paint.context.AbstractScreenContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.ScreenContext;
 
 /**
  * @author long_
@@ -20,15 +21,15 @@ import diamond.controller.paint.context.AbstractScreenContext;
  */
 public abstract class AbstractScreen extends JPanel
         implements ComponentListener {
-    public AbstractScreen(AbstractScreenContext screenContext) {
+    public AbstractScreen(ScreenContext context) {
         addComponentListener(this);
-        ScreenAction screenAction = new ScreenAction(screenContext);
+        ScreenAction screenAction = new ScreenAction(context);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
     }
 
-    public abstract AbstractScreenContext getContext();
+    public abstract Context getContext();
 
     protected void drawBackGround(Graphics2D g2d, Color color) {
         g2d.setColor(color);

@@ -6,7 +6,7 @@ package diamond.view.screen.debug;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.screen.draw.StringDrawer;
 
 /**
@@ -15,7 +15,7 @@ import diamond.view.screen.draw.StringDrawer;
  */
 public class Debugger {
     public static void debugPaintContext(Graphics2D g2d,
-            PaintContext paintContext) {
+            PaintScreenContext paintContext) {
         //        g2d.setFont(FontStyle.DEBUG);
         //        describe(g2d, paintContext.getPaintAction().getClass().getName(),
         //                "Paint Action", 10);

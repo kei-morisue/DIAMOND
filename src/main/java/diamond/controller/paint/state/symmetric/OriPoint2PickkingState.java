@@ -7,7 +7,8 @@ package diamond.controller.paint.state.symmetric;
 import java.util.Collection;
 import java.util.Stack;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -26,12 +27,14 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        Stack<OriPoint> pickedPoints = context.getPickedPoints();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Stack<OriPoint> pickedPoints = paintScreenContext.getPickedPoints();
         if (pickedPoints.size() != 3) {
             throw new RuntimeException();
         }
-        Collection<OriLine> creasePattern = context.getPalette().getCP().getLines();
+        Collection<OriLine> creasePattern = context.getPalette().getCP()
+                .getLines();
 
         OriPoint first = pickedPoints.get(0);
         OriPoint second = pickedPoints.get(1);
@@ -44,13 +47,13 @@ public class OriPoint2PickkingState extends OriPointPickkingState {
                         second,
                         third,
                         first,
-                        creasePattern, context.getInputLineType());
+                        creasePattern, paintScreenContext.getInputLineType());
         context.getPalette().getCP().addAll(lines);
         pickedPoints.clear();
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
         context.getPalette().getCP().rebuildModel();
     }
 }

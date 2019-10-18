@@ -12,7 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.view.resource.string.StringKey.LABEL;
 import diamond.view.ui.button.ArrowPaintButton;
 import diamond.view.ui.button.LandmarkPaintButton;
@@ -36,7 +36,7 @@ public class UiPanelUtil {
             JPanel parent,
             ButtonGroup buttonGroup,
             LABEL label,
-            PaintContext context) {
+            PaintScreenContext context) {
         JRadioButton button = new PaintActionButton(label, context);
         parent.add(button);
         buttonGroup.add(button);
@@ -49,7 +49,7 @@ public class UiPanelUtil {
             JPanel parent,
             ButtonGroup buttonGroup,
             LABEL label,
-            PaintContext context) {
+            PaintScreenContext context) {
         JRadioButton button = new ArrowPaintButton(label, context);
         parent.add(button);
         buttonGroup.add(button);
@@ -59,7 +59,7 @@ public class UiPanelUtil {
             JPanel parent,
             ButtonGroup buttonGroup,
             LABEL label,
-            PaintContext context) {
+            PaintScreenContext context) {
         JRadioButton button = new LandmarkPaintButton(label, context);
         parent.add(button);
         buttonGroup.add(button);

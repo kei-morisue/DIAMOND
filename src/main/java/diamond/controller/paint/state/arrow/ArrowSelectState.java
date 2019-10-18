@@ -7,7 +7,8 @@ package diamond.controller.paint.state.arrow;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.AbstractPaintState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
@@ -25,7 +26,7 @@ public class ArrowSelectState extends AbstractPaintState {
     }
 
     @Override
-    protected void undoAction(PaintContext context) {
+    protected void undoAction(Context context) {
         Set<OriLine> lines = context.getPalette().getCP().getLines();
         for (OriLine line : lines) {
             AbstractArrow arrow = line.getArrow();
@@ -36,16 +37,17 @@ public class ArrowSelectState extends AbstractPaintState {
     }
 
     @Override
-    protected void rebuild(PaintContext context) {
+    protected void rebuild(Context context) {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
+    protected void onResult(Context context) {
     }
 
     @Override
-    protected boolean onAction(PaintContext context, Double currentPoint) {
-        OriLine line = context.getPointedOriLine();
+    protected boolean onAction(Context context, Double currentPoint) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine line = paintScreenContext.getPointedOriLine();
         if (line != null) {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {

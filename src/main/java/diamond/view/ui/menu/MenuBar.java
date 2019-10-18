@@ -6,8 +6,7 @@ package diamond.view.ui.menu;
 
 import javax.swing.JMenuBar;
 
-import diamond.controller.paint.context.ModelContext;
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
 
 /**
  * @author long_
@@ -15,10 +14,10 @@ import diamond.controller.paint.context.PaintContext;
  */
 public class MenuBar extends JMenuBar {
 
-    public MenuBar(PaintContext paintContext, ModelContext modelContext) {
-        add(new MenuFile(paintContext, modelContext));
-        add(new MenuRun(paintContext));
-        add(new MenuOprtion(paintContext));
+    public MenuBar(Context context) {
+        add(new MenuFile(context));
+        add(new MenuRun(context));
+        add(new MenuOption(context));
     }
 
 }

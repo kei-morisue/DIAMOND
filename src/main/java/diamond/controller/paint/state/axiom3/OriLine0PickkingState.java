@@ -6,7 +6,8 @@ package diamond.controller.paint.state.axiom3;
 
 import java.util.Stack;
 
-import diamond.controller.paint.context.PaintContext;
+import diamond.controller.paint.context.Context;
+import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -25,9 +26,10 @@ public class OriLine0PickkingState extends OriLinePickkingState {
     }
 
     @Override
-    protected void onResult(PaintContext context) {
-        Stack<OriLine> pickedLines = context.getPickedLines();
-        Stack<OriPoint> pickedPoints = context.getPickedPoints();
+    protected void onResult(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        Stack<OriLine> pickedLines = paintScreenContext.getPickedLines();
+        Stack<OriPoint> pickedPoints = paintScreenContext.getPickedPoints();
         if (pickedLines.size() != 1 || pickedPoints.size() != 3) {
             initialize();
             return;
@@ -37,7 +39,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         OriPoint v2 = pickedPoints.get(2);
         OriLine l = pickedLines.get(0);
         OriLine line = BisectorUtil.getOriLine(v0, v1,
-                v2, l, context.getInputLineType());
+                v2, l, paintScreenContext.getInputLineType());
         context.getPalette().getCP().addLine(line);
         pickedPoints.clear();
         pickedLines.clear();
