@@ -4,9 +4,10 @@
  */
 package diamond.model.geom.element.diagram;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
-import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 import diamond.model.geom.element.origami.OriModel;
 import diamond.view.screen.draw.OriModelDrawer;
@@ -20,10 +21,11 @@ import diamond.view.screen.draw.style.PageStyle;
  */
 public class Step extends AbstractStep {
     private int stepNo;
+
     public Step(Diagram diagram, int stepNo) {
         super(diagram);
         this.stepNo = stepNo;
-        setBorder(new BevelBorder(BevelBorder.LOWERED));
+        setBorder(new MatteBorder(0, 0, 1, 0, Color.black));
         setBackground(PageStyle.bg);
     }
 

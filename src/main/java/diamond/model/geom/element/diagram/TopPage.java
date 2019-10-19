@@ -16,7 +16,7 @@ import diamond.view.screen.draw.style.PageStyle;
  *
  */
 public class TopPage extends JPanel {
-    private final static int n = PageStyle.DIAGRAM_ROW
+    private final static int N = PageStyle.DIAGRAM_ROW
             * PageStyle.DIAGRAM_COL - 1;
 
     public TopPage(Vector<Diagram> diagrams) {
@@ -25,7 +25,7 @@ public class TopPage extends JPanel {
                 PageStyle.DIAGRAM_COL));
         setBackground(PageStyle.bg);
         add(new Goal(diagrams));
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < N; ++i) {
             if (i < diagrams.size()) {
                 Diagram diagram = diagrams.get(i);
                 add(new Step(diagram, i));

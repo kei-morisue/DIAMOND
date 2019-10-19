@@ -9,7 +9,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import diamond.controller.paint.context.Context;
 import diamond.view.screen.ModelScreen;
 import diamond.view.screen.PaintScreen;
 import diamond.view.ui.button.ModelJumpButton;
@@ -40,9 +39,6 @@ public class NorthernBar extends JPanel {
                 paintScreen, modelScreen));
         panel.add(new ModelSwitchButton(ModelSwitchButton.NEXT,
                 paintScreen, modelScreen));
-        Context context = paintScreen.getContext();
-        panel.add(new StepNoComboBox(
-                context.getPalette()));
         return panel;
     }
 }
