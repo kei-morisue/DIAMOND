@@ -56,8 +56,8 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
         }
         OriFace findAround = NearestFaceFinder.findAround(context);
         paintScreenContext.getPointedElements().setOriFace(findAround);
-        if (oriFace != null) {
-            oriFace.isPointed = true;
+        if (findAround != null) {
+            findAround.isPointed = true;
         }
     }
 }
