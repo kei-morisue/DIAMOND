@@ -9,7 +9,7 @@ import java.awt.geom.Point2D.Double;
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.PointedElement;
-import diamond.controller.paint.state.AbstractPaintState;
+import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
@@ -19,7 +19,7 @@ import diamond.model.geom.element.origami.OriVertex;
  * @author long_
  *
  */
-public class LandmarkPaintState extends AbstractPaintState {
+public class LandmarkPaintState extends OriPointPickkingState {
 
     public LandmarkPaintState() {
     }

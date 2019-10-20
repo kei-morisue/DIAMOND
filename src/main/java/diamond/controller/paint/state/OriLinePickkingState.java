@@ -12,6 +12,7 @@ import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriLine;
+import diamond.model.geom.util.NearestLineFinder;
 
 /**
  * @author long_
@@ -50,5 +51,14 @@ public abstract class OriLinePickkingState extends AbstractPaintState {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setCandate(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriLine findAround = NearestLineFinder.findAround(context);
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.setOriLine(findAround);
     }
 }

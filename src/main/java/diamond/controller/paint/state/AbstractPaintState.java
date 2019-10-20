@@ -24,7 +24,7 @@ public abstract class AbstractPaintState implements PaintStateInterface {
 
     protected abstract void initialize();
 
-    abstract protected void undoAction(Context context);
+    protected abstract void undoAction(Context context);
 
     protected abstract void onResult(Context context);
 

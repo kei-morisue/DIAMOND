@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
+import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.axiom1.OriPoint0PickkingState;
 
 /**
@@ -23,10 +25,12 @@ public class Axiom1Action extends AbstractPaintAction {
     @Override
     public void onDraw(Graphics2D g2d, Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        drawPickedLines(g2d, paintScreenContext);
-        drawPickedPoints(g2d, paintScreenContext);
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pickedElements.draw(g2d);
+        pointedElements.draw(g2d);
         drawTemporaryLine(g2d, paintScreenContext);
-        drawPointedPoint(g2d, paintScreenContext);
     }
 
 }

@@ -25,4 +25,7 @@ public interface PaintStateInterface {
     public PaintStateInterface getNextState();
 
     public PaintStateInterface getPreviousState();
+
+    public void setCandate(Context context);
+
 }

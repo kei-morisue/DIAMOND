@@ -5,10 +5,10 @@
 package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.faceorder.OriFace0PickkingState;
 
@@ -24,16 +24,11 @@ public class FaceOrderingAction extends AbstractPaintAction {
     @Override
     public void onDraw(Graphics2D g2d, Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        drawPointedFace(g2d, paintScreenContext);
-        drawPickedFaces(g2d, paintScreenContext);
-    }
-
-    @Override
-    public Point2D.Double onMove(Context context) {
-        setCandidateFaceOnMove(context);
-        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        PointedElement pointedElements = paintScreenContext.getPointedElements();
-        return pointedElements.getOriPoint();
+        PickedElements pickedElements = paintScreenContext.getPickedElements();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pickedElements.draw(g2d);
+        pointedElements.draw(g2d);
     }
 
 }

@@ -7,7 +7,7 @@ package diamond.controller.paint.state.arrow;
 import java.awt.geom.Point2D.Double;
 
 import diamond.controller.paint.context.Context;
-import diamond.controller.paint.state.AbstractPaintState;
+import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
@@ -15,7 +15,7 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public class ArrowPaintState extends AbstractPaintState {
+public class ArrowPaintState extends OriLinePickkingState {
     private Class<? extends AbstractArrow> arrowClass;
 
     public ArrowPaintState(Class<? extends AbstractArrow> arrowClass) {

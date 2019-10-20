@@ -45,4 +45,12 @@ public abstract class OriPointPickkingState extends AbstractPaintState {
         return true;
     }
 
+    @Override
+    public void setCandate(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriPoint findAround = NearestPointFinder.findAround(context);
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.setOriPoint(findAround);
+    }
 }

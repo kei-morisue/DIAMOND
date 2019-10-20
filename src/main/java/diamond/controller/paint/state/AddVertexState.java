@@ -11,6 +11,8 @@ import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.util.NearestLineFinder;
+import diamond.model.geom.util.NearestPointFinder;
 import diamond.model.palette.cp.editor.LineDivider;
 
 /**
@@ -57,6 +59,16 @@ public class AddVertexState extends AbstractPaintState {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setCandate(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        OriPoint findAround = NearestPointFinder.findAround(context);
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.setOriPoint(findAround);
+        pointedElements.setOriLine(NearestLineFinder.findAround(context));
     }
 
 }

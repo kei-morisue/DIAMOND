@@ -10,7 +10,7 @@ import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
-import diamond.controller.paint.state.AbstractPaintState;
+import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.palette.cp.editor.OffsetSetter;
@@ -19,7 +19,7 @@ import diamond.model.palette.cp.editor.OffsetSetter;
  * @author long_
  *
  */
-public class OffsetSettingState extends AbstractPaintState {
+public class OffsetSettingState extends OriPointPickkingState {
     @Override
     protected void initialize() {
         setPrevClass(OffsetSettingState.class);

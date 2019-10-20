@@ -16,7 +16,7 @@ import diamond.model.palette.cp.editor.LineRemover;
  * @author long_
  *
  */
-public class DeleteVertexState extends AbstractPaintState {
+public class DeleteVertexState extends OriPointPickkingState {
 
     @Override
     protected void initialize() {

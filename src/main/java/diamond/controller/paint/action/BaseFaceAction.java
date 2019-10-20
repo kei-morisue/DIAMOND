@@ -5,7 +5,6 @@
 package diamond.controller.paint.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
@@ -23,15 +22,10 @@ public class BaseFaceAction extends AbstractPaintAction {
 
     @Override
     public void onDraw(Graphics2D g2d, Context context) {
-        drawPointedFace(g2d, context.getPaintScreenContext());
-    }
-
-    @Override
-    public Point2D.Double onMove(Context context) {
-        setCandidateFaceOnMove(context);
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PointedElement pointedElements = paintScreenContext
                 .getPointedElements();
-        return pointedElements.getOriPoint();
+        pointedElements.draw(g2d);
     }
+
 }

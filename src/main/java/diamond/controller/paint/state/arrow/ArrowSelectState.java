@@ -9,7 +9,7 @@ import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
-import diamond.controller.paint.state.AbstractPaintState;
+import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
@@ -17,7 +17,7 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public class ArrowSelectState extends AbstractPaintState {
+public class ArrowSelectState extends OriLinePickkingState {
 
     @Override
     protected void initialize() {

@@ -27,7 +27,6 @@ public class AddVertexAction extends AbstractPaintAction {
 
     @Override
     public Point2D.Double onMove(Context context) {
-        setCandidateLineOnMove(context);
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PointedElement pointedElements = paintScreenContext
                 .getPointedElements();
@@ -46,7 +45,10 @@ public class AddVertexAction extends AbstractPaintAction {
 
     @Override
     public void onDraw(Graphics2D g2d, Context context) {
-        drawPointedPoint(g2d, context.getPaintScreenContext());
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        pointedElements.draw(g2d);
     }
 
 }

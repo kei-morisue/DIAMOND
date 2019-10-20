@@ -12,6 +12,7 @@ import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.context.PointedElement;
 import diamond.model.geom.element.origami.OriFace;
+import diamond.model.geom.util.NearestFaceFinder;
 
 /**
  * @author long_
@@ -44,4 +45,19 @@ abstract public class OriFacePickkingState extends AbstractPaintState {
         return false;
     }
 
+    @Override
+    public void setCandate(Context context) {
+        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
+        PointedElement pointedElements = paintScreenContext
+                .getPointedElements();
+        OriFace oriFace = pointedElements.getOriFace();
+        if (oriFace != null) {
+            oriFace.isPointed = false;
+        }
+        OriFace findAround = NearestFaceFinder.findAround(context);
+        paintScreenContext.getPointedElements().setOriFace(findAround);
+        if (oriFace != null) {
+            oriFace.isPointed = true;
+        }
+    }
 }
