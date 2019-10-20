@@ -73,9 +73,6 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     @Override
     public Point2D.Double onMove(Context context) {
         state.setCandate(context);
-        //        setCandidateVertexOnMove(context);
-        //        setCandidateLineOnMove(context);
-
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PointedElement pointedElements = paintScreenContext
                 .getPointedElements();
