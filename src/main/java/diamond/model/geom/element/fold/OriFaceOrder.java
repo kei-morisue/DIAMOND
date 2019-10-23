@@ -6,6 +6,7 @@ package diamond.model.geom.element.fold;
 
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import diamond.model.geom.Constants;
@@ -42,12 +43,11 @@ public class OriFaceOrder {
         List<OriFace> faces = cp.getOriModel().getFaces();
         ArrayList<OriFace> ordered = new ArrayList<>();
         for (Double c1 : centerPoints) {
-            for (int i = 0; i < faces.size(); i++) {
-                OriFace face0 = faces.get(i);
-                OriVertex c0 = OriFaceUtil.getCenterPoint(face0);
+            for (OriFace face : faces) {
+                OriVertex c0 = OriFaceUtil.getCenterPoint(face);
                 if (c0.distance(c1) < Constants.EPS) {
-                    ordered.add(face0);
-                    faces.remove(i);
+                    ordered.add(face);
+                    faces.remove(face);
                     continue;
                 }
             }
@@ -61,6 +61,10 @@ public class OriFaceOrder {
 
     public ArrayList<Double> getCenterPoints() {
         return this.centerPoints;
+    }
+
+    public void flip() {
+        Collections.reverse(centerPoints);
     }
 
     public void setCenterPoints(ArrayList<Double> centerPoints) {

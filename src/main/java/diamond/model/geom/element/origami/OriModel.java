@@ -76,7 +76,6 @@ public class OriModel {
 
     public void fold() {
         Folder.fold(this);
-        //faces = OriFaceSorter.sort(faces);
     }
 
     private void findBaseFace(Cp cp) {

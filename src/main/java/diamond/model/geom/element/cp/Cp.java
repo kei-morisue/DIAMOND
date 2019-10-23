@@ -11,6 +11,7 @@ import java.util.Set;
 
 import diamond.Initials;
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.fold.OriFaceOrder;
 import diamond.model.geom.element.origami.OriModel;
@@ -32,6 +33,7 @@ public class Cp {
     }
 
     public Cp(Cp cp) {
+        boolean isFlip = false;
         for (OriLine oriLine : cp.getLines()) {
             OriLine line = new OriLine(oriLine);
             if (line.getType() == LineType.UNSETTLED_MOUNTAIN) {
@@ -43,15 +45,24 @@ public class Cp {
             if (oriLine.getArrow() != null) {
                 if (oriLine.getArrow().getClass() == FoldUnfoldArrow.class) {
                     line.setType(LineType.CREASE);
+                } else if (oriLine.getArrow().getClass() == FlipArrow.class) {
+                    isFlip = true;
                 }
             }
-
             lines.add(line);
         }
-        baseFaceCenter = OriFaceUtil.getCenterPoint(cp.oriModel.getBaseFace());
+        OriModel originalModel = cp.oriModel;
+        baseFaceCenter = OriFaceUtil
+                .getCenterPoint(originalModel.getBaseFace());
         oriModel = new OriModel(this);
+        cp.saveOrder();
         order = new OriFaceOrder(cp.order);
-        loadOrder();
+        if (isFlip) {
+            order.flip();
+            baseFaceCenter = order.getCenterPoints().get(0);
+        }
+        oriModel.setBaseFace(oriModel.getFaces().get(0));
+        rebuildModel();
     }
 
     public void rebuildModel() {
