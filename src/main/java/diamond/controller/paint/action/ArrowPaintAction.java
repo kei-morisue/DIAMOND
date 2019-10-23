@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.PointedElement;
-import diamond.controller.paint.state.arrow.ArrowPaintState;
+import diamond.controller.paint.state.ArrowPaintState;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
 /**

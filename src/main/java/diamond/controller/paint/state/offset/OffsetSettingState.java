@@ -4,14 +4,13 @@
  */
 package diamond.controller.paint.state.offset;
 
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.Palette;
-import diamond.controller.paint.state.OriPointPickkingState;
+import diamond.controller.paint.state.OffsetState;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
@@ -21,7 +20,7 @@ import diamond.model.palette.cp.editor.OffsetSetter;
  * @author long_
  *
  */
-public class OffsetSettingState extends OriPointPickkingState {
+public class OffsetSettingState extends OffsetState {
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);
@@ -34,7 +33,7 @@ public class OffsetSettingState extends OriPointPickkingState {
                 .getVertices();
         Cp cp = context.getPalette().getCP();
         OffsetSetter.reset(vertices, cp);
-        context.initialize();
+        onResult(context);
         context.getPalette().getOriModel().fold();
     }
 
@@ -72,16 +71,6 @@ public class OffsetSettingState extends OriPointPickkingState {
             OffsetSetter.set(cp, rotated, vertices);
             rebuild(context);
         }
-    }
-
-    private Double getRotatedPoint(Context context, Double p) {
-        Double rotated = new Double();
-        AffineTransform transform = context.getPalette().getDiagram()
-                .getTransform().getTransform();
-        double theta = Math.atan2(-transform.getShearX(),
-                transform.getScaleX());
-        AffineTransform.getRotateInstance(-theta).transform(p, rotated);
-        return rotated;
     }
 
 }

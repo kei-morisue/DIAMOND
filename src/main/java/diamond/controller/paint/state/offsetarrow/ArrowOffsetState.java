@@ -2,14 +2,14 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.arrow;
+package diamond.controller.paint.state.offsetarrow;
 
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
-import diamond.controller.paint.state.OriLinePickkingState;
+import diamond.controller.paint.state.OffsetState;
 import diamond.model.geom.element.cp.Cp;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
@@ -18,12 +18,12 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public class ArrowScalingState extends OriLinePickkingState {
+public class ArrowOffsetState extends OffsetState {
 
     @Override
     protected void initialize() {
-        setPrevClass(ArrowScalingState.class);
-        setNextClass(ArrowScalingState.class);
+        setPrevClass(Arrow0PickkingState.class);
+        setNextClass(Arrow0PickkingState.class);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ArrowScalingState extends OriLinePickkingState {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {
                 if (arrow.isSelected()) {
-                    arrow.setScale(1.0);
+                    arrow.setOffset(new Double(.0, .0));
                 }
             }
         }
@@ -41,6 +41,13 @@ public class ArrowScalingState extends OriLinePickkingState {
 
     @Override
     protected void onResult(Context context) {
+        Set<OriLine> lines = context.getPalette().getCP().getLines();
+        for (OriLine line : lines) {
+            AbstractArrow arrow = line.getArrow();
+            if (arrow != null) {
+                arrow.unselect();
+            }
+        }
     }
 
     @Override
@@ -48,7 +55,7 @@ public class ArrowScalingState extends OriLinePickkingState {
     }
 
     @Override
-    protected boolean onAction(Context context, Double currentPoint) {
+    public void setCandate(Context context) {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         Double p = paintScreenContext.getCurrentLogicalMousePoint();
         if (p != null) {
@@ -57,13 +64,17 @@ public class ArrowScalingState extends OriLinePickkingState {
                 AbstractArrow arrow = line.getArrow();
                 if (arrow != null) {
                     if (arrow.isSelected()) {
-                        arrow.setScale(p.distance(0, 0) * 0.01);
+                        Double rotated = getRotatedPoint(context, p);
+                        arrow.setOffset(rotated);
                     }
                 }
             }
-            return true;
         }
-        return false;
+    }
+
+    @Override
+    protected boolean onAction(Context context, Double currentPoint) {
+        return true;
     }
 
 }

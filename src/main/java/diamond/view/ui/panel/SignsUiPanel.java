@@ -33,9 +33,9 @@ public class SignsUiPanel extends JPanel {
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.ROTATE_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
-                LABEL.SELECT_ARROW, context);
-        UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.SCALE_ARROW, context);
+        UiPanelUtil.addArrowPaintButton(this, buttonGroup,
+                LABEL.OFFSET_ARROW, context);
         UiPanelUtil.addLandmarkPaintButton(this, buttonGroup,
                 LABEL.LANDMARK, context);
 

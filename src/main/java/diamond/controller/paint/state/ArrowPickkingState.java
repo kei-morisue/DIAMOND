@@ -2,14 +2,13 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.arrow;
+package diamond.controller.paint.state;
 
 import java.awt.geom.Point2D.Double;
 import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
-import diamond.controller.paint.state.OriLinePickkingState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 
@@ -17,13 +16,7 @@ import diamond.model.geom.element.diagram.arrow.AbstractArrow;
  * @author long_
  *
  */
-public class ArrowSelectState extends OriLinePickkingState {
-
-    @Override
-    protected void initialize() {
-        setPrevClass(ArrowSelectState.class);
-        setNextClass(ArrowSelectState.class);
-    }
+public abstract class ArrowPickkingState extends OriLinePickkingState {
 
     @Override
     protected void undoAction(Context context) {
@@ -52,8 +45,10 @@ public class ArrowSelectState extends OriLinePickkingState {
             AbstractArrow arrow = line.getArrow();
             if (arrow != null) {
                 arrow.selectUnselect();
+                if (arrow.isSelected()) {
+                    return true;
+                }
             }
-            return true;
         }
         return false;
     }

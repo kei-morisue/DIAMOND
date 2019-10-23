@@ -68,8 +68,8 @@ public class StringKey {
         SINK_ARROW,
         PLEAT_ARROW,
         LANDMARK,
-        SELECT_ARROW,
         SCALE_ARROW,
+        OFFSET_ARROW,
 
         FACE_MANAGEMENT_TAB,
         ALTER_LINE_TYPE_TAB,

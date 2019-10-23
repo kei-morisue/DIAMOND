@@ -22,8 +22,8 @@ import diamond.model.palette.cp.editor.LineAdder;
 public class OriLine0PickkingState extends OriLinePickkingState {
     @Override
     protected void initialize() {
-        setPrevClass(this.getClass());
-        setNextClass(this.getClass());
+        setPrevClass(OriLine0PickkingState.class);
+        setNextClass(OriLine0PickkingState.class);
 
     }
 

@@ -24,6 +24,7 @@ public abstract class AbstractArrow {
     protected AbstractArrowHead head1;
     private static final double scaleOriLine = 0.10;
     private double scale = 1.0;
+    private Double offset = new Double(.0, .0);
     private boolean isSelected = false;
 
     protected AbstractArrow() {
@@ -67,9 +68,11 @@ public abstract class AbstractArrow {
     public void draw(Graphics2D g2d, OriHalfEdge he) {
         Double p0 = he.getSv().getFoldedPosition();
         Double p1 = he.getEv().getFoldedPosition();
+        g2d.translate(offset.x, offset.y);
         draw(g2d,
                 Point2DUtil.pivotScale(p0, p1, scale),
                 Point2DUtil.pivotScale(p1, p0, scale));
+        g2d.translate(-offset.x, -offset.y);
     }
 
     @Deprecated
@@ -126,5 +129,14 @@ public abstract class AbstractArrow {
 
     public boolean isSelected() {
         return this.isSelected;
+    }
+
+    @Deprecated
+    public Double getOffset() {
+        return this.offset;
+    }
+
+    public void setOffset(Double offset) {
+        this.offset = offset;
     }
 }
