@@ -47,13 +47,14 @@ public class OriFaceOrder {
                 OriVertex c0 = OriFaceUtil.getCenterPoint(face);
                 if (c0.distance(c1) < Constants.EPS) {
                     ordered.add(face);
-                    faces.remove(face);
                     continue;
                 }
             }
         }
         for (OriFace face : faces) {
-            ordered.add(face);
+            if (ordered.indexOf(face) == -1) {
+                ordered.add(face);
+            }
         }
         faces.clear();
         faces.addAll(ordered);
