@@ -38,7 +38,7 @@ public class OffsetSetter {
         for (OriVertex v : vertices) {
             if (v.isPickked()) {
                 Double offset = Point2DUtil.scale(p, .1);
-                v.setOffset(offset);
+                v.setOffset(offset.x, offset.y);
                 set(cp, v, offset);
             }
         }

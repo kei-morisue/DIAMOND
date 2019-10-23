@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.view.screen.draw.style.VertexStyle;
+import diamond.view.screen.draw.style.color.OriVertexColor;
 
 /**
  * @author long_
@@ -20,7 +21,7 @@ import diamond.view.screen.draw.style.VertexStyle;
 public class OriVertexDrawer {
 
     public static void drawVertex(Graphics2D g2d, OriVertex v, double size) {
-        g2d.setColor(VertexStyle.COLOR_SELECTED);
+        g2d.setColor(OriVertexColor.POINTED);
         Point2D foldedPosition = v.getFoldedPosition();
         Double offset = v.getOffset();
         g2d.fill(new Rectangle2D.Double(
@@ -51,10 +52,10 @@ public class OriVertexDrawer {
     private static void drawLandmark(Graphics2D g2d, int x, int y) {
         int size = VertexStyle.SIZE_LANDMARK_EDGE;
         int half = size >> 1;
-        g2d.setColor(VertexStyle.COLOR_LANDMARK_EDGE);
+        g2d.setColor(OriVertexColor.LANDMARK_EDGE);
         g2d.setStroke(VertexStyle.STROKE_LANDMARK_EDGE);
         g2d.drawOval(x - half, y - half, size, size);
-        g2d.setColor(VertexStyle.COLOR_LANDMARK_BODY);
+        g2d.setColor(OriVertexColor.LANDMARK_BODY);
         g2d.setStroke(VertexStyle.STROKE_LANDMARK_BODY);
         size = VertexStyle.SIZE_LANDMARK_BODY;
         half = size >> 1;

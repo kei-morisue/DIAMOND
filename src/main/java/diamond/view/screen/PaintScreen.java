@@ -116,12 +116,12 @@ public class PaintScreen extends AbstractScreen {
 
     private Color getColor(OriVertex vertex) {
         if (!vertex.isFoldable()) {
-            return OriVertexColor.WRONG_ORI_VERTEX;
+            return OriVertexColor.WRONG;
         }
         if (vertex.isPickked()) {
-            return VertexStyle.COLOR_SELECTED;
+            return OriVertexColor.SELECTED;
         }
-        return OriVertexColor.CP_ORI_VERTEX;
+        return OriVertexColor.CP;
     }
 
     private void paintFaces(Graphics2D g2d, OriModel model) {

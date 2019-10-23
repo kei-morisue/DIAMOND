@@ -26,7 +26,7 @@ public class EditVertexUiPanel extends JPanel {
     }
 
     private void addEditVertexPanel(PaintScreenContext context) {
-        setLayout(new GridLayout(2, 3));
+        setLayout(new GridLayout(1, 4));
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.ADD_VERTEX,
                 context);
@@ -34,9 +34,7 @@ public class EditVertexUiPanel extends JPanel {
                 LABEL.DELETE_VERTEX,
                 context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.SELECT_VERTEX, context);
-        UiPanelUtil.addPaintActionButton(this, paintActionButtons,
-                LABEL.SELECT_ALL_VERTEX, context);
+                LABEL.AUTO_OFFSET_VERTEX, context);
         UiPanelUtil.addPaintActionButton(this, paintActionButtons,
                 LABEL.OFFSET, context);
 

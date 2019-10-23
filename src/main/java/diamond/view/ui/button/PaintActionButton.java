@@ -23,9 +23,8 @@ import diamond.controller.paint.action.MirrorAction;
 import diamond.controller.paint.action.ModifyContourAction;
 import diamond.controller.paint.action.OffsetAction;
 import diamond.controller.paint.action.PaintActionInterface;
-import diamond.controller.paint.action.SelectAllVertexAction;
 import diamond.controller.paint.action.SelectLineAction;
-import diamond.controller.paint.action.SelectVertexAction;
+import diamond.controller.paint.action.AutoOffsetVertexAction;
 import diamond.controller.paint.action.SettleUnsettleLineAction;
 import diamond.controller.paint.action.SymmetricLineAction;
 import diamond.controller.paint.action.UnfoldLineAction;
@@ -112,13 +111,9 @@ public class PaintActionButton extends JRadioButton implements ActionListener {
             setIcons("face_bottom");
             this.paintAction = new FaceOrderingAction();
             break;
-        case SELECT_VERTEX:
+        case AUTO_OFFSET_VERTEX:
             setIcons("select_v");
-            this.paintAction = new SelectVertexAction();
-            break;
-        case SELECT_ALL_VERTEX:
-            setIcons("select_all_v");
-            this.paintAction = new SelectAllVertexAction();
+            this.paintAction = new AutoOffsetVertexAction();
             break;
         case OFFSET:
             setIcons("offset");

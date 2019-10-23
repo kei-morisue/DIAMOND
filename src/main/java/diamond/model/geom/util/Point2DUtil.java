@@ -18,6 +18,10 @@ public class Point2DUtil {
         return Point2D.distance(p0.x, p0.y, p1.x, p1.y);
     }
 
+    public static double norm(Double p0) {
+        return Math.hypot(p0.x, p0.y);
+    }
+
     public static double angle(Double p0) {
         return Math.atan2(p0.y, p0.x);
     }

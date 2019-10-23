@@ -10,8 +10,10 @@ import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.Palette;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.element.cp.Cp;
+import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.palette.cp.editor.OffsetSetter;
 
@@ -22,8 +24,8 @@ import diamond.model.palette.cp.editor.OffsetSetter;
 public class OffsetSettingState extends OriPointPickkingState {
     @Override
     protected void initialize() {
-        setPrevClass(OffsetSettingState.class);
-        setNextClass(OffsetSettingState.class);
+        setPrevClass(OriPoint0PickkingState.class);
+        setNextClass(OriPoint0PickkingState.class);
     }
 
     @Override
@@ -32,11 +34,19 @@ public class OffsetSettingState extends OriPointPickkingState {
                 .getVertices();
         Cp cp = context.getPalette().getCP();
         OffsetSetter.reset(vertices, cp);
+        context.initialize();
         context.getPalette().getOriModel().fold();
     }
 
     @Override
     protected void onResult(Context context) {
+        Palette palette = context.getPalette();
+        OriModel oriModel = palette.getOriModel();
+        Set<OriVertex> vertices = oriModel.getVertices();
+        for (OriVertex v : vertices) {
+            v.setPickked(false);
+        }
+        context.initialize();
     }
 
     @Override
@@ -46,6 +56,12 @@ public class OffsetSettingState extends OriPointPickkingState {
 
     @Override
     protected boolean onAction(Context context, Double currentPoint) {
+        return true;
+    }
+
+    @Override
+    public void setCandate(Context context) {
+        super.setCandate(context);
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         Double p = paintScreenContext.getCurrentLogicalMousePoint();
         if (p != null) {
@@ -54,9 +70,8 @@ public class OffsetSettingState extends OriPointPickkingState {
             Cp cp = context.getPalette().getCP();
             Double rotated = getRotatedPoint(context, p);
             OffsetSetter.set(cp, rotated, vertices);
-            return true;
+            rebuild(context);
         }
-        return false;
     }
 
     private Double getRotatedPoint(Context context, Double p) {

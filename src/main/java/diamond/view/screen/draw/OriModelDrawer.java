@@ -33,6 +33,17 @@ public class OriModelDrawer {
             drawUnsettledLines(g2d, face);
         }
         drawArrows(g2d, model);
+        drawPointed(g2d, model);
+    }
+
+    private static void drawPointed(Graphics2D g2d, OriModel model) {
+        double size = VertexStyle.SIZE_POINTED
+                / G2DUtil.getScale(g2d);
+        for (OriVertex v : model.getVertices()) {
+            if (v.isPointed() || v.isPickked()) {
+                OriVertexDrawer.drawVertex(g2d, v, size);
+            }
+        }
     }
 
     private static void drawArrows(Graphics2D g2d, OriModel model) {

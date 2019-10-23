@@ -2,16 +2,18 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2019 Kei Morisue
  */
-package diamond.controller.paint.state.selectv;
+package diamond.controller.paint.state.offset;
 
 import java.util.Set;
 
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
+import diamond.controller.paint.context.Palette;
 import diamond.controller.paint.context.PickedElements;
 import diamond.controller.paint.state.OriPointPickkingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriPoint;
+import diamond.model.geom.element.origami.OriModel;
 import diamond.model.geom.element.origami.OriVertex;
 import diamond.model.geom.util.DistanceUtil;
 
@@ -20,21 +22,10 @@ import diamond.model.geom.util.DistanceUtil;
  *
  */
 public class OriPoint0PickkingState extends OriPointPickkingState {
-
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);
-        setNextClass(OriPoint0PickkingState.class);
-
-    }
-
-    @Override
-    protected void undoAction(Context context) {
-        Set<OriVertex> vertices = context.getPalette().getOriModel()
-                .getVertices();
-        for (OriVertex vertex : vertices) {
-            vertex.setPickked(false);
-        }
+        setNextClass(OffsetSettingState.class);
     }
 
     @Override
@@ -42,14 +33,14 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
         PaintScreenContext paintScreenContext = context.getPaintScreenContext();
         PickedElements pickedElements = paintScreenContext.getPickedElements();
         OriPoint p = pickedElements.getOriPoints().get(0);
-        Set<OriVertex> vertices = context.getPalette().getOriModel()
-                .getVertices();
+        Palette palette = context.getPalette();
+        OriModel oriModel = palette.getOriModel();
+        Set<OriVertex> vertices = oriModel.getVertices();
         for (OriVertex vertex : vertices) {
             if (DistanceUtil.distance(p, vertex) < Constants.EPS) {
-                vertex.setPickked(!vertex.isPickked());
+                vertex.setPickked(true);
             }
         }
-        paintScreenContext.initialize();
     }
 
     @Override

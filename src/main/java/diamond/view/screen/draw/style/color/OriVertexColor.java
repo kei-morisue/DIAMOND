@@ -12,7 +12,11 @@ import java.awt.Color;
  */
 public class OriVertexColor {
 
-    static public final Color CP_ORI_VERTEX = Color.black;
-    static public final Color WRONG_ORI_VERTEX = Color.red;
+    static public final Color CP = Color.black;
+    static public final Color WRONG = Color.red;
+    static public final Color POINTED = Color.green;
+    static public final Color SELECTED = Color.green;
+    public static final Color LANDMARK_BODY = Color.black;
+    public static final Color LANDMARK_EDGE = Color.white;
 
 }

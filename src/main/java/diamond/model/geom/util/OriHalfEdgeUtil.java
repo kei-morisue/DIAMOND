@@ -16,4 +16,5 @@ public class OriHalfEdgeUtil {
         return OriLineUtil.isSameLineSegment(l,
                 new OriLine(he.getSv(), he.getEv(), null));
     }
+
 }
