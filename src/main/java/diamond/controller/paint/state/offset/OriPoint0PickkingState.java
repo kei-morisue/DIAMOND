@@ -10,7 +10,7 @@ import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.Palette;
 import diamond.controller.paint.context.PickedElements;
-import diamond.controller.paint.state.OriPointPickkingState;
+import diamond.controller.paint.state.OriVertexPickingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.cp.OriPoint;
 import diamond.model.geom.element.origami.OriModel;
@@ -21,7 +21,7 @@ import diamond.model.geom.util.DistanceUtil;
  * @author long_
  *
  */
-public class OriPoint0PickkingState extends OriPointPickkingState {
+public class OriPoint0PickkingState extends OriVertexPickingState {
     @Override
     protected void initialize() {
         setPrevClass(OriPoint0PickkingState.class);

@@ -12,7 +12,7 @@ import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.Palette;
 import diamond.controller.paint.context.PickedElements;
-import diamond.controller.paint.state.OriPointPickkingState;
+import diamond.controller.paint.state.OriVertexPickingState;
 import diamond.model.geom.Constants;
 import diamond.model.geom.element.Rectangle;
 import diamond.model.geom.element.cp.OriPoint;
@@ -27,7 +27,7 @@ import diamond.model.geom.util.Point2DUtil;
  * @author long_
  *
  */
-public class OriPoint0PickkingState extends OriPointPickkingState {
+public class OriPoint0PickkingState extends OriVertexPickingState {
     static final double norm = 0.02;
 
     @Override
@@ -86,12 +86,18 @@ public class OriPoint0PickkingState extends OriPointPickkingState {
             }
         }
         average = average / size;
-        return -average * 2 / (faces.size() - 1) + 1;
+        return -average * 2 / faces.size() + 1;
     }
 
     @Override
     protected void rebuild(Context context) {
         context.getPalette().getOriModel().fold();
+    }
+
+    @Override
+    public void setCandate(Context context) {
+        // TODO 自動生成されたメソッド・スタブ
+        super.setCandate(context);
     }
 
     private void autoOffset(Double center, OriVertex vertex, double scale) {
