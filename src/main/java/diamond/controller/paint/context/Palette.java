@@ -24,6 +24,11 @@ public class Palette extends Observable {
         diagrams.add(new Diagram());
     }
 
+    public Palette(Palette palette) {
+        this.diagrams = palette.diagrams;
+        stepNo = 0;
+    }
+
     public OriModel getOriModel() {
         OriModel oriModel = getCP().getOriModel();
         if (oriModel == null) {

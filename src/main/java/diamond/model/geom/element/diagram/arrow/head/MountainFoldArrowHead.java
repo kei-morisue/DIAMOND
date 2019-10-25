@@ -43,7 +43,7 @@ public class MountainFoldArrowHead extends AbstractArrowHead {
         path.closePath();
         g2d.setColor(OriArrowColor.ARROW_MOUNTAIN);
         g2d.fill(path);
-        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+        g2d.setColor(isSelected ? OriArrowColor.ARROW_SELECTED
                 : OriArrowColor.ARROW_VALLEY);
         g2d.draw(path);
     }

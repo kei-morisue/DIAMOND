@@ -44,6 +44,7 @@ public class OriLine0PickkingState extends OriLinePickkingState {
         }
         LineAdder.addAll(mirroredLines,
                 context.getPalette().getCP().getLines());
+        rebuild(context);
         pickedElements.getOriLines().clear();
     }
 

@@ -7,6 +7,7 @@ package diamond.view.screen.draw;
 import java.awt.Graphics2D;
 
 import diamond.model.geom.element.LineType;
+import diamond.model.geom.element.diagram.arrow.AbstractArrow;
 import diamond.model.geom.element.origami.OriFace;
 import diamond.model.geom.element.origami.OriHalfEdge;
 import diamond.model.geom.element.origami.OriModel;
@@ -61,9 +62,15 @@ public class OriModelDrawer {
     }
 
     private static void drawArrow(Graphics2D g2d, OriHalfEdge he) {
-        if (he.getArrow() != null) {
-            he.getArrow().draw(g2d, he);
+        AbstractArrow arrow = he.getArrow();
+        if (arrow != null) {
+            arrow.draw(g2d, he);
         }
+        arrow = he.getPair().getArrow();
+        if (arrow != null) {
+            arrow.draw(g2d, he);
+        }
+
     }
 
     private static void drawEdges(Graphics2D g2d, double scale, OriFace face) {

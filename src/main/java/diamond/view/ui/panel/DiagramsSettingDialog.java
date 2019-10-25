@@ -16,14 +16,10 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import diamond.Initials;
 import diamond.controller.paint.context.Context;
-import diamond.controller.paint.context.PaintScreenContext;
 import diamond.controller.paint.context.Palette;
-import diamond.controller.paint.context.PointedElement;
-import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.Diagram;
-import diamond.model.geom.element.diagram.arrow.AbstractArrow;
-import diamond.model.geom.element.diagram.arrow.RepeatArrow;
 import diamond.view.screen.ModelScreen;
 
 /**
@@ -36,13 +32,16 @@ public class DiagramsSettingDialog extends JPanel {
     private ModelScreen modelScreen0;
     private JComboBox<Integer> i1;
     private ModelScreen modelScreen1;
-    private OriLine oriLine;
-    private Context context;
+    private Palette palette0;
+    private Palette palette1;
 
     public DiagramsSettingDialog(Context context) {
         i0 = new JComboBox<Integer>();
         i1 = new JComboBox<Integer>();
         Palette palette = context.getPalette();
+        this.palette0 = new Palette(palette);
+        this.palette1 = new Palette(palette);
+
         Vector<Diagram> diagrams = palette.getDiagrams();
         for (int i = 0; i < diagrams.size(); i++) {
             i0.addItem(i + 1);
@@ -64,42 +63,37 @@ public class DiagramsSettingDialog extends JPanel {
         panel0.add(i0, BorderLayout.NORTH);
         panel1.add(i1, BorderLayout.NORTH);
 
-        modelScreen0 = new ModelScreen(new Context(palette));
-        modelScreen1 = new ModelScreen(new Context(palette));
+        modelScreen0 = new ModelScreen(new Context(palette0));
+        modelScreen1 = new ModelScreen(new Context(palette1));
+
         panel0.add(modelScreen0, BorderLayout.CENTER);
         panel1.add(modelScreen1, BorderLayout.CENTER);
 
-        PaintScreenContext paintScreenContext = context.getPaintScreenContext();
-        PointedElement pointedElements = paintScreenContext
-                .getPointedElements();
-        oriLine = pointedElements.getOriLine();
-        this.context = context;
     }
 
     private class Action implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int s0 = (int) i0.getSelectedItem();
-            int s1 = (int) i1.getSelectedItem();
-
+            int s0 = (int) i0.getSelectedItem() - 1;
+            int s1 = (int) i1.getSelectedItem() - 1;
             Context c0 = modelScreen0.getContext();
             Context c1 = modelScreen1.getContext();
-            c0.getPalette().setStepNo(s0, c0);
-            c1.getPalette().setStepNo(s1, c1);
+            palette0.setStepNo(s0, c0);
+            palette1.setStepNo(s1, c1);
+            modelScreen0.repaint();
+            modelScreen1.repaint();
         }
-
     }
 
     public void showDialog() {
         JOptionPane option = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, null);
-        AbstractArrow newArrow = new RepeatArrow();
         JDialog dialog = option.createDialog(null, "Select Repeat Range");
-        dialog.setSize(new Dimension(800, 800));
+        dialog.setSize(
+                new Dimension(Initials.DIALOG_WIDTH, Initials.DIALOG_HEIGHT));
         dialog.setVisible(true);
-        oriLine.setArrow(newArrow);
-        oriLine.getHe().setArrow(newArrow);
+        dialog.setLocationRelativeTo(null);
     }
 
 }

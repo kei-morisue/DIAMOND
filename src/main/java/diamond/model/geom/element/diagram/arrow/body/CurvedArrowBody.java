@@ -26,7 +26,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
 
     }
 
-    public GeneralPath getStroke(Double p0, Double p1) {
+    private GeneralPath getStroke(Double p0, Double p1) {
         GeneralPath path = new GeneralPath();
         Double p2 = getP2(p0, p1);
         path.moveTo(p0.x, p0.y);
@@ -37,7 +37,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
         return path;
     }
 
-    public Double getP2(Double p0, Double p1) {
+    private Double getP2(Double p0, Double p1) {
         Point2D.Double dir = Point2DUtil.sub(p1, p0);
         double length = Point2DUtil.diatance(p0, p1);
         double angle = Point2DUtil.angle(dir);
@@ -57,7 +57,7 @@ public class CurvedArrowBody extends AbstractArrowBody {
 
     @Override
     public void draw(Graphics2D g2d, Double p0, Double p1, boolean isSelected) {
-        g2d.setColor(isSelected ? OriArrowColor.ARROE_SELECTED
+        g2d.setColor(isSelected ? OriArrowColor.ARROW_SELECTED
                 : OriArrowColor.ARROW_BODY);
         g2d.setStroke(LineStyle.STROKE_ARROW);
         g2d.draw(getStroke(getP0(p0, p1), getP1(p0, p1)));

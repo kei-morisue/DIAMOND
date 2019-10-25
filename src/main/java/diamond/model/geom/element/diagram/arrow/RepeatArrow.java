@@ -13,6 +13,11 @@ import diamond.model.geom.element.diagram.arrow.head.ValleyFoldArrowHead;
  *
  */
 public class RepeatArrow extends AbstractArrow {
+    public RepeatArrow() {
+        super();
+        setScale(0.5);
+    }
+
     @Override
     protected void buildHead0() {
         head0 = new ValleyFoldArrowHead(body, true);

@@ -10,6 +10,9 @@ public class Initials {
     final public static int MAIN_FRAME_HEIGHT = 1000;
     final public static int MAIN_FRAME_WIDTH = 1700;
 
+    final public static int DIALOG_HEIGHT = 800;
+    final public static int DIALOG_WIDTH = 1000;
+
     final public static int STYLE_FRAME_HEIGHT = 300;
     final public static int STYLE_FRAME_WIDTH = 300;
 
