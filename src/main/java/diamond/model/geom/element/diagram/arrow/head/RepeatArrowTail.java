@@ -4,13 +4,18 @@
  */
 package diamond.model.geom.element.diagram.arrow.head;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D.Double;
+import java.util.Vector;
 
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.diagram.arrow.body.AbstractArrowBody;
+import diamond.view.screen.draw.style.FontStyle;
 import diamond.view.screen.draw.style.color.OriArrowColor;
+import diamond.view.screen.draw.style.color.StringColor;
 
 /**
  * @author long_
@@ -19,9 +24,16 @@ import diamond.view.screen.draw.style.color.OriArrowColor;
 public class RepeatArrowTail extends AbstractArrowHead {
     private final static double w = 50.0;
     private final static double h = 30.0;
+    private Diagram d0;
+    private Diagram d1;
+    private Vector<Diagram> diagrams;
 
-    public RepeatArrowTail(AbstractArrowBody body, boolean isTail) {
-        super(body, isTail);
+    public RepeatArrowTail(AbstractArrowBody body, Diagram d0, Diagram d1,
+            Vector<Diagram> diagrams) {
+        super(body, false);
+        this.d0 = d0;
+        this.d1 = d1;
+        this.diagrams = diagrams;
     }
 
     @Override
@@ -53,6 +65,7 @@ public class RepeatArrowTail extends AbstractArrowHead {
         g2d.setColor(isSelected ? OriArrowColor.ARROW_SELECTED
                 : OriArrowColor.ARROW_VALLEY);
         g2d.draw(path);
+        drawStepNo(g2d, position);
     }
 
     private double getScale(AffineTransform affineTransform) {
@@ -62,4 +75,47 @@ public class RepeatArrowTail extends AbstractArrowHead {
         return scale;
     }
 
+    private void drawStepNo(Graphics2D g2d, Double position) {
+        Font font = FontStyle.REPEAT_STEP_NO;
+        g2d.setFont(font);
+        g2d.setColor(StringColor.STEP_NO);
+        int x = (int) position.x;
+        int y = (int) position.y;
+        int size = font.getSize() >> 2;
+        int s0 = diagrams.indexOf(d0);
+        int s1 = diagrams.indexOf(d1);
+        g2d.drawString(String.valueOf(s0 + 1), x - size * 3, y + size);
+        g2d.drawString("~", x - size, y + size);
+        g2d.drawString(String.valueOf(s1 + 1), x + size, y + size);
+    }
+
+    @Deprecated
+    public Diagram getD0() {
+        return d0;
+    }
+
+    @Deprecated
+    public void setD0(Diagram d0) {
+        this.d0 = d0;
+    }
+
+    @Deprecated
+    public Diagram getD1() {
+        return d1;
+    }
+
+    @Deprecated
+    public void setD1(Diagram d1) {
+        this.d1 = d1;
+    }
+
+    @Deprecated
+    public Vector<Diagram> getDiagrams() {
+        return diagrams;
+    }
+
+    @Deprecated
+    public void setDiagrams(Vector<Diagram> diagrams) {
+        this.diagrams = diagrams;
+    }
 }

@@ -12,6 +12,7 @@ import java.awt.Font;
  */
 public class FontStyle {
     final public static Font MODEL_STEP_NO = new Font("Arial", Font.BOLD, 100);
+    final public static Font REPEAT_STEP_NO = new Font("Arial", Font.PLAIN, 50);
     final public static Font DIAGRAM_STEP_NO = new Font("Arial", Font.BOLD,
             30);
     final public static Font DEBUG = new Font("Arial", Font.PLAIN, 10);

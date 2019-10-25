@@ -19,7 +19,9 @@ import javax.swing.JPanel;
 import diamond.Initials;
 import diamond.controller.paint.context.Context;
 import diamond.controller.paint.context.Palette;
+import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.Diagram;
+import diamond.model.geom.element.diagram.arrow.RepeatArrow;
 import diamond.view.screen.ModelScreen;
 
 /**
@@ -34,8 +36,10 @@ public class DiagramsSettingDialog extends JPanel {
     private ModelScreen modelScreen1;
     private Palette palette0;
     private Palette palette1;
+    private Context context;
 
     public DiagramsSettingDialog(Context context) {
+        this.context = context;
         i0 = new JComboBox<Integer>();
         i1 = new JComboBox<Integer>();
         Palette palette = context.getPalette();
@@ -94,6 +98,20 @@ public class DiagramsSettingDialog extends JPanel {
                 new Dimension(Initials.DIALOG_WIDTH, Initials.DIALOG_HEIGHT));
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
+
+        int s0 = (int) i0.getSelectedItem() - 1;
+        int s1 = (int) i1.getSelectedItem() - 1;
+
+        Vector<Diagram> diagrams = context.getPalette().getDiagrams();
+        Diagram d0 = diagrams.get(s0);
+        Diagram d1 = diagrams.get(s1);
+
+        RepeatArrow arrow = new RepeatArrow(d0, d1, diagrams);
+        OriLine oriLine = context.getPaintScreenContext().getPointedElements()
+                .getOriLine();
+        oriLine.setArrow(arrow);
+        oriLine.getHe().setArrow(arrow);
+
     }
 
 }

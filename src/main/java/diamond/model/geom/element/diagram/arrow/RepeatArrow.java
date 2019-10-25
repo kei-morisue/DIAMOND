@@ -4,6 +4,9 @@
  */
 package diamond.model.geom.element.diagram.arrow;
 
+import java.util.Vector;
+
+import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.element.diagram.arrow.body.RepeatArrowBody;
 import diamond.model.geom.element.diagram.arrow.head.RepeatArrowTail;
 import diamond.model.geom.element.diagram.arrow.head.ValleyFoldArrowHead;
@@ -13,8 +16,17 @@ import diamond.model.geom.element.diagram.arrow.head.ValleyFoldArrowHead;
  *
  */
 public class RepeatArrow extends AbstractArrow {
-    public RepeatArrow() {
-        super();
+    private Diagram d0;
+    private Diagram d1;
+    private Vector<Diagram> diagrams;
+
+    public RepeatArrow(Diagram d0, Diagram d1, Vector<Diagram> diagrams) {
+        this.d0 = d0;
+        this.d1 = d1;
+        this.diagrams = diagrams;
+        buildBody();
+        buildHead0();
+        buildHead1();
         setScale(0.5);
     }
 
@@ -25,7 +37,7 @@ public class RepeatArrow extends AbstractArrow {
 
     @Override
     protected void buildHead1() {
-        head1 = new RepeatArrowTail(body, false);
+        head1 = new RepeatArrowTail(body, d0, d1, diagrams);
     }
 
     @Override

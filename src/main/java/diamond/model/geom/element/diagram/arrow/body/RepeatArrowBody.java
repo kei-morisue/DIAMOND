@@ -7,9 +7,7 @@ package diamond.model.geom.element.diagram.arrow.body;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D.Double;
-import java.util.Vector;
 
-import diamond.model.geom.element.diagram.Diagram;
 import diamond.model.geom.util.Point2DUtil;
 import diamond.view.screen.draw.style.LineStyle;
 import diamond.view.screen.draw.style.color.OriArrowColor;
@@ -19,9 +17,6 @@ import diamond.view.screen.draw.style.color.OriArrowColor;
  *
  */
 public class RepeatArrowBody extends AbstractArrowBody {
-    private Diagram d0;
-    private Diagram d1;
-    private Vector<Diagram> diagrams;
 
     @Override
     public double getAngle0(Double p0, Double p1) {
@@ -58,33 +53,6 @@ public class RepeatArrowBody extends AbstractArrowBody {
         g2d.setStroke(LineStyle.STROKE_ARROW);
         g2d.draw(getStroke(getP0(p0, p1), getP1(p0, p1)));
         //TODO Add Cross line
-    }
-
-    @Deprecated
-    public Diagram getD0() {
-        return d0;
-    }
-
-    public void setD0(Diagram d0) {
-        this.d0 = d0;
-    }
-
-    @Deprecated
-    public Diagram getD1() {
-        return d1;
-    }
-
-    public void setD1(Diagram d1) {
-        this.d1 = d1;
-    }
-
-    @Deprecated
-    public Vector<Diagram> getDiagrams() {
-        return diagrams;
-    }
-
-    public void setDiagrams(Vector<Diagram> diagrams) {
-        this.diagrams = diagrams;
     }
 
 }

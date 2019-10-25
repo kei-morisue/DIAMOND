@@ -12,7 +12,6 @@ import diamond.controller.paint.context.PointedElement;
 import diamond.controller.paint.state.ArrowPaintState;
 import diamond.model.geom.element.cp.OriLine;
 import diamond.model.geom.element.diagram.arrow.AbstractArrow;
-import diamond.model.geom.element.diagram.arrow.RepeatArrow;
 import diamond.view.ui.panel.DiagramsSettingDialog;
 
 /**
@@ -45,10 +44,6 @@ public class RepeatArrowPaintState extends ArrowPaintState {
                 DiagramsSettingDialog dialog = new DiagramsSettingDialog(
                         context);
                 dialog.showDialog();
-                AbstractArrow newArrow = new RepeatArrow();
-                pointedOriLine.setArrow(newArrow);
-                pointedOriLine.getHe().setArrow(newArrow);
-
             }
             return true;
         }
