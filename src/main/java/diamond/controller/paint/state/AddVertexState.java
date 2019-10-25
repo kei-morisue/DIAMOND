@@ -25,7 +25,6 @@ public class AddVertexState extends AbstractPaintState {
     protected void initialize() {
         setPrevClass(AddVertexState.class);
         setNextClass(AddVertexState.class);
-
     }
 
     @Override

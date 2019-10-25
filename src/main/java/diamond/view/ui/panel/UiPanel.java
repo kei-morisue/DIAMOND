@@ -25,9 +25,9 @@ public class UiPanel extends JTabbedPane {
                 new AlterLineTypeUiPanel(context, buttons));
         addTab(ResourceHolder.getLabelString(LABEL.SIGNS_TAB),
                 new SignsUiPanel(context, buttons));
-        addTab(ResourceHolder.getLabelString(LABEL.OFFSET_VERTEX_TAB),
-                new EditVertexUiPanel(context, buttons));
         addTab(ResourceHolder.getLabelString(LABEL.FACE_MANAGEMENT_TAB),
                 new ModelUiPanel(context, buttons));
+        addTab(ResourceHolder.getLabelString(LABEL.OFFSET_VERTEX_TAB),
+                new EditVertexUiPanel(context, buttons));
     }
 }

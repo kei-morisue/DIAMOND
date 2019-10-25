@@ -63,7 +63,6 @@ public class ArrowPaintState extends OriLinePickkingState {
             }
             return true;
         }
-
         return false;
     }
 

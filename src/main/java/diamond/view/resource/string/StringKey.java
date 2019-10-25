@@ -68,6 +68,7 @@ public class StringKey {
         SINK_ARROW,
         PLEAT_ARROW,
         LANDMARK,
+        REPEAT_ARROW,
         SCALE_ARROW,
         OFFSET_ARROW,
 
@@ -75,7 +76,6 @@ public class StringKey {
         ALTER_LINE_TYPE_TAB,
         PAINT_LINES_TAB,
         SIGNS_TAB,
-
     }
 
     public enum HINT {

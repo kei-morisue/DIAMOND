@@ -19,7 +19,7 @@ import diamond.view.resource.string.StringKey.LABEL;
 public class SignsUiPanel extends JPanel {
 
     public SignsUiPanel(PaintScreenContext context, ButtonGroup buttonGroup) {
-        setLayout(new GridLayout(3, 3));
+        setLayout(new GridLayout(3, 4));
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.VALLEY_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
@@ -32,6 +32,8 @@ public class SignsUiPanel extends JPanel {
                 LABEL.FLIP_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.ROTATE_ARROW, context);
+        UiPanelUtil.addArrowPaintButton(this, buttonGroup,
+                LABEL.REPEAT_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,
                 LABEL.SCALE_ARROW, context);
         UiPanelUtil.addArrowPaintButton(this, buttonGroup,

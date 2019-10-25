@@ -11,12 +11,14 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.paint.action.ArrowOffsetAction;
 import diamond.controller.paint.action.ArrowPaintAction;
+import diamond.controller.paint.action.ArrowRepeatPaintAction;
 import diamond.controller.paint.action.ArrowScalingAction;
 import diamond.controller.paint.action.PaintActionInterface;
 import diamond.controller.paint.context.PaintScreenContext;
 import diamond.model.geom.element.diagram.arrow.FlipArrow;
 import diamond.model.geom.element.diagram.arrow.FoldUnfoldArrow;
 import diamond.model.geom.element.diagram.arrow.MountainFoldArrow;
+import diamond.model.geom.element.diagram.arrow.RepeatArrow;
 import diamond.model.geom.element.diagram.arrow.RotateArrow;
 import diamond.model.geom.element.diagram.arrow.SinkArrow;
 import diamond.model.geom.element.diagram.arrow.ValleyFoldArrow;
@@ -57,6 +59,10 @@ public class ArrowPaintButton extends JRadioButton implements ActionListener {
         case ROTATE_ARROW:
             setText(ResourceHolder.getLabelString(label));
             this.paintAction = new ArrowPaintAction(RotateArrow.class);
+            break;
+        case REPEAT_ARROW:
+            setText(ResourceHolder.getLabelString(label));
+            this.paintAction = new ArrowRepeatPaintAction(RepeatArrow.class);
             break;
         case SCALE_ARROW:
             setText(ResourceHolder.getLabelString(label));
