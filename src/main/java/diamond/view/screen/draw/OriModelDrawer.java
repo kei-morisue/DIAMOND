@@ -66,11 +66,6 @@ public class OriModelDrawer {
         if (arrow != null) {
             arrow.draw(g2d, he);
         }
-        arrow = he.getPair().getArrow();
-        if (arrow != null) {
-            arrow.draw(g2d, he);
-        }
-
     }
 
     private static void drawEdges(Graphics2D g2d, double scale, OriFace face) {
