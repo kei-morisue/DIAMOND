@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model;
+package diamond.view.ui.screen;
 
 import java.awt.geom.AffineTransform;
 
@@ -14,11 +14,9 @@ public class ScreenTransform extends AffineTransform {
     private AffineTransform focus = AffineTransform
             .getTranslateInstance(0.0, 0.0);
     private AffineTransform zoom = AffineTransform.getScaleInstance(1.0, 1.0);
-    private AffineTransform translate = AffineTransform
+    private AffineTransform shift = AffineTransform
             .getTranslateInstance(0.0, 0.0);
     private AffineTransform rotate = AffineTransform.getRotateInstance(0.0);
-
-    private AffineTransform affineTransform = new AffineTransform();
 
     public ScreenTransform() {
         focus(0, 0);
@@ -31,7 +29,7 @@ public class ScreenTransform extends AffineTransform {
     public ScreenTransform(ScreenTransform transform) {
         this.focus = new AffineTransform(transform.focus);
         this.zoom = new AffineTransform(transform.zoom);
-        this.translate = new AffineTransform(transform.translate);
+        this.shift = new AffineTransform(transform.shift);
         this.rotate = new AffineTransform(transform.rotate);
     }
 
@@ -39,7 +37,7 @@ public class ScreenTransform extends AffineTransform {
         setToIdentity();
         concatenate(focus);
         concatenate(zoom);
-        concatenate(translate);
+        concatenate(shift);
         concatenate(rotate);
     }
 
@@ -49,8 +47,8 @@ public class ScreenTransform extends AffineTransform {
         concat();
     }
 
-    public void translate(double x, double y) {
-        translate.translate(x, y);
+    public void shift(double x, double y) {
+        shift.translate(x, y);
         concat();
     }
 
@@ -100,12 +98,12 @@ public class ScreenTransform extends AffineTransform {
 
     @Deprecated
     public AffineTransform getTranslate() {
-        return this.translate;
+        return this.shift;
     }
 
     @Deprecated
     public void setTranslate(AffineTransform translate) {
-        this.translate = translate;
+        this.shift = translate;
     }
 
     @Deprecated
@@ -118,13 +116,4 @@ public class ScreenTransform extends AffineTransform {
         this.rotate = rotate;
     }
 
-    @Deprecated
-    public AffineTransform getAffineTransform() {
-        return this.affineTransform;
-    }
-
-    @Deprecated
-    public void setAffineTransform(AffineTransform affineTransform) {
-        this.affineTransform = affineTransform;
-    }
 }

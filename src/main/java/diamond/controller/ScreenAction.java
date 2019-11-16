@@ -11,8 +11,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.model.ScreenTransform;
 import diamond.view.ui.screen.AbstractScreen;
+import diamond.view.ui.screen.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -40,7 +40,7 @@ public class ScreenAction
         Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
-        transform.translate(x, y);
+        transform.shift(x, y);
         latestClickedPoint = e.getPoint();
         screen.repaint();
     }

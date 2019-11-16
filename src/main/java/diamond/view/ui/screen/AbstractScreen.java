@@ -12,7 +12,6 @@ import java.awt.event.ComponentListener;
 import javax.swing.JPanel;
 
 import diamond.controller.ScreenAction;
-import diamond.model.ScreenTransform;
 
 /**
  * @author Kei Morisue
