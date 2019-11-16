@@ -7,6 +7,7 @@ package diamond.view.ui.menu;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
 
 /**
@@ -16,7 +17,7 @@ import diamond.view.resource.string.Labels;
 public class MenuBar extends JMenuBar {
     private JMenu open = new JMenu(Labels.get("open"));
 
-    public MenuBar() {
+    public MenuBar(Context context) {
         add(open);
     }
 }
