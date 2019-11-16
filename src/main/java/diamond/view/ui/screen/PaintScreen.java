@@ -6,10 +6,8 @@ package diamond.view.ui.screen;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 import diamond.controller.Context;
-import diamond.model.AffineManager;
 import diamond.view.resource.color.Skin;
 
 /**
@@ -29,8 +27,12 @@ public class PaintScreen extends AbstractScreen {
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, Skin.BG_PAINT_SCREEN);
-        AffineTransform transform = g2d.getTransform();
-        AffineManager.resize(transform, getWidth(), getHeight());
+        transform.resize(getWidth(), getHeight());
+        g2d.setTransform(transform);
         PaintScreenDrawer.draw(g2d, context.getCp());
+        g2d.drawLine(-400, 0, 400, 0);
+        g2d.drawLine(0, -400, 0, 400);
+
     }
+
 }

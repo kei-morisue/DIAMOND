@@ -8,11 +8,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
 import diamond.controller.ScreenAction;
+import diamond.model.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -20,6 +20,8 @@ import diamond.controller.ScreenAction;
  */
 public abstract class AbstractScreen extends JPanel
         implements ComponentListener {
+    protected ScreenTransform transform = new ScreenTransform();
+
     public AbstractScreen() {
         addComponentListener(this);
         ScreenAction screenAction = new ScreenAction(this);
@@ -28,9 +30,9 @@ public abstract class AbstractScreen extends JPanel
         addMouseWheelListener(screenAction);
     }
 
-    public AffineTransform getTransform() {
-        return ((Graphics2D) getGraphics()).getTransform();
-    }
+    public ScreenTransform getTransform() {
+        return transform;
+    };
 
     protected void drawBackGround(Graphics2D g2d, Color color) {
         g2d.setColor(color);

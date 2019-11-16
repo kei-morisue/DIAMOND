@@ -29,4 +29,5 @@ public class FoldedScreen extends AbstractScreen {
         drawBackGround(g2d, Skin.BG_FOLDED_SCREEN);
         //TODO
     }
+
 }
