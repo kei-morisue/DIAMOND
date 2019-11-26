@@ -4,13 +4,13 @@
  */
 package diamond.model.cyborg;
 
-import diamond.model.Symbol;
+import diamond.model.symbol.Symbol;
 
 /**
  * @author Kei Morisue
  *
  */
-public class HalfEdge {
+public class HalfEdge implements Cyborg {
     private Vertex v0;
     private Vertex v1;
     private EdgeType type;
@@ -18,6 +18,7 @@ public class HalfEdge {
     private HalfEdge prev = null;
     private HalfEdge pair = null;
     private Face face = null;
+    private HalfEdgeProperty property = new HalfEdgeProperty();
     private Symbol sign = null;
 
     public HalfEdge(Vertex v0, Vertex v1, EdgeType type) {
@@ -100,5 +101,13 @@ public class HalfEdge {
 
     public void setSign(Symbol sign) {
         this.sign = sign;
+    }
+
+    public HalfEdgeProperty getProperty() {
+        return property;
+    }
+
+    public void setProperty(HalfEdgeProperty property) {
+        this.property = property;
     }
 }

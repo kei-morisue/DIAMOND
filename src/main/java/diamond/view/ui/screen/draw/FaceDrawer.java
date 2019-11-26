@@ -8,11 +8,11 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import diamond.model.cyborg.CyborgUtil;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
-import diamond.model.cyborg.Point2DUtil;
 import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.CenterPointUtil;
+import diamond.model.cyborg.util.Point2DUtil;
 
 /**
  * @author Kei Morisue
@@ -20,7 +20,7 @@ import diamond.model.cyborg.Vertex;
  */
 public class FaceDrawer {
     public static GeneralPath buildOutline(Face face, double scale) {
-        Point2D.Double pivot = CyborgUtil.getCenterPoint(face);
+        Point2D.Double pivot = CenterPointUtil.getCenterPoint(face);
         GeneralPath outline = null;
         for (HalfEdge he : face.getHalfEdges()) {
             Vertex v0 = he.getV0();

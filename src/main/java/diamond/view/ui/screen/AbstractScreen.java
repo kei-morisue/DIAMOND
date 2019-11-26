@@ -11,8 +11,6 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.JPanel;
 
-import diamond.controller.ScreenAction;
-
 /**
  * @author Kei Morisue
  *
@@ -23,10 +21,6 @@ public abstract class AbstractScreen extends JPanel
 
     public AbstractScreen() {
         addComponentListener(this);
-        ScreenAction screenAction = new ScreenAction(this);
-        addMouseListener(screenAction);
-        addMouseMotionListener(screenAction);
-        addMouseWheelListener(screenAction);
     }
 
     public ScreenTransform getTransform() {

@@ -29,7 +29,7 @@ public interface PaintActionInterface {
 
     public abstract PaintActionInterface onRightClick(Context context);
 
-    public abstract Point2D.Double onMove(Context context);
+    public abstract void onMove(Context context);
 
     public abstract void onPress(Context context);
 

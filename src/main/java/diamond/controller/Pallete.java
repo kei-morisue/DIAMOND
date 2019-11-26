@@ -6,7 +6,7 @@ package diamond.controller;
 
 import java.util.ArrayList;
 
-import diamond.model.Cp;
+import diamond.model.cyborg.Cp;
 
 /**
  * @author Kei Morisue

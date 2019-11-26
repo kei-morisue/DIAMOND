@@ -2,28 +2,20 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model;
+package diamond.model.cyborg;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
 import diamond.Config;
-import diamond.model.cyborg.EdgeType;
-import diamond.model.cyborg.Face;
-import diamond.model.cyborg.HalfEdge;
-import diamond.model.cyborg.Vertex;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Cp {
-    private LinkedList<Face> faces = new LinkedList<Face>();
-    private Set<Vertex> vertices = new HashSet<Vertex>();
-    private Set<HalfEdge> hes = new HashSet<HalfEdge>();
-
-    public Cp() {
+public class CpBuilder {
+    public static void buildSquare(LinkedList<Face> faces, Set<Vertex> vertices,
+            Set<HalfEdge> hes) {
         double size = Config.PAPER_SIZE;
         Vertex v0 = new Vertex(size, size);
         Vertex v1 = new Vertex(-size, size);
@@ -66,29 +58,5 @@ public class Cp {
         f1.add(he2P);
         f1.close(he3P);
         f1.getProperty().setDisabled(true);
-    }
-
-    public LinkedList<Face> getFaces() {
-        return this.faces;
-    }
-
-    public void setFaces(LinkedList<Face> faces) {
-        this.faces = faces;
-    }
-
-    public Set<Vertex> getVertices() {
-        return this.vertices;
-    }
-
-    public void setVertices(Set<Vertex> vertices) {
-        this.vertices = vertices;
-    }
-
-    public Set<HalfEdge> getHes() {
-        return this.hes;
-    }
-
-    public void setHes(Set<HalfEdge> hes) {
-        this.hes = hes;
     }
 }

@@ -12,7 +12,7 @@ import java.util.HashSet;
  * @author Kei Morisue
  *
  */
-public class Face {
+public class Face implements Cyborg {
     private ArrayList<HalfEdge> halfEdges = new ArrayList<>();
     private HashSet<HalfEdge> creaseLines = new HashSet<>();
     private HashSet<HalfEdge> unsettledLines = new HashSet<>();
@@ -57,7 +57,6 @@ public class Face {
     public void setUnsettledLines(HashSet<HalfEdge> unsettledLines) {
         this.unsettledLines = unsettledLines;
     }
-
 
     public ArrayList<HalfEdge> getHalfEdges() {
         return this.halfEdges;

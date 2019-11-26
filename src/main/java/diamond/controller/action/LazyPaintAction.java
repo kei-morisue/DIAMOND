@@ -42,8 +42,7 @@ public class LazyPaintAction implements PaintActionInterface {
     }
 
     @Override
-    public Double onMove(Context context) {
-        return null;
+    public void onMove(Context context) {
     }
 
     @Override

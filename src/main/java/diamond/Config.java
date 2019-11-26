@@ -28,4 +28,7 @@ public class Config {
     final public static double PAPER_SIZE = 400;
     final public static int PAPER_EDGES = 4;
 
+    final public static double EPSILON = 1.0e-6;
+    final public static double EPSILON_RADIAN = 1.0e-5;
+
 }

@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
+import diamond.controller.PaintScreenAction;
+import diamond.view.ui.screen.draw.PaintScreenDrawer;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -21,6 +23,11 @@ public class PaintScreen extends AbstractScreen {
         super();
         this.context = context;
         context.setPaintScreen(this);
+        PaintScreenAction screenAction = new PaintScreenAction(context, this);
+        addMouseListener(screenAction);
+        addMouseMotionListener(screenAction);
+        addMouseWheelListener(screenAction);
+
     }
 
     @Override

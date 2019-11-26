@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * @author Kei Morisue
  *
  */
-public class Vertex extends Point2D.Double {
+public class Vertex extends Point2D.Double implements Cyborg {
     private LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
     private VertexProperty property = new VertexProperty();
     private Point2D.Double offset = new Point2D.Double();
@@ -33,6 +33,7 @@ public class Vertex extends Point2D.Double {
         halfEdges.add(he);
         return;
     }
+
     public LinkedList<HalfEdge> getHalfEdges() {
         return halfEdges;
     }

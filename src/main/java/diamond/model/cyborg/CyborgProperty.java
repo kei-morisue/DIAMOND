@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg;
 
-import diamond.model.Symbol;
+import diamond.model.symbol.Symbol;
 
 /**
  * @author Kei Morisue
@@ -12,6 +12,8 @@ import diamond.model.Symbol;
  */
 public class CyborgProperty {
     public boolean isPointed = false;
+    public boolean isPicked = false;
+
     private Symbol sign = null;
 
     public Symbol getSign() {
@@ -21,4 +23,9 @@ public class CyborgProperty {
     public void setSign(Symbol sign) {
         this.sign = sign;
     }
+
+    public boolean isPointed() {
+        return isPointed || isPicked;
+    }
+
 }

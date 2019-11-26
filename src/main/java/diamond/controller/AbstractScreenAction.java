@@ -18,13 +18,13 @@ import diamond.view.ui.screen.ScreenTransform;
  * @author Kei Morisue
  *
  */
-public class ScreenAction
+public abstract class AbstractScreenAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
     private AbstractScreen screen;
     private ScreenTransform transform;
     private Point2D latestClickedPoint;
 
-    public ScreenAction(AbstractScreen screen) {
+    public AbstractScreenAction(AbstractScreen screen) {
         this.screen = screen;
         this.transform = screen.getTransform();
     }
@@ -63,23 +63,10 @@ public class ScreenAction
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-    }
-
-    @Override
     public void mouseDragged(MouseEvent e) {
         translate(e);
         latestClickedPoint = e.getPoint();
         screen.repaint();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        latestClickedPoint = e.getPoint();
     }
 
     @Override
@@ -88,6 +75,10 @@ public class ScreenAction
 
     @Override
     public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
     }
 
     @Override

@@ -2,16 +2,20 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model.cyborg;
+package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
 import java.util.Collection;
+
+import diamond.model.cyborg.Face;
+import diamond.model.cyborg.HalfEdge;
+import diamond.model.cyborg.Vertex;
 
 /**
  * @author Kei Morisue
  *
  */
-public class CyborgUtil {
+public class CenterPointUtil {
 
     public static Point2D.Double getCenterPoint(Face face) {
         Collection<HalfEdge> halfEdges = face.getHalfEdges();

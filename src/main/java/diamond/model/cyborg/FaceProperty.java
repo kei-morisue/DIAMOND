@@ -8,13 +8,13 @@ package diamond.model.cyborg;
  * @author Kei Morisue
  *
  */
-public class FaceProperty {
-    public boolean isPointed = false;
+public class FaceProperty extends CyborgProperty {
     private boolean isDisabled = false;
 
     public boolean isDisabled() {
         return isDisabled;
     }
+
     public void setDisabled(boolean isDisabled) {
         this.isDisabled = isDisabled;
     }

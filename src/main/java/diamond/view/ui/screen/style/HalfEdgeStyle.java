@@ -8,6 +8,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import diamond.model.cyborg.EdgeType;
+import diamond.model.cyborg.HalfEdge;
 
 /**
  * @author Kei Morisue
@@ -23,7 +24,11 @@ public class HalfEdgeStyle {
     final public static Color NONE = new Color(255, 0, 255);
     final public static Color POINTED = Color.GREEN;
 
-    public static Color getColor(EdgeType type) {
+    public static Color getColor(HalfEdge he) {
+        EdgeType type = he.getType();
+        if (he.getProperty().isPointed()) {
+            return POINTED;
+        }
         switch (type) {
         case MOUNTAIN:
             return MOUNTAIN;
@@ -43,6 +48,7 @@ public class HalfEdgeStyle {
             return CREASE;
         }
     }
+
     final public static BasicStroke STROKE_CUT = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_VALLEY = new BasicStroke(0.0f,
