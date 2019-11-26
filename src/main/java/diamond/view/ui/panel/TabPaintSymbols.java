@@ -4,7 +4,8 @@
  */
 package diamond.view.ui.panel;
 
-import javax.swing.JTabbedPane;
+import javax.swing.ButtonGroup;
+import javax.swing.JPanel;
 
 import diamond.controller.Context;
 
@@ -12,8 +13,7 @@ import diamond.controller.Context;
  * @author Kei Morisue
  *
  */
-public class PaintButtons extends JTabbedPane {
-    public PaintButtons(Context context) {
-
+public class TabPaintSymbols extends JPanel {
+    public TabPaintSymbols(Context context, ButtonGroup buttonGroup) {
     }
 }

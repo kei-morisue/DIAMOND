@@ -4,7 +4,9 @@
  */
 package diamond.controller;
 
+import diamond.controller.action.PaintActionInterface;
 import diamond.model.Cp;
+import diamond.model.cyborg.EdgeType;
 import diamond.view.ui.screen.FoldedScreen;
 import diamond.view.ui.screen.PaintScreen;
 
@@ -15,8 +17,14 @@ import diamond.view.ui.screen.PaintScreen;
 public class Context {
     private Pallete pallete = new Pallete();
     private int currentStep = 0;
+    private PaintActionInterface paintAction;
+    private EdgeType inputType = EdgeType.UNSETTLED_VALLEY;
     private PaintScreen paintScreen;
     private FoldedScreen foldedScreen;
+
+    public void initialize() {
+        //TODO
+    }
 
     public Cp getCp() {
         return pallete.getCps().get(currentStep);
@@ -44,5 +52,21 @@ public class Context {
 
     public void setFoldedScreen(FoldedScreen foldedScreen) {
         this.foldedScreen = foldedScreen;
+    }
+
+    public PaintActionInterface getPaintAction() {
+        return paintAction;
+    }
+
+    public void setPaintAction(PaintActionInterface paintAction) {
+        this.paintAction = paintAction;
+    }
+
+    public EdgeType getInputType() {
+        return inputType;
+    }
+
+    public void setInputType(EdgeType inputType) {
+        this.inputType = inputType;
     }
 }

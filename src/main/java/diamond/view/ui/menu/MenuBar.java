@@ -15,7 +15,7 @@ import diamond.view.resource.string.Labels;
  *
  */
 public class MenuBar extends JMenuBar {
-    private JMenu open = new JMenu(Labels.get("open"));
+    private JMenu open = new JMenu(Labels.get("main_menu_open"));
 
     public MenuBar(Context context) {
         add(open);

@@ -45,7 +45,7 @@ public class CpSwitch extends JButton {
             IconBuilder.set(this, "dright.png");
             break;
         default:
-            setText(Labels.get("noimage"));
+            setText(Labels.get("no_image"));
             break;
         }
         addActionListener(new Action());

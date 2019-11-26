@@ -20,6 +20,6 @@ public class West extends JPanel {
     public West(Context context) {
         setLayout(new GridLayout(2, 1));
         add(new FoldedScreen(context));
-        add(new PaintButtons(context));
+        add(new Tabs(context));
     }
 }

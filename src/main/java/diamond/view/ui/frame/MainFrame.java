@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     private JMenuBar menuBar = new MenuBar(context);
 
     public MainFrame() {
-        setTitle(Labels.get("title"));
+        setTitle(Labels.get("main_frame_title"));
         IconBuilder.set(this, "diamond.gif");
         setJMenuBar(menuBar);
         Container panel = getContentPane();
