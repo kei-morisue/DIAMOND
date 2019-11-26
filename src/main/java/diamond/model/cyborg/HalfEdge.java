@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg;
 
-import diamond.model.Sign;
+import diamond.model.Symbol;
 
 /**
  * @author Kei Morisue
@@ -18,7 +18,7 @@ public class HalfEdge {
     private HalfEdge prev = null;
     private HalfEdge pair = null;
     private Face face = null;
-    private Sign sign = null;
+    private Symbol sign = null;
 
     public HalfEdge(Vertex v0, Vertex v1, EdgeType type) {
         this.v0 = v0;
@@ -94,11 +94,11 @@ public class HalfEdge {
         this.type = type;
     }
 
-    public Sign getSign() {
+    public Symbol getSign() {
         return this.sign;
     }
 
-    public void setSign(Sign sign) {
+    public void setSign(Symbol sign) {
         this.sign = sign;
     }
 }

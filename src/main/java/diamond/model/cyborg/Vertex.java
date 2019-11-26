@@ -13,7 +13,9 @@ import java.util.LinkedList;
  */
 public class Vertex extends Point2D.Double {
     private LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
-    public VertexProperty property = new VertexProperty();
+    private VertexProperty property = new VertexProperty();
+    private Point2D.Double offset = new Point2D.Double();
+    private Point2D.Double folded = null;
 
     public Vertex(double x, double y) {
         super(x, y);
@@ -30,5 +32,36 @@ public class Vertex extends Point2D.Double {
         }
         halfEdges.add(he);
         return;
+    }
+    public LinkedList<HalfEdge> getHalfEdges() {
+        return halfEdges;
+    }
+
+    public void setHalfEdges(LinkedList<HalfEdge> halfEdges) {
+        this.halfEdges = halfEdges;
+    }
+
+    public VertexProperty getProperty() {
+        return property;
+    }
+
+    public void setProperty(VertexProperty property) {
+        this.property = property;
+    }
+
+    public Point2D.Double getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Point2D.Double offset) {
+        this.offset = offset;
+    }
+
+    public Point2D.Double getFolded() {
+        return folded;
+    }
+
+    public void setFolded(Point2D.Double folded) {
+        this.folded = folded;
     }
 }

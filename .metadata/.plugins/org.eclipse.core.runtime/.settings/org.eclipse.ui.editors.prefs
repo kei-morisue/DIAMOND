@@ -1,0 +1,16 @@
+additionIndicationInOverviewRuler=true
+eclipse.preferences.version=1
+glanceColorBackground=0,255,0
+lineNumberRuler=true
+occurrenceIndicationColor=0,255,255
+overviewRuler_migration=migrated_3.1
+printMargin=true
+printMarginColumn=120
+quickdiff.defaultProvider=org.eclipse.egit.ui.internal.decorators.GitQuickDiffProvider
+showEnclosedSpaces=false
+showLeadingSpaces=false
+showTrailingSpaces=false
+showWhitespaceCharacters=true
+spellingEnabled=false
+whitespaceCharacterAlphaValue=60
+writeOccurrenceIndicationColor=0,255,64

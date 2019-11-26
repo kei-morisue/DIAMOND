@@ -13,8 +13,8 @@ import java.util.Collection;
  */
 public class CyborgUtil {
 
-    public static Point2D.Double getCenterPoint(Face oriFace) {
-        Collection<HalfEdge> halfEdges = oriFace.getHalfEdges();
+    public static Point2D.Double getCenterPoint(Face face) {
+        Collection<HalfEdge> halfEdges = face.getHalfEdges();
         Point2D.Double centerP = new Point2D.Double();
         for (HalfEdge he : halfEdges) {
             centerP = Point2DUtil.plus(centerP, he.getV0());
@@ -22,4 +22,9 @@ public class CyborgUtil {
         centerP = Point2DUtil.scale(centerP, 1.0 / halfEdges.size());
         return centerP;
     }
+
+    public static Point2D.Double getCenterPoint(Vertex v0, Vertex v1) {
+        return Point2DUtil.scale(Point2DUtil.plus(v0, v1), 0.5);
+    }
+
 }

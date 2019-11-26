@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.view.resource.color.Skin;
+import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue

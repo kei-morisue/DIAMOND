@@ -1,0 +1,5 @@
+Console.console_tab_width=4
+Console.highWaterMark=88000
+eclipse.preferences.version=1
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<launchPerspectives/>\r\n
+org.eclipse.debug.ui.UseContextualLaunch=false

@@ -1,0 +1,7 @@
+tomcatDir=C:/Users/long_/Desktop/pleiades/tomcat/8
+eclipse.preferences.version=1
+fixTomcatHomeBug=fixed
+contextsDir=C:/Users/long_/Desktop/pleiades/tomcat/8/conf/Catalina/localhost
+tomcatVersion=tomcatV8
+computeSourcePath=true
+tomcatConfigFile=C:/Users/long_/Desktop/pleiades/tomcat/8/conf/server.xml

@@ -61,11 +61,11 @@ public class Cp {
 
         Face f1 = new Face();
         faces.add(f1);
-        f0.open(he0P);
-        f0.add(he1P);
-        f0.add(he2P);
-        f0.close(he3P);
-
+        f1.open(he0P);
+        f1.add(he1P);
+        f1.add(he2P);
+        f1.close(he3P);
+        f1.getProperty().setDisabled(true);
     }
 
     public LinkedList<Face> getFaces() {

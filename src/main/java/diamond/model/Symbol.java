@@ -8,6 +8,6 @@ package diamond.model;
  * @author Kei Morisue
  *
  */
-public interface Sign {
+public interface Symbol {
 
 }

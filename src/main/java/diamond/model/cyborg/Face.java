@@ -5,8 +5,6 @@
 package diamond.model.cyborg;
 
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -20,8 +18,8 @@ public class Face {
     private HashSet<HalfEdge> unsettledLines = new HashSet<>();
 
     private boolean faceFront = true;
-    private GeneralPath outline = null;
     private AffineTransform transform = null;
+    private FaceProperty property = new FaceProperty();
 
     public void open(HalfEdge he1) {
         halfEdges.add(he1);
@@ -42,22 +40,6 @@ public class Face {
         for (HalfEdge he : halfEdges) {
             he.setFace(this);
         }
-        buildOutline(1.0);
-    }
-
-    private void buildOutline(double scale) {
-        Point2D.Double centerP = CyborgUtil.getCenterPoint(this);
-        for (HalfEdge he : halfEdges) {
-            Vertex sv = he.getV0();
-            Point2D.Double scaledPoint = Point2DUtil.scale(centerP, sv, scale);
-            if (outline == null) {
-                outline = new GeneralPath();
-                outline.moveTo(scaledPoint.getX(), scaledPoint.getY());
-            } else {
-            }
-            outline.lineTo(scaledPoint.getX(), scaledPoint.getY());
-        }
-        outline.closePath();
     }
 
     public HashSet<HalfEdge> getCreaseLines() {
@@ -76,13 +58,6 @@ public class Face {
         this.unsettledLines = unsettledLines;
     }
 
-    public GeneralPath getOutline() {
-        return this.outline;
-    }
-
-    public void setOutline(GeneralPath outline) {
-        this.outline = outline;
-    }
 
     public ArrayList<HalfEdge> getHalfEdges() {
         return this.halfEdges;
@@ -90,5 +65,29 @@ public class Face {
 
     public void setHalfEdges(ArrayList<HalfEdge> halfEdges) {
         this.halfEdges = halfEdges;
+    }
+
+    public AffineTransform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
+    }
+
+    public boolean isFaceFront() {
+        return faceFront;
+    }
+
+    public void setFaceFront(boolean faceFront) {
+        this.faceFront = faceFront;
+    }
+
+    public FaceProperty getProperty() {
+        return property;
+    }
+
+    public void setProperty(FaceProperty property) {
+        this.property = property;
     }
 }
