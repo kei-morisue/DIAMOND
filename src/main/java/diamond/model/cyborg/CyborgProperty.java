@@ -24,7 +24,7 @@ public class CyborgProperty {
         this.sign = sign;
     }
 
-    public boolean isPointed() {
+    public boolean isColored() {
         return isPointed || isPicked;
     }
 

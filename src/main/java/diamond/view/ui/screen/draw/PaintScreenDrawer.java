@@ -28,12 +28,14 @@ public class PaintScreenDrawer {
         for (Vertex v : cp.getVertices()) {
             draw(g2d, v);
         }
-        for (HalfEdge he : cp.getHalfEdges()) {
-            draw(g2d, he);
-        }
         for (Face face : cp.getFaces()) {
             if (!face.getProperty().isDisabled()) {
                 draw(g2d, face);
+            }
+        }
+        for (HalfEdge he : cp.getHalfEdges()) {
+            if (!he.getProperty().isDisabled()) {
+                draw(g2d, he);
             }
         }
     }
@@ -53,6 +55,10 @@ public class PaintScreenDrawer {
         g2d.setColor(HalfEdgeStyle.getColor(he));
         g2d.setStroke(HalfEdgeStyle.getCpStroke(he.getType()));
         g2d.draw(HalfEdgeDrawer.buildLine(he));
+    }
+
+    public static void draw(Graphics2D g2d, Context context) {
+        context.getPaintAction().onDraw(g2d, context);
     }
 
     public static void drawTemporaryLine(Graphics2D g2d, Context context) {

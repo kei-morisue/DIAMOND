@@ -30,7 +30,7 @@ public abstract class VertexPickingState extends AbstractState {
     }
 
     @Override
-    public void setCandidate(Context context) {
+    public void setPointer(Context context) {
         Vertex picked = VertexFinder.find(context);
         context.getPointer().setVertex(picked);
     }

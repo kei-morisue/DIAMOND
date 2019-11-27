@@ -17,10 +17,16 @@ import diamond.model.cyborg.EdgeType;
  * @author Kei Morisue
  *
  */
-public class LineTypeButton extends AbstractIconButton {
+public class LineTypeButton extends AbstractIconButton
+        implements ActionListener {
+    private Context context;
+    private EdgeType type;
+
     public LineTypeButton(EdgeType type, Context context,
             ButtonGroup buttonGroup) {
-        addActionListener(new LinetypeButtonAction(type, context));
+        this.context = context;
+        this.type = type;
+        addActionListener(this);
         buttonGroup.add(this);
         switch (type) {
         case UNSETTLED_VALLEY:
@@ -40,20 +46,10 @@ public class LineTypeButton extends AbstractIconButton {
         }
     }
 
-    public class LinetypeButtonAction implements ActionListener {
-        Context context;
-        EdgeType type;
-
-        public LinetypeButtonAction(EdgeType type, Context context) {
-            this.context = context;
-            this.type = type;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (((JRadioButton) e.getSource()).isSelected()) {
-                context.setInputType(this.type);
-            }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (((JRadioButton) e.getSource()).isSelected()) {
+            context.setInputType(this.type);
         }
     }
 }

@@ -17,7 +17,7 @@ import diamond.model.cyborg.Vertex;
 public class VertexFinder {
     public static Vertex find(Context context) {
         double scale = context.getPaintScreen().getTransform().getScale();
-        double boundary = Config.EPSILON / scale;
+        double boundary = Config.EPSILON_SCREEN / scale;
         Point2D.Double center = context.getMousePoint();
         Vertex nearest = null;
         double shortestDistance = boundary;

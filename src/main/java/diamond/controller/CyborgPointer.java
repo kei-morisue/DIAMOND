@@ -4,9 +4,9 @@
  */
 package diamond.controller;
 
+import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
-import diamond.view.ui.screen.draw.FaceDrawer;
 
 /**
  * @author Kei Morisue
@@ -15,7 +15,7 @@ import diamond.view.ui.screen.draw.FaceDrawer;
 public class CyborgPointer {
     private Vertex vertex = null;
     private HalfEdge he = null;
-    private FaceDrawer face = null;
+    private Face face = null;
 
     public CyborgPointer() {
     }
@@ -30,7 +30,7 @@ public class CyborgPointer {
         return vertex;
     }
 
-    public FaceDrawer getFace() {
+    public Face getFace() {
         return face;
     }
 
@@ -39,12 +39,18 @@ public class CyborgPointer {
     }
 
     public void setHe(HalfEdge he) {
+        if (this.he != null) {
+            this.he.getProperty().isPointed = false;
+        }
         this.he = he;
+        if (this.he != null) {
+            he.getProperty().isPointed = true;
+        }
     }
 
     public void setVertex(Vertex vertex) {
         if (this.vertex != null) {
-            vertex.getProperty().isPointed = false;
+            this.vertex.getProperty().isPointed = false;
         }
         this.vertex = vertex;
         if (this.vertex != null) {
@@ -52,8 +58,14 @@ public class CyborgPointer {
         }
     }
 
-    public void setFace(FaceDrawer face) {
+    public void setFace(Face face) {
+        if (this.face != null) {
+            this.face.getProperty().isPointed = false;
+        }
         this.face = face;
+        if (this.face != null) {
+            face.getProperty().isPointed = true;
+        }
     }
 
 }

@@ -18,7 +18,7 @@ public class FaceStyle {
     public static Color COLOR_BACK = Color.white;
 
     public static Color getColor(Face face) {
-        if (face.getProperty().isPointed) {
+        if (face.getProperty().isColored()) {
             return COLOR_POINTED;
         }
         return (face.isFaceFront()) ? COLOR_FRONT : COLOR_BACK;

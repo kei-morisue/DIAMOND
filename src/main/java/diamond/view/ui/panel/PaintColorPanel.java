@@ -21,9 +21,11 @@ import diamond.view.ui.button.LineTypeButton;
 public class PaintColorPanel extends JPanel {
     public PaintColorPanel(Context context, ButtonGroup buttonGroup) {
         setLayout(new GridLayout(2, 2));
-        add(new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
+        LineTypeButton button = new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
                 context,
-                buttonGroup));
+                buttonGroup);
+        button.doClick();
+        add(button);
         add(new LineTypeButton(EdgeType.UNSETTLED_MOUNTAIN, context,
                 buttonGroup));
         add(new LineTypeButton(EdgeType.CREASE, context, buttonGroup));

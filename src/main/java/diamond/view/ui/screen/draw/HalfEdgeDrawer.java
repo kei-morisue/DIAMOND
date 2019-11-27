@@ -15,7 +15,7 @@ import diamond.model.cyborg.HalfEdge;
  */
 public class HalfEdgeDrawer {
 
-    public static Shape buildLine(HalfEdge he){
+    public static Shape buildLine(HalfEdge he) {
         return new Line2D.Double(
                 he.getV0().x,
                 he.getV0().y,

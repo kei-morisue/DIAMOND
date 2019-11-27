@@ -79,6 +79,7 @@ public abstract class AbstractScreenAction
 
     @Override
     public void mousePressed(MouseEvent e) {
+        latestClickedPoint = e.getPoint();
     }
 
     @Override

@@ -11,8 +11,8 @@ import diamond.controller.Context;
  *
  */
 public abstract class AbstractState {
-    private Class<? extends AbstractState> nextStateClass;
-    private Class<? extends AbstractState> prevStateClass;
+    protected Class<? extends AbstractState> nextStateClass;
+    protected Class<? extends AbstractState> prevStateClass;
 
     public AbstractState() {
         initialize();
@@ -33,7 +33,7 @@ public abstract class AbstractState {
 
     protected abstract boolean act(Context context);
 
-    abstract public void setCandidate(Context context);
+    abstract public void setPointer(Context context);
 
     public AbstractState doAction(Context context) {
         if (!act(context)) {

@@ -5,7 +5,6 @@
 package diamond.controller.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import diamond.controller.Context;
 
@@ -14,10 +13,7 @@ import diamond.controller.Context;
  *
  */
 public interface PaintActionInterface {
-    //TODO
-    public abstract void doAction(
-            Context context,
-            Point2D.Double clickedPoint);
+    public abstract void doAction(Context context);
 
     public abstract void undo(Context context);
 

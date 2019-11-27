@@ -37,6 +37,7 @@ public class PaintScreen extends AbstractScreen {
         transform.resize(getWidth(), getHeight());
         g2d.setTransform(transform);
         PaintScreenDrawer.draw(g2d, context.getCp());
+        PaintScreenDrawer.draw(g2d, context);
     }
 
 }

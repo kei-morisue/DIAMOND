@@ -9,4 +9,13 @@ package diamond.model.cyborg;
  *
  */
 public class HalfEdgeProperty extends CyborgProperty {
+    private boolean isDisabled = false;
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
+    public void setDisabled(boolean isDisabled) {
+        this.isDisabled = isDisabled;
+    }
 }

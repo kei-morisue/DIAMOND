@@ -5,7 +5,6 @@
 package diamond.controller.action;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D.Double;
 
 import diamond.controller.Context;
 
@@ -16,7 +15,7 @@ import diamond.controller.Context;
 public class LazyPaintAction implements PaintActionInterface {
 
     @Override
-    public void doAction(Context context, Double clickedPoint) {
+    public void doAction(Context context) {
     }
 
     @Override

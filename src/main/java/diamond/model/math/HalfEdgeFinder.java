@@ -29,7 +29,7 @@ public class HalfEdgeFinder {
             }
         }
         double scale = context.getPaintScreen().getTransform().getScale();
-        if (min < Config.EPSILON / scale) {
+        if (min < Config.EPSILON_SCREEN / scale) {
             return candidate;
         } else {
             return null;

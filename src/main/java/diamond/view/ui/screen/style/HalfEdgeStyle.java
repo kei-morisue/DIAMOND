@@ -26,7 +26,7 @@ public class HalfEdgeStyle {
 
     public static Color getColor(HalfEdge he) {
         EdgeType type = he.getType();
-        if (he.getProperty().isPointed()) {
+        if (he.getProperty().isColored()) {
             return POINTED;
         }
         switch (type) {

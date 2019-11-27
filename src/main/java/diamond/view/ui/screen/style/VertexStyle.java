@@ -18,7 +18,7 @@ public class VertexStyle {
     public static final Color WRONG = Color.RED;
 
     public static Color getColor(diamond.model.cyborg.Vertex v) {
-        if (v.getProperty().isPointed) {
+        if (v.getProperty().isColored()) {
             return POINTED;
         }
         if (v.getProperty().isWrong) {
@@ -28,11 +28,11 @@ public class VertexStyle {
     }
 
     static private final double NEUTRAL_SIZE = 8.0;
-    static private final double POINTED_SIZE = 12.0;
-    static private final double WRONG_SIZE = 12.0;
+    static private final double POINTED_SIZE = 16.0;
+    static private final double WRONG_SIZE = 16.0;
 
     public static double getSize(Vertex vertex) {
-        if (vertex.getProperty().isPointed) {
+        if (vertex.getProperty().isColored()) {
             return POINTED_SIZE;
         }
         if (vertex.getProperty().isWrong) {

@@ -4,8 +4,6 @@
  */
 package diamond.controller.action;
 
-import java.awt.geom.Point2D;
-
 import diamond.controller.Context;
 import diamond.controller.action.state.AbstractState;
 
@@ -16,6 +14,12 @@ import diamond.controller.action.state.AbstractState;
 public abstract class AbstractPaintAction implements PaintActionInterface {
 
     private AbstractState state;
+
+    public AbstractPaintAction() {
+        setInitialState();
+    }
+
+    protected abstract void setInitialState();
 
     protected final void setActionState(AbstractState state) {
         this.state = state;
@@ -35,13 +39,19 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
     }
 
     @Override
+    public PaintActionInterface onLeftClick(Context context) {
+        doAction(context);
+        return null;
+    }
+
+    @Override
     public PaintActionInterface onRightClick(Context context) {
         undo(context);
         return this;
     }
 
     @Override
-    public void doAction(Context context, Point2D.Double clickedPoint) {
+    public void doAction(Context context) {
         state = state.doAction(context);
     }
 
@@ -52,7 +62,7 @@ public abstract class AbstractPaintAction implements PaintActionInterface {
 
     @Override
     public void onMove(Context context) {
-        state.setCandidate(context);
+        state.setPointer(context);
     }
 
     @Override

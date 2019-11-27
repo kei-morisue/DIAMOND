@@ -21,18 +21,24 @@ public class HalfEdge implements Cyborg {
     private HalfEdgeProperty property = new HalfEdgeProperty();
     private Symbol sign = null;
 
+    @Deprecated
+    public HalfEdge() {
+    }
+
     public HalfEdge(Vertex v0, Vertex v1, EdgeType type) {
         this.v0 = v0;
         this.v1 = v1;
         this.type = type;
-        v0.add(this);
+        this.pair = new HalfEdge(this);
+        this.v0.add(this);
     }
 
-    public HalfEdge(HalfEdge he) {
+    private HalfEdge(HalfEdge he) {
         this.v0 = he.v1;
         this.v1 = he.v0;
         this.type = he.type;
-
+        this.v0.add(this);
+        marry(this, he);
     }
 
     public double dir() {
@@ -59,6 +65,12 @@ public class HalfEdge implements Cyborg {
         return pair;
     }
 
+    public static void marry(HalfEdge h0, HalfEdge h1) {
+        h0.pair = h1;
+        h1.pair = h0;
+    }
+
+    @Deprecated
     public void setPair(HalfEdge pair) {
         this.pair = pair;
     }

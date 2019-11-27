@@ -22,6 +22,7 @@ public class Face implements Cyborg {
     private FaceProperty property = new FaceProperty();
 
     public void open(HalfEdge he1) {
+        halfEdges.clear();
         halfEdges.add(he1);
     }
 

@@ -42,21 +42,21 @@ public class CpBuilder {
         f0.add(he2);
         f0.close(he3);
 
-        HalfEdge he0P = new HalfEdge(he0);
-        HalfEdge he1P = new HalfEdge(he1);
-        HalfEdge he2P = new HalfEdge(he2);
-        HalfEdge he3P = new HalfEdge(he3);
-        hes.add(he0P);
-        hes.add(he1P);
-        hes.add(he2P);
-        hes.add(he3P);
-
-        Face f1 = new Face();
-        faces.add(f1);
-        f1.open(he0P);
-        f1.add(he1P);
-        f1.add(he2P);
-        f1.close(he3P);
-        f1.getProperty().setDisabled(true);
+        //        HalfEdge he0P = he0.getPair();
+        //        HalfEdge he1P = he1.getPair();
+        //        HalfEdge he2P = he2.getPair();
+        //        HalfEdge he3P = he3.getPair();
+        //        hes.add(he0P);
+        //        hes.add(he1P);
+        //        hes.add(he2P);
+        //        hes.add(he3P);
+        //
+        //        Face f1 = new Face();
+        //        faces.add(f1);
+        //        f1.open(he0P);
+        //        f1.add(he1P);
+        //        f1.add(he2P);
+        //        f1.close(he3P);
+        //        f1.getProperty().setDisabled(true);
     }
 }
