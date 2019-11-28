@@ -15,18 +15,14 @@ import java.util.Set;
 public class Cp {
     private LinkedList<Face> faces = new LinkedList<Face>();
     private Set<Vertex> vertices = new HashSet<Vertex>();
-    private Set<HalfEdge> halfEdfes = new HashSet<HalfEdge>();
+    private Set<HalfEdge> halfEdges = new HashSet<HalfEdge>();
 
     public Cp() {
-        CpBuilder.buildSquare(faces, vertices, halfEdfes);
+        CpBuilder.buildSquare(faces);
     }
 
     public LinkedList<Face> getFaces() {
         return this.faces;
-    }
-
-    public void add(Vertex v) {
-        vertices.add(v);
     }
 
     public void add(Face f) {
@@ -37,31 +33,24 @@ public class Cp {
         faces.remove(f);
     }
 
-    public void add(HalfEdge he) {
-        halfEdfes.add(he);
-        halfEdfes.add(he.getPair());
-    }
-
-    @Deprecated
-    public void setFaces(LinkedList<Face> faces) {
-        this.faces = faces;
-    }
-
     public Set<Vertex> getVertices() {
-        return this.vertices;
-    }
-
-    @Deprecated
-    public void setVertices(Set<Vertex> vertices) {
-        this.vertices = vertices;
+        vertices.clear();
+        for (Face face : faces) {
+            for (HalfEdge he : face.getHalfEdges()) {
+                vertices.add(he.getV0());
+            }
+        }
+        return vertices;
     }
 
     public Set<HalfEdge> getHalfEdges() {
-        return this.halfEdfes;
+        halfEdges.clear();
+        for (Face face : faces) {
+            for (HalfEdge he : face.getHalfEdges()) {
+                halfEdges.add(he);
+            }
+        }
+        return halfEdges;
     }
 
-    @Deprecated
-    public void setHes(Set<HalfEdge> hes) {
-        this.halfEdfes = hes;
-    }
 }

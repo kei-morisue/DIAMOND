@@ -34,6 +34,15 @@ public class Point2DUtil {
         return p0.x * p1.x + p0.y * p1.y;
     }
 
+    public static double cross(Point2D.Double p0, Point2D.Double p1) {
+        return p0.x * p1.y - p0.y * p1.x;
+    }
+
+    public static Point2D.Double split(Point2D.Double p0, Point2D.Double p1,
+            double t) {
+        return plus(scale(p0, 1 - t), scale(p1, t));
+    }
+
     public static double distanceToSegment(
             Point2D.Double p,
             Point2D.Double sp,

@@ -17,8 +17,15 @@ public class Vertex extends Point2D.Double implements Cyborg {
     private Point2D.Double offset = new Point2D.Double();
     private Point2D.Double folded = null;
 
+    public Vertex() {
+    }
+
     public Vertex(double x, double y) {
         super(x, y);
+    }
+
+    public Vertex(Point2D.Double p) {
+        super(p.x, p.y);
     }
 
     public void add(HalfEdge he) {

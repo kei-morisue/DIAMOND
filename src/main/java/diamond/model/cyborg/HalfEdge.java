@@ -25,14 +25,27 @@ public class HalfEdge implements Cyborg {
     public HalfEdge() {
     }
 
+    @Override
+    public String toString() {
+        return v0.toString();
+    }
+
     public HalfEdge(Vertex v0, Vertex v1, EdgeType type) {
         this.v0 = v0;
         this.v1 = v1;
         this.type = type;
         this.pair = new HalfEdge(this);
         this.v0.add(this);
+        disablePair();
     }
 
+    private void disablePair() {
+        if (!EdgeType.isSettled(type)) {
+            getProperty().setDisabled(true);
+        }
+    }
+
+    @Deprecated
     private HalfEdge(HalfEdge he) {
         this.v0 = he.v1;
         this.v1 = he.v0;
@@ -49,6 +62,12 @@ public class HalfEdge implements Cyborg {
         return next;
     }
 
+    public void connectTo(HalfEdge h) {
+        this.next = h;
+        h.prev = this;
+    }
+
+    @Deprecated
     public void setNext(HalfEdge next) {
         this.next = next;
     }
@@ -57,6 +76,7 @@ public class HalfEdge implements Cyborg {
         return prev;
     }
 
+    @Deprecated
     public void setPrev(HalfEdge prev) {
         this.prev = prev;
     }
@@ -105,6 +125,7 @@ public class HalfEdge implements Cyborg {
 
     public void setType(EdgeType type) {
         this.type = type;
+        disablePair();
     }
 
     public Symbol getSign() {

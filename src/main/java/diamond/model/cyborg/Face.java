@@ -21,23 +21,21 @@ public class Face implements Cyborg {
     private AffineTransform transform = null;
     private FaceProperty property = new FaceProperty();
 
-    public void open(HalfEdge he1) {
+    public void open(HalfEdge halfEdge) {
         halfEdges.clear();
-        halfEdges.add(he1);
+        halfEdges.add(halfEdge);
     }
 
-    public void add(HalfEdge he1) {
+    public void add(HalfEdge halfEdge) {
         HalfEdge he0 = halfEdges.get(halfEdges.size() - 1);
-        he0.setNext(he1);
-        halfEdges.add(he1);
-        he1.setPrev(he0);
+        he0.connectTo(halfEdge);
+        halfEdges.add(halfEdge);
     }
 
-    public void close(HalfEdge he1) {
-        add(he1);
+    public void close(HalfEdge halfEdge) {
+        add(halfEdge);
         HalfEdge he0 = halfEdges.get(0);
-        he1.setNext(he0);
-        he0.setPrev(he1);
+        halfEdge.connectTo(he0);
         for (HalfEdge he : halfEdges) {
             he.setFace(this);
         }
