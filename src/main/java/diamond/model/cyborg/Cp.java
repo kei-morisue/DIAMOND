@@ -33,6 +33,7 @@ public class Cp {
         faces.remove(f);
     }
 
+    @Deprecated
     public Set<Vertex> getVertices() {
         vertices.clear();
         for (Face face : faces) {
@@ -43,6 +44,7 @@ public class Cp {
         return vertices;
     }
 
+    @Deprecated
     public Set<HalfEdge> getHalfEdges() {
         halfEdges.clear();
         for (Face face : faces) {

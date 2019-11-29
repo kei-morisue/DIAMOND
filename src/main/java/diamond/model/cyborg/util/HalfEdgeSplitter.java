@@ -39,7 +39,6 @@ public class HalfEdgeSplitter {
         heP.getPrev().connectTo(h1P);
         h1P.connectTo(h0P);
         h0P.connectTo(heP.getNext());
-
         h0P.setFace(heP.getFace());
         h1P.setFace(heP.getFace());
 

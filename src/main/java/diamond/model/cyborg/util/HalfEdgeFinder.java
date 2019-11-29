@@ -2,14 +2,13 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model.math;
+package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
 
 import diamond.Config;
 import diamond.controller.Context;
 import diamond.model.cyborg.HalfEdge;
-import diamond.model.cyborg.util.Point2DUtil;
 
 /**
  * @author Kei Morisue

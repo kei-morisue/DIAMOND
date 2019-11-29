@@ -29,7 +29,8 @@ public class FaceSplitter {
         return faces;
     }
 
-    private static void openLoop(Face face, Face f0, Face f1, HalfEdge splitter) {
+    private static void openLoop(Face face, Face f0, Face f1,
+            HalfEdge splitter) {
         Vertex v0 = splitter.getV0();
         Vertex v1 = splitter.getV1();
         for (HalfEdge he : face.getHalfEdges()) {

@@ -6,7 +6,7 @@ package diamond.controller.action.state;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.Vertex;
-import diamond.model.math.VertexFinder;
+import diamond.model.cyborg.util.VertexFinder;
 
 /**
  * @author Kei Morisue
