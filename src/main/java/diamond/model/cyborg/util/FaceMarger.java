@@ -5,6 +5,7 @@
 package diamond.model.cyborg.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
@@ -24,23 +25,24 @@ public class FaceMarger {
         HalfEdge h0P = h0.getPrev();
         HalfEdge h1N = h1.getNext();
         HalfEdge h1P = h1.getPrev();
-    
+
         h1P.connectTo(h0N);
         h0P.connectTo(h1N);
-    
+
         ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
         halfEdges.addAll(f0.getHalfEdges());
         halfEdges.remove(h0);
         halfEdges.addAll(f1.getHalfEdges());
         halfEdges.remove(h1);
-    
-        for (HalfEdge he : face.getHalfEdges()) {
-            he.setFace(face);
-        }
-    
-        face.getUnsettledLines().add(h0);
-        face.getUnsettledLines().add(h1);
-    
+
+        HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
+        unsettledLines.add(h0);
+        unsettledLines.add(h1);
+        unsettledLines.addAll(f0.getUnsettledLines());
+        unsettledLines.addAll(f1.getUnsettledLines());
+        h0.setFace(face);
+        h1.setFace(face);
+
         return face;
     }
 

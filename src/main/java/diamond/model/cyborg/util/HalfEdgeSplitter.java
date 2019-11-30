@@ -7,14 +7,61 @@ package diamond.model.cyborg.util;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 
+import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.math.Fuzzy;
 
 /**
  * @author Kei Morisue
  *
  */
 public class HalfEdgeSplitter {
+    public static Vertex split(HalfEdge splitter, HalfEdge he) {
+        double[] ds = CrossPointUtil.getSplitter(splitter.getV0(),
+                splitter.getV1(), he);
+        if (ds == null) {
+            return null;
+        }
+        if (Fuzzy.around(ds[1], 1.0)) {
+            return he.getV1();
+        }
+        if (Fuzzy.around(ds[1], 0.0)) {
+            return he.getV0();
+        }
+        Double p = Point2DUtil.split(he.getV0(), he.getV1(), ds[1]);
+        Vertex v = new Vertex(p);
+        return split(splitter, he, v);
+    }
+
+    public static Vertex split(HalfEdge splitter, HalfEdge he, Vertex v) {
+        HalfEdge h0 = new HalfEdge(he.getV0(), v, he.getType());
+        HalfEdge h1 = new HalfEdge(v, he.getV1(), he.getType());
+        h0.connectTo(h1);
+        Face f0 = splitter.getFace();//TODO
+        Face f1 = splitter.getPair().getFace();//TODO
+        HalfEdge h0P = h0.getPair();
+        HalfEdge h1P = h1.getPair();
+        h1P.connectTo(h0P);
+        if (FaceUtil.onFace(f0, h0)) {
+            h0.setFace(f0);
+            h0P.setFace(f0);
+            h1.setFace(f1);
+            h1P.setFace(f1);
+            f0.addUnsettled(h0);
+            f1.addUnsettled(h1);
+
+        } else {
+            h1.setFace(f0);
+            h1P.setFace(f0);
+            h0.setFace(f1);
+            h0P.setFace(f1);
+            f0.addUnsettled(h1);
+            f1.addUnsettled(h0);
+        }
+        return v;
+    }
+
     public static Vertex split(HalfEdge he, double t) {
         Double p = Point2DUtil.split(he.getV0(), he.getV1(), t);
         Vertex v = new Vertex(p);

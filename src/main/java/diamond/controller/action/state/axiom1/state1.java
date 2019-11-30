@@ -9,7 +9,7 @@ import java.util.Stack;
 import diamond.controller.Context;
 import diamond.controller.action.state.VertexPickingState;
 import diamond.model.cyborg.Vertex;
-import diamond.model.cyborg.util.EdgeAdder;
+import diamond.model.cyborg.util.HalfEdgeAdder;
 
 /**
  * @author Kei Morisue
@@ -32,7 +32,7 @@ public class state1 extends VertexPickingState {
         Stack<Vertex> vertices = context.getPicker().getVertices();
         Vertex v0 = vertices.get(0);
         Vertex v1 = vertices.get(1);
-        EdgeAdder.add(context, v0, v1);
+        HalfEdgeAdder.add(context, v0, v1);
         context.initialize();
     }
 

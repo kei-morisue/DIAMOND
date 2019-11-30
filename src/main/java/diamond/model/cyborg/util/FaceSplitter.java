@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg.util;
 
+import java.util.HashSet;
+
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
@@ -24,9 +26,28 @@ public class FaceSplitter {
         }
         buildLoop(f0, v0, splitter);
         buildLoop(f1, v1, splitter.getPair());
-        //TODO split crease/unsettled lines
+        splitUnsettledLines(face, splitter);
         Face[] faces = { f0, f1 };
         return faces;
+    }
+
+    private static void splitUnsettledLines(Face face, HalfEdge splitter) {
+        //TODO split crease/unsettled lines
+        HashSet<Vertex> crossPoints = new HashSet<Vertex>();
+
+        for (HalfEdge he : face.getUnsettledLines()) {
+            if (he == splitter) {
+                continue;
+            }
+            Vertex v = HalfEdgeSplitter.split(splitter, he);
+            if (v != null) {
+                crossPoints.add(v);
+            }
+        }
+        for (Vertex v : crossPoints) {
+            //HalfEdgeSplitter.split(splitter, splitter, v);//TODO
+        }
+
     }
 
     private static void openLoop(Face face, Face f0, Face f1,

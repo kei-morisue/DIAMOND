@@ -11,11 +11,11 @@ import java.awt.geom.Point2D;
  *
  */
 public class Point2DUtil {
-    public static Point2D.Double plus(Point2D.Double p0, Point2D.Double p1) {
+    public static Point2D.Double add(Point2D.Double p0, Point2D.Double p1) {
         return new Point2D.Double(p0.x + p1.x, p0.y + p1.y);
     }
 
-    public static Point2D.Double minus(Point2D.Double p0, Point2D.Double p1) {
+    public static Point2D.Double sub(Point2D.Double p0, Point2D.Double p1) {
         return new Point2D.Double(p0.x - p1.x, p0.y - p1.y);
     }
 
@@ -40,22 +40,22 @@ public class Point2DUtil {
 
     public static Point2D.Double split(Point2D.Double p0, Point2D.Double p1,
             double t) {
-        return plus(scale(p0, 1 - t), scale(p1, t));
+        return add(scale(p0, 1 - t), scale(p1, t));
     }
 
     public static double distanceToSegment(
             Point2D.Double p,
             Point2D.Double sp,
             Point2D.Double ep) {
-        Point2D.Double a = minus(p, sp);
-        Point2D.Double b = minus(ep, sp);
+        Point2D.Double a = sub(p, sp);
+        Point2D.Double b = sub(ep, sp);
         double t = prod(b, a) / prod(b, b);
         if (t < 0.0) {
             return p.distance(sp);
         } else if (t > 1.0) {
             return p.distance(ep);
         } else {
-            return p.distance(plus(sp, scale(b, t)));
+            return p.distance(add(sp, scale(b, t)));
         }
     }
 }

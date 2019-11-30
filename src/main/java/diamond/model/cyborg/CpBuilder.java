@@ -31,14 +31,5 @@ public class CpBuilder {
         f0.add(he1);
         f0.add(he2);
         f0.close(he3);
-
-        //        Face f1 = new Face();
-        //        f1.getProperty().setDisabled(true);
-        //        faces.add(f1);
-        //        f0.open(he3.getPair());
-        //        f0.add(he2.getPair());
-        //        f0.add(he1.getPair());
-        //        f0.close(he0.getPair());
-
     }
 }

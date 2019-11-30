@@ -20,7 +20,7 @@ import diamond.model.cyborg.util.Point2DUtil;
  */
 public class FaceDrawer {
     public static GeneralPath buildOutline(Face face, double scale) {
-        Point2D.Double pivot = CenterPointUtil.getCenterPoint(face);
+        Point2D.Double pivot = CenterPointUtil.get(face);
         GeneralPath outline = null;
         for (HalfEdge he : face.getHalfEdges()) {
             Vertex v0 = he.getV0();
@@ -43,7 +43,7 @@ public class FaceDrawer {
         ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
         for (HalfEdge he : halfEdges) {
             Vertex v0 = he.getV0();
-            Point2D p = Point2DUtil.plus(
+            Point2D p = Point2DUtil.add(
                     v0.getFolded(),
                     v0.getOffset());
             double x = p.getX();

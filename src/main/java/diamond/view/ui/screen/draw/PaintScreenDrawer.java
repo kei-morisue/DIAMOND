@@ -25,9 +25,6 @@ import diamond.view.ui.screen.style.VertexStyle;
  */
 public class PaintScreenDrawer {
     public static void draw(Graphics2D g2d, Cp cp) {
-        for (Vertex v : cp.getVertices()) {//TODO
-            draw(g2d, v);
-        }
         for (Face face : cp.getFaces()) {
             if (!face.getProperty().isDisabled()) {
                 draw(g2d, face);
@@ -37,18 +34,16 @@ public class PaintScreenDrawer {
                     draw(g2d, he);
                 }
             }
-            for (HalfEdge he : face.getCreaseLines()) {
-                if (!he.getProperty().isDisabled()) {
-                    draw(g2d, he);
-                }
-            }
-
         }
         for (HalfEdge he : cp.getHalfEdges()) {//TODO
             if (!he.getProperty().isDisabled()) {
                 draw(g2d, he);
             }
         }
+        for (Vertex v : cp.getVertices()) {//TODO
+            draw(g2d, v);
+        }
+
     }
 
     public static void draw(Graphics2D g2d, Vertex v) {

@@ -17,7 +17,7 @@ import diamond.model.cyborg.Vertex;
  * @author Kei Morisue
  *
  */
-public class EdgeAdder {
+public class HalfEdgeAdder {
     public static void add(Context context, Vertex v0, Vertex v1) {
         Cp cp = context.getCp();
         EdgeType type = context.getInputType();
@@ -37,8 +37,7 @@ public class EdgeAdder {
                 } else {
                     Face f = FaceMarger.marge(he);
                     toBeAdded.add(f);
-                    toBeDeleted.add(faces[0]);
-                    toBeDeleted.add(faces[1]);
+                    toBeDeleted.add(face);
                 }
             }
         }

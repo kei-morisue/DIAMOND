@@ -17,18 +17,22 @@ import diamond.model.cyborg.Vertex;
  */
 public class CenterPointUtil {
 
-    public static Point2D.Double getCenterPoint(Face face) {
+    public static Point2D.Double get(Face face) {
         Collection<HalfEdge> halfEdges = face.getHalfEdges();
         Point2D.Double centerP = new Point2D.Double();
         for (HalfEdge he : halfEdges) {
-            centerP = Point2DUtil.plus(centerP, he.getV0());
+            centerP = Point2DUtil.add(centerP, he.getV0());
         }
         centerP = Point2DUtil.scale(centerP, 1.0 / halfEdges.size());
         return centerP;
     }
 
-    public static Point2D.Double getCenterPoint(Vertex v0, Vertex v1) {
-        return Point2DUtil.scale(Point2DUtil.plus(v0, v1), 0.5);
+    public static Point2D.Double get(Vertex v0, Vertex v1) {
+        return Point2DUtil.scale(Point2DUtil.add(v0, v1), 0.5);
+    }
+
+    public static Point2D.Double get(HalfEdge he) {
+        return get(he.getV0(), he.getV1());
     }
 
 }

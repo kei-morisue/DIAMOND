@@ -40,6 +40,9 @@ public class Cp {
             for (HalfEdge he : face.getHalfEdges()) {
                 vertices.add(he.getV0());
             }
+            for (HalfEdge he : face.getUnsettledLines()) {
+                vertices.add(he.getV0());
+            }
         }
         return vertices;
     }

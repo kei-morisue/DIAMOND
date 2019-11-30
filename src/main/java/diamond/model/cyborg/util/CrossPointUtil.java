@@ -25,9 +25,9 @@ public class CrossPointUtil {
             Point2D.Double p1,
             Point2D.Double q0,
             Point2D.Double q1) {
-        Point2D.Double d0 = Point2DUtil.minus(p1, p0);
-        Point2D.Double d1 = Point2DUtil.minus(q1, q0);
-        Point2D.Double diff = Point2DUtil.minus(q0, p0);
+        Point2D.Double d0 = Point2DUtil.sub(p1, p0);
+        Point2D.Double d1 = Point2DUtil.sub(q1, q0);
+        Point2D.Double diff = Point2DUtil.sub(q0, p0);
         double det = Point2DUtil.cross(d1, d0);
         if (det * det > epsilon * xxyy(d0) * xxyy(d1)) {
             double invDet = 1.0 / det;
@@ -74,7 +74,7 @@ public class CrossPointUtil {
             }
         }
         for (HalfEdge he : halfEdges) {
-            ds = getSplitter(v0, v1, he);
+            ds = getSplitter(v0, v1, he);//TODO
             crossPoints.add(HalfEdgeSplitter.split(he, ds[1]));
         }
         return crossPoints;

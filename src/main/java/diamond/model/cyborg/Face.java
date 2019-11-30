@@ -14,12 +14,14 @@ import java.util.HashSet;
  */
 public class Face implements Cyborg {
     private ArrayList<HalfEdge> halfEdges = new ArrayList<>();
-    private HashSet<HalfEdge> creaseLines = new HashSet<>();
     private HashSet<HalfEdge> unsettledLines = new HashSet<>();
 
     private boolean faceFront = true;
     private AffineTransform transform = null;
     private FaceProperty property = new FaceProperty();
+
+    public Face() {
+    }
 
     public void open(HalfEdge halfEdge) {
         halfEdges.clear();
@@ -41,12 +43,18 @@ public class Face implements Cyborg {
         }
     }
 
-    public HashSet<HalfEdge> getCreaseLines() {
-        return this.creaseLines;
+    public void addUnsettled(HalfEdge he) {
+        unsettledLines.add(he);
+        unsettledLines.add(he.getPair());
+        he.setFace(this);
+        he.getPair().setFace(this);
     }
 
-    public void setCreaseLines(HashSet<HalfEdge> creaseLines) {
-        this.creaseLines = creaseLines;
+    public void removeUnsettled(HalfEdge he) {
+        unsettledLines.remove(he);
+        unsettledLines.remove(he.getPair());
+        he.setFace(this);
+        he.getPair().setFace(this);
     }
 
     public HashSet<HalfEdge> getUnsettledLines() {
