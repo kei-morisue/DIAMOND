@@ -33,12 +33,10 @@ public class HalfEdgeAdder {
                 if (EdgeType.isSettled(type)) {
                     toBeAdded.add(faces[0]);
                     toBeAdded.add(faces[1]);
-                    toBeDeleted.add(face);
                 } else {
-                    Face f = FaceMarger.marge(he);
-                    toBeAdded.add(f);
-                    toBeDeleted.add(face);
+                    toBeAdded.add(faces[0]);
                 }
+                toBeDeleted.add(face);
             }
         }
         for (Face face : toBeDeleted) {

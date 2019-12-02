@@ -4,11 +4,14 @@
  */
 package diamond.model.cyborg.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.math.NormComparator;
 
 /**
  * @author Kei Morisue
@@ -26,17 +29,20 @@ public class FaceSplitter {
         }
         buildLoop(f0, v0, splitter);
         buildLoop(f1, v1, splitter.getPair());
-        splitUnsettledLines(face, splitter);
+        ArrayList<Vertex> cps = splitUnsettledLines(face, splitter);
+        if (!EdgeType.isSettled(splitter.getType())) {
+            f0 = FaceMarger.marge(splitter);
+        }
+        HalfEdgeSplitter.split(splitter, cps);
         Face[] faces = { f0, f1 };
         return faces;
     }
 
-    private static void splitUnsettledLines(Face face, HalfEdge splitter) {
-        //TODO split crease/unsettled lines
+    public static ArrayList<Vertex> splitUnsettledLines(Face face,
+            HalfEdge splitter) {
         HashSet<Vertex> crossPoints = new HashSet<Vertex>();
-
         for (HalfEdge he : face.getUnsettledLines()) {
-            if (he == splitter) {
+            if (he == splitter || he.getProperty().isDisabled()) {
                 continue;
             }
             Vertex v = HalfEdgeSplitter.split(splitter, he);
@@ -44,10 +50,10 @@ public class FaceSplitter {
                 crossPoints.add(v);
             }
         }
-        for (Vertex v : crossPoints) {
-            //HalfEdgeSplitter.split(splitter, splitter, v);//TODO
-        }
-
+        ArrayList<Vertex> ordered = new ArrayList<Vertex>();
+        ordered.addAll(crossPoints);
+        ordered.sort(new NormComparator(splitter.getV0()));
+        return ordered;
     }
 
     private static void openLoop(Face face, Face f0, Face f1,

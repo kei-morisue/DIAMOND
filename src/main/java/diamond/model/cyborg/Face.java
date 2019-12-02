@@ -53,10 +53,9 @@ public class Face implements Cyborg {
     public void removeUnsettled(HalfEdge he) {
         unsettledLines.remove(he);
         unsettledLines.remove(he.getPair());
-        he.setFace(this);
-        he.getPair().setFace(this);
     }
 
+    @Deprecated
     public HashSet<HalfEdge> getUnsettledLines() {
         return this.unsettledLines;
     }
