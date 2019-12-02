@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
-import diamond.model.cyborg.Vertex;
 
 /**
  * @author Kei Morisue
@@ -27,7 +26,7 @@ public class CenterPointUtil {
         return centerP;
     }
 
-    public static Point2D.Double get(Vertex v0, Vertex v1) {
+    public static Point2D.Double get(Point2D.Double v0, Point2D.Double v1) {
         return Point2DUtil.scale(Point2DUtil.add(v0, v1), 0.5);
     }
 

@@ -5,6 +5,7 @@
 package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
 /**
  * @author Kei Morisue
@@ -41,6 +42,14 @@ public class Point2DUtil {
     public static Point2D.Double split(Point2D.Double p0, Point2D.Double p1,
             double t) {
         return add(scale(p0, 1 - t), scale(p1, t));
+    }
+
+    public static Double per(Point2D.Double p) {
+        return new Point2D.Double(p.y, -p.x);
+    }
+
+    public static Double normalize(Point2D.Double p) {
+        return scale(p, 1.0 / p.distance(.0, .0));
     }
 
     public static double distanceToSegment(

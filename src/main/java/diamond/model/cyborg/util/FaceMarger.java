@@ -42,6 +42,9 @@ public class FaceMarger {
         unsettledLines.addAll(f1.getUnsettledLines());
         h0.setFace(face);
         h1.setFace(face);
+        for (HalfEdge he : halfEdges) {
+            he.setFace(face);
+        }
 
         return face;
     }

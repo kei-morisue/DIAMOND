@@ -56,14 +56,14 @@ public class CrossPointUtil {
     }
 
     public static ArrayList<Vertex> getCrossPoints(Face face,
-            Point2D.Double v0,
-            Point2D.Double v1) {
+            Point2D.Double p0,
+            Point2D.Double p1) {
         double[] ds = { 0.0, 0.0 };
         ArrayList<Vertex> crossPoints = new ArrayList<Vertex>();
         ArrayList<HalfEdge> halfEdges = new ArrayList<HalfEdge>();
 
         for (HalfEdge he : face.getHalfEdges()) {
-            ds = getSplitter(v0, v1, he);
+            ds = getSplitter(p0, p1, he);
             if (ds == null) {
                 continue;
             }
@@ -74,7 +74,7 @@ public class CrossPointUtil {
             }
         }
         for (HalfEdge he : halfEdges) {
-            ds = getSplitter(v0, v1, he);//TODO
+            ds = getSplitter(p0, p1, he);//TODO not to calc again
             crossPoints.add(HalfEdgeSplitter.split(he, ds[1]));
         }
         return crossPoints;

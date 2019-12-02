@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.Context;
 import diamond.controller.action.Axiom1Action;
+import diamond.controller.action.Axiom2Action;
 import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.view.resource.string.Labels;
@@ -35,7 +36,7 @@ public class PaintPatternPanel extends JPanel {
         JRadioButton button = buildButton("axiom1", new Axiom1Action());
         button.doClick();
         add(button);
-        add(buildButton("axiom2", new LazyPaintAction()));//TODO
+        add(buildButton("axiom2", new Axiom2Action()));
         add(buildButton("axiom3", new LazyPaintAction()));//TODO
         add(buildButton("axiom4", new LazyPaintAction()));//TODO
         add(buildButton("symmetric", new LazyPaintAction()));//TODO

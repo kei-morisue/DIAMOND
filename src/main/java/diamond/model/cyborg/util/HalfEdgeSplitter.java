@@ -84,16 +84,6 @@ public class HalfEdgeSplitter {
         Face f0 = he.getFace();
         h0.setFace(f0);
         h1.setFace(f0);
-        HalfEdge h0P = h0.getPair();
-        HalfEdge h1P = h1.getPair();
-        HalfEdge heP = he.getPair();
-
-        heP.getPrev().connectTo(h1P);
-        h1P.connectTo(h0P);
-        h0P.connectTo(heP.getNext());
-        Face f1 = heP.getFace();
-        h0P.setFace(f1);
-        h1P.setFace(f1);
         ArrayList<HalfEdge> halfEdges0 = f0.getHalfEdges();
         int i = halfEdges0.indexOf(he);
         if (i == -1) {
@@ -106,6 +96,20 @@ public class HalfEdgeSplitter {
             halfEdges0.add(i + 1, h1);
             halfEdges0.remove(i + 2);
         }
+
+        HalfEdge h0P = h0.getPair();
+        HalfEdge h1P = h1.getPair();
+        h1P.connectTo(h0P);
+
+        HalfEdge heP = he.getPair();
+        if (heP.getPrev() == null || heP.getNext() == null) {
+            return v;
+        }
+        heP.getPrev().connectTo(h1P);
+        h0P.connectTo(heP.getNext());
+        Face f1 = heP.getFace();
+        h0P.setFace(f1);
+        h1P.setFace(f1);
         ArrayList<HalfEdge> halfEdges1 = f1.getHalfEdges();
         int j = halfEdges1.indexOf(heP);
         if (j == -1) {
