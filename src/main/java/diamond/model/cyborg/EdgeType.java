@@ -9,13 +9,7 @@ package diamond.model.cyborg;
  *
  */
 public enum EdgeType {
-    CREASE,
-    UNSETTLED_VALLEY,
-    UNSETTLED_MOUNTAIN,
-    CUT,
-    VALLEY,
-    MOUNTAIN,
-    NONE;
+    CREASE, UNSETTLED_VALLEY, UNSETTLED_MOUNTAIN, CUT, VALLEY, MOUNTAIN;
 
     public static EdgeType getPairType(EdgeType type) {
         switch (type) {
@@ -43,7 +37,7 @@ public enum EdgeType {
         }
     }
 
-    public static EdgeType getAuxType(EdgeType type) {
+    public static EdgeType getAnotherType(EdgeType type) {
         switch (type) {
         case MOUNTAIN:
             return UNSETTLED_MOUNTAIN;

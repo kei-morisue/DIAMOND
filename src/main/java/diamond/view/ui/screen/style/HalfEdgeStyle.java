@@ -20,8 +20,7 @@ public class HalfEdgeStyle {
     final public static Color CREASE = Color.LIGHT_GRAY;
     final public static Color UNSETTLED_VALLEY = Color.BLUE;
     final public static Color UNSETTLED_MOUNTAIN = Color.RED;
-    final public static Color ORILINE_CUT = Color.black;
-    final public static Color NONE = new Color(255, 0, 255);
+    final public static Color CUT = Color.black;
     final public static Color POINTED = Color.GREEN;
 
     public static Color getColor(HalfEdge he) {
@@ -35,15 +34,13 @@ public class HalfEdgeStyle {
         case VALLEY:
             return VALLEY;
         case CUT:
-            return ORILINE_CUT;
+            return CUT;
         case CREASE:
             return CREASE;
         case UNSETTLED_MOUNTAIN:
             return UNSETTLED_MOUNTAIN;
         case UNSETTLED_VALLEY:
             return UNSETTLED_VALLEY;
-        case NONE:
-            return NONE;
         default:
             return CREASE;
         }
@@ -62,8 +59,6 @@ public class HalfEdgeStyle {
     final public static BasicStroke STROKE_GRID = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_CREASE = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_NONE = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     final public static BasicStroke STROKE_RADAR = new BasicStroke(0.0f,
@@ -107,8 +102,6 @@ public class HalfEdgeStyle {
             return STROKE_UNSETTLED_VALLEY;
         case UNSETTLED_MOUNTAIN:
             return STROKE_UNSETTLED_MOUNTAIN;
-        case NONE:
-            return STROKE_NONE;
         default:
             return STROKE_MOUNTAIN;
         }

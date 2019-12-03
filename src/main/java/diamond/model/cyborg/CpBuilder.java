@@ -27,9 +27,14 @@ public class CpBuilder {
 
         Face f0 = new Face();
         faces.add(f0);
-        f0.open(he0);
+        f0.add(he0);
         f0.add(he1);
         f0.add(he2);
-        f0.close(he3);
+        f0.add(he3);
+
+        he0.connectTo(he1);
+        he1.connectTo(he2);
+        he2.connectTo(he3);
+        he3.connectTo(he0);
     }
 }

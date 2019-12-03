@@ -36,8 +36,8 @@ public class FaceMarger {
         halfEdges.remove(h1);
 
         HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
-        unsettledLines.add(h0);
-        unsettledLines.add(h1);
+        face.addUnsettled(h0);
+        face.addUnsettled(h1);
         unsettledLines.addAll(f0.getUnsettledLines());
         unsettledLines.addAll(f1.getUnsettledLines());
         h0.setFace(face);

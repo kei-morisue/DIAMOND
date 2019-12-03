@@ -23,24 +23,9 @@ public class Face implements Cyborg {
     public Face() {
     }
 
-    public void open(HalfEdge halfEdge) {
-        halfEdges.clear();
-        halfEdges.add(halfEdge);
-    }
-
     public void add(HalfEdge halfEdge) {
-        HalfEdge he0 = halfEdges.get(halfEdges.size() - 1);
-        he0.connectTo(halfEdge);
         halfEdges.add(halfEdge);
-    }
-
-    public void close(HalfEdge halfEdge) {
-        add(halfEdge);
-        HalfEdge he0 = halfEdges.get(0);
-        halfEdge.connectTo(he0);
-        for (HalfEdge he : halfEdges) {
-            he.setFace(this);
-        }
+        halfEdge.setFace(this);
     }
 
     public void addUnsettled(HalfEdge he) {

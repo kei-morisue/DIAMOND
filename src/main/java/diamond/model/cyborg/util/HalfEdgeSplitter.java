@@ -118,7 +118,7 @@ public class HalfEdgeSplitter {
         ArrayList<HalfEdge> halfEdges0 = f0.getHalfEdges();
         int i = halfEdges0.indexOf(he);
         if (i == -1) {
-            f0.addUnsettled(h0);
+            f0.addUnsettled(h0);//TODO
             f0.addUnsettled(h1);
             f0.removeUnsettled(he);
             return v;

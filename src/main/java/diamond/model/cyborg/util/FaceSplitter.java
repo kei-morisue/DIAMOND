@@ -23,12 +23,12 @@ public class FaceSplitter {
         Face f1 = new Face();
         Vertex v0 = splitter.getV0();
         Vertex v1 = splitter.getV1();
-        openLoop(face, f0, f1, splitter);
+        open(face, f0, f1, splitter);
         if (f0.getHalfEdges().size() != 1 || f1.getHalfEdges().size() != 1) {
             return null;//TODO cut segment, non-convex faces
         }
-        buildLoop(f0, v0, splitter);
-        buildLoop(f1, v1, splitter.getPair());
+        close(f0, v0, splitter);
+        close(f1, v1, splitter.getPair());
         ArrayList<Vertex> cps = splitUnsettledLines(face, splitter);
         if (!EdgeType.isSettled(splitter.getType())) {
             f0 = FaceMarger.marge(splitter);
@@ -56,28 +56,29 @@ public class FaceSplitter {
         return ordered;
     }
 
-    private static void openLoop(Face face, Face f0, Face f1,
+    private static void open(Face face, Face f0, Face f1,
             HalfEdge splitter) {
         Vertex v0 = splitter.getV0();
         Vertex v1 = splitter.getV1();
         for (HalfEdge he : face.getHalfEdges()) {
             if (he.getV0() == v1) {
-                f0.open(he);
+                f0.add(he);
                 splitter.connectTo(he);
             } else if (he.getV0() == v0) {
-                f1.open(he);
+                f1.add(he);
                 splitter.getPair().connectTo(he);
             }
         }
     }
 
-    private static void buildLoop(Face face, Vertex endV, HalfEdge splitter) {
-        HalfEdge h = face.getHalfEdges().get(0).getNext();
-        while (h.getV0() != endV) {
-            face.add(h);
+    private static void close(Face face, Vertex endV, HalfEdge splitter) {
+        HalfEdge h = face.getHalfEdges().get(0);
+        do {
             h = h.getNext();
-        }
-        face.close(splitter);
+            face.add(h);
+        } while (h.getV1() != endV);
+        face.add(splitter);
+        h.connectTo(splitter);
     }
 
 }
