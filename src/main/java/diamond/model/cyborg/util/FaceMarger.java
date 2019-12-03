@@ -45,7 +45,6 @@ public class FaceMarger {
         for (HalfEdge he : halfEdges) {
             he.setFace(face);
         }
-
         return face;
     }
 

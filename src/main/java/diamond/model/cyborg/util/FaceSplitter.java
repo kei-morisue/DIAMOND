@@ -45,7 +45,7 @@ public class FaceSplitter {
             if (he == splitter || he.getProperty().isDisabled()) {
                 continue;
             }
-            Vertex v = HalfEdgeSplitter.split(splitter, he);
+            Vertex v = HalfEdgeSplitter.splitUnsettled(splitter, he);
             if (v != null) {
                 crossPoints.add(v);
             }
