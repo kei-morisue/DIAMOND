@@ -19,8 +19,8 @@ import diamond.controller.Context;
 public class TabPaintLines extends JPanel {
     public TabPaintLines(Context context, ButtonGroup buttonGroup) {
         setLayout(new GridLayout(1, 2));
-        add(new PaintPatternPanel(context));
-        add(new PaintColorPanel(context, buttonGroup));
+        add(new PaintPatternPanel(context, buttonGroup));
+        add(new PaintColorPanel(context));
     }
 
 }

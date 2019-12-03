@@ -7,7 +7,7 @@ package diamond.controller.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.axiom2.state0;
+import diamond.controller.action.state.axiom2.State0;
 
 /**
  * @author Kei Morisue
@@ -21,7 +21,7 @@ public class Axiom2Action extends AbstractPaintAction {
 
     @Override
     protected void setInitialState() {
-        setActionState(new state0());
+        setActionState(new State0());
     }
 
 }

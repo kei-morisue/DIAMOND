@@ -29,11 +29,6 @@ public class PaintScreenDrawer {
             if (!face.getProperty().isDisabled()) {
                 draw(g2d, face);
             }
-            for (HalfEdge he : face.getUnsettledLines()) {
-                if (!he.getProperty().isDisabled()) {
-                    draw(g2d, he);
-                }
-            }
         }
         for (HalfEdge he : cp.getHalfEdges()) {//TODO
             if (!he.getProperty().isDisabled()) {

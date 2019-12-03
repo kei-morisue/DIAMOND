@@ -23,11 +23,12 @@ import diamond.view.ui.button.PaintActionButton;
  *
  */
 public class PaintPatternPanel extends JPanel {
-    private ButtonGroup paintPatterns = new ButtonGroup();
+    private ButtonGroup buttonGroup;
     private Context context;
 
-    public PaintPatternPanel(Context context) {
+    public PaintPatternPanel(Context context, ButtonGroup buttonGroup) {
         this.context = context;
+        this.buttonGroup = buttonGroup;
         addInputLinePanel();
     }
 
@@ -48,7 +49,7 @@ public class PaintPatternPanel extends JPanel {
             PaintActionInterface paintAction) {
         PaintActionButton button = new PaintActionButton(context, paintAction);
         button.setIcons(IconBaseName);
-        paintPatterns.add(button);
+        buttonGroup.add(button);
         return button;
     }
 }

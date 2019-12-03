@@ -20,6 +20,9 @@ public class HalfEdgeFinder {
         HalfEdge candidate = null;
         Point2D.Double p = context.getMousePoint();
         for (HalfEdge he : context.getCp().getHalfEdges()) {
+            if (he.getProperty().isDisabled()) {
+                continue;
+            }
             double dist = Point2DUtil.distanceToSegment(p, he.getV0(),
                     he.getV1());
             if (dist < min) {

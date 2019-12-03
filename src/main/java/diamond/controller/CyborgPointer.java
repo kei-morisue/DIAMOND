@@ -14,7 +14,7 @@ import diamond.model.cyborg.Vertex;
  */
 public class CyborgPointer {
     private Vertex vertex = null;
-    private HalfEdge he = null;
+    private HalfEdge halfEdge = null;
     private Face face = null;
 
     public CyborgPointer() {
@@ -22,7 +22,7 @@ public class CyborgPointer {
 
     public void clear() {
         setVertex(null);
-        setHe(null);
+        setHalfEdge(null);
         setFace(null);
     }
 
@@ -34,16 +34,16 @@ public class CyborgPointer {
         return face;
     }
 
-    public HalfEdge getHe() {
-        return he;
+    public HalfEdge getHalfEdge() {
+        return halfEdge;
     }
 
-    public void setHe(HalfEdge he) {
-        if (this.he != null) {
-            this.he.getProperty().isPointed = false;
+    public void setHalfEdge(HalfEdge he) {
+        if (this.halfEdge != null) {
+            this.halfEdge.getProperty().isPointed = false;
         }
-        this.he = he;
-        if (this.he != null) {
+        this.halfEdge = he;
+        if (this.halfEdge != null) {
             he.getProperty().isPointed = true;
         }
     }

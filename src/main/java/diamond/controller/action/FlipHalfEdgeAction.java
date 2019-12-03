@@ -7,18 +7,16 @@ package diamond.controller.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.axiom1.State0;
-import diamond.view.ui.screen.draw.PaintScreenDrawer;
+import diamond.controller.action.state.flipEdge.State0;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Axiom1Action extends AbstractPaintAction {
+public class FlipHalfEdgeAction extends AbstractPaintAction {
 
     @Override
     public void onDraw(Graphics2D g2d, Context context) {
-        PaintScreenDrawer.drawTemporaryLine(g2d, context);
     }
 
     @Override

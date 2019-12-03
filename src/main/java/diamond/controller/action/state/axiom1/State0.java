@@ -11,16 +11,16 @@ import diamond.controller.action.state.VertexPickingState;
  * @author Kei Morisue
  *
  */
-public class state0 extends VertexPickingState {
+public class State0 extends VertexPickingState {
 
     @Override
     protected void setNextClass() {
-        nextStateClass = state1.class;
+        nextStateClass = State1.class;
     }
 
     @Override
     protected void setPrevClass() {
-        prevStateClass = state0.class;
+        prevStateClass = State0.class;
     }
 
     @Override

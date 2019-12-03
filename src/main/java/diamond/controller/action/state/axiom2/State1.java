@@ -17,16 +17,16 @@ import diamond.model.cyborg.util.HalfEdgeAdder;
  * @author Kei Morisue
  *
  */
-public class state1 extends VertexPickingState {
+public class State1 extends VertexPickingState {
 
     @Override
     protected void setNextClass() {
-        nextStateClass = state0.class;
+        nextStateClass = State0.class;
     }
 
     @Override
     protected void setPrevClass() {
-        prevStateClass = state1.class;
+        prevStateClass = State1.class;
     }
 
     @Override

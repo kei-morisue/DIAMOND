@@ -47,6 +47,15 @@ public class CyborgPicker {
         vertices.pop();
     }
 
+    public void popHalfEdge() {
+        if (halfEdges.isEmpty()) {
+            return;
+        } else {
+            halfEdges.lastElement().getProperty().isPicked = false;
+        }
+        vertices.pop();
+    }
+
     public void push(Vertex v) {
         vertices.push(v);
         v.getProperty().isPicked = true;

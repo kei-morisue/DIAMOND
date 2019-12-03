@@ -54,6 +54,9 @@ public class Cp {
             for (HalfEdge he : face.getHalfEdges()) {
                 halfEdges.add(he);
             }
+            for (HalfEdge he : face.getUnsettledLines()) {
+                halfEdges.add(he);
+            }
         }
         return halfEdges;
     }
