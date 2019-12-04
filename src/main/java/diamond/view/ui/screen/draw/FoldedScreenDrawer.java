@@ -32,6 +32,8 @@ public class FoldedScreenDrawer {
             }
             for (HalfEdge he : face.getUnsettledLines()) {
                 drawUnsettled(g2d, he, scale);
+                draw(g2d, he.getV0(), scale);
+                draw(g2d, he.getV1(), scale);
             }
         }
     }

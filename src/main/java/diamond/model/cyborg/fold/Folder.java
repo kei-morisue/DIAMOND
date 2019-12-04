@@ -12,6 +12,8 @@ import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.math.Kawasaki;
+import diamond.model.math.Maekawa;
 
 /**
  * @author Kei Morisue
@@ -27,6 +29,15 @@ public class Folder {
         face.setFaceFront(false);
         for (HalfEdge he : face.getHalfEdges()) {
             setAffine(face.getTransform(), he);
+        }
+        validate(cp);
+    }
+
+    private static void validate(Cp cp) {
+        for (Vertex v : cp.getVertices()) {
+            boolean maekawa = Maekawa.isValid(v);
+            boolean kawasaki = Kawasaki.isValid(v);
+            v.getProperty().isWrong = !maekawa || !kawasaki;
         }
     }
 

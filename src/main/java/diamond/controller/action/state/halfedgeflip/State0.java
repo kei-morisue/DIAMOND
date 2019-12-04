@@ -29,6 +29,7 @@ public class State0 extends HalfEdgePickingState {
     protected void aftermath(Context context) {
         HalfEdge he = context.getPicker().getHalfEdges().get(0);
         HalfEdgeModifier.flip(he);
+        context.fold();
         context.initialize();
     }
 
