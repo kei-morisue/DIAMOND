@@ -8,6 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.math.HalfEdgeSortor;
+
 /**
  * @author Kei Morisue
  *
@@ -26,6 +28,11 @@ public class Face implements Cyborg {
     public void add(HalfEdge halfEdge) {
         halfEdges.add(halfEdge);
         halfEdge.setFace(this);
+    }
+
+    public void remove(HalfEdge halfEdge) {
+        halfEdges.remove(halfEdge);
+        halfEdges.remove(halfEdge.getPair());
     }
 
     public void addUnsettled(HalfEdge he) {
@@ -50,6 +57,10 @@ public class Face implements Cyborg {
     }
 
     public ArrayList<HalfEdge> getHalfEdges() {
+        if (halfEdges.isEmpty()) {
+            return this.halfEdges;
+        }
+        halfEdges.sort(new HalfEdgeSortor(halfEdges.get(0)));
         return this.halfEdges;
     }
 

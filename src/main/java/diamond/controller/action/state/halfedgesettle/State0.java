@@ -23,7 +23,7 @@ public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void setPrevClass() {
-        nextStateClass = State0.class;
+        prevStateClass = State0.class;
     }
 
     @Override
@@ -32,9 +32,9 @@ public class State0 extends HalfEdgePickingState {
         if (he.getType() == EdgeType.CUT) {
 
         } else if (EdgeType.isSettled(he.getType())) {
-            HalfEdgeModifier.unSettle(he);
+            HalfEdgeModifier.unSettle(context, he);
         } else {
-            HalfEdgeModifier.settle(he);
+            HalfEdgeModifier.settle(context, he);
         }
         context.initialize();
     }

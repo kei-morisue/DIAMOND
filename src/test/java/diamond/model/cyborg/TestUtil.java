@@ -32,5 +32,8 @@ public class TestUtil {
         }
         HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
         assertEquals(unsettledNum, unsettledLines.size());
+        for (HalfEdge he : unsettledLines) {
+            assertEquals(he.getFace(), face);
+        }
     }
 }

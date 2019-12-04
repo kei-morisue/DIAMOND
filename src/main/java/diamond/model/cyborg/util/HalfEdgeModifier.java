@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg.util;
 
+import diamond.controller.Context;
+import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
@@ -18,7 +20,7 @@ public class HalfEdgeModifier {
         he.setType(EdgeType.getPairType(type));
     }
 
-    public static void settle(HalfEdge he) {
+    public static void settle(Context context, HalfEdge he) {
         Face face = he.getFace();
         HalfEdge h0 = null;
         HalfEdge h1 = null;
@@ -33,30 +35,51 @@ public class HalfEdgeModifier {
         if (h0 == null && h1 == null) {
             return;
         }
+        Cp cp = context.getCp();
+
         if (h0 != null && h1 != null) {
-            FaceSplitter.split(face, he);
+            he.setType(EdgeType.getAnotherType(he.getType()));
+            Face[] split = FaceSplitter.split(face, he);
+            cp.add(split[0]);
+            cp.add(split[1]);
+            cp.remove(face);
+            return;
         }
-        HalfEdge h = null;
-        HalfEdge hP = he.getPair();
-        if (h0 == null) {
-            h = h1;
-            h.connectTo(hP);
-            hP.connectTo(he);
-            he.connectTo(h.getNext());
+        if (h0 != null) {
+            he.getPair().connectTo(h0.getNext());
+            h0.connectTo(he);
+            he.connectTo(he.getPair());
         } else {
-            h = h0;
-            h.connectTo(he);
-            he.connectTo(hP);
-            hP.connectTo(h.getNext());
+            he.connectTo(h1.getNext());
+            h1.connectTo(he.getPair());
+            he.getPair().connectTo(he);
         }
         face.add(he);
+        face.add(he.getPair());
         face.removeUnsettled(he);
-        face.removeUnsettled(hP);
+        he.setType(EdgeType.getAnotherType(he.getType()));
     }
 
-    public static void unSettle(HalfEdge he) {
+    public static void unSettle(Context context, HalfEdge he) {
         EdgeType type = he.getType();
         he.setType(EdgeType.getAnotherType(type));
-        FaceMarger.marge(he);
+        Face f0 = he.getFace();
+        Face f1 = he.getPair().getFace();
+        Cp cp = context.getCp();
+        if (f0 != f1) {
+            cp.add(FaceMarger.marge(he));
+            cp.remove(f0);
+            cp.remove(f1);
+        } else {
+            if (he.getNext() == he.getPair()) {
+                f0.addUnsettled(he);
+                f0.remove(he);
+                he.getPrev().connectTo(he.getPair().getNext());
+            } else if (he.getPair().getNext() == he) {
+                f0.addUnsettled(he);
+                f0.remove(he);
+                he.getPair().getPrev().connectTo(he.getNext());
+            }
+        }
     }
 }

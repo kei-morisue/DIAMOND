@@ -21,6 +21,7 @@ public class Cp {
         CpBuilder.buildSquare(faces);
     }
 
+    @Deprecated
     public LinkedList<Face> getFaces() {
         return this.faces;
     }

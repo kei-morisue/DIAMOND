@@ -24,13 +24,12 @@ public class Axiom1Test {
     private Context context = new Context();
     private PaintScreen paintScreen = new PaintScreen(context);
     private FoldedScreen foledScreen = new FoldedScreen(context);
-    private Axiom1Action paintAction = new Axiom1Action();
     private Cp cp = context.getCp();
     private LinkedList<Face> faces = cp.getFaces();
     private static final double l = Config.PAPER_SIZE;
 
     public Axiom1Test() {
-        context.setPaintAction(paintAction);
+        context.setPaintAction(new Axiom1Action());
         context.setInputType(EdgeType.UNSETTLED_VALLEY);
 
     }

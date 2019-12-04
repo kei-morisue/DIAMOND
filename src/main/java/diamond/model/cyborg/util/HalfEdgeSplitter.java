@@ -93,6 +93,9 @@ public class HalfEdgeSplitter {
     public static void split(HalfEdge he, ArrayList<Vertex> splitters) {
         HalfEdge h0 = he;
         for (Vertex v : splitters) {
+            if (v == he.getV0() || v == he.getV1()) {
+                continue;
+            }
             split(h0, v);
             h0 = h0.getNext();
         }
@@ -108,19 +111,22 @@ public class HalfEdgeSplitter {
         HalfEdge h0 = new HalfEdge(he.getV0(), v, he.getType());
         HalfEdge h1 = new HalfEdge(v, he.getV1(), he.getType());
         h0.connectTo(h1);
-        Face f0 = he.getFace();
-        h0.setFace(f0);
-        h1.setFace(f0);
+        Face f = he.getFace();
+        h0.setFace(f);
+        h1.setFace(f);
+        Face fP = he.getPair().getFace();
+        h0.getPair().setFace(fP);
+        h1.getPair().setFace(fP);
         if (EdgeType.isSettled(he.getType())) {
             he.getPrev().connectTo(h0);
             h1.connectTo(he.getNext());
         }
-        ArrayList<HalfEdge> halfEdges0 = f0.getHalfEdges();
+        ArrayList<HalfEdge> halfEdges0 = f.getHalfEdges();
         int i = halfEdges0.indexOf(he);
         if (i == -1) {
-            f0.addUnsettled(h0);//TODO
-            f0.addUnsettled(h1);
-            f0.removeUnsettled(he);
+            f.addUnsettled(h0);//TODO
+            f.addUnsettled(h1);
+            f.removeUnsettled(he);
             return v;
         } else {
             halfEdges0.add(i, h0);
