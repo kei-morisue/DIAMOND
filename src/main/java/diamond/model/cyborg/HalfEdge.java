@@ -125,6 +125,7 @@ public class HalfEdge implements Cyborg {
 
     public void setType(EdgeType type) {
         this.type = type;
+        this.pair.type = type;
         disablePair();
     }
 

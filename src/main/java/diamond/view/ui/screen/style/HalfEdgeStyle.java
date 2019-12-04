@@ -23,7 +23,7 @@ public class HalfEdgeStyle {
     final public static Color CUT = Color.black;
     final public static Color POINTED = Color.GREEN;
 
-    public static Color getColor(HalfEdge he) {
+    public static Color getCpColor(HalfEdge he) {
         EdgeType type = he.getType();
         if (he.getProperty().isColored()) {
             return POINTED;
@@ -43,6 +43,21 @@ public class HalfEdgeStyle {
             return UNSETTLED_VALLEY;
         default:
             return CREASE;
+        }
+    }
+
+    public static Color getFoldedColor(HalfEdge he) {
+        EdgeType type = he.getType();
+        if (he.getProperty().isColored()) {
+            return POINTED;
+        }
+        switch (type) {
+        case UNSETTLED_MOUNTAIN:
+            return UNSETTLED_MOUNTAIN;
+        case UNSETTLED_VALLEY:
+            return UNSETTLED_VALLEY;
+        default:
+            return CUT;
         }
     }
 
@@ -80,13 +95,10 @@ public class HalfEdgeStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
 
-    final public static BasicStroke STROKE_EDGE = new BasicStroke(2.0f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_ARROW = new BasicStroke(2.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_FLIP_ARROW = new BasicStroke(3.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-
     final public static BasicStroke STROKE_TEMPORARY = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
@@ -107,18 +119,28 @@ public class HalfEdgeStyle {
         }
     }
 
-    public static BasicStroke getFoldedStroke(EdgeType type) {
+    public static BasicStroke getFoldedStroke(EdgeType type, float scale) {
+        float v[] = { 10.0f / scale, 3.0f / scale };
+        float m[] = { 10.0f / scale, 2.0f / scale, 2.0f / scale, 2.0f / scale };
         switch (type) {
         case CREASE:
-            return STROKE_CREASE;
+            return new BasicStroke(1.0f / scale,
+                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
         case UNSETTLED_VALLEY:
-            return STROKE_UNSETTLED_VALLEY;
+            return new BasicStroke(
+                    3.0f / scale,
+                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
+                    10.0f, v, 0.0f);
         case UNSETTLED_MOUNTAIN:
-            return STROKE_UNSETTLED_MOUNTAIN;
+            return new BasicStroke(
+                    3.0f / scale,
+                    BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
+                    10.0f, m, 0.0f);
         default:
-            return STROKE_EDGE;
+            return new BasicStroke(3.0f / scale,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
         }
     }
 
-    public static double CLIP_SCALE = 0.8;
+    public static double CLIP_SCALE = 0.9;
 }

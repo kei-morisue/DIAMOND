@@ -53,7 +53,7 @@ public class PaintScreenDrawer {
     }
 
     public static void draw(Graphics2D g2d, HalfEdge he) {
-        g2d.setColor(HalfEdgeStyle.getColor(he));
+        g2d.setColor(HalfEdgeStyle.getCpColor(he));
         g2d.setStroke(HalfEdgeStyle.getCpStroke(he.getType()));
         g2d.draw(HalfEdgeDrawer.buildLine(he));
     }

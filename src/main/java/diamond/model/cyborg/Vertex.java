@@ -7,6 +7,8 @@ package diamond.model.cyborg;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.util.Point2DUtil;
+
 /**
  * @author Kei Morisue
  *
@@ -26,6 +28,10 @@ public class Vertex extends Point2D.Double implements Cyborg {
 
     public Vertex(Point2D.Double p) {
         super(p.x, p.y);
+    }
+
+    public Point2D.Double getFoldedOffset() {
+        return Point2DUtil.add(folded, offset);
     }
 
     public void add(HalfEdge he) {

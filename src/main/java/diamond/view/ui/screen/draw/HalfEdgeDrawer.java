@@ -46,4 +46,24 @@ public class HalfEdgeDrawer {
         }
         return buildLine(p0, p1);
     }
+
+    public static Shape buildFoldedLine(HalfEdge he) {
+        return new Line2D.Double(he.getV0().getFoldedOffset(),
+                he.getV1().getFoldedOffset());
+    }
+
+    public static Shape buildFoldedLine(HalfEdge he, double scale) {
+        Double v0 = he.getV0().getFoldedOffset();
+        Double v1 = he.getV1().getFoldedOffset();
+        Double pivot = CenterPointUtil.get(v0, v1);
+        Double p0 = new Double(v0.x, v0.y);
+        Double p1 = new Double(v1.x, v1.y);
+        if (he.getV0().isVertex()) {
+            p0 = Point2DUtil.scale(v0, pivot, HalfEdgeStyle.CLIP_SCALE);
+        }
+        if (he.getV1().isVertex()) {
+            p1 = Point2DUtil.scale(v1, pivot, HalfEdgeStyle.CLIP_SCALE);
+        }
+        return buildLine(p0, p1);
+    }
 }

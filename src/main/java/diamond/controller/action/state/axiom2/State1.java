@@ -36,6 +36,7 @@ public class State1 extends VertexPickingState {
         Vertex v1 = vertices.get(1);
         Double[] pts = BisectorUtil.perpendicular(v0, v1);
         HalfEdgeAdder.add(context, pts[0], pts[1]);
+        context.fold();
         context.initialize();
     }
 

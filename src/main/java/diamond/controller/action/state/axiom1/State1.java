@@ -33,6 +33,7 @@ public class State1 extends VertexPickingState {
         Vertex v0 = vertices.get(0);
         Vertex v1 = vertices.get(1);
         HalfEdgeAdder.add(context, v0, v1);
+        context.fold();
         context.initialize();
     }
 

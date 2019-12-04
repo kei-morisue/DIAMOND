@@ -43,9 +43,7 @@ public class FaceDrawer {
         ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
         for (HalfEdge he : halfEdges) {
             Vertex v0 = he.getV0();
-            Point2D p = Point2DUtil.add(
-                    v0.getFolded(),
-                    v0.getOffset());
+            Point2D p = v0.getFoldedOffset();
             double x = p.getX();
             double y = p.getY();
             if (outline == null) {

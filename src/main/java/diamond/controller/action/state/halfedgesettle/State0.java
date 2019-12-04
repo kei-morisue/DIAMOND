@@ -29,12 +29,14 @@ public class State0 extends HalfEdgePickingState {
     @Override
     protected void aftermath(Context context) {
         HalfEdge he = context.getPicker().getHalfEdges().get(0);
-        if (he.getType() == EdgeType.CUT) {
+        if (he.getType() == EdgeType.CUT || he.getType() == EdgeType.CREASE) {
 
         } else if (EdgeType.isSettled(he.getType())) {
             HalfEdgeModifier.unSettle(context, he);
+            context.fold();
         } else {
             HalfEdgeModifier.settle(context, he);
+            context.fold();
         }
         context.initialize();
     }

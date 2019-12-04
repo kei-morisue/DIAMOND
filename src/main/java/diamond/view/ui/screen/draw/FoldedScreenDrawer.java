@@ -23,42 +23,44 @@ import diamond.view.ui.screen.style.VertexStyle;
  */
 public class FoldedScreenDrawer {
     public static void draw(Graphics2D g2d, Cp cp) {
+        float scale = (float) G2DUtil.getScale(g2d);
         for (Face face : cp.getFaces()) {
             draw(g2d, face);
             for (HalfEdge he : face.getHalfEdges()) {
-                draw(g2d, he);
-                draw(g2d, he.getV0());
+                draw(g2d, he, scale);
+                draw(g2d, he.getV0(), scale);
             }
             for (HalfEdge he : face.getUnsettledLines()) {
-                drawUnsettled(g2d, he);
+                drawUnsettled(g2d, he, scale);
             }
         }
     }
 
-    public static void draw(Graphics2D g2d, Vertex v) {
+    public static void draw(Graphics2D g2d, Vertex v, float scale) {
         if (v.getProperty().isColored()) {
-            double size = VertexStyle.getSize(v) / G2DUtil.getScale(g2d);
+            double size = VertexStyle.getSize(v) / scale;
             g2d.setColor(VertexStyle.getColor(v));
             g2d.fill(VertexDrawer.buildVertex(v, size));
         }
     }
 
-    public static void draw(Graphics2D g2d, HalfEdge he) {
-        g2d.setColor(HalfEdgeStyle.getColor(he));
-        g2d.setStroke(HalfEdgeStyle.getFoldedStroke(he.getType()));
-        g2d.draw(HalfEdgeDrawer.buildLine(he));
+    public static void draw(Graphics2D g2d, HalfEdge he, float scale) {
+        g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
+        g2d.setStroke(HalfEdgeStyle.getFoldedStroke(he.getType(), scale));
+        g2d.draw(HalfEdgeDrawer.buildFoldedLine(he));
     }
 
-    public static void drawUnsettled(Graphics2D g2d, HalfEdge he) {
+    public static void drawUnsettled(Graphics2D g2d, HalfEdge he, float scale) {
         if (!he.getProperty().isDisabled()) {
-            g2d.setColor(HalfEdgeStyle.getColor(he));
+            g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
             EdgeType type = he.getType();
-            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type));
+            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type, scale));
             if (type == EdgeType.CREASE) {
                 g2d.draw(
-                        HalfEdgeDrawer.buildLine(he, HalfEdgeStyle.CLIP_SCALE));
+                        HalfEdgeDrawer.buildFoldedLine(he,
+                                HalfEdgeStyle.CLIP_SCALE));
             } else {
-                g2d.draw(HalfEdgeDrawer.buildLine(he));
+                g2d.draw(HalfEdgeDrawer.buildFoldedLine(he));
 
             }
         }
@@ -68,11 +70,9 @@ public class FoldedScreenDrawer {
         if (!f.getProperty().isDisabled()) {
             g2d.setColor(FaceStyle.getColor(f));
             g2d.fill(FaceDrawer.buildFoldedOutline(f));
-
         }
     }
 
     public static void draw(Graphics2D g2d, Context context) {
-        context.getPaintAction().onDraw(g2d, context);
     }
 }

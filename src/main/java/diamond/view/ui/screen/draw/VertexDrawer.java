@@ -6,8 +6,7 @@ package diamond.view.ui.screen.draw;
 
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-
-import diamond.model.cyborg.Vertex;
+import java.awt.geom.Point2D;
 
 /**
  * @author Kei Morisue
@@ -15,7 +14,7 @@ import diamond.model.cyborg.Vertex;
  */
 public class VertexDrawer {
 
-    public static Shape buildVertex(Vertex v, double size) {
+    public static Shape buildVertex(Point2D.Double v, double size) {
         double sizeHalf = size * 0.5;
         return new Ellipse2D.Double(
                 v.x - sizeHalf,

@@ -10,6 +10,7 @@ import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
+import diamond.model.cyborg.fold.Folder;
 import diamond.view.ui.screen.FoldedScreen;
 import diamond.view.ui.screen.PaintScreen;
 
@@ -36,6 +37,10 @@ public class Context {
 
     public Cp getCp() {
         return pallete.getCps().get(currentStep);
+    }
+
+    public void fold() {
+        Folder.fold(getCp());
     }
 
     public Pallete getPallete() {
