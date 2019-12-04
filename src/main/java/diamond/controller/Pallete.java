@@ -4,26 +4,32 @@
  */
 package diamond.controller;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import diamond.model.cyborg.Cp;
+import diamond.view.ui.screen.style.FaceStyle;
+import diamond.view.ui.screen.style.HalfEdgeStyle;
 
 /**
  * @author Kei Morisue
  *
  */
 public class Pallete {
-    private ArrayList<Cp> cps = new ArrayList<>();
+    private LinkedList<Cp> cps = new LinkedList<>();
+    private FaceStyle faceStyle = new FaceStyle();
+    private HalfEdgeStyle haFaceStyle = new HalfEdgeStyle();
 
     public Pallete() {
-        cps.add(new Cp());
+        Cp cp = new Cp();
+        cps.add(cp);
+
     }
 
-    public ArrayList<Cp> getCps() {
+    public LinkedList<Cp> getCps() {
         return this.cps;
     }
 
-    public void setCps(ArrayList<Cp> cps) {
+    public void setCps(LinkedList<Cp> cps) {
         this.cps = cps;
     }
 }

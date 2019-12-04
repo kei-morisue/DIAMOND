@@ -52,6 +52,14 @@ public class Point2DUtil {
         return scale(p, 1.0 / p.distance(.0, .0));
     }
 
+    public static double angle(Point2D.Double p) {
+        return Math.atan2(p.y, p.x);
+    }
+
+    public static double angle(Point2D.Double p0, Point2D.Double p1) {
+        return angle(p1) - angle(p0);
+    }
+
     public static double distanceToSegment(
             Point2D.Double p,
             Point2D.Double sp,

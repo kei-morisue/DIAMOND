@@ -15,7 +15,7 @@ public class Vertex extends Point2D.Double implements Cyborg {
     private LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
     private VertexProperty property = new VertexProperty();
     private Point2D.Double offset = new Point2D.Double();
-    private Point2D.Double folded = null;
+    private Point2D.Double folded = new Point2D.Double();
 
     public Vertex() {
     }
@@ -39,6 +39,15 @@ public class Vertex extends Point2D.Double implements Cyborg {
         }
         halfEdges.add(he);
         return;
+    }
+
+    public boolean isVertex() {
+        for (HalfEdge he : halfEdges) {
+            if (EdgeType.isSettled(he.getType())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public LinkedList<HalfEdge> getHalfEdges() {

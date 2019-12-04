@@ -107,7 +107,7 @@ public class HalfEdgeStyle {
         }
     }
 
-    public static BasicStroke getModelStroke(EdgeType type) {
+    public static BasicStroke getFoldedStroke(EdgeType type) {
         switch (type) {
         case CREASE:
             return STROKE_CREASE;
@@ -119,4 +119,6 @@ public class HalfEdgeStyle {
             return STROKE_EDGE;
         }
     }
+
+    public static double CLIP_SCALE = 0.8;
 }

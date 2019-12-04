@@ -6,7 +6,10 @@ package diamond.model.cyborg;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
+
+import diamond.model.cyborg.fold.Folder;
+import diamond.model.symbol.Symbol;
+import diamond.view.ui.screen.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -14,11 +17,24 @@ import java.util.Set;
  */
 public class Cp {
     private LinkedList<Face> faces = new LinkedList<Face>();
-    private Set<Vertex> vertices = new HashSet<Vertex>();
-    private Set<HalfEdge> halfEdges = new HashSet<HalfEdge>();
+    private Face baseFace = null;
+    private ScreenTransform transform = new ScreenTransform();
+    private HashSet<Symbol> symbols = new HashSet<Symbol>();
+
+    public Face getBaseFace() {
+        if (baseFace == null) {
+            return faces.get(0);
+        }
+        return baseFace;
+    }
+
+    public void setBaseFace(Face baseFace) {
+        this.baseFace = baseFace;
+    }
 
     public Cp() {
         CpBuilder.buildSquare(faces);
+        Folder.fold(this);
     }
 
     @Deprecated
@@ -35,8 +51,8 @@ public class Cp {
     }
 
     @Deprecated
-    public Set<Vertex> getVertices() {
-        vertices.clear();
+    public HashSet<Vertex> getVertices() {
+        HashSet<Vertex> vertices = new HashSet<Vertex>();
         for (Face face : faces) {
             for (HalfEdge he : face.getHalfEdges()) {
                 vertices.add(he.getV0());
@@ -49,8 +65,8 @@ public class Cp {
     }
 
     @Deprecated
-    public Set<HalfEdge> getHalfEdges() {
-        halfEdges.clear();
+    public HashSet<HalfEdge> getHalfEdges() {
+        HashSet<HalfEdge> halfEdges = new HashSet<HalfEdge>();
         for (Face face : faces) {
             for (HalfEdge he : face.getHalfEdges()) {
                 halfEdges.add(he);
@@ -60,6 +76,23 @@ public class Cp {
             }
         }
         return halfEdges;
+    }
+
+    public ScreenTransform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(ScreenTransform transform) {
+        this.transform = transform;
+    }
+
+    public HashSet<Symbol> getSymbols() {
+        return symbols;
+    }
+
+    @Deprecated
+    public void setSymbols(HashSet<Symbol> symbols) {
+        this.symbols = symbols;
     }
 
 }
