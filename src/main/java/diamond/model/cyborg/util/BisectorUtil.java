@@ -26,4 +26,19 @@ public class BisectorUtil {
                 Point2DUtil.scale(Point2DUtil.normalize(q1), NORM));
         return pts;
     }
+
+    public static Point2D.Double angle(Double p0, Double p, Double p1,
+            Double q0, Double q1) {
+        Point2D.Double q = null;
+        Double n0 = Point2DUtil.normalize(Point2DUtil.sub(p0, p));
+        Double n1 = Point2DUtil.normalize(Point2DUtil.sub(p1, p));
+        Double n = Point2DUtil.add(p, Point2DUtil
+                .scale(Point2DUtil.normalize(Point2DUtil.add(n0, n1)), NORM));
+        double[] ds = CrossPointUtil.getSplitter(p, n, q0, q1);
+        if (ds == null) {
+            return null;
+        } else {
+            return Point2DUtil.split(q0, q1, ds[1]);
+        }
+    }
 }
