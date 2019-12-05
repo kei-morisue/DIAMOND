@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -19,7 +20,9 @@ public class Cp {
     private LinkedList<Face> faces = new LinkedList<Face>();
     private Face baseFace = null;
     private ScreenTransform transform = new ScreenTransform();
-    private HashSet<Symbol> symbols = new HashSet<Symbol>();
+    private HashMap<Vertex, Symbol<Vertex>> symbolsVertex = new HashMap<Vertex, Symbol<Vertex>>();
+    private HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = new HashMap<HalfEdge, Symbol<HalfEdge>>();
+    private HashMap<Face, Symbol<Face>> symbolsFace = new HashMap<Face, Symbol<Face>>();
 
     public Face getBaseFace() {
         if (baseFace == null) {
@@ -86,13 +89,33 @@ public class Cp {
         this.transform = transform;
     }
 
-    public HashSet<Symbol> getSymbols() {
-        return symbols;
+    public HashMap<Vertex, Symbol<Vertex>> getSymbolsVertex() {
+        return symbolsVertex;
     }
 
     @Deprecated
-    public void setSymbols(HashSet<Symbol> symbols) {
-        this.symbols = symbols;
+    public void setSymbolsVertex(
+            HashMap<Vertex, Symbol<Vertex>> symbolsVertex) {
+        this.symbolsVertex = symbolsVertex;
+    }
+
+    public HashMap<HalfEdge, Symbol<HalfEdge>> getSymbolsHalfEdge() {
+        return symbolsHalfEdge;
+    }
+
+    @Deprecated
+    public void setSymbolsHalfEdge(
+            HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
+        this.symbolsHalfEdge = symbolsHalfEdge;
+    }
+
+    public HashMap<Face, Symbol<Face>> getSymbolsFace() {
+        return symbolsFace;
+    }
+
+    @Deprecated
+    public void setSymbolsFace(HashMap<Face, Symbol<Face>> symbolsFace) {
+        this.symbolsFace = symbolsFace;
     }
 
 }

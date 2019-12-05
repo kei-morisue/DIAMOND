@@ -30,6 +30,7 @@ public class Config {
 
     final public static double EPSILON = 1.0e-6;
     final public static double EPSILON_SCREEN = 10;
+    final public static double EPSILON_FACE = 100;
     final public static double EPSILON_RADIAN = 1.0e-5;
 
 }

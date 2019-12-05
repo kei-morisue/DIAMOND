@@ -14,6 +14,7 @@ import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.symbol.Symbol;
 import diamond.view.ui.screen.G2DUtil;
 import diamond.view.ui.screen.style.FaceStyle;
 import diamond.view.ui.screen.style.HalfEdgeStyle;
@@ -37,6 +38,15 @@ public class PaintScreenDrawer {
         }
         for (Vertex v : cp.getVertices()) {//TODO
             draw(g2d, v);
+        }
+        for (Symbol<Face> symbol : cp.getSymbolsFace().values()) {
+            symbol.draw(g2d);
+        }
+        for (Symbol<HalfEdge> symbol : cp.getSymbolsHalfEdge().values()) {
+            symbol.draw(g2d);
+        }
+        for (Symbol<Vertex> symbol : cp.getSymbolsVertex().values()) {
+            symbol.draw(g2d);
         }
 
     }

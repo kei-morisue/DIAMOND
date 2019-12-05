@@ -23,6 +23,7 @@ public class PlaneTest {
     private LinkedList<Face> faces = cp.getFaces();
     private static final double l = Config.PAPER_SIZE;
 
+    
     @Test
     public void Step0() {
         assertEquals(1, faces.size());

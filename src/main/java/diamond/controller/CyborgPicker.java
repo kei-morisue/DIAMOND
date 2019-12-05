@@ -56,6 +56,15 @@ public class CyborgPicker {
         vertices.pop();
     }
 
+    public void popFace() {
+        if (faces.isEmpty()) {
+            return;
+        } else {
+            faces.lastElement().getProperty().isPicked = false;
+        }
+        vertices.pop();
+    }
+
     public void push(Vertex v) {
         vertices.push(v);
         v.getProperty().isPicked = true;
