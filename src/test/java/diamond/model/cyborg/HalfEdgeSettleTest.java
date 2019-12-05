@@ -85,15 +85,20 @@ public class HalfEdgeSettleTest {
         context.setPaintAction(new HalfEdgeSettleAction());
         select1();
         assertEquals(1, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 6, 6);
         select1();
         assertEquals(1, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 4, 8);
         select2();
         assertEquals(1, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 6, 6);
         select2();
         assertEquals(1, faces.size());
+        TestUtil.validate(cp, 5);
+
         TestUtil.validate(faces.get(0), 4, 8);
     }
 
@@ -105,6 +110,7 @@ public class HalfEdgeSettleTest {
         select1();
         select3();
         assertEquals(2, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 4, 2);
         TestUtil.validate(faces.get(1), 4, 2);
     }
@@ -119,22 +125,26 @@ public class HalfEdgeSettleTest {
         select3();
         select4();
         assertEquals(4, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 3, 0);
         TestUtil.validate(faces.get(1), 3, 0);
         TestUtil.validate(faces.get(2), 3, 0);
         TestUtil.validate(faces.get(3), 3, 0);
         select3();
         assertEquals(3, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 3, 0);
         TestUtil.validate(faces.get(1), 3, 0);
         TestUtil.validate(faces.get(2), 4, 2);
         select4();
         assertEquals(2, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 3, 0);
         TestUtil.validate(faces.get(1), 5, 4);
         select4();
         select1();
         assertEquals(2, faces.size());
+        TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 4, 2);
         TestUtil.validate(faces.get(1), 4, 2);
 

@@ -46,6 +46,7 @@ public class HalfEdgeSplitter {
         HalfEdge h0P = h0.getPair();
         HalfEdge h1P = h1.getPair();
         h1P.connectTo(h0P);
+        he.getFace().removeUnsettled(he);
         distrubute(splitter, h0, h1);
         return v;
     }
@@ -53,15 +54,9 @@ public class HalfEdgeSplitter {
     private static void distrubute(HalfEdge splitter, HalfEdge he) {
         Face f0 = splitter.getFace();
         Face f1 = splitter.getPair().getFace();
-        HalfEdge heP = he.getPair();
-
         if (FaceUtil.onFace(f0, he)) {
-            he.setFace(f0);
-            heP.setFace(f0);
             f0.addUnsettled(he);
         } else {
-            he.setFace(f1);
-            heP.setFace(f1);
             f1.addUnsettled(he);
         }
     }
@@ -70,21 +65,11 @@ public class HalfEdgeSplitter {
             HalfEdge h1) {
         Face f0 = splitter.getFace();
         Face f1 = splitter.getPair().getFace();
-        HalfEdge h0P = h0.getPair();
-        HalfEdge h1P = h1.getPair();
 
         if (FaceUtil.onFace(f0, h0)) {
-            h0.setFace(f0);
-            h0P.setFace(f0);
-            h1.setFace(f1);
-            h1P.setFace(f1);
             f0.addUnsettled(h0);
             f1.addUnsettled(h1);
         } else {
-            h1.setFace(f0);
-            h1P.setFace(f0);
-            h0.setFace(f1);
-            h0P.setFace(f1);
             f0.addUnsettled(h1);
             f1.addUnsettled(h0);
         }
@@ -108,6 +93,12 @@ public class HalfEdgeSplitter {
     }
 
     private static Vertex split(HalfEdge he, Vertex v) {
+        if (Fuzzy.around(he.getV0().distance(v), 0.0)) {
+            return he.getV0();
+        }
+        if (Fuzzy.around(he.getV1().distance(v), 0.0)) {
+            return he.getV1();
+        }
         HalfEdge h0 = new HalfEdge(he.getV0(), v, he.getType());
         HalfEdge h1 = new HalfEdge(v, he.getV1(), he.getType());
         h0.connectTo(h1);

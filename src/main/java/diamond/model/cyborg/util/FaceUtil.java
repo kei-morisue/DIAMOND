@@ -30,7 +30,7 @@ public class FaceUtil {
             double l1 = p1.distance(.0, .0);
             double l0 = p0.distance(.0, .0);
             if (l0 < Config.EPSILON || l1 < Config.EPSILON) {
-                return true;
+                return false;
             }
             sumAngle += Math.acos(Point2DUtil.prod(p0, p1) / l0 / l1);
         }

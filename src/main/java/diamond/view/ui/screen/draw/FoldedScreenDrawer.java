@@ -42,7 +42,7 @@ public class FoldedScreenDrawer {
         if (v.getProperty().isColored()) {
             double size = VertexStyle.getSize(v) / scale;
             g2d.setColor(VertexStyle.getColor(v));
-            g2d.fill(VertexDrawer.buildVertex(v, size));
+            g2d.fill(VertexDrawer.buildVertex(v.getFoldedOffset(), size));
         }
     }
 

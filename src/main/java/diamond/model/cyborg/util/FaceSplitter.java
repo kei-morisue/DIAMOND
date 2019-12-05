@@ -41,8 +41,12 @@ public class FaceSplitter {
     public static ArrayList<Vertex> splitUnsettledLines(Face face,
             HalfEdge splitter) {
         HashSet<Vertex> crossPoints = new HashSet<Vertex>();
-        for (HalfEdge he : face.getUnsettledLines()) {
-            if (he == splitter || he.getProperty().isDisabled()) {
+        HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
+        HashSet<HalfEdge> copy = new HashSet<HalfEdge>();
+        copy.addAll(unsettledLines);
+        for (HalfEdge he : copy) {
+            if (he == splitter || he == splitter.getPair()
+                    || he.getProperty().isDisabled()) {
                 continue;
             }
             Vertex v = HalfEdgeSplitter.splitUnsettled(splitter, he);

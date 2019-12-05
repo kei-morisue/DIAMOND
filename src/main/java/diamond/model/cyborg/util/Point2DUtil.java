@@ -60,19 +60,25 @@ public class Point2DUtil {
         return angle(p1) - angle(p0);
     }
 
+    public static double perFoot(Point2D.Double p,
+            Point2D.Double p0,
+            Point2D.Double p1) {
+        Point2D.Double a = sub(p, p0);
+        Point2D.Double b = sub(p1, p0);
+        return prod(b, a) / prod(b, b);
+    }
+
     public static double distanceToSegment(
             Point2D.Double p,
-            Point2D.Double sp,
-            Point2D.Double ep) {
-        Point2D.Double a = sub(p, sp);
-        Point2D.Double b = sub(ep, sp);
-        double t = prod(b, a) / prod(b, b);
+            Point2D.Double p0,
+            Point2D.Double p1) {
+        double t = perFoot(p, p0, p1);
         if (t < 0.0) {
-            return p.distance(sp);
+            return p.distance(p0);
         } else if (t > 1.0) {
-            return p.distance(ep);
+            return p.distance(p1);
         } else {
-            return p.distance(add(sp, scale(b, t)));
+            return p.distance(add(p0, scale(sub(p1, p0), t)));
         }
     }
 }

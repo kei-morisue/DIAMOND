@@ -59,6 +59,7 @@ public class Axiom2Test {
         line0();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 6, 2);
+        TestUtil.validate(cp, 6);
     }
 
     @Test
@@ -67,6 +68,7 @@ public class Axiom2Test {
         line1();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 8, 8);
+        TestUtil.validate(cp, 9);
     }
 
     @Test
@@ -75,6 +77,7 @@ public class Axiom2Test {
         line2();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 8, 4);
+        TestUtil.validate(cp, 8);
     }
 
     @Test
@@ -82,6 +85,7 @@ public class Axiom2Test {
         line3();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 4, 2);
+        TestUtil.validate(cp, 4);
     }
 
 }

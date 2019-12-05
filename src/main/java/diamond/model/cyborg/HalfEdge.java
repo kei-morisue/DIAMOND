@@ -27,7 +27,7 @@ public class HalfEdge implements Cyborg {
 
     @Override
     public String toString() {
-        return v0.toString();
+        return v0.toString() + "->" + v1.toString();
     }
 
     public HalfEdge(Vertex v0, Vertex v1, EdgeType type) {
@@ -36,6 +36,7 @@ public class HalfEdge implements Cyborg {
         this.type = type;
         this.pair = new HalfEdge(this);
         this.v0.add(this);
+        this.v1.add(pair);
         disablePair();
     }
 
@@ -107,6 +108,7 @@ public class HalfEdge implements Cyborg {
         return this.v0;
     }
 
+    @Deprecated
     public void setV0(Vertex v0) {
         this.v0 = v0;
     }
@@ -115,6 +117,7 @@ public class HalfEdge implements Cyborg {
         return this.v1;
     }
 
+    @Deprecated
     public void setV1(Vertex v1) {
         this.v1 = v1;
     }

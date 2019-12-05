@@ -36,4 +36,8 @@ public class TestUtil {
             assertEquals(he.getFace(), face);
         }
     }
+
+    static void validate(Cp cp, int vNum) {
+        assertEquals(vNum, cp.getVertices().size());
+    }
 }

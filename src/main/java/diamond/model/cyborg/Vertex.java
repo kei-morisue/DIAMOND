@@ -47,6 +47,10 @@ public class Vertex extends Point2D.Double implements Cyborg {
         return;
     }
 
+    public void remove(HalfEdge he) {
+        halfEdges.remove(he);
+    }
+
     public boolean isVertex() {
         for (HalfEdge he : halfEdges) {
             if (EdgeType.isSettled(he.getType())) {
