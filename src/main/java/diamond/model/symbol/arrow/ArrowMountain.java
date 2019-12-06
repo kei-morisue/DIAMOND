@@ -6,17 +6,17 @@ package diamond.model.symbol.arrow;
 
 import diamond.model.symbol.arrow.body.Curved;
 import diamond.model.symbol.arrow.head.Empty;
-import diamond.model.symbol.arrow.head.Valley;
+import diamond.model.symbol.arrow.head.Mountain;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ArrowValley extends AbstractArrow {
+public class ArrowMountain extends AbstractArrow {
 
     @Override
     protected void buildHead() {
-        arrowHead = new Valley();
+        arrowHead = new Mountain();
     }
 
     @Override

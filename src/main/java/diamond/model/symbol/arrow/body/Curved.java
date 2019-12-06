@@ -17,7 +17,7 @@ import diamond.view.ui.screen.G2DUtil;
  * @author Kei Morisue
  *
  */
-public class BodyCurved extends AbstractArrowBody {
+public class Curved extends AbstractArrowBody {
     boolean isClockwise = false;
 
     @Override

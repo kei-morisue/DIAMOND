@@ -13,7 +13,7 @@ import diamond.model.symbol.arrow.body.AbstractArrowBody;
  * @author Kei Morisue
  *
  */
-public class HeadEmpty extends AbstractArrowHead {
+public class Empty extends AbstractArrowHead {
 
     @Override
     public void draw(Graphics2D g2d, Double tail, Double head,

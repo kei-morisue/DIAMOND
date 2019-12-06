@@ -16,13 +16,15 @@ import diamond.model.symbol.arrow.body.AbstractArrowBody;
  * @author Kei Morisue
  *
  */
-public class HeadValley extends AbstractArrowHead {
+public class Mountain extends AbstractArrowHead {
     public static final double kurtosis = Math.PI / 7;
     private final static double size = 30.0;
-    static private final Color COLOR_BODY = Color.black;
+    static private final Color COLOR_BODY = Color.white;
+    static private final Color COLOR_EDGE = Color.black;
 
-    private GeneralPath getShape(Double tail, Double head,
-            AbstractArrowBody body) {
+    @Override
+    public void draw(Graphics2D g2d, Double tail, Double head,
+            AbstractArrowBody body, boolean isSelected) {
         GeneralPath path = new GeneralPath();
         AffineTransform affineTransform = new AffineTransform();
         Double position = (isTail) ? tail : head;
@@ -35,7 +37,6 @@ public class HeadValley extends AbstractArrowHead {
         Double o = new Double(size, 0);
         Double p = new Double(-size, size * Math.sin(kurtosis));
         Double q = new Double(-size, -size * Math.sin(kurtosis));
-
         affineTransform.transform(o, o);
         affineTransform.transform(p, p);
         affineTransform.transform(q, q);
@@ -43,14 +44,10 @@ public class HeadValley extends AbstractArrowHead {
         path.lineTo(p.x, p.y);
         path.lineTo(q.x, q.y);
         path.closePath();
-        return path;
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Double tail, Double head,
-            AbstractArrowBody body, boolean isSelected) {
-        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_BODY);
-        g2d.fill(getShape(tail, head, body));
+        g2d.setColor(COLOR_BODY);
+        g2d.fill(path);
+        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_EDGE);
+        g2d.draw(path);
     }
 
 }
