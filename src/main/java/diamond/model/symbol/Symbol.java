@@ -5,6 +5,7 @@
 package diamond.model.symbol;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 import diamond.model.cyborg.Cp;
 
@@ -13,9 +14,13 @@ import diamond.model.cyborg.Cp;
  *
  */
 public abstract class Symbol<T> {
-    abstract public void draw(Graphics2D g2d);
+    abstract public void drawCp(Graphics2D g2d);
+
+    abstract public void drawFolded(Graphics2D g2d);
 
     abstract public void set(T cyborg);
 
     abstract public void flip(Cp cp);
+
+    abstract public void offset(Point2D.Double p);
 }

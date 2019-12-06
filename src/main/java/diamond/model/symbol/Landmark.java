@@ -7,6 +7,9 @@ package diamond.model.symbol;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Vertex;
@@ -20,32 +23,37 @@ public class Landmark extends Symbol<Vertex> {
     private Vertex vertex;
     private final static Color COLOR_EDGE = Color.black;
     private final static Color COLOR_BODY = Color.white;
-    public static final int SIZE_LANDMARK_BODY = 10;
-    public static final int SIZE_LANDMARK_EDGE = 10;
-
-    final public static BasicStroke STROKE_LANDMARK_BODY = new BasicStroke(
-            2.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_LANDMARK_EDGE = new BasicStroke(
-            6.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+    private static final double SIZE_LANDMARK_EDGE = 15.0;
+    private static final double SIZE_LANDMARK_BODY = SIZE_LANDMARK_EDGE;
+    private static final double STROKE_WIDTH_EDGE = SIZE_LANDMARK_EDGE * 0.5;
+    private static final double STROKE_WIDTH_BODY = SIZE_LANDMARK_EDGE * 0.1;
 
     @Override
-    public void draw(Graphics2D g2d) {
+    public void drawCp(Graphics2D g2d) {
+        drawAt(g2d, vertex);
+    }
+
+    @Override
+    public void drawFolded(Graphics2D g2d) {
+        drawAt(g2d, vertex.getFoldedOffset());
+    }
+
+    private void drawAt(Graphics2D g2d, Point2D.Double v) {
         double scale = G2DUtil.getScale(g2d);
-        int size = (int) (SIZE_LANDMARK_EDGE / scale);
-        int half = size >> 1;
+        double size = (SIZE_LANDMARK_EDGE / scale);
         g2d.setColor(COLOR_EDGE);
-        g2d.setStroke(STROKE_LANDMARK_EDGE);
-        int x = (int) vertex.x;
-        int y = (int) vertex.y;
-        g2d.drawOval(x - half, y - half, SIZE_LANDMARK_EDGE,
-                SIZE_LANDMARK_EDGE);
+        g2d.setStroke(new BasicStroke(
+                (float) (STROKE_WIDTH_EDGE / scale),
+                BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+        g2d.draw(new Ellipse2D.Double(v.x - size / 2, v.y - size / 2, size,
+                size));
         g2d.setColor(COLOR_BODY);
-        g2d.setStroke(STROKE_LANDMARK_BODY);
-        size = (int) (SIZE_LANDMARK_BODY / scale);
-        half = size >> 1;
-        g2d.drawOval(x - half, y - half, size, size);
+        g2d.setStroke(new BasicStroke(
+                (float) (STROKE_WIDTH_BODY / scale),
+                BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+        size = (SIZE_LANDMARK_BODY / scale);
+        g2d.draw(new Ellipse2D.Double(v.x - size / 2, v.y - size / 2, size,
+                size));
     }
 
     @Override
@@ -56,6 +64,10 @@ public class Landmark extends Symbol<Vertex> {
     @Override
     public void flip(Cp cp) {
         cp.getSymbolsVertex().remove(vertex);
+    }
+
+    @Override
+    public void offset(Double p) {
     }
 
 }

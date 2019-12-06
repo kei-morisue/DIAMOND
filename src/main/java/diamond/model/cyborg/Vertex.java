@@ -64,6 +64,7 @@ public class Vertex extends Point2D.Double implements Cyborg {
         return halfEdges;
     }
 
+    @Deprecated
     public void setHalfEdges(LinkedList<HalfEdge> halfEdges) {
         this.halfEdges = halfEdges;
     }
@@ -72,10 +73,12 @@ public class Vertex extends Point2D.Double implements Cyborg {
         return property;
     }
 
+    @Deprecated
     public void setProperty(VertexProperty property) {
         this.property = property;
     }
 
+    @Deprecated
     public Point2D.Double getOffset() {
         return offset;
     }
@@ -84,10 +87,12 @@ public class Vertex extends Point2D.Double implements Cyborg {
         this.offset = offset;
     }
 
+    @Deprecated
     public Point2D.Double getFolded() {
         return folded;
     }
 
+    @Deprecated
     public void setFolded(Point2D.Double folded) {
         this.folded = folded;
     }

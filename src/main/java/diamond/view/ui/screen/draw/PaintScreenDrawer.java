@@ -40,13 +40,13 @@ public class PaintScreenDrawer {
             draw(g2d, v);
         }
         for (Symbol<Face> symbol : cp.getSymbolsFace().values()) {
-            symbol.draw(g2d);
+            symbol.drawCp(g2d);
         }
         for (Symbol<HalfEdge> symbol : cp.getSymbolsHalfEdge().values()) {
-            symbol.draw(g2d);
+            symbol.drawCp(g2d);
         }
         for (Symbol<Vertex> symbol : cp.getSymbolsVertex().values()) {
-            symbol.draw(g2d);
+            symbol.drawCp(g2d);
         }
 
     }
