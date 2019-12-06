@@ -17,7 +17,6 @@ import diamond.model.cyborg.util.Point2DUtil;;
  */
 public abstract class AbstractArrowBody {
     protected boolean isLHS = false;
-    public static final Color COLOR_ARROW_BODY = Color.black;
     public static final Color COLOR_SELECTED = Color.green;
 
     protected AbstractArrowBody() {

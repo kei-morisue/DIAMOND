@@ -4,15 +4,14 @@
  */
 package diamond.model.symbol.arrow;
 
-import diamond.model.symbol.arrow.body.Curved;
-import diamond.model.symbol.arrow.head.Empty;
+import diamond.model.symbol.arrow.body.Rotate;
 import diamond.model.symbol.arrow.head.Valley;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ArrowValley extends AbstractArrow {
+public class ArrowRotate extends AbstractArrow {
 
     @Override
     protected void buildHead() {
@@ -21,11 +20,11 @@ public class ArrowValley extends AbstractArrow {
 
     @Override
     protected void buildTail() {
-        arrowTail = new Empty();
+        arrowTail = new Valley();
     }
 
     @Override
     protected void buildBody() {
-        body = new Curved(-0.25);
+        body = new Rotate();
     }
 }

@@ -13,7 +13,11 @@ import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.SymbolHalfEdgePaintAction;
 import diamond.controller.action.SymbolVertexPaintAction;
 import diamond.model.symbol.Landmark;
+import diamond.model.symbol.arrow.ArrowFlip;
+import diamond.model.symbol.arrow.ArrowFoldUnfold;
 import diamond.model.symbol.arrow.ArrowMountain;
+import diamond.model.symbol.arrow.ArrowRotate;
+import diamond.model.symbol.arrow.ArrowSink;
 import diamond.model.symbol.arrow.ArrowValley;
 import diamond.view.ui.button.PaintActionButton;
 
@@ -29,13 +33,13 @@ public class TabPaintSymbols extends AbstractTab {
         PaintActionButton mountain = new PaintActionButton(context,
                 new SymbolHalfEdgePaintAction(ArrowMountain.class));
         PaintActionButton foldUnfold = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgePaintAction(ArrowFoldUnfold.class));
         PaintActionButton sink = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgePaintAction(ArrowSink.class));
         PaintActionButton flip = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgePaintAction(ArrowFlip.class));
         PaintActionButton rotate = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgePaintAction(ArrowRotate.class));
         PaintActionButton repeat = new PaintActionButton(context,
                 new LazyPaintAction());//TODO
         PaintActionButton landmark = new PaintActionButton(context,

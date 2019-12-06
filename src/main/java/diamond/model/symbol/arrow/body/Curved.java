@@ -5,6 +5,7 @@
 package diamond.model.symbol.arrow.body;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -18,7 +19,13 @@ import diamond.view.ui.screen.G2DUtil;
  *
  */
 public class Curved extends AbstractArrowBody {
+    double scale = 1.0;
     boolean isClockwise = false;
+    public static final Color COLOR_BODY = Color.black;
+
+    public Curved(double scale) {
+        this.scale = scale;
+    }
 
     @Override
     public double getTailAngle(Double pT, Double pH) {
@@ -44,7 +51,7 @@ public class Curved extends AbstractArrowBody {
     @Override
     public void draw(Graphics2D g2d, Double tail, Double head,
             boolean isSelected) {
-        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_ARROW_BODY);
+        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_BODY);
         g2d.setStroke(new BasicStroke((float) (3.0 / G2DUtil.getScale(g2d)),
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
         g2d.draw(getCurve(tail, head));
@@ -68,7 +75,7 @@ public class Curved extends AbstractArrowBody {
 
         Double middlePoint = Point2DUtil.sub(
                 isLHS ? p1 : p0,
-                Point2DUtil.scale(dir, (isLHS ? 1.0 : -1.0)));
+                Point2DUtil.scale(dir, scale * (isLHS ? 1.0 : -1.0)));
         if (isClockwise) {
             angle -= Math.PI / 2;
         } else {

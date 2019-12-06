@@ -26,6 +26,6 @@ public class ArrowMountain extends AbstractArrow {
 
     @Override
     protected void buildBody() {
-        body = new Curved();
+        body = new Curved(-0.25);
     }
 }

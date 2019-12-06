@@ -30,10 +30,12 @@ public abstract class AbstractArrowHead {
         isTail = !isTail;
     }
 
+    @Deprecated
     public boolean isTail() {
         return isTail;
     }
 
+    @Deprecated
     public void setTail(boolean isTail) {
         this.isTail = isTail;
     }

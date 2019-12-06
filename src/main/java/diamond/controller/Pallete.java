@@ -4,7 +4,7 @@
  */
 package diamond.controller;
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 import diamond.model.cyborg.Cp;
 import diamond.view.ui.screen.style.FaceStyle;
@@ -15,7 +15,7 @@ import diamond.view.ui.screen.style.HalfEdgeStyle;
  *
  */
 public class Pallete {
-    private LinkedList<Cp> cps = new LinkedList<>();
+    private Vector<Cp> cps = new Vector<>();
     private FaceStyle faceStyle = new FaceStyle();
     private HalfEdgeStyle haFaceStyle = new HalfEdgeStyle();
 
@@ -25,11 +25,11 @@ public class Pallete {
 
     }
 
-    public LinkedList<Cp> getCps() {
+    public Vector<Cp> getCps() {
         return this.cps;
     }
 
-    public void setCps(LinkedList<Cp> cps) {
+    public void setCps(Vector<Cp> cps) {
         this.cps = cps;
     }
 }

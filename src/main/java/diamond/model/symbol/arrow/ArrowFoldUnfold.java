@@ -5,14 +5,14 @@
 package diamond.model.symbol.arrow;
 
 import diamond.model.symbol.arrow.body.Curved;
-import diamond.model.symbol.arrow.head.Empty;
+import diamond.model.symbol.arrow.head.Mountain;
 import diamond.model.symbol.arrow.head.Valley;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ArrowValley extends AbstractArrow {
+public class ArrowFoldUnfold extends AbstractArrow {
 
     @Override
     protected void buildHead() {
@@ -21,11 +21,12 @@ public class ArrowValley extends AbstractArrow {
 
     @Override
     protected void buildTail() {
-        arrowTail = new Empty();
+        arrowTail = new Mountain();
     }
 
     @Override
     protected void buildBody() {
-        body = new Curved(-0.25);
+        body = new Curved(0.5);
     }
+
 }

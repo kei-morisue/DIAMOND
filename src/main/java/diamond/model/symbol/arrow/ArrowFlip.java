@@ -4,19 +4,18 @@
  */
 package diamond.model.symbol.arrow;
 
-import diamond.model.symbol.arrow.body.Curved;
 import diamond.model.symbol.arrow.head.Empty;
-import diamond.model.symbol.arrow.head.Valley;
+import diamond.model.symbol.arrow.head.Flip;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ArrowValley extends AbstractArrow {
+public class ArrowFlip extends AbstractArrow {
 
     @Override
     protected void buildHead() {
-        arrowHead = new Valley();
+        arrowHead = new Flip();
     }
 
     @Override
@@ -26,6 +25,6 @@ public class ArrowValley extends AbstractArrow {
 
     @Override
     protected void buildBody() {
-        body = new Curved(-0.25);
+        body = new diamond.model.symbol.arrow.body.Flip();
     }
 }
