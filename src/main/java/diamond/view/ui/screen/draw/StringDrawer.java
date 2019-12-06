@@ -25,7 +25,7 @@ public class StringDrawer {
     final public static Font FONT_REPEAT_STEP = new Font("Arial", Font.PLAIN,
             50);
     final public static Font FONT_DIAGRAM_STEP = new Font("Arial", Font.BOLD,
-            30);
+            40);
 
     public static void drawFoldedStepNo(Graphics2D g2d, int step, int x,
             int y) {
@@ -35,13 +35,13 @@ public class StringDrawer {
 
     public static void drawRepeatStepNo(Graphics2D g2d, int step, int x,
             int y) {
-        g2d.setFont(FONT_FOLDED_STEP);
+        g2d.setFont(FONT_REPEAT_STEP);
         draw(g2d, step, x, y);
     }
 
     public static void drawDiagramStepNo(Graphics2D g2d, int step, int x,
             int y) {
-        g2d.setFont(FONT_FOLDED_STEP);
+        g2d.setFont(FONT_DIAGRAM_STEP);
         draw(g2d, step, x, y);
     }
 

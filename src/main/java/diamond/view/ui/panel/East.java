@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
+import diamond.view.ui.button.CpDestroy;
+import diamond.view.ui.button.CpInsert;
 import diamond.view.ui.button.CpJump;
 import diamond.view.ui.button.CpSwitch;
 import diamond.view.ui.screen.PaintScreen;
@@ -27,6 +29,7 @@ public class East extends JPanel {
         this.center = new PaintScreen(context);
         setLayout(new BorderLayout());
         buildNorth(context);
+        buildSouth(context);
 
         add(north, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
@@ -46,4 +49,9 @@ public class East extends JPanel {
         north.add(panel, BorderLayout.CENTER);
     }
 
+    private void buildSouth(Context context) {
+        south.setLayout(new BorderLayout());
+        south.add(new CpDestroy(context), BorderLayout.EAST);
+        south.add(new CpInsert(context), BorderLayout.WEST);
+    }
 }

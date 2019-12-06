@@ -41,7 +41,7 @@ public class ScreenTransform extends AffineTransform {
         concatenate(rotate);
     }
 
-    private void focus(int width, int height) {
+    public void focus(int width, int height) {
         focus.setToIdentity();
         focus.translate(width >> 1, height >> 1);
         concat();

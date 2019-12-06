@@ -49,6 +49,23 @@ public class Context {
         Folder.fold(getCp());
     }
 
+    public void insertCp() {
+        Vector<Cp> cps = palette.getCps();
+        cps.add(currentStep + 1, CpBuilder.buildNext(getCp()));
+        currentStep += 1;
+    }
+
+    public void removeCp(Cp cp) {
+        Vector<Cp> cps = palette.getCps();
+        int index = cps.indexOf(cp);
+        if (index == cps.size() - 1) {
+            currentStep -= 1;
+        }
+        if (index != -1) {
+            cps.remove(cp);
+        }
+    }
+
     public Palette getPalette() {
         return this.palette;
     }
@@ -114,10 +131,14 @@ public class Context {
     }
 
     public void setCurrentStep(int currentStep) {
+        saveTransform();
+        this.currentStep = currentStep;
+        Cp cp = getCp();
+        foldedScreen.setTransform(cp.getTransform());
+    }
+
+    public void saveTransform() {
         Cp cp = getCp();
         cp.setTransform(foldedScreen.getTransform());
-        this.currentStep = currentStep;
-        cp = getCp();
-        foldedScreen.setTransform(cp.getTransform());
     }
 }

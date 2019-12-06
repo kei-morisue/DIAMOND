@@ -19,5 +19,6 @@ public class MenuBar extends JMenuBar {
 
     public MenuBar(Context context) {
         add(open);
+        add(new MenuRun(context));
     }
 }

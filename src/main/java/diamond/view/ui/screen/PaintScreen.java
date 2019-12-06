@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.controller.PaintScreenAction;
+import diamond.controller.action.PaintScreenAction;
 import diamond.view.ui.screen.draw.PaintScreenDrawer;
 import diamond.view.ui.screen.style.Skin;
 

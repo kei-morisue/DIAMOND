@@ -2,10 +2,11 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller;
+package diamond.controller.action;
 
 import java.awt.event.MouseEvent;
 
+import diamond.controller.Context;
 import diamond.view.ui.screen.FoldedScreen;
 
 /**
