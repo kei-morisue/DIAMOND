@@ -7,6 +7,7 @@ package diamond.model.cyborg;
 import java.util.LinkedList;
 
 import diamond.Config;
+import diamond.view.ui.screen.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -36,5 +37,11 @@ public class CpBuilder {
         he1.connectTo(he2);
         he2.connectTo(he3);
         he3.connectTo(he0);
+    }
+
+    public static Cp buildNext(Cp cp) {
+        Cp cp2 = new Cp();
+        cp2.setTransform(new ScreenTransform(cp.getTransform()));
+        return cp2;//TODO
     }
 }

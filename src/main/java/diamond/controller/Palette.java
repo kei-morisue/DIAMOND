@@ -14,12 +14,12 @@ import diamond.view.ui.screen.style.HalfEdgeStyle;
  * @author Kei Morisue
  *
  */
-public class Pallete {
+public class Palette {
     private Vector<Cp> cps = new Vector<>();
     private FaceStyle faceStyle = new FaceStyle();
     private HalfEdgeStyle haFaceStyle = new HalfEdgeStyle();
 
-    public Pallete() {
+    public Palette() {
         Cp cp = new Cp();
         cps.add(cp);
 

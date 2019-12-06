@@ -27,6 +27,10 @@ public abstract class AbstractScreen extends JPanel
         return transform;
     };
 
+    public void setTransform(ScreenTransform screenTransform) {
+        this.transform = screenTransform;
+    };
+
     protected void drawBackGround(Graphics2D g2d, Color color) {
         g2d.setColor(color);
         int width = getWidth();

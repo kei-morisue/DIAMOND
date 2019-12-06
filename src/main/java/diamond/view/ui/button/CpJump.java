@@ -21,23 +21,23 @@ import diamond.view.resource.string.Labels;
  * @author Kei Morisue
  *
  */
-public class CpSwitch extends JButton {
-    public static final int PREV = -1;
-    public static final int NEXT = 1;
+public class CpJump extends JButton {
+    public static final int BOTTOM = 0;
+    public static final int TOP = 1;
 
     private int direction;
     private Context context;
 
-    public CpSwitch(int direction, Context context) {
+    public CpJump(int direction, Context context) {
         setBackground(Color.white);
         this.direction = direction;
         this.context = context;
         switch (direction) {
-        case PREV:
-            IconBuilder.set(this, "left.png");
+        case BOTTOM:
+            IconBuilder.set(this, "dleft.png");
             break;
-        case NEXT:
-            IconBuilder.set(this, "right.png");
+        case TOP:
+            IconBuilder.set(this, "dright.png");
             break;
         default:
             setText(Labels.get("no_image"));
@@ -49,16 +49,16 @@ public class CpSwitch extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int currentStep = context.getCurrentStep();
-            if (currentStep == 0 && direction == PREV) {
-                return;
-            }
             Palette palette = context.getPalette();
-            Vector<Cp> cps = palette.getCps();
-            if (cps.size() == currentStep && direction == NEXT) {
-                return;
+            switch (direction) {
+            case BOTTOM:
+                context.setCurrentStep(0);
+                break;
+            default:
+                Vector<Cp> cps = palette.getCps();
+                context.setCurrentStep(cps.size() - 1);
+                break;
             }
-            context.setCurrentStep(currentStep + direction);
             context.getPaintScreen().repaint();
             context.getFoldedScreen().repaint();
 

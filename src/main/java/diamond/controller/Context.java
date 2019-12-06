@@ -5,10 +5,12 @@
 package diamond.controller;
 
 import java.awt.geom.Point2D;
+import java.util.Vector;
 
 import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.model.cyborg.Cp;
+import diamond.model.cyborg.CpBuilder;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.fold.Folder;
 import diamond.view.ui.screen.FoldedScreen;
@@ -19,7 +21,7 @@ import diamond.view.ui.screen.PaintScreen;
  *
  */
 public class Context {
-    private Pallete pallete = new Pallete();
+    private Palette palette = new Palette();
     private int currentStep = 0;
     private PaintActionInterface paintAction = new LazyPaintAction();
     private EdgeType inputType = EdgeType.UNSETTLED_VALLEY;
@@ -35,19 +37,24 @@ public class Context {
     }
 
     public Cp getCp() {
-        return pallete.getCps().get(currentStep);
+        Vector<Cp> cps = palette.getCps();
+        while (currentStep >= cps.size()) {
+            Cp lastCp = cps.get(cps.size() - 1);
+            cps.add(CpBuilder.buildNext(lastCp));
+        }
+        return cps.get(currentStep);
     }
 
     public void fold() {
         Folder.fold(getCp());
     }
 
-    public Pallete getPallete() {
-        return this.pallete;
+    public Palette getPalette() {
+        return this.palette;
     }
 
-    public void setPallete(Pallete pallete) {
-        this.pallete = pallete;
+    public void setPalette(Palette palette) {
+        this.palette = palette;
     }
 
     public PaintScreen getPaintScreen() {
@@ -100,5 +107,17 @@ public class Context {
 
     public void setPointer(CyborgPointer pointer) {
         this.pointer = pointer;
+    }
+
+    public int getCurrentStep() {
+        return currentStep;
+    }
+
+    public void setCurrentStep(int currentStep) {
+        Cp cp = getCp();
+        cp.setTransform(foldedScreen.getTransform());
+        this.currentStep = currentStep;
+        cp = getCp();
+        foldedScreen.setTransform(cp.getTransform());
     }
 }

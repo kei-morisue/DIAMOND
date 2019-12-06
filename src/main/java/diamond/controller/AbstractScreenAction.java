@@ -12,7 +12,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
 import diamond.view.ui.screen.AbstractScreen;
-import diamond.view.ui.screen.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -21,26 +20,24 @@ import diamond.view.ui.screen.ScreenTransform;
 public abstract class AbstractScreenAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
     private AbstractScreen screen;
-    private ScreenTransform transform;
     private Point2D latestClickedPoint;
 
     public AbstractScreenAction(AbstractScreen screen) {
         this.screen = screen;
-        this.transform = screen.getTransform();
     }
 
     private void zoom(MouseWheelEvent e) {
         double zoom = Math.pow(1.5, -e.getWheelRotation());
-        transform.zoom(zoom);
+        screen.getTransform().zoom(zoom);
         screen.repaint();
     }
 
     private void translate(MouseEvent e) {
-        double scale = transform.getScale();
+        double scale = screen.getTransform().getScale();
         Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
-        transform.shift(x, y);
+        screen.getTransform().shift(x, y);
         latestClickedPoint = e.getPoint();
         screen.repaint();
     }
@@ -48,7 +45,7 @@ public abstract class AbstractScreenAction
     private void rotate(MouseWheelEvent e) {
         double moved = e.getWheelRotation();
         double theta = Math.PI / 8 * ((moved) % 8);
-        transform.rotate(theta);
+        screen.getTransform().rotate(theta);
         screen.repaint();
     }
 

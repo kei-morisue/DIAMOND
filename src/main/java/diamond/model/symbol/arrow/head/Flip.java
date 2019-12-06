@@ -36,6 +36,7 @@ public class Flip extends AbstractArrowHead {
         double angle = (isTail) ? body.getTailAngle(tail, head)
                 : body.getHeadAngle(tail, head);
         affineTransform.rotate(angle);
+
         Double o = new Double(size, 0);
         Double p = new Double(-size, size * Math.sin(kurtosis));
         Double q = new Double(-size, -size * Math.sin(kurtosis));

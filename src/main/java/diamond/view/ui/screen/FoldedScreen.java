@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.controller.FoldedScreenAction;
 import diamond.view.ui.screen.draw.FoldedScreenDrawer;
+import diamond.view.ui.screen.draw.StringDrawer;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -38,6 +39,7 @@ public class FoldedScreen extends AbstractScreen {
         g2d.setTransform(transform);
         FoldedScreenDrawer.draw(g2d, context.getCp());
         FoldedScreenDrawer.draw(g2d, context);
+        StringDrawer.drawFoldedStepNo(g2d, context.getCurrentStep() + 1, 0, 0);
     }
 
 }
