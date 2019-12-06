@@ -10,8 +10,10 @@ import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
 import diamond.controller.action.LazyPaintAction;
+import diamond.controller.action.SymbolHalfEdgePaintAction;
 import diamond.controller.action.SymbolVertexPaintAction;
 import diamond.model.symbol.Landmark;
+import diamond.model.symbol.arrow.ArrowValley;
 import diamond.view.ui.button.PaintActionButton;
 
 /**
@@ -22,7 +24,7 @@ public class TabPaintSymbols extends AbstractTab {
     public TabPaintSymbols(Context context, ButtonGroup buttonGroup) {
         setLayout(new GridLayout(3, 4));
         PaintActionButton valley = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgePaintAction(ArrowValley.class));
         PaintActionButton mountain = new PaintActionButton(context,
                 new LazyPaintAction());//TODO
         PaintActionButton foldUnfold = new PaintActionButton(context,

@@ -67,7 +67,11 @@ public class Landmark extends Symbol<Vertex> {
     }
 
     @Override
-    public void offset(Double p) {
+    public void setOffset(Double p) {
+    }
+
+    @Override
+    public void setSelected(boolean isSelected) {
     }
 
 }

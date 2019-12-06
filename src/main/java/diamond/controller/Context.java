@@ -31,7 +31,6 @@ public class Context {
     private FoldedScreen foldedScreen;
 
     public void initialize() {
-        pointer.clear();
         picker.clear();
     }
 

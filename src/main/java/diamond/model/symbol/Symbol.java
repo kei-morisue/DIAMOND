@@ -22,5 +22,8 @@ public abstract class Symbol<T> {
 
     abstract public void flip(Cp cp);
 
-    abstract public void offset(Point2D.Double p);
+    abstract public void setOffset(Point2D.Double p);
+
+    abstract public void setSelected(boolean isSelected);
+
 }

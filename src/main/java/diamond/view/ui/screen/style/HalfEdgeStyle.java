@@ -95,8 +95,6 @@ public class HalfEdgeStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
 
-    final public static BasicStroke STROKE_ARROW = new BasicStroke(2.0f,
-            BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_FLIP_ARROW = new BasicStroke(3.0f,
             BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_TEMPORARY = new BasicStroke(0.0f,
