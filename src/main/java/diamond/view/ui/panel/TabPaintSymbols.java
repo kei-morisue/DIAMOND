@@ -9,8 +9,8 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
-import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.SymbolHalfEdgePaintAction;
+import diamond.controller.action.SymbolRepeatPaintAction;
 import diamond.controller.action.SymbolVertexPaintAction;
 import diamond.model.symbol.Landmark;
 import diamond.model.symbol.arrow.ArrowFlip;
@@ -41,7 +41,7 @@ public class TabPaintSymbols extends AbstractTab {
         PaintActionButton rotate = new PaintActionButton(context,
                 new SymbolHalfEdgePaintAction(ArrowRotate.class));
         PaintActionButton repeat = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolRepeatPaintAction());
         PaintActionButton landmark = new PaintActionButton(context,
                 new SymbolVertexPaintAction(Landmark.class));
 

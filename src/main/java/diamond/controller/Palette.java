@@ -17,11 +17,17 @@ import diamond.view.ui.screen.style.HalfEdgeStyle;
 public class Palette {
     private Vector<Cp> cps = new Vector<>();
     private FaceStyle faceStyle = new FaceStyle();
-    private HalfEdgeStyle haFaceStyle = new HalfEdgeStyle();
+    private HalfEdgeStyle halfEdgeStyle = new HalfEdgeStyle();
 
     public Palette() {
         Cp cp = new Cp();
         cps.add(cp);
+    }
+
+    public Palette(Palette palette) {
+        this.cps = palette.getCps();
+        this.faceStyle = palette.faceStyle;
+        this.halfEdgeStyle = palette.halfEdgeStyle;
 
     }
 
