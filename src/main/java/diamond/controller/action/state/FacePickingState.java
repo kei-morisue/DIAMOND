@@ -4,7 +4,10 @@
  */
 package diamond.controller.action.state;
 
+import java.util.Stack;
+
 import diamond.controller.Context;
+import diamond.controller.CyborgPicker;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.util.FaceFinder;
 
@@ -25,7 +28,14 @@ public abstract class FacePickingState extends AbstractState {
         if (picked == null) {
             return false;
         }
-        context.getPicker().push(picked);
+        CyborgPicker picker = context.getPicker();
+        Stack<Face> faces = picker.getFaces();
+        if (!faces.isEmpty()) {
+            if (faces.lastElement() == picked) {
+                return false;
+            }
+        }
+        picker.push(picked);
         return true;
     }
 

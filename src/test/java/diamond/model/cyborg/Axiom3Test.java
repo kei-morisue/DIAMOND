@@ -6,7 +6,6 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 import org.junit.Test;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import diamond.Config;
 import diamond.controller.Context;
 import diamond.controller.action.Axiom3Action;
-import diamond.model.math.Fuzzy;
 import diamond.view.ui.screen.FoldedScreen;
 import diamond.view.ui.screen.PaintScreen;
 
@@ -49,13 +47,7 @@ public class Axiom3Test {
         assertEquals(1, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 5, 2);
-        for (HalfEdge he : faces.get(0).getHalfEdges()) {
-            if (Fuzzy.around(he.getV0().distance(new Point2D.Double(l, -l)),
-                    0.0)) {
-                assertEquals(he.getV1().x, l, Config.EPSILON);
-                assertEquals(he.getV1().y, -l * y, Config.EPSILON);
-            }
-        }
+        TestUtil.validate(cp, l, -l * y, 3, false);
     }
 
 }

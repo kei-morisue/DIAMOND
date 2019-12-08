@@ -14,6 +14,7 @@ import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.math.Fuzzy;
+import diamond.model.math.NormComparator;
 
 /**
  * @author Kei Morisue
@@ -38,12 +39,14 @@ public class HalfEdgeAdder {
         if (externals.size() == 0) {
             return;
         }
-        if (externals.size() == 1) {
-            internals.add(0, externals.get(0).getV0());
-        } else if (externals.size() == 2) {
-            internals.add(0, externals.get(0).getV0());
-            internals.add(externals.get(1).getV0());
+        Vertex v0 = externals.get(0).getV0();
+        internals.add(0, v0);
+        if (externals.size() == 2) {
+            Vertex v1 = externals.get(1).getV0();
+            internals.add(v1);
+            internals.sort(new NormComparator(v0));
         }
+        internals.sort(new NormComparator(internals.get(0)));
         HalfEdgeConnector.connect(face, internals, type);
     }
 

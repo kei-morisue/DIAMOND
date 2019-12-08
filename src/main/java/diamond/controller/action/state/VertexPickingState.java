@@ -4,7 +4,10 @@
  */
 package diamond.controller.action.state;
 
+import java.util.Stack;
+
 import diamond.controller.Context;
+import diamond.controller.CyborgPicker;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.util.VertexFinder;
 
@@ -25,7 +28,14 @@ public abstract class VertexPickingState extends AbstractState {
         if (picked == null) {
             return false;
         }
-        context.getPicker().push(picked);
+        CyborgPicker picker = context.getPicker();
+        Stack<Vertex> vertices = picker.getVertices();
+        if (!vertices.isEmpty()) {
+            if (vertices.lastElement() == picked) {
+                return false;
+            }
+        }
+        picker.push(picked);
         return true;
     }
 

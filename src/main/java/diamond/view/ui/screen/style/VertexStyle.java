@@ -17,7 +17,7 @@ public class VertexStyle {
     public static final Color POINTED = Color.GREEN;
     public static final Color WRONG = Color.RED;
 
-    public static Color getColor(diamond.model.cyborg.Vertex v) {
+    public static Color getColor(Vertex v) {
         if (v.getProperty().isColored()) {
             return POINTED;
         }
