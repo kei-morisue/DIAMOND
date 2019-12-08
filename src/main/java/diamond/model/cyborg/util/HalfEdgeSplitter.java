@@ -47,7 +47,9 @@ public class HalfEdgeSplitter {
         if (v1 == v) {
             return null;
         }
+        v1.remove(he.getPair());
         v1.remove(he);
+        v0.remove(he.getPair());
         v0.remove(he);
         HalfEdge h0 = new HalfEdge(v0, v, he.getType());
         HalfEdge h1 = new HalfEdge(v, v1, he.getType());
