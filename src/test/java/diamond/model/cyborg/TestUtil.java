@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.controller.Context;
+import diamond.model.math.Fuzzy;
 
 /**
  * @author Kei Morisue
@@ -40,4 +41,14 @@ public class TestUtil {
     static void validate(Cp cp, int vNum) {
         assertEquals(vNum, cp.getVertices().size());
     }
+
+    static void validate(Cp cp, double x, double y, int heNumvNum) {
+        for (Vertex v : cp.getVertices()) {
+            if (Fuzzy.around(v.distance(new Point2D.Double(x, y)), 0.0)) {
+                assertEquals(heNumvNum, v.getHalfEdges().size());
+            }
+            ;
+        }
+    }
+
 }

@@ -43,4 +43,8 @@ public class PaintScreenAction extends AbstractScreenAction {
         return;
     }
 
+    @Override
+    public void mouseExited(MouseEvent e) {
+        context.getPointer().clear();
+    }
 }

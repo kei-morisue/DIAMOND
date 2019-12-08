@@ -93,14 +93,18 @@ public class HalfEdgeSplitter {
     }
 
     private static Vertex split(HalfEdge he, Vertex v) {
-        if (Fuzzy.around(he.getV0().distance(v), 0.0)) {
-            return he.getV0();
+        Vertex v0 = he.getV0();
+        if (Fuzzy.around(v0.distance(v), 0.0)) {
+            return v0;
         }
-        if (Fuzzy.around(he.getV1().distance(v), 0.0)) {
-            return he.getV1();
+        Vertex v1 = he.getV1();
+        if (Fuzzy.around(v1.distance(v), 0.0)) {
+            return v1;
         }
-        HalfEdge h0 = new HalfEdge(he.getV0(), v, he.getType());
-        HalfEdge h1 = new HalfEdge(v, he.getV1(), he.getType());
+        v1.remove(he);
+        v0.remove(he);
+        HalfEdge h0 = new HalfEdge(v0, v, he.getType());
+        HalfEdge h1 = new HalfEdge(v, v1, he.getType());
         h0.connectTo(h1);
         Face f = he.getFace();
         h0.setFace(f);

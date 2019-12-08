@@ -150,4 +150,17 @@ public class HalfEdgeSettleTest {
 
     }
 
+    @Test
+    public void Step4() {
+        line0();
+        context.setPaintAction(new HalfEdgeSettleAction());
+        select0();
+        context.setPaintAction(new Axiom1Action());
+        line1();
+        assertEquals(2, faces.size());
+        TestUtil.validate(cp, 5);
+        TestUtil.validate(cp, 0, 0, 4);
+        TestUtil.validate(faces.get(0), 4, 2);
+        TestUtil.validate(faces.get(1), 4, 2);
+    }
 }

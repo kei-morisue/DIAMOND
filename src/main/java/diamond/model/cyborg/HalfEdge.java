@@ -4,8 +4,6 @@
  */
 package diamond.model.cyborg;
 
-import diamond.model.symbol.Symbol;
-
 /**
  * @author Kei Morisue
  *
@@ -19,7 +17,6 @@ public class HalfEdge implements Cyborg {
     private HalfEdge pair = null;
     private Face face = null;
     private HalfEdgeProperty property = new HalfEdgeProperty();
-    private Symbol sign = null;
 
     @Deprecated
     public HalfEdge() {
@@ -36,7 +33,6 @@ public class HalfEdge implements Cyborg {
         this.type = type;
         this.pair = new HalfEdge(this);
         this.v0.add(this);
-        this.v1.add(pair);
         disablePair();
     }
 
@@ -130,14 +126,6 @@ public class HalfEdge implements Cyborg {
         this.type = type;
         this.pair.type = type;
         disablePair();
-    }
-
-    public Symbol getSign() {
-        return this.sign;
-    }
-
-    public void setSign(Symbol sign) {
-        this.sign = sign;
     }
 
     public HalfEdgeProperty getProperty() {
