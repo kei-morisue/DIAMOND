@@ -4,9 +4,7 @@
  */
 package diamond.model.cyborg.util;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
+import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 
@@ -16,38 +14,38 @@ import diamond.model.cyborg.HalfEdge;
  */
 public class FaceMarger {
 
-    public static Face marge(HalfEdge h0) {
+    public static void marge(Cp cp, HalfEdge h0) {
         HalfEdge h1 = h0.getPair();
-        Face face = new Face();
         Face f0 = h0.getFace();
         Face f1 = h0.getPair().getFace();
+        f0.remove(h0);
+        f1.remove(h1);
         HalfEdge h0N = h0.getNext();
         HalfEdge h0P = h0.getPrev();
         HalfEdge h1N = h1.getNext();
         HalfEdge h1P = h1.getPrev();
-
         h1P.connectTo(h0N);
         h0P.connectTo(h1N);
+        Face face = new Face();
 
-        ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
-        halfEdges.addAll(f0.getHalfEdges());
-        halfEdges.remove(h0);
-        halfEdges.addAll(f1.getHalfEdges());
-        halfEdges.remove(h1);
-
-        HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
-        face.addUnsettled(h0);
-        face.addUnsettled(h1);
-        for (HalfEdge he : f0.getUnsettledLines()) {
-            face.addUnsettled(he);
-        }
-        for (HalfEdge he : f1.getUnsettledLines()) {
-            face.addUnsettled(he);
-        }
-        for (HalfEdge he : halfEdges) {
-            he.setFace(face);
-        }
-        return face;
+        face.add(f0.getHalfEdges());
+        face.add(f1.getHalfEdges());
+        face.add(f0.getUnsettledLines());
+        face.add(f1.getUnsettledLines());
+        h0.unSettle();
+        face.add(h0);
+        cp.remove(f0);
+        cp.remove(f1);
+        cp.add(face);
     }
 
+    public static void unCut(HalfEdge he) {
+        Face face = he.getFace();
+        face.remove(he);
+        HalfEdge hP = he.getPair();
+        face.remove(hP);
+        he.getPrev().connectTo(hP.getNext());
+        he.unSettle();
+        face.add(he);
+    }
 }

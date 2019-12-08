@@ -122,10 +122,30 @@ public class HalfEdge implements Cyborg {
         return this.type;
     }
 
+    public void settle() {
+        EdgeType flipType = EdgeType.getSettleType(type);
+        type = flipType;
+        pair.type = flipType;
+        disablePair();
+    }
+
+    public void unSettle() {
+        EdgeType flipType = EdgeType.getUnSettleType(type);
+        type = flipType;
+        pair.type = flipType;
+        disablePair();
+    }
+
+    public void flip() {
+        EdgeType flipType = EdgeType.getFlipType(type);
+        type = flipType;
+        pair.type = flipType;
+        disablePair();
+    }
+
+    @Deprecated
     public void setType(EdgeType type) {
         this.type = type;
-        this.pair.type = type;
-        disablePair();
     }
 
     public HalfEdgeProperty getProperty() {

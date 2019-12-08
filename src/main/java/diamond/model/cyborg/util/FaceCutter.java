@@ -4,9 +4,6 @@
  */
 package diamond.model.cyborg.util;
 
-import java.util.ArrayList;
-
-import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
@@ -16,27 +13,25 @@ import diamond.model.cyborg.Vertex;
  *
  */
 public class FaceCutter {
-    public static void cut(Face f, HalfEdge splitter) {
-        if (!EdgeType.isSettled(splitter.getType())) {
-            f.addUnsettled(splitter);
-        } else {
-            Vertex c = splitter.getV0();
-            HalfEdge h0 = open(f, c);
-            HalfEdge h1 = open(f, c);
-            h0.connectTo(splitter);
-            HalfEdge hP = splitter.getPair();
-            splitter.connectTo(hP);
-            hP.connectTo(h1);
-            f.add(splitter);
-            f.add(hP);
+    public static void cut(Face f, HalfEdge cutter) {
+        f.remove(cutter);
+        cutter.settle();
+        Vertex v0 = cutter.getV0();
+        HalfEdge h0 = open(f, v0);
+        if (h0 == null) {
+            return;
         }
-        ArrayList<Vertex> cps = FaceSplitter.splitUnsettledLines(f, splitter);
-        HalfEdgeSplitter.split(splitter, cps);
+        HalfEdge hP = cutter.getPair();
+        hP.connectTo(h0.getNext());
+        h0.connectTo(cutter);
+        cutter.connectTo(hP);
+        f.add(cutter);
+        f.add(hP);
     }
 
-    private static HalfEdge open(Face face, Vertex c) {
+    private static HalfEdge open(Face face, Vertex v0) {
         for (HalfEdge he : face.getHalfEdges()) {
-            if (he.getV1() == c) {
+            if (he.getV1() == v0) {
                 return he;
             }
         }

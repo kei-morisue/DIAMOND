@@ -51,6 +51,7 @@ public class Axiom4Test {
         line1();
         assertEquals(1, faces.size());
         TestUtil.validate(cp, 5);
+        TestUtil.validate(cp, 0, 0, 3);
         TestUtil.validate(faces.get(0), 4, 6);
     }
 

@@ -5,80 +5,55 @@
 package diamond.model.cyborg.util;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.Cp;
-import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
+import diamond.model.cyborg.Vertex;
 
 /**
  * @author Kei Morisue
  *
  */
 public class HalfEdgeModifier {
-    public static void flip(HalfEdge he) {
-        EdgeType type = he.getType();
-        he.setType(EdgeType.getPairType(type));
-    }
 
     public static void settle(Context context, HalfEdge he) {
         Face face = he.getFace();
         HalfEdge h0 = null;
         HalfEdge h1 = null;
+        Vertex v0 = he.getV0();
+        Vertex v1 = he.getV1();
         for (HalfEdge h : face.getHalfEdges()) {
-            if (he.getV0() == h.getV1()) {
-                h0 = h;
-            }
-            if (he.getV1() == h.getV1()) {
+            if (h.getV0() == v0) {
                 h1 = h;
+            }
+            if (h.getV0() == v1) {
+                h0 = h;
             }
         }
         if (h0 == null && h1 == null) {
             return;
         }
-        Cp cp = context.getCp();
-
         if (h0 != null && h1 != null) {
-            he.setType(EdgeType.getAnotherType(he.getType()));
-            Face[] split = FaceSplitter.split(face, he);
-            cp.add(split[0]);
-            cp.add(split[1]);
-            cp.remove(face);
+            FaceSplitter.split(context.getCp(), face, he, h0, h1);
             return;
         }
         if (h0 != null) {
-            he.getPair().connectTo(h0.getNext());
-            h0.connectTo(he);
-            he.connectTo(he.getPair());
+            FaceCutter.cut(face, he.getPair());
         } else {
-            he.connectTo(h1.getNext());
-            h1.connectTo(he.getPair());
-            he.getPair().connectTo(he);
+            FaceCutter.cut(face, he);
         }
-        face.add(he);
-        face.add(he.getPair());
-        face.removeUnsettled(he);
-        he.setType(EdgeType.getAnotherType(he.getType()));
     }
 
     public static void unSettle(Context context, HalfEdge he) {
-        EdgeType type = he.getType();
-        he.setType(EdgeType.getAnotherType(type));
         Face f0 = he.getFace();
-        Face f1 = he.getPair().getFace();
-        Cp cp = context.getCp();
+        HalfEdge hP = he.getPair();
+        Face f1 = hP.getFace();
         if (f0 != f1) {
-            cp.add(FaceMarger.marge(he));
-            cp.remove(f0);
-            cp.remove(f1);
+            FaceMarger.marge(context.getCp(), he);
         } else {
-            if (he.getNext() == he.getPair()) {
-                f0.addUnsettled(he);
-                f0.remove(he);
-                he.getPrev().connectTo(he.getPair().getNext());
-            } else if (he.getPair().getNext() == he) {
-                f0.addUnsettled(he);
-                f0.remove(he);
-                he.getPair().getPrev().connectTo(he.getNext());
+            if (he.getNext() == hP) {
+                FaceMarger.unCut(he);
+            } else if (hP.getNext() == he) {
+                FaceMarger.unCut(hP);
             }
         }
     }

@@ -6,12 +6,14 @@ package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import diamond.Config;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.math.Fuzzy;
+import diamond.model.math.NormComparator;
 
 /**
  * @author Kei Morisue
@@ -65,33 +67,54 @@ public class CrossPointUtil {
         return getSplitter(v0, v1, he.getV0(), he.getV1());
     }
 
-    public static ArrayList<Vertex> getCrossPoints(Face face,
+    public static ArrayList<HalfEdge> splitOutLines(Face face,
             Point2D.Double p0,
             Point2D.Double p1) {
         double[] ds = { 0.0, 0.0 };
-        ArrayList<Vertex> crossPoints = new ArrayList<Vertex>();
         ArrayList<HalfEdge> halfEdges = new ArrayList<HalfEdge>();
 
-        for (HalfEdge he : face.getHalfEdges()) {
+        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(face.getHalfEdges());
+        for (HalfEdge he : copy) {
             if (isDet0(p0, p1, he.getV0(), he.getV1())
                     && isDet0(p0, he.getV0(), p1, he.getV1())) {
-                crossPoints.clear();
-                return crossPoints;
+                halfEdges.clear();
+                return halfEdges;
             }
             ds = getSplitter(p0, p1, he);
             if (ds == null) {
                 continue;
             }
-            if (Fuzzy.around(ds[1], 1.0)) {
-                crossPoints.add(he.getV1());
-            } else if (!Fuzzy.around(ds[1], 0.0)) {
+            if (Fuzzy.around(ds[1], 0.0)) {
                 halfEdges.add(he);
+            } else if (!Fuzzy.around(ds[1], 1.0)) {
+                HalfEdge he1 = HalfEdgeSplitter.split(he, ds[1]);
+                if (he1 != null) {
+                    halfEdges.add(he1);
+                }
             }
         }
-        for (HalfEdge he : halfEdges) {
-            ds = getSplitter(p0, p1, he);//TODO not to calc again
-            crossPoints.add(HalfEdgeSplitter.split(he, ds[1]));
-        }
-        return crossPoints;
+        return halfEdges;
     }
+
+    public static ArrayList<Vertex> splitUnsettledLines(Face face,
+            Point2D.Double p0, Point2D.Double p1) {
+        HashSet<Vertex> crossPoints = new HashSet<Vertex>();
+        HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
+        HashSet<HalfEdge> copy = new HashSet<HalfEdge>();
+        copy.addAll(unsettledLines);
+        for (HalfEdge he : copy) {
+            if (he.getProperty().isDisabled()) {
+                continue;
+            }
+            Vertex v = HalfEdgeSplitter.split(p0, p1, he);
+            if (v != null) {
+                crossPoints.add(v);
+            }
+        }
+        ArrayList<Vertex> ordered = new ArrayList<Vertex>();
+        ordered.addAll(crossPoints);
+        ordered.sort(new NormComparator(p0));
+        return ordered;
+    }
+
 }

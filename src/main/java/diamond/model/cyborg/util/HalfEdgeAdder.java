@@ -24,33 +24,27 @@ public class HalfEdgeAdder {
             Point2D.Double p1) {
         Cp cp = context.getCp();
         EdgeType type = context.getInputType();
-        ArrayList<Face> toBeDeleted = new ArrayList<Face>();
-        ArrayList<Face> toBeAdded = new ArrayList<Face>();
         for (Face face : cp.getFaces()) {
-            ArrayList<Vertex> crossPoints = CrossPointUtil.getCrossPoints(face,
+            ArrayList<HalfEdge> externals = CrossPointUtil.splitOutLines(face,
                     p0, p1);
-            if (crossPoints.size() == 1) {
-                Vertex c0 = crossPoints.get(0);
-                HalfEdge he = new HalfEdge(c0, inside(face, p0, p1), type);
-                FaceCutter.cut(face, he);
-            } else if (crossPoints.size() == 2) {
-                Vertex c0 = crossPoints.get(0);
-                Vertex c1 = crossPoints.get(1);
-                HalfEdge he = new HalfEdge(c0, c1, type);
-                Face[] faces = FaceSplitter.split(face, he);
-                toBeAdded.add(faces[0]);
-                toBeDeleted.add(face);
-                if (EdgeType.isSettled(type)) {
-                    toBeAdded.add(faces[1]);
-                }
-            }
+            ArrayList<Vertex> internals = CrossPointUtil
+                    .splitUnsettledLines(face, p0, p1);
+            buildHalfEdges(externals, internals, face, type);
         }
-        for (Face face : toBeDeleted) {
-            cp.remove(face);
+    }
+
+    private static void buildHalfEdges(ArrayList<HalfEdge> externals,
+            ArrayList<Vertex> internals, Face face, EdgeType type) {
+        if (externals.size() == 0) {
+            return;
         }
-        for (Face face : toBeAdded) {
-            cp.add(face);
+        if (externals.size() == 1) {
+            internals.add(0, externals.get(0).getV0());
+        } else if (externals.size() == 2) {
+            internals.add(0, externals.get(0).getV0());
+            internals.add(externals.get(1).getV0());
         }
+        HalfEdgeConnector.connect(face, internals, type);
     }
 
     public static Vertex inside(Face face, Point2D.Double p0,

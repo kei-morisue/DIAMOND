@@ -6,6 +6,7 @@ package diamond.model.cyborg;
 
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 import diamond.controller.HalfEdgeSortor;
@@ -26,36 +27,42 @@ public class Face implements Cyborg {
     }
 
     public void initialize() {
-        faceFront = true;
+        faceFront = false;
         transform = null;
     }
 
-    public void add(HalfEdge halfEdge) {
-        halfEdges.add(halfEdge);
-        halfEdge.setFace(this);
+    public void add(HalfEdge he) {
+        if (EdgeType.isSettled(he.getType())) {
+            halfEdges.add(he);
+            he.setFace(this);
+        } else {
+            unsettledLines.add(he);
+            unsettledLines.add(he.getPair());
+            he.setFace(this);
+            he.getPair().setFace(this);
+        }
     }
 
-    public void remove(HalfEdge halfEdge) {
-        halfEdges.remove(halfEdge);
-        halfEdges.remove(halfEdge.getPair());
+    public void add(Collection<HalfEdge> halfEdges) {
+        for (HalfEdge he : halfEdges) {
+            add(he);
+        }
     }
 
-    public void addUnsettled(HalfEdge he) {
-        unsettledLines.add(he);
-        unsettledLines.add(he.getPair());
-        he.setFace(this);
-        he.getPair().setFace(this);
-    }
-
-    public void removeUnsettled(HalfEdge he) {
-        unsettledLines.remove(he);
-        unsettledLines.remove(he.getPair());
+    public void remove(HalfEdge he) {
+        if (EdgeType.isSettled(he.getType())) {
+            halfEdges.remove(he);
+        } else {
+            unsettledLines.remove(he);
+            unsettledLines.remove(he.getPair());
+        }
     }
 
     public HashSet<HalfEdge> getUnsettledLines() {
         return this.unsettledLines;
     }
 
+    @Deprecated
     public void setUnsettledLines(HashSet<HalfEdge> unsettledLines) {
         this.unsettledLines = unsettledLines;
     }
@@ -68,6 +75,7 @@ public class Face implements Cyborg {
         return this.halfEdges;
     }
 
+    @Deprecated
     public void setHalfEdges(ArrayList<HalfEdge> halfEdges) {
         this.halfEdges = halfEdges;
     }
