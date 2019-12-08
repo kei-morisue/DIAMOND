@@ -42,6 +42,14 @@ public abstract class HalfEdgePickingState extends AbstractState {
     @Override
     public void setPointer(Context context) {
         HalfEdge picked = HalfEdgeFinder.find(context);
+        if (picked != null) {
+            if (picked.getProperty().isDisabled()) {
+                System.out.println("disabled");
+            }
+            if (!picked.getPair().getProperty().isDisabled()) {
+                System.out.println("pair Enabled");
+            }
+        }
         context.getPointer().setHalfEdge(picked);
     }
 

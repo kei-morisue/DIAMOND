@@ -37,8 +37,10 @@ public class HalfEdge implements Cyborg {
     }
 
     private void disablePair() {
-        if (!EdgeType.isSettled(type) && !pair.property.isDisabled()) {
-            getProperty().setDisabled(true);
+        if (property.isDisabled()) {
+            pair.getProperty().setDisabled(false);
+        } else {
+            pair.getProperty().setDisabled(true);
         }
     }
 
