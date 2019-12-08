@@ -159,7 +159,7 @@ public class HalfEdgeSettleTest {
         line1();
         assertEquals(2, faces.size());
         TestUtil.validate(cp, 5);
-        TestUtil.validate(cp, 0, 0, 4);
+        TestUtil.validate(cp, 0, 0, 4, false);
         TestUtil.validate(faces.get(0), 4, 2);
         TestUtil.validate(faces.get(1), 4, 2);
     }

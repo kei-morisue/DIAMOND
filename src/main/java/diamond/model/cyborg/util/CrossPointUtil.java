@@ -76,7 +76,8 @@ public class CrossPointUtil {
         ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(face.getHalfEdges());
         for (HalfEdge he : copy) {
             if (isDet0(p0, p1, he.getV0(), he.getV1())
-                    && isDet0(p0, he.getV0(), p1, he.getV1())) {
+                    && isDet0(p0, he.getV0(), p1, he.getV1())
+                    && isDet0(p0, he.getV1(), p1, he.getV0())) {
                 halfEdges.clear();
                 return halfEdges;
             }

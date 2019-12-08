@@ -42,10 +42,12 @@ public class TestUtil {
         assertEquals(vNum, cp.getVertices().size());
     }
 
-    static void validate(Cp cp, double x, double y, int heNumvNum) {
+    static void validate(Cp cp, double x, double y, int heNumvNum,
+            boolean isWrong) {
         for (Vertex v : cp.getVertices()) {
             if (Fuzzy.around(v.distance(new Point2D.Double(x, y)), 0.0)) {
                 assertEquals(heNumvNum, v.getHalfEdges().size());
+                assertTrue(v.getProperty().isWrong == isWrong);
             }
             ;
         }

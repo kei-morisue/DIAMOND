@@ -44,6 +44,34 @@ public class Axiom4Test {
         TestUtil.click(0, 0, context);
     }
 
+    private void line01() {
+        TestUtil.click(l, l, context);
+        TestUtil.click(-l, -l, context);
+        TestUtil.click(-l, l, context);
+        TestUtil.click(l, -l, context);
+
+    }
+
+    private void line2() {
+        TestUtil.click(.0, .0, context);
+        TestUtil.click(.0, l, context);
+    }
+
+    private void line3() {
+        TestUtil.click(.0, .0, context);
+        TestUtil.click(-l, .0, context);
+    }
+
+    private void line4() {
+        TestUtil.click(.0, .0, context);
+        TestUtil.click(0, -l, context);
+    }
+
+    private void line5() {
+        TestUtil.click(.0, .0, context);
+        TestUtil.click(l, .0, context);
+    }
+
     @Test
     public void Step0() {
         line0();
@@ -51,8 +79,37 @@ public class Axiom4Test {
         line1();
         assertEquals(1, faces.size());
         TestUtil.validate(cp, 5);
-        TestUtil.validate(cp, 0, 0, 3);
+        TestUtil.validate(cp, 0, 0, 3, false);
         TestUtil.validate(faces.get(0), 4, 6);
+    }
+
+    @Test
+    public void Step1() {
+        line01();
+        context.setPaintAction(new Axiom4Action());
+        line2();
+        assertEquals(1, faces.size());
+        TestUtil.validate(cp, 6);
+        TestUtil.validate(cp, .0, .0, 5, false);
+        TestUtil.validate(faces.get(0), 5, 10);
+
+        line3();
+        assertEquals(1, faces.size());
+        TestUtil.validate(cp, 7);
+        TestUtil.validate(cp, .0, .0, 6, false);
+        TestUtil.validate(faces.get(0), 6, 12);
+
+        line4();
+        assertEquals(1, faces.size());
+        TestUtil.validate(cp, 8);
+        TestUtil.validate(cp, .0, .0, 7, false);
+        TestUtil.validate(faces.get(0), 7, 14);
+
+        line5();
+        assertEquals(1, faces.size());
+        TestUtil.validate(cp, 9);
+        TestUtil.validate(cp, .0, .0, 8, false);
+        TestUtil.validate(faces.get(0), 8, 16);
     }
 
 }
