@@ -2,20 +2,20 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller.action.state.halfedgeflip;
+package diamond.controller.action.state.vertexremove;
 
 import java.util.Stack;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.HalfEdgePickingState;
-import diamond.model.cyborg.EdgeType;
-import diamond.model.cyborg.HalfEdge;
+import diamond.controller.action.state.VertexPickingState;
+import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.VertexRemover;
 
 /**
  * @author Kei Morisue
  *
  */
-public class State0 extends HalfEdgePickingState {
+public class State0 extends VertexPickingState {
 
     @Override
     protected void setNextClass() {
@@ -24,20 +24,18 @@ public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void setPrevClass() {
-        nextStateClass = State0.class;
+        prevStateClass = State0.class;
     }
 
     @Override
     protected void aftermath(Context context) {
-        Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
-        if (halfEdges.size() != 1) {
+        Stack<Vertex> vs = context.getPicker().getVertices();
+        if (vs.size() != 1) {
             context.initialize();
             return;
         }
-        HalfEdge he = halfEdges.get(0);
-        if (he.getType() != EdgeType.CUT) {
-            he.flip();
-        }
+        Vertex v = vs.get(0);
+        VertexRemover.remove(context, v);
         context.fold();
         context.initialize();
     }

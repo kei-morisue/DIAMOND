@@ -33,15 +33,14 @@ public class HalfEdge implements Cyborg {
         this.type = type;
         this.pair = new HalfEdge(this);
         this.v0.add(this);
-        disablePair();
+        if (type != EdgeType.CUT) {
+            disablePair();
+        }
     }
 
     private void disablePair() {
-        if (property.isDisabled()) {
-            pair.getProperty().setDisabled(false);
-        } else {
-            pair.getProperty().setDisabled(true);
-        }
+        property.setDisabled(true);
+        pair.getProperty().setDisabled(false);
     }
 
     @Deprecated

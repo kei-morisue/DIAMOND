@@ -22,11 +22,12 @@ public class Tabs extends JTabbedPane {
                 new TabPaintLines(context, buttons));
         addTab(Labels.get("tab_alter_type"),
                 new TabAlterLineType(context, buttons));
-        addTab(Labels.get("tab_paint_symbols"),
-                new TabPaintSymbols(context, buttons));
+        addTab(Labels.get("tab_vertex"),
+                new TabManageVertices(context, buttons));
         addTab(Labels.get("tab_faces"),
                 new TabManageFaces(context, buttons));
-        addTab(Labels.get("tab_offset"),
-                new TabManageVertices(context, buttons));
+        addTab(Labels.get("tab_paint_symbols"),
+                new TabPaintSymbols(context, buttons));
+
     }
 }
