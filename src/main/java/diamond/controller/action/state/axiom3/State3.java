@@ -35,10 +35,19 @@ public class State3 extends HalfEdgePickingState {
     protected void aftermath(Context context) {
         CyborgPicker picker = context.getPicker();
         Stack<Vertex> vertices = picker.getVertices();
+        Stack<HalfEdge> halfEdges = picker.getHalfEdges();
+        if (vertices.size() != 3) {
+            context.initialize();
+            return;
+        }
+        if (halfEdges.size() != 1) {
+            context.initialize();
+            return;
+        }
         Vertex v0 = vertices.get(0);
         Vertex v = vertices.get(1);
         Vertex v1 = vertices.get(2);
-        HalfEdge he = picker.getHalfEdges().get(0);
+        HalfEdge he = halfEdges.get(0);
 
         Double q = BisectorUtil.angle(v0, v, v1, he.getV0(), he.getV1());
         if (q != null) {

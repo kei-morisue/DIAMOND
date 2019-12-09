@@ -5,6 +5,7 @@
 package diamond.controller.action.state.symbolrepeat;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.HalfEdgePickingState;
@@ -43,7 +44,12 @@ public class State0 extends HalfEdgePickingState {
         if (!super.act(context)) {
             return false;
         }
-        HalfEdge he = context.getPicker().getHalfEdges().get(0);
+        Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
+        if (halfEdges.size() != 1) {
+            context.initialize();
+            return false;
+        }
+        HalfEdge he = halfEdges.get(0);
         Symbol<HalfEdge> symbol = context.getCp().getSymbolsHalfEdge().get(he);
         if (symbol != null) {
             symbol.flip(context.getCp());
@@ -56,7 +62,6 @@ public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void aftermath(Context context) {
-
         context.initialize();
     }
 

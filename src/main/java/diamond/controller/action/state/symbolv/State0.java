@@ -5,6 +5,7 @@
 package diamond.controller.action.state.symbolv;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.VertexPickingState;
@@ -34,7 +35,12 @@ public class State0 extends VertexPickingState {
 
     @Override
     protected void aftermath(Context context) {
-        Vertex vertex = context.getPicker().getVertices().get(0);
+        Stack<Vertex> vertices = context.getPicker().getVertices();
+        if (vertices.size() != 1) {
+            context.initialize();
+            return;
+        }
+        Vertex vertex = vertices.get(0);
         HashMap<Vertex, Symbol<Vertex>> symbols = context.getCp()
                 .getSymbolsVertex();
         if (symbols.containsKey(vertex)) {

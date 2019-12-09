@@ -4,6 +4,8 @@
  */
 package diamond.controller.action.state.halfedgeflip;
 
+import java.util.Stack;
+
 import diamond.controller.Context;
 import diamond.controller.action.state.HalfEdgePickingState;
 import diamond.model.cyborg.HalfEdge;
@@ -26,7 +28,12 @@ public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void aftermath(Context context) {
-        HalfEdge he = context.getPicker().getHalfEdges().get(0);
+        Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
+        if (halfEdges.size() != 1) {
+            context.initialize();
+            return;
+        }
+        HalfEdge he = halfEdges.get(0);
         he.flip();
         context.fold();
         context.initialize();

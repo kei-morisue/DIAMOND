@@ -22,7 +22,7 @@ public class PaintColorPanel extends JPanel {
     private ButtonGroup buttonGroup = new ButtonGroup();
 
     public PaintColorPanel(Context context) {
-        setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(3, 1));
         LineTypeButton button = new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
                 context,
                 buttonGroup);
@@ -31,7 +31,6 @@ public class PaintColorPanel extends JPanel {
         add(new LineTypeButton(EdgeType.UNSETTLED_MOUNTAIN, context,
                 buttonGroup));
         add(new LineTypeButton(EdgeType.CREASE, context, buttonGroup));
-        add(new LineTypeButton(EdgeType.CUT, context, buttonGroup));
         UiUtil.setBorder(this, Labels.get("input_color"));
 
     }

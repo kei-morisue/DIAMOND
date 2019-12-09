@@ -5,6 +5,7 @@
 package diamond.controller.action.state.axiom4;
 
 import java.awt.geom.Point2D.Double;
+import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.CyborgPicker;
@@ -33,8 +34,18 @@ public class State1 extends HalfEdgePickingState {
     @Override
     protected void aftermath(Context context) {
         CyborgPicker picker = context.getPicker();
-        Vertex v = picker.getVertices().get(0);
-        HalfEdge h = picker.getHalfEdges().get(0);
+        Stack<Vertex> vertices = picker.getVertices();
+        Stack<HalfEdge> halfEdges = picker.getHalfEdges();
+        if (vertices.size() != 1) {
+            context.initialize();
+            return;
+        }
+        if (halfEdges.size() != 1) {
+            context.initialize();
+            return;
+        }
+        Vertex v = vertices.get(0);
+        HalfEdge h = halfEdges.get(0);
         Double q = PerpendicularUtil.foot(v, h.getV0(), h.getV1());
         if (q != null) {
             HalfEdgeAdder.add(context, v, q);

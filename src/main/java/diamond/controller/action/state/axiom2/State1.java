@@ -32,6 +32,10 @@ public class State1 extends VertexPickingState {
     @Override
     protected void aftermath(Context context) {
         Stack<Vertex> vertices = context.getPicker().getVertices();
+        if (vertices.size() != 2) {
+            context.initialize();
+            return;
+        }
         Vertex v0 = vertices.get(0);
         Vertex v1 = vertices.get(1);
         Double[] pts = BisectorUtil.perpendicular(v0, v1);

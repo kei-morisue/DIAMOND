@@ -4,6 +4,8 @@
  */
 package diamond.controller.action.state.halfedgesettle;
 
+import java.util.Stack;
+
 import diamond.controller.Context;
 import diamond.controller.action.state.HalfEdgePickingState;
 import diamond.model.cyborg.EdgeType;
@@ -28,7 +30,12 @@ public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void aftermath(Context context) {
-        HalfEdge he = context.getPicker().getHalfEdges().get(0);
+        Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
+        if (halfEdges.size() != 1) {
+            context.initialize();
+            return;
+        }
+        HalfEdge he = halfEdges.get(0);
         if (he.getType() == EdgeType.CUT || he.getType() == EdgeType.CREASE) {
 
         } else if (EdgeType.isSettled(he.getType())) {

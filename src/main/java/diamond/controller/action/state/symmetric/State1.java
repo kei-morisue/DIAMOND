@@ -35,6 +35,10 @@ public class State1 extends HalfEdgePickingState {
     protected void aftermath(Context context) {
         CyborgPicker picker = context.getPicker();
         Stack<HalfEdge> hes = picker.getHalfEdges();
+        if (hes.size() != 2) {
+            context.initialize();
+            return;
+        }
         HalfEdge h0 = hes.get(0);
         HalfEdge h1 = hes.get(1);
         Vertex v0 = null;
