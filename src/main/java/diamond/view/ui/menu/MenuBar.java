@@ -18,7 +18,9 @@ public class MenuBar extends JMenuBar {
     private JMenu open = new JMenu(Labels.get("main_menu_open"));
 
     public MenuBar(Context context) {
-        add(open);
+        add(open);//TODO
         add(new MenuRun(context));
+        add(new MenuOption(context));
+
     }
 }

@@ -22,6 +22,7 @@ import diamond.controller.Palette;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.symbol.arrow.ArrowRepeat;
+import diamond.view.resource.string.Labels;
 import diamond.view.ui.screen.FoldedScreen;
 
 /**
@@ -95,7 +96,7 @@ public class SymbolRepeatDialog extends JPanel {
     public void showDialog() {
         JOptionPane option = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, null);
-        JDialog dialog = option.createDialog(null, "Select Repeat Range");
+        JDialog dialog = option.createDialog(null, Labels.get("start_to_end"));
         dialog.setSize(
                 new Dimension(Config.DIALOG_WIDTH, Config.DIALOG_HEIGHT));
         dialog.setVisible(true);

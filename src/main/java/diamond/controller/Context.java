@@ -66,10 +66,16 @@ public class Context {
         }
     }
 
+    public void repaint() {
+        paintScreen.repaint();
+        foldedScreen.repaint();
+    }
+
     public Palette getPalette() {
         return this.palette;
     }
 
+    @Deprecated
     public void setPalette(Palette palette) {
         this.palette = palette;
     }
