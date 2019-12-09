@@ -138,6 +138,12 @@ public class HalfEdge implements Cyborg {
         disablePair();
     }
 
+    public void unfold() {
+        type = EdgeType.CREASE;
+        pair.type = EdgeType.CREASE;
+        disablePair();
+    }
+
     public void flip() {
         EdgeType flipType = EdgeType.getFlipType(type);
         type = flipType;

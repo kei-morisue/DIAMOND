@@ -47,6 +47,8 @@ public enum EdgeType {
             return MOUNTAIN;
         case UNSETTLED_VALLEY:
             return VALLEY;
+        case CREASE:
+            return VALLEY;
         default:
             return type;
         }
@@ -62,6 +64,8 @@ public enum EdgeType {
             return UNSETTLED_MOUNTAIN;
         case UNSETTLED_VALLEY:
             return UNSETTLED_MOUNTAIN;
+        case CREASE:
+            return UNSETTLED_VALLEY;
         default:
             return type;
         }

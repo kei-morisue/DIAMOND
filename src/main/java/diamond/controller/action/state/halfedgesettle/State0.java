@@ -36,7 +36,7 @@ public class State0 extends HalfEdgePickingState {
             return;
         }
         HalfEdge he = halfEdges.get(0);
-        if (he.getType() == EdgeType.CUT || he.getType() == EdgeType.CREASE) {
+        if (he.getType() == EdgeType.CUT) {
 
         } else if (EdgeType.isSettled(he.getType())) {
             HalfEdgeModifier.unSettle(context, he);

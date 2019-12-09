@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import diamond.controller.Context;
 import diamond.controller.action.HalfEdgeFlipAction;
 import diamond.controller.action.HalfEdgeSettleAction;
+import diamond.controller.action.HalfEdgeUnfoldAction;
 import diamond.controller.action.LazyPaintAction;
 import diamond.view.ui.button.PaintActionButton;
 
@@ -26,7 +27,7 @@ public class TabAlterLineType extends AbstractTab {
         PaintActionButton buttonSettle = new PaintActionButton(context,
                 new HalfEdgeSettleAction());
         PaintActionButton buttonUnfold = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new HalfEdgeUnfoldAction());
         PaintActionButton buttonDelete = new PaintActionButton(context,
                 new LazyPaintAction());//TODO
 

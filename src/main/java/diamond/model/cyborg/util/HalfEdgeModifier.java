@@ -54,7 +54,10 @@ public class HalfEdgeModifier {
                 FaceMarger.unCut(he);
             } else if (hP.getNext() == he) {
                 FaceMarger.unCut(hP);
+            } else {
+                he.unSettle();
             }
         }
     }
+
 }

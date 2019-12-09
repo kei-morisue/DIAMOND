@@ -16,22 +16,10 @@ public class FaceMarger {
 
     public static void marge(Cp cp, HalfEdge h0) {
         HalfEdge h1 = h0.getPair();
-        Face f0 = h0.getFace();
-        Face f1 = h0.getPair().getFace();
-        f0.remove(h0);
-        f1.remove(h1);
-        HalfEdge h0N = h0.getNext();
-        HalfEdge h0P = h0.getPrev();
-        HalfEdge h1N = h1.getNext();
-        HalfEdge h1P = h1.getPrev();
-        h1P.connectTo(h0N);
-        h0P.connectTo(h1N);
+        margeConnect(h0, h1);
         Face face = new Face();
-
-        face.add(f0.getHalfEdges());
-        face.add(f1.getHalfEdges());
-        face.add(f0.getUnsettledLines());
-        face.add(f1.getUnsettledLines());
+        Face f0 = buildFace(h0, face);
+        Face f1 = buildFace(h1, face);
         h0.unSettle();
         face.add(h0);
         cp.remove(f0);
@@ -47,5 +35,22 @@ public class FaceMarger {
         he.getPrev().connectTo(hP.getNext());
         he.unSettle();
         face.add(he);
+    }
+
+    private static Face buildFace(HalfEdge h0, Face face) {
+        Face f0 = h0.getFace();
+        f0.remove(h0);
+        face.add(f0.getHalfEdges());
+        face.add(f0.getUnsettledLines());
+        return f0;
+    }
+
+    private static void margeConnect(HalfEdge h0, HalfEdge h1) {
+        HalfEdge h0N = h0.getNext();
+        HalfEdge h0P = h0.getPrev();
+        HalfEdge h1N = h1.getNext();
+        HalfEdge h1P = h1.getPrev();
+        h1P.connectTo(h0N);
+        h0P.connectTo(h1N);
     }
 }

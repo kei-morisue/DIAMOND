@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.util.Point2DUtil;
 import diamond.model.math.Fuzzy;
 
 /**
@@ -44,10 +45,24 @@ public class TestUtil {
 
     static void validate(Cp cp, double x, double y, int heNum,
             boolean isWrong) {
+        Point2D.Double p = new Point2D.Double(x, y);
         for (Vertex v : cp.getVertices()) {
-            if (Fuzzy.around(v.distance(new Point2D.Double(x, y)), 0.0)) {
+            if (Fuzzy.around(v.distance(p), 0.0)) {
                 assertEquals(heNum, v.getHalfEdges().size());
                 assertTrue(v.getProperty().isWrong == isWrong);
+                return;
+            }
+        }
+        assertTrue(false);
+    }
+
+    static void validate(Cp cp, double x, double y, EdgeType type) {
+        Point2D.Double p = new Point2D.Double(x, y);
+        for (HalfEdge he : cp.getHalfEdges()) {
+            if (Fuzzy.around(
+                    Point2DUtil.distanceToSegment(p, he.getV0(), he.getV1()),
+                    0.0)) {
+                assertTrue(he.getType() == type);
                 return;
             }
         }
