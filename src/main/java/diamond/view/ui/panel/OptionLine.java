@@ -20,11 +20,9 @@ import diamond.view.ui.screen.style.HalfEdgeStyle;
  *
  */
 public class OptionLine extends JPanel {
-    private Context context;
 
     public OptionLine(Context context) {
         super();
-        this.context = context;
         add(new JLabel(
                 Labels.get("clipping_scale")));
         JTextField clipScale = new JTextField(
