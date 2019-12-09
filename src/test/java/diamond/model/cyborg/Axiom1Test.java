@@ -13,6 +13,7 @@ import org.junit.Test;
 import diamond.Config;
 import diamond.controller.Context;
 import diamond.controller.action.Axiom1Action;
+import diamond.controller.action.Axiom2Action;
 import diamond.view.ui.screen.FoldedScreen;
 import diamond.view.ui.screen.PaintScreen;
 
@@ -49,6 +50,27 @@ public class Axiom1Test {
         TestUtil.click(-l, -l, context);
     }
 
+    private void line34567() {
+        context.setPaintAction(new Axiom2Action());
+        TestUtil.click(-l, l, context);
+        TestUtil.click(l, l, context);
+        context.setPaintAction(new Axiom1Action());
+        TestUtil.click(-l, l, context);
+        TestUtil.click(.0, -l, context);
+
+        TestUtil.click(.0, l, context);
+        TestUtil.click(-l, -l, context);
+
+        TestUtil.click(.0, l, context);
+        TestUtil.click(l, -l, context);
+
+        TestUtil.click(.0, -l, context);
+        TestUtil.click(l, l, context);
+
+        TestUtil.click(-l * 0.5, .0, context);
+        TestUtil.click(l * 0.5, .0, context);
+    }
+
     @Test
     public void Step0() {
         line0();
@@ -74,6 +96,17 @@ public class Axiom1Test {
         TestUtil.validate(cp, 4);
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 4, 0);
+    }
+
+    @Test
+    public void step3() {
+        line34567();
+        TestUtil.validate(cp, 9);
+        assertEquals(1, faces.size());
+        TestUtil.validate(cp, -l * 0.5, .0, 5, false);
+        TestUtil.validate(cp, l * 0.5, .0, 5, false);
+        TestUtil.validate(cp, .0, .0, 4, false);
+        TestUtil.validate(faces.get(0), 6, 24);
     }
 
 }

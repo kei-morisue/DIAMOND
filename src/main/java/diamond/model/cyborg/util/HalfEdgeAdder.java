@@ -37,6 +37,11 @@ public class HalfEdgeAdder {
     private static void buildHalfEdges(ArrayList<HalfEdge> externals,
             ArrayList<Vertex> internals, Face face, EdgeType type) {
         if (externals.size() == 0) {
+            if (internals.size() == 0) {
+                return;
+            }
+            internals.sort(new NormComparator(internals.get(0)));
+            HalfEdgeConnector.connect(face, internals, type);
             return;
         }
         Vertex v0 = externals.get(0).getV0();
