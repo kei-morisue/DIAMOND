@@ -37,6 +37,12 @@ public class CpBuilder {
         he1.connectTo(he2);
         he2.connectTo(he3);
         he3.connectTo(he0);
+
+        he0.getPair().connectTo(he3.getPair());
+        he3.getPair().connectTo(he2.getPair());
+        he2.getPair().connectTo(he1.getPair());
+        he1.getPair().connectTo(he0.getPair());
+
     }
 
     public static Cp buildNext(Cp cp) {

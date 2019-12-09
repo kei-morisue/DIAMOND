@@ -10,9 +10,9 @@ import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
 import diamond.controller.action.HalfEdgeFlipAction;
+import diamond.controller.action.HalfEdgeRemoveAction;
 import diamond.controller.action.HalfEdgeSettleAction;
 import diamond.controller.action.HalfEdgeUnfoldAction;
-import diamond.controller.action.LazyPaintAction;
 import diamond.view.ui.button.PaintActionButton;
 
 /**
@@ -29,7 +29,7 @@ public class TabAlterLineType extends AbstractTab {
         PaintActionButton buttonUnfold = new PaintActionButton(context,
                 new HalfEdgeUnfoldAction());
         PaintActionButton buttonDelete = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new HalfEdgeRemoveAction());
 
         addButton(buttonGroup, buttonFlip, "flip");
         addButton(buttonGroup, buttonSettle, "settle_unsettle");

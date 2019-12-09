@@ -47,7 +47,7 @@ public class CrossPointUtil {
         return null;
     }
 
-    private static boolean isDet0(Point2D.Double p0,
+    public static boolean isDet0(Point2D.Double p0,
             Point2D.Double p1,
             Point2D.Double q0,
             Point2D.Double q1) {
