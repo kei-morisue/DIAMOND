@@ -5,7 +5,6 @@
 package diamond.view.ui.screen.draw;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
@@ -13,7 +12,6 @@ import java.awt.geom.Point2D;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.Cp;
-import diamond.view.ui.screen.G2DUtil;
 import diamond.view.ui.screen.ScreenTransform;
 
 /**
@@ -25,8 +23,8 @@ public class OffsetScreenDrawer {
     public static void draw(Graphics2D g2d, Context context) {
         AffineTransform transform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
-        int height = getDimension(g2d).height;
-        int width = getDimension(g2d).width;
+        int height = G2DUtil.getDimension(g2d).height;
+        int width = G2DUtil.getDimension(g2d).width;
         setBG(g2d, width, height);
         drawCrossLines(g2d, height, width);
         drawFolded(g2d, context);
@@ -54,16 +52,6 @@ public class OffsetScreenDrawer {
         g2d.setColor(Color.red);
         g2d.drawLine(0, height >> 1, width, height >> 1);
         g2d.drawLine(width >> 1, 0, width >> 1, height);
-    }
-
-    private static Dimension getDimension(Graphics2D g2d) {
-        Rectangle bounds = g2d.getClip().getBounds();
-        int height = bounds.height;
-        int width = bounds.width;
-        double scale = G2DUtil.getScale(g2d);
-        height *= scale;
-        width *= scale;
-        return new Dimension(width, height);
     }
 
     private static void setBG(Graphics2D g2d, int width, int height) {

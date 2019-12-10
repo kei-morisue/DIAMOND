@@ -55,8 +55,8 @@ public abstract class AbstractArrow extends Symbol<HalfEdge> {
 
     @Override
     public void drawFolded(Graphics2D g2d) {
-        Vertex v0 = halfEdge.getV0();
-        Vertex v1 = halfEdge.getV1();
+        Double v0 = halfEdge.getV0().getFoldedOffset();
+        Double v1 = halfEdge.getV1().getFoldedOffset();
         Double tail = body.getTailPoint(v0, v1, scale);
         Double head = body.getHeadPoint(v0, v1, scale);
         Double t = Point2DUtil.add(tail, offset);

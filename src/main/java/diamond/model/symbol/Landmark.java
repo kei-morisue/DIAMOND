@@ -13,7 +13,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Vertex;
-import diamond.view.ui.screen.G2DUtil;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue

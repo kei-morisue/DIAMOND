@@ -12,6 +12,10 @@ import java.awt.geom.Point2D.Double;
  *
  */
 public class Point2DUtil {
+    public static double norm(Point2D.Double p) {
+        return Math.hypot(p.x, p.y);
+    }
+
     public static Point2D.Double add(Point2D.Double p0, Point2D.Double p1) {
         return new Point2D.Double(p0.x + p1.x, p0.y + p1.y);
     }
@@ -37,6 +41,13 @@ public class Point2DUtil {
 
     public static double cross(Point2D.Double p0, Point2D.Double p1) {
         return p0.x * p1.y - p0.y * p1.x;
+    }
+
+    public static Point2D.Double rotate(Point2D.Double p, double theta) {
+        double sin = Math.sin(theta);
+        double cos = Math.cos(theta);
+        return new Point2D.Double(p.x * cos - p.y * sin,
+                p.x * sin + p.y * cos);
     }
 
     public static Point2D.Double split(Point2D.Double p0, Point2D.Double p1,

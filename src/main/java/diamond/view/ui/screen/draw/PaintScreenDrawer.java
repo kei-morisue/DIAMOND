@@ -19,7 +19,6 @@ import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.util.CenterPointUtil;
 import diamond.model.symbol.Symbol;
-import diamond.view.ui.screen.G2DUtil;
 import diamond.view.ui.screen.style.FaceStyle;
 import diamond.view.ui.screen.style.HalfEdgeStyle;
 import diamond.view.ui.screen.style.VertexStyle;

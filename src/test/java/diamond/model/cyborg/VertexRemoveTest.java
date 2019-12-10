@@ -4,31 +4,20 @@
  */
 package diamond.model.cyborg;
 
-import java.util.LinkedList;
-
 import org.junit.Test;
 
-import diamond.Config;
-import diamond.controller.Context;
 import diamond.controller.action.VertexAddAction;
 import diamond.controller.action.VertexRemoveAction;
-import diamond.view.ui.screen.FoldedScreen;
-import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class VertexRemoveTest {
-    private Context context = new Context();
-    private PaintScreen paintScreen = new PaintScreen(context);
-    private FoldedScreen foledScreen = new FoldedScreen(context);
-    private Cp cp = context.getCp();
-    private LinkedList<Face> faces = cp.getFaces();
-    private static final double l = Config.PAPER_SIZE;
+public class VertexRemoveTest extends AbstractPaintActionTest {
     private static final double s = 42.0;
 
     public VertexRemoveTest() {
+        super();
         context.setInputType(EdgeType.UNSETTLED_VALLEY);
     }
 

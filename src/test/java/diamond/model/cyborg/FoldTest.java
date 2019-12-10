@@ -7,31 +7,22 @@ package diamond.model.cyborg;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Point2D.Double;
-import java.util.LinkedList;
 
 import org.junit.Test;
 
 import diamond.Config;
-import diamond.controller.Context;
 import diamond.controller.action.Axiom1Action;
 import diamond.controller.action.HalfEdgeSettleAction;
 import diamond.model.cyborg.util.CenterPointUtil;
-import diamond.view.ui.screen.FoldedScreen;
-import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class FoldTest {
-    private Context context = new Context();
-    private PaintScreen paintScreen = new PaintScreen(context);
-    private FoldedScreen foledScreen = new FoldedScreen(context);
-    private Cp cp = context.getCp();
-    private LinkedList<Face> faces = cp.getFaces();
-    private static final double l = Config.PAPER_SIZE;
+public class FoldTest extends AbstractPaintActionTest {
 
     public FoldTest() {
+        super();
         context.setPaintAction(new Axiom1Action());
         context.setInputType(EdgeType.UNSETTLED_VALLEY);
 

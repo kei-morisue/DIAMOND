@@ -27,7 +27,7 @@ public class OffsetScreenAction extends AbstractScreenAction {
     @Override
     public void mouseMoved(MouseEvent e) {
         Point point = e.getPoint();
-        context.setMousePoint(new Point2D.Double(point.x, point.x));
+        context.setMousePoint(new Point2D.Double(point.x, point.y));
         context.getPaintAction().onMove(context);
         e.getComponent().repaint();
     }

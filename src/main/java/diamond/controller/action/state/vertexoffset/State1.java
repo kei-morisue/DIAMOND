@@ -5,17 +5,18 @@
 package diamond.controller.action.state.vertexoffset;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
+import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.AbstractState;
+import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.OffsetUtil;
 
 /**
  * @author Kei Morisue
  *
  */
 public class State1 extends AbstractState {
-    private Point2D.Double Offset = new Point2D.Double();
 
     @Override
     protected void setNextClass() {
@@ -29,14 +30,16 @@ public class State1 extends AbstractState {
 
     @Override
     protected void undo(Context context) {
+        getVertex(context).setOffset(new Point2D.Double());
         context.getPicker().popVertex();
         context.setPaintScreen("paint");
+        context.initialize();
     }
 
     @Override
     protected void aftermath(Context context) {
-        //TODO
         context.setPaintScreen("paint");
+        context.initialize();
     }
 
     @Override
@@ -46,7 +49,18 @@ public class State1 extends AbstractState {
 
     @Override
     public void setPointer(Context context) {
-        Double p = context.getMousePoint();
+        Vertex vertex = getVertex(context);
+        OffsetUtil.setOffset(context, vertex);
+    }
+
+    private Vertex getVertex(Context context) {
+        Stack<Vertex> vertices = context.getPicker().getVertices();
+        if (vertices.size() != 1) {
+            undo(context);
+            return null;
+        }
+        Vertex vertex = vertices.get(0);
+        return vertex;
     }
 
 }

@@ -6,34 +6,23 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedList;
-
 import org.junit.Test;
 
-import diamond.Config;
-import diamond.controller.Context;
 import diamond.controller.action.Axiom1Action;
 import diamond.controller.action.Axiom2Action;
 import diamond.controller.action.Axiom3Action;
 import diamond.controller.action.HalfEdgeSettleAction;
-import diamond.view.ui.screen.FoldedScreen;
-import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Axiom3Test {
-    private Context context = new Context();
-    private PaintScreen paintScreen = new PaintScreen(context);
-    private FoldedScreen foledScreen = new FoldedScreen(context);
-    private Cp cp = context.getCp();
-    private LinkedList<Face> faces = cp.getFaces();
-    private static final double l = Config.PAPER_SIZE;
+public class Axiom3Test extends AbstractPaintActionTest {
     private static final double y = 3.0 - 2.0 * Math.sqrt(2);
     private static final double x = 2.0 - Math.sqrt(2);
 
     public Axiom3Test() {
+        super();
         context.setInputType(EdgeType.UNSETTLED_VALLEY);
     }
 

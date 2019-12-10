@@ -14,7 +14,7 @@ import java.util.Vector;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.symbol.arrow.body.AbstractArrowBody;
-import diamond.view.ui.screen.G2DUtil;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue

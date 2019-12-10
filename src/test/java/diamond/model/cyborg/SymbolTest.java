@@ -6,28 +6,20 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedList;
-
 import org.junit.Test;
 
-import diamond.Config;
-import diamond.controller.Context;
 import diamond.controller.action.SymbolVertexPaintAction;
 import diamond.model.symbol.Landmark;
-import diamond.view.ui.screen.FoldedScreen;
-import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class SymbolTest {
-    private Context context = new Context();
-    private Cp cp = context.getCp();
-    private PaintScreen paintScreen = new PaintScreen(context);
-    private FoldedScreen foledScreen = new FoldedScreen(context);
-    private LinkedList<Face> faces = cp.getFaces();
-    private static final double l = Config.PAPER_SIZE;
+public class SymbolTest extends AbstractPaintActionTest {
+
+    public SymbolTest() {
+        super();
+    }
 
     private void v0() {
         TestUtil.click(l, l, context);

@@ -14,7 +14,7 @@ import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.util.PerpendicularUtil;
 import diamond.model.cyborg.util.Point2DUtil;
-import diamond.view.ui.screen.G2DUtil;
+import diamond.view.ui.screen.draw.G2DUtil;
 import diamond.view.ui.screen.draw.PaintScreenDrawer;;
 
 /**

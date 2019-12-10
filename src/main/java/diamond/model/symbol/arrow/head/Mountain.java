@@ -11,7 +11,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D.Double;
 
 import diamond.model.symbol.arrow.body.AbstractArrowBody;
-import diamond.view.ui.screen.G2DUtil;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
