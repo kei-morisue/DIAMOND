@@ -17,11 +17,18 @@ public class FaceStyle {
     public static Color COLOR_FRONT = Color.gray;
     public static Color COLOR_BACK = Color.white;
 
-    public static Color getColor(Face face) {
+    public static Color getFoldedColor(Face face) {
         if (face.getProperty().isColored()) {
             return COLOR_POINTED;
         }
         return (face.isFaceFront()) ? COLOR_FRONT : COLOR_BACK;
+    }
+
+    public static Color getCpColor(Face face) {
+        if (face.getProperty().isColored()) {
+            return COLOR_POINTED;
+        }
+        return COLOR_BACK;
     }
 
     public static double CP_FACE_SCALE = 0.7;

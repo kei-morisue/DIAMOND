@@ -80,7 +80,7 @@ public class FoldedScreenDrawer {
 
     public static void draw(Graphics2D g2d, Face f) {
         if (!f.getProperty().isDisabled()) {
-            g2d.setColor(FaceStyle.getColor(f));
+            g2d.setColor(FaceStyle.getFoldedColor(f));
             g2d.fill(FaceDrawer.buildFoldedOutline(f));
         }
     }

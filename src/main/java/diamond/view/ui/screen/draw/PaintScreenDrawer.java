@@ -4,9 +4,11 @@
  */
 package diamond.view.ui.screen.draw;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 import java.util.Stack;
 
 import diamond.controller.Context;
@@ -14,6 +16,7 @@ import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.CenterPointUtil;
 import diamond.model.symbol.Symbol;
 import diamond.view.ui.screen.G2DUtil;
 import diamond.view.ui.screen.style.FaceStyle;
@@ -44,7 +47,7 @@ public class PaintScreenDrawer {
         for (Symbol<Vertex> symbol : cp.getSymbolsVertex().values()) {
             symbol.drawCp(g2d);
         }
-
+        drawBase(g2d, cp);
     }
 
     public static void draw(Graphics2D g2d, Vertex v) {
@@ -54,7 +57,7 @@ public class PaintScreenDrawer {
     }
 
     public static void draw(Graphics2D g2d, Face f) {
-        g2d.setColor(FaceStyle.COLOR_FRONT);
+        g2d.setColor(FaceStyle.getCpColor(f));
         g2d.fill(FaceDrawer.buildOutline(f, FaceStyle.CP_FACE_SCALE));
     }
 
@@ -68,6 +71,23 @@ public class PaintScreenDrawer {
 
     public static void draw(Graphics2D g2d, Context context) {
         context.getPaintAction().onDraw(g2d, context);
+    }
+
+    private static void drawBase(Graphics2D g2d, Cp cp) {
+        Face baseFace = cp.getBaseFace();
+        Double p = CenterPointUtil.get(baseFace);
+        drawRedCross(g2d, p.x, p.y);
+    }
+
+    private static void drawRedCross(
+            Graphics2D g2d, double x, double y) {
+        g2d.setColor(Color.red);
+        double size = 2.0 / G2DUtil.getScale(g2d);
+        double w = 6.0 * size;
+        double h = 2.0 * size;
+        double halfW = 3.0 * size;
+        g2d.fill(new Rectangle2D.Double(x - halfW, y - size, w, h));
+        g2d.fill(new Rectangle2D.Double(x - size, y - halfW, h, w));
     }
 
     public static void drawTemporaryLine(Graphics2D g2d, Context context) {

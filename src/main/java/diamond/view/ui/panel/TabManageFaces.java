@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
+import diamond.controller.action.FaceBaseAction;
 import diamond.controller.action.LazyPaintAction;
 import diamond.view.ui.button.PaintActionButton;
 
@@ -20,7 +21,7 @@ public class TabManageFaces extends AbstractTab {
     public TabManageFaces(Context context, ButtonGroup buttonGroup) {
         setLayout(new GridLayout(1, 2));
         PaintActionButton base = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new FaceBaseAction());
         PaintActionButton hide = new PaintActionButton(context,
                 new LazyPaintAction());//TODO
         PaintActionButton swap = new PaintActionButton(context,
