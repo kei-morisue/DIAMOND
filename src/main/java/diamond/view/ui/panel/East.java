@@ -67,6 +67,7 @@ public class East extends JPanel {
                 return paintScreen;
             }
             if (c == offsetScreen) {
+                paintScreen.reset();
                 return offsetScreen;
             }
         }

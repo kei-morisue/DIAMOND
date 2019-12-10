@@ -33,6 +33,10 @@ public class OffsetScreenAction extends AbstractScreenAction {
     }
 
     @Override
+    protected void translate(MouseEvent e) {
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (MouseUtility.isLeftClick(e)) {
             context.getPaintAction().onLeftClick(context);

@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 
 import diamond.controller.Context;
 import diamond.controller.action.OffsetScreenAction;
+import diamond.model.cyborg.Cp;
 import diamond.view.ui.screen.draw.OffsetScreenDrawer;
 import diamond.view.ui.screen.style.Skin;
 
@@ -33,8 +34,18 @@ public class OffsetScreen extends AbstractScreen {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, Skin.BG_PAINT_SCREEN);
         transform.resize(getWidth(), getHeight());
-        OffsetScreenDrawer.draw(g2d, context);
         g2d.setTransform(transform);
+        OffsetScreenDrawer.draw(g2d, context);
         context.getFoldedScreen().repaint();
+    }
+
+    public void reset() {
+        Cp cp = context.getCp();
+        ScreenTransform transform = cp.getTransform();
+        int height = getHeight();
+        int width = getWidth();
+        ScreenTransform screenTransform = new ScreenTransform(width, height);
+        screenTransform.zoom(transform.getScale());
+        screenTransform.rotate(transform.getTheta());
     }
 }
