@@ -20,20 +20,20 @@ import diamond.view.ui.screen.AbstractScreen;
  */
 public abstract class AbstractScreenAction
         implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private AbstractScreen screen;
-    private Point2D latestClickedPoint;
+    protected AbstractScreen screen;
+    protected Point2D latestClickedPoint;
 
     public AbstractScreenAction(AbstractScreen screen) {
         this.screen = screen;
     }
 
-    private void zoom(MouseWheelEvent e) {
+    protected void zoom(MouseWheelEvent e) {
         double zoom = Math.pow(1.5, -e.getWheelRotation());
         screen.getTransform().zoom(zoom);
         screen.repaint();
     }
 
-    private void translate(MouseEvent e) {
+    protected void translate(MouseEvent e) {
         double scale = screen.getTransform().getScale();
         Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
@@ -43,7 +43,7 @@ public abstract class AbstractScreenAction
         screen.repaint();
     }
 
-    private void rotate(MouseWheelEvent e) {
+    protected void rotate(MouseWheelEvent e) {
         double moved = e.getWheelRotation();
         double theta = Math.PI / 8 * ((moved) % 8);
         screen.getTransform().rotate(theta);

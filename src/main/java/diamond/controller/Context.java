@@ -13,8 +13,9 @@ import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.CpBuilder;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.fold.Folder;
+import diamond.view.ui.panel.East;
+import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.FoldedScreen;
-import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
@@ -29,8 +30,8 @@ public class Context {
     private CyborgPicker picker = new CyborgPicker();
     private CyborgPointer pointer = new CyborgPointer();
 
-    private PaintScreen paintScreen;
     private FoldedScreen foldedScreen;
+    private East east;
 
     public void initialize() {
         picker.clear();
@@ -67,7 +68,7 @@ public class Context {
     }
 
     public void repaint() {
-        paintScreen.repaint();
+        getPaintScreen().repaint();
         foldedScreen.repaint();
     }
 
@@ -80,12 +81,16 @@ public class Context {
         this.palette = palette;
     }
 
-    public PaintScreen getPaintScreen() {
-        return this.paintScreen;
+    public AbstractScreen getPaintScreen() {
+        return east.getPaintScreen();
     }
 
-    public void setPaintScreen(PaintScreen paintScreen) {
-        this.paintScreen = paintScreen;
+    public void setPaintScreen(String screenName) {
+        east.setPaintScreen(screenName);
+    }
+
+    public void setEast(East east) {
+        this.east = east;
     }
 
     public FoldedScreen getFoldedScreen() {

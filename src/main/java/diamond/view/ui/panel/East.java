@@ -5,6 +5,8 @@
 package diamond.view.ui.panel;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
@@ -14,6 +16,8 @@ import diamond.view.ui.button.CpDestroy;
 import diamond.view.ui.button.CpInsert;
 import diamond.view.ui.button.CpJump;
 import diamond.view.ui.button.CpSwitch;
+import diamond.view.ui.screen.AbstractScreen;
+import diamond.view.ui.screen.OffsetScreen;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -23,17 +27,49 @@ import diamond.view.ui.screen.PaintScreen;
 public class East extends JPanel {
     private JPanel north = new JPanel();
     private JPanel south = new JPanel();
-    private JPanel center;
+    private JPanel paintPanel = new JPanel();
+    private PaintScreen paintScreen;
+    private OffsetScreen offsetScreen;
+    private CardLayout layout = new CardLayout();
 
     public East(Context context) {
-        this.center = new PaintScreen(context);
+        context.setEast(this);
         setLayout(new BorderLayout());
         buildNorth(context);
         buildSouth(context);
+        buildCenter(context);
 
         add(north, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
-        add(center, BorderLayout.CENTER);
+        add(paintPanel, BorderLayout.CENTER);
+    }
+
+    private void buildCenter(Context context) {
+        paintScreen = new PaintScreen(context);
+        offsetScreen = new OffsetScreen(context);
+        paintPanel.setLayout(layout);
+        paintPanel.add(offsetScreen, "offset");
+        paintPanel.add(paintScreen, "paint");
+        layout.show(paintPanel, "paint");
+    }
+
+    public void setPaintScreen(String screenName) {
+        layout.show(paintPanel, screenName);
+    }
+
+    public AbstractScreen getPaintScreen() {
+        for (Component c : paintPanel.getComponents()) {
+            if (!c.isVisible()) {
+                continue;
+            }
+            if (c == paintScreen) {
+                return paintScreen;
+            }
+            if (c == offsetScreen) {
+                return offsetScreen;
+            }
+        }
+        return paintScreen;
     }
 
     private void buildNorth(Context context) {

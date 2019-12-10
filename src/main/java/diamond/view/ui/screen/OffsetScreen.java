@@ -8,24 +8,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.controller.action.PaintScreenAction;
-import diamond.view.ui.screen.draw.PaintScreenDrawer;
+import diamond.controller.action.OffsetScreenAction;
+import diamond.view.ui.screen.draw.OffsetScreenDrawer;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PaintScreen extends AbstractScreen {
+public class OffsetScreen extends AbstractScreen {
     private Context context;
 
-    protected PaintScreen() {
-    }
-
-    public PaintScreen(Context context) {
-        super();
+    public OffsetScreen(Context context) {
         this.context = context;
-        PaintScreenAction screenAction = new PaintScreenAction(context, this);
+        OffsetScreenAction screenAction = new OffsetScreenAction(context, this);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
@@ -37,16 +33,8 @@ public class PaintScreen extends AbstractScreen {
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d, Skin.BG_PAINT_SCREEN);
         transform.resize(getWidth(), getHeight());
+        OffsetScreenDrawer.draw(g2d, context);
         g2d.setTransform(transform);
-        PaintScreenDrawer.draw(g2d, context.getCp());
-        PaintScreenDrawer.draw(g2d, context);
         context.getFoldedScreen().repaint();
     }
-
-    public void reset() {
-        transform.resize(getWidth(), getHeight());
-        transform.zoom(1.0);
-        transform.translate(.0, .0);
-    }
-
 }

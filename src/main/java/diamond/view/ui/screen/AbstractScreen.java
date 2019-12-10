@@ -49,6 +49,7 @@ public abstract class AbstractScreen extends JPanel
 
     @Override
     public void componentShown(ComponentEvent e) {
+        repaint();
     }
 
     @Override

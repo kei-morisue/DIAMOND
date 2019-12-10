@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import diamond.controller.Context;
 import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.VertexAddAction;
+import diamond.controller.action.VertexOffsetAction;
 import diamond.controller.action.VertexRemoveAction;
 import diamond.view.ui.button.PaintActionButton;
 
@@ -28,7 +29,7 @@ public class TabManageVertices extends AbstractTab {
         PaintActionButton buttonAuto = new PaintActionButton(context,
                 new LazyPaintAction());//TODO
         PaintActionButton buttonOffset = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new VertexOffsetAction());
 
         addButton(buttonGroup, buttonAdd, "add_v");
         addButton(buttonGroup, buttonDelete, "delete_v");
