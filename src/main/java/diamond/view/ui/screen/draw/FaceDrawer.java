@@ -4,8 +4,13 @@
  */
 package diamond.view.ui.screen.draw;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.TexturePaint;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import diamond.model.cyborg.Face;
@@ -55,5 +60,22 @@ public class FaceDrawer {
         }
         outline.closePath();
         return outline;
+    }
+
+    private static final int size0 = 10;
+    private static final int size1 = size0 >> 1;
+
+    public static TexturePaint getIchimatsu() {
+        BufferedImage bi = new BufferedImage(size0, size0,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D bg = bi.createGraphics();
+        Rectangle r = new Rectangle(0, 0, size0, size0);
+        bg.setColor(Color.white);
+        bg.fillRect(0, 0, size1, size1);
+        bg.fillRect(size1, size1, size1, size1);
+        bg.setColor(Color.gray);
+        bg.fillRect(size1, 0, size1, size1);
+        bg.fillRect(0, size1, size1, size1);
+        return new TexturePaint(bi, r);
     }
 }

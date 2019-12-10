@@ -10,7 +10,8 @@ import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
 import diamond.controller.action.FaceBaseAction;
-import diamond.controller.action.LazyPaintAction;
+import diamond.controller.action.FaceDisableAction;
+import diamond.controller.action.FaceSwapAction;
 import diamond.view.ui.button.PaintActionButton;
 
 /**
@@ -23,9 +24,9 @@ public class TabManageFaces extends AbstractTab {
         PaintActionButton base = new PaintActionButton(context,
                 new FaceBaseAction());
         PaintActionButton hide = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new FaceDisableAction());
         PaintActionButton swap = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new FaceSwapAction());
 
         addButton(buttonGroup, base, "base_face");
         addButton(buttonGroup, hide, "hide");

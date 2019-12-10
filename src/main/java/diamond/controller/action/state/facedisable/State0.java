@@ -2,13 +2,14 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller.action.state.facebase;
+package diamond.controller.action.state.facedisable;
 
 import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.FacePickingState;
 import diamond.model.cyborg.Face;
+import diamond.model.cyborg.FaceProperty;
 
 /**
  * @author Kei Morisue
@@ -34,7 +35,8 @@ public class State0 extends FacePickingState {
             return;
         }
         Face face = faces.get(0);
-        context.getCp().setBaseFace(face);
+        FaceProperty property = face.getProperty();
+        property.setDisabled(!property.isDisabled());
         context.fold();
         context.initialize();
     }

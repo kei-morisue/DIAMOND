@@ -26,6 +26,10 @@ public class Face implements Cyborg {
     public Face() {
     }
 
+    public Face(Face face) {
+        property.setDisabled(face.getProperty().isDisabled());
+    }
+
     public void initialize() {
         faceFront = false;
         transform = null;
@@ -100,6 +104,7 @@ public class Face implements Cyborg {
         return property;
     }
 
+    @Deprecated
     public void setProperty(FaceProperty property) {
         this.property = property;
     }

@@ -14,6 +14,7 @@ import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.util.PerpendicularUtil;
 import diamond.model.cyborg.util.Point2DUtil;
+import diamond.view.ui.screen.G2DUtil;
 import diamond.view.ui.screen.draw.PaintScreenDrawer;;
 
 /**
@@ -36,7 +37,7 @@ public class VertexAddAction extends AbstractPaintAction {
             Double foot = PerpendicularUtil.foot(p, v0, v1);
             Vertex vertex = new Vertex(foot);
             vertex.getProperty().isPointed = true;
-            PaintScreenDrawer.draw(g2d, vertex);
+            PaintScreenDrawer.draw(g2d, vertex, G2DUtil.getScale(g2d));
         }
     }
 

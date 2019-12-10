@@ -53,7 +53,7 @@ public class CyborgPicker {
         } else {
             halfEdges.lastElement().getProperty().isPicked = false;
         }
-        vertices.pop();
+        halfEdges.pop();
     }
 
     public void popFace() {
@@ -62,7 +62,7 @@ public class CyborgPicker {
         } else {
             faces.lastElement().getProperty().isPicked = false;
         }
-        vertices.pop();
+        faces.pop();
     }
 
     public void push(Vertex v) {

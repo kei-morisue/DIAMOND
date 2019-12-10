@@ -25,7 +25,7 @@ public class Cp {
     private HashMap<Face, Symbol<Face>> symbolsFace = new HashMap<Face, Symbol<Face>>();
 
     public Face getBaseFace() {
-        if (baseFace == null) {
+        if (baseFace == null || !faces.contains(baseFace)) {
             return faces.get(0);
         }
         return baseFace;

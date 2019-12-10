@@ -14,6 +14,7 @@ import java.util.Stack;
 import diamond.controller.Context;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
+import diamond.model.cyborg.FaceProperty;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.util.CenterPointUtil;
@@ -29,14 +30,15 @@ import diamond.view.ui.screen.style.VertexStyle;
  */
 public class PaintScreenDrawer {
     public static void draw(Graphics2D g2d, Cp cp) {
+        double scale = G2DUtil.getScale(g2d);
         for (Face face : cp.getFaces()) {
-            draw(g2d, face);
+            draw(g2d, face, scale);
         }
         for (HalfEdge he : cp.getHalfEdges()) {//TODO
-            draw(g2d, he);
+            draw(g2d, he, scale);
         }
         for (Vertex v : cp.getVertices()) {//TODO
-            draw(g2d, v);
+            draw(g2d, v, scale);
         }
         for (Symbol<Face> symbol : cp.getSymbolsFace().values()) {
             symbol.drawCp(g2d);
@@ -47,21 +49,25 @@ public class PaintScreenDrawer {
         for (Symbol<Vertex> symbol : cp.getSymbolsVertex().values()) {
             symbol.drawCp(g2d);
         }
-        drawBase(g2d, cp);
+        drawBase(g2d, cp, scale);
     }
 
-    public static void draw(Graphics2D g2d, Vertex v) {
-        double size = VertexStyle.getSize(v) / G2DUtil.getScale(g2d);
+    public static void draw(Graphics2D g2d, Vertex v, double scale) {
+        double size = VertexStyle.getSize(v) / scale;
         g2d.setColor(VertexStyle.getColor(v));
         g2d.fill(VertexDrawer.buildVertex(v, size));
     }
 
-    public static void draw(Graphics2D g2d, Face f) {
+    public static void draw(Graphics2D g2d, Face f, double scale) {
         g2d.setColor(FaceStyle.getCpColor(f));
+        FaceProperty property = f.getProperty();
+        if (property.isDisabled() && !property.isColored()) {
+            g2d.setPaint(FaceDrawer.getIchimatsu());
+        }
         g2d.fill(FaceDrawer.buildOutline(f, FaceStyle.CP_FACE_SCALE));
     }
 
-    public static void draw(Graphics2D g2d, HalfEdge he) {
+    public static void draw(Graphics2D g2d, HalfEdge he, double scale) {
         if (!he.getProperty().isDisabled()) {
             g2d.setColor(HalfEdgeStyle.getCpColor(he));
             g2d.setStroke(HalfEdgeStyle.getCpStroke(he.getType()));
@@ -73,16 +79,16 @@ public class PaintScreenDrawer {
         context.getPaintAction().onDraw(g2d, context);
     }
 
-    private static void drawBase(Graphics2D g2d, Cp cp) {
+    private static void drawBase(Graphics2D g2d, Cp cp, double scale) {
         Face baseFace = cp.getBaseFace();
         Double p = CenterPointUtil.get(baseFace);
-        drawRedCross(g2d, p.x, p.y);
+        drawRedCross(g2d, p.x, p.y, scale);
     }
 
     private static void drawRedCross(
-            Graphics2D g2d, double x, double y) {
+            Graphics2D g2d, double x, double y, double scale) {
         g2d.setColor(Color.red);
-        double size = 2.0 / G2DUtil.getScale(g2d);
+        double size = 2.0 / scale;
         double w = 6.0 * size;
         double h = 2.0 * size;
         double halfW = 3.0 * size;

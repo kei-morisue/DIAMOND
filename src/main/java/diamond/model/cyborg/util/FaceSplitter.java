@@ -20,8 +20,8 @@ public class FaceSplitter {
             HalfEdge h1) {
         face.remove(splitter);
         splitter.settle();
-        Face f0 = new Face();
-        Face f1 = new Face();
+        Face f0 = new Face(face);
+        Face f1 = new Face(face);
         Vertex v0 = splitter.getV0();
         Vertex v1 = splitter.getV1();
         open(f0, splitter, h0);

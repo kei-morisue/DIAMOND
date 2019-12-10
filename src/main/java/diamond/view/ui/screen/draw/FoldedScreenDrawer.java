@@ -24,8 +24,11 @@ import diamond.view.ui.screen.style.VertexStyle;
  */
 public class FoldedScreenDrawer {
     public static void draw(Graphics2D g2d, Cp cp) {
-        float scale = (float) G2DUtil.getScale(g2d);
+        double scale = G2DUtil.getScale(g2d);
         for (Face face : cp.getFaces()) {
+            if (face.getProperty().isDisabled()) {
+                continue;
+            }
             draw(g2d, face);
             for (HalfEdge he : face.getHalfEdges()) {
                 draw(g2d, he, scale);
@@ -48,7 +51,7 @@ public class FoldedScreenDrawer {
         }
     }
 
-    public static void draw(Graphics2D g2d, Vertex v, float scale) {
+    public static void draw(Graphics2D g2d, Vertex v, double scale) {
         if (v.getProperty().isColored()) {
             double size = VertexStyle.getSize(v) / scale;
             g2d.setColor(VertexStyle.getColor(v));
@@ -56,17 +59,19 @@ public class FoldedScreenDrawer {
         }
     }
 
-    public static void draw(Graphics2D g2d, HalfEdge he, float scale) {
+    public static void draw(Graphics2D g2d, HalfEdge he, double scale) {
         g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
-        g2d.setStroke(HalfEdgeStyle.getFoldedStroke(he.getType(), scale));
+        g2d.setStroke(
+                HalfEdgeStyle.getFoldedStroke(he.getType(), (float) scale));
         g2d.draw(HalfEdgeDrawer.buildFoldedLine(he));
     }
 
-    public static void drawUnsettled(Graphics2D g2d, HalfEdge he, float scale) {
+    public static void drawUnsettled(Graphics2D g2d, HalfEdge he,
+            double scale) {
         if (!he.getProperty().isDisabled()) {
             g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
             EdgeType type = he.getType();
-            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type, scale));
+            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type, (float) scale));
             if (type == EdgeType.CREASE) {
                 g2d.draw(
                         HalfEdgeDrawer.buildFoldedLine(he,
@@ -79,10 +84,8 @@ public class FoldedScreenDrawer {
     }
 
     public static void draw(Graphics2D g2d, Face f) {
-        if (!f.getProperty().isDisabled()) {
-            g2d.setColor(FaceStyle.getFoldedColor(f));
-            g2d.fill(FaceDrawer.buildFoldedOutline(f));
-        }
+        g2d.setColor(FaceStyle.getFoldedColor(f));
+        g2d.fill(FaceDrawer.buildFoldedOutline(f));
     }
 
     public static void draw(Graphics2D g2d, Context context) {
