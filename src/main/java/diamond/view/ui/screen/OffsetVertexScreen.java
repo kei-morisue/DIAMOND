@@ -20,6 +20,6 @@ public final class OffsetVertexScreen extends AbstractOffsetScreen {
 
     @Override
     public Double getCenterPoint(Context context) {
-        return context.getPicker().getVertices().get(0);
+        return context.getPicker().getVertices().get(0).getFolded();
     }
 }

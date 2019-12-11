@@ -5,6 +5,7 @@
 package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 import diamond.Config;
 import diamond.model.cyborg.Face;
@@ -36,6 +37,12 @@ public class FaceUtil {
         }
         return Math.abs(Math.sin(sumAngle)) < Config.EPSILON_RADIAN &&
                 Math.abs(Math.cos(sumAngle) - 1.0) < Config.EPSILON_RADIAN;
+    }
+
+    public static void insert(List<Face> faces, Face f0, Face f1) {
+        faces.remove(f0);
+        int i1 = faces.indexOf(f1);
+        faces.add(i1, f0);
     }
 
 }

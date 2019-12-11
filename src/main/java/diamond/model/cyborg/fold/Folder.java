@@ -6,12 +6,14 @@ package diamond.model.cyborg.fold;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.List;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.FaceUtil;
 import diamond.model.math.Kawasaki;
 import diamond.model.math.Maekawa;
 
@@ -28,7 +30,7 @@ public class Folder {
         fold(face, new AffineTransform());
         face.setFaceFront(false);
         for (HalfEdge he : face.getHalfEdges()) {
-            setAffine(face.getTransform(), he);
+            setAffine(face.getTransform(), he, cp.getFaces());
         }
         validate(cp);
     }
@@ -42,26 +44,45 @@ public class Folder {
     }
 
     public static void setAffine(AffineTransform accumulatedTransform,
-            HalfEdge he) {
-        Face face = he.getPair().getFace();
-        if (face == null) {
+            HalfEdge he, List<Face> faces) {
+        Face f1 = he.getPair().getFace();
+        if (f1 == null) {
             return;
         }
-        if (face.getTransform() != null || he.getPair().getNext() == null) {
+        if (f1.getTransform() != null || he.getPair().getNext() == null) {
             return;
         }
-        if (he.getType() != EdgeType.CUT) {
-            face.setFaceFront(!he.getFace().isFaceFront());
-            fold(face,
-                    createFlipTransform(he.getPair(), accumulatedTransform));
-        } else {
-            face.setFaceFront(he.getFace().isFaceFront());
-            fold(face, accumulatedTransform);
-        }
-        for (HalfEdge walkHe : face.getHalfEdges()) {
-            setAffine(face.getTransform(), walkHe);
+        Face f0 = he.getFace();
+        EdgeType type = he.getType();
+        boolean dir0 = f0.isFaceFront();
+        f1.setFaceFront(!dir0);
+        fold(f1, createFlipTransform(he.getPair(), accumulatedTransform));
+
+        swapFaces(faces, f1, f0, type, dir0);
+
+        for (HalfEdge walkHe : f1.getHalfEdges()) {
+            setAffine(f1.getTransform(), walkHe, faces);
         }
 
+    }
+
+    private static void swapFaces(List<Face> faces, Face f1, Face f0,
+            EdgeType type, boolean dir0) {
+        int i = faces.indexOf(f0);
+        int j = faces.indexOf(f1);
+        if (type == EdgeType.MOUNTAIN) {
+            if (j < i && !dir0) {
+                FaceUtil.insert(faces, f1, f0);
+            } else if (i < j && dir0) {
+                FaceUtil.insert(faces, f0, f1);
+            }
+        } else if (type == EdgeType.VALLEY) {
+            if (j < i && !dir0) {
+                FaceUtil.insert(faces, f0, f1);
+            } else if (i < j && dir0) {
+                FaceUtil.insert(faces, f1, f0);
+            }
+        }
     }
 
     public static AffineTransform createFlipTransform(HalfEdge he,
