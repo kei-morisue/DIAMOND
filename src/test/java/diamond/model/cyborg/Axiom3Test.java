@@ -6,6 +6,8 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.Axiom1Action;
@@ -70,6 +72,9 @@ public class Axiom3Test extends AbstractPaintActionTest {
     @Test
     public void Step0() {
         line0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(1, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 5, 2);
@@ -83,6 +88,9 @@ public class Axiom3Test extends AbstractPaintActionTest {
         line2();
         line3();
         line4();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(2, faces.size());
         TestUtil.validate(cp, 9);
         TestUtil.validate(cp, l * x, .0, 3, false);

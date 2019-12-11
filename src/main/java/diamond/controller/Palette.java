@@ -7,6 +7,8 @@ package diamond.controller;
 import java.util.Vector;
 
 import diamond.model.cyborg.Cp;
+import diamond.model.cyborg.fold.Folder;
+import diamond.model.cyborg.util.CpBuilder;
 import diamond.view.ui.screen.style.FaceStyle;
 import diamond.view.ui.screen.style.HalfEdgeStyle;
 
@@ -21,6 +23,8 @@ public class Palette {
 
     public Palette() {
         Cp cp = new Cp();
+        CpBuilder.buildSquare(cp);
+        Folder.fold(cp);
         cps.add(cp);
     }
 

@@ -7,7 +7,6 @@ package diamond.model.cyborg.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import diamond.Config;
 import diamond.controller.Context;
@@ -27,7 +26,8 @@ import diamond.view.ui.screen.ScreenTransform;
  *
  */
 public class CpBuilder {
-    public static void buildSquare(LinkedList<Face> faces) {
+    public static void buildSquare(Cp cp) {
+
         double size = Config.PAPER_SIZE;
         Vertex v0 = new Vertex(size, size);
         Vertex v1 = new Vertex(-size, size);
@@ -40,7 +40,7 @@ public class CpBuilder {
         HalfEdge he3 = new HalfEdge(v3, v0, EdgeType.CUT);
 
         Face f0 = new Face();
-        faces.add(f0);
+        cp.getFaces().add(f0);
         f0.add(he0);
         f0.add(he1);
         f0.add(he2);
@@ -59,11 +59,18 @@ public class CpBuilder {
     }
 
     public static Cp buildNext(Context context, Cp cp0) {
-        Cp cp1 = new Cp();
-        copyFaces(cp0, cp1);
+        Cp cp1 = copyCp(cp0);
         HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = cp0
                 .getSymbolsHalfEdge();
-        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(cp0.getHalfEdges());
+        //settleCp(cp1, symbolsHalfEdge, copy);
+        Folder.fold(cp1);
+        reverse(cp1, symbolsHalfEdge);
+        return cp1;
+    }
+
+    private static void settleCp(Cp cp,
+            HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
+        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(cp.getHalfEdges());
         while (!copy.isEmpty()) {
             HalfEdge he = copy.get(0);
             if (!EdgeType.isSettled(he.getType())) {
@@ -75,30 +82,68 @@ public class CpBuilder {
                         continue;
                     }
                 }
-                if (HalfEdgeModifier.settle(cp1, he)) {
+                if (HalfEdgeModifier.settle(cp, he)) {
                     //TODO
                 }
             }
         }
-        Folder.fold(cp1);
-        reverse(cp1, symbolsHalfEdge);
-        return cp1;//TODO
     }
 
-    private static void copyFaces(Cp cp0, Cp cp1) {
+    private static Cp copyCp(Cp cp0) {
+        Cp cp1 = new Cp();
         cp1.setTransform(new ScreenTransform(cp0.getTransform()));
-        for (Face face : cp0.getFaces()) {
-            Face f1 = new Face(face);
+        HashMap<Vertex, Vertex> vMap = new HashMap<Vertex, Vertex>();
+        for (Face f0 : cp0.getFaces()) {
+            Face f1 = buildFace(vMap, f0);
             cp1.add(f1);
-            for (HalfEdge he : face.getHalfEdges()) {
-                f1.add(new HalfEdge(he.getV0(), he.getV1(), he.getType()));
+            if (f0 == cp0.getBaseFace()) {
+                cp1.setBaseFace(f1);
             }
-            for (HalfEdge he : face.getUnsettledLines()) {
-                f1.add(new HalfEdge(he.getV0(), he.getV1(), he.getType()));
-            }
-            if (face == cp0.getBaseFace()) {
-                cp1.setBaseFace(face);
-            }
+        }
+        return cp1;
+    }
+
+    private static Face buildFace(HashMap<Vertex, Vertex> vMap, Face f0) {
+        Face f1 = new Face();
+        for (HalfEdge he : f0.getUnsettledLines()) {
+            HalfEdge he1 = buildHalfEdge(vMap, he);
+            f1.add(he1);
+        }
+        ArrayList<HalfEdge> halfEdges = new ArrayList<HalfEdge>();
+        for (HalfEdge he : f0.getHalfEdges()) {
+            HalfEdge he1 = buildHalfEdge(vMap, he);
+            f1.add(he1);
+            halfEdges.add(he1);
+        }
+        int size = halfEdges.size();
+        for (int i = 0; i < size; i++) {
+            halfEdges.get(i).connectTo(halfEdges.get((i - 1 + size) % (size)));
+            halfEdges.get((i + 1) % (size)).connectTo(halfEdges.get(i));
+        }
+        return f1;
+    }
+
+    private static HalfEdge buildHalfEdge(HashMap<Vertex, Vertex> vMap,
+            HalfEdge he) {
+        Vertex v0 = buildVertex(vMap, he.getV0());
+        Vertex v1 = buildVertex(vMap, he.getV1());
+        HalfEdge he1;
+        if (v0.getConnection(v1) == null) {
+            he1 = new HalfEdge(v0, v1, he.getType());
+        } else {
+            he1 = v0.getConnection(v1);
+        }
+        return he1;
+    }
+
+    private static Vertex buildVertex(HashMap<Vertex, Vertex> vMap, Vertex v) {
+        if (!vMap.containsKey(v)) {
+            Vertex v0 = new Vertex(v);
+            vMap.put(v, v0);
+            return v0;
+
+        } else {
+            return vMap.get(v);
         }
     }
 

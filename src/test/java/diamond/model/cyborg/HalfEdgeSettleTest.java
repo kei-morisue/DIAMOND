@@ -6,6 +6,8 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.Axiom1Action;
@@ -59,6 +61,9 @@ public class HalfEdgeSettleTest extends AbstractPaintActionTest {
         line0();
         context.setPaintAction(new HalfEdgeSettleAction());
         select0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(2, faces.size());
         TestUtil.validate(faces.get(0), 3, 0);
         TestUtil.validate(faces.get(1), 3, 0);
@@ -73,6 +78,9 @@ public class HalfEdgeSettleTest extends AbstractPaintActionTest {
         line1();
         context.setPaintAction(new HalfEdgeSettleAction());
         select1();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(1, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 6, 6);
@@ -98,6 +106,9 @@ public class HalfEdgeSettleTest extends AbstractPaintActionTest {
         context.setPaintAction(new HalfEdgeSettleAction());
         select1();
         select3();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(2, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 4, 2);
@@ -113,6 +124,9 @@ public class HalfEdgeSettleTest extends AbstractPaintActionTest {
         select2();
         select3();
         select4();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(4, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 3, 0);
@@ -146,6 +160,9 @@ public class HalfEdgeSettleTest extends AbstractPaintActionTest {
         select0();
         context.setPaintAction(new Axiom1Action());
         line1();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         assertEquals(2, faces.size());
         TestUtil.validate(cp, 5);
         TestUtil.validate(cp, 0, 0, 4, false);

@@ -4,8 +4,6 @@
  */
 package diamond.model.cyborg;
 
-import java.util.LinkedList;
-
 import diamond.Config;
 import diamond.controller.Context;
 import diamond.view.ui.panel.East;
@@ -17,8 +15,6 @@ import diamond.view.ui.screen.FoldedScreen;
  */
 public abstract class AbstractPaintActionTest {
     protected Context context = new Context();
-    protected Cp cp = context.getCp();
-    protected LinkedList<Face> faces = cp.getFaces();
     protected static final double l = Config.PAPER_SIZE;
 
     protected AbstractPaintActionTest() {

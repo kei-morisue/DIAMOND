@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.Axiom1Action;
@@ -48,6 +50,9 @@ public class HalfEdgeRemoveTest extends AbstractPaintActionTest {
     public void Step0() {
         line0();
         select0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         TestUtil.validate(cp, 4);
         TestUtil.validate(faces.get(0), 4, 0);
     }
@@ -56,6 +61,9 @@ public class HalfEdgeRemoveTest extends AbstractPaintActionTest {
     public void Step1() {
         line1();
         select1();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         TestUtil.validate(cp, 4);
         TestUtil.validate(faces.get(0), 4, 0);
     }

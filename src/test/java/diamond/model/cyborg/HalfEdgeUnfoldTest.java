@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.Axiom1Action;
@@ -37,6 +39,9 @@ public class HalfEdgeUnfoldTest extends AbstractPaintActionTest {
         line0();
         context.setPaintAction(new HalfEdgeUnfoldAction());
         select0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
 
         context.setPaintAction(new HalfEdgeUnfoldAction());

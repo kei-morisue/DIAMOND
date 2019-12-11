@@ -6,6 +6,8 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.SymbolVertexPaintAction;
@@ -28,6 +30,9 @@ public class SymbolTest extends AbstractPaintActionTest {
     @Test
     public void landmark() {
         context.setPaintAction(new SymbolVertexPaintAction(Landmark.class));
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         v0();
         assertEquals(1, cp.getSymbolsVertex().size());
         v0();

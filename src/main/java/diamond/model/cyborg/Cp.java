@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import diamond.model.cyborg.fold.Folder;
-import diamond.model.cyborg.util.CpBuilder;
 import diamond.model.symbol.Symbol;
 import diamond.view.ui.screen.ScreenTransform;
 
@@ -37,8 +35,6 @@ public class Cp {
     }
 
     public Cp() {
-        CpBuilder.buildSquare(faces);
-        Folder.fold(this);
     }
 
     @Deprecated

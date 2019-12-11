@@ -6,6 +6,8 @@ package diamond.model.cyborg;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.Axiom1Action;
@@ -62,6 +64,8 @@ public class Axiom1Test extends AbstractPaintActionTest {
     @Test
     public void Step0() {
         line0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 4, 2);
         TestUtil.validate(cp, 4);
@@ -71,6 +75,8 @@ public class Axiom1Test extends AbstractPaintActionTest {
     public void Step1() {
         line0();
         line1();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 4, 8);
         TestUtil.validate(cp, .0, .0, 4, false);
@@ -81,6 +87,8 @@ public class Axiom1Test extends AbstractPaintActionTest {
     @Test
     public void step2() {
         line2();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
         TestUtil.validate(cp, 4);
         assertEquals(1, faces.size());
         TestUtil.validate(faces.get(0), 4, 0);
@@ -89,6 +97,8 @@ public class Axiom1Test extends AbstractPaintActionTest {
     @Test
     public void step3() {
         line34567();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
         TestUtil.validate(cp, 9);
         assertEquals(1, faces.size());
         TestUtil.validate(cp, -l * 0.5, .0, 5, false);

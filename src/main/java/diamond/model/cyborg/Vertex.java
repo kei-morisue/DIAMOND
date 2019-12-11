@@ -30,6 +30,11 @@ public class Vertex extends Point2D.Double implements Cyborg {
         super(p.x, p.y);
     }
 
+    public Vertex(Vertex vertex) {
+        super(vertex.x, vertex.y);
+        this.offset = vertex.offset;
+    }
+
     public Point2D.Double getFoldedOffset() {
         return Point2DUtil.add(folded, offset);
     }
@@ -49,6 +54,15 @@ public class Vertex extends Point2D.Double implements Cyborg {
 
     public void remove(HalfEdge he) {
         halfEdges.remove(he);
+    }
+
+    public HalfEdge getConnection(Vertex v) {
+        for (HalfEdge he : halfEdges) {
+            if (v == he.getV1()) {
+                return he;
+            }
+        }
+        return null;
     }
 
     public boolean isVertex() {

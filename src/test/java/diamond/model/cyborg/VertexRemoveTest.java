@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import diamond.controller.action.VertexAddAction;
@@ -44,6 +46,9 @@ public class VertexRemoveTest extends AbstractPaintActionTest {
     @Test
     public void Step0() {
         v0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 5, 0);
         TestUtil.validate(cp, 42.0, l, 2, false);
@@ -57,6 +62,9 @@ public class VertexRemoveTest extends AbstractPaintActionTest {
     @Test
     public void Step1() {
         v1();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         TestUtil.validate(cp, 5);
         TestUtil.validate(faces.get(0), 5, 0);
         TestUtil.validate(cp, -l, s, 2, false);

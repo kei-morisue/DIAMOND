@@ -7,6 +7,7 @@ package diamond.model.cyborg;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Point2D.Double;
+import java.util.LinkedList;
 
 import org.junit.Test;
 
@@ -42,6 +43,9 @@ public class FoldTest extends AbstractPaintActionTest {
         line0();
         context.setPaintAction(new HalfEdgeSettleAction());
         select0();
+        Cp cp = context.getCp();
+        LinkedList<Face> faces = cp.getFaces();
+
         Face f0 = faces.get(0);
         Face f1 = faces.get(1);
         if (f0 == cp.getBaseFace()) {
