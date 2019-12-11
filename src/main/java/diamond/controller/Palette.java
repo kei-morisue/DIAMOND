@@ -22,8 +22,7 @@ public class Palette {
     private HalfEdgeStyle halfEdgeStyle = new HalfEdgeStyle();
 
     public Palette() {
-        Cp cp = new Cp();
-        CpBuilder.buildSquare(cp);
+        Cp cp = CpBuilder.buildSquare();
         Folder.fold(cp);
         cps.add(cp);
     }

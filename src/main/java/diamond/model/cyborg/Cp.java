@@ -83,6 +83,19 @@ public class Cp {
         return halfEdges;
     }
 
+    @Deprecated
+    public HashSet<HalfEdge> getUnsettlEdges() {
+        HashSet<HalfEdge> halfEdges = new HashSet<HalfEdge>();
+        for (Face face : faces) {
+            for (HalfEdge he : face.getUnsettledLines()) {
+                if (!he.getProperty().isDisabled()) {
+                    halfEdges.add(he);
+                }
+            }
+        }
+        return halfEdges;
+    }
+
     public ScreenTransform getTransform() {
         return transform;
     }

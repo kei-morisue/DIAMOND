@@ -16,6 +16,7 @@ import diamond.model.cyborg.util.CpBuilder;
 import diamond.view.ui.panel.East;
 import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.FoldedScreen;
+import diamond.view.ui.screen.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -150,6 +151,6 @@ public class Context {
 
     public void saveTransform() {
         Cp cp = getCp();
-        cp.setTransform(foldedScreen.getTransform());
+        cp.setTransform(new ScreenTransform(foldedScreen.getTransform()));
     }
 }

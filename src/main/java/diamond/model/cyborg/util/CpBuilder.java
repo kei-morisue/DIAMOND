@@ -26,8 +26,8 @@ import diamond.view.ui.screen.ScreenTransform;
  *
  */
 public class CpBuilder {
-    public static void buildSquare(Cp cp) {
-
+    public static Cp buildSquare() {
+        Cp cp = new Cp();
         double size = Config.PAPER_SIZE;
         Vertex v0 = new Vertex(size, size);
         Vertex v1 = new Vertex(-size, size);
@@ -55,26 +55,36 @@ public class CpBuilder {
         he3.getPair().connectTo(he2.getPair());
         he2.getPair().connectTo(he1.getPair());
         he1.getPair().connectTo(he0.getPair());
-
+        return cp;
     }
 
     public static Cp buildNext(Context context, Cp cp0) {
         Cp cp1 = copyCp(cp0);
         HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = cp0
                 .getSymbolsHalfEdge();
-        //settleCp(cp1, symbolsHalfEdge, copy);
+        settleCp(cp1);
+        if (reverse(cp1, symbolsHalfEdge)) {
+            return cp1;
+        }
         Folder.fold(cp1);
-        reverse(cp1, symbolsHalfEdge);
+        cp1.getSymbolsHalfEdge().clear();
         return cp1;
     }
 
-    private static void settleCp(Cp cp,
-            HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
-        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(cp.getHalfEdges());
+    private static void settleCp(Cp cp) {
+        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(
+                cp.getUnsettlEdges());
+        HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();
+
         while (!copy.isEmpty()) {
             HalfEdge he = copy.get(0);
-            if (!EdgeType.isSettled(he.getType())) {
-                Symbol<HalfEdge> symbol = symbolsHalfEdge.get(he);
+            if (he.getType() == EdgeType.CREASE) {
+                copy.remove(he);
+                continue;
+            }
+            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
+                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
+                Symbol<HalfEdge> symbol = symbols.get(he);
                 if (symbol != null) {
                     if (symbol.getClass() == ArrowFoldUnfold.class) {
                         he.unfold();
@@ -83,6 +93,11 @@ public class CpBuilder {
                     }
                 }
                 if (HalfEdgeModifier.settle(cp, he)) {
+                    copy.remove(he);
+                    //TODO
+                } else {
+                    copy.remove(he);
+                    copy.add(he);
                     //TODO
                 }
             }
@@ -99,6 +114,15 @@ public class CpBuilder {
             if (f0 == cp0.getBaseFace()) {
                 cp1.setBaseFace(f1);
             }
+        }
+        HashMap<HalfEdge, Symbol<HalfEdge>> symbols0 = cp0.getSymbolsHalfEdge();
+        HashMap<HalfEdge, Symbol<HalfEdge>> symbols1 = cp1.getSymbolsHalfEdge();
+        for (HalfEdge he0 : symbols0.keySet()) {
+            Symbol<HalfEdge> symbol0 = symbols0.get(he0);
+            HalfEdge he1 = vMap.get(he0.getV0())
+                    .getConnection(vMap.get(he0.getV1()));
+            symbol0.set(he1);
+            symbols1.put(he1, symbol0);
         }
         return cp1;
     }
@@ -147,13 +171,14 @@ public class CpBuilder {
         }
     }
 
-    private static void reverse(Cp cp,
+    private static boolean reverse(Cp cp,
             HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
         for (Symbol<HalfEdge> symbol : symbolsHalfEdge.values()) {
             if (symbol.getClass() == ArrowFlip.class) {
                 Collections.reverse(cp.getFaces());
-                return;
+                return true;
             }
         }
+        return false;
     }
 }
