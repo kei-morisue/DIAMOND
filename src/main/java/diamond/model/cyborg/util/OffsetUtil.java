@@ -9,7 +9,7 @@ import java.awt.geom.Point2D.Double;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.Vertex;
-import diamond.model.symbol.arrow.AbstractArrow;
+import diamond.model.symbol.Symbol;
 import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.ScreenTransform;
 
@@ -36,20 +36,24 @@ public class OffsetUtil {
                 Point2DUtil.rotate(Point2DUtil.scale(p, 1.0 / scale), -theta));
     }
 
-    public static void setOffset(Context context, AbstractArrow arrow) {
+    public static <T> void setOffset(Context context, Symbol<T> symbol) {
         Double p = getP(context);
         ScreenTransform transform = context.getFoldedScreen().getTransform();
         double theta = transform.getTheta();
         double scale = transform.getScale();
-        arrow.setOffset(
+        symbol.setOffset(
                 Point2DUtil.rotate(Point2DUtil.scale(p, 1.0 / scale), -theta));
     }
 
-    public static void setScale(Context context, AbstractArrow arrow) {
+    public static <T> void setScale(Context context, Symbol<T> symbol) {
         Double p = getP(context);
         ScreenTransform transform = context.getFoldedScreen().getTransform();
         double scale = transform.getScale();
-        arrow.setScale(Point2DUtil.norm(p) / scale);
+        AbstractScreen paintScreen = context.getPaintScreen();
+        int w = paintScreen.getWidth();
+        int h = paintScreen.getHeight();
+        double hypot = Math.hypot(w, h) * 0.5;
+        symbol.setScale(Point2DUtil.norm(p) / scale / hypot);
     }
 
 }

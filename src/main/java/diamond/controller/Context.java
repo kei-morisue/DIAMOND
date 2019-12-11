@@ -10,9 +10,9 @@ import java.util.Vector;
 import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.model.cyborg.Cp;
-import diamond.model.cyborg.CpBuilder;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.fold.Folder;
+import diamond.model.cyborg.util.CpBuilder;
 import diamond.view.ui.panel.East;
 import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.FoldedScreen;
@@ -39,9 +39,8 @@ public class Context {
 
     public Cp getCp() {
         Vector<Cp> cps = palette.getCps();
-        while (currentStep >= cps.size()) {
-            Cp lastCp = cps.get(cps.size() - 1);
-            cps.add(CpBuilder.buildNext(lastCp));
+        if (currentStep >= cps.size()) {
+            return cps.lastElement();
         }
         return cps.get(currentStep);
     }
@@ -51,8 +50,9 @@ public class Context {
     }
 
     public void insertCp() {
+        saveTransform();
         Vector<Cp> cps = palette.getCps();
-        cps.add(currentStep + 1, CpBuilder.buildNext(getCp()));
+        cps.add(currentStep + 1, CpBuilder.buildNext(this, getCp()));
         currentStep += 1;
     }
 

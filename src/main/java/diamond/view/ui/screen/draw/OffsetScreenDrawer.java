@@ -19,19 +19,8 @@ import diamond.view.ui.screen.ScreenTransform;
  *
  */
 public class OffsetScreenDrawer {
-
-    public static void draw(Graphics2D g2d, Context context) {
-        AffineTransform transform = g2d.getTransform();
-        g2d.setTransform(new AffineTransform());
-        int height = G2DUtil.getDimension(g2d).height;
-        int width = G2DUtil.getDimension(g2d).width;
-        setBG(g2d, width, height);
-        drawCrossLines(g2d, height, width);
-        drawFolded(g2d, context);
-        g2d.setTransform(transform);
-    }
-
-    private static void drawFolded(Graphics2D g2d, Context context) {
+    private static void drawFolded(Graphics2D g2d, Context context,
+            Point2D.Double centerPoint) {
         Cp cp = context.getCp();
         ScreenTransform transform = cp.getTransform();
         Rectangle bounds = g2d.getClip().getBounds();
@@ -40,12 +29,21 @@ public class OffsetScreenDrawer {
         ScreenTransform screenTransform = new ScreenTransform(width, height);
         screenTransform.zoom(transform.getScale());
         screenTransform.rotate(transform.getTheta());
-
-        Point2D.Double v = context.getPicker().getVertices().get(0).getFolded();
-
-        screenTransform.translate(-v.x, -v.y);
+        screenTransform.translate(-centerPoint.x, -centerPoint.y);
         g2d.setTransform(screenTransform);
         FoldedScreenDrawer.draw(g2d, cp);
+    }
+
+    public static void draw(Graphics2D g2d, Context context,
+            Point2D.Double centerPoint) {
+        AffineTransform transform = g2d.getTransform();
+        g2d.setTransform(new AffineTransform());
+        int height = G2DUtil.getDimension(g2d).height;
+        int width = G2DUtil.getDimension(g2d).width;
+        setBG(g2d, width, height);
+        drawCrossLines(g2d, height, width);
+        drawFolded(g2d, context, centerPoint);
+        g2d.setTransform(transform);
     }
 
     private static void drawCrossLines(Graphics2D g2d, int height, int width) {
@@ -58,4 +56,5 @@ public class OffsetScreenDrawer {
         g2d.setColor(new Color(255, 255, 255));
         g2d.fillRect(0, 0, width, height);
     }
+
 }

@@ -9,8 +9,9 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
-import diamond.controller.action.LazyPaintAction;
+import diamond.controller.action.SymbolHalfEdgeOffsetAction;
 import diamond.controller.action.SymbolHalfEdgePaintAction;
+import diamond.controller.action.SymbolHalfEdgeScaleAction;
 import diamond.controller.action.SymbolRepeatPaintAction;
 import diamond.controller.action.SymbolVertexPaintAction;
 import diamond.model.symbol.Landmark;
@@ -46,9 +47,9 @@ public class TabPaintSymbols extends AbstractTab {
         PaintActionButton landmark = new PaintActionButton(context,
                 new SymbolVertexPaintAction(Landmark.class));
         PaintActionButton scale = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgeScaleAction());
         PaintActionButton offset = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new SymbolHalfEdgeOffsetAction());
 
         addButton(buttonGroup, valley, "valley_arrow");
         addButton(buttonGroup, mountain, "mountain_arrow");

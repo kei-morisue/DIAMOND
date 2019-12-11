@@ -7,21 +7,20 @@ package diamond.controller.action;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.vertexoffset.State0;;
+import diamond.controller.action.state.symbolheoffset.State0;
 
 /**
  * @author Kei Morisue
  *
  */
-public class VertexOffsetAction extends AbstractPaintAction {
+public class SymbolHalfEdgeOffsetAction extends AbstractPaintAction {
+    @Override
+    public void onDraw(Graphics2D g2d, Context context) {
+    }
 
     @Override
     protected void setInitialState() {
         setActionState(new State0());
-    }
-
-    @Override
-    public void onDraw(Graphics2D g2d, Context context) {
     }
 
 }

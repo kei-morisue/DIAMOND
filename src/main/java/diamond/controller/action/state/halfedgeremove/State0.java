@@ -35,7 +35,7 @@ public class State0 extends HalfEdgePickingState {
             return;
         }
         HalfEdge he = halfEdges.get(0);
-        HalfEdgeRemover.remove(context, he);
+        HalfEdgeRemover.remove(context.getCp(), he);
         context.fold();
         context.initialize();
     }

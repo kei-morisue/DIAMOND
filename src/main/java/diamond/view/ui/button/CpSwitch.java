@@ -55,7 +55,7 @@ public class CpSwitch extends JButton {
             }
             Palette palette = context.getPalette();
             Vector<Cp> cps = palette.getCps();
-            if (cps.size() == currentStep && direction == NEXT) {
+            if (cps.size() - 1 == currentStep && direction == NEXT) {
                 return;
             }
             context.setCurrentStep(currentStep + direction);

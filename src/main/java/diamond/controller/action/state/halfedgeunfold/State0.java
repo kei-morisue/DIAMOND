@@ -44,7 +44,7 @@ public class State0 extends HalfEdgePickingState {
             he.unfold();
             context.fold();
         } else {
-            HalfEdgeModifier.unSettle(context, he);
+            HalfEdgeModifier.unSettle(context.getCp(), he);
             he.unfold();
         }
         context.initialize();

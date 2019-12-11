@@ -24,6 +24,8 @@ public abstract class Symbol<T> {
 
     abstract public void setOffset(Point2D.Double p);
 
+    abstract public void setScale(double scale);
+
     abstract public void setSelected(boolean isSelected);
 
 }

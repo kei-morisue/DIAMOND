@@ -6,6 +6,7 @@ package diamond.view.ui.screen;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 import diamond.controller.Context;
 import diamond.controller.action.OffsetScreenAction;
@@ -17,10 +18,12 @@ import diamond.view.ui.screen.style.Skin;
  * @author Kei Morisue
  *
  */
-public class OffsetScreen extends AbstractScreen {
+public abstract class AbstractOffsetScreen extends AbstractScreen {
     private Context context;
 
-    public OffsetScreen(Context context) {
+    abstract public Point2D.Double getCenterPoint(Context context);
+
+    public AbstractOffsetScreen(Context context) {
         this.context = context;
         OffsetScreenAction screenAction = new OffsetScreenAction(context, this);
         addMouseListener(screenAction);
@@ -35,7 +38,7 @@ public class OffsetScreen extends AbstractScreen {
         drawBackGround(g2d, Skin.BG_PAINT_SCREEN);
         transform.resize(getWidth(), getHeight());
         g2d.setTransform(transform);
-        OffsetScreenDrawer.draw(g2d, context);
+        OffsetScreenDrawer.draw(g2d, context, getCenterPoint(context));
         context.getFoldedScreen().repaint();
     }
 

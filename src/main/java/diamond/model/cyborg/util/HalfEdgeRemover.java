@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg.util;
 
-import diamond.controller.Context;
+import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
@@ -14,19 +14,19 @@ import diamond.model.cyborg.Vertex;
  *
  */
 public class HalfEdgeRemover {
-    public static void remove(Context context, HalfEdge he) {
+    public static void remove(Cp cp, HalfEdge he) {
         if (he.getType() == EdgeType.CUT) {
             return;
         }
         if (EdgeType.isSettled(he.getType())) {
-            HalfEdgeModifier.unSettle(context, he);
+            HalfEdgeModifier.unSettle(cp, he);
         }
         he.getFace().remove(he);
         Vertex v0 = he.getV0();
         Vertex v1 = he.getV1();
         v0.remove(he);
         v1.remove(he.getPair());
-        VertexRemover.remove(context, v0);
-        VertexRemover.remove(context, v1);
+        VertexRemover.remove(cp, v0);
+        VertexRemover.remove(cp, v1);
     }
 }

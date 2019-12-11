@@ -35,7 +35,7 @@ public class State0 extends VertexPickingState {
             return;
         }
         Vertex v = vs.get(0);
-        VertexRemover.remove(context, v);
+        VertexRemover.remove(context.getCp(), v);
         context.fold();
         context.initialize();
     }

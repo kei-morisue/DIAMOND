@@ -2,21 +2,20 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller.action.state.vertexoffset;
+package diamond.controller.action.state.symbolheoffset;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.VertexPickingState;
+import diamond.controller.action.state.HalfEdgePickingState;
 
 /**
  * @author Kei Morisue
  *
  */
-public class State0 extends VertexPickingState {
+public class State0 extends HalfEdgePickingState {
 
     @Override
     protected void setNextClass() {
         nextStateClass = State1.class;
-
     }
 
     @Override
@@ -26,7 +25,7 @@ public class State0 extends VertexPickingState {
 
     @Override
     protected void aftermath(Context context) {
-        context.setPaintScreen("offset_v");
+        context.setPaintScreen("offset_s");
     }
 
 }

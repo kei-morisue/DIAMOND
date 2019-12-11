@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg.util;
 
-import diamond.controller.Context;
+import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
@@ -14,7 +14,7 @@ import diamond.model.cyborg.Vertex;
  *
  */
 public class VertexRemover {
-    public static void remove(Context context, Vertex v) {
+    public static void remove(Cp cp, Vertex v) {
         if (v.getHalfEdges().size() != 2) {
             return;
         }

@@ -33,10 +33,10 @@ public class PaintScreenDrawer {
         for (Face face : cp.getFaces()) {
             draw(g2d, face, scale);
         }
-        for (HalfEdge he : cp.getHalfEdges()) {//TODO
+        for (HalfEdge he : cp.getHalfEdges()) {
             draw(g2d, he, scale);
         }
-        for (Vertex v : cp.getVertices()) {//TODO
+        for (Vertex v : cp.getVertices()) {
             draw(g2d, v, scale);
         }
         for (Symbol<Face> symbol : cp.getSymbolsFace().values()) {

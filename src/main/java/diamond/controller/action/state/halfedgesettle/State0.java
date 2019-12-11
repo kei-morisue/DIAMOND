@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.HalfEdgePickingState;
+import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.util.HalfEdgeModifier;
@@ -38,12 +39,15 @@ public class State0 extends HalfEdgePickingState {
         HalfEdge he = halfEdges.get(0);
         if (he.getType() == EdgeType.CUT) {
 
-        } else if (EdgeType.isSettled(he.getType())) {
-            HalfEdgeModifier.unSettle(context, he);
-            context.fold();
         } else {
-            HalfEdgeModifier.settle(context, he);
-            context.fold();
+            Cp cp = context.getCp();
+            if (EdgeType.isSettled(he.getType())) {
+                HalfEdgeModifier.unSettle(cp, he);
+                context.fold();
+            } else {
+                HalfEdgeModifier.settle(cp, he);
+                context.fold();
+            }
         }
         context.initialize();
     }

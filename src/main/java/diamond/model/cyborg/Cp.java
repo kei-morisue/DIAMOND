@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.fold.Folder;
+import diamond.model.cyborg.util.CpBuilder;
 import diamond.model.symbol.Symbol;
 import diamond.view.ui.screen.ScreenTransform;
 
@@ -43,6 +44,11 @@ public class Cp {
     @Deprecated
     public LinkedList<Face> getFaces() {
         return this.faces;
+    }
+
+    @Deprecated
+    public void setFaces(LinkedList<Face> faces) {
+        this.faces = faces;
     }
 
     public void add(Face f) {

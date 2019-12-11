@@ -112,6 +112,7 @@ public abstract class AbstractArrow extends Symbol<HalfEdge> {
         return scale;
     }
 
+    @Override
     public void setScale(double scale) {
         this.scale = scale;
     }

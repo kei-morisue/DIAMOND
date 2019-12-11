@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 
 import diamond.controller.Context;
 import diamond.controller.MouseUtility;
-import diamond.view.ui.screen.OffsetScreen;
+import diamond.view.ui.screen.AbstractOffsetScreen;
 
 /**
  * @author Kei Morisue
@@ -19,7 +19,7 @@ import diamond.view.ui.screen.OffsetScreen;
 public class OffsetScreenAction extends AbstractScreenAction {
     private Context context;
 
-    public OffsetScreenAction(Context context, OffsetScreen screen) {
+    public OffsetScreenAction(Context context, AbstractOffsetScreen screen) {
         super(screen);
         this.context = context;
     }

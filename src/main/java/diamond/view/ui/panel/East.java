@@ -17,7 +17,8 @@ import diamond.view.ui.button.CpInsert;
 import diamond.view.ui.button.CpJump;
 import diamond.view.ui.button.CpSwitch;
 import diamond.view.ui.screen.AbstractScreen;
-import diamond.view.ui.screen.OffsetScreen;
+import diamond.view.ui.screen.OffsetSymbolScreen;
+import diamond.view.ui.screen.OffsetVertexScreen;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -29,7 +30,9 @@ public class East extends JPanel {
     private JPanel south = new JPanel();
     private JPanel paintPanel = new JPanel();
     private PaintScreen paintScreen;
-    private OffsetScreen offsetScreen;
+    private OffsetVertexScreen offsetVertexScreen;
+    private OffsetSymbolScreen offsetSymbolScreen;
+
     private CardLayout layout = new CardLayout();
 
     public East(Context context) {
@@ -46,9 +49,12 @@ public class East extends JPanel {
 
     private void buildCenter(Context context) {
         paintScreen = new PaintScreen(context);
-        offsetScreen = new OffsetScreen(context);
+        offsetVertexScreen = new OffsetVertexScreen(context);
+        offsetSymbolScreen = new OffsetSymbolScreen(context);
+
         paintPanel.setLayout(layout);
-        paintPanel.add(offsetScreen, "offset");
+        paintPanel.add(offsetSymbolScreen, "offset_s");
+        paintPanel.add(offsetVertexScreen, "offset_v");
         paintPanel.add(paintScreen, "paint");
         layout.show(paintPanel, "paint");
     }
@@ -66,9 +72,9 @@ public class East extends JPanel {
                 paintScreen.reset();
                 return paintScreen;
             }
-            if (c == offsetScreen) {
+            if (c == offsetVertexScreen) {
                 paintScreen.reset();
-                return offsetScreen;
+                return offsetVertexScreen;
             }
         }
         return paintScreen;
@@ -89,7 +95,7 @@ public class East extends JPanel {
 
     private void buildSouth(Context context) {
         south.setLayout(new BorderLayout());
-        south.add(new CpDestroy(context), BorderLayout.EAST);
-        south.add(new CpInsert(context), BorderLayout.WEST);
+        south.add(new CpInsert(context), BorderLayout.EAST);
+        south.add(new CpDestroy(context), BorderLayout.WEST);
     }
 }

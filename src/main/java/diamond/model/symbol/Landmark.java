@@ -74,4 +74,8 @@ public class Landmark extends Symbol<Vertex> {
     public void setSelected(boolean isSelected) {
     }
 
+    @Override
+    public void setScale(double scale) {
+    }
+
 }
