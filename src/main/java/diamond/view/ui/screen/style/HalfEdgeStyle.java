@@ -51,11 +51,12 @@ public class HalfEdgeStyle {
         if (he.getProperty().isColored()) {
             return POINTED;
         }
+        boolean faceFront = he.getFace().isFaceFront();
         switch (type) {
         case UNSETTLED_MOUNTAIN:
-            return UNSETTLED_MOUNTAIN;
+            return faceFront ? UNSETTLED_VALLEY : UNSETTLED_MOUNTAIN;
         case UNSETTLED_VALLEY:
-            return UNSETTLED_VALLEY;
+            return faceFront ? UNSETTLED_MOUNTAIN : UNSETTLED_VALLEY;
         default:
             return CUT;
         }

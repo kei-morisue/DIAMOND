@@ -41,10 +41,10 @@ public class State0 extends HalfEdgePickingState {
         } else if (he.getType() == EdgeType.CREASE) {
             he.unSettle();
         } else if (EdgeType.isSettled(he.getType())) {
+            HalfEdgeModifier.unSettle(context.getCp(), he);
             he.unfold();
             context.fold();
         } else {
-            HalfEdgeModifier.unSettle(context.getCp(), he);
             he.unfold();
         }
         context.initialize();
