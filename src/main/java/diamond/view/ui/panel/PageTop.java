@@ -29,7 +29,7 @@ public class PageTop extends JPanel {
         setBackground(PageStyle.bg);
         add(new StepGoal(cps));
         for (int i = 0; i < N; ++i) {
-            if (i < cps.size() - 1) {
+            if (i < cps.size()) {
                 Cp cp = cps.get(i);
                 add(new StepOrdinal(cp, i));
             }

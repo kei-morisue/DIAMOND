@@ -38,7 +38,7 @@ public abstract class AbstractStep extends JPanel {
         Graphics2D g2d = (Graphics2D) g.create();
         ScreenTransform transform = new ScreenTransform(cp.getTransform());
         transform.focus(getWidth(), getHeight());
-        transform.zoom(0.3);
+        transform.zoom(0.5);
         AffineTransform transform2 = g2d.getTransform();
         x = (int) transform2.getTranslateX();
         y = (int) transform2.getTranslateY();

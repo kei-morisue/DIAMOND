@@ -41,9 +41,33 @@ public class HalfEdgeRemoveTest extends AbstractPaintActionTest {
         TestUtil.click(l, l, context);
     }
 
+    private void line2() {
+        context.setInputType(EdgeType.CREASE);
+        context.setPaintAction(new Axiom1Action());
+        TestUtil.click(l, l, context);
+        TestUtil.click(-l, -l, context);
+    }
+
+    private void line3() {
+        context.setInputType(EdgeType.UNSETTLED_VALLEY);
+        context.setPaintAction(new Axiom1Action());
+        TestUtil.click(-l, l, context);
+        TestUtil.click(l, -l, context);
+    }
+
     private void select1() {
         context.setPaintAction(new HalfEdgeRemoveAction());
         TestUtil.click(.0, .0, context);
+    }
+
+    private void select2() {
+        context.setPaintAction(new HalfEdgeRemoveAction());
+        TestUtil.click(-0.5 * l, 0.5 * l, context);
+    }
+
+    private void select3() {
+        context.setPaintAction(new HalfEdgeRemoveAction());
+        TestUtil.click(0.5 * l, -0.5 * l, context);
     }
 
     @Test
@@ -59,13 +83,17 @@ public class HalfEdgeRemoveTest extends AbstractPaintActionTest {
 
     @Test
     public void Step1() {
-        line1();
-        select1();
+        line2();
+        line3();
+        select2();
         Cp cp = context.getCp();
         LinkedList<Face> faces = cp.getFaces();
-
+        TestUtil.validate(cp, 5);
+        TestUtil.validate(faces.get(0), 4, 6);
+        select3();
         TestUtil.validate(cp, 4);
-        TestUtil.validate(faces.get(0), 4, 0);
+        TestUtil.validate(faces.get(0), 4, 2);
+        select3();
     }
 
 }

@@ -11,8 +11,8 @@ import java.awt.Color;
  *
  */
 public class PageStyle {
-    public static int DIAGRAM_ROW = 4;
-    public static int DIAGRAM_COL = 3;
+    public static int DIAGRAM_ROW = 3;
+    public static int DIAGRAM_COL = 2;
 
     public static final Color bg = new Color(153, 204, 234);
 }

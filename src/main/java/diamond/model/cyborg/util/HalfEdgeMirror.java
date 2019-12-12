@@ -43,9 +43,6 @@ public class HalfEdgeMirror {
                     return hes.get(0).getV0();
                 }
             }
-            if (hes.size() == 1) {
-                return hes.get(0).getV0();
-            }
         }
         return null;
     }

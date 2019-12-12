@@ -112,7 +112,8 @@ public class HalfEdgeStyle {
         }
     }
 
-    public static BasicStroke getFoldedStroke(EdgeType type, float scale) {
+    public static BasicStroke getFoldedStroke(EdgeType type, float scale,
+            boolean isFaceFront) {
         float v[] = { 10.0f / scale, 3.0f / scale };
         float m[] = { 10.0f / scale, 2.0f / scale, 2.0f / scale, 2.0f / scale };
         switch (type) {
@@ -123,12 +124,12 @@ public class HalfEdgeStyle {
             return new BasicStroke(
                     3.0f / scale,
                     BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
-                    10.0f, v, 0.0f);
+                    10.0f, isFaceFront ? m : v, 0.0f);
         case UNSETTLED_MOUNTAIN:
             return new BasicStroke(
                     3.0f / scale,
                     BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
-                    10.0f, m, 0.0f);
+                    10.0f, isFaceFront ? v : m, 0.0f);
         default:
             return new BasicStroke(3.0f / scale,
                     BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);

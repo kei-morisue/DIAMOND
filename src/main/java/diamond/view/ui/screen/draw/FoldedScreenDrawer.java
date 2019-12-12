@@ -61,7 +61,8 @@ public class FoldedScreenDrawer {
     public static void draw(Graphics2D g2d, HalfEdge he, double scale) {
         g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
         g2d.setStroke(
-                HalfEdgeStyle.getFoldedStroke(he.getType(), (float) scale));
+                HalfEdgeStyle.getFoldedStroke(he.getType(), (float) scale,
+                        he.getFace().isFaceFront()));
         g2d.draw(HalfEdgeDrawer.buildFoldedLine(he));
     }
 
@@ -70,7 +71,8 @@ public class FoldedScreenDrawer {
         if (!he.getProperty().isDisabled()) {
             g2d.setColor(HalfEdgeStyle.getFoldedColor(he));
             EdgeType type = he.getType();
-            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type, (float) scale));
+            g2d.setStroke(HalfEdgeStyle.getFoldedStroke(type, (float) scale,
+                    he.getFace().isFaceFront()));
             if (type == EdgeType.CREASE) {
                 g2d.draw(
                         HalfEdgeDrawer.buildFoldedLine(he,

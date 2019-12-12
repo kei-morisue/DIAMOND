@@ -33,11 +33,19 @@ public class VertexRemover {
             v1.remove(h1P);
             HalfEdge h = new HalfEdge(v0, v1, h0.getType());
 
-            h.connectTo(h1.getNext());
-            h0P.getPrev().connectTo(h);
+            HalfEdge h1N = h1.getNext();
+            if (h1N != null) {
+                h.connectTo(h1N);
+                h0P.getPrev().connectTo(h);
+            }
 
-            h.getPair().connectTo(h0.getNext());
-            h1P.getPrev().connectTo(h.getPair());
+            HalfEdge h0N = h0.getNext();
+            HalfEdge hP = h.getPair();
+
+            if (h0N != null) {
+                hP.connectTo(h0N);
+                h1P.getPrev().connectTo(hP);
+            }
 
             Face f0 = h1.getFace();
             Face f1 = h0.getFace();
@@ -49,7 +57,7 @@ public class VertexRemover {
             if (f1 != null) {
                 f1.remove(h0);
                 f1.remove(h1.getPair());
-                f1.add(h.getPair());
+                f1.add(hP);
             }
 
         }

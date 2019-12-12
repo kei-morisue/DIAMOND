@@ -37,7 +37,6 @@ public class State0 extends FacePickingState {
         Face face = faces.get(0);
         FaceProperty property = face.getProperty();
         property.setDisabled(!property.isDisabled());
-        context.fold();
         context.initialize();
     }
 
