@@ -29,7 +29,7 @@ public class State0 extends VertexPickingState {
 
     @Override
     protected void undo(Context context) {
-        Vertex vertex = getVertex(context);
+        Vertex vertex = context.getPointer().getVertex();
         if (vertex == null) {
             context.initialize();
             return;
