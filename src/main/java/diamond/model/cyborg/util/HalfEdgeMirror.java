@@ -30,6 +30,7 @@ public class HalfEdgeMirror {
         rot.transform(d1, d1);
         Double p2 = Point2DUtil.add(v,
                 Point2DUtil.scale(Point2DUtil.normalize(d1), SCALE));
+        Point2D.Double candidate = null;
         for (HalfEdge he : v.getHalfEdges()) {
             Face face = he.getFace();
             if (face == null) {
@@ -42,8 +43,10 @@ public class HalfEdgeMirror {
                 } else {
                     return hes.get(0).getV0();
                 }
+            } else if (hes.size() == 1) {
+                candidate = hes.get(0).getV0();
             }
         }
-        return null;
+        return candidate;
     }
 }

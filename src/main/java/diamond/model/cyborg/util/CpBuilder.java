@@ -121,6 +121,7 @@ public class CpBuilder {
             Symbol<HalfEdge> symbol0 = symbols0.get(he0);
             HalfEdge he1 = vMap.get(he0.getV0())
                     .getConnection(vMap.get(he0.getV1()));
+            he1.disablePair();
             symbol0.set(he1);
             symbols1.put(he1, symbol0);
         }

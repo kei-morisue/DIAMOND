@@ -95,8 +95,8 @@ public class CpInsertTest extends AbstractPaintActionTest {
         Cp cp = context.getCp();
         LinkedList<Face> faces = cp.getFaces();
         TestUtil.validate(cp, 4);
+        TestUtil.validate(cp, 0.5 * l, 0.5 * l, EdgeType.CREASE);
         TestUtil.validate(faces.get(0), 4, 2);
-        TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
     }
 
 }

@@ -9,9 +9,9 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
-import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.VertexAddAction;
 import diamond.controller.action.VertexOffsetAction;
+import diamond.controller.action.VertexOffsetAutoAction;
 import diamond.controller.action.VertexRemoveAction;
 import diamond.view.ui.button.PaintActionButton;
 
@@ -27,7 +27,7 @@ public class TabManageVertices extends AbstractTab {
         PaintActionButton buttonDelete = new PaintActionButton(context,
                 new VertexRemoveAction());
         PaintActionButton buttonAuto = new PaintActionButton(context,
-                new LazyPaintAction());//TODO
+                new VertexOffsetAutoAction());
         PaintActionButton buttonOffset = new PaintActionButton(context,
                 new VertexOffsetAction());
 
