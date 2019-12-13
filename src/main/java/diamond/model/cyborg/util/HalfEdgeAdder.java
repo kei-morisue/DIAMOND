@@ -6,6 +6,9 @@ package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.Cp;
@@ -13,8 +16,10 @@ import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.fold.Folder;
 import diamond.model.math.Fuzzy;
 import diamond.model.math.NormComparator;
+import diamond.view.resource.string.Labels;
 
 /**
  * @author Kei Morisue
@@ -23,8 +28,35 @@ import diamond.model.math.NormComparator;
 public class HalfEdgeAdder {
     public static void add(Context context, Point2D.Double p0,
             Point2D.Double p1) {
-        Cp cp = context.getCp();
         EdgeType type = context.getInputType();
+        Cp cp = context.getCp();
+        addImpl(p0, p1, type, cp);
+        addFollowing(context, p0, p1, type, cp);
+    }
+
+    private static void addFollowing(Context context, Point2D.Double p0,
+            Point2D.Double p1, EdgeType type, Cp cp) {
+        Vector<Cp> cps = context.getPalette().getCps();
+        int i0 = cps.indexOf(cp);
+        if (i0 == cps.size() - 1) {
+            return;
+        }
+        if (EdgeType.isSettled(type)) {
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(context.getPaintScreen(),
+                Labels.get("across_line")) != 0) {
+            return;
+        }
+        for (int i = i0 + 1; i < cps.size(); i++) {
+            Cp cp1 = cps.get(i);
+            addImpl(p0, p1, EdgeType.CREASE, cp1);
+            Folder.fold(cp1);
+        }
+    }
+
+    private static void addImpl(Point2D.Double p0, Point2D.Double p1,
+            EdgeType type, Cp cp) {
         for (Face face : cp.getFaces()) {
             ArrayList<HalfEdge> externals = CrossPointUtil.splitOutLines(face,
                     p0, p1);

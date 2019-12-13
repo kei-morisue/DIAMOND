@@ -5,6 +5,8 @@
 package diamond.model.cyborg;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,6 +53,15 @@ public class Face implements Cyborg {
         for (HalfEdge he : halfEdges) {
             add(he);
         }
+    }
+
+    @Override
+    public Double clip() {
+        Rectangle2D.Double r = new Rectangle2D.Double();
+        for (HalfEdge he : halfEdges) {
+            r.add(he.clip());
+        }
+        return r;
     }
 
     public void remove(HalfEdge he) {
@@ -108,4 +119,5 @@ public class Face implements Cyborg {
     public void setProperty(FaceProperty property) {
         this.property = property;
     }
+
 }

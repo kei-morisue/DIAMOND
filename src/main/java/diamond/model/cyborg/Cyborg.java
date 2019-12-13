@@ -4,10 +4,12 @@
  */
 package diamond.model.cyborg;
 
+import java.awt.geom.Rectangle2D;
+
 /**
  * @author Kei Morisue
  *
  */
 public interface Cyborg {
-
+    public Rectangle2D.Double clip();
 }

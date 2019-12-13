@@ -28,9 +28,13 @@ public abstract class AbstractScreenAction
     }
 
     protected void zoom(MouseWheelEvent e) {
-        double zoom = Math.pow(1.5, -e.getWheelRotation());
+        double zoom = zoomAmount(e);
         screen.getTransform().zoom(zoom);
         screen.repaint();
+    }
+
+    protected double zoomAmount(MouseWheelEvent e) {
+        return Math.pow(1.5, -e.getWheelRotation());
     }
 
     protected void translate(MouseEvent e) {
@@ -44,10 +48,14 @@ public abstract class AbstractScreenAction
     }
 
     protected void rotate(MouseWheelEvent e) {
-        double moved = e.getWheelRotation();
-        double theta = Math.PI / 8 * ((moved) % 8);
+        double theta = thetaAmount(e);
         screen.getTransform().rotate(theta);
         screen.repaint();
+    }
+
+    protected double thetaAmount(MouseWheelEvent e) {
+        double moved = e.getWheelRotation();
+        return Math.PI / 8 * ((moved) % 8);
     }
 
     @Override

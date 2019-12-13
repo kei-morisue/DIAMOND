@@ -6,6 +6,7 @@ package diamond.model.symbol;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.Cp;
 
@@ -27,5 +28,7 @@ public abstract class Symbol<T> {
     abstract public void setScale(double scale);
 
     abstract public void setSelected(boolean isSelected);
+
+    abstract public Rectangle2D.Double clip();
 
 }

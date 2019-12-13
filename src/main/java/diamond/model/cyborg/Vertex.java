@@ -5,6 +5,7 @@
 package diamond.model.cyborg;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.util.Point2DUtil;
@@ -109,5 +110,10 @@ public class Vertex extends Point2D.Double implements Cyborg {
     @Deprecated
     public void setFolded(Point2D.Double folded) {
         this.folded = folded;
+    }
+
+    @Override
+    public java.awt.geom.Rectangle2D.Double clip() {
+        return new Rectangle2D.Double(x, y, 0, 0);
     }
 }

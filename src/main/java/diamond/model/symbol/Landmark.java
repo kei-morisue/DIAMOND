@@ -78,4 +78,9 @@ public class Landmark extends Symbol<Vertex> {
     public void setScale(double scale) {
     }
 
+    @Override
+    public java.awt.geom.Rectangle2D.Double clip() {
+        return null;
+    }
+
 }

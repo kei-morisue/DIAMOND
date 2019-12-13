@@ -9,15 +9,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import javax.swing.JPanel;
-
+import diamond.controller.action.StepScreenAction;
 import diamond.model.cyborg.Cp;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class AbstractStep extends JPanel {
+public abstract class AbstractStep extends AbstractScreen {
     protected Cp cp;
     protected int x = 0;
     protected int y = 0;
@@ -27,6 +26,12 @@ public abstract class AbstractStep extends JPanel {
 
     public AbstractStep(Cp cp) {
         this.cp = cp;
+        this.transform = cp.getTransform();
+        this.transform.zoom(0.5);
+        StepScreenAction screenAction = new StepScreenAction(this, cp);
+        addMouseListener(screenAction);
+        addMouseMotionListener(screenAction);
+        addMouseWheelListener(screenAction);
         setBackground(Color.white);
     }
 
@@ -36,9 +41,7 @@ public abstract class AbstractStep extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        ScreenTransform transform = new ScreenTransform(cp.getTransform());
-        transform.focus(getWidth(), getHeight());
-        transform.zoom(0.5);
+        this.transform.focus(getWidth(), getHeight());
         AffineTransform transform2 = g2d.getTransform();
         x = (int) transform2.getTranslateX();
         y = (int) transform2.getTranslateY();

@@ -7,6 +7,7 @@ package diamond.model.symbol.arrow;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.HalfEdge;
@@ -68,6 +69,19 @@ public abstract class AbstractArrow extends Symbol<HalfEdge> {
         body.draw(g2d, tail, head, isSelected);
         arrowHead.draw(g2d, tail, head, body, isSelected);
         arrowTail.draw(g2d, tail, head, body, isSelected);
+    }
+
+    @Override
+    public java.awt.geom.Rectangle2D.Double clip() {
+        Double v0 = halfEdge.getV0().getFoldedOffset();
+        Double v1 = halfEdge.getV1().getFoldedOffset();
+        Double w0 = body.getTailPoint(v0, v1, scale);
+        Double w1 = body.getHeadPoint(v0, v1, scale);
+        double x = Math.min(w0.x, w1.x);
+        double y = Math.min(w0.y, w1.y);
+        double w = Math.abs(w0.x - w1.x);
+        double h = Math.abs(w0.y - w1.y);
+        return new Rectangle2D.Double(x, y, w, h);
     }
 
     @Override
