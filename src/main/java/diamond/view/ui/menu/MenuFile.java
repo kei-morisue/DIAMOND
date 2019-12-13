@@ -5,6 +5,7 @@
 package diamond.view.ui.menu;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
@@ -12,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
+import diamond.controller.Palette;
 import diamond.view.resource.string.Labels;
 
 /**
@@ -28,7 +30,15 @@ public class MenuFile extends JMenu {
 
     private JMenuItem buildNew(Context context) {
         JMenuItem item = new JMenuItem(Labels.get("main_menu_file_new"));
-        //item.addActionListener();//TODO
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                context.initialize();
+                context.setPalette(new Palette());
+                context.setCurrentStep(0);
+                context.repaint();
+            }
+        });
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.CTRL_MASK));
         return item;
