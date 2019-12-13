@@ -45,4 +45,14 @@ public class FaceUtil {
         faces.add(i1, f0);
     }
 
+    public static void lift(List<Face> faces, Face f0, Face f1) {
+        faces.remove(f0);
+        int i1 = faces.indexOf(f1);
+        if (faces.size() == i1 + 1) {
+            faces.add(f0);
+        } else {
+            faces.add(i1 + 1, f0);
+        }
+    }
+
 }

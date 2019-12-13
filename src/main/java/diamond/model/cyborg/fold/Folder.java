@@ -13,7 +13,6 @@ import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
-import diamond.model.cyborg.util.FaceUtil;
 import diamond.model.math.Kawasaki;
 import diamond.model.math.Maekawa;
 
@@ -33,6 +32,7 @@ public class Folder {
             setAffine(face.getTransform(), he, cp.getFaces());
         }
         validate(cp);
+        FaceOrderEstimator.reOrder(cp);
     }
 
     private static void validate(Cp cp) {
@@ -58,31 +58,10 @@ public class Folder {
         f1.setFaceFront(!dir0);
         fold(f1, createFlipTransform(he.getPair(), accumulatedTransform));
 
-        swapFaces(faces, f1, f0, type, dir0);
-
         for (HalfEdge walkHe : f1.getHalfEdges()) {
             setAffine(f1.getTransform(), walkHe, faces);
         }
 
-    }
-
-    private static void swapFaces(List<Face> faces, Face f1, Face f0,
-            EdgeType type, boolean dir0) {
-        int i = faces.indexOf(f0);
-        int j = faces.indexOf(f1);
-        if (type == EdgeType.MOUNTAIN) {
-            if (j < i && !dir0) {
-                FaceUtil.insert(faces, f1, f0);
-            } else if (i < j && dir0) {
-                FaceUtil.insert(faces, f0, f1);
-            }
-        } else if (type == EdgeType.VALLEY) {
-            if (j < i && !dir0) {
-                FaceUtil.insert(faces, f0, f1);
-            } else if (i < j && dir0) {
-                FaceUtil.insert(faces, f1, f0);
-            }
-        }
     }
 
     public static AffineTransform createFlipTransform(HalfEdge he,
