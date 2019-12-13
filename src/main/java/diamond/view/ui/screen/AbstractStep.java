@@ -27,7 +27,6 @@ public abstract class AbstractStep extends AbstractScreen {
     public AbstractStep(Cp cp) {
         this.cp = cp;
         this.transform = cp.getTransform();
-        this.transform.zoom(0.5);
         StepScreenAction screenAction = new StepScreenAction(this, cp);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
@@ -46,6 +45,7 @@ public abstract class AbstractStep extends AbstractScreen {
         x = (int) transform2.getTranslateX();
         y = (int) transform2.getTranslateY();
         transform2.concatenate(transform);
+        transform2.concatenate(AffineTransform.getScaleInstance(.5, .5));
         g2d.setTransform(transform2);
         draw(g2d);
         g2d.dispose();

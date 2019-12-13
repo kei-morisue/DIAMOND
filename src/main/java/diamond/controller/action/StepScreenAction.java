@@ -25,7 +25,6 @@ public class StepScreenAction extends AbstractScreenAction {
     @Override
     protected void zoom(MouseWheelEvent e) {
         super.zoom(e);
-        cp.getTransform().zoom(zoomAmount(e));
     }
 
     @Override
@@ -36,7 +35,6 @@ public class StepScreenAction extends AbstractScreenAction {
     @Override
     protected void rotate(MouseWheelEvent e) {
         super.rotate(e);
-        cp.getTransform().rotate(thetaAmount(e));
     }
 
     @Override
