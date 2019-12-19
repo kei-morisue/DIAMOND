@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+fontPropagated=true
+org.eclipse.jface.textfont=1|\uFF2D\uFF33 \u30B4\u30B7\u30C3\u30AF|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|0|3|2|1|49|\uFF2D\uFF33 \u30B4\u30B7\u30C3\u30AF;
+org.eclipse.wst.jsdt.ui.editor.tab.width=
+org.eclipse.wst.jsdt.ui.formatterprofiles.version=11
+org.eclipse.wst.jsdt.ui.javadoclocations.migrated=true
+proposalOrderMigrated=true
+semanticHighlighting.localVariable.color=255,0,255
+semanticHighlighting.localVariable.enabled=true
+semanticHighlighting.localVariableDeclaration.color=255,0,255
+semanticHighlighting.localVariableDeclaration.enabled=true
+semanticHighlighting.parameterVariable.color=255,0,0
+semanticHighlighting.parameterVariable.enabled=true
+tabWidthPropagated=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

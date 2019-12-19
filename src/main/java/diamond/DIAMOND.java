@@ -1,6 +1,6 @@
 package diamond;
 
-import diamond.view.MainFrame;
+import diamond.view.ui.frame.MainFrame;
 
 public class DIAMOND {
 

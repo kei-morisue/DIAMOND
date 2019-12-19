@@ -1,0 +1,12 @@
+anonymizeMessages=false
+anonymizeStackTraces=true
+configured=true
+debugEnabled=false
+eclipse.preferences.version=1
+reporterEmail=
+reporterName=
+resetSendMode=KEEP
+resetSendModeOn=0
+sendMode=NEVER
+servers/org.eclipse.epp.logging.aeri.ide.server/configured=true
+servers/org.eclipse.epp.logging.aeri.ide.server/enabled=false

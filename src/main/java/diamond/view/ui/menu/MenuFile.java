@@ -1,47 +1,60 @@
 /**
  * DIAMOND - Origami Diagram Editor
- * Copyright (C) 2018-2019 Kei Morisue
+ * Copyright (C) 2018-2020 Kei Morisue
  */
 package diamond.view.ui.menu;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import diamond.controller.file.action.ExportAction;
-import diamond.controller.file.action.LoadAction;
-import diamond.controller.paint.context.Context;
-import diamond.view.resource.ResourceHolder;
-import diamond.view.resource.string.StringKey.LABEL;
+import diamond.controller.Context;
+import diamond.controller.Palette;
+import diamond.view.resource.string.Labels;
 
 /**
- * @author long_
+ * @author Kei Morisue
  *
  */
 public class MenuFile extends JMenu {
     public MenuFile(Context context) {
-        super(ResourceHolder.getLabelString(LABEL.FILE));
+        super(Labels.get("main_menu_file"));
+        add(buildNew(context));
         add(buildOpen(context));
         add(buildSave(context));
     }
 
+    private JMenuItem buildNew(Context context) {
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_file_new"));
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                context.initialize();
+                context.setPalette(new Palette());
+                context.setCurrentStep(0);
+                context.repaint();
+            }
+        });
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                ActionEvent.CTRL_MASK));
+        return item;
+    }
+
     private JMenuItem buildOpen(Context context) {
-        JMenuItem item = new JMenuItem(
-                ResourceHolder.getLabelString(LABEL.OPEN));
-        item.addActionListener(
-                new LoadAction(context, item));
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_file_open"));
+        //item.addActionListener();//TODO
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
                 ActionEvent.CTRL_MASK));
         return item;
     }
 
     private JMenuItem buildSave(Context context) {
-        JMenuItem item = new JMenuItem(
-                ResourceHolder.getLabelString(LABEL.SAVE));
-        item.addActionListener(new ExportAction(context, item));
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_file_save"));
+        //item.addActionListener();//TODO
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         return item;

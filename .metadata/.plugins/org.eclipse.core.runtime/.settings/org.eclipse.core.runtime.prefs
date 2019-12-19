@@ -1,0 +1,10 @@
+content-types/org.eclipse.core.runtime.text/file-extensions=csv
+content-types/org.eclipse.core.runtime.xml/file-extensions=dicon
+content-types/org.eclipse.jdt.core.javaProperties/charset=UTF-8
+content-types/org.eclipse.jst.jsp.core.jspfragmentsource/charset=UTF-8
+content-types/org.eclipse.jst.jsp.core.jspsource/charset=UTF-8
+content-types/org.eclipse.jst.jsp.core.tagsource/charset=UTF-8
+content-types/org.eclipse.jst.jsp.core.tagxsource/charset=UTF-8
+content-types/org.springframework.boot.ide.properties.application.properties/charset=UTF-8
+content-types/org.springframework.ide.eclipse.applicationProperties/charset=UTF-8
+eclipse.preferences.version=1
