@@ -23,7 +23,12 @@ public class Cp {
     private HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = new HashMap<HalfEdge, Symbol<HalfEdge>>();
     private HashMap<Face, Symbol<Face>> symbolsFace = new HashMap<Face, Symbol<Face>>();
 
+    @Deprecated
     public Face getBaseFace() {
+        return baseFace;
+    }
+
+    public Face buildBaseFace() {
         if (baseFace == null || !faces.contains(baseFace)) {
             return faces.get(0);
         }

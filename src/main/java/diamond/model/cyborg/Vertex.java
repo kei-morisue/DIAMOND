@@ -79,11 +79,6 @@ public class Vertex extends Point2D.Double implements Cyborg {
         return halfEdges;
     }
 
-    @Deprecated
-    public void setHalfEdges(LinkedList<HalfEdge> halfEdges) {
-        this.halfEdges = halfEdges;
-    }
-
     public VertexProperty getProperty() {
         return property;
     }

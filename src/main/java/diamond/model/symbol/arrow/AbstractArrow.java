@@ -156,4 +156,24 @@ public abstract class AbstractArrow extends Symbol<HalfEdge> {
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
+
+    @Deprecated
+    public AbstractArrowHead getArrowHead() {
+        return arrowHead;
+    }
+
+    @Deprecated
+    public void setArrowHead(AbstractArrowHead arrowHead) {
+        this.arrowHead = arrowHead;
+    }
+
+    @Deprecated
+    public AbstractArrowHead getArrowTail() {
+        return arrowTail;
+    }
+
+    @Deprecated
+    public void setArrowTail(AbstractArrowHead arrowTail) {
+        this.arrowTail = arrowTail;
+    }
 }

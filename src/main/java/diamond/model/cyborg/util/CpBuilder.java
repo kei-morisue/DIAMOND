@@ -111,7 +111,7 @@ public class CpBuilder {
         for (Face f0 : cp0.getFaces()) {
             Face f1 = buildFace(vMap, f0);
             cp1.add(f1);
-            if (f0 == cp0.getBaseFace()) {
+            if (f0 == cp0.buildBaseFace()) {
                 cp1.setBaseFace(f1);
             }
         }

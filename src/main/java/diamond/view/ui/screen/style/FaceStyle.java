@@ -17,6 +17,9 @@ public class FaceStyle {
     public static Color COLOR_FRONT = Color.gray;
     public static Color COLOR_BACK = Color.white;
 
+    public FaceStyle() {
+    }
+
     public static Color getFoldedColor(Face face) {
         if (face.getProperty().isColored()) {
             return COLOR_POINTED;
@@ -32,4 +35,24 @@ public class FaceStyle {
     }
 
     public static double CP_FACE_SCALE = 0.7;
+
+    @Deprecated
+    public static Color getCOLOR_FRONT() {
+        return COLOR_FRONT;
+    }
+
+    @Deprecated
+    public static void setCOLOR_FRONT(Color cOLOR_FRONT) {
+        COLOR_FRONT = cOLOR_FRONT;
+    }
+
+    @Deprecated
+    public static Color getCOLOR_BACK() {
+        return COLOR_BACK;
+    }
+
+    @Deprecated
+    public static void setCOLOR_BACK(Color cOLOR_BACK) {
+        COLOR_BACK = cOLOR_BACK;
+    }
 }

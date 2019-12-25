@@ -86,4 +86,24 @@ public class Curved extends AbstractArrowBody {
         middlePoint = Point2DUtil.add(middlePoint, norm);
         return middlePoint;
     }
+
+    @Deprecated
+    public double getScale() {
+        return scale;
+    }
+
+    @Deprecated
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
+
+    @Deprecated
+    public boolean isClockwise() {
+        return isClockwise;
+    }
+
+    @Deprecated
+    public void setClockwise(boolean isClockwise) {
+        this.isClockwise = isClockwise;
+    }
 }

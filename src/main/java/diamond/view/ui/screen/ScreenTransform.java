@@ -116,4 +116,14 @@ public class ScreenTransform extends AffineTransform {
         this.rotate = rotate;
     }
 
+    @Deprecated
+    public AffineTransform getShift() {
+        return shift;
+    }
+
+    @Deprecated
+    public void setShift(AffineTransform shift) {
+        this.shift = shift;
+    }
+
 }

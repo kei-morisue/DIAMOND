@@ -25,7 +25,7 @@ public class Folder {
         for (Face face : cp.getFaces()) {
             face.initialize();
         }
-        Face face = cp.getBaseFace();
+        Face face = cp.buildBaseFace();
         fold(face, new AffineTransform());
         face.setFaceFront(false);
         for (HalfEdge he : face.getHalfEdges()) {

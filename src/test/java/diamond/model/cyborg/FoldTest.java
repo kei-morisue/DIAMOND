@@ -48,7 +48,7 @@ public class FoldTest extends AbstractPaintActionTest {
 
         Face f0 = faces.get(0);
         Face f1 = faces.get(1);
-        if (f0 == cp.getBaseFace()) {
+        if (f0 == cp.buildBaseFace()) {
             validate(f0, f1);
         } else {
             validate(f1, f0);

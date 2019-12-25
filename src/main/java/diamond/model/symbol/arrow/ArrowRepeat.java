@@ -44,4 +44,34 @@ public class ArrowRepeat extends AbstractArrow {
     protected void buildBody() {
         body = new Repeat();
     }
+
+    @Deprecated
+    public Cp getCp0() {
+        return cp0;
+    }
+
+    @Deprecated
+    public void setCp0(Cp cp0) {
+        this.cp0 = cp0;
+    }
+
+    @Deprecated
+    public Cp getCp1() {
+        return cp1;
+    }
+
+    @Deprecated
+    public void setCp1(Cp cp1) {
+        this.cp1 = cp1;
+    }
+
+    @Deprecated
+    public Vector<Cp> getCps() {
+        return cps;
+    }
+
+    @Deprecated
+    public void setCps(Vector<Cp> cps) {
+        this.cps = cps;
+    }
 }

@@ -79,7 +79,7 @@ public class PaintScreenDrawer {
     }
 
     private static void drawBase(Graphics2D g2d, Cp cp, double scale) {
-        Face baseFace = cp.getBaseFace();
+        Face baseFace = cp.buildBaseFace();
         Double p = CenterPointUtil.get(baseFace);
         drawRedCross(g2d, p.x, p.y, scale);
     }

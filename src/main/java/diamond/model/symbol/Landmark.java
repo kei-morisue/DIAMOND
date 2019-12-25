@@ -28,6 +28,9 @@ public class Landmark extends Symbol<Vertex> {
     private static final double STROKE_WIDTH_EDGE = SIZE_LANDMARK_EDGE * 0.5;
     private static final double STROKE_WIDTH_BODY = SIZE_LANDMARK_EDGE * 0.1;
 
+    public Landmark() {
+    }
+
     @Override
     public void drawCp(Graphics2D g2d) {
         drawAt(g2d, vertex);
@@ -81,6 +84,16 @@ public class Landmark extends Symbol<Vertex> {
     @Override
     public java.awt.geom.Rectangle2D.Double clip() {
         return null;
+    }
+
+    @Deprecated
+    public Vertex getVertex() {
+        return vertex;
+    }
+
+    @Deprecated
+    public void setVertex(Vertex vertex) {
+        this.vertex = vertex;
     }
 
 }

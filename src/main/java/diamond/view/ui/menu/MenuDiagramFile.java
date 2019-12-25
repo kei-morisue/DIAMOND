@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
+import diamond.controller.action.ImageExportAction;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.screen.PreviewScreen;
 
@@ -35,8 +36,7 @@ public class MenuDiagramFile extends JMenu {
         JMenuItem item = new JMenuItem(Labels.get("preview_menu_save"));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
                 ActionEvent.CTRL_MASK));
-        //item.addActionListener(new ImageExportAction(this, screen));
-        //TODO
+        item.addActionListener(new ImageExportAction(this, screen));
         return item;
     }
 
