@@ -18,9 +18,8 @@ import diamond.view.ui.screen.style.PageStyle;
  *
  */
 public class PageOrdinal extends JPanel {
-    private final static int N = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
-
     public PageOrdinal(int pageNo, Vector<Cp> cps) {
+        int N = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));

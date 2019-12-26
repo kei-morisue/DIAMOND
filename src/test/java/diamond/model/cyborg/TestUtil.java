@@ -26,7 +26,7 @@ public class TestUtil {
     }
 
     static void validate(Face face, int edgeNum, int unsettledNum) {
-        ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
+        ArrayList<HalfEdge> halfEdges = face.getSortedEdges();
         assertEquals(edgeNum, halfEdges.size());
         for (HalfEdge he : halfEdges) {
             assertEquals(face, he.getFace());

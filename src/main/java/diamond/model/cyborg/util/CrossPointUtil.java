@@ -73,7 +73,7 @@ public class CrossPointUtil {
         double[] ds = { 0.0, 0.0 };
         ArrayList<HalfEdge> halfEdges = new ArrayList<HalfEdge>();
 
-        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(face.getHalfEdges());
+        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(face.getSortedEdges());
         for (HalfEdge he : copy) {
             if (isDet0(p0, p1, he.getV0(), he.getV1())
                     && isDet0(p0, he.getV0(), p1, he.getV1())

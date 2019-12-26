@@ -54,7 +54,7 @@ public class FaceSplitter {
     }
 
     private static void close(Face face, Vertex endV, HalfEdge splitter) {
-        HalfEdge h = face.getHalfEdges().get(0);
+        HalfEdge h = face.getSortedEdges().get(0);
         do {
             h = h.getNext();
             face.add(h);

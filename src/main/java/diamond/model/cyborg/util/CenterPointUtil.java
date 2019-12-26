@@ -17,7 +17,7 @@ import diamond.model.cyborg.HalfEdge;
 public class CenterPointUtil {
 
     public static Point2D.Double get(Face face) {
-        Collection<HalfEdge> halfEdges = face.getHalfEdges();
+        Collection<HalfEdge> halfEdges = face.getSortedEdges();
         Point2D.Double centerP = new Point2D.Double();
         for (HalfEdge he : halfEdges) {
             centerP = Point2DUtil.add(centerP, he.getV0());

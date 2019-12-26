@@ -82,7 +82,12 @@ public class Face implements Cyborg {
         this.unsettledLines = unsettledLines;
     }
 
+    @Deprecated
     public ArrayList<HalfEdge> getHalfEdges() {
+        return halfEdges;
+    }
+
+    public ArrayList<HalfEdge> getSortedEdges() {
         if (halfEdges.isEmpty()) {
             return this.halfEdges;
         }

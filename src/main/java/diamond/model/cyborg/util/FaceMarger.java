@@ -40,7 +40,7 @@ public class FaceMarger {
     private static Face buildFace(HalfEdge h0, Face face) {
         Face f0 = h0.getFace();
         f0.remove(h0);
-        face.add(f0.getHalfEdges());
+        face.add(f0.getSortedEdges());
         face.add(f0.getUnsettledLines());
         return f0;
     }

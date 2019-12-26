@@ -64,7 +64,7 @@ public class Cp {
     public HashSet<Vertex> getVertices() {
         HashSet<Vertex> vertices = new HashSet<Vertex>();
         for (Face face : faces) {
-            for (HalfEdge he : face.getHalfEdges()) {
+            for (HalfEdge he : face.getSortedEdges()) {
                 vertices.add(he.getV0());
             }
             for (HalfEdge he : face.getUnsettledLines()) {
@@ -78,7 +78,7 @@ public class Cp {
     public HashSet<HalfEdge> getHalfEdges() {
         HashSet<HalfEdge> halfEdges = new HashSet<HalfEdge>();
         for (Face face : faces) {
-            for (HalfEdge he : face.getHalfEdges()) {
+            for (HalfEdge he : face.getSortedEdges()) {
                 halfEdges.add(he);
             }
             for (HalfEdge he : face.getUnsettledLines()) {

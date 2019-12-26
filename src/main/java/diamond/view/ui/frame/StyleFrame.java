@@ -12,6 +12,7 @@ import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.panel.OptionFace;
 import diamond.view.ui.panel.OptionLine;
+import diamond.view.ui.panel.OptionPage;
 
 /**
  * @author Kei Morisue
@@ -28,7 +29,9 @@ public class StyleFrame extends JFrame {
         pane.addTab(
                 Labels.get("tab_style_face"),
                 new OptionFace(context));
-
+        pane.addTab(
+                Labels.get("tab_style_page"),
+                new OptionPage(context));
         add(pane);
         setLocationRelativeTo(null);
         setVisible(true);

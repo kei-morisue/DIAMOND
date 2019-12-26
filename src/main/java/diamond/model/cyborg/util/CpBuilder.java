@@ -135,7 +135,7 @@ public class CpBuilder {
             f1.add(he1);
         }
         ArrayList<HalfEdge> halfEdges = new ArrayList<HalfEdge>();
-        for (HalfEdge he : f0.getHalfEdges()) {
+        for (HalfEdge he : f0.getSortedEdges()) {
             HalfEdge he1 = buildHalfEdge(vMap, he);
             f1.add(he1);
             halfEdges.add(he1);

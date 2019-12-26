@@ -19,10 +19,10 @@ import diamond.view.ui.screen.style.PageStyle;
  *
  */
 public class PageTop extends JPanel {
-    private final static int N = PageStyle.DIAGRAM_ROW
-            * PageStyle.DIAGRAM_COL - 1;
 
     public PageTop(Vector<Cp> cps) {
+        int N = PageStyle.DIAGRAM_ROW
+                * PageStyle.DIAGRAM_COL - 1;
         setLayout(new GridLayout(
                 PageStyle.DIAGRAM_ROW,
                 PageStyle.DIAGRAM_COL));

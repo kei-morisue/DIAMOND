@@ -23,7 +23,7 @@ public class FaceUtil {
 
     public static boolean onFace(Face face, Point2D.Double v) {
         double sumAngle = 0.0;
-        for (HalfEdge he : face.getHalfEdges()) {
+        for (HalfEdge he : face.getSortedEdges()) {
             Vertex v0 = he.getV0();
             Vertex v1 = he.getV1();
             Point2D.Double p0 = Point2DUtil.sub(v0, v);

@@ -56,12 +56,12 @@ public class FoldTest extends AbstractPaintActionTest {
     }
 
     private void validate(Face f0, Face f1) {
-        for (HalfEdge he : f0.getHalfEdges()) {
+        for (HalfEdge he : f0.getSortedEdges()) {
             Vertex v0 = he.getV0();
             Double w0 = v0.getFoldedOffset();
             assertEquals(0.0, v0.distance(w0), Config.EPSILON);
         }
-        for (HalfEdge he : f1.getHalfEdges()) {
+        for (HalfEdge he : f1.getSortedEdges()) {
             Vertex v0 = he.getV0();
             Double w0 = v0.getFoldedOffset();
             Double c = CenterPointUtil.get(v0, w0);

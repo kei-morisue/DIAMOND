@@ -27,7 +27,7 @@ public class FaceDrawer {
     public static GeneralPath buildOutline(Face face, double scale) {
         Point2D.Double pivot = CenterPointUtil.get(face);
         GeneralPath outline = null;
-        for (HalfEdge he : face.getHalfEdges()) {
+        for (HalfEdge he : face.getSortedEdges()) {
             Vertex v0 = he.getV0();
             Point2D.Double scaledPoint = Point2DUtil.scale(v0, pivot, scale);
             double x = scaledPoint.getX();
@@ -45,7 +45,7 @@ public class FaceDrawer {
 
     public static GeneralPath buildFoldedOutline(Face face) {
         GeneralPath outline = null;
-        ArrayList<HalfEdge> halfEdges = face.getHalfEdges();
+        ArrayList<HalfEdge> halfEdges = face.getSortedEdges();
         for (HalfEdge he : halfEdges) {
             Vertex v0 = he.getV0();
             Point2D p = v0.getFoldedOffset();

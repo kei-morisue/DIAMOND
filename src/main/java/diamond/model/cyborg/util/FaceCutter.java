@@ -30,7 +30,7 @@ public class FaceCutter {
     }
 
     private static HalfEdge open(Face face, Vertex v0) {
-        for (HalfEdge he : face.getHalfEdges()) {
+        for (HalfEdge he : face.getSortedEdges()) {
             if (he.getV1() == v0) {
                 return he;
             }

@@ -28,7 +28,7 @@ public class Folder {
         Face face = cp.buildBaseFace();
         fold(face, new AffineTransform());
         face.setFaceFront(false);
-        for (HalfEdge he : face.getHalfEdges()) {
+        for (HalfEdge he : face.getSortedEdges()) {
             setAffine(face.getTransform(), he, cp.getFaces());
         }
         validate(cp);
@@ -58,7 +58,7 @@ public class Folder {
         f1.setFaceFront(!dir0);
         fold(f1, createFlipTransform(he.getPair(), accumulatedTransform));
 
-        for (HalfEdge walkHe : f1.getHalfEdges()) {
+        for (HalfEdge walkHe : f1.getSortedEdges()) {
             setAffine(f1.getTransform(), walkHe, faces);
         }
 
@@ -93,7 +93,7 @@ public class Folder {
 
     public static void fold(Face face, AffineTransform transform) {
         face.setTransform(transform);
-        for (HalfEdge he : face.getHalfEdges()) {
+        for (HalfEdge he : face.getSortedEdges()) {
             fold(he, transform);
         }
         for (HalfEdge he : face.getUnsettledLines()) {

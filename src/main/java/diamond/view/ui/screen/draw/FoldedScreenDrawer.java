@@ -29,7 +29,7 @@ public class FoldedScreenDrawer {
                 continue;
             }
             draw(g2d, face);
-            for (HalfEdge he : face.getHalfEdges()) {
+            for (HalfEdge he : face.getSortedEdges()) {
                 draw(g2d, he, scale);
                 draw(g2d, he.getV0(), scale);
             }

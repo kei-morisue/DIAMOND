@@ -21,7 +21,7 @@ public class HalfEdgeModifier {
         HalfEdge h1 = null;
         Vertex v0 = he.getV0();
         Vertex v1 = he.getV1();
-        for (HalfEdge h : face.getHalfEdges()) {
+        for (HalfEdge h : face.getSortedEdges()) {
             if (h.getV0() == v0) {
                 h1 = h;
             }

@@ -22,7 +22,7 @@ public class FaceOrderEstimator {
     static void reOrder(Cp cp) {
         ArrayList<Face> copy = new ArrayList<Face>(cp.getFaces());
         for (Face f0 : copy) {
-            for (HalfEdge h : f0.getHalfEdges()) {
+            for (HalfEdge h : f0.getSortedEdges()) {
                 Face f1 = h.getPair().getFace();
                 FaceOrderEstimator.swapFaces(cp.getFaces(), f1, f0,
                         h.getType());
