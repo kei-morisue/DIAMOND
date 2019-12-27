@@ -7,7 +7,6 @@ package diamond.model.symbol.arrow.body;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -42,7 +41,7 @@ public class Flip extends AbstractArrowBody {
 
     @Override
     public double getHeadAngle(Double pT, Double pH) {
-        return angle1;
+        return Point2DUtil.angle(Point2DUtil.sub(pH, pT)) - 0.125 * Math.PI;
     }
 
     @Override
@@ -72,8 +71,6 @@ public class Flip extends AbstractArrowBody {
             boolean isSelected) {
         g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_BODY);
 
-        AffineTransform transform = g2d.getTransform();
-
         double w = tail.distance(head) * 0.5;
         double r1 = w * Math.sqrt(2.0);
         double r0 = r1 * 0.5;
@@ -82,15 +79,10 @@ public class Flip extends AbstractArrowBody {
         Double o0 = Point2DUtil.add(o1,
                 Point2DUtil.scale(dir01, r0));
 
-        transform.transform(o0, o0);
-        transform.transform(o1, o1);
-        r1 = r1 * G2DUtil.getScale(g2d);
-        r0 = r0 * G2DUtil.getScale(g2d);
+        double scale = G2DUtil.getScale(g2d);
 
-        g2d.setStroke(new BasicStroke(4.0f,
+        g2d.setStroke(new BasicStroke((float) (4.0 / scale),
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-        g2d.setTransform(new AffineTransform());
-
         Double corner0 = Point2DUtil.sub(o0,
                 Point2DUtil.scale(dir11, r0));
         double x = corner0.x;
@@ -102,7 +94,6 @@ public class Flip extends AbstractArrowBody {
         y = corner1.y;
         g2d.draw(new Arc2D.Double(x, y, r1 * 2, r1 * 2, theta0,
                 theta1, Arc2D.Double.OPEN));
-        g2d.setTransform(transform);
     }
 
 }
