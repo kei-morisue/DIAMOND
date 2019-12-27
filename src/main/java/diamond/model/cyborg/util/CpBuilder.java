@@ -63,11 +63,11 @@ public class CpBuilder {
         HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = cp0
                 .getSymbolsHalfEdge();
         settleCp(cp1);
+        cp1.getSymbolsHalfEdge().clear();
+        Folder.fold(cp1);
         if (reverse(cp1, symbolsHalfEdge)) {
             return cp1;
         }
-        Folder.fold(cp1);
-        cp1.getSymbolsHalfEdge().clear();
         return cp1;
     }
 
