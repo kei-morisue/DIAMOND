@@ -130,6 +130,7 @@ public class CpBuilder {
 
     private static Face buildFace(HashMap<Vertex, Vertex> vMap, Face f0) {
         Face f1 = new Face();
+        f1.getProperty().setDisabled(f0.getProperty().isDisabled());
         for (HalfEdge he : f0.getUnsettledLines()) {
             HalfEdge he1 = buildHalfEdge(vMap, he);
             f1.add(he1);
