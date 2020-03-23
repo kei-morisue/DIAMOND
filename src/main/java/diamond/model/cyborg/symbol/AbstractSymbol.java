@@ -2,12 +2,12 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller;
+package diamond.model.cyborg.symbol;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Context {
+public class AbstractSymbol {
 
 }
