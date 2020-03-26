@@ -4,10 +4,78 @@
  */
 package diamond.model.cyborg.geom;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+
+import diamond.model.math.Metric;
+
 /**
  * @author Kei Morisue
  *
  */
 public class Face {
+    private LinkedList<Vertex> vertices;
+    private HashSet<SegmentCrease> creases;
+    private HashSet<SegmentMV> mVs;
+    private boolean isFront = false;
 
+    public Face() {
+    }
+
+    public void buildSquare(double width) {
+        vertices.add(new Vertex(width, width));
+        vertices.add(new Vertex(-width, width));
+        vertices.add(new Vertex(width, -width));
+        vertices.add(new Vertex(-width, -width));
+    }
+
+    public boolean isBoundary(Vertex v) {
+        for (int i = 0; i < vertices.size(); i++) {
+            Vertex v0 = vertices.get(i);
+            Vertex v1 = vertices.get((i + 1) % vertices.size());
+            if (Metric.isOn(v0, v1, v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LinkedList<Vertex> getVertices() {
+        return vertices;
+    }
+
+    @Deprecated
+    public void setVertices(LinkedList<Vertex> vertices) {
+        this.vertices = vertices;
+    }
+
+    public HashSet<SegmentCrease> getCreases() {
+        return creases;
+    }
+
+    @Deprecated
+    public void setCreases(HashSet<SegmentCrease> creases) {
+        this.creases = creases;
+    }
+
+    public HashSet<SegmentMV> getmVs() {
+        return mVs;
+    }
+
+    @Deprecated
+    public void setmVs(HashSet<SegmentMV> mVs) {
+        this.mVs = mVs;
+    }
+
+    public boolean isFront() {
+        return isFront;
+    }
+
+    public void flip() {
+        isFront = !isFront;
+    }
+
+    public void setFront(boolean isFront) {
+        this.isFront = isFront;
+    }
 }

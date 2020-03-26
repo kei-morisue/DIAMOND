@@ -5,6 +5,7 @@
 package diamond.view.ui.screen;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -36,6 +37,16 @@ public abstract class AbstractScreen extends JPanel
         int width = getWidth();
         int height = getHeight();
         g2d.fillRect(0, 0, width, height);
+    }
+
+    abstract void draw(Graphics2D g2d);
+
+    @Override
+    public void paintComponents(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        this.transform.resize(getWidth(), getHeight());
+        g2d.setTransform(transform);
+        draw(g2d);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class G2DUtil {
         return Math.hypot(transform.getScaleX(), transform.getShearY());
     }
 
-    public static Dimension getDimension(Graphics2D g2d) {
+    public static Dimension getPhysicalSize(Graphics2D g2d) {
         Rectangle bounds = g2d.getClip().getBounds();
         int height = bounds.height;
         int width = bounds.width;

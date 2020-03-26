@@ -59,7 +59,7 @@ public abstract class AbstractScreenAction
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
+    public final void mouseWheelMoved(MouseWheelEvent e) {
         if (MouseUtility.isControlKeyPressed(e)) {
             rotate(e);
         } else {
@@ -69,26 +69,26 @@ public abstract class AbstractScreenAction
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
+    public final void mouseDragged(MouseEvent e) {
         translate(e);
         latestClickedPoint = e.getPoint();
         screen.repaint();
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public final void mouseReleased(MouseEvent e) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public final void mouseEntered(MouseEvent e) {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public final void mousePressed(MouseEvent e) {
         latestClickedPoint = e.getPoint();
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public final void mouseExited(MouseEvent e) {
     }
 }

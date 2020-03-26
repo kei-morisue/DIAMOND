@@ -10,9 +10,34 @@ package diamond.model.cyborg.geom;
  */
 public abstract class AbstractSegment {
 
-    abstract Vertex getV0();
+    private Vertex v0;
+    private Vertex v1;
 
-    abstract Vertex getV1();
+    public AbstractSegment() {
+    }
+
+    public AbstractSegment(Vertex v0, Vertex v1) {
+        this.v0 = v0;
+        this.v1 = v1;
+    }
+
+    public Vertex getV0() {
+        return v0;
+    }
+
+    public Vertex getV1() {
+        return v1;
+    }
+
+    @Deprecated
+    public void setV0(Vertex v0) {
+        this.v0 = v0;
+    }
+
+    @Deprecated
+    public void setV1(Vertex v1) {
+        this.v1 = v1;
+    }
 
     public double angle() {
         return getV1().angle(getV0());

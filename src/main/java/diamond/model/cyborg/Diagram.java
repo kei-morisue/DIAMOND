@@ -4,10 +4,47 @@
  */
 package diamond.model.cyborg;
 
+import java.util.LinkedList;
+
+import diamond.model.cyborg.style.StyleFace;
+import diamond.model.cyborg.style.StyleSegment;
+
 /**
  * @author Kei Morisue
  *
  */
 public class Diagram {
+    private LinkedList<Step> steps;
+    private StyleFace styleFace;
+    private StyleSegment styleSegment;
 
+    public Diagram() {
+    }
+
+    public LinkedList<Step> getSteps() {
+        return steps;
+    }
+
+    @Deprecated
+    public void setSteps(LinkedList<Step> steps) {
+        this.steps = steps;
+    }
+
+    public StyleFace getStyleFace() {
+        return styleFace;
+    }
+
+    @Deprecated
+    public void setStyleFace(StyleFace styleFace) {
+        this.styleFace = styleFace;
+    }
+
+    public StyleSegment getStyleSegment() {
+        return styleSegment;
+    }
+
+    @Deprecated
+    public void setStyleSegment(StyleSegment styleSegment) {
+        this.styleSegment = styleSegment;
+    }
 }

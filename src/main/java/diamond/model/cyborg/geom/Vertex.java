@@ -9,8 +9,8 @@ package diamond.model.cyborg.geom;
  *
  */
 public class Vertex {
-    public double x = .0;
-    public double y = .0;
+    private double x = .0;
+    private double y = .0;
     private double xOff = .0;
     private double yOff = .0;
 
@@ -53,6 +53,11 @@ public class Vertex {
         return new Vertex(scale * this.x, scale * this.y);
     }
 
+    public Vertex scale(double scale, Vertex v0) {
+        Vertex v = this.sub(v0);
+        return (new Vertex(scale * v.x, scale * v.y)).add(this);
+    }
+
     public Vertex sub(Vertex v) {
         return this.add(v.neg());
     }
@@ -61,12 +66,19 @@ public class Vertex {
         return this.x * v.x + this.y * v.y;
     }
 
+    public double outer(Vertex v) {
+        return this.x * v.y - this.y * v.x;
+    }
+
+    public double norm() {
+        return Math.hypot(x, y);
+    }
+
     public double angle(Vertex v) {
         Vertex dir = this.sub(v);
         return Math.atan2(dir.y, dir.x);
     }
 
-    @Deprecated
     public double getX() {
         return x;
     }
@@ -76,8 +88,6 @@ public class Vertex {
     public void setX(double x) {
         this.x = x;
     }
-
-    @Deprecated
 
     public double getY() {
         return y;
