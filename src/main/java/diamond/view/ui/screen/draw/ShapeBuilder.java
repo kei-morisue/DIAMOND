@@ -39,11 +39,7 @@ public class ShapeBuilder {
     public static Line2D.Double build(SegmentMV mV) {
         Vertex v0 = mV.getV0();
         Vertex v1 = mV.getV1();
-        double y0 = v0.getY();
-        double x0 = v0.getX();
-        double x1 = v1.getX();
-        double y1 = v1.getY();
-        return new Line2D.Double(x0, y0, x1, y1);
+        return build(v0, v1);
     }
 
     public static Line2D.Double build(SegmentCrease crease, double clip0,
@@ -53,8 +49,7 @@ public class ShapeBuilder {
         Vertex pivot = crease.getCenter();
         v0 = v0.scale(1.0 - clip0, pivot);
         v1 = v1.scale(1.0 - clip1, pivot);
-        Line2D.Double line = build(v0, v1);
-        return line;
+        return build(v0, v1);
     }
 
     private static Line2D.Double build(Vertex v0, Vertex v1) {

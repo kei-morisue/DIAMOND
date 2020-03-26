@@ -30,7 +30,7 @@ public class Context {
         return diagram.getStyleFace();
     }
 
-    public StyleSegment getSegmentSty() {
+    public StyleSegment getStyleSegment() {
         return diagram.getStyleSegment();
     }
 }

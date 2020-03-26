@@ -7,6 +7,8 @@ package diamond.view.ui.screen;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.Step;
+import diamond.view.ui.screen.draw.Drawer;
 
 /**
  * @author Kei Morisue
@@ -17,11 +19,15 @@ public class MainScreen extends AbstractScreen {
 
     public MainScreen(Context context) {
         this.context = context;
+        repaint();
     }
 
     @Override
     void draw(Graphics2D g2d) {
-        context.getCurrentStep();
+        Step currentStep = context.getCurrentStep();
+        Drawer drawer = new Drawer(context.getStyleFace(),
+                context.getStyleSegment());
+        drawer.Draw(g2d, currentStep);
     }
 
 }
