@@ -18,8 +18,12 @@ public class MainScreen extends AbstractScreen {
     private Context context;
 
     public MainScreen(Context context) {
+        super();
         this.context = context;
-        repaint();
+        //PaintScreenAction screenAction = new PaintScreenAction(context, this);
+        //        addMouseListener(screenAction);
+        //        addMouseMotionListener(screenAction);
+        //        addMouseWheelListener(screenAction);
     }
 
     @Override

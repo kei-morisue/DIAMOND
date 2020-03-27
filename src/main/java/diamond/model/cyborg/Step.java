@@ -6,6 +6,7 @@ package diamond.model.cyborg;
 
 import java.util.ArrayList;
 
+import diamond.Config;
 import diamond.model.cyborg.geom.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 
@@ -14,11 +15,14 @@ import diamond.model.cyborg.symbol.AbstractSymbol;
  *
  */
 public class Step {
-    private ArrayList<Face> faces;
-    private ArrayList<AbstractSymbol> symbols;
+    private ArrayList<Face> faces = new ArrayList<Face>();
+    private ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     private AbstractOperation operation;
 
     public Step() {
+        Face face = new Face();
+        face.buildSquare(Config.PAPER_SIZE);
+        faces.add(face);
     }
 
     public ArrayList<Face> getFaces() {

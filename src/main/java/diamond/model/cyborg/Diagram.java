@@ -14,11 +14,12 @@ import diamond.model.cyborg.style.StyleSegment;
  *
  */
 public class Diagram {
-    private LinkedList<Step> steps;
+    private LinkedList<Step> steps = new LinkedList<Step>();
     private StyleFace styleFace;
     private StyleSegment styleSegment;
 
     public Diagram() {
+        steps.add(new Step());
     }
 
     public LinkedList<Step> getSteps() {

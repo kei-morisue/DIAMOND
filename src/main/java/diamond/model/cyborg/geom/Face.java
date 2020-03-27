@@ -14,9 +14,9 @@ import diamond.model.math.Metric;
  *
  */
 public class Face {
-    private LinkedList<Vertex> vertices;
-    private HashSet<SegmentCrease> creases;
-    private HashSet<SegmentMV> mVs;
+    private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
+    private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
+    private HashSet<SegmentMV> mVs = new HashSet<SegmentMV>();
     private boolean isFront = false;
 
     public Face() {
@@ -25,8 +25,8 @@ public class Face {
     public void buildSquare(double width) {
         vertices.add(new Vertex(width, width));
         vertices.add(new Vertex(-width, width));
-        vertices.add(new Vertex(width, -width));
         vertices.add(new Vertex(-width, -width));
+        vertices.add(new Vertex(width, -width));
     }
 
     public boolean isBoundary(Vertex v) {

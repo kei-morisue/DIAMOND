@@ -7,6 +7,7 @@ public class DIAMOND {
 
     public static void main(String[] args) {
         Context context = new Context();
-        new MainFrame(context);
+        MainFrame mainFrame = new MainFrame(context);
+        mainFrame.repaint();//TODO
     }
 }

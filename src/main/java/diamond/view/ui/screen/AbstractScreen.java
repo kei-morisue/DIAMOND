@@ -12,6 +12,8 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.JPanel;
 
+import diamond.view.ui.screen.style.Skin;
+
 /**
  * @author Kei Morisue
  *
@@ -44,6 +46,7 @@ public abstract class AbstractScreen extends JPanel
     @Override
     public void paintComponents(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        drawBackGround(g2d, Skin.BG_MAIN_SCREEN);
         this.transform.resize(getWidth(), getHeight());
         g2d.setTransform(transform);
         draw(g2d);
