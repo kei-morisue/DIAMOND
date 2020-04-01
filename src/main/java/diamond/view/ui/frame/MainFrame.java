@@ -4,10 +4,11 @@
  */
 package diamond.view.ui.frame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -26,33 +27,40 @@ public class MainFrame extends JFrame {
     private Context context;
     private Bar menubar;
     private MainScreen west;
-    private JPanel east;
 
     public MainFrame(Context context) {
         this.context = context;
         this.menubar = new Bar(context);
         this.west = new MainScreen(context);
-        setTitle(Labels.get("main_frame_title"));
         IconBuilder.set(this, "diamond.gif");
-
-        setJMenuBar(menubar);
-
-        Container panel = getContentPane();
-        panel.setLayout(new BorderLayout());
-        panel.add(west, BorderLayout.CENTER);
-        panel.add(buildWest(), BorderLayout.WEST);
-
+        buildConponents(getContentPane());
+        setTitle(Labels.get("main_frame_title"));
         setVisible(true);
-        setSize(Config.MAIN_FRAME_WIDTH,
-                Config.MAIN_FRAME_HEIGHT);
+        setSize(Config.MAIN_FRAME_WIDTH, Config.MAIN_FRAME_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setJMenuBar(menubar);
+    }
+
+    private void buildConponents(Container panel) {
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(buildWest());
+        panel.add(buildCenter());
+    }
+
+    private JPanel buildCenter() {
+        JPanel jPanel = new JPanel();
+        jPanel.setLayout(new GridLayout(1, 2));
+        jPanel.setBackground(Color.BLUE);
+        //jPanel.add(west);
+        return jPanel;
     }
 
     //TODO
     private JPanel buildWest() {
         JPanel comp = new JPanel();
-        comp.setBackground(Color.WHITE);
+        comp.setBackground(Color.RED);
+        comp.add(new JButton("foo"));
         return comp;
     }
 }

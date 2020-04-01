@@ -4,9 +4,11 @@
  */
 package diamond.view.ui.screen;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
+import diamond.controller.action.ScreenActionPaint;
 import diamond.model.cyborg.Step;
 import diamond.view.ui.screen.draw.Drawer;
 
@@ -20,10 +22,11 @@ public class MainScreen extends AbstractScreen {
     public MainScreen(Context context) {
         super();
         this.context = context;
-        //PaintScreenAction screenAction = new PaintScreenAction(context, this);
-        //        addMouseListener(screenAction);
-        //        addMouseMotionListener(screenAction);
-        //        addMouseWheelListener(screenAction);
+        ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
+        setSize(new Dimension(200, 200));
+        addMouseListener(screenAction);
+        addMouseMotionListener(screenAction);
+        addMouseWheelListener(screenAction);
     }
 
     @Override
