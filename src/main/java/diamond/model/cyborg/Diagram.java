@@ -15,8 +15,8 @@ import diamond.model.cyborg.style.StyleSegment;
  */
 public class Diagram {
     private LinkedList<Step> steps = new LinkedList<Step>();
-    private StyleFace styleFace;
-    private StyleSegment styleSegment;
+    private StyleFace styleFace = new StyleFace();
+    private StyleSegment styleSegment = new StyleSegment();
 
     public Diagram() {
         steps.add(new Step());

@@ -5,6 +5,7 @@
 package diamond.model.cyborg.style;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 
 /**
  * @author Kei Morisue
@@ -15,6 +16,11 @@ public class StyleSegment {
     final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
     final public static int CAP = BasicStroke.CAP_BUTT;
     final public static int JOIN = BasicStroke.JOIN_MITER;
+
+    final public static Color COLOR_VALLEY = Color.BLUE;
+    final public static Color COLOR_MOUNTAIN = Color.RED;
+    final public static Color COLOR_EDGE = Color.BLACK;
+    final public static Color COLOR_CREASE = Color.BLACK;
 
     private double widthEdge = 3.0;
     private double widthCrease = 0.0f;

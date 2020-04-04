@@ -5,6 +5,7 @@
 package diamond.view.ui.screen.draw;
 
 import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
 import diamond.model.cyborg.Step;
 import diamond.model.cyborg.geom.Face;
@@ -31,9 +32,14 @@ public class Drawer {
         g2d.setStroke(styleSegment.strokeEdge(scale));
         for (Face face : step.getFaces()) {
             g2d.setColor(styleFace.getColor(face.isFront()));
-            g2d.fill(ShapeBuilder.build(face));
+            GeneralPath polygon = ShapeBuilder.build(face);
+            g2d.fill(polygon);
+            g2d.setStroke(styleSegment.strokeEdge(scale));
+            g2d.setColor(StyleSegment.COLOR_EDGE);
+            g2d.draw(polygon);
 
             g2d.setStroke(styleSegment.strokeCrease(scale));
+            g2d.setColor(StyleSegment.COLOR_CREASE);
             for (SegmentCrease crease : face.getCreases()) {
                 double clip0 = getClip(face, crease.getV0());
                 double clip1 = getClip(face, crease.getV1());

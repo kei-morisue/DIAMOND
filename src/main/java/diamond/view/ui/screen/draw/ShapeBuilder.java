@@ -7,6 +7,7 @@ package diamond.view.ui.screen.draw;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.Face;
 import diamond.model.cyborg.geom.SegmentCrease;
@@ -29,7 +30,10 @@ public class ShapeBuilder {
 
     public static GeneralPath build(Face face) {
         GeneralPath outline = new GeneralPath();
-        for (Vertex v : face.getVertices()) {
+        LinkedList<Vertex> vertices = face.getVertices();
+        Vertex v0 = vertices.get(0);
+        outline.moveTo(v0.getX(), v0.getY());
+        for (Vertex v : vertices) {
             outline.lineTo(v.getX(), v.getY());
         }
         outline.closePath();
