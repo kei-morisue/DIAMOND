@@ -4,8 +4,8 @@
  */
 package diamond.controller;
 
-import diamond.model.cyborg.Diagram;
-import diamond.model.cyborg.Step;
+import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
 
@@ -14,11 +14,16 @@ import diamond.model.cyborg.style.StyleSegment;
  *
  */
 public class Context {
-    private Diagram diagram = new Diagram();
+    private Diagram diagram;
     private int currentStep = 0;
     //private AbstractPaintAction paintAction;
 
+    @Deprecated
     public Context() {
+    }
+
+    public Context(Diagram diagram) {
+        this.diagram = diagram;
     }
 
     public Step getCurrentStep() {

@@ -2,11 +2,11 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model.cyborg;
+package diamond.model.cyborg.step;
 
 import java.util.ArrayList;
 
-import diamond.Config;
+import diamond.model.cyborg.AbstractOperation;
 import diamond.model.cyborg.geom.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 
@@ -20,9 +20,6 @@ public class Step {
     private AbstractOperation operation;
 
     public Step() {
-        Face face = new Face();
-        face.buildSquare(Config.PAPER_SIZE);
-        faces.add(face);
     }
 
     public ArrayList<Face> getFaces() {

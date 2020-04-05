@@ -26,7 +26,6 @@ public class Config {
     final public static int PREVIEW_FRAME_HEIGHT = 1000;
 
     final public static double PAPER_SIZE = 400;
-    final public static int PAPER_EDGES = 4;
 
     final public static double EPSILON = 1.0e-6;
     final public static double EPSILON_SCREEN = 10;

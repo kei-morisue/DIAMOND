@@ -2,10 +2,11 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model.cyborg;
+package diamond.model.cyborg.diagram;
 
 import java.util.LinkedList;
 
+import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
 
@@ -19,7 +20,6 @@ public class Diagram {
     private StyleSegment styleSegment = new StyleSegment();
 
     public Diagram() {
-        steps.add(new Step());
     }
 
     public LinkedList<Step> getSteps() {

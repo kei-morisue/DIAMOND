@@ -15,7 +15,7 @@ public class StyleSegment {
     final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
     final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
     final public static int CAP = BasicStroke.CAP_BUTT;
-    final public static int JOIN = BasicStroke.JOIN_MITER;
+    final public static int JOIN = BasicStroke.JOIN_ROUND;
 
     final public static Color COLOR_VALLEY = Color.BLUE;
     final public static Color COLOR_MOUNTAIN = Color.RED;

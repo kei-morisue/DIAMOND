@@ -22,13 +22,7 @@ public class Face {
     public Face() {
     }
 
-    public void buildSquare(double width) {
-        vertices.add(new Vertex(width, width));
-        vertices.add(new Vertex(-width, width));
-        vertices.add(new Vertex(-width, -width));
-        vertices.add(new Vertex(width, -width));
-    }
-
+    //TODO enhance the logic
     public boolean isBoundary(Vertex v) {
         for (int i = 0; i < vertices.size(); i++) {
             Vertex v0 = vertices.get(i);
@@ -71,10 +65,12 @@ public class Face {
         return isFront;
     }
 
-    public void flip() {
+    public Face flip() {
         isFront = !isFront;
+        return this;
     }
 
+    @Deprecated
     public void setFront(boolean isFront) {
         this.isFront = isFront;
     }

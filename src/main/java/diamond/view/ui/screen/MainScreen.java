@@ -9,7 +9,8 @@ import java.awt.Graphics2D;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
-import diamond.view.ui.screen.draw.Drawer;
+import diamond.model.cyborg.step.Step;
+import diamond.view.ui.screen.draw.CyborgDrawer;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -39,9 +40,9 @@ public class MainScreen extends AbstractScreen {
 
     @Override
     protected void draw(Graphics2D g2d) {
-        Drawer drawer = new Drawer(context.getStyleFace(),
-                context.getStyleSegment());
-        drawer.Draw(g2d, context.getCurrentStep());
+        CyborgDrawer drawer = new CyborgDrawer(context);
+        Step currentStep = context.getCurrentStep();
+        drawer.draw(g2d, currentStep);
     }
 
     public void reset() {

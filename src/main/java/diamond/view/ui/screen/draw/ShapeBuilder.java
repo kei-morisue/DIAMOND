@@ -46,13 +46,13 @@ public class ShapeBuilder {
         return build(v0, v1);
     }
 
-    public static Line2D.Double build(SegmentCrease crease, double clip0,
-            double clip1) {
+    public static Line2D.Double build(SegmentCrease crease, double clipped0,
+            double clipped1) {
         Vertex v0 = crease.getV0();
         Vertex v1 = crease.getV1();
         Vertex pivot = crease.getCenter();
-        v0 = v0.scale(1.0 - clip0, pivot);
-        v1 = v1.scale(1.0 - clip1, pivot);
+        v0 = v0.scale(clipped0, pivot);
+        v1 = v1.scale(clipped1, pivot);
         return build(v0, v1);
     }
 
