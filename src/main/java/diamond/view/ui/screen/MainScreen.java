@@ -4,7 +4,7 @@
  */
 package diamond.view.ui.screen;
 
-import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
@@ -33,11 +33,12 @@ public class MainScreen extends AbstractScreen {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        drawBackGround(g2d, Skin.BG_MAIN_SCREEN);
-        transform.resize(getWidth(), getHeight());
-        g2d.setTransform(transform);
+    protected Color getBGColor() {
+        return Skin.BG_MAIN_SCREEN;
+    }
+
+    @Override
+    protected void draw(Graphics2D g2d) {
         Drawer drawer = new Drawer(context.getStyleFace(),
                 context.getStyleSegment());
         drawer.Draw(g2d, context.getCurrentStep());
