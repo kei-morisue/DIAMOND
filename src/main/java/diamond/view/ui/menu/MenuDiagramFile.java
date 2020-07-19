@@ -12,7 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
-import diamond.controller.action.ImageExportAction;
+import diamond.controller.action.ExportImageAction;
+import diamond.controller.action.ExportSvgAction;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.screen.PreviewScreen;
 
@@ -29,14 +30,28 @@ public class MenuDiagramFile extends JMenu {
         super(Labels.get("preview_menu_file"));
         this.context = context;
         this.screen = screen;
-        add(buildSave());
+        add(buildSaveImage());
+        add(buildSaveSvg());
     }
 
-    private JMenuItem buildSave() {
-        JMenuItem item = new JMenuItem(Labels.get("preview_menu_save"));
+    private JMenuItem buildSaveImage() {
+        JMenuItem item = new JMenuItem(Labels.get("preview_menu_save_image"));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
                 ActionEvent.CTRL_MASK));
-        item.addActionListener(new ImageExportAction(this, screen));
+        item.addActionListener(new ExportImageAction(this, screen));
+        return item;
+    }
+
+    private JMenuItem buildSaveSvg() {
+        JMenuItem item = new JMenuItem(Labels.get("preview_menu_save_svg"));
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,
+                ActionEvent.CTRL_MASK));
+
+        item.addActionListener(
+                new ExportSvgAction(
+                        this,
+                        screen,
+                        context.getPalette()));
         return item;
     }
 

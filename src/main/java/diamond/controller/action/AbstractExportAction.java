@@ -5,10 +5,8 @@
 package diamond.controller.action;
 
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -33,7 +31,7 @@ public abstract class AbstractExportAction implements ActionListener {
         this.screen = screen;
     }
 
-    abstract protected void export(String filePath) throws IOException;
+    abstract protected void export(String directory) throws IOException;
 
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
@@ -51,14 +49,4 @@ public abstract class AbstractExportAction implements ActionListener {
         }
     }
 
-    protected BufferedImage getImage() {
-        int w = screen.getWidth();
-        int h = screen.getHeight();
-        BufferedImage image = new BufferedImage(w, h,
-                BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = image.createGraphics();
-        screen.paintComponents(g2);
-        g2.dispose();
-        return image;
-    }
 }

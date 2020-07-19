@@ -32,7 +32,6 @@ public class StepOrdinal extends AbstractStep {
     protected void draw(Graphics2D g2d) {
         FoldedScreenDrawer.draw(g2d, cp);
         StringDrawer.drawDiagramStepNo(g2d, stepNo + 1, x, y);
-        g2d.dispose();
     }
 
 }

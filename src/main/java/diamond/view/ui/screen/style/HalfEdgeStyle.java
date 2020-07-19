@@ -132,7 +132,7 @@ public class HalfEdgeStyle {
                     10.0f, isFaceFront ? v : m, 0.0f);
         default:
             return new BasicStroke(3.0f / scale,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
         }
     }
 

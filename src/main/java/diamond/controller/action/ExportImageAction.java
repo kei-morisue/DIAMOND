@@ -5,6 +5,7 @@
 package diamond.controller.action;
 
 import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,9 +18,9 @@ import diamond.view.ui.screen.PreviewScreen;
  * @author Kei Morisue
  *
  */
-public class ImageExportAction extends AbstractExportAction {
+public class ExportImageAction extends AbstractExportAction {
 
-    public ImageExportAction(Component parent, PreviewScreen screen) {
+    public ExportImageAction(Component parent, PreviewScreen screen) {
         super(parent, screen);
     }
 
@@ -43,4 +44,14 @@ public class ImageExportAction extends AbstractExportAction {
         return "png";
     }
 
+    private BufferedImage getImage() {
+        int w = screen.getWidth();
+        int h = screen.getHeight();
+        BufferedImage image = new BufferedImage(w, h,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        screen.paintComponents(g2);
+        g2.dispose();
+        return image;
+    }
 }

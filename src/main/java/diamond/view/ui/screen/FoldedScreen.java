@@ -38,7 +38,6 @@ public class FoldedScreen extends AbstractScreen {
         transform.resize(getWidth(), getHeight());
         g2d.setTransform(transform);
         FoldedScreenDrawer.draw(g2d, context.getCp());
-        FoldedScreenDrawer.draw(g2d, context);
         StringDrawer.drawFoldedStepNo(g2d, context.getCurrentStep() + 1, 0, 0);
     }
 

@@ -5,8 +5,8 @@
 package diamond.view.ui.screen.draw;
 
 import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
-import diamond.controller.Context;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
@@ -28,9 +28,8 @@ public class FoldedScreenDrawer {
             if (face.getProperty().isDisabled()) {
                 continue;
             }
-            draw(g2d, face);
+            draw(g2d, face, scale);
             for (HalfEdge he : face.getSortedEdges()) {
-                draw(g2d, he, scale);
                 draw(g2d, he.getV0(), scale);
             }
             for (HalfEdge he : face.getUnsettledLines()) {
@@ -84,11 +83,15 @@ public class FoldedScreenDrawer {
         }
     }
 
-    public static void draw(Graphics2D g2d, Face f) {
+    public static void draw(Graphics2D g2d, Face f, double scale) {
         g2d.setColor(FaceStyle.getFoldedColor(f));
-        g2d.fill(FaceDrawer.buildFoldedOutline(f));
+        GeneralPath outline = FaceDrawer.buildFoldedOutline(f);
+        g2d.fill(outline);
+        g2d.setColor(HalfEdgeStyle.CUT);
+        g2d.setStroke(
+                HalfEdgeStyle.getFoldedStroke(EdgeType.CUT, (float) scale,
+                        f.isFaceFront()));
+        g2d.draw(outline);
     }
 
-    public static void draw(Graphics2D g2d, Context context) {
-    }
 }

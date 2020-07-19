@@ -17,11 +17,11 @@ import diamond.controller.file.ExporterXML;
  * @author Kei Morisue
  *
  */
-public class ExportAction implements ActionListener {
+public class ExportDmdAction implements ActionListener {
     Context context;
     Component parentComponent;
 
-    public ExportAction(Context context, Component parent) {
+    public ExportDmdAction(Context context, Component parent) {
         this.context = context;
         this.parentComponent = parent;
     }
