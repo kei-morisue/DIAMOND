@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.view.ui.panel;
+package diamond.view.ui.panel.option;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,11 +19,11 @@ import diamond.view.resource.string.Labels;
  * @author Kei Morisue
  *
  */
-public class OptionLine extends JPanel {
-    public OptionLine(Context context) {
+public class PanelLine extends JPanel {
+    public PanelLine(Context context) {
         super();
         add(new JLabel(Labels.get("clipping_scale")));
-        StyleSegment styleSegment = context.getStyleSegment();
+        StyleSegment styleSegment = context.getDiagram().getStyleSegment();
         double clip = styleSegment.getClip();
         JTextField clipScale = new JTextField(String.valueOf(100 * clip));
         clipScale.setColumns(3);

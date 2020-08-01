@@ -9,10 +9,10 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
-import diamond.model.cyborg.geom.Face;
-import diamond.model.cyborg.geom.SegmentCrease;
-import diamond.model.cyborg.geom.SegmentMV;
-import diamond.model.cyborg.geom.Vertex;
+import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.SegmentMV;
+import diamond.model.cyborg.geom.d2.Face;
 
 /**
  * @author Kei Morisue
@@ -50,7 +50,7 @@ public class ShapeBuilder {
             double clipped1) {
         Vertex v0 = crease.getV0();
         Vertex v1 = crease.getV1();
-        Vertex pivot = crease.getCenter();
+        Vertex pivot = v1.c(v0);
         v0 = v0.scale(clipped0, pivot);
         v1 = v1.scale(clipped1, pivot);
         return build(v0, v1);

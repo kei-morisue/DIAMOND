@@ -1,4 +1,4 @@
-activeProfiles=
+activeProfiles=\!java3d-windows-dependencies, batik-windows-dependencies
 eclipse.preferences.version=1
 resolveWorkspaceProjects=true
 version=1

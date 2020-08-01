@@ -10,9 +10,9 @@ import javax.swing.JTabbedPane;
 import diamond.Config;
 import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
-import diamond.view.ui.panel.OptionFace;
-import diamond.view.ui.panel.OptionLine;
-import diamond.view.ui.panel.OptionPage;
+import diamond.view.ui.panel.option.PanelFace;
+import diamond.view.ui.panel.option.PanelLine;
+import diamond.view.ui.panel.option.PanelPage;
 
 /**
  * @author Kei Morisue
@@ -25,13 +25,13 @@ public class StyleFrame extends JFrame {
         JTabbedPane pane = new JTabbedPane();
         pane.addTab(
                 Labels.get("tab_style_line"),
-                new OptionLine(context));
+                new PanelLine(context));
         pane.addTab(
                 Labels.get("tab_style_face"),
-                new OptionFace(context));
+                new PanelFace(context));
         pane.addTab(
                 Labels.get("tab_style_page"),
-                new OptionPage(context));
+                new PanelPage(context));
         add(pane);
         setLocationRelativeTo(null);
         setVisible(true);

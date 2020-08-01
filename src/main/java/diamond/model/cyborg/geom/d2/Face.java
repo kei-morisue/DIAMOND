@@ -2,12 +2,14 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.model.cyborg.geom;
+package diamond.model.cyborg.geom.d2;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import diamond.model.math.Metric;
+import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.SegmentMV;
 
 /**
  * @author Kei Morisue
@@ -22,15 +24,8 @@ public class Face {
     public Face() {
     }
 
-    //TODO enhance the logic
     public boolean isBoundary(Vertex v) {
-        for (int i = 0; i < vertices.size(); i++) {
-            Vertex v0 = vertices.get(i);
-            Vertex v1 = vertices.get((i + 1) % vertices.size());
-            if (Metric.isOn(v0, v1, v)) {
-                return true;
-            }
-        }
+        //TODO enhance the logic
         return false;
     }
 

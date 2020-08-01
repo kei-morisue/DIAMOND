@@ -18,8 +18,8 @@ import diamond.view.resource.string.Labels;
  * @author Kei Morisue
  *
  */
-public class File extends JMenu {
-    public File(Context context) {
+public class MainFile extends JMenu {
+    public MainFile(Context context) {
         super(Labels.get("main_menu_file"));
         add(buildNew(context));
         add(buildOpen(context));

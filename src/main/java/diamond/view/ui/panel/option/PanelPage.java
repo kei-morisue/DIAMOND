@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.view.ui.panel;
+package diamond.view.ui.panel.option;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -23,7 +23,7 @@ import diamond.view.ui.screen.style.PageStyle;
  * @author Kei Morisue
  *
  */
-public class OptionPage extends JPanel {
+public class PanelPage extends JPanel {
     private static final String rows = Labels.get("page_rows");
     private static final String cols = Labels.get("page_cols");
     private static final String bg = Labels.get("page_bg_color");
@@ -35,7 +35,7 @@ public class OptionPage extends JPanel {
             String.valueOf(PageStyle.DIAGRAM_ROW));
     private JButton bgButton = new JButton();
 
-    public OptionPage(Context context) {
+    public PanelPage(Context context) {
         this.context = context;
         bgButton.setBackground(PageStyle.bg);
         bgButton.addActionListener(new PageColorAction(bgButton));

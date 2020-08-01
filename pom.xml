@@ -4,7 +4,7 @@
 
     <groupId>diamond</groupId>
     <artifactId>diamond</artifactId>
-    <version>0.59</version>
+    <version>0.55</version>
     <packaging>jar</packaging>
 
 
@@ -52,10 +52,32 @@
             </dependencies>
 
         </profile>
+        <profile>
+            <id>batik-windows-dependencies</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+
+            <dependencies>
+                <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom -->
+                <dependency>
+                    <groupId>org.apache.xmlgraphics</groupId>
+                    <artifactId>batik-svg-dom</artifactId>
+                    <version>1.13</version>
+                </dependency>
+                <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svggen -->
+                <dependency>
+                    <groupId>org.apache.xmlgraphics</groupId>
+                    <artifactId>batik-svggen</artifactId>
+                    <version>1.13</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <dependencies>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

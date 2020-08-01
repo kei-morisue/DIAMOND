@@ -20,6 +20,7 @@ public class DiagramBuilder {
 
     public static Diagram craneBase() {
         Diagram diagram = new Diagram();
+        diagram.getSteps().add(StepBuilder.step0(Config.PAPER_SIZE));
         diagram.getSteps().add(StepBuilder.craneBase(Config.PAPER_SIZE));
         return diagram;
     }

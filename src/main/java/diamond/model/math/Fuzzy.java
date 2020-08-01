@@ -12,11 +12,11 @@ import diamond.model.Constants;
  */
 public class Fuzzy {
     public static boolean in(double x, double a, double b) {
-        return (a - Constants.EPS < x && x < b + Constants.EPS) ? true : false;
+        return a - Constants.EPS < x && x < b + Constants.EPS;
     }
 
     public static boolean isSmall(double x) {
-        return (-Constants.EPS < x && x < Constants.EPS) ? true : false;
+        return -Constants.EPS < x && x < Constants.EPS;
     }
 
 }

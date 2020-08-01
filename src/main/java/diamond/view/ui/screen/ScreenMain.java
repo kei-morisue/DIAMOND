@@ -17,13 +17,13 @@ import diamond.view.ui.screen.style.Skin;
  * @author Kei Morisue
  *
  */
-public class MainScreen extends AbstractScreen {
+public class ScreenMain extends AbstractScreen {
     private Context context;
 
-    protected MainScreen() {
+    protected ScreenMain() {
     }
 
-    public MainScreen(Context context) {
+    public ScreenMain(Context context) {
         super();
         this.context = context;
         ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
@@ -41,8 +41,8 @@ public class MainScreen extends AbstractScreen {
     @Override
     protected void draw(Graphics2D g2d) {
         CyborgDrawer drawer = new CyborgDrawer(context);
-        Step currentStep = context.getCurrentStep();
-        drawer.draw(g2d, currentStep);
+        Step step = context.getDiagram().getStep();
+        drawer.draw(g2d, step);
     }
 
     public void reset() {

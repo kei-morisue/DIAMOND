@@ -20,8 +20,8 @@ import diamond.view.ui.frame.StyleFrame;
  * @author Kei Morisue
  *
  */
-public class Option extends JMenu {
-    public Option(Context context) {
+public class MainOption extends JMenu {
+    public MainOption(Context context) {
         super(Labels.get("main_menu_option"));
         JMenuItem item = new JMenuItem(
                 Labels.get("main_menu_option_style"));

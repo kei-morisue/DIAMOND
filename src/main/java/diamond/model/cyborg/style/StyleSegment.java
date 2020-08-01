@@ -12,41 +12,44 @@ import java.awt.Color;
  *
  */
 public class StyleSegment {
-    final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
-    final public static float DASH_MOUNTAIN[] = { 10.0f, 2.0f, 2.0f, 2.0f };
     final public static int CAP = BasicStroke.CAP_BUTT;
     final public static int JOIN = BasicStroke.JOIN_ROUND;
-
     final public static Color COLOR_VALLEY = Color.BLUE;
     final public static Color COLOR_MOUNTAIN = Color.RED;
     final public static Color COLOR_EDGE = Color.BLACK;
     final public static Color COLOR_CREASE = Color.BLACK;
 
-    private double widthEdge = 3.0;
-    private double widthCrease = 0.0f;
-    private double widthSymbol = 5.0f;
-    private double widthMv = 3.0f;
+    private float widthEdge = 3.0f;
+    private float widthCrease = 0.0f;
+    private float widthSymbol = 5.0f;
+    private float widthMv = 3.0f;
 
     private double clip = 0.1;
 
     public StyleSegment() {
     }
 
-    public BasicStroke strokeEdge(double scale) {
-        return new BasicStroke((float) (widthEdge / scale), CAP, JOIN);
+    public BasicStroke strokeEdge(float scale) {
+        return new BasicStroke(widthEdge / scale, CAP, JOIN);
     }
 
-    public BasicStroke strokeCrease(double scale) {
-        return new BasicStroke((float) (widthCrease / scale), CAP, JOIN);
+    public BasicStroke strokeCrease(float scale) {
+        return new BasicStroke(widthCrease / scale, CAP, JOIN);
     }
 
-    public BasicStroke strokeMv(double scale, boolean isMountain) {
-        return new BasicStroke((float) (widthMv / scale), CAP, JOIN,
-                10.0f, (isMountain) ? DASH_MOUNTAIN : DASH_VALLEY, 0.0f);
+    public BasicStroke strokeMv(float scale, boolean isMountain) {
+        float dashV[] = { 10.0f / scale, 3.0f / scale };
+        float dashM[] = { 10.0f / scale, 2.0f / scale, 2.0f / scale,
+                2.0f / scale };
+        return new BasicStroke(
+                widthMv / scale, CAP, JOIN,
+                10.0f,
+                (isMountain) ? dashM : dashV,
+                0.0f);
     }
 
-    public BasicStroke strokeSymbol(double scale) {
-        return new BasicStroke((float) (widthSymbol / scale), CAP, JOIN);
+    public BasicStroke strokeSymbol(float scale) {
+        return new BasicStroke(widthSymbol / scale, CAP, JOIN);
     }
 
     @Deprecated
@@ -54,7 +57,7 @@ public class StyleSegment {
         return widthEdge;
     }
 
-    public void setWidthEdge(double widthEdge) {
+    public void setWidthEdge(float widthEdge) {
         this.widthEdge = widthEdge;
     }
 
@@ -63,7 +66,7 @@ public class StyleSegment {
         return widthCrease;
     }
 
-    public void setWidthCrease(double widthCrease) {
+    public void setWidthCrease(float widthCrease) {
         this.widthCrease = widthCrease;
     }
 
@@ -72,7 +75,7 @@ public class StyleSegment {
         return widthSymbol;
     }
 
-    public void setWidthSymbol(double widthSymbol) {
+    public void setWidthSymbol(float widthSymbol) {
         this.widthSymbol = widthSymbol;
     }
 
@@ -81,7 +84,7 @@ public class StyleSegment {
         return widthMv;
     }
 
-    public void setWidthMv(double widthMv) {
+    public void setWidthMv(float widthMv) {
         this.widthMv = widthMv;
     }
 

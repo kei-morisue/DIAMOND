@@ -12,9 +12,9 @@ import diamond.controller.Context;
  * @author Kei Morisue
  *
  */
-public class Bar extends JMenuBar {
-    public Bar(Context context) {
-        add(new File(context));
-        add(new Option(context));
+public class MainBar extends JMenuBar {
+    public MainBar(Context context) {
+        add(new MainFile(context));
+        add(new MainOption(context));
     }
 }

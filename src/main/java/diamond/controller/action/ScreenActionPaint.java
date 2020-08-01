@@ -7,7 +7,7 @@ package diamond.controller.action;
 import java.awt.event.MouseEvent;
 
 import diamond.controller.Context;
-import diamond.view.ui.screen.MainScreen;
+import diamond.view.ui.screen.ScreenMain;
 
 /**
  * @author Kei Morisue
@@ -16,7 +16,7 @@ import diamond.view.ui.screen.MainScreen;
 public class ScreenActionPaint extends AbstractScreenAction {
     private Context context;
 
-    public ScreenActionPaint(Context context, MainScreen screen) {
+    public ScreenActionPaint(Context context, ScreenMain screen) {
         super(screen);
         this.context = context;
     }

@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.view.ui.panel;
+package diamond.view.ui.panel.option;
 
 import java.awt.GridLayout;
 
@@ -17,16 +17,16 @@ import diamond.view.resource.string.Labels;
  * @author Kei Morisue
  *
  */
-public class OptionFace extends JPanel {
+public class PanelFace extends JPanel {
     private static final String faceFrontLabel = Labels.get("face_front_color");
     private static final String faceBackLabel = Labels.get("face_back_color");
     private Context context;
 
-    public OptionFace(Context context) {
+    public PanelFace(Context context) {
         this.context = context;
         JButton faceFront = new JButton(faceFrontLabel);
         JButton faceBack = new JButton(faceBackLabel);
-        StyleFace styleFace = context.getStyleFace();
+        StyleFace styleFace = context.getDiagram().getStyleFace();
         faceFront.setBackground(styleFace.getFront());
         faceBack.setBackground(styleFace.getBack());
         //        faceFront.addActionListener(new FaceColorAction(faceFront, true));

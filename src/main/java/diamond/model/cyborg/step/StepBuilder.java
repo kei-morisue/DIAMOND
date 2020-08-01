@@ -6,22 +6,22 @@ package diamond.model.cyborg.step;
 
 import java.util.ArrayList;
 
-import diamond.model.cyborg.geom.Face;
-import diamond.model.cyborg.geom.FaceBuilder;
-import diamond.model.cyborg.geom.Vertex;
+import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.geom.d2.FaceBuilder;
 
 /**
  * @author Kei Morisue
  *
  */
 public class StepBuilder {
+    static final double A = Math.sqrt(2.0) - 1.0;
+
     public static Step step0(double size) {
         Step step = new Step();
         step.getFaces().add(FaceBuilder.square(size));
         return step;
     }
-
-    static final double A = Math.sqrt(2.0) - 1.0;
 
     public static Step craneBase(double size) {
         double b = A * size;

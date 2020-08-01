@@ -4,10 +4,11 @@
  */
 package diamond.model.cyborg.step;
 
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import diamond.model.cyborg.AbstractOperation;
-import diamond.model.cyborg.geom.Face;
+import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 
 /**
@@ -18,6 +19,7 @@ public class Step {
     private ArrayList<Face> faces = new ArrayList<Face>();
     private ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     private AbstractOperation operation;
+    private AffineTransform transform = new AffineTransform();
 
     public Step() {
     }
@@ -50,5 +52,13 @@ public class Step {
 
     public void setOperation(AbstractOperation operation) {
         this.operation = operation;
+    }
+
+    public AffineTransform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
     }
 }
