@@ -10,6 +10,6 @@ public class DIAMOND {
     public static void main(String[] args) {
         Diagram diagram = DiagramBuilder.craneBase();//TODO
         Context context = new Context(diagram);
-        MainFrame mainFrame = new MainFrame(context);
+        new MainFrame(context);
     }
 }

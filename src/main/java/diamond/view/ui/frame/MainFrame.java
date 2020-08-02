@@ -15,7 +15,7 @@ import diamond.controller.Context;
 import diamond.view.resource.IconBuilder;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.menu.MainBar;
-import diamond.view.ui.panel.PanelControl;
+import diamond.view.ui.panel.control.PanelControl;
 import diamond.view.ui.panel.main.PanelMain;
 
 /**

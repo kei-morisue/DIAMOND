@@ -10,6 +10,7 @@ import java.util.Observable;
 import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
+import diamond.model.math.Util;
 
 /**
  * @author Kei Morisue
@@ -29,11 +30,10 @@ public class Diagram extends Observable {
     }
 
     public void next(int steps) {
-        lastStep = Math.max(
+        lastStep = Util.window(
+                lastStep + steps,
                 0,
-                Math.min(
-                        lastStep + steps,
-                        this.steps.size() - 1));
+                this.steps.size() - 1);
         setChanged();
         notifyObservers();
     }

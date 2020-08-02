@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.controller.action;
+package diamond.controller.action.paint;
 
 import diamond.controller.Context;
 import diamond.controller.action.state.AbstractState;
@@ -11,7 +11,7 @@ import diamond.controller.action.state.AbstractState;
  * @author Kei Morisue
  *
  */
-public abstract class AbstractPaintAction {
+public abstract class AbstractPaintAction implements PaintActionInterface {
     private AbstractState state;
 
     public AbstractPaintAction() {
