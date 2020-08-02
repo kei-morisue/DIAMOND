@@ -6,6 +6,8 @@ package diamond.view.ui.screen;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Observable;
+import java.util.Observer;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
@@ -17,7 +19,7 @@ import diamond.view.ui.screen.style.Skin;
  * @author Kei Morisue
  *
  */
-public class ScreenMain extends AbstractScreen {
+public class ScreenMain extends AbstractScreen implements Observer {
     private Context context;
 
     protected ScreenMain() {
@@ -30,7 +32,7 @@ public class ScreenMain extends AbstractScreen {
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
-
+        context.addObserver(this);
     }
 
     @Override
@@ -49,6 +51,11 @@ public class ScreenMain extends AbstractScreen {
         transform.resize(getWidth(), getHeight());
         transform.zoom(1.0);
         transform.translate(.0, .0);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        repaint();
     }
 
 }

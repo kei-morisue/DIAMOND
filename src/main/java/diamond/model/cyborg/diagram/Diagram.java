@@ -5,6 +5,7 @@
 package diamond.model.cyborg.diagram;
 
 import java.util.LinkedList;
+import java.util.Observable;
 
 import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
@@ -14,7 +15,7 @@ import diamond.model.cyborg.style.StyleSegment;
  * @author Kei Morisue
  *
  */
-public class Diagram {
+public class Diagram extends Observable {
     private LinkedList<Step> steps = new LinkedList<Step>();
     private int lastStep = 0;
     private StyleFace styleFace = new StyleFace();
@@ -33,6 +34,8 @@ public class Diagram {
                 Math.min(
                         lastStep + steps,
                         this.steps.size() - 1));
+        setChanged();
+        notifyObservers();
     }
 
     public Step getStep() {

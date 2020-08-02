@@ -4,13 +4,16 @@
  */
 package diamond.controller;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import diamond.model.cyborg.diagram.Diagram;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Context {
+public class Context extends Observable implements Observer {
     private Diagram diagram;
     //private AbstractPaintAction paintAction;
 
@@ -20,6 +23,7 @@ public class Context {
 
     public Context(Diagram diagram) {
         this.diagram = diagram;
+        this.diagram.addObserver(this);
     }
 
     public Diagram getDiagram() {
@@ -28,5 +32,11 @@ public class Context {
 
     public void setDiagram(Diagram diagram) {
         this.diagram = diagram;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers();
     }
 }
