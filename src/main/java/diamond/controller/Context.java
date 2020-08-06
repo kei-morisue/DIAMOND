@@ -10,7 +10,7 @@ import java.util.Observer;
 import diamond.controller.action.paint.Lazy;
 import diamond.controller.action.paint.PaintActionInterface;
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.d1.EdgeType;
+import diamond.model.cyborg.geom.d1.SegmentType;
 
 /**
  * @author Kei Morisue
@@ -19,7 +19,7 @@ import diamond.model.cyborg.geom.d1.EdgeType;
 public class Context extends Observable implements Observer {
     private Diagram diagram;
     private PaintActionInterface paintAction = new Lazy();//TODO
-    private EdgeType type;
+    private SegmentType type;
 
     @Deprecated
     public Context() {
@@ -48,11 +48,11 @@ public class Context extends Observable implements Observer {
         notifyObservers();
     }
 
-    public EdgeType getType() {
+    public SegmentType getType() {
         return type;
     }
 
-    public void setType(EdgeType type) {
+    public void setType(SegmentType type) {
         this.type = type;
     }
 

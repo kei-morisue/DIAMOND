@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.geom.d2;
 
+import java.awt.geom.AffineTransform;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -17,15 +18,16 @@ import diamond.model.cyborg.geom.d1.SegmentMV;
  */
 public class Face {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
+    private HashSet<SegmentMV> edges = new HashSet<SegmentMV>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    private HashSet<SegmentMV> mVs = new HashSet<SegmentMV>();
     private boolean isFront = false;
+    private AffineTransform transform = null;
 
     public Face() {
     }
 
     public boolean isBoundary(Vertex v) {
-        //TODO enhance the logic
+        //TODO
         return false;
     }
 
@@ -47,15 +49,6 @@ public class Face {
         this.creases = creases;
     }
 
-    public HashSet<SegmentMV> getmVs() {
-        return mVs;
-    }
-
-    @Deprecated
-    public void setmVs(HashSet<SegmentMV> mVs) {
-        this.mVs = mVs;
-    }
-
     public boolean isFront() {
         return isFront;
     }
@@ -68,5 +61,18 @@ public class Face {
     @Deprecated
     public void setFront(boolean isFront) {
         this.isFront = isFront;
+    }
+
+    @Deprecated
+    public AffineTransform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(AffineTransform transform) {
+        this.transform = transform;
+    }
+
+    public HashSet<SegmentMV> getEdges() {
+        return edges;
     }
 }

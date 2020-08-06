@@ -11,7 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.geom.d1.EdgeType;
+import diamond.model.cyborg.geom.d1.SegmentType;
 
 /**
  * @author Kei Morisue
@@ -19,10 +19,10 @@ import diamond.model.cyborg.geom.d1.EdgeType;
  */
 public class Color extends AbstractIconButton implements ActionListener {
     private Context context;
-    private EdgeType type;
+    private SegmentType type;
 
     public Color(
-            EdgeType type,
+            SegmentType type,
             Context context,
             ButtonGroup buttonGroup) {
         this.context = context;

@@ -21,6 +21,7 @@ public class Diagram extends Observable {
     private int lastStep = 0;
     private StyleFace styleFace = new StyleFace();
     private StyleSegment styleSegment = new StyleSegment();
+    private Stars stars = new Stars();
 
     public Diagram() {
     }
@@ -73,5 +74,14 @@ public class Diagram extends Observable {
     @Deprecated
     public void setLastStep(int lastStep) {
         this.lastStep = lastStep;
+    }
+
+    public Stars getStars() {
+        return stars;
+    }
+
+    @Deprecated
+    public void setStars(Stars stars) {
+        this.stars = stars;
     }
 }

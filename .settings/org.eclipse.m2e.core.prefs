@@ -1,4 +1,4 @@
-activeProfiles=\!java3d-windows-dependencies, batik-windows-dependencies
+activeProfiles=batik-windows-dependencies, apache-pivot-dependencies
 eclipse.preferences.version=1
 resolveWorkspaceProjects=true
 version=1

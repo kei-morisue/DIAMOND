@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg.geom.d0;
 
+import diamond.model.math.Fuzzy;
+
 /**
  * @author Kei Morisue
  *
@@ -68,16 +70,16 @@ public class Vertex implements Comparable<Vertex> {
 
     @Override
     public int compareTo(Vertex v0) {
+        if (Fuzzy.isSmall(dist(v0))) {
+            return 0;
+        }
         if (x < v0.x) {
             return -1;
         }
         if (y < v0.y) {
             return -1;
         }
-        if (y > v0.y) {
-            return 1;
-        }
-        return 0;
+        return 1;
     }
 
 }

@@ -6,9 +6,13 @@ package diamond.view.ui.panel;
 
 import java.awt.Color;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import diamond.view.resource.string.Labels;
 
 /**
  * @author Kei Morisue
@@ -22,6 +26,12 @@ public class Util {
                 TitledBorder.LEFT,
                 TitledBorder.TOP);
         panel.setBorder(border);
+    }
+
+    public static void warn(String key) {
+        JLabel label = new JLabel(Labels.get(key));
+        label.setForeground(Color.RED);
+        JOptionPane.showMessageDialog(null, label);
     }
 
 }

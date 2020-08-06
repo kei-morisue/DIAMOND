@@ -4,22 +4,30 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import diamond.model.cyborg.geom.d0.Vertex;
+
 /**
  * @author Kei Morisue
  *
  */
 public class SegmentCrease extends AbstractSegment {
-    private boolean isM = false;
+    private SegmentType type = SegmentType.CREASE;
 
+    @Deprecated
     public SegmentCrease() {
     }
 
-    public boolean isM() {
-        return isM;
+    public SegmentCrease(Vertex v0, Vertex v1, SegmentType type) {
+        super(v0, v1);
+        this.setType(type);
     }
 
-    public void setMountain(boolean isM) {
-        this.isM = isM;
+    public SegmentType getType() {
+        return type;
+    }
+
+    public void setType(SegmentType type) {
+        this.type = type;
     }
 
 }

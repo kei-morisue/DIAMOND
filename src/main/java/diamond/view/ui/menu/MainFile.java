@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
+import diamond.controller.file.Export;
 import diamond.view.resource.string.Labels;
 
 /**
@@ -42,6 +43,7 @@ public class MainFile extends JMenu {
 
     private JMenuItem buildSave(Context context) {
         JMenuItem item = new JMenuItem(Labels.get("main_menu_file_save"));
+        item.addActionListener(new Export(context, this));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         return item;

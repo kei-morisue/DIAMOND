@@ -15,6 +15,7 @@ import diamond.controller.Context;
 public class MainBar extends JMenuBar {
     public MainBar(Context context) {
         add(new MainFile(context));
+        add(new MainEdit(context));
         add(new MainOption(context));
     }
 }

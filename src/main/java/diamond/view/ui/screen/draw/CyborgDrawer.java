@@ -9,7 +9,6 @@ import java.awt.geom.GeneralPath;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.step.Step;
@@ -24,7 +23,6 @@ public class CyborgDrawer {
     private StyleFace styleFace;
     private StyleSegment styleSegment;
     private float scale = 1.0f;
-    private double clipped = 1.0;
 
     public CyborgDrawer(Context context) {
         Diagram diagram = context.getDiagram();
@@ -49,21 +47,17 @@ public class CyborgDrawer {
         g2d.setColor(StyleSegment.COLOR_EDGE);
         g2d.draw(polygon);
 
-        g2d.setStroke(styleSegment.strokeCrease(scale));
-        g2d.setColor(StyleSegment.COLOR_CREASE);
-        clipped = 1.0 - styleSegment.getClip();
         for (SegmentCrease crease : face.getCreases()) {
             draw(g2d, face, crease);
         }
     }
 
     private void draw(Graphics2D g2d, Face face, SegmentCrease crease) {
-        double clipped0 = getClipped(face, crease.getV0());
-        double clipped1 = getClipped(face, crease.getV1());
+        double clipped0 = styleSegment.getClipped(face, crease.getV0());
+        double clipped1 = styleSegment.getClipped(face, crease.getV1());
+        g2d.setStroke(styleSegment.strokeCrease(scale, crease.getType()));
+        g2d.setColor(styleSegment.getColor(crease));
         g2d.draw(ShapeBuilder.build(crease, clipped0, clipped1));
     }
 
-    private double getClipped(Face face, Vertex v1) {
-        return (face.isBoundary(v1)) ? clipped : 1.0;
-    }
 }

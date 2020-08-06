@@ -10,7 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.geom.d1.EdgeType;
+import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.button.Color;
 import diamond.view.ui.panel.Util;
@@ -25,15 +25,15 @@ public class Colors extends JPanel {
     public Colors(Context context) {
         setLayout(new GridLayout(3, 1));
         add(new Color(
-                EdgeType.CREASE_VALLEY,
+                SegmentType.CREASE_VALLEY,
                 context,
                 buttonGroup));
         add(new Color(
-                EdgeType.CREASE_MOUNTAIN,
+                SegmentType.CREASE_MOUNTAIN,
                 context,
                 buttonGroup));
         add(new Color(
-                EdgeType.CREASE,
+                SegmentType.CREASE,
                 context,
                 buttonGroup));
         Util.setBorder(this, Labels.get("input_color"));

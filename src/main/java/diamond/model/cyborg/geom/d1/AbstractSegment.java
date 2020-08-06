@@ -13,11 +13,11 @@ import diamond.model.math.Fuzzy;
  *
  */
 public abstract class AbstractSegment {
-
     private Vertex v0;
     private Vertex v1;
 
-    public AbstractSegment() {
+    @Deprecated
+    protected AbstractSegment() {
     }
 
     public AbstractSegment(Vertex v0, Vertex v1) {

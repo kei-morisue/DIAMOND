@@ -8,10 +8,10 @@ package diamond.model.cyborg.geom.d1;
  * @author Kei Morisue
  *
  */
-public enum EdgeType {
+public enum SegmentType {
     CREASE, CREASE_VALLEY, CREASE_MOUNTAIN, CUT, VALLEY, MOUNTAIN;
 
-    public static EdgeType flip(EdgeType type) {
+    public static SegmentType flip(SegmentType type) {
         switch (type) {
         case MOUNTAIN:
             return VALLEY;
@@ -26,7 +26,7 @@ public enum EdgeType {
         }
     }
 
-    public static boolean isCrease(EdgeType type) {
+    public static boolean isCrease(SegmentType type) {
         switch (type) {
         case CREASE:
         case CREASE_MOUNTAIN:
@@ -37,7 +37,7 @@ public enum EdgeType {
         }
     }
 
-    public static EdgeType foldUnfold(EdgeType type) {
+    public static SegmentType foldUnfold(SegmentType type) {
         switch (type) {
         case MOUNTAIN:
             return CREASE_MOUNTAIN;
