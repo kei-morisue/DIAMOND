@@ -92,7 +92,7 @@ public class Tree extends JTree {
             }
         }
         if (name == null) {
-            return child.getChildNodes().item(0).getNodeValue();
+            return child.getFirstChild().getNodeValue();
         }
         return name;
     }
