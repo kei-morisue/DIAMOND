@@ -4,6 +4,7 @@
  */
 package diamond.controller;
 
+import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,6 +20,7 @@ import diamond.model.cyborg.geom.d1.SegmentType;
 public class Context extends Observable implements Observer {
     private Diagram diagram;
     private PaintActionInterface paintAction = new Lazy();//TODO
+    private Point2D.Double pointed;
     private SegmentType type;
 
     @Deprecated
@@ -39,7 +41,6 @@ public class Context extends Observable implements Observer {
     }
 
     public void initialize() {
-
     }
 
     @Override
@@ -62,6 +63,15 @@ public class Context extends Observable implements Observer {
 
     public void setPaintAction(PaintActionInterface paintAction) {
         this.paintAction = paintAction;
+    }
+
+    public Point2D.Double getPointed() {
+        return pointed;
+    }
+
+    public void setPointed(Point2D.Double pointed) {
+        this.pointed = pointed;
+        notifyObservers();
     }
 
 }

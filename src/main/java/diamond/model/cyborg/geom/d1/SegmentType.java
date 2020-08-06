@@ -31,9 +31,9 @@ public enum SegmentType {
         case CREASE:
         case CREASE_MOUNTAIN:
         case CREASE_VALLEY:
-            return false;
-        default:
             return true;
+        default:
+            return false;
         }
     }
 

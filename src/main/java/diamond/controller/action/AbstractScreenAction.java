@@ -11,7 +11,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.controller.MouseUtility;
+import diamond.controller.mouse.Util;
 import diamond.view.ui.screen.AbstractScreen;
 
 /**
@@ -60,7 +60,7 @@ public abstract class AbstractScreenAction
 
     @Override
     public final void mouseWheelMoved(MouseWheelEvent e) {
-        if (MouseUtility.isControlKeyPressed(e)) {
+        if (Util.isControlKeyPressed(e)) {
             rotate(e);
         } else {
             zoom(e);

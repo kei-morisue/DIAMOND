@@ -27,6 +27,9 @@ public class SegmentCrease extends AbstractSegment {
     }
 
     public void setType(SegmentType type) {
+        if (!SegmentType.isCrease(type)) {
+            return;
+        }
         this.type = type;
     }
 

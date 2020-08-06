@@ -26,10 +26,10 @@ public class PanelStep extends JPanel {
                 BorderLayout.WEST);
         add(new ButtonStep(ButtonStep.TOP, context),
                 BorderLayout.EAST);
-        add(buildCenter(context), BorderLayout.CENTER);
+        add(buildCenter(), BorderLayout.CENTER);
     }
 
-    private JPanel buildCenter(Context context) {
+    private JPanel buildCenter() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         panel.add(new ButtonStep(ButtonStep.PREV, context));

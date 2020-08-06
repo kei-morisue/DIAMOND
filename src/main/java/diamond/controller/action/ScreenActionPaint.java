@@ -7,6 +7,7 @@ package diamond.controller.action;
 import java.awt.event.MouseEvent;
 
 import diamond.controller.Context;
+import diamond.controller.mouse.Util;
 import diamond.view.ui.screen.ScreenMain;
 
 /**
@@ -23,23 +24,22 @@ public class ScreenActionPaint extends AbstractScreenAction {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        //        context.setMousePoint(MouseUtility.getLogicalPoint(
-        //                screen.getTransform(),
-        //                e.getPoint()));
-        //        context.getPaintAction().onMove(context);
-        e.getComponent().repaint();
+        context.setPointed(Util.getLogicalPoint(
+                screen.getTransform(),
+                e.getPoint()));
+        context.getPaintAction().onMove(context);
+        context.notifyObservers();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //        if (MouseUtility.isLeftClick(e)) {
-        //            context.getPaintAction().onLeftClick(context);
-        //        }
-        //        if (MouseUtility.isRightClick(e)) {
-        //            context.getPaintAction().onRightClick(context);
-        //        }
-        e.getComponent().repaint();
-        return;
+        if (Util.isLeftClick(e)) {
+            context.getPaintAction().onLeftClick(context);
+        }
+        if (Util.isRightClick(e)) {
+            context.getPaintAction().onRightClick(context);
+        }
+        context.notifyObservers();
     }
 
 }

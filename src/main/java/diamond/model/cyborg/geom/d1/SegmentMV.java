@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
 
 /**
@@ -11,20 +12,18 @@ import diamond.model.cyborg.geom.d2.Face;
  *
  */
 public class SegmentMV extends AbstractSegment {
-    private boolean isM = false;
+    private SegmentType type = SegmentType.VALLEY;
     private Face f0 = null;
     private Face f1 = null;
 
-    public SegmentMV(Face f0) {
+    @Deprecated
+    public SegmentMV() {
+        super();
+    }
+
+    public SegmentMV(Face f0, Vertex v0, Vertex v1) {
+        super(v0, v1);
         this.setF0(f0);
-    }
-
-    public boolean isM() {
-        return isM;
-    }
-
-    public void setMountain(boolean isM) {
-        this.isM = isM;
     }
 
     public Face getF1() {
@@ -41,5 +40,16 @@ public class SegmentMV extends AbstractSegment {
 
     public void setF0(Face f0) {
         this.f0 = f0;
+    }
+
+    public SegmentType getType() {
+        return type;
+    }
+
+    public void setType(SegmentType type) {
+        if (SegmentType.isCrease(type)) {
+            return;
+        }
+        this.type = type;
     }
 }

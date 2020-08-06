@@ -16,10 +16,8 @@ import diamond.view.ui.button.ButtonStepAdd;
  *
  */
 public class PanelAdd extends JPanel {
-    private Context context;
 
     public PanelAdd(Context context) {
-        this.context = context;
         setLayout(new BorderLayout());
         add(new ButtonStepAdd(context, ButtonStepAdd.ADD), BorderLayout.EAST);
         add(new ButtonStepAdd(context, ButtonStepAdd.DES), BorderLayout.WEST);

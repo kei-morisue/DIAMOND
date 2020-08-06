@@ -8,7 +8,6 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import diamond.model.cyborg.diagram.Stars;
-import diamond.model.cyborg.geom.d1.SegmentMV;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 
@@ -18,7 +17,7 @@ import diamond.model.cyborg.symbol.AbstractSymbol;
  */
 public class Step {
     private ArrayList<Face> faces = new ArrayList<Face>();
-    private ArrayList<SegmentMV> edges = new ArrayList<SegmentMV>();
+    //    private ArrayList<SegmentMV> edges = new ArrayList<SegmentMV>();
 
     private ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     private AffineTransform transform = new AffineTransform();
@@ -29,7 +28,7 @@ public class Step {
     }
 
     public Step(Stars stars) {
-        this.stars = stars;
+        this.setStars(stars);
     }
 
     public ArrayList<Face> getFaces() {
@@ -58,6 +57,16 @@ public class Step {
 
     public void setTransform(AffineTransform transform) {
         this.transform = transform;
+    }
+
+    @Deprecated
+    public Stars getStars() {
+        return stars;
+    }
+
+    @Deprecated
+    public void setStars(Stars stars) {
+        this.stars = stars;
     }
 
 }

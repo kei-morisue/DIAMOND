@@ -116,7 +116,6 @@ public class StyleSegment {
         this.widthMv = widthMv;
     }
 
-    @Deprecated
     public double getClip() {
         return clip;
     }

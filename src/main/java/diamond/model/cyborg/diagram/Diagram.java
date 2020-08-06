@@ -9,6 +9,7 @@ import java.util.Observable;
 
 import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
+import diamond.model.cyborg.style.StylePage;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.model.math.Util;
 
@@ -21,6 +22,7 @@ public class Diagram extends Observable {
     private int lastStep = 0;
     private StyleFace styleFace = new StyleFace();
     private StyleSegment styleSegment = new StyleSegment();
+    private StylePage stylePage = new StylePage();
     private Stars stars = new Stars();
 
     public Diagram() {
@@ -83,5 +85,14 @@ public class Diagram extends Observable {
     @Deprecated
     public void setStars(Stars stars) {
         this.stars = stars;
+    }
+
+    public StylePage getStylePage() {
+        return stylePage;
+    }
+
+    @Deprecated
+    public void setStylePage(StylePage stylePage) {
+        this.stylePage = stylePage;
     }
 }

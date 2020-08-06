@@ -4,115 +4,102 @@
  */
 package diamond.view.ui.panel.option;
 
-import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import diamond.controller.Context;
+import diamond.controller.action.ChooseColor;
+import diamond.model.cyborg.style.Getter;
+import diamond.model.cyborg.style.Setter;
+import diamond.model.cyborg.style.StylePage;
 import diamond.view.resource.string.Labels;
-import diamond.view.ui.screen.style.PageStyle;
 
 /**
  * @author Kei Morisue
  *
  */
 public class PanelPage extends JPanel {
-    private static final String rows = Labels.get("page_rows");
-    private static final String cols = Labels.get("page_cols");
-    private static final String bg = Labels.get("page_bg_color");
-
-    private Context context;
-    private JTextField colfField = new JTextField(
-            String.valueOf(PageStyle.DIAGRAM_COL));
-    private JTextField rowField = new JTextField(
-            String.valueOf(PageStyle.DIAGRAM_ROW));
+    private StylePage stylePage;
+    private JTextField colField = new JTextField();
+    private JTextField rowField = new JTextField();
     private JButton bgButton = new JButton();
 
     public PanelPage(Context context) {
-        this.context = context;
-        bgButton.setBackground(PageStyle.bg);
-        bgButton.addActionListener(new PageColorAction(bgButton));
-        colfField.addActionListener(new PageGridAction(true));
-        rowField.addActionListener(new PageGridAction(false));
-        add(colfField);
+        this.stylePage = context.getDiagram().getStylePage();
+        buildBgButton();
+        buildColField();
+        buildRowField();
+        setLayout(new GridLayout(3, 2));
+        add(new JLabel(Labels.get("page_rows")));
         add(rowField);
+        add(new JLabel(Labels.get("page_cols")));
+        add(colField);
+        add(new JLabel(Labels.get("page_bg_color")));
         add(bgButton);
     }
 
-    private class PageGridAction implements ActionListener {
-        private boolean isCol;
+    private void buildBgButton() {
+        bgButton.setBackground(stylePage.getBg());
+        bgButton.addActionListener(
+                new ChooseColor(
+                        bgButton,
+                        stylePage.new BgSetter()));
+    }
 
-        public PageGridAction(boolean isCol) {
-            this.isCol = isCol;
+    private void buildColField() {
+        colField.setText(String.valueOf(stylePage.getCol()));
+        colField.addActionListener(
+                new Action(
+                        new ColGetter(),
+                        stylePage.new ColSetter()));
+        colField.setHorizontalAlignment(JTextField.RIGHT);
+    }
+
+    private void buildRowField() {
+        rowField.setText(String.valueOf(stylePage.getRow()));
+        rowField.addActionListener(
+                new Action(
+                        new RowGetter(),
+                        stylePage.new RowSetter()));
+        rowField.setHorizontalAlignment(JTextField.RIGHT);
+    }
+
+    private class Action implements ActionListener {
+        private Getter<String> getter;
+        private Setter<Byte> setter;
+
+        public Action(Getter<String> getter, Setter<Byte> setter) {
+            this.getter = getter;
+            this.setter = setter;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (isCol) {
-                String c = colfField.getText();
-                if (c != null) {
-                    PageStyle.DIAGRAM_COL = Integer.parseInt(c);
-                }
-            } else {
-                String r = colfField.getText();
-                if (r != null) {
-                    PageStyle.DIAGRAM_ROW = Integer.parseInt(r);
-                }
+            String s = getter.get();
+            if (s != null) {
+                setter.set(Byte.parseByte(s));
             }
         }
 
     }
 
-    private class PageColorAction implements ActionListener {
-        private AbstractButton parent;
-
-        public PageColorAction(AbstractButton parent) {
-            this.parent = parent;
-        }
-
+    private class RowGetter implements Getter<String> {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String title = null;
-            Color initialColor = PageStyle.bg;
-            JColorChooser chooser = new JColorChooser(initialColor);
-            JDialog dialog = JColorChooser.createDialog(parent, title, true,
-                    chooser, new OkListner(chooser),
-                    new CancelListner());
-            dialog.setVisible(true);
+        public String get() {
+            return rowField.getText();
         }
+    }
 
-        private class OkListner implements ActionListener {
-            JColorChooser chooser;
-
-            public OkListner(JColorChooser chooser) {
-                this.chooser = chooser;
-            }
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Color chosen = chooser.getColor();
-                if (chosen == null) {
-                    return;
-                }
-                PageStyle.bg = chosen;
-                parent.setBackground(chosen);
-                //TODO
-                //                context.repaint();
-            }
+    private class ColGetter implements Getter<String> {
+        @Override
+        public String get() {
+            return colField.getText();
         }
-
-        private class CancelListner implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        }
-
     }
 }

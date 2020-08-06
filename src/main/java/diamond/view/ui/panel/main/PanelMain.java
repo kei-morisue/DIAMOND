@@ -17,11 +17,9 @@ import diamond.view.ui.screen.ScreenMain;
  *
  */
 public class PanelMain extends JPanel {
-    private Context context;
     private ScreenMain screen;
 
     public PanelMain(Context context) {
-        this.context = context;
         setLayout(new BorderLayout());
         setBackground(Color.BLUE);
         screen = new ScreenMain(context);

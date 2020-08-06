@@ -33,7 +33,7 @@ public class Export implements ActionListener {
                 .showSaveDialog(parentComponent)) {
             path = chooser.getSelectedFile().getPath();
         }
-        ExporterXML exporterXML = new ExporterXML();
+        ExporterXml exporterXML = new ExporterXml();
         exporterXML.export(context.getDiagram(), path);
     }
 

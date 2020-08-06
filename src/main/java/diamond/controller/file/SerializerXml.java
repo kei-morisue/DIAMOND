@@ -16,7 +16,7 @@ import diamond.model.cyborg.diagram.Diagram;
  * @author Kei Morisue
  *
  */
-public class SerializerXML implements Serializer {
+public class SerializerXml implements Serializer {
 
     @Override
     public InputStream serialize(Diagram diagram) {

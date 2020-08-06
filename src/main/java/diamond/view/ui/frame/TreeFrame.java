@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import diamond.controller.Context;
-import diamond.controller.file.SerializerXML;
+import diamond.controller.file.SerializerXml;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.tree.Tree;
@@ -26,7 +26,7 @@ public class TreeFrame extends JFrame {
 
         Diagram diagram = context.getDiagram();
         Tree tree = new Tree(
-                new SerializerXML().serialize(diagram),
+                new SerializerXml().serialize(diagram),
                 new DefaultMutableTreeNode());
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.getViewport().setView(tree);

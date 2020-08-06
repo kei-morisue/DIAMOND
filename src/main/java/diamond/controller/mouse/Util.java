@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller;
+package diamond.controller.mouse;
 
 import java.awt.Point;
 import java.awt.event.InputEvent;
@@ -15,7 +15,7 @@ import java.awt.geom.Point2D;
  * @author Kei Morisue
  *
  */
-public class MouseUtility {
+public class Util {
     public static Point2D.Double getLogicalPoint(AffineTransform affine,
             Point mousePoint) {
         Point2D.Double logicalPoint = new Point2D.Double();
@@ -40,6 +40,6 @@ public class MouseUtility {
         return (e.getModifiers() == InputEvent.BUTTON3_MASK);
     }
 
-    private MouseUtility() {
+    private Util() {
     }
 }

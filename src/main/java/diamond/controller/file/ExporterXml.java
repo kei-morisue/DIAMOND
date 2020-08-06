@@ -17,7 +17,7 @@ import diamond.view.ui.panel.Util;
  * @author Kei Morisue
  *
  */
-public class ExporterXML implements Exporter {
+public class ExporterXml implements Exporter {
 
     public boolean export(Diagram diagram, String filePath) {
         try {
