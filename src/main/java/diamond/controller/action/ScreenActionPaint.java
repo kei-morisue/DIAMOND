@@ -5,16 +5,18 @@
 package diamond.controller.action;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import diamond.controller.Context;
 import diamond.controller.mouse.Util;
+import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.view.ui.screen.ScreenMain;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ScreenActionPaint extends AbstractScreenAction {
+public final class ScreenActionPaint extends AbstractScreenAction {
     private Context context;
 
     public ScreenActionPaint(Context context, ScreenMain screen) {
@@ -23,21 +25,45 @@ public class ScreenActionPaint extends AbstractScreenAction {
     }
 
     @Override
+    public final void mouseWheelMoved(MouseWheelEvent e) {
+        if (Util.isControlKeyPressed(e)) {
+            rotate(e);
+        } else {
+            zoom(e);
+        }
+        screen.repaint();
+    }
+
+    @Override
+    public final void mouseDragged(MouseEvent e) {
+        translate(e);
+        latestClickedPoint = e.getPoint();
+        screen.repaint();
+    }
+
+    @Override
     public void mouseMoved(MouseEvent e) {
-        context.setPointed(Util.getLogicalPoint(
+        Vertex v = Util.getLogicalPoint(
                 screen.getTransform(),
-                e.getPoint()));
-        context.getPaintAction().onMove(context);
+                e.getPoint());
+        context.setPointed(v);
+        context.getPaintAction().onMove();
         context.notifyObservers();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (Util.isLeftClick(e)) {
-            context.getPaintAction().onLeftClick(context);
+            if (Util.isControlKeyPressed(e)) {
+                context.getPaintAction().onLeftCtrlClick();
+            }
+            context.getPaintAction().onLeftClick();
         }
         if (Util.isRightClick(e)) {
-            context.getPaintAction().onRightClick(context);
+            if (Util.isControlKeyPressed(e)) {
+                context.getPaintAction().onRightCtrlClick();
+            }
+            context.getPaintAction().onRightClick();
         }
         context.notifyObservers();
     }

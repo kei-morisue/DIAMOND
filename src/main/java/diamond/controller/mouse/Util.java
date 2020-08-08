@@ -7,24 +7,21 @@ package diamond.controller.mouse;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
+
+import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.view.ui.screen.TransformScreen;
 
 /**
  * @author Kei Morisue
  *
  */
 public class Util {
-    public static Point2D.Double getLogicalPoint(AffineTransform affine,
+    public static Vertex getLogicalPoint(TransformScreen transform,
             Point mousePoint) {
         Point2D.Double logicalPoint = new Point2D.Double();
-        try {
-            affine.inverseTransform(mousePoint, logicalPoint);
-        } catch (NoninvertibleTransformException e) {
-            e.printStackTrace();
-        }
-        return logicalPoint;
+        transform.getInverse().transform(mousePoint, logicalPoint);
+        return new Vertex(logicalPoint.x, logicalPoint.y);
     }
 
     public static boolean isControlKeyPressed(MouseEvent e) {

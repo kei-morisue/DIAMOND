@@ -18,17 +18,17 @@ import javax.swing.JPanel;
  */
 public abstract class AbstractScreen extends JPanel
         implements ComponentListener {
-    protected ScreenTransform transform = new ScreenTransform();
+    protected TransformScreen transform = new TransformScreen();
 
     public AbstractScreen() {
         addComponentListener(this);
     }
 
-    public ScreenTransform getTransform() {
+    public TransformScreen getTransform() {
         return transform;
     };
 
-    public void setTransform(ScreenTransform screenTransform) {
+    public void setTransform(TransformScreen screenTransform) {
         this.transform = screenTransform;
     };
 
@@ -48,7 +48,7 @@ public abstract class AbstractScreen extends JPanel
         Graphics2D g2d = (Graphics2D) g;
         drawBackGround(g2d);
         transform.resize(getWidth(), getHeight());
-        g2d.setTransform(transform);
+        g2d.setTransform(transform.getTransform());
         draw(g2d);
     }
 

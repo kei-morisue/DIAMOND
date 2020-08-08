@@ -42,15 +42,10 @@ public class ScreenMain extends AbstractScreen implements Observer {
 
     @Override
     protected void draw(Graphics2D g2d) {
-        CyborgDrawer drawer = new CyborgDrawer(context);
+        CyborgDrawer drawer = new CyborgDrawer(g2d, context);
         Step step = context.getDiagram().getStep();
         drawer.draw(g2d, step);
-    }
-
-    public void reset() {
-        transform.resize(getWidth(), getHeight());
-        transform.zoom(1.0);
-        transform.translate(.0, .0);
+        context.getPaintAction().onDraw(g2d);
     }
 
     @Override

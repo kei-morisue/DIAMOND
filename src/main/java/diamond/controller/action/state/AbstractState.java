@@ -4,66 +4,43 @@
  */
 package diamond.controller.action.state;
 
-import diamond.controller.Context;
-
 /**
  * @author Kei Morisue
  *
  */
 public abstract class AbstractState {
-    protected Class<? extends AbstractState> nextStateClass;
-    protected Class<? extends AbstractState> prevStateClass;
+    protected AbstractState prev;
+    protected AbstractState next;
 
-    public AbstractState() {
-        initialize();
+    public void setNext(AbstractState next) {
+        this.next = next;
     }
 
-    protected void initialize() {
-        setNextClass();
-        setPrevClass();
-    };
+    public void setPrev(AbstractState prev) {
+        this.prev = prev;
+    }
 
-    abstract protected void setNextClass();
+    protected abstract void undo();
 
-    abstract protected void setPrevClass();
+    protected abstract void executeAction();
 
-    protected abstract void undo(Context context);
+    public abstract void onMove();
 
-    protected abstract void aftermath(Context context);
+    protected abstract boolean tryAction();
 
-    protected abstract boolean act(Context context);
-
-    abstract public void setPointer(Context context);
-
-    public AbstractState doAction(Context context) {
-        if (!act(context)) {
+    public final AbstractState doAction() {
+        if (!tryAction()) {
+            initialize();
             return this;
         }
-        aftermath(context);
-        AbstractState nextState = getNextState();
-        return nextState;
+        executeAction();
+        return next;
     }
 
-    public final AbstractState undoAction(Context context) {
-        undo(context);
-        AbstractState prevState = getPreviousState();
-        return prevState;
-    }
+    abstract void initialize();
 
-    private AbstractState getNextState() {
-        return createInstance(this.nextStateClass);
-    }
-
-    private AbstractState getPreviousState() {
-        return createInstance(this.prevStateClass);
-    }
-
-    private AbstractState createInstance(
-            Class<? extends AbstractState> c) {
-        try {
-            return c.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            return this;
-        }
+    public final AbstractState undoAction() {
+        undo();
+        return prev;
     }
 }

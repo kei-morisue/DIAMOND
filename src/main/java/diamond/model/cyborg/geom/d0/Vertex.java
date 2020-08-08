@@ -4,13 +4,14 @@
  */
 package diamond.model.cyborg.geom.d0;
 
+import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.math.Fuzzy;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Vertex implements Comparable<Vertex> {
+public class Vertex implements Comparable<Vertex>, Cyborg {
     private double x = .0;
     private double y = .0;
 
@@ -28,6 +29,7 @@ public class Vertex implements Comparable<Vertex> {
         return d.ver(v0);
     }
 
+    @Override
     public double dist(Vertex v0) {
         return dir(v0).norm();
     }
@@ -80,6 +82,11 @@ public class Vertex implements Comparable<Vertex> {
             return -1;
         }
         return 1;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + String.valueOf(x) + ", " + String.valueOf(y) + ")";
     }
 
 }

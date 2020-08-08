@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentMV;
@@ -16,7 +17,7 @@ import diamond.model.cyborg.geom.d1.SegmentMV;
  * @author Kei Morisue
  *
  */
-public class Face {
+public class Face implements Cyborg {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
     private HashSet<SegmentMV> edges = new HashSet<SegmentMV>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
@@ -24,6 +25,22 @@ public class Face {
     private AffineTransform transform = null;
 
     public Face() {
+    }
+
+    public Vertex c() {
+        double x = .0;
+        double y = .0;
+        for (Vertex v : vertices) {
+            x += v.getX();
+            y += v.getY();
+        }
+        int n = vertices.size();
+        return new Vertex(x / n, y / n);
+    }
+
+    @Override
+    public double dist(Vertex v) {
+        return c().dist(v);
     }
 
     public boolean isBoundary(Vertex v) {

@@ -4,13 +4,15 @@
  */
 package diamond.controller;
 
-import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Observer;
 
 import diamond.controller.action.paint.Lazy;
 import diamond.controller.action.paint.PaintActionInterface;
+import diamond.controller.mouse.Picker;
+import diamond.controller.mouse.Pointer;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentType;
 
 /**
@@ -19,9 +21,11 @@ import diamond.model.cyborg.geom.d1.SegmentType;
  */
 public class Context extends Observable implements Observer {
     private Diagram diagram;
-    private PaintActionInterface paintAction = new Lazy();//TODO
-    private Point2D.Double pointed;
+    private PaintActionInterface paintAction = new Lazy();
+    private Vertex mouseLocation;
     private SegmentType type;
+    private Picker picker = new Picker();
+    private Pointer pointer = new Pointer();
 
     @Deprecated
     public Context() {
@@ -30,6 +34,7 @@ public class Context extends Observable implements Observer {
     public Context(Diagram diagram) {
         this.diagram = diagram;
         this.diagram.addObserver(this);
+        this.pointer.addObserver(this);
     }
 
     public Diagram getDiagram() {
@@ -41,6 +46,8 @@ public class Context extends Observable implements Observer {
     }
 
     public void initialize() {
+        picker.initialize();
+        pointer.initialize();
     }
 
     @Override
@@ -65,13 +72,22 @@ public class Context extends Observable implements Observer {
         this.paintAction = paintAction;
     }
 
-    public Point2D.Double getPointed() {
-        return pointed;
+    public Vertex getMouseLocation() {
+        return mouseLocation;
     }
 
-    public void setPointed(Point2D.Double pointed) {
-        this.pointed = pointed;
+    public void setPointed(Vertex mouseLocation) {
+        this.mouseLocation = mouseLocation;
+        setChanged();
         notifyObservers();
+    }
+
+    public Picker getPicker() {
+        return picker;
+    }
+
+    public Pointer getPointer() {
+        return pointer;
     }
 
 }

@@ -16,7 +16,11 @@ public class Fuzzy {
     }
 
     public static boolean isSmall(double x) {
-        return -Constants.EPS < x && x < Constants.EPS;
+        return isSmall(x, Constants.EPS);
+    }
+
+    public static boolean isSmall(double x, double eps) {
+        return -eps < x && x < eps;
     }
 
 }

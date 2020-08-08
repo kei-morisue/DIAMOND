@@ -6,14 +6,19 @@ package diamond.view.ui.screen.draw;
 
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import java.util.Collection;
 
 import diamond.controller.Context;
+import diamond.controller.mouse.PickerCyborg;
+import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
+import diamond.model.cyborg.style.StyleVertex;
 
 /**
  * @author Kei Morisue
@@ -24,14 +29,14 @@ public class CyborgDrawer {
     private StyleSegment styleSegment;
     private float scale = 1.0f;
 
-    public CyborgDrawer(Context context) {
+    public CyborgDrawer(Graphics2D g2d, Context context) {
         Diagram diagram = context.getDiagram();
+        scale = (float) G2DUtil.getScale(g2d);
         this.styleFace = diagram.getStyleFace();
         this.styleSegment = diagram.getStyleSegment();
     }
 
     public void draw(Graphics2D g2d, Step step) {
-        scale = (float) G2DUtil.getScale(g2d);
         g2d.setStroke(styleSegment.strokeEdge(scale));
         for (Face face : step.getFaces()) {
             draw(g2d, face);
@@ -39,7 +44,34 @@ public class CyborgDrawer {
 
     }
 
-    private void draw(Graphics2D g2d, Face face) {
+    public void draw(Graphics2D g2d, PickerCyborg<Vertex> vs) {
+        g2d.setColor(StyleVertex.PICKED);
+        for (Vertex v : vs.get()) {
+            draw(g2d, v);
+        }
+    }
+
+    public void draw(Graphics2D g2d, PointerCyborg<Vertex> v) {
+        g2d.setColor(StyleVertex.PICKED);
+        Vertex v0 = v.get();
+        if (v0 == null) {
+            return;
+        }
+        draw(g2d, v0);
+    }
+
+    public void draw(Graphics2D g2d, Collection<Vertex> vs) {
+        g2d.setColor(StyleVertex.DEFAULT);
+        for (Vertex v : vs) {
+            draw(g2d, v);
+        }
+    }
+
+    public void draw(Graphics2D g2d, Vertex v) {
+        g2d.fill(ShapeBuilder.build(v, StyleVertex.SIZE / scale));
+    }
+
+    public void draw(Graphics2D g2d, Face face) {
         g2d.setColor(styleFace.getColor(face.isFront()));
         GeneralPath polygon = ShapeBuilder.build(face);
         g2d.fill(polygon);
@@ -50,9 +82,10 @@ public class CyborgDrawer {
         for (SegmentCrease crease : face.getCreases()) {
             draw(g2d, face, crease);
         }
+        draw(g2d, face.getVertices());
     }
 
-    private void draw(Graphics2D g2d, Face face, SegmentCrease crease) {
+    public void draw(Graphics2D g2d, Face face, SegmentCrease crease) {
         double clipped0 = styleSegment.getClipped(face, crease.getV0());
         double clipped1 = styleSegment.getClipped(face, crease.getV1());
         g2d.setStroke(styleSegment.strokeCrease(scale, crease.getType()));

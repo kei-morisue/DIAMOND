@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.math.Fuzzy;
@@ -12,7 +13,7 @@ import diamond.model.math.Fuzzy;
  * @author Kei Morisue
  *
  */
-public abstract class AbstractSegment {
+public abstract class AbstractSegment implements Cyborg {
     private Vertex v0;
     private Vertex v1;
 
@@ -47,6 +48,7 @@ public abstract class AbstractSegment {
         return getV1().angle(getV0());
     }
 
+    @Override
     public double dist(Vertex v) {
         Direction a = v0.dir(v);
         Direction b = v1.dir(v);

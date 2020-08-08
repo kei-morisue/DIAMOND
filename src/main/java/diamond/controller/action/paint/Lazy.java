@@ -6,8 +6,6 @@ package diamond.controller.action.paint;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.Context;
-
 /**
  * @author Kei Morisue
  *
@@ -15,49 +13,39 @@ import diamond.controller.Context;
 public class Lazy implements PaintActionInterface {
 
     @Override
-    public void doAction(Context context) {
+    public void onLeftClick() {
     }
 
     @Override
-    public void undo(Context context) {
+    public void onLeftCtrlClick() {
     }
 
     @Override
-    public void destroy(Context context) {
+    public void onRightClick() {
     }
 
     @Override
-    public void recover(Context context) {
+    public void onRightCtrlClick() {
     }
 
     @Override
-    public PaintActionInterface onLeftClick(Context context) {
-        return null;
+    public void onMove() {
     }
 
     @Override
-    public PaintActionInterface onRightClick(Context context) {
-        return null;
+    public void onPress() {
     }
 
     @Override
-    public void onMove(Context context) {
+    public void onDrag() {
     }
 
     @Override
-    public void onPress(Context context) {
+    public void onRelease() {
     }
 
     @Override
-    public void onDrag(Context context) {
-    }
-
-    @Override
-    public void onRelease(Context context) {
-    }
-
-    @Override
-    public void onDraw(Graphics2D g2d, Context context) {
+    public void onDraw(Graphics2D g2d) {
     }
 
 }

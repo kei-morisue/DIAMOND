@@ -8,6 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import diamond.model.cyborg.diagram.Stars;
+import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 
@@ -16,9 +18,9 @@ import diamond.model.cyborg.symbol.AbstractSymbol;
  *
  */
 public class Step {
-    private ArrayList<Face> faces = new ArrayList<Face>();
-    //    private ArrayList<SegmentMV> edges = new ArrayList<SegmentMV>();
-
+    private ArrayList<Face> faces = new ArrayList<>();
+    private ArrayList<AbstractSegment> segments = new ArrayList<>();
+    private ArrayList<Vertex> vertices = new ArrayList<>();
     private ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     private AffineTransform transform = new AffineTransform();
     private Stars stars;
@@ -28,7 +30,7 @@ public class Step {
     }
 
     public Step(Stars stars) {
-        this.setStars(stars);
+        this.stars = stars;
     }
 
     public ArrayList<Face> getFaces() {
@@ -69,4 +71,33 @@ public class Step {
         this.stars = stars;
     }
 
+    public ArrayList<Vertex> getVertices() {
+        return vertices;
+    }
+
+    public ArrayList<AbstractSegment> getSegments() {
+        return segments;
+    }
+
+    public void update() {
+        setSegments();
+        setVertices();
+    }
+
+    private void setSegments() {
+        ArrayList<AbstractSegment> candidates = new ArrayList<>();
+        for (Face face : faces) {
+            candidates.addAll(face.getCreases());
+            candidates.addAll(face.getEdges());
+        }
+        this.segments = candidates;
+    }
+
+    private void setVertices() {
+        ArrayList<Vertex> candidates = new ArrayList<>();
+        for (Face face : faces) {
+            candidates.addAll(face.getVertices());
+        }
+        this.vertices = candidates;
+    }
 }

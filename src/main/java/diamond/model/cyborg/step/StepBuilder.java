@@ -31,6 +31,7 @@ public class StepBuilder {
                 SegmentType.CREASE_VALLEY);
         square.getCreases().add(e);
         step.getFaces().add(square);
+        step.update();
         return step;
     }
 
@@ -50,6 +51,7 @@ public class StepBuilder {
         ArrayList<Face> faces = step.getFaces();
         faces.add(t0);
         faces.add(t1);
+        step.update();
         return step;
     }
 
@@ -79,7 +81,7 @@ public class StepBuilder {
         faces.add(FaceBuilder.triangle(v31, v21, v11, stars));
         faces.add(FaceBuilder.triangle(v31, v21, v40, stars).flip());
         faces.add(FaceBuilder.triangle(v31, v41, v11, stars).flip());
-
+        step.update();
         return step;
     }
 

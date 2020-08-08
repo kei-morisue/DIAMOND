@@ -9,6 +9,7 @@ package diamond.model.math;
  *
  */
 public class Util {
+
     public static double window(double c, double a, double b) {
         return Math.max(a, Math.min(c, b));
     }

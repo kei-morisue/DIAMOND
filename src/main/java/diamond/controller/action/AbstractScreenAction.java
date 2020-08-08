@@ -11,7 +11,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import diamond.controller.mouse.Util;
 import diamond.view.ui.screen.AbstractScreen;
 
 /**
@@ -38,7 +37,7 @@ public abstract class AbstractScreenAction
     }
 
     protected void translate(MouseEvent e) {
-        double scale = screen.getTransform().getScale();
+        double scale = screen.getTransform().getZoom();
         Point2D p0 = latestClickedPoint;
         double x = (e.getX() - p0.getX()) / scale;
         double y = (e.getY() - p0.getY()) / scale;
@@ -56,23 +55,6 @@ public abstract class AbstractScreenAction
     protected double thetaAmount(MouseWheelEvent e) {
         double moved = e.getWheelRotation();
         return Math.PI / 8 * ((moved) % 8);
-    }
-
-    @Override
-    public final void mouseWheelMoved(MouseWheelEvent e) {
-        if (Util.isControlKeyPressed(e)) {
-            rotate(e);
-        } else {
-            zoom(e);
-        }
-        screen.repaint();
-    }
-
-    @Override
-    public final void mouseDragged(MouseEvent e) {
-        translate(e);
-        latestClickedPoint = e.getPoint();
-        screen.repaint();
     }
 
     @Override

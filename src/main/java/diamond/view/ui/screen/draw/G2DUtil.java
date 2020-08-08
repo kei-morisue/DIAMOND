@@ -4,9 +4,7 @@
  */
 package diamond.view.ui.screen.draw;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 /**
@@ -19,13 +17,4 @@ public class G2DUtil {
         return Math.hypot(transform.getScaleX(), transform.getShearY());
     }
 
-    public static Dimension getPhysicalSize(Graphics2D g2d) {
-        Rectangle bounds = g2d.getClip().getBounds();
-        int height = bounds.height;
-        int width = bounds.width;
-        double scale = getScale(g2d);
-        height *= scale;
-        width *= scale;
-        return new Dimension(width, height);
-    }
 }
