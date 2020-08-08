@@ -43,4 +43,10 @@ public abstract class AbstractState {
         undo();
         return prev;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName();
+    }
+
 }

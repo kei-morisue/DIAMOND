@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import diamond.controller.Context;
-import diamond.controller.action.paint.PaintActionInterface;
+import diamond.controller.action.paint.AbstractPaintAction;
 
 /**
  * @author Kei Morisue
@@ -17,10 +17,10 @@ import diamond.controller.action.paint.PaintActionInterface;
 public class ButtonPaintAction extends AbstractIconButton
         implements ActionListener {
     private Context context;
-    private PaintActionInterface paintAction;
+    private AbstractPaintAction paintAction;
 
     public ButtonPaintAction(Context context,
-            PaintActionInterface paintAction) {
+            AbstractPaintAction paintAction) {
         this.context = context;
         this.paintAction = paintAction;
         addActionListener(this);

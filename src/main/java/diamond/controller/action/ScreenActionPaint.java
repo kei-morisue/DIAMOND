@@ -48,7 +48,6 @@ public final class ScreenActionPaint extends AbstractScreenAction {
                 e.getPoint());
         context.setPointed(v);
         context.getPaintAction().onMove();
-        context.notifyObservers();
     }
 
     @Override
@@ -65,7 +64,6 @@ public final class ScreenActionPaint extends AbstractScreenAction {
             }
             context.getPaintAction().onRightClick();
         }
-        context.notifyObservers();
     }
 
 }

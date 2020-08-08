@@ -58,16 +58,16 @@ public abstract class AbstractScreenAction
     }
 
     @Override
-    public final void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
     public final void mouseEntered(MouseEvent e) {
     }
 
     @Override
     public final void mousePressed(MouseEvent e) {
         latestClickedPoint = e.getPoint();
+    }
+
+    @Override
+    public final void mouseReleased(MouseEvent e) {
     }
 
     @Override

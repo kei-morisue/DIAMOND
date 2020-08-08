@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
  * @author Kei Morisue
  *
  */
-public class Lazy implements PaintActionInterface {
+public class PaintActionLazy extends AbstractPaintAction {
 
     @Override
     public void onLeftClick() {
@@ -41,11 +41,12 @@ public class Lazy implements PaintActionInterface {
     }
 
     @Override
-    public void onRelease() {
+    public void onDraw(Graphics2D g2d) {
     }
 
     @Override
-    public void onDraw(Graphics2D g2d) {
+    public String getInfo() {
+        return "Lazy";
     }
 
 }

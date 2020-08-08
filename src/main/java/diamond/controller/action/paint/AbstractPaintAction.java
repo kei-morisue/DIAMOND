@@ -5,12 +5,13 @@
 package diamond.controller.action.paint;
 
 import java.awt.Graphics2D;
+import java.util.Observable;
 
 /**
  * @author Kei Morisue
  *
  */
-public interface PaintActionInterface {
+public abstract class AbstractPaintAction extends Observable {
 
     public abstract void onLeftClick();
 
@@ -26,7 +27,7 @@ public interface PaintActionInterface {
 
     public abstract void onDrag();
 
-    public abstract void onRelease();
-
     public abstract void onDraw(Graphics2D g2d);
+
+    public abstract String getInfo();
 }

@@ -7,8 +7,8 @@ package diamond.controller;
 import java.util.Observable;
 import java.util.Observer;
 
-import diamond.controller.action.paint.Lazy;
-import diamond.controller.action.paint.PaintActionInterface;
+import diamond.controller.action.paint.AbstractPaintAction;
+import diamond.controller.action.paint.PaintActionLazy;
 import diamond.controller.mouse.Picker;
 import diamond.controller.mouse.Pointer;
 import diamond.model.cyborg.diagram.Diagram;
@@ -21,9 +21,9 @@ import diamond.model.cyborg.geom.d1.SegmentType;
  */
 public class Context extends Observable implements Observer {
     private Diagram diagram;
-    private PaintActionInterface paintAction = new Lazy();
+    private AbstractPaintAction paintAction = new PaintActionLazy();
     private Vertex mouseLocation;
-    private SegmentType type;
+    private SegmentType type = SegmentType.CREASE_MOUNTAIN;
     private Picker picker = new Picker();
     private Pointer pointer = new Pointer();
 
@@ -35,6 +35,7 @@ public class Context extends Observable implements Observer {
         this.diagram = diagram;
         this.diagram.addObserver(this);
         this.pointer.addObserver(this);
+        this.paintAction.addObserver(this);
     }
 
     public Diagram getDiagram() {
@@ -48,6 +49,8 @@ public class Context extends Observable implements Observer {
     public void initialize() {
         picker.initialize();
         pointer.initialize();
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -64,11 +67,12 @@ public class Context extends Observable implements Observer {
         this.type = type;
     }
 
-    public PaintActionInterface getPaintAction() {
+    public AbstractPaintAction getPaintAction() {
         return paintAction;
     }
 
-    public void setPaintAction(PaintActionInterface paintAction) {
+    public void setPaintAction(AbstractPaintAction paintAction) {
+        paintAction.addObserver(this);
         this.paintAction = paintAction;
     }
 

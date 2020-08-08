@@ -11,7 +11,7 @@ import diamond.controller.action.state.AbstractState;
  * @author Kei Morisue
  *
  */
-public abstract class MousePaintAction implements PaintActionInterface {
+public abstract class AbstractPaintActionMouse extends AbstractPaintAction {
     protected AbstractState state;
 
     protected final void initialize(AbstractPaintState... states) {
@@ -32,11 +32,15 @@ public abstract class MousePaintAction implements PaintActionInterface {
     @Override
     public final void onLeftClick() {
         state = state.doAction();
+        setChanged();
+        notifyObservers();
     }
 
     @Override
     public final void onRightClick() {
         state = state.undoAction();
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -57,7 +61,8 @@ public abstract class MousePaintAction implements PaintActionInterface {
     }
 
     @Override
-    public final void onRelease() {
+    public String getInfo() {
+        String[] split = state.getClass().getName().split("\\.");
+        return split[split.length - 1];
     }
-
 }

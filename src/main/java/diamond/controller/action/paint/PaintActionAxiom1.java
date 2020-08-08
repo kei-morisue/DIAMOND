@@ -16,14 +16,14 @@ import diamond.view.ui.screen.draw.CyborgDrawer;
  * @author Kei Morisue
  *
  */
-public class Axiom1 extends MousePaintAction {
+public class PaintActionAxiom1 extends AbstractPaintActionMouse {
     private Context context;
 
-    public Axiom1(Context context) {
+    public PaintActionAxiom1(Context context) {
         this.context = context;
         initialize(
-                new PickCyborg<Vertex>(context),
-                new PickCyborg<Vertex>(context),
+                new PickCyborg<Vertex>(context, Vertex.class),
+                new PickCyborg<Vertex>(context, Vertex.class),
                 new AddSegment(context));
     }
 

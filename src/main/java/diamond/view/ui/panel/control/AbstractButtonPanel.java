@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import diamond.controller.Context;
-import diamond.controller.action.paint.PaintActionInterface;
+import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.view.ui.button.ButtonPaintAction;
 
 /**
@@ -27,7 +27,7 @@ public abstract class AbstractButtonPanel extends JPanel {
 
     protected JRadioButton buildButton(
             String IconBaseName,
-            PaintActionInterface paintAction) {
+            AbstractPaintAction paintAction) {
         ButtonPaintAction button = new ButtonPaintAction(context, paintAction);
         button.setIcons(IconBaseName);
         group.add(button);

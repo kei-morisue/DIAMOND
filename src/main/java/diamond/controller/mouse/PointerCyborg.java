@@ -22,8 +22,11 @@ import diamond.model.math.Fuzzy;
  */
 public class PointerCyborg<T extends Cyborg> extends Observable {
     private T pointed;
-    @SuppressWarnings("unchecked")
-    private Class<T> type = (Class<T>) Vertex.class;//TODO
+    private Class<T> type;
+
+    public PointerCyborg(Class<T> type) {
+        this.type = type;
+    }
 
     public void initialize() {
         pointed = null;
@@ -47,16 +50,16 @@ public class PointerCyborg<T extends Cyborg> extends Observable {
     @SuppressWarnings("unchecked")
     private Collection<T> getCandidates(Context context) {
         Step step = context.getDiagram().getStep();
-        if (type.equals(Face.class)) {
+        if (type == Face.class) {
             return (Collection<T>) step.getFaces();
         }
-        if (type.equals(Vertex.class)) {
+        if (type == Vertex.class) {
             return (Collection<T>) step.getVertices();
         }
-        if (type.equals(AbstractSegment.class)) {
+        if (type == AbstractSegment.class) {
             return (Collection<T>) step.getSegments();
         }
-        return null;
+        return null;//TODO
     }
 
     private int eps(T t) {

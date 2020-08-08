@@ -17,9 +17,10 @@ import diamond.model.cyborg.geom.d2.Face;
  *
  */
 public class Pointer extends Observable implements Observer {
-    private PointerCyborg<Face> face = new PointerCyborg<>();
-    private PointerCyborg<AbstractSegment> segment = new PointerCyborg<>();
-    private PointerCyborg<Vertex> vertex = new PointerCyborg<>();
+    private PointerCyborg<Face> face = new PointerCyborg<>(Face.class);
+    private PointerCyborg<AbstractSegment> segment = new PointerCyborg<>(
+            AbstractSegment.class);
+    private PointerCyborg<Vertex> vertex = new PointerCyborg<>(Vertex.class);
 
     public Pointer() {
         face.addObserver(this);
@@ -29,22 +30,22 @@ public class Pointer extends Observable implements Observer {
 
     @SuppressWarnings("unchecked")
     public <T extends Cyborg> PointerCyborg<T> get(Class<T> type) {
-        if (type.equals(Vertex.class)) {
+        if (type == Vertex.class) {
             return (PointerCyborg<T>) vertex;
         }
-        if (type.equals(AbstractSegment.class)) {
+        if (type == AbstractSegment.class) {
             return (PointerCyborg<T>) segment;
         }
-        if (type.equals(Face.class)) {
+        if (type == Face.class) {
             return (PointerCyborg<T>) face;
         }
-        return null;
+        return null;//TODO
     }
 
     public void initialize() {
-        face = null;
-        segment = null;
-        vertex = null;
+        face.initialize();
+        segment.initialize();
+        vertex.initialize();
     }
 
     @Override

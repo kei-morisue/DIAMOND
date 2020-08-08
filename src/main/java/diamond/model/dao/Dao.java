@@ -9,5 +9,5 @@ package diamond.model.dao;
  *
  */
 public interface Dao<T> {
-    public Class<T> getClazz();
+    public T getInstance();
 }

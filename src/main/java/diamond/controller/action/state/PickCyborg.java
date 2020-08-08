@@ -8,19 +8,18 @@ import diamond.controller.Context;
 import diamond.controller.mouse.PickerCyborg;
 import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
 
 /**
  * @author Kei Morisue
  *
  */
 public class PickCyborg<C extends Cyborg> extends AbstractPaintState {
-    @SuppressWarnings("unchecked")
-    private Class<C> type = (Class<C>) Vertex.class;//TODO
     private Context context;
+    private Class<C> type;
 
-    public PickCyborg(Context context) {
+    public PickCyborg(Context context, Class<C> type) {
         this.context = context;
+        this.type = type;
     }
 
     @Override
@@ -39,11 +38,11 @@ public class PickCyborg<C extends Cyborg> extends AbstractPaintState {
         return getPointer().add(context);
     }
 
-    private PickerCyborg<C> getPicker() {
+    protected PickerCyborg<C> getPicker() {
         return context.getPicker().get(type);
     }
 
-    private PointerCyborg<C> getPointer() {
+    protected PointerCyborg<C> getPointer() {
         return context.getPointer().get(type);
     }
 
