@@ -65,4 +65,12 @@ public class Direction {
     public double proj(Direction d) {
         return this.prod(d) / d.prod(d);
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }

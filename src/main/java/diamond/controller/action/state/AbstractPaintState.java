@@ -9,5 +9,8 @@ package diamond.controller.action.state;
  *
  */
 public abstract class AbstractPaintState extends AbstractState {
-
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

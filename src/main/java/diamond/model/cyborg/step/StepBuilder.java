@@ -13,6 +13,7 @@ import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.d2.FaceBuilder;
+import diamond.model.cyborg.geom.d2.MirrorSimple;
 
 /**
  * @author Kei Morisue
@@ -42,7 +43,8 @@ public class StepBuilder {
                 vs.get(0),
                 vs.get(1),
                 vs.get(2),
-                stars).flip();
+                stars);
+        t0.setMirror(new MirrorSimple(vs.get(0), vs.get(2)));
         Face t1 = FaceBuilder.triangle(
                 vs.get(0),
                 vs.get(3),
@@ -71,16 +73,16 @@ public class StepBuilder {
         ArrayList<Face> faces = step.getFaces();
         faces.add(FaceBuilder.triangle(v30, v20, v40, stars));
         faces.add(FaceBuilder.triangle(v30, v41, v10, stars));
-        faces.add(FaceBuilder.triangle(v30, v20, v10, stars).flip());
+        faces.add(FaceBuilder.triangle(v30, v20, v10, stars));
         faces.add(FaceBuilder.triangle(v0, v20, v10, stars));
         faces.add(FaceBuilder.triangle(v20, v40, v0, stars));
-        faces.add(FaceBuilder.triangle(v0, v41, v10, stars).flip());
-        faces.add(FaceBuilder.triangle(v21, v40, v0, stars).flip());
+        faces.add(FaceBuilder.triangle(v0, v41, v10, stars));
+        faces.add(FaceBuilder.triangle(v21, v40, v0, stars));
         faces.add(FaceBuilder.triangle(v0, v41, v11, stars));
-        faces.add(FaceBuilder.triangle(v0, v21, v11, stars).flip());
+        faces.add(FaceBuilder.triangle(v0, v21, v11, stars));
         faces.add(FaceBuilder.triangle(v31, v21, v11, stars));
-        faces.add(FaceBuilder.triangle(v31, v21, v40, stars).flip());
-        faces.add(FaceBuilder.triangle(v31, v41, v11, stars).flip());
+        faces.add(FaceBuilder.triangle(v31, v21, v40, stars));
+        faces.add(FaceBuilder.triangle(v31, v41, v11, stars));
         step.update();
         return step;
     }

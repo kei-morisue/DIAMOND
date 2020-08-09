@@ -4,7 +4,6 @@
  */
 package diamond.model.cyborg.geom.d2;
 
-import java.awt.geom.AffineTransform;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -21,8 +20,7 @@ public class Face implements Cyborg {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
     private HashSet<SegmentMV> edges = new HashSet<SegmentMV>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    private boolean isFront = false;
-    private AffineTransform transform = null;
+    private Mirror mirror = new MirrorLazy();
 
     public Face() {
     }
@@ -67,29 +65,19 @@ public class Face implements Cyborg {
     }
 
     public boolean isFront() {
-        return isFront;
-    }
-
-    public Face flip() {
-        isFront = !isFront;
-        return this;
-    }
-
-    @Deprecated
-    public void setFront(boolean isFront) {
-        this.isFront = isFront;
-    }
-
-    @Deprecated
-    public AffineTransform getTransform() {
-        return transform;
-    }
-
-    public void setTransform(AffineTransform transform) {
-        this.transform = transform;
+        return mirror.isFront();
     }
 
     public HashSet<SegmentMV> getEdges() {
         return edges;
+    }
+
+    @Deprecated
+    public Mirror getMirror() {
+        return mirror;
+    }
+
+    public void setMirror(Mirror mirror) {
+        this.mirror = mirror;
     }
 }

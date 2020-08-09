@@ -27,4 +27,6 @@ public class Config {
     final public static int EPS_V = 50;
     final public static int EPS_F = 100;
 
+    final public static String FONT = "Arial";
+
 }

@@ -9,8 +9,6 @@ import java.awt.geom.GeneralPath;
 import java.util.Collection;
 
 import diamond.controller.Context;
-import diamond.controller.mouse.PickerCyborg;
-import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
@@ -42,22 +40,6 @@ public class CyborgDrawer {
             draw(g2d, face);
         }
 
-    }
-
-    public void draw(Graphics2D g2d, PickerCyborg<Vertex> vs) {
-        g2d.setColor(StyleVertex.PICKED);
-        for (Vertex v : vs.get()) {
-            draw(g2d, v);
-        }
-    }
-
-    public void draw(Graphics2D g2d, PointerCyborg<Vertex> v) {
-        g2d.setColor(StyleVertex.PICKED);
-        Vertex v0 = v.get();
-        if (v0 == null) {
-            return;
-        }
-        draw(g2d, v0);
     }
 
     public void draw(Graphics2D g2d, Collection<Vertex> vs) {

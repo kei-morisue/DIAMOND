@@ -16,6 +16,7 @@ import diamond.model.math.Fuzzy;
 public abstract class AbstractSegment implements Cyborg {
     private Vertex v0;
     private Vertex v1;
+    private SegmentType type = SegmentType.CREASE;
 
     @Deprecated
     protected AbstractSegment() {
@@ -32,6 +33,19 @@ public abstract class AbstractSegment implements Cyborg {
 
     public Vertex getV1() {
         return v1;
+    }
+
+    public Vertex foot(Vertex v) {
+        Direction a = v.dir(v0);
+        Direction b = v1.dir(v0);
+        return b.scale(a.proj(b)).ver(v0);
+    }
+
+    public boolean isOn(Vertex v) {
+        Direction a = v.dir(v0);
+        Direction b = v1.dir(v0);
+        double p = a.proj(b);
+        return Fuzzy.in(p, 0, 1) && Fuzzy.isSmall(dist(v));
     }
 
     @Deprecated
@@ -56,17 +70,15 @@ public abstract class AbstractSegment implements Cyborg {
         return a.outer(b) / c.norm();
     }
 
-    public Vertex foot(Vertex v) {
-        Direction a = v.dir(v0);
-        Direction b = v1.dir(v0);
-        return b.scale(a.proj(b)).ver(v0);
+    public SegmentType getType() {
+        return type;
     }
 
-    public boolean isOn(Vertex v) {
-        Direction a = v.dir(v0);
-        Direction b = v1.dir(v0);
-        double p = a.proj(b);
-        return Fuzzy.in(p, 0, 1) && Fuzzy.isSmall(dist(v));
+    public void setType(SegmentType type) {
+        if (!SegmentType.isCrease(type)) {
+            return;
+        }
+        this.type = type;
     }
 
 }

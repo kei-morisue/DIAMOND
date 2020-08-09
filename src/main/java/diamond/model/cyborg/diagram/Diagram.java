@@ -68,7 +68,6 @@ public class Diagram extends Observable {
         this.styleSegment = styleSegment;
     }
 
-    @Deprecated
     public int getLastStep() {
         return lastStep;
     }

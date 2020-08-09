@@ -22,6 +22,8 @@ public class StyleSegment {
     final public static int JOIN = BasicStroke.JOIN_ROUND;
     final public static Color COLOR_VALLEY = Color.BLUE;
     final public static Color COLOR_MOUNTAIN = Color.RED;
+    final public static Color PICKED = Color.GREEN;
+    final public static Color POINTED = Color.GREEN;
     final public static Color COLOR_EDGE = Color.BLACK;
     final public static Color COLOR_CREASE = Color.BLACK;
 

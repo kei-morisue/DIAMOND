@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import diamond.controller.Context;
+import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.mouse.Util;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.view.ui.screen.ScreenMain;
@@ -51,19 +52,21 @@ public final class ScreenActionPaint extends AbstractScreenAction {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if (Util.isLeftClick(e)) {
-            if (Util.isControlKeyPressed(e)) {
-                context.getPaintAction().onLeftCtrlClick();
-            }
-            context.getPaintAction().onLeftClick();
-        }
-        if (Util.isRightClick(e)) {
-            if (Util.isControlKeyPressed(e)) {
-                context.getPaintAction().onRightCtrlClick();
-            }
-            context.getPaintAction().onRightClick();
-        }
+    public void onAction(MouseEvent e) {
+        boolean isCtrl = Util.isControlKeyPressed(e);
+        boolean isLeft = Util.isLeftClick(e);
+        AbstractPaintAction paintAction = context.getPaintAction();
+        paintAction.onPress(isLeft, isCtrl);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        context.getPaintAction().onRelease();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        context.getPointer().initialize();
     }
 
 }

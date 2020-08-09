@@ -8,10 +8,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 import diamond.controller.action.paint.AbstractPaintAction;
-import diamond.controller.action.paint.PaintActionLazy;
+import diamond.controller.action.paint.PaintAxiom1;
+import diamond.controller.action.paint.PaintLazy;
 import diamond.controller.mouse.Picker;
+import diamond.controller.mouse.PickerCyborg;
 import diamond.controller.mouse.Pointer;
+import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentType;
 
@@ -21,7 +25,7 @@ import diamond.model.cyborg.geom.d1.SegmentType;
  */
 public class Context extends Observable implements Observer {
     private Diagram diagram;
-    private AbstractPaintAction paintAction = new PaintActionLazy();
+    private AbstractPaintAction paintAction = new PaintLazy();
     private Vertex mouseLocation;
     private SegmentType type = SegmentType.CREASE_MOUNTAIN;
     private Picker picker = new Picker();
@@ -35,6 +39,7 @@ public class Context extends Observable implements Observer {
         this.diagram = diagram;
         this.diagram.addObserver(this);
         this.pointer.addObserver(this);
+        this.paintAction = new PaintAxiom1(this);
         this.paintAction.addObserver(this);
     }
 
@@ -86,12 +91,16 @@ public class Context extends Observable implements Observer {
         notifyObservers();
     }
 
-    public Picker getPicker() {
-        return picker;
+    public <T extends Cyborg> PickerCyborg<T> getPicker(Class<T> type) {
+        return picker.get(type);
     }
 
     public Pointer getPointer() {
         return pointer;
+    }
+
+    public <T extends Cyborg> PointerCyborg<T> getPointer(Class<T> type) {
+        return pointer.get(type);
     }
 
 }

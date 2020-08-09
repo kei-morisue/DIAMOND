@@ -13,19 +13,27 @@ import java.util.Observable;
  */
 public abstract class AbstractPaintAction extends Observable {
 
-    public abstract void onLeftClick();
+    public abstract void onLeftPress(boolean isCtrl);
 
-    public abstract void onLeftCtrlClick();
+    public abstract void onRightPress(boolean isCtrl);
 
-    public abstract void onRightClick();
+    protected abstract void onLeftCtrl();
 
-    public abstract void onRightCtrlClick();
+    protected abstract void onRightCtrl();
 
     public abstract void onMove();
 
-    public abstract void onPress();
+    public void onPress(boolean isLeft, boolean isCtrl) {
+        if (isLeft) {
+            onLeftPress(isCtrl);
+        } else {
+            onRightPress(isCtrl);
+        }
+    };
 
     public abstract void onDrag();
+
+    public abstract void onRelease();
 
     public abstract void onDraw(Graphics2D g2d);
 

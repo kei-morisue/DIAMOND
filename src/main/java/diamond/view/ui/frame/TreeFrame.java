@@ -4,6 +4,7 @@
  */
 package diamond.view.ui.frame;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -21,7 +22,7 @@ import diamond.view.ui.tree.Tree;
  *
  */
 public class TreeFrame extends JFrame {
-    public TreeFrame(Context context) {
+    public TreeFrame(Context context, Component parent) {
         setTitle(Labels.get("frame_tree"));
 
         Diagram diagram = context.getDiagram();
@@ -31,7 +32,7 @@ public class TreeFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.getViewport().setView(tree);
         add(scrollPane);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
         setSize(new Dimension(800, 800));
         setVisible(true);
     }

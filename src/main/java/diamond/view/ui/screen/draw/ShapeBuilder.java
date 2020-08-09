@@ -10,6 +10,7 @@ import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentMV;
 import diamond.model.cyborg.geom.d2.Face;
@@ -53,6 +54,12 @@ public class ShapeBuilder {
         Vertex pivot = v1.c(v0);
         v0 = v0.scale(clipped0, pivot);
         v1 = v1.scale(clipped1, pivot);
+        return build(v0, v1);
+    }
+
+    public static Line2D.Double build(AbstractSegment segment) {
+        Vertex v0 = segment.getV0();
+        Vertex v1 = segment.getV1();
         return build(v0, v1);
     }
 

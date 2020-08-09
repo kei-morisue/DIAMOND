@@ -10,7 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
-import diamond.controller.action.paint.PaintActionLazy;
+import diamond.controller.action.paint.PaintLazy;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.panel.Util;
 
@@ -31,10 +31,10 @@ public final class Segments extends AbstractButtonPanel {
 
     private JPanel buildManagers() {
         panel.setLayout(new GridLayout(4, 1));
-        panel.add(buildButton("flip", new PaintActionLazy()));//TODO
-        panel.add(buildButton("settle_unsettle", new PaintActionLazy()));//TODO
-        panel.add(buildButton("fold_unfold", new PaintActionLazy()));//TODO
-        panel.add(buildButton("delete", new PaintActionLazy()));//TODO
+        panel.add(buildButton("flip", new PaintLazy()));//TODO
+        panel.add(buildButton("settle_unsettle", new PaintLazy()));//TODO
+        panel.add(buildButton("fold_unfold", new PaintLazy()));//TODO
+        panel.add(buildButton("delete", new PaintLazy()));//TODO
         Util.setBorder(panel, Labels.get("alter_type"));
         return panel;
     }

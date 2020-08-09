@@ -4,6 +4,7 @@
  */
 package diamond.view.ui.menu;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -33,15 +34,20 @@ public class MainEdit extends JMenu {
         JMenuItem item = new JMenuItem(Labels.get("main_menu_edit_tree"));
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
                 ActionEvent.CTRL_MASK));
-        item.addActionListener(new Action());
+        item.addActionListener(new Action(this));
         return item;
     }
 
     private class Action implements ActionListener {
+        private Component parent;
+
+        public Action(Component parent) {
+            this.parent = parent;
+        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new TreeFrame(context);
+            new TreeFrame(context, parent);
         }
 
     }

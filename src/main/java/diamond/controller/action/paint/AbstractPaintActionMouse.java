@@ -30,14 +30,18 @@ public abstract class AbstractPaintActionMouse extends AbstractPaintAction {
     }
 
     @Override
-    public final void onLeftClick() {
-        state = state.doAction();
-        setChanged();
-        notifyObservers();
+    public void onLeftPress(boolean isCtrl) {
+        if (isCtrl) {
+            onLeftCtrl();
+        } else {
+            state = state.doAction();
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
-    public final void onRightClick() {
+    public final void onRightPress(boolean isCtrl) {
         state = state.undoAction();
         setChanged();
         notifyObservers();
@@ -49,11 +53,8 @@ public abstract class AbstractPaintActionMouse extends AbstractPaintAction {
     }
 
     @Override
-    public final void onRightCtrlClick() {
-    }
-
-    @Override
-    public final void onPress() {
+    public final void onRelease() {
+        this.state = state.onRelease();
     }
 
     @Override
@@ -62,7 +63,6 @@ public abstract class AbstractPaintActionMouse extends AbstractPaintAction {
 
     @Override
     public String getInfo() {
-        String[] split = state.getClass().getName().split("\\.");
-        return split[split.length - 1];
+        return state.toString();
     }
 }

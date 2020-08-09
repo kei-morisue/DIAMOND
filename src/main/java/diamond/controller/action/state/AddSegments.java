@@ -4,24 +4,27 @@
  */
 package diamond.controller.action.state;
 
+import java.util.HashSet;
 import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.controller.mouse.PickerCyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.geom.d2.MirrorSimple;
 import diamond.model.cyborg.step.Step;
 
 /**
  * @author Kei Morisue
  *
  */
-public class AddSegment extends AbstractPaintState {
+public class AddSegments extends AbstractPaintState {
     private Context context;
-    private Vertex v0;
-    private Vertex v1;
+    private AbstractSegment s0;
+    private Stack<AbstractSegment> segments;
 
-    public AddSegment(Context context) {
+    public AddSegments(Context context) {
         this.context = context;
     }
 
@@ -32,19 +35,26 @@ public class AddSegment extends AbstractPaintState {
     @Override
     protected void executeAction() {
         Step step = context.getDiagram().getStep();
-        step.getFaces().get(0).getCreases().add(new SegmentCrease(v0,
-                v1, context.getType()));
+        Face face = step.getFaces().get(0);
+        HashSet<SegmentCrease> creases = face.getCreases();
+        s0 = segments.pop();
+        MirrorSimple mirror = new MirrorSimple(s0.getV0(), s0.getV1());
+        for (AbstractSegment s : segments) {
+            creases.add(new SegmentCrease(
+                    mirror.apply(s.getV0()),
+                    mirror.apply(s.getV1()),
+                    s.getType()));
+        }
         step.update();
         context.initialize();
     }
 
     @Override
     protected boolean tryAction() {
-        PickerCyborg<Vertex> picker = context.getPicker(Vertex.class);
-        Stack<Vertex> picked = picker.get();
-        this.v1 = picked.get(1);
-        this.v0 = picked.get(0);
-        return v1 != v0;
+        PickerCyborg<AbstractSegment> picker = context
+                .getPicker(AbstractSegment.class);
+        segments = picker.get();
+        return true;
     }
 
     @Override

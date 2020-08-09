@@ -10,30 +10,9 @@ import java.awt.Graphics2D;
  * @author Kei Morisue
  *
  */
-public class PaintActionLazy extends AbstractPaintAction {
+public class PaintLazy extends AbstractPaintAction {
 
-    @Override
-    public void onLeftClick() {
-    }
-
-    @Override
-    public void onLeftCtrlClick() {
-    }
-
-    @Override
-    public void onRightClick() {
-    }
-
-    @Override
-    public void onRightCtrlClick() {
-    }
-
-    @Override
     public void onMove() {
-    }
-
-    @Override
-    public void onPress() {
     }
 
     @Override
@@ -47,6 +26,26 @@ public class PaintActionLazy extends AbstractPaintAction {
     @Override
     public String getInfo() {
         return "Lazy";
+    }
+
+    @Override
+    public void onRelease() {
+    }
+
+    @Override
+    public void onLeftPress(boolean isCtrl) {
+    }
+
+    @Override
+    public void onRightPress(boolean isCtrl) {
+    }
+
+    @Override
+    protected void onLeftCtrl() {
+    }
+
+    @Override
+    protected void onRightCtrl() {
     }
 
 }

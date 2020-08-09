@@ -39,11 +39,11 @@ public class PickCyborg<C extends Cyborg> extends AbstractPaintState {
     }
 
     protected PickerCyborg<C> getPicker() {
-        return context.getPicker().get(type);
+        return context.getPicker(type);
     }
 
     protected PointerCyborg<C> getPointer() {
-        return context.getPointer().get(type);
+        return context.getPointer(type);
     }
 
     @Override
@@ -51,8 +51,20 @@ public class PickCyborg<C extends Cyborg> extends AbstractPaintState {
     }
 
     @Override
-    public void onMove() {
+    public AbstractState onMove() {
         getPointer().add(context);
+        return this;
     }
 
+    @Override
+    public AbstractState onRelease() {
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "<"
+                + type.getSimpleName()
+                + ">";
+    }
 }

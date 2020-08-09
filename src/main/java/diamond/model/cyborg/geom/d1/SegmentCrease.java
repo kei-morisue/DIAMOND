@@ -11,7 +11,6 @@ import diamond.model.cyborg.geom.d0.Vertex;
  *
  */
 public class SegmentCrease extends AbstractSegment {
-    private SegmentType type = SegmentType.CREASE;
 
     @Deprecated
     public SegmentCrease() {
@@ -20,17 +19,6 @@ public class SegmentCrease extends AbstractSegment {
     public SegmentCrease(Vertex v0, Vertex v1, SegmentType type) {
         super(v0, v1);
         this.setType(type);
-    }
-
-    public SegmentType getType() {
-        return type;
-    }
-
-    public void setType(SegmentType type) {
-        if (!SegmentType.isCrease(type)) {
-            return;
-        }
-        this.type = type;
     }
 
 }

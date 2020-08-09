@@ -24,9 +24,11 @@ public abstract class AbstractState {
 
     protected abstract void executeAction();
 
-    public abstract void onMove();
+    public abstract AbstractState onMove();
 
     protected abstract boolean tryAction();
+
+    public abstract AbstractState onRelease();
 
     public final AbstractState doAction() {
         if (!tryAction()) {
@@ -42,11 +44,6 @@ public abstract class AbstractState {
     public final AbstractState undoAction() {
         undo();
         return prev;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getName();
     }
 
 }
