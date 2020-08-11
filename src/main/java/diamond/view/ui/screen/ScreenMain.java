@@ -11,8 +11,7 @@ import java.util.Observer;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
-import diamond.model.cyborg.step.Step;
-import diamond.view.ui.screen.draw.CyborgDrawer;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -42,9 +41,8 @@ public class ScreenMain extends AbstractScreen implements Observer {
 
     @Override
     protected void draw(Graphics2D g2d) {
-        CyborgDrawer drawer = new CyborgDrawer(g2d, context);
         Step step = context.getDiagram().getStep();
-        drawer.draw(g2d, step);
+        step.draw(g2d, context.getDiagram());
         context.getPaintAction().onDraw(g2d);
     }
 

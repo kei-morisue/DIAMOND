@@ -6,6 +6,8 @@ package diamond.model.cyborg.style;
 
 import java.awt.Color;
 
+import diamond.model.Setter;
+
 /**
  * @author Kei Morisue
  *
@@ -13,6 +15,7 @@ import java.awt.Color;
 public class StyleFace {
     private Color front = Color.GRAY;
     private Color back = Color.WHITE;
+    public static final Color POINTED = Color.GREEN;
 
     public StyleFace() {
     }

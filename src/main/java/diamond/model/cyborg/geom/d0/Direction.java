@@ -37,13 +37,12 @@ public class Direction {
         return new Direction(scale * this.x, scale * this.y);
     }
 
-    public Direction scale(double scale, Direction v0) {
-        Direction v = this.sub(v0);
-        return (new Direction(scale * v.x, scale * v.y)).add(this);
-    }
-
     public Direction sub(Direction v0) {
         return this.add(v0.neg());
+    }
+
+    public Direction n() {
+        return new Direction(y, -x);
     }
 
     public double prod(Direction v) {

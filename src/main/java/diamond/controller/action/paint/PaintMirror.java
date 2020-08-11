@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.controller.action.state.AddSegment;
 import diamond.controller.action.state.PickCyborg;
+import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.PickerCyborg;
+import diamond.model.cyborg.geom.PointerCyborg;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
-import diamond.view.ui.screen.draw.SegmentDrawer;
 
 /**
  * @author Kei Morisue
@@ -46,9 +48,15 @@ public class PaintMirror extends AbstractPaintActionMouse {
 
     @Override
     public void onDraw(Graphics2D g2d) {
-        SegmentDrawer drawer = new SegmentDrawer(g2d, context);
-        drawer.draw(g2d, context.getPointer(AbstractSegment.class));
-        drawer.draw(g2d, context.getPicker(AbstractSegment.class));
+        Diagram diagram = context.getDiagram();
+        PointerCyborg<AbstractSegment> pointer = context
+                .getPointer(AbstractSegment.class);
+        pointer.setG2d(g2d, diagram);
+        pointer.draw(g2d, diagram);
+        PickerCyborg<AbstractSegment> picker = context
+                .getPicker(AbstractSegment.class);
+        picker.setG2d(g2d, diagram);
+        picker.draw(g2d, diagram);
     }
 
 }

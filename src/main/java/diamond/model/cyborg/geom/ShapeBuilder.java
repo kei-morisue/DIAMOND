@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.view.ui.screen.draw;
+package diamond.model.cyborg.geom;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentMV;
+import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
 
 /**
@@ -41,7 +41,7 @@ public class ShapeBuilder {
         return outline;
     }
 
-    public static Line2D.Double build(SegmentMV mV) {
+    public static Line2D.Double build(SegmentEdge mV) {
         Vertex v0 = mV.getV0();
         Vertex v1 = mV.getV1();
         return build(v0, v1);

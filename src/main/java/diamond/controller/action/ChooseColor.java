@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 
-import diamond.model.cyborg.style.Setter;
+import diamond.model.Setter;
 import diamond.view.resource.string.Labels;
 
 /**

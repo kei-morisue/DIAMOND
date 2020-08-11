@@ -9,6 +9,7 @@ import java.awt.Color;
 
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.Util;
@@ -22,12 +23,12 @@ public class StyleSegment {
     final public static int JOIN = BasicStroke.JOIN_ROUND;
     final public static Color COLOR_VALLEY = Color.BLUE;
     final public static Color COLOR_MOUNTAIN = Color.RED;
-    final public static Color PICKED = Color.GREEN;
     final public static Color POINTED = Color.GREEN;
     final public static Color COLOR_EDGE = Color.BLACK;
     final public static Color COLOR_CREASE = Color.BLACK;
 
     private float widthEdge = 3.0f;
+    private float widthPointed = 3.0f;
     private float widthCrease = 0.0f;
     private float widthSymbol = 5.0f;
     private float widthMv = 3.0f;
@@ -41,12 +42,23 @@ public class StyleSegment {
         return new BasicStroke(widthEdge / scale, CAP, JOIN);
     }
 
+    public BasicStroke strokePointed(float scale) {
+        return new BasicStroke(widthPointed / scale, CAP, JOIN);
+    }
+
     public double getClipped(Face face, Vertex v1) {
         return (face.isBoundary(v1)) ? clip : 1.0;
     }
 
-    public Color getColor(SegmentCrease crease) {
-        switch (crease.getType()) {
+    public Color getColor(SegmentEdge segment) {
+        if (SegmentType.isMountain(segment.getType())) {
+            return COLOR_MOUNTAIN;
+        }
+        return COLOR_VALLEY;
+    }
+
+    public Color getColor(SegmentCrease segment) {
+        switch (segment.getType()) {
         case CREASE_MOUNTAIN:
             return COLOR_MOUNTAIN;
         case CREASE_VALLEY:
@@ -87,6 +99,7 @@ public class StyleSegment {
         return widthEdge;
     }
 
+    @Deprecated
     public void setWidthEdge(float widthEdge) {
         this.widthEdge = widthEdge;
     }
@@ -96,6 +109,7 @@ public class StyleSegment {
         return widthCrease;
     }
 
+    @Deprecated
     public void setWidthCrease(float widthCrease) {
         this.widthCrease = widthCrease;
     }
@@ -114,6 +128,7 @@ public class StyleSegment {
         return widthMv;
     }
 
+    @Deprecated
     public void setWidthMv(float widthMv) {
         this.widthMv = widthMv;
     }
@@ -123,7 +138,7 @@ public class StyleSegment {
     }
 
     public void setClip(double clip) {
-        this.clip = Util.window(clip, .0, 1.0);
+        this.clip = Util.hairCut(clip, .0, 1.0);
     }
 
 }

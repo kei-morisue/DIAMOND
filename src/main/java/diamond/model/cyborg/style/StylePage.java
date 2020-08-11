@@ -6,6 +6,8 @@ package diamond.model.cyborg.style;
 
 import java.awt.Color;
 
+import diamond.model.Setter;
+
 /**
  * @author Kei Morisue
  *

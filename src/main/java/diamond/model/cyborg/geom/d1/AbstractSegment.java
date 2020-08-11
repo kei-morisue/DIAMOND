@@ -5,6 +5,7 @@
 package diamond.model.cyborg.geom.d1;
 
 import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.geom.Graphics;
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.math.Fuzzy;
@@ -13,10 +14,10 @@ import diamond.model.math.Fuzzy;
  * @author Kei Morisue
  *
  */
-public abstract class AbstractSegment implements Cyborg {
-    private Vertex v0;
-    private Vertex v1;
-    private SegmentType type = SegmentType.CREASE;
+public abstract class AbstractSegment implements Cyborg, Graphics {
+    protected Vertex v0;
+    protected Vertex v1;
+    protected SegmentType type = SegmentType.CREASE;
 
     @Deprecated
     protected AbstractSegment() {
@@ -27,12 +28,11 @@ public abstract class AbstractSegment implements Cyborg {
         this.v1 = v1;
     }
 
-    public Vertex getV0() {
-        return v0;
-    }
+    abstract void split(Vertex v);
 
-    public Vertex getV1() {
-        return v1;
+    @Override
+    public double dist(Vertex v) {
+        return v.dist(c());
     }
 
     public Vertex foot(Vertex v) {
@@ -45,29 +45,44 @@ public abstract class AbstractSegment implements Cyborg {
         Direction a = v.dir(v0);
         Direction b = v1.dir(v0);
         double p = a.proj(b);
-        return Fuzzy.in(p, 0, 1) && Fuzzy.isSmall(dist(v));
-    }
-
-    @Deprecated
-    public void setV0(Vertex v0) {
-        this.v0 = v0;
-    }
-
-    @Deprecated
-    public void setV1(Vertex v1) {
-        this.v1 = v1;
+        return Fuzzy.in(p, .0, 1.0) && Fuzzy.isSmall(h(v));
     }
 
     public double angle() {
         return getV1().angle(getV0());
     }
 
-    @Override
-    public double dist(Vertex v) {
+    public double h(Vertex v) {
         Direction a = v0.dir(v);
         Direction b = v1.dir(v);
         Direction c = v1.dir(v0);
         return a.outer(b) / c.norm();
+    }
+
+    public Vertex c() {
+        return dir().scale(.5).ver(v0);
+    }
+
+    public Direction dir() {
+        return v1.dir(v0);
+    }
+
+    public Vertex split(Double p) {
+        if (Fuzzy.isSmall(p - 1.0)) {
+            return v1;
+        }
+        if (Fuzzy.isSmall(p - .0)) {
+            return v0;
+        }
+        return v1.scale(p, v0);
+    }
+
+    public Vertex getV0() {
+        return v0;
+    }
+
+    public Vertex getV1() {
+        return v1;
     }
 
     public SegmentType getType() {
@@ -79,6 +94,16 @@ public abstract class AbstractSegment implements Cyborg {
             return;
         }
         this.type = type;
+    }
+
+    @Deprecated
+    public void setV0(Vertex v0) {
+        this.v0 = v0;
+    }
+
+    @Deprecated
+    public void setV1(Vertex v1) {
+        this.v1 = v1;
     }
 
 }

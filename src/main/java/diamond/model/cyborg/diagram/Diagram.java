@@ -7,7 +7,7 @@ package diamond.model.cyborg.diagram;
 import java.util.LinkedList;
 import java.util.Observable;
 
-import diamond.model.cyborg.step.Step;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StylePage;
 import diamond.model.cyborg.style.StyleSegment;
@@ -23,7 +23,6 @@ public class Diagram extends Observable {
     private StyleFace styleFace = new StyleFace();
     private StyleSegment styleSegment = new StyleSegment();
     private StylePage stylePage = new StylePage();
-    private Stars stars = new Stars();
 
     public Diagram() {
     }
@@ -33,7 +32,7 @@ public class Diagram extends Observable {
     }
 
     public void next(int steps) {
-        lastStep = Util.window(
+        lastStep = Util.hairCut(
                 lastStep + steps,
                 0,
                 this.steps.size() - 1);
@@ -75,15 +74,6 @@ public class Diagram extends Observable {
     @Deprecated
     public void setLastStep(int lastStep) {
         this.lastStep = lastStep;
-    }
-
-    public Stars getStars() {
-        return stars;
-    }
-
-    @Deprecated
-    public void setStars(Stars stars) {
-        this.stars = stars;
     }
 
     public StylePage getStylePage() {

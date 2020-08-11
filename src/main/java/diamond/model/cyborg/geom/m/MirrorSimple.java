@@ -2,10 +2,11 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg.geom.d2;
+package diamond.model.cyborg.geom.m;
 
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 
 /**
  * @author Kei Morisue
@@ -23,7 +24,12 @@ public class MirrorSimple implements Mirror {
     }
 
     // Ax + B : Affine Transform
-    // A = M Rot(-2t)
+    // A := M.R
+    // B := (I - M.A).v0
+    public MirrorSimple(AbstractSegment segment) {
+        this(segment.getV0(), segment.getV1());
+    }
+
     public MirrorSimple(Vertex v0, Vertex v1) {
         setT(flip * v1.dir(v0).angle());
         setB(v0);
@@ -35,8 +41,8 @@ public class MirrorSimple implements Mirror {
     }
 
     @Override
-    public boolean isFront() {
-        return flip == 1;
+    public boolean isFlip() {
+        return flip == -1;
     }
 
     private void setB(Vertex v0) {

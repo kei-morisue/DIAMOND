@@ -37,6 +37,16 @@ public enum SegmentType {
         }
     }
 
+    public static boolean isMountain(SegmentType type) {
+        switch (type) {
+        case MOUNTAIN:
+        case CREASE_MOUNTAIN:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     public static SegmentType foldUnfold(SegmentType type) {
         switch (type) {
         case MOUNTAIN:

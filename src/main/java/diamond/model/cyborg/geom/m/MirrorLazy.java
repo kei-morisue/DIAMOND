@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg.geom.d2;
+package diamond.model.cyborg.geom.m;
 
 import diamond.model.cyborg.geom.d0.Vertex;
 
@@ -11,18 +11,18 @@ import diamond.model.cyborg.geom.d0.Vertex;
  *
  */
 public class MirrorLazy implements Mirror {
-    @Deprecated
     public MirrorLazy() {
     }
 
+    // Identity Operator
     @Override
     public Vertex apply(Vertex v0) {
         return v0;
     }
 
     @Override
-    public boolean isFront() {
-        return true;
+    public boolean isFlip() {
+        return false;
     }
 
 }

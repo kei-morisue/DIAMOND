@@ -11,11 +11,12 @@ import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.action.paint.PaintAxiom1;
 import diamond.controller.action.paint.PaintLazy;
 import diamond.controller.mouse.Picker;
-import diamond.controller.mouse.PickerCyborg;
 import diamond.controller.mouse.Pointer;
-import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.geom.Graphics;
+import diamond.model.cyborg.geom.PickerCyborg;
+import diamond.model.cyborg.geom.PointerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentType;
 
@@ -91,7 +92,8 @@ public class Context extends Observable implements Observer {
         notifyObservers();
     }
 
-    public <T extends Cyborg> PickerCyborg<T> getPicker(Class<T> type) {
+    public <T extends Cyborg & Graphics> PickerCyborg<T> getPicker(
+            Class<T> type) {
         return picker.get(type);
     }
 
@@ -99,7 +101,8 @@ public class Context extends Observable implements Observer {
         return pointer;
     }
 
-    public <T extends Cyborg> PointerCyborg<T> getPointer(Class<T> type) {
+    public <T extends Cyborg & Graphics> PointerCyborg<T> getPointer(
+            Class<T> type) {
         return pointer.get(type);
     }
 

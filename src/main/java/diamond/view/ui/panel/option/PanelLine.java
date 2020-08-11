@@ -46,7 +46,7 @@ public class PanelLine extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             double input = Double.parseDouble(textField.getText());
-            double set = Util.window(input, .0, 100.0);
+            double set = Util.hairCut(input, .0, 100.0);
             styleSegment.setClip(set * 0.01);
             textField.setText(String.valueOf(set));
         }

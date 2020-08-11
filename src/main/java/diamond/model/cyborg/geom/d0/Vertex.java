@@ -4,14 +4,21 @@
  */
 package diamond.model.cyborg.geom.d0;
 
+import java.awt.Graphics2D;
+
+import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.geom.Graphics;
+import diamond.model.cyborg.geom.ShapeBuilder;
+import diamond.model.cyborg.style.StyleVertex;
 import diamond.model.math.Fuzzy;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Vertex implements Comparable<Vertex>, Cyborg {
+public class Vertex implements Comparable<Vertex>, Cyborg, Graphics {
     private double x = .0;
     private double y = .0;
 
@@ -24,14 +31,25 @@ public class Vertex implements Comparable<Vertex>, Cyborg {
         this.y = y;
     }
 
-    public Vertex scale(double scale, Vertex v0) {
-        Direction d = dir(v0).scale(scale);
-        return d.ver(v0);
-    }
-
     @Override
     public double dist(Vertex v0) {
         return dir(v0).norm();
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, Diagram diagram) {
+        double scale = G2DUtil.getScale(g2d);
+        g2d.fill(ShapeBuilder.build(this, StyleVertex.SIZE / scale));
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, Diagram diagram) {
+        g2d.setColor(StyleVertex.DEFAULT);
+    }
+
+    public Vertex scale(double scale, Vertex v0) {
+        Direction d = dir(v0).scale(scale);
+        return d.ver(v0);
     }
 
     public Direction dir(Vertex v0) {

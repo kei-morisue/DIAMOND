@@ -4,8 +4,6 @@
  */
 package diamond.model.math;
 
-import diamond.model.Constants;
-
 /**
  * @author Kei Morisue
  *

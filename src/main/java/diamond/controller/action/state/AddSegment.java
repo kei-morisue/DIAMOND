@@ -4,13 +4,16 @@
  */
 package diamond.controller.action.state;
 
+import java.util.AbstractCollection;
 import java.util.Stack;
 
 import diamond.controller.Context;
-import diamond.controller.mouse.PickerCyborg;
+import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.step.Step;
+import diamond.model.cyborg.geom.d1.SegmentSplitter;
+import diamond.model.cyborg.geom.d2.Face;
 
 /**
  * @author Kei Morisue
@@ -32,8 +35,13 @@ public class AddSegment extends AbstractPaintState {
     @Override
     protected void executeAction() {
         Step step = context.getDiagram().getStep();
-        step.getFaces().get(0).getCreases().add(new SegmentCrease(v0,
-                v1, context.getType()));
+        Face face = step.getFaces().get(0);//TODO
+        AbstractCollection<SegmentCrease> creases = face.getCreases();
+        SegmentCrease crease = new SegmentCrease(v0, v1, context.getType());
+        SegmentSplitter.across(
+                creases,
+                crease,
+                face);//TODO
         step.update();
         context.initialize();
     }
@@ -42,8 +50,8 @@ public class AddSegment extends AbstractPaintState {
     protected boolean tryAction() {
         PickerCyborg<Vertex> picker = context.getPicker(Vertex.class);
         Stack<Vertex> picked = picker.get();
+        this.v0 = picked.get(0);//TODO
         this.v1 = picked.get(1);
-        this.v0 = picked.get(0);
         return v1 != v0;
     }
 

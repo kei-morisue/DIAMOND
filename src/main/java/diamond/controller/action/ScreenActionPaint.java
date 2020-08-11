@@ -66,7 +66,7 @@ public final class ScreenActionPaint extends AbstractScreenAction {
 
     @Override
     public void mouseExited(MouseEvent e) {
-        context.getPointer().initialize();
+        context.getPointer().initialize();//TODO
     }
 
 }

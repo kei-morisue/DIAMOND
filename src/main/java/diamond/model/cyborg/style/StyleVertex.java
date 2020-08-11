@@ -11,7 +11,7 @@ import java.awt.Color;
  *
  */
 public final class StyleVertex {
-    static public final Color PICKED = Color.GREEN;
+    static public final Color POINTED = Color.GREEN;
     static public final Color DEFAULT = Color.BLACK;
     static public final double SIZE = 10.0;
 

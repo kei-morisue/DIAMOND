@@ -4,26 +4,50 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import java.awt.Graphics2D;
+
+import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.geom.ShapeBuilder;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.style.StyleSegment;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class SegmentMV extends AbstractSegment {
+public class SegmentEdge extends AbstractSegment {
     private SegmentType type = SegmentType.VALLEY;
     private Face f0 = null;
     private Face f1 = null;
 
     @Deprecated
-    public SegmentMV() {
+    public SegmentEdge() {
         super();
     }
 
-    public SegmentMV(Face f0, Vertex v0, Vertex v1) {
+    public SegmentEdge(Face f0, Vertex v0, Vertex v1) {
         super(v0, v1);
         this.setF0(f0);
+    }
+
+    @Override
+    void split(Vertex v) {
+        f0.add(v);//TODO
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, Diagram diagram) {
+        g2d.draw(ShapeBuilder.build(this));
+
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, Diagram diagram) {
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        g2d.setColor(styleSegment.getColor(this));
+        g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
     }
 
     public Face getF1() {
@@ -52,4 +76,5 @@ public class SegmentMV extends AbstractSegment {
         }
         this.type = type;
     }
+
 }

@@ -4,21 +4,31 @@
  */
 package diamond.model.cyborg.geom.d2;
 
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.geom.Graphics;
+import diamond.model.cyborg.geom.ShapeBuilder;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentMV;
+import diamond.model.cyborg.geom.d1.SegmentEdge;
+import diamond.model.cyborg.geom.m.Mirror;
+import diamond.model.cyborg.geom.m.MirrorLazy;
+import diamond.model.cyborg.style.StyleFace;
+import diamond.model.cyborg.style.StyleSegment;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Face implements Cyborg {
+public class Face implements Cyborg, Graphics {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
-    private HashSet<SegmentMV> edges = new HashSet<SegmentMV>();
+    private HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
     private Mirror mirror = new MirrorLazy();
 
@@ -41,13 +51,58 @@ public class Face implements Cyborg {
         return c().dist(v);
     }
 
+    @Override
+    public void draw(Graphics2D g2d, Diagram diagram) {
+        setG2d(g2d, diagram);
+        for (SegmentCrease crease : creases) {
+            crease.setG2d(g2d, diagram);
+            crease.draw(g2d, diagram);
+            Vertex v0 = crease.getV0();
+            v0.setG2d(g2d, diagram);
+            v0.draw(g2d, diagram);
+            Vertex v1 = crease.getV1();
+            v1.setG2d(g2d, diagram);
+            v1.draw(g2d, diagram);
+        }
+        for (Vertex v : vertices) {
+            v.setG2d(g2d, diagram);
+            v.draw(g2d, diagram);
+        }
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, Diagram diagram) {
+        StyleFace styleFace = diagram.getStyleFace();
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        double scale = G2DUtil.getScale(g2d);
+        g2d.setColor(styleFace.getColor(isFront()));
+        g2d.setStroke(styleSegment.strokeEdge((float) scale));
+        GeneralPath polygon = ShapeBuilder.build(this);
+        g2d.fill(polygon);
+        g2d.setColor(StyleSegment.COLOR_EDGE);
+        g2d.draw(polygon);
+    }
+
     public boolean isBoundary(Vertex v) {
         //TODO
         return false;
     }
 
+    public void add(SegmentCrease crease) {
+        creases.add(crease);
+        crease.setFace(this);
+    }
+
+    public void remove(SegmentCrease crease) {
+        creases.remove(crease);
+    }
+
     public LinkedList<Vertex> getVertices() {
         return vertices;
+    }
+
+    public void add(Vertex v) {
+        vertices.add(v);
     }
 
     @Deprecated
@@ -55,6 +110,7 @@ public class Face implements Cyborg {
         this.vertices = vertices;
     }
 
+    // TODO to be deprocated
     public HashSet<SegmentCrease> getCreases() {
         return creases;
     }
@@ -65,10 +121,10 @@ public class Face implements Cyborg {
     }
 
     public boolean isFront() {
-        return mirror.isFront();
+        return mirror.isFlip();
     }
 
-    public HashSet<SegmentMV> getEdges() {
+    public HashSet<SegmentEdge> getEdges() {
         return edges;
     }
 
@@ -80,4 +136,5 @@ public class Face implements Cyborg {
     public void setMirror(Mirror mirror) {
         this.mirror = mirror;
     }
+
 }

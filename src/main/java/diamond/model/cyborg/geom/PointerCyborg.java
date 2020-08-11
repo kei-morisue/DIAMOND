@@ -2,30 +2,62 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.controller.mouse;
+package diamond.model.cyborg.geom;
 
+import java.awt.Graphics2D;
 import java.util.Collection;
 import java.util.Observable;
 
 import diamond.Config;
 import diamond.controller.Context;
-import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.step.Step;
+import diamond.model.cyborg.style.StyleFace;
+import diamond.model.cyborg.style.StyleSegment;
+import diamond.model.cyborg.style.StyleVertex;
 import diamond.model.math.Fuzzy;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PointerCyborg<T extends Cyborg> extends Observable {
+public class PointerCyborg<T extends Cyborg & Graphics> extends Observable
+        implements Graphics {
     private T pointed;
     private Class<T> type;
 
     public PointerCyborg(Class<T> type) {
         this.type = type;
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, Diagram diagram) {
+        if (pointed == null) {
+            return;
+        }
+        pointed.draw(g2d, diagram);
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, Diagram diagram) {
+        if (type == Face.class) {
+            g2d.setColor(StyleFace.POINTED);
+            return;
+        }
+        if (type == Vertex.class) {
+            g2d.setColor(StyleVertex.POINTED);
+            return;
+        }
+        if (type == AbstractSegment.class) {
+            g2d.setStroke(diagram.getStyleSegment()
+                    .strokePointed((float) G2DUtil.getScale(g2d)));
+            g2d.setColor(StyleSegment.POINTED);
+            return;
+        }
     }
 
     public void initialize() {
@@ -72,4 +104,5 @@ public class PointerCyborg<T extends Cyborg> extends Observable {
     public T get() {
         return pointed;
     }
+
 }

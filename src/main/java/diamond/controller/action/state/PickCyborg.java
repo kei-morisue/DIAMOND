@@ -5,15 +5,17 @@
 package diamond.controller.action.state;
 
 import diamond.controller.Context;
-import diamond.controller.mouse.PickerCyborg;
-import diamond.controller.mouse.PointerCyborg;
 import diamond.model.cyborg.geom.Cyborg;
+import diamond.model.cyborg.geom.Graphics;
+import diamond.model.cyborg.geom.PickerCyborg;
+import diamond.model.cyborg.geom.PointerCyborg;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PickCyborg<C extends Cyborg> extends AbstractPaintState {
+public class PickCyborg<C extends Cyborg & Graphics>
+        extends AbstractPaintState {
     private Context context;
     private Class<C> type;
 
