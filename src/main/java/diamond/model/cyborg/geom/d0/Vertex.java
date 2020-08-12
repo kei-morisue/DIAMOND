@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.Graphics;
-import diamond.model.cyborg.geom.ShapeBuilder;
+import diamond.model.cyborg.graphics.GraphicsCp;
+import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleVertex;
 import diamond.model.math.Fuzzy;
 import diamond.view.ui.screen.draw.G2DUtil;
@@ -18,7 +18,7 @@ import diamond.view.ui.screen.draw.G2DUtil;
  * @author Kei Morisue
  *
  */
-public class Vertex implements Comparable<Vertex>, Cyborg, Graphics {
+public class Vertex implements Comparable<Vertex>, Cyborg, GraphicsCp {
     private double x = .0;
     private double y = .0;
 

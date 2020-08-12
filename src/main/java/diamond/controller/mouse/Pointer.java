@@ -8,11 +8,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.Graphics;
 import diamond.model.cyborg.geom.PointerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.GraphicsCp;
 
 /**
  * @author Kei Morisue
@@ -31,7 +31,7 @@ public class Pointer extends Observable implements Observer {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Cyborg & Graphics> PointerCyborg<T> get(Class<T> type) {
+    public <T extends Cyborg & GraphicsCp> PointerCyborg<T> get(Class<T> type) {
         if (type == Vertex.class) {
             return (PointerCyborg<T>) vertex;
         }

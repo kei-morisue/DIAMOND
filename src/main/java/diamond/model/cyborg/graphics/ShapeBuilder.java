@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg.geom;
+package diamond.model.cyborg.graphics;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;

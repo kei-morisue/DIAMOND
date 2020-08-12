@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.util.Stack;
 
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.draw.G2DUtil;
 
@@ -16,7 +17,7 @@ import diamond.view.ui.screen.draw.G2DUtil;
  * @author Kei Morisue
  *
  */
-public class PickerCyborg<T extends Cyborg & Graphics> implements Graphics {
+public class PickerCyborg<T extends Cyborg & GraphicsCp> implements GraphicsCp {
     private Stack<T> picked = new Stack<T>();
 
     public void initialize() {
@@ -39,6 +40,10 @@ public class PickerCyborg<T extends Cyborg & Graphics> implements Graphics {
     }
 
     public void add(T t) {
+        if (picked.contains(t)) {
+            picked.remove(t);
+            return;
+        }
         picked.add(t);
     }
 

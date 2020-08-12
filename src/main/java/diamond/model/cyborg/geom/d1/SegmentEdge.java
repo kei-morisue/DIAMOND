@@ -7,9 +7,9 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.ShapeBuilder;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.draw.G2DUtil;
 
@@ -33,14 +33,13 @@ public class SegmentEdge extends AbstractSegment {
     }
 
     @Override
-    void split(Vertex v) {
+    public void split(Vertex v) {
         f0.add(v);//TODO
     }
 
     @Override
     public void draw(Graphics2D g2d, Diagram diagram) {
         g2d.draw(ShapeBuilder.build(this));
-
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.util.LinkedList;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.Graphics;
-import diamond.model.cyborg.geom.ShapeBuilder;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.m.Mirror;
 import diamond.model.cyborg.geom.m.MirrorLazy;
+import diamond.model.cyborg.graphics.GraphicsCp;
+import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.draw.G2DUtil;
@@ -26,7 +26,7 @@ import diamond.view.ui.screen.draw.G2DUtil;
  * @author Kei Morisue
  *
  */
-public class Face implements Cyborg, Graphics {
+public class Face implements Cyborg, GraphicsCp {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
     private HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();

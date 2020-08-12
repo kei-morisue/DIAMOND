@@ -5,16 +5,17 @@
 package diamond.model.cyborg.geom.d1;
 
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.Graphics;
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.math.Fuzzy;
+import diamond.model.math.Util;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class AbstractSegment implements Cyborg, Graphics {
+public abstract class AbstractSegment implements Cyborg, GraphicsCp {
     protected Vertex v0;
     protected Vertex v1;
     protected SegmentType type = SegmentType.CREASE;
@@ -28,11 +29,28 @@ public abstract class AbstractSegment implements Cyborg, Graphics {
         this.v1 = v1;
     }
 
-    abstract void split(Vertex v);
+    public abstract void split(Vertex v);
 
     @Override
     public double dist(Vertex v) {
         return v.dist(c());
+    }
+
+    public Vertex[] split(AbstractSegment segment) {
+        Direction d0 = dir();
+        Direction d1 = segment.dir();
+        double det = d0.outer(d1);
+        if (Fuzzy.isSmall(det)) {
+            return null;
+        }
+        Direction d = v0.dir(segment.getV0()).scale(-1.0 / det);
+        double p0 = d1.n().prod(d);
+        double p1 = d0.n().prod(d);
+        if (Util.in(p0, .0, 1.0) && Util.in(p1, .0, 1.0)) {
+            Vertex[] vs = { split(p0), segment.split(p1) };
+            return vs;
+        }
+        return null;
     }
 
     public Vertex foot(Vertex v) {

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.Graphics;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.GraphicsCp;
+import diamond.model.cyborg.graphics.GraphicsFolded;
+import diamond.model.cyborg.graphics.GraphicsStep;
 import diamond.model.cyborg.symbol.AbstractSymbol;
 import diamond.view.ui.screen.TransformScreen;
 
@@ -20,7 +22,7 @@ import diamond.view.ui.screen.TransformScreen;
  * @author Kei Morisue
  *
  */
-public class Step implements Graphics {
+public class Step implements GraphicsCp, GraphicsFolded, GraphicsStep {
     private ArrayList<Face> faces = new ArrayList<>();
     private HashSet<AbstractSegment> segments = new HashSet<>();
     private HashSet<Vertex> vertices = new HashSet<>();
@@ -40,6 +42,30 @@ public class Step implements Graphics {
     @Deprecated
     @Override
     public void setG2d(Graphics2D g2d, Diagram diagram) {
+    }
+
+    @Override
+    public void drawS(Graphics2D g2d, Diagram diagram) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    @Override
+    public void setG2dS(Graphics2D g2d, Diagram diagram) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    @Override
+    public void drawF(Graphics2D g2d, Diagram diagram) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    @Override
+    public void setG2dF(Graphics2D g2d, Diagram diagram) {
+        // TODO 自動生成されたメソッド・スタブ
+
     }
 
     public void update() {

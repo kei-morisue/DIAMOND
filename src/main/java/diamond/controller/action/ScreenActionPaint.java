@@ -11,7 +11,7 @@ import diamond.controller.Context;
 import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.mouse.Util;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -20,7 +20,7 @@ import diamond.view.ui.screen.ScreenMain;
 public final class ScreenActionPaint extends AbstractScreenAction {
     private Context context;
 
-    public ScreenActionPaint(Context context, ScreenMain screen) {
+    public ScreenActionPaint(Context context, AbstractScreen screen) {
         super(screen);
         this.context = context;
     }

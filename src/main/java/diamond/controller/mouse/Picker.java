@@ -5,11 +5,11 @@
 package diamond.controller.mouse;
 
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.Graphics;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.GraphicsCp;
 
 /**
  * @author Kei Morisue
@@ -27,7 +27,7 @@ public class Picker {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Cyborg & Graphics> PickerCyborg<T> get(Class<T> type) {
+    public <T extends Cyborg & GraphicsCp> PickerCyborg<T> get(Class<T> type) {
         if (type.equals(Vertex.class)) {
             return (PickerCyborg<T>) vs;
         }

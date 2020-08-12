@@ -7,9 +7,9 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.ShapeBuilder;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.draw.G2DUtil;
 
@@ -30,7 +30,7 @@ public class SegmentCrease extends AbstractSegment {
     }
 
     @Override
-    void split(Vertex v) {
+    public void split(Vertex v) {
         face.remove(this);
         face.add(new SegmentCrease(v0, v, type));
         face.add(new SegmentCrease(v, v1, type));
@@ -38,10 +38,14 @@ public class SegmentCrease extends AbstractSegment {
 
     @Override
     public void draw(Graphics2D g2d, Diagram diagram) {
-        StyleSegment styleSegment = diagram.getStyleSegment();
-        double clipped0 = styleSegment.getClipped(face, v0);
-        double clipped1 = styleSegment.getClipped(face, v1);
-        g2d.draw(ShapeBuilder.build(this, clipped0, clipped1));
+        if (type == SegmentType.CREASE) {
+            StyleSegment styleSegment = diagram.getStyleSegment();
+            double clipped0 = styleSegment.getClipped(face, v0);
+            double clipped1 = styleSegment.getClipped(face, v1);
+            g2d.draw(ShapeBuilder.build(this, clipped0, clipped1));
+        } else {
+            g2d.draw(ShapeBuilder.build(this));
+        }
     }
 
     @Override

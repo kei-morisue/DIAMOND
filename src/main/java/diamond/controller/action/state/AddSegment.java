@@ -4,15 +4,15 @@
  */
 package diamond.controller.action.state;
 
-import java.util.AbstractCollection;
 import java.util.Stack;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentSplitter;
+import diamond.model.cyborg.geom.d2.CreaseAdder;
 import diamond.model.cyborg.geom.d2.Face;
 
 /**
@@ -23,6 +23,8 @@ public class AddSegment extends AbstractPaintState {
     private Context context;
     private Vertex v0;
     private Vertex v1;
+    private AbstractSegment s0;
+    private AbstractSegment s1;
 
     public AddSegment(Context context) {
         this.context = context;
@@ -36,12 +38,8 @@ public class AddSegment extends AbstractPaintState {
     protected void executeAction() {
         Step step = context.getDiagram().getStep();
         Face face = step.getFaces().get(0);//TODO
-        AbstractCollection<SegmentCrease> creases = face.getCreases();
         SegmentCrease crease = new SegmentCrease(v0, v1, context.getType());
-        SegmentSplitter.across(
-                creases,
-                crease,
-                face);//TODO
+        new CreaseAdder().across(crease, face);
         step.update();
         context.initialize();
     }

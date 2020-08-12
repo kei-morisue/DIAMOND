@@ -15,6 +15,7 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.model.cyborg.style.StyleVertex;
@@ -25,8 +26,8 @@ import diamond.view.ui.screen.draw.G2DUtil;
  * @author Kei Morisue
  *
  */
-public class PointerCyborg<T extends Cyborg & Graphics> extends Observable
-        implements Graphics {
+public class PointerCyborg<T extends Cyborg & GraphicsCp> extends Observable
+        implements GraphicsCp {
     private T pointed;
     private Class<T> type;
 
