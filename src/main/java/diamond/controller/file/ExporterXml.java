@@ -8,6 +8,7 @@ import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d1.SegmentType;
@@ -21,19 +22,23 @@ public class ExporterXml implements Exporter {
 
     public boolean export(Diagram diagram, String filePath) {
         try {
-            XMLEncoder enc = new XMLEncoder(
-                    new BufferedOutputStream(
-                            new FileOutputStream(filePath + ".dmd")));
+            FileOutputStream out = new FileOutputStream(filePath + ".dmd");
+            BufferedOutputStream buffer = new BufferedOutputStream(out);
+            XMLEncoder enc = new XMLEncoder(buffer);
             enc.setPersistenceDelegate(SegmentType.class,
                     new EnumPersistenceDelegate());
             enc.writeObject(diagram);
             enc.close();
+            buffer.close();
+            out.close();
         } catch (FileNotFoundException e) {
             Util.warn("no_file");
             return false;
         } catch (StackOverflowError e) {
             Util.warn("memory_out");
             return false;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return true;

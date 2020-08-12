@@ -12,14 +12,13 @@ import diamond.model.cyborg.geom.d1.AbstractSegment;
  * @author Kei Morisue
  *
  */
-public class MirrorSimple implements Mirror {
+public class MirrorSimple {
     protected Direction b = new Direction(.0, .0);
     protected double t = .0;
     protected int flip = -1;
     private double c;
     private double s;
 
-    @Deprecated
     public MirrorSimple() {
     }
 
@@ -35,12 +34,10 @@ public class MirrorSimple implements Mirror {
         setB(v0);
     }
 
-    @Override
     public Vertex apply(Vertex v0) {
         return b.ver(applyA(v0));
     }
 
-    @Override
     public boolean isFlip() {
         return flip == -1;
     }

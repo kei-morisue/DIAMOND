@@ -28,7 +28,9 @@ public class Step implements GraphicsCp, GraphicsFolded, GraphicsStep {
     private HashSet<Vertex> vertices = new HashSet<>();
     private ArrayList<AbstractSymbol> symbols = new ArrayList<AbstractSymbol>();
     private TransformScreen transform = new TransformScreen();
+    private Face base;
 
+    @Deprecated
     public Step() {
     }
 
@@ -66,6 +68,11 @@ public class Step implements GraphicsCp, GraphicsFolded, GraphicsStep {
     public void setG2dF(Graphics2D g2d, Diagram diagram) {
         // TODO 自動生成されたメソッド・スタブ
 
+    }
+
+    public void add(Face face) {
+        faces.add(face);
+        base = face;//TODO
     }
 
     public void update() {
@@ -134,6 +141,14 @@ public class Step implements GraphicsCp, GraphicsFolded, GraphicsStep {
 
     public HashSet<AbstractSegment> getSegments() {
         return segments;
+    }
+
+    public Face getBase() {
+        return base;
+    }
+
+    public void setBase(Face base) {
+        this.base = base;
     }
 
 }

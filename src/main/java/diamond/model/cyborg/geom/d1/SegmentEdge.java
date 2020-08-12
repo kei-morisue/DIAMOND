@@ -19,17 +19,20 @@ import diamond.view.ui.screen.draw.G2DUtil;
  */
 public class SegmentEdge extends AbstractSegment {
     private SegmentType type = SegmentType.VALLEY;
-    private Face f0 = null;
-    private Face f1 = null;
+    private Face f0;
+    private Face f1;
 
     @Deprecated
     public SegmentEdge() {
         super();
     }
 
-    public SegmentEdge(Face f0, Vertex v0, Vertex v1) {
+    public SegmentEdge(Face f0, Face f1, Vertex v0, Vertex v1) {
         super(v0, v1);
-        this.setF0(f0);
+        this.f0 = f0;
+        this.f1 = f1;
+        f0.add(this);
+        f1.add(this);
     }
 
     @Override
@@ -49,31 +52,47 @@ public class SegmentEdge extends AbstractSegment {
         g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
     }
 
+    public Face getPair(Face f) {
+        if (f == f0) {
+            return f1;
+        }
+        if (f == f1) {
+            return f0;
+        }
+        return null;
+    }
+
+    @Deprecated
     public Face getF1() {
         return f1;
     }
 
+    @Deprecated
     public void setF1(Face f1) {
         this.f1 = f1;
     }
 
+    @Deprecated
     public Face getF0() {
         return f0;
     }
 
+    @Deprecated
     public void setF0(Face f0) {
         this.f0 = f0;
     }
 
+    @Deprecated
     public SegmentType getType() {
         return type;
     }
 
+    @Deprecated
     public void setType(SegmentType type) {
-        if (SegmentType.isCrease(type)) {
-            return;
-        }
         this.type = type;
     }
 
+    public void setType(boolean isM) {
+        this.type = (isM) ? SegmentType.MOUNTAIN : SegmentType.VALLEY;
+    }
 }

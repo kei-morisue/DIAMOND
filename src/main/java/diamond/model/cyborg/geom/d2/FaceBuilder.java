@@ -20,6 +20,14 @@ public class FaceBuilder {
         return face;
     }
 
+    public static Face polygon(Vertex... vs) {
+        Face face = new Face();
+        for (Vertex v : vs) {
+            face.add(v);
+        }
+        return face;
+    }
+
     public static Face triangle(Vertex v0, Vertex v1, Vertex v2) {
         Face face = new Face();
         face.add(v0);

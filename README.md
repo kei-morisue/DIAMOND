@@ -1,8 +1,8 @@
 # DIAMOND
-Origami Diagram Editor
+Most Effective Origami Diagram Editor
 
 ## How to Build
-use Eclipse x Maven Build
+- use Eclipse x Maven Build
 
 
 ## Coding Style

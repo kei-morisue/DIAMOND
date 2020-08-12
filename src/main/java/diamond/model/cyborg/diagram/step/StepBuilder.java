@@ -4,15 +4,14 @@
  */
 package diamond.model.cyborg.diagram.step;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
+import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.d2.FaceBuilder;
-import diamond.model.cyborg.geom.m.MirrorSimple;
 
 /**
  * @author Kei Morisue
@@ -22,6 +21,7 @@ public class StepBuilder {
     static final double A = Math.sqrt(2.0) - 1.0;
 
     public static Step step0(double size) {
+        @SuppressWarnings("deprecation")
         Step step = new Step();
         Face square = FaceBuilder.square(size);
         LinkedList<Vertex> vs = square.getVertices();
@@ -30,27 +30,53 @@ public class StepBuilder {
                 vs.get(2),
                 SegmentType.CREASE_VALLEY);
         square.add(e);
-        step.getFaces().add(square);
+        step.add(square);
+        new Folder(step);
         step.update();
         return step;
     }
 
-    public static Step step1(Step step0) {
+    public static Step squareBase(Step step0) {
+        @SuppressWarnings("deprecation")
         Step step = new Step();
         LinkedList<Vertex> vs = step0.getFaces().get(0).getVertices();
-        Face t0 = FaceBuilder.triangle(
-                vs.get(0),
-                vs.get(1),
-                vs.get(2));
-        t0.setMirror(new MirrorSimple(vs.get(0), vs.get(2)));
-        Face t1 = FaceBuilder.triangle(
-                vs.get(0),
-                vs.get(3),
-                vs.get(2));
-        ArrayList<Face> faces = step.getFaces();
-        faces.add(t0);
-        faces.add(t1);
+        Vertex c = new Vertex(.0, .0);
+
+        Vertex v0 = vs.get(0);
+        Vertex v1 = vs.get(1);
+        Vertex v2 = vs.get(2);
+        Vertex v3 = vs.get(3);
+
+        Vertex c01 = v0.c(v1);
+        Vertex c12 = v1.c(v2);
+        Vertex c23 = v2.c(v3);
+        Vertex c30 = v3.c(v0);
+
+        Face f0 = FaceBuilder.polygon(c, c01, v1, c12);
+        f0.add(new SegmentCrease(c, v1, SegmentType.CREASE));
+        Face f2 = FaceBuilder.polygon(c, v0, c01);
+        new SegmentEdge(f0, f2, c, c01);
+        Face f4 = FaceBuilder.polygon(c, c12, v2);
+        new SegmentEdge(f0, f4, c, c12);
+        Face f3 = FaceBuilder.polygon(c, c30, v0);
+        Face f5 = FaceBuilder.polygon(c, v2, c23);
+        new SegmentEdge(f2, f3, c, v0);
+        new SegmentEdge(f4, f5, c, v2);
+
+        Face f1 = FaceBuilder.polygon(c, c23, v3, c30);
+        new SegmentEdge(f1, f3, c, c30);
+        new SegmentEdge(f1, f5, c, c23);
+
+        f1.add(new SegmentCrease(c, v3, SegmentType.CREASE));
+
+        step.add(f0);
+        step.add(f2);
+        step.add(f4);
+        step.add(f3);
+        step.add(f5);
+        step.add(f1);
         step.update();
+        new Folder(step);
         return step;
     }
 
@@ -66,20 +92,21 @@ public class StepBuilder {
         Vertex v40 = new Vertex(.0, size);
         Vertex v41 = new Vertex(.0, size);
 
+        @SuppressWarnings("deprecation")
         Step step = new Step();
-        ArrayList<Face> faces = step.getFaces();
-        faces.add(FaceBuilder.triangle(v30, v20, v40));
-        faces.add(FaceBuilder.triangle(v30, v41, v10));
-        faces.add(FaceBuilder.triangle(v30, v20, v10));
-        faces.add(FaceBuilder.triangle(v0, v20, v10));
-        faces.add(FaceBuilder.triangle(v20, v40, v0));
-        faces.add(FaceBuilder.triangle(v0, v41, v10));
-        faces.add(FaceBuilder.triangle(v21, v40, v0));
-        faces.add(FaceBuilder.triangle(v0, v41, v11));
-        faces.add(FaceBuilder.triangle(v0, v21, v11));
-        faces.add(FaceBuilder.triangle(v31, v21, v11));
-        faces.add(FaceBuilder.triangle(v31, v21, v40));
-        faces.add(FaceBuilder.triangle(v31, v41, v11));
+        step.add(FaceBuilder.triangle(v30, v20, v40));
+        step.add(FaceBuilder.triangle(v30, v41, v10));
+        step.add(FaceBuilder.triangle(v30, v20, v10));
+        step.add(FaceBuilder.triangle(v0, v20, v10));
+        step.add(FaceBuilder.triangle(v20, v40, v0));
+        step.add(FaceBuilder.triangle(v0, v41, v10));
+        step.add(FaceBuilder.triangle(v21, v40, v0));
+        step.add(FaceBuilder.triangle(v0, v41, v11));
+        step.add(FaceBuilder.triangle(v0, v21, v11));
+        step.add(FaceBuilder.triangle(v31, v21, v11));
+        step.add(FaceBuilder.triangle(v31, v21, v40));
+        step.add(FaceBuilder.triangle(v31, v41, v11));
+        new Folder(step);
         step.update();
         return step;
     }

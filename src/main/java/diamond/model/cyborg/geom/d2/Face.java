@@ -14,8 +14,7 @@ import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
-import diamond.model.cyborg.geom.m.Mirror;
-import diamond.model.cyborg.geom.m.MirrorLazy;
+import diamond.model.cyborg.geom.m.MirrorSimple;
 import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
@@ -30,7 +29,7 @@ public class Face implements Cyborg, GraphicsCp {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
     private HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    private Mirror mirror = new MirrorLazy();
+    private MirrorSimple mirror = null;
 
     public Face() {
     }
@@ -58,11 +57,14 @@ public class Face implements Cyborg, GraphicsCp {
             crease.setG2d(g2d, diagram);
             crease.draw(g2d, diagram);
             Vertex v0 = crease.getV0();
+            Vertex v1 = crease.getV1();
             v0.setG2d(g2d, diagram);
             v0.draw(g2d, diagram);
-            Vertex v1 = crease.getV1();
-            v1.setG2d(g2d, diagram);
             v1.draw(g2d, diagram);
+        }
+        for (SegmentEdge edge : edges) {
+            edge.setG2d(g2d, diagram);
+            edge.draw(g2d, diagram);
         }
         for (Vertex v : vertices) {
             v.setG2d(g2d, diagram);
@@ -75,7 +77,7 @@ public class Face implements Cyborg, GraphicsCp {
         StyleFace styleFace = diagram.getStyleFace();
         StyleSegment styleSegment = diagram.getStyleSegment();
         double scale = G2DUtil.getScale(g2d);
-        g2d.setColor(styleFace.getColor(isFront()));
+        g2d.setColor(styleFace.getColor(false));
         g2d.setStroke(styleSegment.strokeEdge((float) scale));
         GeneralPath polygon = ShapeBuilder.build(this);
         g2d.fill(polygon);
@@ -93,8 +95,16 @@ public class Face implements Cyborg, GraphicsCp {
         crease.setFace(this);
     }
 
+    public void add(SegmentEdge edge) {
+        edges.add(edge);
+    }
+
     public void remove(SegmentCrease crease) {
         creases.remove(crease);
+    }
+
+    public void remove(SegmentEdge edge) {
+        edges.remove(edge);
     }
 
     public LinkedList<Vertex> getVertices() {
@@ -128,12 +138,11 @@ public class Face implements Cyborg, GraphicsCp {
         return edges;
     }
 
-    @Deprecated
-    public Mirror getMirror() {
+    public MirrorSimple getMirror() {
         return mirror;
     }
 
-    public void setMirror(Mirror mirror) {
+    public void setMirror(MirrorSimple mirror) {
         this.mirror = mirror;
     }
 

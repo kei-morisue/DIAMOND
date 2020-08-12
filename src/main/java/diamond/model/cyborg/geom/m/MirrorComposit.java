@@ -18,7 +18,6 @@ public class MirrorComposit extends MirrorSimple {
     }
 
     // A1( A0.x + B0 ) + B1 = A1.A0.x + (A1.B0 + B1).
-    @SuppressWarnings("deprecation")
     public MirrorComposit(MirrorSimple mirror1, MirrorSimple mirror0) {
         this.b = mirror1.b;
         this.t = mirror1.t;

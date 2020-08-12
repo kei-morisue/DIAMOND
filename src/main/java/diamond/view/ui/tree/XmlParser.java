@@ -62,7 +62,11 @@ public class XmlParser implements Parser {
             }
         }
         if (name == null) {
-            return child.getFirstChild().getNodeValue();
+            Node firstChild = child.getFirstChild();
+            if (firstChild == null) {
+                return "lazy";
+            }
+            return firstChild.getNodeValue();
         }
         return name;
     }

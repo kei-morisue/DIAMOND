@@ -27,7 +27,7 @@ import diamond.model.cyborg.graphics.GraphicsCp;
 public class Context extends Observable implements Observer {
     private Diagram diagram;
     private AbstractPaintAction paintAction = new PaintLazy();
-    private Vertex mouseLocation;
+    private Vertex mouseLocation = new Vertex(.0, .0);
     private SegmentType type = SegmentType.CREASE_MOUNTAIN;
     private Picker picker = new Picker();
     private Pointer pointer = new Pointer();

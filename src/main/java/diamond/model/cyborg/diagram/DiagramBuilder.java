@@ -28,7 +28,7 @@ public class DiagramBuilder {
         LinkedList<Step> steps = diagram.getSteps();
         Step step0 = StepBuilder.step0(Config.PAPER_SIZE);
         steps.add(step0);
-        steps.add(StepBuilder.step1(step0));
+        steps.add(StepBuilder.squareBase(step0));
         steps.add(StepBuilder.craneBase(Config.PAPER_SIZE));
         return diagram;
     }
