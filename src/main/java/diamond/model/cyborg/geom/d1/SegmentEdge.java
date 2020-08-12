@@ -48,7 +48,7 @@ public class SegmentEdge extends AbstractSegment {
     public void setG2d(Graphics2D g2d, Diagram diagram) {
         StyleSegment styleSegment = diagram.getStyleSegment();
         g2d.setColor(styleSegment.getColor(this));
-        g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
+        g2d.setStroke(styleSegment.strokeCp((float) G2DUtil.getScale(g2d)));
     }
 
     public Face getPair(Face f) {

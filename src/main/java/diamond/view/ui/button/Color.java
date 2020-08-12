@@ -39,9 +39,6 @@ public class Color extends AbstractIconButton implements ActionListener {
         case CREASE:
             setIcons("crease");
             break;
-        case CUT:
-            setIcons("cut");
-            break;
         default:
             break;
         }

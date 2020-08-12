@@ -24,21 +24,22 @@ public class StyleSegment {
     final public static Color COLOR_MOUNTAIN = Color.RED;
     final public static Color POINTED = Color.GREEN;
     final public static Color COLOR_EDGE = Color.BLACK;
-    final public static Color COLOR_CREASE = Color.BLACK;
+    final public static Color COLOR_CREASE = Color.GRAY;
 
     private float widthEdge = 3.0f;
     private float widthPointed = 3.0f;
     private float widthCrease = 0.0f;
     private float widthSymbol = 5.0f;
     private float widthMv = 3.0f;
+    private float widthCp = 0.0f;
 
     private double clip = 0.1;
 
     public StyleSegment() {
     }
 
-    public BasicStroke strokeEdge(float scale) {
-        return new BasicStroke(widthEdge / scale, CAP, JOIN);
+    public BasicStroke strokeCp(float scale) {
+        return new BasicStroke(widthCp / scale, CAP, JOIN);
     }
 
     public BasicStroke strokePointed(float scale) {
@@ -138,6 +139,26 @@ public class StyleSegment {
 
     public void setClip(double clip) {
         this.clip = Util.hairCut(clip, .0, 1.0);
+    }
+
+    @Deprecated
+    public float getWidthPointed() {
+        return widthPointed;
+    }
+
+    @Deprecated
+    public void setWidthPointed(float widthPointed) {
+        this.widthPointed = widthPointed;
+    }
+
+    @Deprecated
+    public float getWidthCp() {
+        return widthCp;
+    }
+
+    @Deprecated
+    public void setWidthCp(float widthCp) {
+        this.widthCp = widthCp;
     }
 
 }

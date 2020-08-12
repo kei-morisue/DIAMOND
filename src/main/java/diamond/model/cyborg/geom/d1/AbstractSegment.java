@@ -35,28 +35,9 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         this.type = segment.type;
     }
 
-    public abstract void split(Vertex v);
-
     @Override
     public double dist(Vertex v) {
         return v.dist(c());
-    }
-
-    public Vertex[] split(AbstractSegment segment) {
-        Direction d0 = dir();
-        Direction d1 = segment.dir();
-        double det = d0.outer(d1);
-        if (Fuzzy.isSmall(det)) {
-            return null;
-        }
-        Direction d = v0.dir(segment.getV0()).scale(-1.0 / det);
-        double p0 = d1.n().prod(d);
-        double p1 = d0.n().prod(d);
-        if (Util.in(p0, .0, 1.0) && Util.in(p1, .0, 1.0)) {
-            Vertex[] vs = { split(p0), segment.split(p1) };
-            return vs;
-        }
-        return null;
     }
 
     public Vertex foot(Vertex v) {
@@ -91,7 +72,9 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         return v1.dir(v0);
     }
 
-    public Vertex split(Double p) {
+    public abstract void split(Vertex v);
+
+    private Vertex getSplitterVertex(Double p) {
         if (Fuzzy.isSmall(p - 1.0)) {
             return v1;
         }
@@ -99,6 +82,24 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
             return v0;
         }
         return v1.scale(p, v0);
+    }
+
+    public Vertex[] getSplitterVertices(AbstractSegment segment) {
+        Direction d0 = dir();
+        Direction d1 = segment.dir();
+        double det = d0.outer(d1);
+        if (Fuzzy.isSmall(det)) {
+            return null;
+        }
+        Direction d = v0.dir(segment.getV0()).scale(-1.0 / det);
+        double p0 = d1.n().prod(d);
+        double p1 = d0.n().prod(d);
+        if (Util.in(p0, .0, 1.0) && Util.in(p1, .0, 1.0)) {
+            Vertex[] vs = { getSplitterVertex(p0),
+                    segment.getSplitterVertex(p1) };
+            return vs;
+        }
+        return null;
     }
 
     public boolean isM() {

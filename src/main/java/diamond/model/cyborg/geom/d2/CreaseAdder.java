@@ -21,7 +21,7 @@ public class CreaseAdder {
 
     public void across(SegmentCrease s1, Face face) {
         for (SegmentCrease s0 : face.getCreases()) {
-            Vertex[] cp = s0.split(s1);
+            Vertex[] cp = s0.getSplitterVertices(s1);
             // doesnt across
             if (cp == null) {
                 continue;

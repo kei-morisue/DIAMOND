@@ -78,7 +78,7 @@ public class Face implements Cyborg, GraphicsCp {
         StyleSegment styleSegment = diagram.getStyleSegment();
         double scale = G2DUtil.getScale(g2d);
         g2d.setColor(styleFace.getColor(false));
-        g2d.setStroke(styleSegment.strokeEdge((float) scale));
+        g2d.setStroke(styleSegment.strokeCp((float) scale));
         GeneralPath polygon = ShapeBuilder.build(this);
         g2d.fill(polygon);
         g2d.setColor(StyleSegment.COLOR_EDGE);
