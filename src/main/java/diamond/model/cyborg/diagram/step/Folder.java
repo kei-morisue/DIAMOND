@@ -10,7 +10,7 @@ import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.m.MirrorComposit;
 import diamond.model.cyborg.geom.m.MirrorLazy;
-import diamond.model.cyborg.geom.m.MirrorSimple;
+import diamond.model.cyborg.geom.m.Mirror;
 
 /**
  * @author Kei Morisue
@@ -31,7 +31,7 @@ public class Folder {
     }
 
     public void setMirror(Face base) {
-        MirrorSimple mirror = base.getMirror();
+        Mirror mirror = base.getMirror();
         int i = faces.indexOf(base);
         for (SegmentEdge edge : base.getEdges()) {
             Face pair = edge.getPair(base);

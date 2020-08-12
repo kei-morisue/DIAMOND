@@ -12,4 +12,5 @@ import diamond.model.cyborg.geom.d0.Vertex;
  */
 public interface Cyborg {
     public double dist(Vertex v);
+
 }

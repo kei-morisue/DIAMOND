@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.geom.m.Mirror;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.draw.G2DUtil;
@@ -27,6 +28,15 @@ public class SegmentCrease extends AbstractSegment {
     public SegmentCrease(Vertex v0, Vertex v1, SegmentType type) {
         super(v0, v1);
         this.setType(type);
+    }
+
+    public static SegmentCrease mirror(
+            AbstractSegment segment,
+            Mirror mirror) {
+        return new SegmentCrease(
+                mirror.apply(segment.v0),
+                mirror.apply(segment.v1),
+                segment.type);
     }
 
     @Override
@@ -53,7 +63,7 @@ public class SegmentCrease extends AbstractSegment {
         StyleSegment styleSegment = diagram.getStyleSegment();
         double scale = G2DUtil.getScale(g2d);
         g2d.setStroke(styleSegment.strokeCrease((float) scale, type));
-        g2d.setColor(styleSegment.getColor(this));
+        g2d.setColor(styleSegment.getColor(type));
     }
 
     public void setFace(Face face) {
@@ -64,5 +74,4 @@ public class SegmentCrease extends AbstractSegment {
     public Face getFace() {
         return face;
     }
-
 }

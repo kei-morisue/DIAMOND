@@ -14,7 +14,7 @@ import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
-import diamond.model.cyborg.geom.m.MirrorSimple;
+import diamond.model.cyborg.geom.m.Mirror;
 import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
@@ -29,7 +29,7 @@ public class Face implements Cyborg, GraphicsCp {
     private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
     private HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
     private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    private MirrorSimple mirror = null;
+    private Mirror mirror = null;
 
     public Face() {
     }
@@ -138,11 +138,11 @@ public class Face implements Cyborg, GraphicsCp {
         return edges;
     }
 
-    public MirrorSimple getMirror() {
+    public Mirror getMirror() {
         return mirror;
     }
 
-    public void setMirror(MirrorSimple mirror) {
+    public void setMirror(Mirror mirror) {
         this.mirror = mirror;
     }
 

@@ -12,24 +12,24 @@ import diamond.model.cyborg.geom.d1.AbstractSegment;
  * @author Kei Morisue
  *
  */
-public class MirrorSimple {
+public class Mirror {
     protected Direction b = new Direction(.0, .0);
     protected double t = .0;
     protected int flip = -1;
     private double c;
     private double s;
 
-    public MirrorSimple() {
+    public Mirror() {
     }
 
     // Ax + B : Affine Transform
     // A := M.R
     // B := (I - M.A).v0
-    public MirrorSimple(AbstractSegment segment) {
+    public Mirror(AbstractSegment segment) {
         this(segment.getV0(), segment.getV1());
     }
 
-    public MirrorSimple(Vertex v0, Vertex v1) {
+    public Mirror(Vertex v0, Vertex v1) {
         setT(flip * v1.dir(v0).angle());
         setB(v0);
     }

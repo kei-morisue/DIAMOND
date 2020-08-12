@@ -12,28 +12,28 @@ import diamond.model.cyborg.geom.d1.AbstractSegment;
  * @author Kei Morisue
  *
  */
-public class MirrorComposit extends MirrorSimple {
+public class MirrorComposit extends Mirror {
     @Deprecated
     public MirrorComposit() {
     }
 
     // A1( A0.x + B0 ) + B1 = A1.A0.x + (A1.B0 + B1).
-    public MirrorComposit(MirrorSimple mirror1, MirrorSimple mirror0) {
+    public MirrorComposit(Mirror mirror1, Mirror mirror0) {
         this.b = mirror1.b;
         this.t = mirror1.t;
         compose(mirror0);
     }
 
-    public MirrorComposit(AbstractSegment segment, MirrorSimple mirror0) {
+    public MirrorComposit(AbstractSegment segment, Mirror mirror0) {
         this(segment.getV0(), segment.getV1(), mirror0);
     }
 
-    public MirrorComposit(Vertex v0, Vertex v1, MirrorSimple mirror0) {
+    public MirrorComposit(Vertex v0, Vertex v1, Mirror mirror0) {
         super(v0, v1);
         compose(mirror0);
     }
 
-    private void compose(MirrorSimple mirror0) {
+    private void compose(Mirror mirror0) {
         flip = -mirror0.flip;
         setT(flip * 2 * t + mirror0.t);
         this.b = applyA(mirror0.b).add(b);

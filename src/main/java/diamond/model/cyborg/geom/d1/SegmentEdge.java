@@ -18,7 +18,6 @@ import diamond.view.ui.screen.draw.G2DUtil;
  *
  */
 public class SegmentEdge extends AbstractSegment {
-    private SegmentType type = SegmentType.VALLEY;
     private Face f0;
     private Face f1;
 
@@ -62,6 +61,10 @@ public class SegmentEdge extends AbstractSegment {
         return null;
     }
 
+    public void setType(boolean isM) {
+        this.type = (isM) ? SegmentType.MOUNTAIN : SegmentType.VALLEY;
+    }
+
     @Deprecated
     public Face getF1() {
         return f1;
@@ -82,17 +85,4 @@ public class SegmentEdge extends AbstractSegment {
         this.f0 = f0;
     }
 
-    @Deprecated
-    public SegmentType getType() {
-        return type;
-    }
-
-    @Deprecated
-    public void setType(SegmentType type) {
-        this.type = type;
-    }
-
-    public void setType(boolean isM) {
-        this.type = (isM) ? SegmentType.MOUNTAIN : SegmentType.VALLEY;
-    }
 }

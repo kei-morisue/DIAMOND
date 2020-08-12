@@ -10,7 +10,6 @@ import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d2.CreaseAdder;
 import diamond.model.cyborg.geom.d2.Face;
@@ -23,8 +22,6 @@ public class AddSegment extends AbstractPaintState {
     private Context context;
     private Vertex v0;
     private Vertex v1;
-    private AbstractSegment s0;
-    private AbstractSegment s1;
 
     public AddSegment(Context context) {
         this.context = context;

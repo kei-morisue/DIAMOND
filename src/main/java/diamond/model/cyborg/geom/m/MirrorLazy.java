@@ -10,7 +10,7 @@ import diamond.model.cyborg.geom.d0.Vertex;
  * @author Kei Morisue
  *
  */
-public class MirrorLazy extends MirrorSimple {
+public class MirrorLazy extends Mirror {
     public MirrorLazy() {
         super();
         this.flip = 1;

@@ -29,6 +29,12 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         this.v1 = v1;
     }
 
+    public AbstractSegment(AbstractSegment segment) {
+        this.v0 = segment.v0;
+        this.v1 = segment.v1;
+        this.type = segment.type;
+    }
+
     public abstract void split(Vertex v);
 
     @Override
@@ -95,6 +101,10 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         return v1.scale(p, v0);
     }
 
+    public boolean isM() {
+        return SegmentType.isMountain(type);
+    }
+
     public Vertex getV0() {
         return v0;
     }
@@ -103,13 +113,14 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         return v1;
     }
 
+    @Deprecated
     public SegmentType getType() {
         return type;
     }
 
     public void setType(SegmentType type) {
-        if (!SegmentType.isCrease(type)) {
-            return;
+        if (SegmentType.isCrease(type)) {
+            this.type = SegmentType.foldUnfold(type);
         }
         this.type = type;
     }

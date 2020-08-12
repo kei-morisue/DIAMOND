@@ -8,7 +8,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
@@ -51,14 +50,14 @@ public class StyleSegment {
     }
 
     public Color getColor(SegmentEdge segment) {
-        if (SegmentType.isMountain(segment.getType())) {
+        if (segment.isM()) {
             return COLOR_MOUNTAIN;
         }
         return COLOR_VALLEY;
     }
 
-    public Color getColor(SegmentCrease segment) {
-        switch (segment.getType()) {
+    public Color getColor(SegmentType type) {
+        switch (type) {
         case CREASE_MOUNTAIN:
             return COLOR_MOUNTAIN;
         case CREASE_VALLEY:
