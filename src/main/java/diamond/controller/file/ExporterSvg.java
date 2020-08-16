@@ -14,6 +14,7 @@ import org.w3c.dom.Document;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
+import diamond.view.ui.screen.ScreenStep;
 
 /**
  * @author Kei Morisue
@@ -22,6 +23,11 @@ import diamond.model.cyborg.diagram.step.Step;
 public class ExporterSvg implements Exporter {
     private static short w = 744;//TODO
     private static short h = 1052;//TODO
+    private ScreenStep screen;
+
+    public ExporterSvg(ScreenStep screen) {
+        this.screen = screen;
+    }
 
     @Override
     public boolean export(Diagram diagram, String filepath) {
@@ -34,7 +40,7 @@ public class ExporterSvg implements Exporter {
                             null);
             SVGGraphics2D g2d = new SVGGraphics2D(doc);
             g2d.setSVGCanvasSize(new Dimension(w, h));
-            step.drawS(g2d, diagram);
+            step.draw(g2d, screen);
             try {
                 g2d.stream(filepath + "/"
                         + String.format("%03d", steps.indexOf(step) + 1)

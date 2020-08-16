@@ -13,7 +13,7 @@ import javax.swing.JTabbedPane;
 
 import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
-import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 
 /**
  * @author Kei Morisue
@@ -27,7 +27,7 @@ public class PanelControl extends JPanel {
     public PanelControl(Context context) {
         setLayout(new GridLayout(2, 1));
         setBackground(Color.RED);
-        add(new ScreenMain(context));
+        add(new ScreenStep(context));
         add(buildControl(context));
     }
 

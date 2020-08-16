@@ -5,30 +5,26 @@
 package diamond.model.cyborg.geom.d0;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
-import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleVertex;
-import diamond.model.math.Fuzzy;
+import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Vertex implements Comparable<Vertex>, Cyborg, GraphicsCp {
-    private double x = .0;
-    private double y = .0;
-
+public class Vertex extends D0 implements Cyborg {
     @Deprecated
     public Vertex() {
     }
 
     public Vertex(double x, double y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
     @Override
@@ -36,24 +32,9 @@ public class Vertex implements Comparable<Vertex>, Cyborg, GraphicsCp {
         return dir(v0).norm();
     }
 
-    @Override
-    public void draw(Graphics2D g2d, Diagram diagram) {
-        double scale = G2DUtil.getScale(g2d);
-        g2d.fill(ShapeBuilder.build(this, StyleVertex.SIZE / scale));
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, Diagram diagram) {
-        g2d.setColor(StyleVertex.DEFAULT);
-    }
-
     public Vertex scale(double scale, Vertex v0) {
         Direction d = dir(v0).scale(scale);
         return d.ver(v0);
-    }
-
-    public Direction dir(Vertex v0) {
-        return new Direction(x - v0.x, y - v0.y);
     }
 
     public double angle(Vertex v0) {
@@ -68,43 +49,36 @@ public class Vertex implements Comparable<Vertex>, Cyborg, GraphicsCp {
         return div(v0, .5);
     }
 
-    public double getX() {
-        return x;
-    }
-
-    @Deprecated
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    @Deprecated
-
-    public void setY(double y) {
-        this.y = y;
+    public Direction dir(Vertex v0) {
+        return new Direction(x - v0.x, y - v0.y);
     }
 
     @Override
-    public int compareTo(Vertex v0) {
-        if (Fuzzy.isSmall(dist(v0))) {
-            return 0;
-        }
-        if (x < v0.x) {
-            return -1;
-        }
-        if (y < v0.y) {
-            return -1;
-        }
-        return 1;
+    public void draw(Graphics2D g2d, ScreenMain screen) {
+        double scale = G2DUtil.getScale(g2d);
+        g2d.fill(ShapeBuilder.build(this, StyleVertex.SIZE / scale));
     }
 
     @Override
-    public String toString() {
-        return "(" + String.valueOf(x) + ", " + String.valueOf(y) + ")";
+    public void setG2d(Graphics2D g2d, ScreenMain Screen) {
+        g2d.setColor(StyleVertex.DEFAULT);
     }
 
+    @Override
+    public void draw(Graphics2D g2d, ScreenStep screen) {
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenStep Screen) {
+    }
+
+    @Override
+    public Rectangle2D.Double clip() {
+        double size = 5;//TODO
+        return new Rectangle2D.Double(
+                x - size,
+                y - size,
+                size * 2,
+                size * 2);
+    }
 }

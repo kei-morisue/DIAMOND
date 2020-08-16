@@ -4,7 +4,7 @@
  */
 package diamond.model.cyborg.axiom;
 
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 
 /**
@@ -12,7 +12,7 @@ import diamond.model.cyborg.geom.d1.SegmentCrease;
  *
  */
 public abstract class AxiomGenerator<T1, T2> {
-    protected AbstractSegment segment = null;
+    protected SegmentBase segment = null;
 
     abstract SegmentCrease allign(T1 t1, T2 t2);
 

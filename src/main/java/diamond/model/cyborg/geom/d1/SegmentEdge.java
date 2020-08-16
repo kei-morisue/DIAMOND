@@ -9,15 +9,17 @@ import java.awt.Graphics2D;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.ShapeBuilder;
+import diamond.model.cyborg.geom.m.Mirror;
 import diamond.model.cyborg.style.StyleSegment;
+import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class SegmentEdge extends AbstractSegment {
+public class SegmentEdge extends SegmentBase {
     private Face f0;
     private Face f1;
 
@@ -28,27 +30,41 @@ public class SegmentEdge extends AbstractSegment {
 
     public SegmentEdge(Face f0, Face f1, Vertex v0, Vertex v1) {
         super(v0, v1);
+        this.type = SegmentType.VALLEY;
         this.f0 = f0;
         this.f1 = f1;
-        f0.add(this);
-        f1.add(this);
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenMain screen) {
+        Diagram diagram = screen.diagram();
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        g2d.setColor(styleSegment.getColor(type));
+        g2d.setStroke(styleSegment.strokeCp((float) G2DUtil.getScale(g2d)));
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenStep screen) {
+        g2d.setColor(StyleSegment.COLOR_EDGE);
+        Diagram diagram = screen.diagram();
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
+    }
+
+    public SegmentEdge mirror(Mirror mirror) {
+        SegmentEdge e = new SegmentEdge(
+                f0,
+                f1,
+                mirror.apply(v0),
+                mirror.apply(v1));
+        e.setType(type);
+        return e;
     }
 
     @Override
     public void split(Vertex v) {
-        f0.add(v);//TODO
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Diagram diagram) {
-        g2d.draw(ShapeBuilder.build(this));
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, Diagram diagram) {
-        StyleSegment styleSegment = diagram.getStyleSegment();
-        g2d.setColor(styleSegment.getColor(this));
-        g2d.setStroke(styleSegment.strokeCp((float) G2DUtil.getScale(g2d)));
+        f0.add(v, v1, v0);
+        f1.add(v, v1, v0);
     }
 
     public Face getPair(Face f) {
@@ -85,4 +101,10 @@ public class SegmentEdge extends AbstractSegment {
         this.f0 = f0;
     }
 
+    public void setType(SegmentType type) {
+        if (SegmentType.isCrease(type)) {
+            this.type = SegmentType.foldUnfold(type);
+        }
+        this.type = type;
+    }
 }

@@ -4,13 +4,17 @@
  */
 package diamond.model.cyborg.geom;
 
+import java.awt.geom.Rectangle2D;
+
 import diamond.model.cyborg.geom.d0.Vertex;
+import diamond.model.cyborg.graphics.Graphics;
 
 /**
  * @author Kei Morisue
  *
  */
-public interface Cyborg {
+public interface Cyborg extends Graphics {
     public double dist(Vertex v);
 
+    public Rectangle2D.Double clip();
 }

@@ -4,10 +4,8 @@
  */
 package diamond.model.cyborg.geom.d1;
 
-import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.math.Fuzzy;
 import diamond.model.math.Util;
 
@@ -15,29 +13,17 @@ import diamond.model.math.Util;
  * @author Kei Morisue
  *
  */
-public abstract class AbstractSegment implements Cyborg, GraphicsCp {
+public abstract class D1 {
     protected Vertex v0;
     protected Vertex v1;
-    protected SegmentType type = SegmentType.CREASE;
 
     @Deprecated
-    protected AbstractSegment() {
+    protected D1() {
     }
 
-    public AbstractSegment(Vertex v0, Vertex v1) {
+    public D1(Vertex v0, Vertex v1) {
         this.v0 = v0;
         this.v1 = v1;
-    }
-
-    public AbstractSegment(AbstractSegment segment) {
-        this.v0 = segment.v0;
-        this.v1 = segment.v1;
-        this.type = segment.type;
-    }
-
-    @Override
-    public double dist(Vertex v) {
-        return v.dist(c());
     }
 
     public Vertex foot(Vertex v) {
@@ -84,7 +70,7 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         return v1.scale(p, v0);
     }
 
-    public Vertex[] getSplitterVertices(AbstractSegment segment) {
+    public Vertex[] getSplitterVertices(D1 segment) {
         Direction d0 = dir();
         Direction d1 = segment.dir();
         double det = d0.outer(d1);
@@ -102,28 +88,12 @@ public abstract class AbstractSegment implements Cyborg, GraphicsCp {
         return null;
     }
 
-    public boolean isM() {
-        return SegmentType.isMountain(type);
-    }
-
     public Vertex getV0() {
         return v0;
     }
 
     public Vertex getV1() {
         return v1;
-    }
-
-    @Deprecated
-    public SegmentType getType() {
-        return type;
-    }
-
-    public void setType(SegmentType type) {
-        if (SegmentType.isCrease(type)) {
-            this.type = SegmentType.foldUnfold(type);
-        }
-        this.type = type;
     }
 
     @Deprecated

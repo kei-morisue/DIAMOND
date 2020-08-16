@@ -6,43 +6,24 @@ package diamond.model.cyborg.geom.d2;
 
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.awt.geom.Rectangle2D.Double;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
-import diamond.model.cyborg.geom.m.Mirror;
-import diamond.model.cyborg.graphics.GraphicsCp;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
-import diamond.model.cyborg.style.StyleSegment;
-import diamond.view.ui.screen.draw.G2DUtil;
+import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Face implements Cyborg, GraphicsCp {
-    private LinkedList<Vertex> vertices = new LinkedList<Vertex>();
-    private HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
-    private HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    private Mirror mirror = null;
-
+public final class Face extends FaceBase {
     public Face() {
-    }
-
-    public Vertex c() {
-        double x = .0;
-        double y = .0;
-        for (Vertex v : vertices) {
-            x += v.getX();
-            y += v.getY();
-        }
-        int n = vertices.size();
-        return new Vertex(x / n, y / n);
+        super();
     }
 
     @Override
@@ -51,43 +32,84 @@ public class Face implements Cyborg, GraphicsCp {
     }
 
     @Override
-    public void draw(Graphics2D g2d, Diagram diagram) {
-        setG2d(g2d, diagram);
+    public void draw(Graphics2D g2d, ScreenMain screen) {
+        setG2d(g2d, screen);
+        GeneralPath polygon = ShapeBuilder.build(this);
+        g2d.fill(polygon);
         for (SegmentCrease crease : creases) {
-            crease.setG2d(g2d, diagram);
-            crease.draw(g2d, diagram);
+            crease.setG2d(g2d, screen);
+            crease.draw(g2d, screen);
             Vertex v0 = crease.getV0();
             Vertex v1 = crease.getV1();
-            v0.setG2d(g2d, diagram);
-            v0.draw(g2d, diagram);
-            v1.draw(g2d, diagram);
+            v0.setG2d(g2d, screen);
+            v0.draw(g2d, screen);
+            v1.draw(g2d, screen);
         }
         for (SegmentEdge edge : edges) {
-            edge.setG2d(g2d, diagram);
-            edge.draw(g2d, diagram);
+            edge.setG2d(g2d, screen);
+            edge.draw(g2d, screen);
         }
         for (Vertex v : vertices) {
-            v.setG2d(g2d, diagram);
-            v.draw(g2d, diagram);
+            v.setG2d(g2d, screen);
+            v.draw(g2d, screen);
         }
     }
 
     @Override
-    public void setG2d(Graphics2D g2d, Diagram diagram) {
+    public void setG2d(Graphics2D g2d, ScreenMain screen) {
+        Diagram diagram = screen.diagram();
         StyleFace styleFace = diagram.getStyleFace();
-        StyleSegment styleSegment = diagram.getStyleSegment();
-        double scale = G2DUtil.getScale(g2d);
         g2d.setColor(styleFace.getColor(false));
-        g2d.setStroke(styleSegment.strokeCp((float) scale));
-        GeneralPath polygon = ShapeBuilder.build(this);
-        g2d.fill(polygon);
-        g2d.setColor(StyleSegment.COLOR_EDGE);
-        g2d.draw(polygon);
     }
 
-    public boolean isBoundary(Vertex v) {
-        //TODO
-        return false;
+    @Override
+    public void draw(Graphics2D g2d, ScreenStep screen) {
+        setG2d(g2d, screen);
+        GeneralPath polygon = ShapeBuilder.build(this, mirror);
+        g2d.fill(polygon);
+        for (SegmentCrease crease : creases) {
+            SegmentCrease c = crease.mirror(mirror);
+            c.setG2d(g2d, screen);
+            c.draw(g2d, screen);
+        }
+        for (SegmentEdge edge : edges) {
+            SegmentEdge c = edge.mirror(mirror);
+            c.setG2d(g2d, screen);
+            c.draw(g2d, screen);
+        }
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenStep screen) {
+        Diagram diagram = screen.diagram();
+        StyleFace styleFace = diagram.getStyleFace();
+        g2d.setColor(styleFace.getColor(isFront()));
+    }
+
+    @Override
+    public Double clip() {
+        double x0 = .0;
+        double x1 = .0;
+        double y0 = .0;
+        double y1 = .0;
+        for (Vertex v : vertices) {
+            double x = v.getX();
+            x0 = Math.min(x0, x);
+            double y = v.getY();
+            y0 = Math.min(y0, y);
+            x1 = Math.max(x1, x);
+            y1 = Math.max(y1, y);
+        }
+        double w = x1 - x0;
+        double h = y1 - y0;
+        Vertex c = c();
+        double cx = c.getX();
+        double cy = c.getY();
+        return new Double(
+                cx - 0.5 * w,
+                cy - 0.5 * h,
+                w,
+                h);
     }
 
     public void add(SegmentCrease crease) {
@@ -95,55 +117,9 @@ public class Face implements Cyborg, GraphicsCp {
         crease.setFace(this);
     }
 
-    public void add(SegmentEdge edge) {
-        edges.add(edge);
+    public void link(Face face, Vertex v0, Vertex v1) {
+        SegmentEdge edge = new SegmentEdge(this, face, v0, v1);
+        add(edge);
+        face.add(edge);
     }
-
-    public void remove(SegmentCrease crease) {
-        creases.remove(crease);
-    }
-
-    public void remove(SegmentEdge edge) {
-        edges.remove(edge);
-    }
-
-    public LinkedList<Vertex> getVertices() {
-        return vertices;
-    }
-
-    public void add(Vertex v) {
-        vertices.add(v);
-    }
-
-    @Deprecated
-    public void setVertices(LinkedList<Vertex> vertices) {
-        this.vertices = vertices;
-    }
-
-    // TODO to be deprocated
-    public HashSet<SegmentCrease> getCreases() {
-        return creases;
-    }
-
-    @Deprecated
-    public void setCreases(HashSet<SegmentCrease> creases) {
-        this.creases = creases;
-    }
-
-    public boolean isFront() {
-        return mirror.isFlip();
-    }
-
-    public HashSet<SegmentEdge> getEdges() {
-        return edges;
-    }
-
-    public Mirror getMirror() {
-        return mirror;
-    }
-
-    public void setMirror(Mirror mirror) {
-        this.mirror = mirror;
-    }
-
 }

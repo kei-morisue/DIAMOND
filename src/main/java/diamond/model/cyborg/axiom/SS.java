@@ -4,17 +4,17 @@
  */
 package diamond.model.cyborg.axiom;
 
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 
 /**
  * @author Kei Morisue
  *
  */
-public class SS extends AxiomGenerator<AbstractSegment, AbstractSegment> {
+public class SS extends AxiomGenerator<SegmentBase, SegmentBase> {
 
     @Override
-    SegmentCrease allign(AbstractSegment t1, AbstractSegment t2) {
+    SegmentCrease allign(SegmentBase t1, SegmentBase t2) {
         if (t1 == t2) {
             return null;
         }

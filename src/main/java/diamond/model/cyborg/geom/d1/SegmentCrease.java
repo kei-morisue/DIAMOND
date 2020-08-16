@@ -10,19 +10,25 @@ import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.m.Mirror;
-import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
+import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class SegmentCrease extends AbstractSegment {
+public class SegmentCrease extends SegmentBase {
     private Face face;
 
     @Deprecated
     public SegmentCrease() {
+    }
+
+    public SegmentCrease(SegmentBase segment) {
+        super(segment.v0, segment.v1);
+        this.setType(segment.type);
     }
 
     public SegmentCrease(Vertex v0, Vertex v1, SegmentType type) {
@@ -30,13 +36,30 @@ public class SegmentCrease extends AbstractSegment {
         this.setType(type);
     }
 
-    public static SegmentCrease mirror(
-            AbstractSegment segment,
-            Mirror mirror) {
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenMain screen) {
+        Diagram diagram = screen.diagram();
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        g2d.setColor(styleSegment.getColor(type));
+        float scale = (float) G2DUtil.getScale(g2d);
+        g2d.setStroke(
+                styleSegment.strokeCrease(scale, type));
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenStep screen) {
+        Diagram diagram = screen.diagram();
+        StyleSegment styleSegment = diagram.getStyleSegment();
+        g2d.setColor(styleSegment.getColor(type));
+        float scale = (float) G2DUtil.getScale(g2d);
+        g2d.setStroke(styleSegment.strokeCrease(scale, type));
+    }
+
+    public SegmentCrease mirror(Mirror mirror) {
         return new SegmentCrease(
-                mirror.apply(segment.v0),
-                mirror.apply(segment.v1),
-                segment.type);
+                mirror.apply(v0),
+                mirror.apply(v1),
+                type);
     }
 
     @Override
@@ -46,26 +69,6 @@ public class SegmentCrease extends AbstractSegment {
         face.add(new SegmentCrease(v, v1, type));
     }
 
-    @Override
-    public void draw(Graphics2D g2d, Diagram diagram) {
-        if (type == SegmentType.CREASE) {
-            StyleSegment styleSegment = diagram.getStyleSegment();
-            double clipped0 = styleSegment.getClipped(face, v0);
-            double clipped1 = styleSegment.getClipped(face, v1);
-            g2d.draw(ShapeBuilder.build(this, clipped0, clipped1));
-        } else {
-            g2d.draw(ShapeBuilder.build(this));
-        }
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, Diagram diagram) {
-        StyleSegment styleSegment = diagram.getStyleSegment();
-        double scale = G2DUtil.getScale(g2d);
-        g2d.setStroke(styleSegment.strokeCrease((float) scale, type));
-        g2d.setColor(styleSegment.getColor(type));
-    }
-
     public void setFace(Face face) {
         this.face = face;
     }
@@ -73,5 +76,12 @@ public class SegmentCrease extends AbstractSegment {
     @Deprecated
     public Face getFace() {
         return face;
+    }
+
+    public void setType(SegmentType type) {
+        if (!SegmentType.isCrease(type)) {
+            this.type = SegmentType.foldUnfold(type);
+        }
+        this.type = type;
     }
 }

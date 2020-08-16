@@ -12,12 +12,10 @@ import diamond.model.cyborg.geom.d0.Vertex;
  */
 public class FaceBuilder {
     public static Face square(double width) {
-        Face face = new Face();
-        face.add(new Vertex(width, width));
-        face.add(new Vertex(-width, width));
-        face.add(new Vertex(-width, -width));
-        face.add(new Vertex(width, -width));
-        return face;
+        return polygon(new Vertex(width, width),
+                new Vertex(-width, width),
+                new Vertex(-width, -width),
+                new Vertex(width, -width));
     }
 
     public static Face polygon(Vertex... vs) {
@@ -27,13 +25,4 @@ public class FaceBuilder {
         }
         return face;
     }
-
-    public static Face triangle(Vertex v0, Vertex v1, Vertex v2) {
-        Face face = new Face();
-        face.add(v0);
-        face.add(v1);
-        face.add(v2);
-        return face;
-    }
-
 }

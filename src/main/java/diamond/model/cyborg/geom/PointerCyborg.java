@@ -13,52 +13,28 @@ import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.GraphicsCp;
+import diamond.model.cyborg.graphics.Graphics;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.model.cyborg.style.StyleVertex;
 import diamond.model.math.Fuzzy;
+import diamond.view.ui.screen.ScreenMain;
+import diamond.view.ui.screen.ScreenStep;
 import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PointerCyborg<T extends Cyborg & GraphicsCp> extends Observable
-        implements GraphicsCp {
+public class PointerCyborg<T extends Cyborg> extends Observable
+        implements Graphics {
     private T pointed;
     private Class<T> type;
 
     public PointerCyborg(Class<T> type) {
         this.type = type;
-    }
-
-    @Override
-    public void draw(Graphics2D g2d, Diagram diagram) {
-        if (pointed == null) {
-            return;
-        }
-        pointed.draw(g2d, diagram);
-    }
-
-    @Override
-    public void setG2d(Graphics2D g2d, Diagram diagram) {
-        if (type == Face.class) {
-            g2d.setColor(StyleFace.POINTED);
-            return;
-        }
-        if (type == Vertex.class) {
-            g2d.setColor(StyleVertex.POINTED);
-            return;
-        }
-        if (type == AbstractSegment.class) {
-            g2d.setStroke(diagram.getStyleSegment()
-                    .strokePointed((float) G2DUtil.getScale(g2d)));
-            g2d.setColor(StyleSegment.POINTED);
-            return;
-        }
     }
 
     public void initialize() {
@@ -89,7 +65,7 @@ public class PointerCyborg<T extends Cyborg & GraphicsCp> extends Observable
         if (type == Vertex.class) {
             return (Collection<T>) step.getVertices();
         }
-        if (type == AbstractSegment.class) {
+        if (type == SegmentBase.class) {
             return (Collection<T>) step.getSegments();
         }
         return null;//TODO
@@ -104,6 +80,41 @@ public class PointerCyborg<T extends Cyborg & GraphicsCp> extends Observable
 
     public T get() {
         return pointed;
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, ScreenMain screen) {
+        if (pointed == null) {
+            return;
+        }
+        pointed.draw(g2d, screen);
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenMain screen) {
+        if (type == Face.class) {
+            g2d.setColor(StyleFace.POINTED);
+            return;
+        }
+        if (type == Vertex.class) {
+            g2d.setColor(StyleVertex.POINTED);
+            return;
+        }
+        Diagram diagram = screen.diagram();
+        if (type == SegmentBase.class) {
+            g2d.setStroke(diagram.getStyleSegment()
+                    .strokePointed((float) G2DUtil.getScale(g2d)));
+            g2d.setColor(StyleSegment.POINTED);
+            return;
+        }
+    }
+
+    @Override
+    public void draw(Graphics2D g2d, ScreenStep screen) {
+    }
+
+    @Override
+    public void setG2d(Graphics2D g2d, ScreenStep screen) {
     }
 
 }

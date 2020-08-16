@@ -10,10 +10,11 @@ import java.awt.geom.Line2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.geom.m.Mirror;
 
 /**
  * @author Kei Morisue
@@ -41,6 +42,20 @@ public class ShapeBuilder {
         return outline;
     }
 
+    public static GeneralPath build(Face face, Mirror mirror) {
+        GeneralPath outline = new GeneralPath();
+        LinkedList<Vertex> vertices = face.getVertices();
+        Vertex v0 = vertices.get(0);
+        v0 = mirror.apply(v0);
+        outline.moveTo(v0.getX(), v0.getY());
+        for (Vertex v : vertices) {
+            v = mirror.apply(v);
+            outline.lineTo(v.getX(), v.getY());
+        }
+        outline.closePath();
+        return outline;
+    }
+
     public static Line2D.Double build(SegmentEdge mV) {
         Vertex v0 = mV.getV0();
         Vertex v1 = mV.getV1();
@@ -57,7 +72,7 @@ public class ShapeBuilder {
         return build(v0, v1);
     }
 
-    public static Line2D.Double build(AbstractSegment segment) {
+    public static Line2D.Double build(SegmentBase segment) {
         Vertex v0 = segment.getV0();
         Vertex v1 = segment.getV1();
         return build(v0, v1);

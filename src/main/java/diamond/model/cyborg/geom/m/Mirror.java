@@ -6,7 +6,7 @@ package diamond.model.cyborg.geom.m;
 
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 
 /**
  * @author Kei Morisue
@@ -25,7 +25,7 @@ public class Mirror {
     // Ax + B : Affine Transform
     // A := M.R
     // B := (I - M.A).v0
-    public Mirror(AbstractSegment segment) {
+    public Mirror(SegmentBase segment) {
         this(segment.getV0(), segment.getV1());
     }
 

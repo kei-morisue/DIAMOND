@@ -8,7 +8,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.Util;
@@ -42,6 +41,10 @@ public class StyleSegment {
         return new BasicStroke(widthCp / scale, CAP, JOIN);
     }
 
+    public BasicStroke strokeEdge(float scale) {
+        return new BasicStroke(widthEdge / scale, CAP, JOIN);
+    }
+
     public BasicStroke strokePointed(float scale) {
         return new BasicStroke(widthPointed / scale, CAP, JOIN);
     }
@@ -50,18 +53,13 @@ public class StyleSegment {
         return (face.isBoundary(v1)) ? clip : 1.0;
     }
 
-    public Color getColor(SegmentEdge segment) {
-        if (segment.isM()) {
-            return COLOR_MOUNTAIN;
-        }
-        return COLOR_VALLEY;
-    }
-
     public Color getColor(SegmentType type) {
         switch (type) {
         case CREASE_MOUNTAIN:
+        case MOUNTAIN:
             return COLOR_MOUNTAIN;
         case CREASE_VALLEY:
+        case VALLEY:
             return COLOR_VALLEY;
         default:
             return COLOR_CREASE;

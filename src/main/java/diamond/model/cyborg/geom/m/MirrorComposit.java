@@ -6,7 +6,7 @@ package diamond.model.cyborg.geom.m;
 
 import diamond.model.cyborg.geom.d0.Direction;
 import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 
 /**
  * @author Kei Morisue
@@ -24,7 +24,7 @@ public class MirrorComposit extends Mirror {
         compose(mirror0);
     }
 
-    public MirrorComposit(AbstractSegment segment, Mirror mirror0) {
+    public MirrorComposit(SegmentBase segment, Mirror mirror0) {
         this(segment.getV0(), segment.getV1(), mirror0);
     }
 

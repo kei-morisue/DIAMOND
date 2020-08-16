@@ -9,7 +9,7 @@ import java.util.Stack;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.PickerCyborg;
-import diamond.model.cyborg.geom.d1.AbstractSegment;
+import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.m.Mirror;
@@ -20,8 +20,8 @@ import diamond.model.cyborg.geom.m.Mirror;
  */
 public class AddSegments extends AbstractPaintState {
     private Context context;
-    private AbstractSegment s0;
-    private Stack<AbstractSegment> segments;
+    private SegmentBase s0;
+    private Stack<SegmentBase> segments;
 
     public AddSegments(Context context) {
         this.context = context;
@@ -37,8 +37,8 @@ public class AddSegments extends AbstractPaintState {
         Face face = step.getFaces().get(0);//TODO
         s0 = segments.pop();
         Mirror mirror = new Mirror(s0.getV0(), s0.getV1());
-        for (AbstractSegment s : segments) {
-            face.add(SegmentCrease.mirror(s, mirror));
+        for (SegmentBase s : segments) {
+            face.add(new SegmentCrease(s).mirror(mirror));
         }
         step.update();
         context.initialize();
@@ -46,8 +46,8 @@ public class AddSegments extends AbstractPaintState {
 
     @Override
     protected boolean tryAction() {
-        PickerCyborg<AbstractSegment> picker = context
-                .getPicker(AbstractSegment.class);
+        PickerCyborg<SegmentBase> picker = context
+                .getPicker(SegmentBase.class);
         segments = picker.get();
         return true;
     }

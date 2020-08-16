@@ -8,10 +8,10 @@ import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.d2.FaceBuilder;
+import diamond.model.cyborg.geom.m.MirrorLazy;
 
 /**
  * @author Kei Morisue
@@ -31,7 +31,6 @@ public class StepBuilder {
                 SegmentType.CREASE_VALLEY);
         square.add(e);
         step.add(square);
-        new Folder(step);
         step.update();
         return step;
     }
@@ -55,17 +54,17 @@ public class StepBuilder {
         Face f0 = FaceBuilder.polygon(c, c01, v1, c12);
         f0.add(new SegmentCrease(c, v1, SegmentType.CREASE));
         Face f2 = FaceBuilder.polygon(c, v0, c01);
-        new SegmentEdge(f0, f2, c, c01);
+        f0.link(f2, c, c01);
         Face f4 = FaceBuilder.polygon(c, c12, v2);
-        new SegmentEdge(f0, f4, c, c12);
+        f0.link(f4, c, c12);
         Face f3 = FaceBuilder.polygon(c, c30, v0);
         Face f5 = FaceBuilder.polygon(c, v2, c23);
-        new SegmentEdge(f2, f3, c, v0);
-        new SegmentEdge(f4, f5, c, v2);
+        f2.link(f3, c, v0);
+        f4.link(f5, c, v2);
 
         Face f1 = FaceBuilder.polygon(c, c23, v3, c30);
-        new SegmentEdge(f1, f3, c, c30);
-        new SegmentEdge(f1, f5, c, c23);
+        f1.link(f3, c, c30);
+        f1.link(f5, c, c23);
 
         f1.add(new SegmentCrease(c, v3, SegmentType.CREASE));
 
@@ -76,7 +75,6 @@ public class StepBuilder {
         step.add(f5);
         step.add(f1);
         step.update();
-        new Folder(step);
         return step;
     }
 
@@ -94,19 +92,21 @@ public class StepBuilder {
 
         @SuppressWarnings("deprecation")
         Step step = new Step();
-        step.add(FaceBuilder.triangle(v30, v20, v40));
-        step.add(FaceBuilder.triangle(v30, v41, v10));
-        step.add(FaceBuilder.triangle(v30, v20, v10));
-        step.add(FaceBuilder.triangle(v0, v20, v10));
-        step.add(FaceBuilder.triangle(v20, v40, v0));
-        step.add(FaceBuilder.triangle(v0, v41, v10));
-        step.add(FaceBuilder.triangle(v21, v40, v0));
-        step.add(FaceBuilder.triangle(v0, v41, v11));
-        step.add(FaceBuilder.triangle(v0, v21, v11));
-        step.add(FaceBuilder.triangle(v31, v21, v11));
-        step.add(FaceBuilder.triangle(v31, v21, v40));
-        step.add(FaceBuilder.triangle(v31, v41, v11));
-        new Folder(step);
+        step.add(FaceBuilder.polygon(v30, v20, v40));
+        step.add(FaceBuilder.polygon(v30, v41, v10));
+        step.add(FaceBuilder.polygon(v30, v20, v10));
+        step.add(FaceBuilder.polygon(v0, v20, v10));
+        step.add(FaceBuilder.polygon(v20, v40, v0));
+        step.add(FaceBuilder.polygon(v0, v41, v10));
+        step.add(FaceBuilder.polygon(v21, v40, v0));
+        step.add(FaceBuilder.polygon(v0, v41, v11));
+        step.add(FaceBuilder.polygon(v0, v21, v11));
+        step.add(FaceBuilder.polygon(v31, v21, v11));
+        step.add(FaceBuilder.polygon(v31, v21, v40));
+        step.add(FaceBuilder.polygon(v31, v41, v11));
+        for (Face face : step.getFaces()) {
+            face.setMirror(new MirrorLazy());//TODO
+        }
         step.update();
         return step;
     }

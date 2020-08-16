@@ -9,9 +9,6 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.controller.action.state.AddSegment;
 import diamond.controller.action.state.PickCyborg;
-import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.PickerCyborg;
-import diamond.model.cyborg.geom.PointerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 
 /**
@@ -31,13 +28,6 @@ public class PaintAxiom1 extends AbstractPaintActionMouse {
 
     @Override
     public void onDraw(Graphics2D g2d) {
-        Diagram diagram = context.getDiagram();
-        PointerCyborg<Vertex> pointer = context.getPointer(Vertex.class);
-        pointer.setG2d(g2d, diagram);
-        pointer.draw(g2d, diagram);
-        PickerCyborg<Vertex> picker = context.getPicker(Vertex.class);
-        picker.setG2d(g2d, diagram);
-        picker.draw(g2d, diagram);
     }
 
     @Override

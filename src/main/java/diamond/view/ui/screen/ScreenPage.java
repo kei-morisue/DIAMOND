@@ -7,40 +7,33 @@ package diamond.view.ui.screen;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Observable;
-import java.util.Observer;
 
 import diamond.controller.Context;
+import diamond.controller.action.ScreenActionPaint;
+import diamond.model.cyborg.style.StylePage;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ScreenPage extends AbstractScreen implements Observer {
-    //    private Context context;
-
-    protected ScreenPage() {
-    }
+public final class ScreenPage extends AbstractScreen {
 
     public ScreenPage(Context context) {
-        super();
-        //        this.context = context;
-        //        ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
-        //        addMouseListener(screenAction);
-        //        addMouseMotionListener(screenAction);
-        //        addMouseWheelListener(screenAction);
-        //        context.addObserver(this);
+        super(context);
+        ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
+        addMouseListener(screenAction);
+        addMouseMotionListener(screenAction);
+        addMouseWheelListener(screenAction);
     }
 
     @Override
     protected Color getBGColor() {
-        return Skin.BG_MAIN_SCREEN;//TODO
+        return Skin.BG_STEP_SCREEN;
     }
 
     @Override
     protected void draw(Graphics2D g2d) {
-        //        Step step = context.getDiagram().getStep();
-        //        step.draw(g2d, context.getDiagram());
         //TODO
     }
 
@@ -49,12 +42,21 @@ public class ScreenPage extends AbstractScreen implements Observer {
         repaint();
     }
 
+    @Override
+    protected void drawPointed(Graphics2D g2d) {
+    }
+
     public int maxPageNo() {
-        // TODO 自動生成されたメソッド・スタブ
-        return 0;
+        StylePage stylePage = diagram().getStylePage();
+        byte row = stylePage.getRow();
+        byte col = stylePage.getCol();
+        int steps = diagram().getSteps().size() + 1;
+        return 1 + steps % (row * col);
     }
 
     public void nextPage(int i) {
         // TODO 自動生成されたメソッド・スタブ
+        repaint();
     }
+
 }

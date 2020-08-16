@@ -1,5 +1,5 @@
-# DIAMOND
-Most Effective Origami Diagram Editor
+# DIAMOND * tmp name
+Most Effective Origami Diagram Drawer
 
 ## How to Build
 - use Eclipse x Maven Build

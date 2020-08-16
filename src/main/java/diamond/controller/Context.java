@@ -18,7 +18,7 @@ import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.PointerCyborg;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentType;
-import diamond.model.cyborg.graphics.GraphicsCp;
+import diamond.model.cyborg.graphics.Graphics;
 
 /**
  * @author Kei Morisue
@@ -92,7 +92,7 @@ public class Context extends Observable implements Observer {
         notifyObservers();
     }
 
-    public <T extends Cyborg & GraphicsCp> PickerCyborg<T> getPicker(
+    public <T extends Cyborg & Graphics> PickerCyborg<T> getPicker(
             Class<T> type) {
         return picker.get(type);
     }
@@ -101,7 +101,7 @@ public class Context extends Observable implements Observer {
         return pointer;
     }
 
-    public <T extends Cyborg & GraphicsCp> PointerCyborg<T> getPointer(
+    public <T extends Cyborg & Graphics> PointerCyborg<T> getPointer(
             Class<T> type) {
         return pointer.get(type);
     }

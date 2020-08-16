@@ -8,17 +8,13 @@ package diamond.model.cyborg.geom.d0;
  * @author Kei Morisue
  *
  */
-public class Direction {
-    private double x = .0;
-    private double y = .0;
-
+public class Direction extends D0 {
     @Deprecated
     public Direction() {
     }
 
     public Direction(double x, double y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
     public Vertex ver(Vertex v0) {
@@ -65,10 +61,14 @@ public class Direction {
         return this.prod(d) / d.prod(d);
     }
 
+    @Deprecated
+    @Override
     public double getX() {
         return x;
     }
 
+    @Deprecated
+    @Override
     public double getY() {
         return y;
     }
