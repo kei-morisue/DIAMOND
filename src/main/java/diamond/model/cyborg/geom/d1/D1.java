@@ -58,8 +58,6 @@ public abstract class D1 {
         return v1.dir(v0);
     }
 
-    public abstract void split(Vertex v);
-
     private Vertex getSplitterVertex(Double p) {
         if (Fuzzy.isSmall(p - 1.0)) {
             return v1;

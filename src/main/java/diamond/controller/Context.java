@@ -13,6 +13,7 @@ import diamond.controller.action.paint.PaintLazy;
 import diamond.controller.mouse.Picker;
 import diamond.controller.mouse.Pointer;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.PickerCyborg;
 import diamond.model.cyborg.geom.PointerCyborg;
@@ -50,6 +51,11 @@ public class Context extends Observable implements Observer {
 
     public void setDiagram(Diagram diagram) {
         this.diagram = diagram;
+        this.diagram.addObserver(this);
+        for (Step step : diagram.getSteps()) {
+            step.update();
+        }
+        initialize();
     }
 
     public void initialize() {

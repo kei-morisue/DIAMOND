@@ -53,6 +53,8 @@ public class XmlParser implements Parser {
             Node item = attributes.item(i);
             String nodeValue = item.getNodeValue();
             if (item.getNodeName().equals("class")) {
+                String[] split = nodeValue.split("\\.");
+                name = split[split.length - 1];
                 continue;
             }
             if (name == null) {

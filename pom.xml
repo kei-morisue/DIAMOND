@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>diamond</groupId>
-    <artifactId>diamond</artifactId>
+    <artifactId>defox</artifactId>
     <version>0.55</version>
     <packaging>jar</packaging>
 
 
-    <name>diamond</name>
+    <name>defox</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

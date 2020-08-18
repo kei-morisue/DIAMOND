@@ -51,6 +51,8 @@ public abstract class SegmentBase extends D1 implements Cyborg {
         g2d.draw(ShapeBuilder.build(this));
     }
 
+    abstract public void split(Vertex v);
+
     public SegmentBase(Vertex v0, Vertex v1) {
         super(v0, v1);
     }

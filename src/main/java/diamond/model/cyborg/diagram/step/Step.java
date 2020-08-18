@@ -11,6 +11,7 @@ import java.util.HashSet;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
+import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphics;
 import diamond.model.cyborg.style.StyleStep;
@@ -34,6 +35,10 @@ public final class Step extends StepBase implements Graphics {
         for (Face face : faces) {
             face.draw(g2d, screen);
         }
+        for (SegmentEdge edge : edges) {
+            edge.setG2d(g2d, screen);
+            edge.draw(g2d, screen);
+        }
     }
 
     @Override
@@ -46,6 +51,12 @@ public final class Step extends StepBase implements Graphics {
         for (Face face : faces) {
             face.draw(g2d, screen);
         }
+        //        for (SegmentEdge edge : edges) {
+        //            SegmentEdge c = edge.mirror();
+        //            c.setG2d(g2d, screen);
+        //            c.draw(g2d, screen);
+        //        }
+        //TODO
     }
 
     @Override
@@ -54,6 +65,8 @@ public final class Step extends StepBase implements Graphics {
         Diagram diagram = screen.diagram();
         int i = diagram.getSteps().indexOf(this);
         AffineTransform tmpTransform = g2d.getTransform();
+        g2d.setTransform(new AffineTransform());
+        g2d.setFont(StyleStep.FONT_STEP);
         g2d.drawString(String.valueOf(i + 1), 10,
                 g2d.getFont().getSize());
         g2d.setTransform(tmpTransform);
@@ -73,7 +86,7 @@ public final class Step extends StepBase implements Graphics {
         this.segments.clear();
         for (Face face : faces) {
             this.segments.addAll(face.getCreases());
-            this.segments.addAll(face.getEdges());
+            this.segments.addAll(edges);
         }
     }
 
@@ -98,4 +111,16 @@ public final class Step extends StepBase implements Graphics {
         return segments;
     }
 
+    public void remove(SegmentEdge edge) {
+        edges.remove(edge);
+    }
+
+    public void add(SegmentEdge edge) {
+        edges.add(edge);
+    }
+
+    public void link(Face f0, Face f1, Vertex v0, Vertex v1) {
+        SegmentEdge edge = new SegmentEdge(f1, f0, v0, v1);
+        add(edge);
+    }
 }

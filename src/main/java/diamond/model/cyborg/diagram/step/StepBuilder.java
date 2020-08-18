@@ -54,17 +54,17 @@ public class StepBuilder {
         Face f0 = FaceBuilder.polygon(c, c01, v1, c12);
         f0.add(new SegmentCrease(c, v1, SegmentType.CREASE));
         Face f2 = FaceBuilder.polygon(c, v0, c01);
-        f0.link(f2, c, c01);
+        step.link(f0, f2, c, c01);
         Face f4 = FaceBuilder.polygon(c, c12, v2);
-        f0.link(f4, c, c12);
+        step.link(f0, f4, c, c12);
         Face f3 = FaceBuilder.polygon(c, c30, v0);
         Face f5 = FaceBuilder.polygon(c, v2, c23);
-        f2.link(f3, c, v0);
-        f4.link(f5, c, v2);
+        step.link(f2, f3, c, v0);
+        step.link(f4, f5, c, v2);
 
         Face f1 = FaceBuilder.polygon(c, c23, v3, c30);
-        f1.link(f3, c, c30);
-        f1.link(f5, c, c23);
+        step.link(f1, f3, c, c30);
+        step.link(f1, f5, c, c23);
 
         f1.add(new SegmentCrease(c, v3, SegmentType.CREASE));
 

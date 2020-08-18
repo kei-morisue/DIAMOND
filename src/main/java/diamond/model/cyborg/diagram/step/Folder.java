@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.geom.m.MirrorComposit;
 import diamond.model.cyborg.geom.m.MirrorLazy;
-import diamond.model.cyborg.geom.m.Mirror;
 
 /**
  * @author Kei Morisue
@@ -27,19 +27,22 @@ public class Folder {
     public void fold(Step step) {
         Face base = step.getBase();
         base.setMirror(new MirrorLazy());
-        setMirror(base);
+        setMirror(base, step);
     }
 
-    public void setMirror(Face base) {
-        Mirror mirror = base.getMirror();
+    public void setMirror(Face base, Step step) {
+        AbstractMirror mirror = base.getMirror();
         int i = faces.indexOf(base);
-        for (SegmentEdge edge : base.getEdges()) {
+        for (SegmentEdge edge : step.getEdges()) {
             Face pair = edge.getPair(base);
+            if (pair == null) {
+                continue;
+            }
             if (pair.getMirror() == null) {
                 int j = faces.indexOf(pair);
-                edge.setType((i - j) < 0 ^ base.isFront());
+                edge.setType((i - j) < 0 ^ base.isFlip());
                 pair.setMirror(new MirrorComposit(edge, mirror));
-                setMirror(pair);
+                setMirror(pair, step);
             }
         }
     }

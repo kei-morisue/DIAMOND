@@ -52,8 +52,8 @@ public class StyleFace {
         }
     }
 
-    public Color getColor(boolean isFront) {
-        return (isFront) ? front : back;
+    public Color getColor(boolean isFlip) {
+        return (isFlip) ? front : back;
     }
 
 }

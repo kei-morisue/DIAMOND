@@ -10,16 +10,15 @@ import diamond.model.cyborg.geom.d0.Vertex;
  * @author Kei Morisue
  *
  */
-public class MirrorLazy extends Mirror {
+public class MirrorLazy extends AbstractMirror {
     public MirrorLazy() {
         super();
-        this.flip = 1;
     }
 
     // Identity Operator
     @Override
     public Vertex apply(Vertex v0) {
-        return v0;
+        return new Vertex(v0.getX(), v0.getY());
     }
 
     @Override

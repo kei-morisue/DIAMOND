@@ -24,7 +24,7 @@ public class StyleSegment {
     final public static Color POINTED = Color.GREEN;
     final public static Color COLOR_EDGE = Color.BLACK;
     final public static Color COLOR_CREASE = Color.GRAY;
-
+    final public static Color COLOR_STEP_CREASE = Color.BLACK;
     private float widthEdge = 3.0f;
     private float widthPointed = 3.0f;
     private float widthCrease = 0.0f;
@@ -63,6 +63,19 @@ public class StyleSegment {
             return COLOR_VALLEY;
         default:
             return COLOR_CREASE;
+        }
+    }
+
+    public Color getStepColor(SegmentType type) {
+        switch (type) {
+        case CREASE_MOUNTAIN:
+        case MOUNTAIN:
+            return COLOR_MOUNTAIN;
+        case CREASE_VALLEY:
+        case VALLEY:
+            return COLOR_VALLEY;
+        default:
+            return COLOR_STEP_CREASE;
         }
     }
 

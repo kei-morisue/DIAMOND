@@ -7,9 +7,10 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.Mirror;
+import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
@@ -51,7 +52,8 @@ public class SegmentEdge extends SegmentBase {
         g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
     }
 
-    public SegmentEdge mirror(Mirror mirror) {
+    public SegmentEdge mirror() {
+        AbstractMirror mirror = f0.getMirror();
         SegmentEdge e = new SegmentEdge(
                 f0,
                 f1,
@@ -61,34 +63,39 @@ public class SegmentEdge extends SegmentBase {
         return e;
     }
 
+    @Deprecated
     @Override
     public void split(Vertex v) {
-        f0.add(v, v1, v0);
-        f1.add(v, v1, v0);
     }
 
-    public Face getPair(Face f) {
-        if (f == f0) {
-            return f1;
-        }
-        if (f == f1) {
-            return f0;
-        }
-        return null;
+    public void split(Vertex v, Step step) {
+        f0.add(v, v1, v0);
+        f1.add(v, v1, v0);
+        step.remove(this);
+        step.remove(this);
+        step.link(f0, f1, v, v0);
+        step.link(f0, f1, v, v1);
     }
 
     public void setType(boolean isM) {
         this.type = (isM) ? SegmentType.MOUNTAIN : SegmentType.VALLEY;
     }
 
-    @Deprecated
-    public Face getF1() {
-        return f1;
+    public void setType(SegmentType type) {
+        if (SegmentType.isCrease(type)) {
+            this.type = SegmentType.foldUnfold(type);
+        }
+        this.type = type;
     }
 
-    @Deprecated
-    public void setF1(Face f1) {
-        this.f1 = f1;
+    public Face getPair(Face face) {
+        if (face == f1) {
+            return f0;
+        }
+        if (face == f0) {
+            return f1;
+        }
+        return null;
     }
 
     @Deprecated
@@ -101,10 +108,14 @@ public class SegmentEdge extends SegmentBase {
         this.f0 = f0;
     }
 
-    public void setType(SegmentType type) {
-        if (SegmentType.isCrease(type)) {
-            this.type = SegmentType.foldUnfold(type);
-        }
-        this.type = type;
+    @Deprecated
+    public Face getF1() {
+        return f1;
     }
+
+    @Deprecated
+    public void setF1(Face f1) {
+        this.f1 = f1;
+    }
+
 }

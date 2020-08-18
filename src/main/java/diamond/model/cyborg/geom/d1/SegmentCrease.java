@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.Mirror;
+import diamond.model.cyborg.geom.m.AbstractMirror;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
@@ -50,12 +50,13 @@ public class SegmentCrease extends SegmentBase {
     public void setG2d(Graphics2D g2d, ScreenStep screen) {
         Diagram diagram = screen.diagram();
         StyleSegment styleSegment = diagram.getStyleSegment();
-        g2d.setColor(styleSegment.getColor(type));
+        g2d.setColor(styleSegment.getStepColor(type));
         float scale = (float) G2DUtil.getScale(g2d);
         g2d.setStroke(styleSegment.strokeCrease(scale, type));
     }
 
-    public SegmentCrease mirror(Mirror mirror) {
+    public SegmentCrease mirror() {
+        AbstractMirror mirror = face.getMirror();
         return new SegmentCrease(
                 mirror.apply(v0),
                 mirror.apply(v1),

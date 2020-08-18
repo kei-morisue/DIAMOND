@@ -14,7 +14,7 @@ import diamond.model.cyborg.geom.d1.SegmentBase;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentEdge;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.geom.m.Mirror;
+import diamond.model.cyborg.geom.m.AbstractMirror;
 
 /**
  * @author Kei Morisue
@@ -42,7 +42,7 @@ public class ShapeBuilder {
         return outline;
     }
 
-    public static GeneralPath build(Face face, Mirror mirror) {
+    public static GeneralPath build(Face face, AbstractMirror mirror) {
         GeneralPath outline = new GeneralPath();
         LinkedList<Vertex> vertices = face.getVertices();
         Vertex v0 = vertices.get(0);

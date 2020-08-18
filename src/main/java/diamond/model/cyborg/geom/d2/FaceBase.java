@@ -8,32 +8,22 @@ import java.util.HashSet;
 
 import diamond.model.cyborg.geom.Cyborg;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
-import diamond.model.cyborg.geom.d1.SegmentEdge;
-import diamond.model.cyborg.geom.m.Mirror;
+import diamond.model.cyborg.geom.m.AbstractMirror;
 
 /**
  * @author Kei Morisue
  *
  */
 public abstract class FaceBase extends D2 implements Cyborg {
-    protected HashSet<SegmentEdge> edges = new HashSet<SegmentEdge>();
     protected HashSet<SegmentCrease> creases = new HashSet<SegmentCrease>();
-    protected Mirror mirror = null;
+    protected AbstractMirror mirror = null;
 
-    public FaceBase() {
+    protected FaceBase() {
         super();
-    }
-
-    public void add(SegmentEdge edge) {
-        edges.add(edge);
     }
 
     public void remove(SegmentCrease crease) {
         creases.remove(crease);
-    }
-
-    public void remove(SegmentEdge edge) {
-        edges.remove(edge);
     }
 
     // TODO to be deprecated
@@ -46,19 +36,15 @@ public abstract class FaceBase extends D2 implements Cyborg {
         this.creases = creases;
     }
 
-    public boolean isFront() {
+    public boolean isFlip() {
         return mirror.isFlip();
     }
 
-    public HashSet<SegmentEdge> getEdges() {
-        return edges;
-    }
-
-    public Mirror getMirror() {
+    public AbstractMirror getMirror() {
         return mirror;
     }
 
-    public void setMirror(Mirror mirror) {
+    public void setMirror(AbstractMirror mirror) {
         this.mirror = mirror;
     }
 

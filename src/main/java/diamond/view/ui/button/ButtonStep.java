@@ -54,8 +54,6 @@ public class ButtonStep extends JButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             context.getDiagram().next(direction);
-            //            context.getPaintScreen().repaint();
-            //            context.getFoldedScreen().repaint();
         }
     }
 }

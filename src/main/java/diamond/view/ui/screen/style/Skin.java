@@ -12,6 +12,6 @@ import java.awt.Color;
  */
 public class Skin {
     public static Color BG_MAIN_SCREEN = Color.LIGHT_GRAY;
-    public static Color BG_STEP_SCREEN = new Color(0, 0, 0, 255);
+    public static Color BG_STEP_SCREEN = Color.LIGHT_GRAY;
     public static Color BG_FOLDED_SCREEN = Color.WHITE;
 }
