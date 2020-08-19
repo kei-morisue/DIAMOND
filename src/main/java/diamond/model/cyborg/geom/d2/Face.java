@@ -13,8 +13,10 @@ import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleFace;
+import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
+import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
@@ -23,6 +25,18 @@ import diamond.view.ui.screen.ScreenStep;
 public final class Face extends FaceBase {
     public Face() {
         super();
+    }
+
+    public Face mirror() {
+        Face face = new Face();
+        face.mirror = mirror;
+        for (Vertex v : vertices) {
+            face.add(mirror.apply(v));
+        }
+        for (SegmentCrease crease : creases) {
+            face.add(crease.mirror());
+        }
+        return face;
     }
 
     @Override
@@ -60,13 +74,22 @@ public final class Face extends FaceBase {
     @Override
     public void draw(Graphics2D g2d, ScreenStep screen) {
         setG2d(g2d, screen);
-        GeneralPath polygon = ShapeBuilder.build(this, mirror);
+        Face f = mirror();
+        GeneralPath polygon = ShapeBuilder.build(f);
         g2d.fill(polygon);
-        for (SegmentCrease crease : creases) {
-            SegmentCrease c = crease.mirror();
+        for (SegmentCrease c : f.creases) {
             c.setG2d(g2d, screen);
             c.draw(g2d, screen);
         }
+        darwOutline(g2d, screen, polygon);
+    }
+
+    private void darwOutline(Graphics2D g2d, ScreenStep screen,
+            GeneralPath polygon) {
+        g2d.setColor(StyleSegment.COLOR_EDGE);
+        StyleSegment styleSegment = screen.diagram().getStyleSegment();
+        g2d.setStroke(styleSegment.strokeEdge((float) G2DUtil.getScale(g2d)));
+        g2d.draw(polygon);
     }
 
     @Override

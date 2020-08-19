@@ -51,12 +51,6 @@ public final class Step extends StepBase implements Graphics {
         for (Face face : faces) {
             face.draw(g2d, screen);
         }
-        //        for (SegmentEdge edge : edges) {
-        //            SegmentEdge c = edge.mirror();
-        //            c.setG2d(g2d, screen);
-        //            c.draw(g2d, screen);
-        //        }
-        //TODO
     }
 
     @Override

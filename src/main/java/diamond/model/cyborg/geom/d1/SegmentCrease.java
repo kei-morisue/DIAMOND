@@ -10,6 +10,7 @@ import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.m.AbstractMirror;
+import diamond.model.cyborg.graphics.ShapeBuilder;
 import diamond.model.cyborg.style.StyleSegment;
 import diamond.view.ui.screen.ScreenMain;
 import diamond.view.ui.screen.ScreenStep;
@@ -37,6 +38,26 @@ public class SegmentCrease extends SegmentBase {
     }
 
     @Override
+    public void draw(Graphics2D g2d, ScreenStep screen) {
+        if (type == SegmentType.CREASE) {
+            double clip = screen.diagram().getStyleSegment().getClip();
+            g2d.draw(ShapeBuilder.build(
+                    clip(v0, screen, clip),
+                    clip(v1, screen, clip)));
+        } else {
+            g2d.draw(ShapeBuilder.build(this));
+        }
+    }
+
+    private Vertex clip(Vertex v, ScreenStep screen, double clip) {
+        if (face.isBoundary(v)) {
+            return v.scale(clip, c());
+        } else {
+            return v;
+        }
+    }
+
+    @Override
     public void setG2d(Graphics2D g2d, ScreenMain screen) {
         Diagram diagram = screen.diagram();
         StyleSegment styleSegment = diagram.getStyleSegment();
@@ -57,10 +78,12 @@ public class SegmentCrease extends SegmentBase {
 
     public SegmentCrease mirror() {
         AbstractMirror mirror = face.getMirror();
-        return new SegmentCrease(
+        SegmentCrease crease = new SegmentCrease(
                 mirror.apply(v0),
                 mirror.apply(v1),
                 type);
+        crease.face = face;
+        return crease;
     }
 
     @Override

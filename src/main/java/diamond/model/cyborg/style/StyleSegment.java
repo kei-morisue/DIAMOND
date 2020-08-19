@@ -32,7 +32,7 @@ public class StyleSegment {
     private float widthMv = 3.0f;
     private float widthCp = 0.0f;
 
-    private double clip = 0.1;
+    private double clip = 0.9;
 
     public StyleSegment() {
     }
