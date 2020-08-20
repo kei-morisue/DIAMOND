@@ -4,8 +4,6 @@
  */
 package diamond.model.cyborg.geom.m;
 
-import diamond.model.cyborg.geom.d0.Direction;
-import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentBase;
 
 /**
@@ -13,29 +11,22 @@ import diamond.model.cyborg.geom.d1.SegmentBase;
  *
  */
 public class MirrorComposit extends AbstractMirror {
-    private final static Vertex O = new Vertex(.0, .0);
 
     @Deprecated
     public MirrorComposit() {
         super();
     }
 
-    public MirrorComposit(SegmentBase segment, AbstractMirror mirror0) {
-        compose(new MirrorPlain(segment), mirror0);
+    public MirrorComposit(SegmentBase segment, AbstractMirror mirror) {
+        compose(new MirrorPlain(segment), mirror);
     }
 
-    // A1( A0.x + B0 ) + B1 = A1.A0.x + (A1.B0 + B1).
-    // A1.A0 = M^(1-(f0+f1)/2).R(t0+f0.t1)
+    // A1( A0.x + B0 ) + B1 = A1.A0.x + (A1.B0 + B1)
+    // A.x + B
+    // A1.A0 = M^(1 - (f0 + f1)/2).R(t0 + f0.t1)
     public void compose(AbstractMirror m0, AbstractMirror m1) {
-        boolean f0 = m0.isFlip;
-        boolean f1 = m1.isFlip;
-        this.isFlip = f0 != f1;
+        this.isFlip = m0.isFlip != m1.isFlip;
         setT(m0.t + m0.pm() * m1.t);
-        this.b = applyA(m1, m0.b).add(m1.b);
+        this.b = m1.b.add(m1.applyA(m0.b.ver()));
     }
-
-    private Direction applyA(AbstractMirror m1, Direction b0) {
-        return m1.apply(b0.ver(O)).dir(O);
-    }
-
 }

@@ -6,7 +6,6 @@ package diamond.model.cyborg.diagram;
 
 import java.util.LinkedList;
 
-import diamond.Config;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.diagram.step.StepBuilder;
 
@@ -17,8 +16,7 @@ import diamond.model.cyborg.diagram.step.StepBuilder;
 public class DiagramBuilder {
     public static Diagram plane() {
         Diagram diagram = new Diagram();
-        Step step0 = StepBuilder.step0(
-                Config.PAPER_SIZE);
+        Step step0 = StepBuilder.step0();
         diagram.getSteps().add(step0);
         return diagram;
     }
@@ -26,10 +24,9 @@ public class DiagramBuilder {
     public static Diagram craneBase() {
         Diagram diagram = new Diagram();
         LinkedList<Step> steps = diagram.getSteps();
-        Step step0 = StepBuilder.step0(Config.PAPER_SIZE);
-        steps.add(step0);
-        steps.add(StepBuilder.squareBase(step0));
-        steps.add(StepBuilder.craneBase(Config.PAPER_SIZE));
+        steps.add(StepBuilder.step0());
+        steps.add(StepBuilder.squareBase());
+        steps.add(StepBuilder.craneBase());
         return diagram;
     }
 

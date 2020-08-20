@@ -23,13 +23,13 @@ public abstract class AbstractMirror {
     }
 
     public Vertex apply(Vertex v0) {
-        return b.ver(applyA(v0));
+        return applyA(v0).add(b).ver();
     }
 
-    private Vertex applyA(Vertex v0) {
+    protected Direction applyA(Vertex v0) {
         double x0 = v0.getX();
         double y0 = v0.getY();
-        return new Vertex(
+        return new Direction(
                 x0 * c - y0 * s,
                 (x0 * s + y0 * c) * pm());
     }

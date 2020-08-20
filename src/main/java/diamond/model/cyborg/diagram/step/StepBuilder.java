@@ -4,30 +4,45 @@
  */
 package diamond.model.cyborg.diagram.step;
 
-import java.util.LinkedList;
-
+import diamond.Config;
 import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.model.cyborg.geom.d1.SegmentCrease;
 import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.geom.d2.FaceBuilder;
-import diamond.model.cyborg.geom.m.MirrorLazy;
 
 /**
  * @author Kei Morisue
  *
  */
 public class StepBuilder {
-    static final double A = Math.sqrt(2.0) - 1.0;
+    private static final double a = Config.PAPER_SIZE;
+    private static final double b = a * (2.0 - Math.sqrt(2.0));
 
-    public static Step step0(double size) {
+    private static final Vertex O = new Vertex(.0, .0);
+
+    private static final Vertex L = new Vertex(-a, .0);
+    private static final Vertex U = new Vertex(.0, a);
+    private static final Vertex B = new Vertex(.0, -a);
+    private static final Vertex R = new Vertex(a, .0);
+
+    private static final Vertex UL = new Vertex(-a, a);
+    private static final Vertex UR = new Vertex(a, a);
+    private static final Vertex BL = new Vertex(-a, -a);
+    private static final Vertex BR = new Vertex(a, -a);
+
+    private static final Vertex LL = new Vertex(-b, .0);
+    private static final Vertex UU = new Vertex(.0, b);
+    private static final Vertex BB = new Vertex(.0, -b);
+    private static final Vertex RR = new Vertex(b, .0);
+
+    public static Step step0() {
         @SuppressWarnings("deprecation")
         Step step = new Step();
-        Face square = FaceBuilder.square(size);
-        LinkedList<Vertex> vs = square.getVertices();
+        Face square = FaceBuilder.polygon(UR, UL, BL, BR);
         SegmentCrease e = new SegmentCrease(
-                vs.get(0),
-                vs.get(2),
+                UR,
+                BL,
                 SegmentType.CREASE_VALLEY);
         square.add(e);
         step.add(square);
@@ -35,38 +50,26 @@ public class StepBuilder {
         return step;
     }
 
-    public static Step squareBase(Step step0) {
+    public static Step squareBase() {
         @SuppressWarnings("deprecation")
         Step step = new Step();
-        LinkedList<Vertex> vs = step0.getFaces().get(0).getVertices();
-        Vertex c = new Vertex(.0, .0);
 
-        Vertex v0 = vs.get(0);
-        Vertex v1 = vs.get(1);
-        Vertex v2 = vs.get(2);
-        Vertex v3 = vs.get(3);
+        Face f0 = FaceBuilder.polygon(O, L, BL, B);
+        f0.add(new SegmentCrease(O, BL, SegmentType.CREASE));
+        Face f2 = FaceBuilder.polygon(O, UL, L);
+        step.link(f0, f2, O, L);
+        Face f4 = FaceBuilder.polygon(O, B, BR);
+        step.link(f0, f4, O, B);
+        Face f3 = FaceBuilder.polygon(O, U, UL);
+        Face f5 = FaceBuilder.polygon(O, BR, R);
+        step.link(f2, f3, O, UL);
+        step.link(f4, f5, O, BR);
 
-        Vertex c01 = v0.c(v1);
-        Vertex c12 = v1.c(v2);
-        Vertex c23 = v2.c(v3);
-        Vertex c30 = v3.c(v0);
+        Face f1 = FaceBuilder.polygon(O, R, UR, U);
+        step.link(f1, f3, O, U);
+        step.link(f1, f5, O, R);
 
-        Face f0 = FaceBuilder.polygon(c, c01, v1, c12);
-        f0.add(new SegmentCrease(c, v1, SegmentType.CREASE));
-        Face f2 = FaceBuilder.polygon(c, v0, c01);
-        step.link(f0, f2, c, c01);
-        Face f4 = FaceBuilder.polygon(c, c12, v2);
-        step.link(f0, f4, c, c12);
-        Face f3 = FaceBuilder.polygon(c, c30, v0);
-        Face f5 = FaceBuilder.polygon(c, v2, c23);
-        step.link(f2, f3, c, v0);
-        step.link(f4, f5, c, v2);
-
-        Face f1 = FaceBuilder.polygon(c, c23, v3, c30);
-        step.link(f1, f3, c, c30);
-        step.link(f1, f5, c, c23);
-
-        f1.add(new SegmentCrease(c, v3, SegmentType.CREASE));
+        f1.add(new SegmentCrease(O, UR, SegmentType.CREASE));
 
         step.add(f0);
         step.add(f2);
@@ -78,35 +81,58 @@ public class StepBuilder {
         return step;
     }
 
-    public static Step craneBase(double size) {
-        double b = A * size;
-        Vertex v0 = new Vertex(.0, -b);
-        Vertex v10 = new Vertex(-b, .0);
-        Vertex v11 = new Vertex(-b, .0);
-        Vertex v20 = new Vertex(b, .0);
-        Vertex v21 = new Vertex(b, .0);
-        Vertex v30 = new Vertex(.0, -size);
-        Vertex v31 = new Vertex(.0, -size);
-        Vertex v40 = new Vertex(.0, size);
-        Vertex v41 = new Vertex(.0, size);
-
+    public static Step craneBase() {
         @SuppressWarnings("deprecation")
         Step step = new Step();
-        step.add(FaceBuilder.polygon(v30, v20, v40));
-        step.add(FaceBuilder.polygon(v30, v41, v10));
-        step.add(FaceBuilder.polygon(v30, v20, v10));
-        step.add(FaceBuilder.polygon(v0, v20, v10));
-        step.add(FaceBuilder.polygon(v20, v40, v0));
-        step.add(FaceBuilder.polygon(v0, v41, v10));
-        step.add(FaceBuilder.polygon(v21, v40, v0));
-        step.add(FaceBuilder.polygon(v0, v41, v11));
-        step.add(FaceBuilder.polygon(v0, v21, v11));
-        step.add(FaceBuilder.polygon(v31, v21, v11));
-        step.add(FaceBuilder.polygon(v31, v21, v40));
-        step.add(FaceBuilder.polygon(v31, v41, v11));
-        for (Face face : step.getFaces()) {
-            face.setMirror(new MirrorLazy());//TODO
-        }
+        Face f0 = FaceBuilder.polygon(BL, BB, LL);
+        Face f1 = FaceBuilder.polygon(BL, BR, BB);
+        Face f2 = FaceBuilder.polygon(BL, LL, UL);
+        Face f3 = FaceBuilder.polygon(O, LL, BB);
+        step.link(f0, f3, LL, BB);
+        step.link(f0, f1, BL, BB);
+        step.link(f0, f2, BL, LL);
+        f1.add(new SegmentCrease(B, BB, SegmentType.CREASE));
+        f2.add(new SegmentCrease(L, LL, SegmentType.CREASE));
+
+        Face f4 = FaceBuilder.polygon(BR, UR, RR);
+        Face f5 = FaceBuilder.polygon(BR, RR, O);
+        Face f6 = FaceBuilder.polygon(BR, O, BB);
+        step.link(f1, f6, BB, BR);
+        step.link(f3, f6, O, BB);
+        step.link(f6, f5, O, BR);
+        step.link(f5, f4, BR, RR);
+        f4.add(new SegmentCrease(R, RR, SegmentType.CREASE));
+
+        Face f9 = FaceBuilder.polygon(UL, LL, O);
+        Face f10 = FaceBuilder.polygon(UL, O, UU);
+        Face f11 = FaceBuilder.polygon(UL, UU, UR);
+        step.link(f2, f9, LL, UL);
+        step.link(f3, f9, O, LL);
+        step.link(f9, f10, O, UL);
+        step.link(f10, f11, UL, UU);
+        f11.add(new SegmentCrease(U, UU, SegmentType.CREASE));
+
+        Face f12 = FaceBuilder.polygon(O, RR, UU);
+        Face f14 = FaceBuilder.polygon(UR, UU, RR);
+        step.link(f12, f14, UU, RR);
+        step.link(f12, f5, O, RR);
+        step.link(f12, f0, O, UU);
+        step.link(f11, f14, UU, UR);
+        step.link(f4, f14, RR, UR);
+
+        step.add(f4);
+        step.add(f11);
+        step.add(f14);
+        step.add(f12);
+        step.add(f5);
+        step.add(f10);
+        step.add(f6);
+        step.add(f9);
+        step.add(f3);
+        step.add(f0);
+        step.add(f1);
+        step.add(f2);
+
         step.update();
         return step;
     }

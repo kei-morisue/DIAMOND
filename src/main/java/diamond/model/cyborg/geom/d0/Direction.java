@@ -21,16 +21,20 @@ public class Direction extends D0 {
         return new Vertex(x + v0.getX(), y + v0.getY());
     }
 
+    public Vertex ver() {
+        return new Vertex(x, y);
+    }
+
     public Direction add(Direction v) {
         return new Direction(x + v.x, y + v.y);
     }
 
     public Direction neg() {
-        return new Direction(-this.x, -this.y);
+        return new Direction(-x, -y);
     }
 
     public Direction scale(double scale) {
-        return new Direction(scale * this.x, scale * this.y);
+        return new Direction(scale * x, scale * y);
     }
 
     public Direction sub(Direction v0) {
