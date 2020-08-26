@@ -33,8 +33,8 @@ public class OptionFace extends JPanel {
         JButton faceFront = new JButton(faceFrontLabel);
         JButton faceBack = new JButton(faceBackLabel);
         FaceStyle faceStyle = context.getPalette().getFaceStyle();
-        faceFront.setBackground(faceStyle.getCOLOR_FRONT());
-        faceBack.setBackground(faceStyle.getCOLOR_BACK());
+        faceFront.setBackground(faceStyle.getFront());
+        faceBack.setBackground(faceStyle.getBack());
         faceFront.addActionListener(new FaceColorAction(faceFront, true));
         faceBack.addActionListener(new FaceColorAction(faceBack, false));
         setLayout(new GridLayout(2, 1));
@@ -58,10 +58,10 @@ public class OptionFace extends JPanel {
             Color initialColor;
             if (isFront) {
                 title = faceFrontLabel;
-                initialColor = faceStyle.getCOLOR_FRONT();
+                initialColor = faceStyle.getFront();
             } else {
                 title = faceBackLabel;
-                initialColor = faceStyle.getCOLOR_BACK();
+                initialColor = faceStyle.getBack();
             }
             JColorChooser chooser = new JColorChooser(initialColor);
             JDialog dialog = JColorChooser.createDialog(parent, title, true,
@@ -87,9 +87,9 @@ public class OptionFace extends JPanel {
                     return;
                 }
                 if (isFront) {
-                    faceStyle.setCOLOR_FRONT(chosen);
+                    faceStyle.setFront(chosen);
                 } else {
-                    faceStyle.setCOLOR_BACK(chosen);
+                    faceStyle.setBack(chosen);
                 }
                 parent.setBackground(chosen);
                 context.repaint();

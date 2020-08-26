@@ -7,9 +7,8 @@ package diamond.model.symbol.arrow.head;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import diamond.model.cyborg.Cp;
@@ -21,9 +20,6 @@ import diamond.view.ui.screen.draw.G2DUtil;
  *
  */
 public class Repeat extends AbstractArrowHead {
-    private final static double w = 50.0;
-    private final static double h = 30.0;
-    final public static Font FONT_STEP_NO = new Font("Arial", Font.PLAIN, 50);
     final public static Color COLOR_FONT = Color.black;
     final public static Color COLOR_EDGE = Color.black;
     final public static Color COLOR_BODY = Color.white;
@@ -39,48 +35,57 @@ public class Repeat extends AbstractArrowHead {
     }
 
     private void drawStepNo(Graphics2D g2d, Double position) {
-        g2d.setFont(FONT_STEP_NO);
+        Font font = new Font("Arial", Font.PLAIN, fontSize(g2d));
+        g2d.setFont(font);
         g2d.setColor(COLOR_FONT);
         int x = (int) position.x;
         int y = (int) position.y;
-        int size = FONT_STEP_NO.getSize() >> 2;
+        String str = str();
+        g2d.drawString(str, x - (w(g2d) >> 1), y + (int) (h(g2d) * 0.4));
+    }
+
+    private int fontSize(Graphics2D g2d) {
+        return (int) (50 / G2DUtil.getScale(g2d));
+    }
+
+    private String str() {
         int s0 = cps.indexOf(cp0);
         int s1 = cps.indexOf(cp1);
-        g2d.drawString(String.valueOf(s0 + 1), x - size * 3, y + size);
-        g2d.drawString("~", x - size, y + size);
-        g2d.drawString(String.valueOf(s1 + 1), x + size, y + size);
+        String str = String.valueOf(s0 + 1) + " ~ " + String.valueOf(s1 + 1);
+        return str;
     }
 
     @Override
     public void draw(Graphics2D g2d, Double tail, Double head,
             AbstractArrowBody body, boolean isSelected) {
-        GeneralPath path = new GeneralPath();
-        AffineTransform affineTransform = new AffineTransform();
         Double position = (isTail) ? tail : head;
-        affineTransform.translate(position.x, position.y);
-        double scale = G2DUtil.getScale(g2d);
-        double scaledW = w / scale;
-        double scaledH = h / scale;
-        Double p = new Double(scaledW, scaledH);
-        Double q = new Double(-w / scale, scaledH);
-        Double r = new Double(-w / scale, -h / scale);
-        Double s = new Double(scaledW, -h / scale);
-
-        affineTransform.transform(p, p);
-        affineTransform.transform(q, q);
-        affineTransform.transform(r, r);
-        affineTransform.transform(s, s);
-
-        path.moveTo(p.x, p.y);
-        path.lineTo(q.x, q.y);
-        path.lineTo(r.x, r.y);
-        path.lineTo(s.x, s.y);
-        path.closePath();
-        g2d.setColor(COLOR_BODY);
-        g2d.fill(path);
-        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_EDGE);
-        g2d.draw(path);
+        drawRect(g2d, isSelected, position);
         drawStepNo(g2d, position);
+    }
+
+    private void drawRect(Graphics2D g2d, boolean isSelected,
+            Double position) {
+        int w = w(g2d);
+        int h = h(g2d);
+        Rectangle2D.Double rect = new Rectangle2D.Double(
+                position.x - (w >> 1),
+                position.y - (h >> 1),
+                w,
+                h);
+        g2d.setColor(COLOR_BODY);
+        g2d.fill(rect);
+        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_EDGE);
+        g2d.draw(rect);
+    }
+
+    private int h(Graphics2D g2d) {
+        int h = fontSize(g2d);
+        return h;
+    }
+
+    private int w(Graphics2D g2d) {
+        int w = (int) (str().length() * fontSize(g2d)) >> 1;
+        return w;
     }
 
     @Deprecated

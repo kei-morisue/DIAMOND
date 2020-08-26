@@ -49,7 +49,7 @@ public class PreviewScreen extends JPanel {
                 + "(c) Kei Morisue "
                 + "2019", JLabel.CENTER);
         FaceStyle faceStyle = context.getPalette().getFaceStyle();
-        label.setBackground(faceStyle.getCOLOR_FRONT());
+        label.setBackground(faceStyle.getFront());
         label.setOpaque(true);
         return label;
     }
@@ -57,7 +57,7 @@ public class PreviewScreen extends JPanel {
     private JLabel buildSouthernLabel(int pageNo) {
         JLabel label = new JLabel(String.valueOf(pageNo), JLabel.CENTER);
         FaceStyle faceStyle = context.getPalette().getFaceStyle();
-        label.setBackground(faceStyle.getCOLOR_FRONT());
+        label.setBackground(faceStyle.getFront());
         label.setOpaque(true);
         return label;
     }

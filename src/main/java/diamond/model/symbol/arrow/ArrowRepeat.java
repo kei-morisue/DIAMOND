@@ -28,6 +28,7 @@ public class ArrowRepeat extends AbstractArrow {
         arrowTail.setTail(true);
         buildHead();
         setScale(0.5);
+        flip(null);//TODO
     }
 
     @Override

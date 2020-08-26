@@ -14,8 +14,8 @@ import diamond.model.cyborg.Face;
  */
 public class FaceStyle {
     public static final Color COLOR_POINTED = Color.green;
-    private static Color COLOR_FRONT = Color.gray;
-    private static Color COLOR_BACK = Color.white;
+    private static Color front = Color.gray;
+    private static Color back = Color.white;
 
     public FaceStyle() {
     }
@@ -24,35 +24,35 @@ public class FaceStyle {
         if (face.getProperty().isColored()) {
             return COLOR_POINTED;
         }
-        return (face.isFaceFront()) ? COLOR_FRONT : COLOR_BACK;
+        return (face.isFaceFront()) ? front : back;
     }
 
     public static Color getCpColor(Face face) {
         if (face.getProperty().isColored()) {
             return COLOR_POINTED;
         }
-        return COLOR_BACK;
+        return back;
     }
 
     public static double CP_FACE_SCALE = 0.7;
 
     @Deprecated
-    public Color getCOLOR_FRONT() {
-        return COLOR_FRONT;
+    public Color getFront() {
+        return front;
     }
 
     @Deprecated
-    public void setCOLOR_FRONT(Color cOLOR_FRONT) {
-        COLOR_FRONT = cOLOR_FRONT;
+    public void setFront(Color cOLOR_FRONT) {
+        front = cOLOR_FRONT;
     }
 
     @Deprecated
-    public Color getCOLOR_BACK() {
-        return COLOR_BACK;
+    public Color getBack() {
+        return back;
     }
 
     @Deprecated
-    public void setCOLOR_BACK(Color cOLOR_BACK) {
-        COLOR_BACK = cOLOR_BACK;
+    public void setBack(Color cOLOR_BACK) {
+        back = cOLOR_BACK;
     }
 }
