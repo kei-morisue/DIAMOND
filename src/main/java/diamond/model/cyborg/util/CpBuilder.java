@@ -88,6 +88,11 @@ public class CpBuilder {
                         return;
                     }
                 }
+            }
+        }
+        for (HalfEdge he : edges) {
+            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
+                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
                 HalfEdgeModifier.settle(cp, he);
             }
         }
