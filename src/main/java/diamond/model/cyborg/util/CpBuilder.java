@@ -7,6 +7,7 @@ package diamond.model.cyborg.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import diamond.Config;
 import diamond.controller.Context;
@@ -72,14 +73,10 @@ public class CpBuilder {
     }
 
     private static void settleCp(Cp cp) {
-        ArrayList<HalfEdge> copy = new ArrayList<HalfEdge>(
-                cp.getUnsettlEdges());
+        HashSet<HalfEdge> edges = cp.getUnsettlEdges();
         HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();
-
-        while (!copy.isEmpty()) {
-            HalfEdge he = copy.get(0);
+        for (HalfEdge he : edges) {
             if (he.getType() == EdgeType.CREASE) {
-                copy.remove(he);
                 continue;
             }
             if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
@@ -87,19 +84,24 @@ public class CpBuilder {
                 Symbol<HalfEdge> symbol = symbols.get(he);
                 if (symbol != null) {
                     if (symbol.getClass() == ArrowFoldUnfold.class) {
-                        he.unfold();
-                        copy.remove(0);
-                        continue;
+                        unfold(edges, symbols);
+                        return;
                     }
                 }
-                if (HalfEdgeModifier.settle(cp, he)) {
-                    copy.remove(he);
-                    //TODO
-                } else {
-                    copy.remove(he);
-                    copy.add(he);
-                    //TODO
-                }
+                HalfEdgeModifier.settle(cp, he);
+            }
+        }
+    }
+
+    private static void unfold(HashSet<HalfEdge> edges,
+            HashMap<HalfEdge, Symbol<HalfEdge>> symbols) {
+        for (HalfEdge he : edges) {
+            Symbol<HalfEdge> symbol = symbols.get(he);
+            if (symbol == null) {
+                continue;
+            }
+            if (symbol.getClass() == ArrowFoldUnfold.class) {
+                he.unfold();
             }
         }
     }
