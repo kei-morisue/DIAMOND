@@ -32,8 +32,9 @@ public class OptionFace extends JPanel {
         this.context = context;
         JButton faceFront = new JButton(faceFrontLabel);
         JButton faceBack = new JButton(faceBackLabel);
-        faceFront.setBackground(FaceStyle.COLOR_FRONT);
-        faceBack.setBackground(FaceStyle.COLOR_BACK);
+        FaceStyle faceStyle = context.getPalette().getFaceStyle();
+        faceFront.setBackground(faceStyle.getCOLOR_FRONT());
+        faceBack.setBackground(faceStyle.getCOLOR_BACK());
         faceFront.addActionListener(new FaceColorAction(faceFront, true));
         faceBack.addActionListener(new FaceColorAction(faceBack, false));
         setLayout(new GridLayout(2, 1));
@@ -52,14 +53,15 @@ public class OptionFace extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            FaceStyle faceStyle = context.getPalette().getFaceStyle();
             String title;
             Color initialColor;
             if (isFront) {
                 title = faceFrontLabel;
-                initialColor = FaceStyle.COLOR_FRONT;
+                initialColor = faceStyle.getCOLOR_FRONT();
             } else {
                 title = faceBackLabel;
-                initialColor = FaceStyle.COLOR_BACK;
+                initialColor = faceStyle.getCOLOR_BACK();
             }
             JColorChooser chooser = new JColorChooser(initialColor);
             JDialog dialog = JColorChooser.createDialog(parent, title, true,
@@ -79,14 +81,15 @@ public class OptionFace extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                FaceStyle faceStyle = context.getPalette().getFaceStyle();
                 Color chosen = chooser.getColor();
                 if (chosen == null) {
                     return;
                 }
                 if (isFront) {
-                    FaceStyle.COLOR_FRONT = chosen;
+                    faceStyle.setCOLOR_FRONT(chosen);
                 } else {
-                    FaceStyle.COLOR_BACK = chosen;
+                    faceStyle.setCOLOR_BACK(chosen);
                 }
                 parent.setBackground(chosen);
                 context.repaint();

@@ -14,8 +14,8 @@ import diamond.model.cyborg.Face;
  */
 public class FaceStyle {
     public static final Color COLOR_POINTED = Color.green;
-    public static Color COLOR_FRONT = Color.gray;
-    public static Color COLOR_BACK = Color.white;
+    private static Color COLOR_FRONT = Color.gray;
+    private static Color COLOR_BACK = Color.white;
 
     public FaceStyle() {
     }
@@ -37,22 +37,22 @@ public class FaceStyle {
     public static double CP_FACE_SCALE = 0.7;
 
     @Deprecated
-    public static Color getCOLOR_FRONT() {
+    public Color getCOLOR_FRONT() {
         return COLOR_FRONT;
     }
 
     @Deprecated
-    public static void setCOLOR_FRONT(Color cOLOR_FRONT) {
+    public void setCOLOR_FRONT(Color cOLOR_FRONT) {
         COLOR_FRONT = cOLOR_FRONT;
     }
 
     @Deprecated
-    public static Color getCOLOR_BACK() {
+    public Color getCOLOR_BACK() {
         return COLOR_BACK;
     }
 
     @Deprecated
-    public static void setCOLOR_BACK(Color cOLOR_BACK) {
+    public void setCOLOR_BACK(Color cOLOR_BACK) {
         COLOR_BACK = cOLOR_BACK;
     }
 }

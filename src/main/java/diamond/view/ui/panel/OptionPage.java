@@ -61,7 +61,7 @@ public class OptionPage extends JPanel {
                     PageStyle.DIAGRAM_COL = Integer.parseInt(c);
                 }
             } else {
-                String r = colfField.getText();
+                String r = rowField.getText();
                 if (r != null) {
                     PageStyle.DIAGRAM_ROW = Integer.parseInt(r);
                 }
