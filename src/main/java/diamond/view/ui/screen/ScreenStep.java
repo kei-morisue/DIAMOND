@@ -35,7 +35,7 @@ public final class ScreenStep extends AbstractScreen {
     @Override
     protected void draw(Graphics2D g2d) {
         Step step = diagram().getStep();
-        step.draw(g2d, this);
+        //        step.draw(g2d, this);
     }
 
     @Override

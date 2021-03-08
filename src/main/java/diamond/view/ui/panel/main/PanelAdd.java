@@ -48,8 +48,8 @@ public class PanelAdd extends JPanel {
 
         @Override
         public void update(Observable o, Object arg) {
-            l0.setText(context.getMouseLocation().toString());
-            l1.setText(context.getPaintAction().getInfo());
+            //            l0.setText(context.getMouseLocation().toString());
+            //            l1.setText(context.getPaintAction().getInfo());
         }
     }
 

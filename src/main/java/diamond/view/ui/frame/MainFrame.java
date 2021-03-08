@@ -16,7 +16,7 @@ import diamond.view.resource.IconBuilder;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.menu.MainBar;
 import diamond.view.ui.panel.control.PanelControl;
-import diamond.view.ui.panel.main.PanelMain;
+import diamond.view.ui.panel.main.PanelCp;
 
 /**
  * @author Kei Morisue
@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
     public MainFrame(Context context) {
         this.context = context;
         this.menubar = new MainBar(context);
-        IconBuilder.set(this, "diamond.gif");
+        IconBuilder.set(this, "logo.gif");
         buildComponents(getContentPane());
         setTitle(Labels.get("main_frame_title"));
         setVisible(true);
@@ -43,11 +43,11 @@ public class MainFrame extends JFrame {
     private void buildComponents(Container panel) {
         panel.setLayout(new GridLayout(1, 2));
         panel.add(buildControl());
-        panel.add(buildMain());
+        panel.add(buildCp());
     }
 
-    private JPanel buildMain() {
-        return new PanelMain(context);
+    private JPanel buildCp() {
+        return new PanelCp(context);
     }
 
     private JPanel buildControl() {

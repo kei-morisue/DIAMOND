@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.style.StyleSegment;
-import diamond.model.math.Util;
+import diamond.model.math.fuzzy.Util;
 import diamond.view.resource.string.Labels;
 
 /**

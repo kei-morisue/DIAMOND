@@ -8,10 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.geom.d1.SegmentType;
 
 /**
  * @author Kei Morisue
@@ -19,35 +17,35 @@ import diamond.model.cyborg.geom.d1.SegmentType;
  */
 public class Color extends AbstractIconButton implements ActionListener {
     private Context context;
-    private SegmentType type;
+    //    private SegmentType type;
 
     public Color(
-            SegmentType type,
+            //            SegmentType type,
             Context context,
             ButtonGroup buttonGroup) {
         this.context = context;
-        this.type = type;
-        addActionListener(this);
-        buttonGroup.add(this);
-        switch (type) {
-        case CREASE_VALLEY:
-            setIcons("valley");
-            break;
-        case CREASE_MOUNTAIN:
-            setIcons("mountain");
-            break;
-        case CREASE:
-            setIcons("crease");
-            break;
-        default:
-            break;
-        }
+        //        this.type = type;
+        //        addActionListener(this);
+        //        buttonGroup.add(this);
+        //        switch (type) {
+        //        case CREASE_VALLEY:
+        //            setIcons("valley");
+        //            break;
+        //        case CREASE_MOUNTAIN:
+        //            setIcons("mountain");
+        //            break;
+        //        case CREASE:
+        //            setIcons("crease");
+        //            break;
+        //        default:
+        //            break;
+        //        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((JRadioButton) e.getSource()).isSelected()) {
-            context.setType(this.type);
-        }
+        //        if (((JRadioButton) e.getSource()).isSelected()) {
+        //            context.setType(this.type);
+        //        }
     }
 }

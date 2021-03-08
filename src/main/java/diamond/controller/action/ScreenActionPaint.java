@@ -10,7 +10,6 @@ import java.awt.event.MouseWheelEvent;
 import diamond.controller.Context;
 import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.mouse.Util;
-import diamond.model.cyborg.geom.d0.Vertex;
 import diamond.view.ui.screen.AbstractScreen;
 
 /**
@@ -44,10 +43,10 @@ public final class ScreenActionPaint extends AbstractScreenAction {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Vertex v = Util.getLogicalPoint(
-                screen.getTransform(),
-                e.getPoint());
-        context.setPointed(v);
+        //        Vertex v = Util.getLogicalPoint(
+        //                screen.getTransform(),
+        //                e.getPoint());
+        //        context.setPointed(v);
         context.getPaintAction().onMove();
     }
 
@@ -66,7 +65,7 @@ public final class ScreenActionPaint extends AbstractScreenAction {
 
     @Override
     public void mouseExited(MouseEvent e) {
-        context.getPointer().initialize();//TODO
+        //        context.getPointer().initialize();//TODO
     }
 
 }

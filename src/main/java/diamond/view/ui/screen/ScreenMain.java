@@ -11,12 +11,6 @@ import java.util.Observable;
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
 import diamond.model.cyborg.diagram.step.Step;
-import diamond.model.cyborg.geom.Cyborg;
-import diamond.model.cyborg.geom.PickerCyborg;
-import diamond.model.cyborg.geom.PointerCyborg;
-import diamond.model.cyborg.geom.d0.Vertex;
-import diamond.model.cyborg.geom.d1.SegmentBase;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -41,7 +35,7 @@ public final class ScreenMain extends AbstractScreen {
     @Override
     protected void draw(Graphics2D g2d) {
         Step step = diagram().getStep();
-        step.draw(g2d, this);
+        //        step.draw(g2d, this);
         context.getPaintAction().onDraw(g2d);
     }
 
@@ -52,19 +46,19 @@ public final class ScreenMain extends AbstractScreen {
 
     @Override
     protected void drawPointed(Graphics2D g2d) {
-        pointed(g2d, Vertex.class);
-        pointed(g2d, SegmentBase.class);
-        pointed(g2d, Face.class);
+        //        pointed(g2d, Vertex.class);
+        //        pointed(g2d, SegmentBase.class);
+        //        pointed(g2d, Face.class);
     }
 
-    private <T extends Cyborg> void pointed(Graphics2D g2d, Class<T> type) {
-        PointerCyborg<T> pointer = context
-                .getPointer(type);
-        pointer.setG2d(g2d, this);
-        pointer.draw(g2d, this);
-        PickerCyborg<T> picker = context
-                .getPicker(type);
-        picker.setG2d(g2d, this);
-        picker.draw(g2d, this);
-    }
+    //    private <T extends Cyborg> void pointed(Graphics2D g2d, Class<T> type) {
+    //        //        PointerCyborg<T> pointer = context
+    //        //                .getPointer(type);
+    //        //        pointer.setG2d(g2d, this);
+    //        //        pointer.draw(g2d, this);
+    //        //        PickerCyborg<T> picker = context
+    //        //                .getPicker(type);
+    //        //        picker.setG2d(g2d, this);
+    //        //        picker.draw(g2d, this);
+    //    }
 }

@@ -11,7 +11,7 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StylePage;
 import diamond.model.cyborg.style.StyleSegment;
-import diamond.model.math.Util;
+import diamond.model.math.fuzzy.Util;
 
 /**
  * @author Kei Morisue
@@ -25,6 +25,7 @@ public class Diagram extends Observable {
     private StylePage stylePage = new StylePage();
 
     public Diagram() {
+        steps.add(new Step());
     }
 
     public LinkedList<Step> getSteps() {

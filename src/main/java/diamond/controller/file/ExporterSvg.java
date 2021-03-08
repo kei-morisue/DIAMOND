@@ -40,7 +40,7 @@ public class ExporterSvg implements Exporter {
                             null);
             SVGGraphics2D g2d = new SVGGraphics2D(doc);
             g2d.setSVGCanvasSize(new Dimension(w, h));
-            step.draw(g2d, screen);
+            //            step.draw(g2d, screen);
             try {
                 g2d.stream(filepath + "/"
                         + String.format("%03d", steps.indexOf(step) + 1)

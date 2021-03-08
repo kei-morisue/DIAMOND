@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.geom.d1.SegmentType;
 import diamond.view.ui.panel.Util;
 
 /**
@@ -25,8 +24,8 @@ public class ExporterXml implements Exporter {
             FileOutputStream out = new FileOutputStream(filePath + ".dmd");
             BufferedOutputStream buffer = new BufferedOutputStream(out);
             XMLEncoder enc = new XMLEncoder(buffer);
-            enc.setPersistenceDelegate(SegmentType.class,
-                    new EnumPersistenceDelegate());
+            //            enc.setPersistenceDelegate(SegmentType.class,
+            //                    new EnumPersistenceDelegate());
             enc.writeObject(diagram);
             enc.close();
             buffer.close();

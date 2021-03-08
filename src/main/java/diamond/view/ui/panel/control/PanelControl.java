@@ -28,7 +28,7 @@ public class PanelControl extends JPanel {
         setLayout(new GridLayout(2, 1));
         setBackground(Color.RED);
         add(new ScreenStep(context));
-        add(buildControl(context));
+        //        add(buildControl(context));
     }
 
     private JTabbedPane buildControl(Context context) {
