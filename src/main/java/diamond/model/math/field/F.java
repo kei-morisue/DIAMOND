@@ -25,7 +25,7 @@ public abstract class F<T> {
     public F<T> inv() {
         if (isZero()) {
             System.out.println(Labels.get("div0"));
-            return null;
+            return this;
         }
         return invImpl();
     };

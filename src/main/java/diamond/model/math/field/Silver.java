@@ -54,8 +54,7 @@ public class Silver extends F<Silver> {
 
     @Override
     public boolean isZero() {
-        return (a.isZero() && b.isZero()) ||
-                (TWO.mul(b).mul(b).sub(a.mul(a)).isZero());
+        return (a.isZero() && b.isZero());
     }
 
 }
