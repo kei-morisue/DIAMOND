@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_202" class="java.beans.XMLDecoder">
+ <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver0">
+  <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+   <string>x</string>
+   <void method="set">
+    <object idref="Ver0"/>
+    <object class="diamond.model.math.field.Silver">
+     <void property="a">
+      <object class="diamond.model.math.field.Rational">
+       <void property="d">
+        <int>2</int>
+       </void>
+      </object>
+     </void>
+     <void property="b">
+      <object class="diamond.model.math.field.Rational">
+       <void property="d">
+        <int>2</int>
+       </void>
+       <void property="n">
+        <int>5</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+   <string>y</string>
+   <void method="set">
+    <object idref="Ver0"/>
+    <object class="diamond.model.math.field.Silver">
+     <void property="a">
+      <object class="diamond.model.math.field.Rational">
+       <void property="d">
+        <int>4</int>
+       </void>
+       <void property="n">
+        <int>3</int>
+       </void>
+      </object>
+     </void>
+     <void property="b">
+      <object class="diamond.model.math.field.Rational">
+       <void property="d">
+        <int>2</int>
+       </void>
+       <void property="n">
+        <int>7</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

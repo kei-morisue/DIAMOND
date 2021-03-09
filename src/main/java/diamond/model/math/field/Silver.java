@@ -13,6 +13,10 @@ public class Silver extends F<Silver> {
     private Rational b;
     private static Rational TWO = new Rational(2, 1);
 
+    @Deprecated
+    public Silver() {
+    }
+
     public Silver(Rational a, Rational b) {
         this.a = a;
         this.b = b;
@@ -55,6 +59,26 @@ public class Silver extends F<Silver> {
     @Override
     public boolean isZero() {
         return (a.isZero() && b.isZero());
+    }
+
+    @Deprecated
+    public Rational getA() {
+        return a;
+    }
+
+    @Deprecated
+    public void setA(Rational a) {
+        this.a = a;
+    }
+
+    @Deprecated
+    public Rational getB() {
+        return b;
+    }
+
+    @Deprecated
+    public void setB(Rational b) {
+        this.b = b;
     }
 
 }

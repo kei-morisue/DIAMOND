@@ -4,15 +4,12 @@
  */
 package diamond.model.cyborg.geom.d1;
 
-import diamond.model.cyborg.geom.d2.D2;
+import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public interface D1<T> {
-    public T dist(D1<T> d);
-
-    public T dist(D2<T> d);
+public class Seg<T extends F<T>> {
 
 }

@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.diagram.Diagram;
 
 /**
  * @author Kei Morisue
@@ -34,11 +33,11 @@ public class Load implements ActionListener {
                 .showSaveDialog(parentComponent)) {
             path = chooser.getSelectedFile().getPath();
         }
-        Diagram diagram = new LoaderXML().load(path);
-        if (diagram == null) {
-            return;
-        }
-        context.setDiagram(diagram);
+        //        Diagram diagram = new LoaderXml().load(path);
+        //        if (diagram == null) {
+        //            return;
+        //        }
+        //        context.setDiagram(diagram);
     }
 
 }

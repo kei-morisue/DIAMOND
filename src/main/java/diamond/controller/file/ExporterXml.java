@@ -10,16 +10,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import diamond.model.cyborg.diagram.Diagram;
 import diamond.view.ui.panel.Util;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ExporterXml implements Exporter {
+public class ExporterXml {
 
-    public boolean export(Diagram diagram, String filePath) {
+    public boolean export(Object diagram, String filePath) {
         try {
             FileOutputStream out = new FileOutputStream(filePath + ".dmd");
             BufferedOutputStream buffer = new BufferedOutputStream(out);

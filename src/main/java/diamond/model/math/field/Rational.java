@@ -14,6 +14,10 @@ public class Rational extends F<Rational> {
     private int n = 1;
     private int d = 1;
 
+    @Deprecated
+    public Rational() {
+    }
+
     public Rational(int n, int d) {
         if (d < 0) {
             this.n = -n;
@@ -76,6 +80,26 @@ public class Rational extends F<Rational> {
     @Override
     public boolean isZero() {
         return n == 0;
+    }
+
+    @Deprecated
+    public int getN() {
+        return n;
+    }
+
+    @Deprecated
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    @Deprecated
+    public int getD() {
+        return d;
+    }
+
+    @Deprecated
+    public void setD(int d) {
+        this.d = d;
     }
 
 }

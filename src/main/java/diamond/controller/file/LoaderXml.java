@@ -9,22 +9,21 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import diamond.model.cyborg.diagram.Diagram;
 import diamond.view.ui.panel.Util;
 
 /**
  * @author Kei Morisue
  *
  */
-public class LoaderXML implements Loader {
+public class LoaderXml<T> {
 
-    @Override
-    public Diagram load(String filepath) {
+    @SuppressWarnings("unchecked")
+    public T load(String filepath) {
         try {
             XMLDecoder decoder = new XMLDecoder(
                     new BufferedInputStream(
                             new FileInputStream(filepath)));
-            Diagram diagram = (Diagram) decoder.readObject();
+            T diagram = (T) decoder.readObject();
             decoder.close();
             return diagram;
         } catch (FileNotFoundException e) {
