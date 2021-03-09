@@ -11,6 +11,10 @@ package diamond.model.math.field;
 public class Real extends F<Real> {
     private double a;
 
+    @Deprecated
+    public Real() {
+    }
+
     public Real(double a) {
         this.a = a;
     }
@@ -43,6 +47,16 @@ public class Real extends F<Real> {
     @Override
     public boolean isZero() {
         return a == 0;
+    }
+
+    @Deprecated
+    public double getA() {
+        return a;
+    }
+
+    @Deprecated
+    public void setA(double a) {
+        this.a = a;
     }
 
 }
