@@ -6,6 +6,8 @@ package diamond.file;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import diamond.controller.file.ExporterXml;
@@ -20,19 +22,23 @@ import diamond.model.math.field.Silver;
  */
 public class XmlTest {
     private ExporterXml out = new ExporterXml();
-    private LoaderXml<Ver<Silver>> in = new LoaderXml<Ver<Silver>>();
+    private LoaderXml<ArrayList<Ver<Silver>>> in = new LoaderXml<ArrayList<Ver<Silver>>>();
     private Silver x = new Silver(
             new Rational(1, 2),
             new Rational(5, 2));
     private Silver y = new Silver(
             new Rational(3, 4),
             new Rational(7, 2));
+    private String path = "silver.dmd";
 
     @Test
     public void VerTest() {
         Ver<Silver> v = new Ver<Silver>(x, y);
-        out.export(v, "silver");
-        Ver<Silver> w = in.load("silver.dmd");
+        ArrayList<Ver<Silver>> w = new ArrayList<Ver<Silver>>();
+        w.add(v);
+        w.add(v);
+        out.export(w, path);
+        w = in.load(path);
         assertFalse(v.toString() == w.toString());
     }
 

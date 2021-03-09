@@ -20,7 +20,7 @@ public class ExporterXml {
 
     public boolean export(Object diagram, String filePath) {
         try {
-            FileOutputStream out = new FileOutputStream(filePath + ".dmd");
+            FileOutputStream out = new FileOutputStream(filePath);
             BufferedOutputStream buffer = new BufferedOutputStream(out);
             XMLEncoder enc = new XMLEncoder(buffer);
             //            enc.setPersistenceDelegate(SegmentType.class,
