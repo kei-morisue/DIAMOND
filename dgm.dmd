@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_202" class="java.beans.XMLDecoder">
+ <object class="diamond.model.cyborg.diagram.Diagram" id="Diagram0">
+  <void property="steps">
+   <void method="add">
+    <object class="diamond.model.cyborg.diagram.step.Step" id="Step0">
+     <void property="baseFace">
+      <object class="diamond.model.cyborg.geom.d2.Face" id="Face0">
+       <void property="vers">
+        <void method="add">
+         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver0">
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>x</string>
+           <void method="set">
+            <object idref="Ver0"/>
+            <object class="diamond.model.math.field.Real" id="Real0">
+             <void property="a">
+              <double>200.0</double>
+             </void>
+            </object>
+           </void>
+          </void>
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>y</string>
+           <void method="set">
+            <object idref="Ver0"/>
+            <object idref="Real0"/>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver1">
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>x</string>
+           <void method="set">
+            <object idref="Ver1"/>
+            <object idref="Real0"/>
+           </void>
+          </void>
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>y</string>
+           <void method="set">
+            <object idref="Ver1"/>
+            <object class="diamond.model.math.field.Real">
+             <void property="a">
+              <double>-200.0</double>
+             </void>
+            </object>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver2">
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>x</string>
+           <void method="set">
+            <object idref="Ver2"/>
+            <object class="diamond.model.math.field.Real">
+             <void property="a">
+              <double>-200.0</double>
+             </void>
+            </object>
+           </void>
+          </void>
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>y</string>
+           <void method="set">
+            <object idref="Ver2"/>
+            <object class="diamond.model.math.field.Real">
+             <void property="a">
+              <double>-200.0</double>
+             </void>
+            </object>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver3">
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>x</string>
+           <void method="set">
+            <object idref="Ver3"/>
+            <object class="diamond.model.math.field.Real">
+             <void property="a">
+              <double>-200.0</double>
+             </void>
+            </object>
+           </void>
+          </void>
+          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+           <string>y</string>
+           <void method="set">
+            <object idref="Ver3"/>
+            <object idref="Real0"/>
+           </void>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="faces">
+      <void method="add">
+       <object idref="Face0"/>
+      </void>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
