@@ -81,4 +81,9 @@ public class Silver extends F<Silver> {
         this.b = b;
     }
 
+    @Override
+    public double d() {
+        return a.d() + b.d() * Math.sqrt(2);
+    }
+
 }

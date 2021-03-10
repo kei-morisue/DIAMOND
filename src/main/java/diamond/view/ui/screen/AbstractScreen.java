@@ -14,6 +14,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.diagram.step.Step;
 
 /**
  * @author Kei Morisue
@@ -33,6 +34,10 @@ public abstract class AbstractScreen extends JPanel
         this.context = context;
         context.addObserver(this);
 
+    }
+
+    public Step getStep() {
+        return context.getDiagram().getStep(context.getStep());
     }
 
     public void zoom(double z) {

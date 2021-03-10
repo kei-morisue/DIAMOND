@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.geom.d2;
 
+import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -12,7 +13,7 @@ import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.graphics.FaceDrawer;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenCp;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -53,8 +54,8 @@ public class Face<T extends F<T>> {
         return new Link<T>(this, f, p, q);
     }
 
-    public void draw(ScreenCp screen) {
-        FaceDrawer.draw(screen, vers, creases);
+    public void draw(ScreenModel screen, Graphics2D g2d) {
+        FaceDrawer.draw(screen, g2d, vers, creases);
     }
 
     @Deprecated

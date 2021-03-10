@@ -106,4 +106,9 @@ public class Rational extends F<Rational> {
         this.d = d;
     }
 
+    @Override
+    public double d() {
+        return n / d;
+    }
+
 }

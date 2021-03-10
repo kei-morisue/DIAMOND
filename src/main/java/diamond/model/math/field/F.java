@@ -42,4 +42,6 @@ public abstract class F<T> {
 
     @Override
     public abstract String toString();
+
+    public abstract double d();
 }

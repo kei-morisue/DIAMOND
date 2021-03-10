@@ -4,6 +4,11 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.geom.Line2D;
+
+import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.math.field.F;
+
 /**
  * @author Kei Morisue
  *
@@ -52,10 +57,15 @@ public class ShapeBuilder {
     //        return build(v0, v1);
     //    }
     //
-    //    public static Line2D.Double build(Vertex v0, Vertex v1) {
-    //        Line2D.Double line = new Line2D.Double(v0.getX(), v0.getY(), v1.getX(),
-    //                v1.getY());
-    //        return line;
-    //    }
+    public static <T extends F<T>> Line2D.Double build(
+            Ver<T> p,
+            Ver<T> q) {
+        Line2D.Double line = new Line2D.Double(
+                p.x.d(),
+                p.y.d(),
+                q.x.d(),
+                q.y.d());
+        return line;
+    }
 
 }

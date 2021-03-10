@@ -59,4 +59,9 @@ public class Real extends F<Real> {
         this.a = a;
     }
 
+    @Override
+    public double d() {
+        return a;
+    }
+
 }

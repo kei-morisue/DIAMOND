@@ -4,11 +4,14 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.LinkDrawer;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -29,6 +32,10 @@ public class Link<T extends F<T>> implements Serializable {
         this.q = q;
         this.f = f;
         this.g = g;
+    }
+
+    public void draw(ScreenModel screen, Graphics2D g2d) {
+        LinkDrawer.draw(screen, g2d, p, q);
     }
 
     @Deprecated

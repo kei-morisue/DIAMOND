@@ -4,13 +4,10 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.HashSet;
-import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Link;
-import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -18,16 +15,14 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public final class FaceDrawer {
+public final class LinkDrawer {
     public static <T extends F<T>> void draw(
             ScreenModel screen,
             Graphics2D g2d,
-            LinkedList<Ver<T>> vers,
-            HashSet<Seg<T>> creases) {
-        Ver<T> wer = vers.getLast();
-        for (Ver<T> ver : vers) {
-            new Link<T>(null, null, wer, ver).draw(screen, g2d);
-            wer = ver;
-        }
+            Ver<T> p,
+            Ver<T> q) {
+        g2d.setColor(Color.BLACK);//TODO
+        g2d.draw(
+                ShapeBuilder.build(p, q));
     }
 }
