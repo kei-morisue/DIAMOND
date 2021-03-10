@@ -17,12 +17,12 @@ import diamond.controller.action.paint.AbstractPaintAction;
 public class ButtonPaintAction extends AbstractIconButton
         implements ActionListener {
     private Context context;
-    private AbstractPaintAction paintAction;
+    //    private AbstractPaintAction paintAction;
 
     public ButtonPaintAction(Context context,
             AbstractPaintAction paintAction) {
         this.context = context;
-        this.paintAction = paintAction;
+        //        this.paintAction = paintAction;
         addActionListener(this);
     }
 
@@ -30,7 +30,7 @@ public class ButtonPaintAction extends AbstractIconButton
     public void actionPerformed(ActionEvent e) {
         if (isSelected()) {
             context.initialize();
-            context.setPaintAction(this.paintAction);
+            //            context.setPaintAction(this.paintAction);
         }
     }
 }

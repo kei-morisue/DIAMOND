@@ -9,8 +9,8 @@ package diamond.model.math.field;
  *
  */
 public class Silver extends F<Silver> {
-    private Rational a;
-    private Rational b;
+    private Rational a = new Rational(1, 1);
+    private Rational b = new Rational(0, 1);
     private static Rational TWO = new Rational(2, 1);
 
     @Deprecated

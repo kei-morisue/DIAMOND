@@ -27,29 +27,23 @@ public abstract class AbstractScreenAction
     }
 
     protected void zoom(MouseWheelEvent e) {
-        double zoom = zoomAmount(e);
-        screen.getTransform().zoom(zoom);
-        screen.repaint();
-    }
-
-    protected double zoomAmount(MouseWheelEvent e) {
-        return Math.pow(1.5, -e.getWheelRotation());
+        screen.zoom(Math.pow(1.5, -e.getWheelRotation()));
     }
 
     protected void translate(MouseEvent e) {
-        double scale = screen.getTransform().getZoom();
+        if (!e.isControlDown()) {
+            return;
+        }
         Point2D p0 = latestClickedPoint;
-        double x = (e.getX() - p0.getX()) / scale;
-        double y = (e.getY() - p0.getY()) / scale;
-        screen.getTransform().shift(x, y);
+        screen.translate(
+                e.getX() - p0.getX(),
+                e.getY() - p0.getY());
         latestClickedPoint = e.getPoint();
-        screen.repaint();
     }
 
     protected void rotate(MouseWheelEvent e) {
         double theta = thetaAmount(e);
-        screen.getTransform().rotate(theta);
-        screen.repaint();
+        screen.rotate(theta);
     }
 
     protected double thetaAmount(MouseWheelEvent e) {

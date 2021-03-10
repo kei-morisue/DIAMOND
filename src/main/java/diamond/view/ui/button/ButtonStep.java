@@ -53,7 +53,7 @@ public class ButtonStep extends JButton {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            context.getDiagram().next(direction);
+            context.next(direction);
         }
     }
 }

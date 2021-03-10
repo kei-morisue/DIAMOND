@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.diagram.step.Step;
-import diamond.view.ui.screen.ScreenStep;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -23,9 +23,9 @@ import diamond.view.ui.screen.ScreenStep;
 public class ExporterSvg implements Exporter {
     private static short w = 744;//TODO
     private static short h = 1052;//TODO
-    private ScreenStep screen;
+    private ScreenModel screen;
 
-    public ExporterSvg(ScreenStep screen) {
+    public ExporterSvg(ScreenModel screen) {
         this.screen = screen;
     }
 

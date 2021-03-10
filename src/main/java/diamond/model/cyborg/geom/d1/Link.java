@@ -7,23 +7,28 @@ package diamond.model.cyborg.geom.d1;
 import java.io.Serializable;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Seg<T extends F<T>> implements Serializable {
+public class Link<T extends F<T>> implements Serializable {
     private Ver<T> p;
     private Ver<T> q;
+    private Face<T> f;
+    private Face<T> g;
 
     @Deprecated
-    public Seg() {
+    public Link() {
     }
 
-    public Seg(Ver<T> p, Ver<T> q) {
+    public Link(Face<T> f, Face<T> g, Ver<T> p, Ver<T> q) {
         this.p = p;
         this.q = q;
+        this.f = f;
+        this.g = g;
     }
 
     @Deprecated
@@ -44,5 +49,25 @@ public class Seg<T extends F<T>> implements Serializable {
     @Deprecated
     public void setQ(Ver<T> q) {
         this.q = q;
+    }
+
+    @Deprecated
+    public Face<T> getF() {
+        return f;
+    }
+
+    @Deprecated
+    public void setF(Face<T> f) {
+        this.f = f;
+    }
+
+    @Deprecated
+    public Face<T> getG() {
+        return g;
+    }
+
+    @Deprecated
+    public void setG(Face<T> g) {
+        this.g = g;
     }
 }

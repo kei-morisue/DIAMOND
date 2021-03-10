@@ -9,7 +9,7 @@ package diamond.model.math.field;
  *
  */
 public class Real extends F<Real> {
-    private double a;
+    private double a = 1;
 
     @Deprecated
     public Real() {

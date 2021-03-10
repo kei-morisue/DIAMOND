@@ -10,7 +10,6 @@ import java.util.Observable;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
-import diamond.model.cyborg.style.StylePage;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -33,7 +32,7 @@ public final class ScreenPage extends AbstractScreen {
     }
 
     @Override
-    protected void draw(Graphics2D g2d) {
+    protected void drawStep(Graphics2D g2d) {
         //TODO
     }
 
@@ -47,11 +46,12 @@ public final class ScreenPage extends AbstractScreen {
     }
 
     public int maxPageNo() {
-        StylePage stylePage = diagram().getStylePage();
-        byte row = stylePage.getRow();
-        byte col = stylePage.getCol();
-        int steps = diagram().getSteps().size() + 1;
-        return 1 + steps % (row * col);
+        //        StylePage stylePage = diagram().getStylePage();
+        //        byte row = stylePage.getRow();
+        //        byte col = stylePage.getCol();
+        //        int steps = diagram().getSteps().size() + 1;
+        //        return 1 + steps % (row * col);
+        return 0;//TODO
     }
 
     public void nextPage(int i) {

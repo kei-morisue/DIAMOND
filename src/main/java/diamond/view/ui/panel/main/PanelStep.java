@@ -46,7 +46,7 @@ public class PanelStep extends JPanel {
     }
 
     private String lastStep() {
-        int lastStep = context.getDiagram().getLastStep() + 1;
+        int lastStep = context.getStep() + 1;
         return String.valueOf(lastStep);
     }
 

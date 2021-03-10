@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import diamond.controller.Context;
-import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.mouse.Util;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -47,20 +46,20 @@ public final class ScreenActionPaint extends AbstractScreenAction {
         //                screen.getTransform(),
         //                e.getPoint());
         //        context.setPointed(v);
-        context.getPaintAction().onMove();
+        //        context.getPaintAction().onMove();
     }
 
     @Override
     public void onAction(MouseEvent e) {
         boolean isCtrl = Util.isControlKeyPressed(e);
         boolean isLeft = Util.isLeftClick(e);
-        AbstractPaintAction paintAction = context.getPaintAction();
-        paintAction.onPress(isLeft, isCtrl);
+        //        AbstractPaintAction paintAction = context.getPaintAction();
+        //        paintAction.onPress(isLeft, isCtrl);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        context.getPaintAction().onRelease();
+        //        context.getPaintAction().onRelease();
     }
 
     @Override

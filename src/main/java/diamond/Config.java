@@ -12,7 +12,7 @@ import java.io.File;
  */
 public class Config {
     final public static String INI_FILE_PATH = System.getProperty("user.home")
-            + File.separator + "diamond.ini";
+            + File.separator + "defox.ini";
     final public static int MAIN_FRAME_HEIGHT = 1000;
     final public static int MAIN_FRAME_WIDTH = 1700;
 
@@ -22,7 +22,7 @@ public class Config {
     final public static int PREVIEW_FRAME_WIDTH = 1000;
     final public static int PREVIEW_FRAME_HEIGHT = 1000;
 
-    final public static double PAPER_SIZE = 400.0;
+    final public static int size = 200;
 
     final public static int EPS_V = 50;
     final public static int EPS_F = 100;

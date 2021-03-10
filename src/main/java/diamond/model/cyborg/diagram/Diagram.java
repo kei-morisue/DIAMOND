@@ -8,45 +8,40 @@ import java.util.LinkedList;
 import java.util.Observable;
 
 import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.diagram.step.StepBuilder;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StylePage;
 import diamond.model.cyborg.style.StyleSegment;
-import diamond.model.math.fuzzy.Util;
+import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Diagram extends Observable {
-    private LinkedList<Step> steps = new LinkedList<Step>();
-    private int lastStep = 0;
+public class Diagram<T extends F<T>> extends Observable {
+    private LinkedList<Step<T>> steps = new LinkedList<>();
     private StyleFace styleFace = new StyleFace();
     private StyleSegment styleSegment = new StyleSegment();
     private StylePage stylePage = new StylePage();
 
+    @Deprecated
     public Diagram() {
-        steps.add(new Step());
     }
 
-    public LinkedList<Step> getSteps() {
+    public Diagram(F<T> size) {
+        steps.add(new StepBuilder().step0(size));
+    }
+
+    public LinkedList<Step<T>> getSteps() {
         return steps;
     }
 
-    public void next(int steps) {
-        lastStep = Util.hairCut(
-                lastStep + steps,
-                0,
-                this.steps.size() - 1);
-        setChanged();
-        notifyObservers();
-    }
-
-    public Step getStep() {
-        return steps.get(lastStep);
+    public Step<T> getStep(int i) {
+        return steps.get(i);
     }
 
     @Deprecated
-    public void setSteps(LinkedList<Step> steps) {
+    public void setSteps(LinkedList<Step<T>> steps) {
         this.steps = steps;
     }
 
@@ -66,15 +61,6 @@ public class Diagram extends Observable {
     @Deprecated
     public void setStyleSegment(StyleSegment styleSegment) {
         this.styleSegment = styleSegment;
-    }
-
-    public int getLastStep() {
-        return lastStep;
-    }
-
-    @Deprecated
-    public void setLastStep(int lastStep) {
-        this.lastStep = lastStep;
     }
 
     public StylePage getStylePage() {

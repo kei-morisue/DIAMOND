@@ -10,16 +10,15 @@ import java.util.Observable;
 
 import diamond.controller.Context;
 import diamond.controller.action.ScreenActionPaint;
-import diamond.model.cyborg.diagram.step.Step;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public final class ScreenStep extends AbstractScreen {
+public final class ScreenModel extends AbstractScreen {
 
-    public ScreenStep(Context context) {
+    public ScreenModel(Context context) {
         super(context);
         ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
         addMouseListener(screenAction);
@@ -33,8 +32,8 @@ public final class ScreenStep extends AbstractScreen {
     }
 
     @Override
-    protected void draw(Graphics2D g2d) {
-        Step step = diagram().getStep();
+    protected void drawStep(Graphics2D g2d) {
+        //        Step step = diagram().getStep();//TODO
         //        step.draw(g2d, this);
     }
 

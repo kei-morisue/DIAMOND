@@ -26,4 +26,27 @@ public class RationalTest {
         assertFalse(a.div(c).toString() == new Rational(3, 5).toString());
     }
 
+    @Test
+    public void test1() {
+        assertFalse(
+                new Rational(1000, 0)
+                        .toString() == new Rational(-1, -1)
+                                .toString());
+    }
+
+    @Test
+    public void test2() {
+        assertFalse(
+                new Rational(1, -2)
+                        .toString() == new Rational(-1, 2)
+                                .toString());
+    }
+
+    @Test
+    public void test3() {
+        assertFalse(
+                new Rational(2, 4)
+                        .toString() == new Rational(1, 2)
+                                .toString());
+    }
 }

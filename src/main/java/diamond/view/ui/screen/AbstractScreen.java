@@ -14,7 +14,6 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
-import diamond.model.cyborg.diagram.Diagram;
 
 /**
  * @author Kei Morisue
@@ -36,23 +35,27 @@ public abstract class AbstractScreen extends JPanel
 
     }
 
-    public TransformScreen getTransform() {
-        return transform;
-    };
+    public void zoom(double z) {
+        transform.zoom(z);
+        repaint();
+    }
 
-    public void setTransform(TransformScreen screenTransform) {
-        this.transform = screenTransform;
-    };
+    public void translate(double dx, double dy) {
+        double scale = transform.getZoom();
+        transform.shift(dx / scale, dy / scale);
+        repaint();
+    }
+
+    public void rotate(double r) {
+        transform.rotate(r);
+        repaint();
+    }
 
     protected abstract Color getBGColor();
 
-    protected abstract void draw(Graphics2D g2d);
+    protected abstract void drawStep(Graphics2D g2d);
 
     protected abstract void drawPointed(Graphics2D g2d);
-
-    public Diagram diagram() {
-        return context.getDiagram();
-    };
 
     protected void drawBackGround(Graphics2D g2d) {
         g2d.setColor(getBGColor());
@@ -67,7 +70,7 @@ public abstract class AbstractScreen extends JPanel
         drawBackGround(g2d);
         transform.resize(getWidth(), getHeight());
         g2d.setTransform(transform.getTransform());
-        draw(g2d);
+        drawStep(g2d);
         drawPointed(g2d);
     }
 

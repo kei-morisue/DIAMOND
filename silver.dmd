@@ -7,23 +7,19 @@
      <string>x</string>
      <void method="set">
       <object idref="Ver0"/>
-      <object class="diamond.model.math.field.Silver">
+      <object class="diamond.model.math.field.Silver" id="Silver0">
        <void property="a">
-        <object class="diamond.model.math.field.Rational">
-         <void property="d">
-          <int>2</int>
-         </void>
-        </object>
+        <void property="d">
+         <int>2</int>
+        </void>
        </void>
        <void property="b">
-        <object class="diamond.model.math.field.Rational">
-         <void property="d">
-          <int>2</int>
-         </void>
-         <void property="n">
-          <int>5</int>
-         </void>
-        </object>
+        <void property="d">
+         <int>2</int>
+        </void>
+        <void property="n">
+         <int>5</int>
+        </void>
        </void>
       </object>
      </void>
@@ -32,26 +28,22 @@
      <string>y</string>
      <void method="set">
       <object idref="Ver0"/>
-      <object class="diamond.model.math.field.Silver">
+      <object class="diamond.model.math.field.Silver" id="Silver1">
        <void property="a">
-        <object class="diamond.model.math.field.Rational">
-         <void property="d">
-          <int>4</int>
-         </void>
-         <void property="n">
-          <int>3</int>
-         </void>
-        </object>
+        <void property="d">
+         <int>4</int>
+        </void>
+        <void property="n">
+         <int>3</int>
+        </void>
        </void>
        <void property="b">
-        <object class="diamond.model.math.field.Rational">
-         <void property="d">
-          <int>2</int>
-         </void>
-         <void property="n">
-          <int>7</int>
-         </void>
-        </object>
+        <void property="d">
+         <int>2</int>
+        </void>
+        <void property="n">
+         <int>7</int>
+        </void>
        </void>
       </object>
      </void>

@@ -10,37 +10,39 @@ import java.util.Observer;
 import diamond.controller.action.paint.AbstractPaintAction;
 import diamond.controller.action.paint.PaintLazy;
 import diamond.model.cyborg.diagram.Diagram;
-import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Context extends Observable implements Observer {
-    private Diagram diagram;
+public class Context<T extends F<T>> extends Observable implements Observer {
+    private Diagram<T> diagram;
+    private int step = 0;
     private AbstractPaintAction paintAction = new PaintLazy();
 
     @Deprecated
     public Context() {
     }
 
-    public Context(Diagram diagram) {
+    public Context(Diagram<T> diagram) {
         this.diagram = diagram;
         this.diagram.addObserver(this);
         this.paintAction.addObserver(this);
     }
 
-    public Diagram getDiagram() {
-        return diagram;
+    public void next(int steps) {
+        step = Math.min(
+                steps + step,
+                diagram.getSteps().size());
     }
 
-    public void setDiagram(Diagram diagram) {
-        this.diagram = diagram;
-        this.diagram.addObserver(this);
-        for (Step step : diagram.getSteps()) {
-            //            step.update();
-        }
-        initialize();
+    public void prev(int steps) {
+        step = Math.max(steps - step, 0);
+    }
+
+    public Diagram<T> getDiagram() {
+        return diagram;
     }
 
     public void initialize() {
@@ -54,13 +56,8 @@ public class Context extends Observable implements Observer {
         notifyObservers();
     }
 
-    public AbstractPaintAction getPaintAction() {
-        return paintAction;
-    }
-
-    public void setPaintAction(AbstractPaintAction paintAction) {
-        paintAction.addObserver(this);
-        this.paintAction = paintAction;
+    public int getStep() {
+        return step;
     }
 
 }

@@ -11,6 +11,8 @@ import diamond.view.resource.string.Labels;
  *
  */
 public abstract class F<T> {
+    public F() {
+    }
 
     public abstract F<T> add(F<T> f);
 

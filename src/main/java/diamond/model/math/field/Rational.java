@@ -4,8 +4,6 @@
  */
 package diamond.model.math.field;
 
-import diamond.view.resource.string.Labels;
-
 /**
  * @author Kei Morisue
  *
@@ -19,15 +17,18 @@ public class Rational extends F<Rational> {
     }
 
     public Rational(int n, int d) {
+        if (d == 0) {
+            return;
+        }
         if (d < 0) {
             this.n = -n;
             this.d = -d;
-        } else if (0 < d) {
-            this.n = n;
-            this.d = d;
-        } else {
-            System.out.println(Labels.get("div0"));
+            reduce();
+            return;
         }
+        this.n = n;
+        this.d = d;
+        reduce();
     }
 
     public static int gcd(int a, int b) {
@@ -41,7 +42,7 @@ public class Rational extends F<Rational> {
     }
 
     private void reduce() {
-        int r = gcd(n, d);
+        int r = (n < 0) ? -gcd(-n, d) : gcd(n, d);
         n = n / r;
         d = d / r;
     }
@@ -74,6 +75,9 @@ public class Rational extends F<Rational> {
 
     @Override
     public String toString() {
+        if (isZero()) {
+            return "0";
+        }
         return Integer.toString(n) + "/" + Integer.toString(d);
     }
 
