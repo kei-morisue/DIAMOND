@@ -33,12 +33,8 @@ public class Context<T extends F<T>> extends Observable implements Observer {
 
     public void next(int steps) {
         step = Math.min(
-                steps + step,
-                diagram.getSteps().size());
-    }
-
-    public void prev(int steps) {
-        step = Math.max(steps - step, 0);
+                Math.max(steps + step, 0),
+                diagram.getSteps().size() - 1);
     }
 
     public Diagram<T> getDiagram() {

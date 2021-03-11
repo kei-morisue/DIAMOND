@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -25,6 +26,11 @@ public final class FaceDrawer {
             LinkedList<Ver<T>> vers,
             HashSet<Seg<T>> creases) {
         Ver<T> wer = vers.getLast();
+        g2d.setColor(Color.white);//TODO
+        g2d.fill(ShapeBuilder.build(vers));
+        for (Seg<T> crease : creases) {
+            crease.draw(screen, g2d);
+        }
         for (Ver<T> ver : vers) {
             new Link<T>(null, null, wer, ver).draw(screen, g2d);
             wer = ver;

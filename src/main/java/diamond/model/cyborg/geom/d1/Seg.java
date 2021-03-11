@@ -4,10 +4,13 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.graphics.SegDrawer;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -24,6 +27,10 @@ public class Seg<T extends F<T>> implements Serializable {
     public Seg(Ver<T> p, Ver<T> q) {
         this.p = p;
         this.q = q;
+    }
+
+    public void draw(ScreenModel screen, Graphics2D g2d) {
+        SegDrawer.draw(screen, g2d, p, q);
     }
 
     @Deprecated

@@ -54,6 +54,20 @@ public class Face<T extends F<T>> {
         return new Link<T>(this, f, p, q);
     }
 
+    @SafeVarargs
+    public final void add(Seg<T>... segs) {
+        for (Seg<T> seg : segs) {
+            creases.add(seg);
+        }
+    }
+
+    @SafeVarargs
+    public final void remove(Seg<T>... segs) {
+        for (Seg<T> seg : segs) {
+            creases.remove(seg);
+        }
+    }
+
     public void draw(ScreenModel screen, Graphics2D g2d) {
         FaceDrawer.draw(screen, g2d, vers, creases);
     }

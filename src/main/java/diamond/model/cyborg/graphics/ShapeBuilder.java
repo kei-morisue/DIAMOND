@@ -4,7 +4,9 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.F;
@@ -23,6 +25,17 @@ public class ShapeBuilder {
     //                size);
     //    }
     //
+    public static <T extends F<T>> GeneralPath build(List<Ver<T>> vers) {
+        GeneralPath outline = new GeneralPath();
+        Ver<T> w = vers.get(vers.size() - 1);
+        outline.moveTo(w.x.d(), w.y.d());
+        for (Ver<T> v : vers) {
+            outline.lineTo(v.x.d(), v.y.d());
+        }
+        outline.closePath();
+        return outline;
+    }
+
     //    public static GeneralPath build(Face face) {
     //        GeneralPath outline = new GeneralPath();
     //        LinkedList<Vertex> vertices = face.getVertices();

@@ -9,6 +9,7 @@ import java.util.HashSet;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
@@ -24,7 +25,10 @@ public class StepBuilder {
         Ver<T> d = new Ver<T>(size.neg(), size);
 
         ArrayList<Face<T>> faces = new ArrayList<>();
-        faces.add(new Face<T>(a, b, c, d));
+
+        Face<T> face = new Face<T>(a, b, c, d);
+        face.add(new Seg<T>(a, c));
+        faces.add(face);
         HashSet<Link<T>> links = new HashSet<>();
 
         return new Step<T>(faces, links);
