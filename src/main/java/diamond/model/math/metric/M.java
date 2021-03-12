@@ -10,21 +10,21 @@ import diamond.model.math.field.F;
  * @author Kei Morisue
  *
  */
-public abstract class M<T, S extends F<S>> {
+public abstract class M<T extends F<T>> {
 
-    public abstract M<T, S> add(M<T, S> m);
+    public abstract M<T> add(M<T> m);
 
-    public abstract M<T, S> neg();
+    public abstract M<T> neg();
 
-    public abstract F<S> prod(M<T, S> m);
+    public abstract F<T> prod(M<T> m);
 
-    public abstract M<T, S> scale(F<S> f);
+    public abstract M<T> scale(F<T> f);
 
-    public M<T, S> sub(M<T, S> m) {
+    public M<T> sub(M<T> m) {
         return add(m.neg());
     };
 
-    public F<S> norm(M<T, S> m) {
+    public F<T> norm() {
         return prod(this);
     };
 

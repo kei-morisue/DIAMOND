@@ -111,4 +111,14 @@ public class Rational extends F<Rational> {
         return n / d;
     }
 
+    @Override
+    public F<Rational> mul(int i) {
+        return new Rational(n * i, d);
+    }
+
+    @Override
+    public F<Rational> div(int i) {
+        return new Rational(n, d * i);
+    }
+
 }

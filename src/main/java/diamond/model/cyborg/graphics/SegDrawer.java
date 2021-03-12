@@ -25,4 +25,15 @@ public class SegDrawer {
         g2d.draw(
                 ShapeBuilder.build(p, q));
     }
+
+    //TODO
+    public static <T extends F<T>> void drawPointed(
+            ScreenModel<T> screen,
+            Graphics2D g2d,
+            Ver<T> p,
+            Ver<T> q) {
+        g2d.setColor(Color.GREEN);//TODO
+        g2d.draw(
+                ShapeBuilder.build(p, q));
+    }
 }

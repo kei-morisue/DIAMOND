@@ -63,4 +63,14 @@ public class Real extends F<Real> {
     public double d() {
         return a;
     }
+
+    @Override
+    public F<Real> mul(int i) {
+        return new Real(a * i);
+    }
+
+    @Override
+    public F<Real> div(int i) {
+        return new Real(a / i);
+    }
 }

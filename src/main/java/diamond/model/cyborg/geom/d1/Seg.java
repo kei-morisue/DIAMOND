@@ -16,40 +16,21 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public class Seg<T extends F<T>> implements Serializable {
-    private Ver<T> p;
-    private Ver<T> q;
-
+public class Seg<T extends F<T>> extends D1<T> implements Serializable {
     @Deprecated
     public Seg() {
     }
 
     public Seg(Ver<T> p, Ver<T> q) {
-        this.p = p;
-        this.q = q;
+        super(p, q);
     }
 
-    public void draw(ScreenModel screen, Graphics2D g2d) {
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
         SegDrawer.draw(screen, g2d, p, q);
     }
 
-    @Deprecated
-    public Ver<T> getP() {
-        return p;
-    }
-
-    @Deprecated
-    public void setP(Ver<T> p) {
-        this.p = p;
-    }
-
-    @Deprecated
-    public Ver<T> getQ() {
-        return q;
-    }
-
-    @Deprecated
-    public void setQ(Ver<T> q) {
-        this.q = q;
+    //TBD
+    public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
+        SegDrawer.drawPointed(screen, g2d, p, q);
     }
 }

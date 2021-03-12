@@ -7,10 +7,10 @@ package diamond.controller.action.screen;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-import diamond.Config;
 import diamond.controller.Context;
 import diamond.controller.action.screen.state.AbstractScreenState;
 import diamond.controller.action.screen.state.StateIdol;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
@@ -59,16 +59,25 @@ public final class ScreenModelAction<T extends F<T>>
 
     @Override
     protected void set(double x, double y) {
-        double eps = Config.EPS_V / screen.getScale();
-        v = context.getStep().findVer(x, y, eps);
+        double scale = screen.getScale();
+        Step<T> step = context.getStep();
+        v = step.findVer(x, y, scale);
+        s = step.findSeg(x, y, scale);
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         if (v != null) {
             v.draw((ScreenModel<T>) screen, g2d);
+            state.draw(g2d);
+            return;
         }
-        state.draw(g2d);
+        if (s != null) {
+            s.drawPointed((ScreenModel<T>) screen, g2d);
+            state.draw(g2d);
+            return;
+        }
+
     }
 
 }

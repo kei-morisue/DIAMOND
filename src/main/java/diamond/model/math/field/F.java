@@ -20,6 +20,10 @@ public abstract class F<T> {
 
     public abstract F<T> mul(F<T> f);
 
+    public abstract F<T> mul(int i);
+
+    public abstract F<T> div(int i);
+
     public abstract F<T> invImpl();
 
     public abstract boolean isZero();

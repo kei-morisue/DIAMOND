@@ -7,7 +7,9 @@ package diamond.model.cyborg.geom.d0;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 
+import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.graphics.VerDrawer;
+import diamond.model.math.Util;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -15,9 +17,10 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public class Ver<T extends F<T>> implements Serializable {
+public class Ver<T extends F<T>> implements Serializable, Metric {
     public F<T> x;
     public F<T> y;
+    private static final double EPS = 250;
 
     @Deprecated
     public Ver() {
@@ -56,6 +59,13 @@ public class Ver<T extends F<T>> implements Serializable {
     @Deprecated
     public void setY(F<T> y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        double dx = this.x.d() - x;
+        double dy = this.y.d() - y;
+        return Util.norm(dx, dy) < EPS / scale / scale;
     }
 
 }

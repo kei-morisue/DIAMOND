@@ -39,13 +39,28 @@ public final class Step<T extends F<T>> {
         this.links = links;
     }
 
-    public Link<T> findLink(double x, double y, double eps) {
+    public Link<T> findLink(double x, double y, double scale) {
+        for (Link<T> link : links) {
+            if (link.isNear(x, y, scale)) {
+                return link;
+            }
+        }
         return null;//TODO
     }
 
-    public Ver<T> findVer(double x, double y, double eps) {
+    public Seg<T> findSeg(double x, double y, double scale) {
         for (Face<T> face : faces) {
-            Ver<T> ver = face.findVer(x, y, eps);
+            Seg<T> seg = face.findSeg(x, y, scale);
+            if (seg != null) {
+                return seg;
+            }
+        }
+        return null;//TODO
+    }
+
+    public Ver<T> findVer(double x, double y, double scale) {
+        for (Face<T> face : faces) {
+            Ver<T> ver = face.findVer(x, y, scale);
             if (ver != null) {
                 return ver;
             }
@@ -53,11 +68,7 @@ public final class Step<T extends F<T>> {
         return null;
     }
 
-    public Seg<T> findSeg(double x, double y, double eps) {
-        return null;//TODO
-    }
-
-    public Face<T> findFace(double x, double y, double eps) {
+    public Face<T> findFace(double x, double y, double scale) {
         return baseFace;//TODO
     }
 

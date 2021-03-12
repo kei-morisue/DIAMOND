@@ -44,6 +44,7 @@ public final class StateIdol extends AbstractScreenState {
 
     @Override
     public void draw(Graphics2D g2d) {
+        //TODO
     }
 
 }

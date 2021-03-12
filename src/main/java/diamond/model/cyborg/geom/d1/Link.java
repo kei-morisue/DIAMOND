@@ -17,9 +17,8 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public class Link<T extends F<T>> implements Serializable {
-    private Ver<T> p;
-    private Ver<T> q;
+public class Link<T extends F<T>> extends D1<T>
+        implements Serializable {
     private Face<T> f;
     private Face<T> g;
 
@@ -28,13 +27,12 @@ public class Link<T extends F<T>> implements Serializable {
     }
 
     public Link(Face<T> f, Face<T> g, Ver<T> p, Ver<T> q) {
-        this.p = p;
-        this.q = q;
+        super(p, q);
         this.f = f;
         this.g = g;
     }
 
-    public void draw(ScreenModel screen, Graphics2D g2d) {
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
         LinkDrawer.draw(screen, g2d, p, q);
     }
 
@@ -77,4 +75,5 @@ public class Link<T extends F<T>> implements Serializable {
     public void setG(Face<T> g) {
         this.g = g;
     }
+
 }

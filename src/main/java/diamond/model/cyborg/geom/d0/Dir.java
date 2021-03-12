@@ -13,7 +13,7 @@ import diamond.model.math.metric.M;
  * @author Kei Morisue
  *
  */
-public class Dir<T extends F<T>> extends M<Dir<T>, T> implements Serializable {
+public class Dir<T extends F<T>> extends M<T> implements Serializable {
     public final F<T> x;
     public final F<T> y;
 
@@ -29,26 +29,38 @@ public class Dir<T extends F<T>> extends M<Dir<T>, T> implements Serializable {
                 w0.y.add(y));
     }
 
+    public Dir<T> n() {
+        return new Dir<T>(y.neg(), x);
+    }
+
     @Override
-    public M<Dir<T>, T> add(M<Dir<T>, T> m) {
+    public M<T> add(M<T> m) {
         Dir<T> n = (Dir<T>) m;
         return new Dir<T>(x.add(n.x), y.add(n.y));
     }
 
     @Override
-    public M<Dir<T>, T> neg() {
+    public M<T> neg() {
         return new Dir<T>(x.neg(), y.neg());
     }
 
     @Override
-    public F<T> prod(M<Dir<T>, T> m) {
+    public F<T> prod(M<T> m) {
         Dir<T> n = (Dir<T>) m;
         return x.mul(n.y).add(y.mul(n.x));
     }
 
     @Override
-    public M<Dir<T>, T> scale(F<T> f) {
+    public M<T> scale(F<T> f) {
         return new Dir<T>(x.mul(f), y.mul(f));
+    }
+
+    public Dir<T> mul(int i) {
+        return new Dir<T>(x.mul(i), y.mul(i));
+    }
+
+    public Dir<T> div(int i) {
+        return new Dir<T>(x.div(i), y.div(i));
     }
 
 }

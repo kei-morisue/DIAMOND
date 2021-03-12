@@ -86,4 +86,14 @@ public class Silver extends F<Silver> {
         return a.d() + b.d() * Math.sqrt(2);
     }
 
+    @Override
+    public F<Silver> mul(int i) {
+        return new Silver((Rational) a.mul(i), (Rational) b.mul(i));
+    }
+
+    @Override
+    public F<Silver> div(int i) {
+        return new Silver((Rational) a.div(i), (Rational) b.div(i));
+    }
+
 }

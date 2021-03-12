@@ -5,9 +5,11 @@
 package diamond.model.cyborg.geom.d2;
 
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
@@ -19,9 +21,10 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public class Face<T extends F<T>> {
+public class Face<T extends F<T>> implements Serializable, Metric {
     private LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
+    private static final double EPS = 100;
 
     @Deprecated
     public Face() {
@@ -34,19 +37,22 @@ public class Face<T extends F<T>> {
         }
     }
 
-    public Ver<T> findVer(double x, double y, double eps) {
+    public Ver<T> findVer(double x, double y, double scale) {
         for (Ver<T> ver : vers) {
-            double dx = ver.x.d() - x;
-            double dy = ver.y.d() - y;
-            if (Math.hypot(dx, dy) < eps) {//TODO
+            if (ver.isNear(x, y, scale)) {
                 return ver;
             }
         }
         return null;
     }
 
-    public Seg<T> findSeg(double x, double y, double eps) {
-        return null;//TODO
+    public Seg<T> findSeg(double x, double y, double scale) {
+        for (Seg<T> crease : creases) {
+            if (crease.isNear(x, y, scale)) {
+                return crease;
+            }
+        }
+        return null;
     }
 
     public Link<T> link(Face<T> f) {
@@ -105,5 +111,11 @@ public class Face<T extends F<T>> {
     @Deprecated
     public void setCreases(HashSet<Seg<T>> creases) {
         this.creases = creases;
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        // TODO 自動生成されたメソッド・スタブ
+        return false;
     }
 }
