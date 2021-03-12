@@ -19,7 +19,7 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public final class StepDrawer {
     public static <T extends F<T>> void draw(
-            ScreenModel screen,
+            ScreenModel<T> screen,
             Graphics2D g2d,
             ArrayList<Face<T>> faces,
             Face<T> baseFace,

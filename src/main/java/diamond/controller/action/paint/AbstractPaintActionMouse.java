@@ -4,8 +4,8 @@
  */
 package diamond.controller.action.paint;
 
-import diamond.controller.action.state.AbstractPaintState;
-import diamond.controller.action.state.AbstractState;
+import diamond.controller.action.paint.state.AbstractPaintState;
+import diamond.controller.action.paint.state.AbstractState;
 
 /**
  * @author Kei Morisue

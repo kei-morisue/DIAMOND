@@ -8,7 +8,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.StepDrawer;
 import diamond.model.math.field.F;
@@ -37,6 +39,28 @@ public final class Step<T extends F<T>> {
         this.links = links;
     }
 
+    public Link<T> findLink(double x, double y, double eps) {
+        return null;//TODO
+    }
+
+    public Ver<T> findVer(double x, double y, double eps) {
+        for (Face<T> face : faces) {
+            Ver<T> ver = face.findVer(x, y, eps);
+            if (ver != null) {
+                return ver;
+            }
+        }
+        return null;
+    }
+
+    public Seg<T> findSeg(double x, double y, double eps) {
+        return null;//TODO
+    }
+
+    public Face<T> findFace(double x, double y, double eps) {
+        return baseFace;//TODO
+    }
+
     public Step(Step<T> step) {
         faces = step.faces;
         baseFace = step.baseFace;
@@ -44,7 +68,7 @@ public final class Step<T extends F<T>> {
         transform = step.transform;
     }
 
-    public void draw(ScreenModel screen, Graphics2D g2d) {
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
         StepDrawer.draw(screen, g2d, faces, baseFace, links);
     }
 

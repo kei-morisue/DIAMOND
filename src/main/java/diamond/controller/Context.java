@@ -7,9 +7,8 @@ package diamond.controller;
 import java.util.Observable;
 import java.util.Observer;
 
-import diamond.controller.action.paint.AbstractPaintAction;
-import diamond.controller.action.paint.PaintLazy;
 import diamond.model.cyborg.diagram.Diagram;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.math.field.F;
 
 /**
@@ -18,8 +17,8 @@ import diamond.model.math.field.F;
  */
 public class Context<T extends F<T>> extends Observable implements Observer {
     private Diagram<T> diagram;
-    private int step = 0;
-    private AbstractPaintAction paintAction = new PaintLazy();
+    private int stepIndex = 0;
+    //    private AbstractPaintAction paintAction = new PaintLazy();
 
     @Deprecated
     public Context() {
@@ -28,12 +27,12 @@ public class Context<T extends F<T>> extends Observable implements Observer {
     public Context(Diagram<T> diagram) {
         this.diagram = diagram;
         this.diagram.addObserver(this);
-        this.paintAction.addObserver(this);
+        //        this.paintAction.addObserver(this);
     }
 
     public void next(int steps) {
-        step = Math.min(
-                Math.max(steps + step, 0),
+        stepIndex = Math.min(
+                Math.max(steps + stepIndex, 0),
                 diagram.getSteps().size() - 1);
     }
 
@@ -52,8 +51,12 @@ public class Context<T extends F<T>> extends Observable implements Observer {
         notifyObservers();
     }
 
-    public int getStep() {
-        return step;
+    public Step<T> getStep() {
+        return diagram.getStep(stepIndex);//TODO
+    }
+
+    public int getStepIdndex() {
+        return stepIndex;
     }
 
 }

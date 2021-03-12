@@ -11,7 +11,7 @@ import diamond.view.resource.string.Labels;
  *
  */
 public abstract class F<T> {
-    public F() {
+    protected F() {
     }
 
     public abstract F<T> add(F<T> f);
@@ -44,4 +44,5 @@ public abstract class F<T> {
     public abstract String toString();
 
     public abstract double d();
+
 }

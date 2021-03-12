@@ -4,11 +4,10 @@
  */
 package diamond.model.cyborg.graphics;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -18,9 +17,11 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public final class VerDrawer {
     public static <T extends F<T>> void draw(
-            ScreenModel screen,
-            LinkedList<Ver<T>> vers,
-            HashSet<Seg<T>> creases) {
-
+            ScreenModel<T> screen,
+            Graphics2D g2d,
+            Ver<T> ver) {
+        g2d.setColor(Color.green);//TODO
+        double size = 10 / screen.getScale();//TODO
+        g2d.fill(ShapeBuilder.build(ver, size));
     }
 }

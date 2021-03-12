@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import java.util.Observable;
 
 import diamond.controller.Context;
-import diamond.controller.action.ScreenActionPaint;
+import diamond.controller.action.screen.ScreenModelAction;
 import diamond.view.ui.screen.style.Skin;
 
 /**
@@ -20,7 +20,7 @@ public final class ScreenCp extends AbstractScreen {
 
     public ScreenCp(Context context) {
         super(context);
-        ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
+        ScreenModelAction screenAction = new ScreenModelAction(context, this);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);

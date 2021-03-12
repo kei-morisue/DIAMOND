@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.util.List;
@@ -16,15 +17,17 @@ import diamond.model.math.field.F;
  *
  */
 public class ShapeBuilder {
-    //    public static Ellipse2D.Double build(Vertex v, double size) {
-    //        double sizeHalf = size * 0.5;
-    //        return new Ellipse2D.Double(
-    //                v.getX() - sizeHalf,
-    //                v.getY() - sizeHalf,
-    //                size,
-    //                size);
-    //    }
-    //
+    public static <T extends F<T>> Ellipse2D.Double build(
+            Ver<T> v,
+            double size) {
+        double sizeHalf = size * 0.5;
+        return new Ellipse2D.Double(
+                v.x.d() - sizeHalf,
+                v.y.d() - sizeHalf,
+                size,
+                size);
+    }
+
     public static <T extends F<T>> GeneralPath build(List<Ver<T>> vers) {
         GeneralPath outline = new GeneralPath();
         Ver<T> w = vers.get(vers.size() - 1);

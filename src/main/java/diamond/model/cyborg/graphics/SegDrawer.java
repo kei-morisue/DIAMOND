@@ -17,7 +17,7 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public class SegDrawer {
     public static <T extends F<T>> void draw(
-            ScreenModel screen,
+            ScreenModel<T> screen,
             Graphics2D g2d,
             Ver<T> p,
             Ver<T> q) {

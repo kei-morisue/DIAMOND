@@ -34,6 +34,21 @@ public class Face<T extends F<T>> {
         }
     }
 
+    public Ver<T> findVer(double x, double y, double eps) {
+        for (Ver<T> ver : vers) {
+            double dx = ver.x.d() - x;
+            double dy = ver.y.d() - y;
+            if (Math.hypot(dx, dy) < eps) {//TODO
+                return ver;
+            }
+        }
+        return null;
+    }
+
+    public Seg<T> findSeg(double x, double y, double eps) {
+        return null;//TODO
+    }
+
     public Link<T> link(Face<T> f) {
         Ver<T> p = null;
         Ver<T> q = null;
@@ -68,7 +83,7 @@ public class Face<T extends F<T>> {
         }
     }
 
-    public void draw(ScreenModel screen, Graphics2D g2d) {
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
         FaceDrawer.draw(screen, g2d, vers, creases);
     }
 

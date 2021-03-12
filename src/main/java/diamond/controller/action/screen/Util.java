@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.controller.mouse;
+package diamond.controller.action.screen;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -12,12 +12,6 @@ import java.awt.event.MouseEvent;
  *
  */
 public class Util {
-    //    public static Vertex getLogicalPoint(TransformScreen transform,
-    //            Point mousePoint) {
-    //        Point2D.Double logicalPoint = new Point2D.Double();
-    //        transform.getInverse().transform(mousePoint, logicalPoint);
-    //        return new Vertex(logicalPoint.x, logicalPoint.y);
-    //    }
 
     public static boolean isControlKeyPressed(MouseEvent e) {
         return ((e.getModifiersEx()

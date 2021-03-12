@@ -21,7 +21,7 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public final class FaceDrawer {
     public static <T extends F<T>> void draw(
-            ScreenModel screen,
+            ScreenModel<T> screen,
             Graphics2D g2d,
             LinkedList<Ver<T>> vers,
             HashSet<Seg<T>> creases) {

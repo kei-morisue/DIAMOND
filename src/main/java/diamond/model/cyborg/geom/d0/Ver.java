@@ -4,9 +4,12 @@
  */
 package diamond.model.cyborg.geom.d0;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
+import diamond.model.cyborg.graphics.VerDrawer;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -29,6 +32,10 @@ public class Ver<T extends F<T>> implements Serializable {
         return new Dir<T>(
                 x.sub(v0.x),
                 y.sub(v0.y));
+    }
+
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
+        VerDrawer.draw(screen, g2d, this);
     }
 
     @Deprecated

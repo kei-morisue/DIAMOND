@@ -27,7 +27,7 @@ import diamond.view.ui.panel.main.PanelCp;
 public class MainFrame extends JFrame {
     private Real size = new Real(Config.size);
     private Diagram<Real> diagram = new Diagram<Real>(size);
-    private Context<Real> context = new Context<Real>(diagram);
+    private Context context = new Context(diagram);
     private MainBar menubar = new MainBar(context);
 
     public MainFrame() {

@@ -9,35 +9,47 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.geom.Point2D;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class AbstractScreen extends JPanel
+public abstract class AbstractScreen<T extends F<T>> extends JPanel
         implements ComponentListener, Observer {
     protected TransformScreen transform = new TransformScreen();
-    protected Context context;
+    protected Context<T> context;
 
     @Deprecated
     public AbstractScreen() {
     }
 
-    public AbstractScreen(Context context) {
+    public AbstractScreen(Context<T> context) {
         addComponentListener(this);
         this.context = context;
         context.addObserver(this);
 
     }
 
-    public Step getStep() {
-        return context.getDiagram().getStep(context.getStep());
+    public Point2D.Double getLogicalPoint(Point2D mousePoint) {
+        Point2D.Double logicalPoint = new Point2D.Double();
+        transform.getInverse().transform(mousePoint, logicalPoint);
+        return logicalPoint;
+    }
+
+    public Step<T> getStep() {
+        return context.getStep();
+    }
+
+    public double getScale() {
+        return transform.getZoom();
     }
 
     public void zoom(double z) {

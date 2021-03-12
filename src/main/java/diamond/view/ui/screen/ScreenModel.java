@@ -9,18 +9,21 @@ import java.awt.Graphics2D;
 import java.util.Observable;
 
 import diamond.controller.Context;
-import diamond.controller.action.ScreenActionPaint;
+import diamond.controller.action.screen.ScreenModelAction;
+import diamond.model.math.field.F;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public final class ScreenModel extends AbstractScreen {
+public final class ScreenModel<T extends F<T>> extends AbstractScreen<T> {
+    private ScreenModelAction<T> screenAction;
 
-    public ScreenModel(Context context) {
+    public ScreenModel(Context<T> context) {
         super(context);
-        ScreenActionPaint screenAction = new ScreenActionPaint(context, this);
+        this.screenAction = new ScreenModelAction<T>(context,
+                this);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);
@@ -34,6 +37,7 @@ public final class ScreenModel extends AbstractScreen {
     @Override
     protected void drawStep(Graphics2D g2d) {
         getStep().draw(this, g2d);
+        screenAction.draw(g2d);
         repaint();
     }
 

@@ -63,5 +63,4 @@ public class Real extends F<Real> {
     public double d() {
         return a;
     }
-
 }
