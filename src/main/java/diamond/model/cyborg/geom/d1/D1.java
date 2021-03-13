@@ -4,11 +4,14 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import java.awt.Graphics2D;
+
+import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.math.Util;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenModel;
 
 /**
  * @author Kei Morisue
@@ -17,7 +20,7 @@ import diamond.model.math.field.F;
 public abstract class D1<T extends F<T>> implements Metric {
     protected Ver<T> p;
     protected Ver<T> q;
-    private static final double EPS = 50;
+    private static final double EPS = 100;
 
     @Deprecated
     protected D1() {
@@ -39,10 +42,16 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     @Override
     public boolean isNear(double x, double y, double scale) {
-        double d = EPS / scale / scale;
-        return Util.footSquare(p, q, x, y) < d &&
-                c().isNear(x, y, scale / lengthSquared().d());
+        return distSquare(x, y) < EPS / scale / scale &&
+                c().distSquare(x, y) < lengthSquared().div(4).d();
     }
+
+    @Override
+    public double distSquare(double x, double y) {
+        return Util.footSquare(p, q, x, y);
+    };
+
+    public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);
 
     @Deprecated
     public Ver<T> getP() {

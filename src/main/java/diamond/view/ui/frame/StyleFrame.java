@@ -25,7 +25,7 @@ public class StyleFrame extends JFrame {
         JTabbedPane pane = new JTabbedPane();
         pane.addTab(
                 Labels.get("tab_style_line"),
-                new PanelLine(context));
+                new PanelLine());
         pane.addTab(
                 Labels.get("tab_style_face"),
                 new PanelFace(context));

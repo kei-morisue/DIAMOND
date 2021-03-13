@@ -23,10 +23,9 @@ public class Dir<T extends F<T>> extends M<T> implements Serializable {
     }
 
     public Ver<T> ver(Ver<T> v0) {
-        Ver<T> w0 = (Ver<T>) v0;
         return new Ver<T>(
-                w0.x.add(x),
-                w0.y.add(y));
+                v0.x.add(x),
+                v0.y.add(y));
     }
 
     public Dir<T> n() {
@@ -47,7 +46,7 @@ public class Dir<T extends F<T>> extends M<T> implements Serializable {
     @Override
     public F<T> prod(M<T> m) {
         Dir<T> n = (Dir<T>) m;
-        return x.mul(n.y).add(y.mul(n.x));
+        return x.mul(n.x).add(y.mul(n.y));
     }
 
     @Override

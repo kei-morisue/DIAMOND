@@ -12,7 +12,7 @@ import diamond.controller.action.screen.state.AbstractScreenState;
 import diamond.controller.action.screen.state.StateIdol;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.ScreenModel;
@@ -25,7 +25,7 @@ public final class ScreenModelAction<T extends F<T>>
         extends AbstractScreenAction<T> {
     private Context<T> context;
     protected Ver<T> v;
-    protected Seg<T> s;
+    protected D1<T> s;
     protected AbstractScreenState state = new StateIdol();
 
     public ScreenModelAction(
@@ -62,7 +62,10 @@ public final class ScreenModelAction<T extends F<T>>
         double scale = screen.getScale();
         Step<T> step = context.getStep();
         v = step.findVer(x, y, scale);
-        s = step.findSeg(x, y, scale);
+        s = step.findLink(x, y, scale);
+        if (s == null) {
+            s = step.findSeg(x, y, scale);
+        }
     }
 
     @Override

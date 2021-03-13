@@ -24,7 +24,7 @@ import diamond.view.ui.screen.ScreenModel;
 public class Face<T extends F<T>> implements Serializable, Metric {
     private LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
-    private static final double EPS = 100;
+    private static final double EPS = 10;
 
     @Deprecated
     public Face() {
@@ -113,9 +113,25 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         this.creases = creases;
     }
 
+    private Ver<T> c() {
+        F<T> x = null;
+        F<T> y = null;
+        for (Ver<T> ver : vers) {
+            x = (x == null) ? ver.x : x.add(ver.x);
+            y = (y == null) ? ver.y : y.add(ver.y);
+        }
+        int n = vers.size();
+        return new Ver<T>(x.div(n), y.div(n));
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        return c().distSquare(x, y);
+    }
+
     @Override
     public boolean isNear(double x, double y, double scale) {
-        // TODO 自動生成されたメソッド・スタブ
-        return false;
+        return c().isNear(x, y, scale / EPS);
     }
+
 }

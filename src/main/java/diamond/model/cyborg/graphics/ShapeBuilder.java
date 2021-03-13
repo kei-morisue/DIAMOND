@@ -76,12 +76,14 @@ public class ShapeBuilder {
     public static <T extends F<T>> Line2D.Double build(
             Ver<T> p,
             Ver<T> q) {
-        Line2D.Double line = new Line2D.Double(
-                p.x.d(),
-                p.y.d(),
-                q.x.d(),
-                q.y.d());
-        return line;
+        return build(p.x.d(), p.y.d(), q.x.d(), q.y.d());
     }
 
+    private static Line2D.Double build(
+            double px,
+            double py,
+            double qx,
+            double qy) {
+        return new Line2D.Double(px, py, qx, qy);
+    }
 }

@@ -7,9 +7,9 @@ package diamond.model.cyborg.geom.d0;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 
+import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.graphics.VerDrawer;
-import diamond.model.math.Util;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -66,6 +66,13 @@ public class Ver<T extends F<T>> implements Serializable, Metric {
         double dx = this.x.d() - x;
         double dy = this.y.d() - y;
         return Util.norm(dx, dy) < EPS / scale / scale;
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        double dx = this.x.d() - x;
+        double dy = this.y.d() - y;
+        return Util.norm(dx, dy);
     }
 
 }

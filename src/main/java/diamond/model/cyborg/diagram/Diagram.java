@@ -11,7 +11,6 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.diagram.step.StepBuilder;
 import diamond.model.cyborg.style.StyleFace;
 import diamond.model.cyborg.style.StylePage;
-import diamond.model.cyborg.style.StyleSegment;
 import diamond.model.math.field.F;
 
 /**
@@ -21,7 +20,6 @@ import diamond.model.math.field.F;
 public class Diagram<T extends F<T>> extends Observable {
     private LinkedList<Step<T>> steps = new LinkedList<>();
     private StyleFace styleFace = new StyleFace();
-    private StyleSegment styleSegment = new StyleSegment();
     private StylePage stylePage = new StylePage();
 
     @Deprecated
@@ -52,15 +50,6 @@ public class Diagram<T extends F<T>> extends Observable {
     @Deprecated
     public void setStyleFace(StyleFace styleFace) {
         this.styleFace = styleFace;
-    }
-
-    public StyleSegment getStyleSegment() {
-        return styleSegment;
-    }
-
-    @Deprecated
-    public void setStyleSegment(StyleSegment styleSegment) {
-        this.styleSegment = styleSegment;
     }
 
     public StylePage getStylePage() {

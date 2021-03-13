@@ -10,4 +10,6 @@ package diamond.model.cyborg.geom;
  */
 public interface Metric {
     public boolean isNear(double x, double y, double scale);
+
+    public double distSquare(double x, double y);
 }

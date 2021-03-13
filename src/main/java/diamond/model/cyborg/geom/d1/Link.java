@@ -36,6 +36,11 @@ public class Link<T extends F<T>> extends D1<T>
         LinkDrawer.draw(screen, g2d, p, q);
     }
 
+    @Override
+    public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
+        LinkDrawer.drawPointed(screen, g2d, p, q);
+    }
+
     @Deprecated
     public Ver<T> getP() {
         return p;

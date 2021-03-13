@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.graphics;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -16,13 +17,44 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public final class LinkDrawer {
+    final public static int CAP = BasicStroke.CAP_BUTT;
+    final public static int JOIN = BasicStroke.JOIN_ROUND;
+    final public static Color POINTED = Color.GREEN;
+    final public static Color BASE = Color.BLACK;
+    final private static float WIDTH = 3.0f;
+    final private static float WIDTH_CP = 0.0f;
+
     public static <T extends F<T>> void draw(
             ScreenModel<T> screen,
             Graphics2D g2d,
             Ver<T> p,
             Ver<T> q) {
-        g2d.setColor(Color.BLACK);//TODO
+        g2d.setColor(BASE);
+        g2d.setStroke(strokeModel(screen.getScale()));
         g2d.draw(
                 ShapeBuilder.build(p, q));
     }
+
+    public static <T extends F<T>> void drawPointed(
+            ScreenModel<T> screen,
+            Graphics2D g2d,
+            Ver<T> p,
+            Ver<T> q) {
+        g2d.setColor(POINTED);
+        g2d.setStroke(strokePointed(screen.getScale()));
+        g2d.draw(ShapeBuilder.build(p, q));
+    }
+
+    private static BasicStroke strokeCp(double scale) {
+        return new BasicStroke(WIDTH_CP / (float) scale, CAP, JOIN);
+    }
+
+    private static BasicStroke strokeModel(double scale) {
+        return new BasicStroke(WIDTH / (float) scale, CAP, JOIN);
+    }
+
+    private static BasicStroke strokePointed(double scale) {
+        return new BasicStroke(WIDTH / (float) scale, CAP, JOIN);
+    }
+
 }

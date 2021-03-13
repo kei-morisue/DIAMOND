@@ -45,7 +45,7 @@ public final class Step<T extends F<T>> {
                 return link;
             }
         }
-        return null;//TODO
+        return null;
     }
 
     public Seg<T> findSeg(double x, double y, double scale) {
@@ -55,7 +55,7 @@ public final class Step<T extends F<T>> {
                 return seg;
             }
         }
-        return null;//TODO
+        return null;
     }
 
     public Ver<T> findVer(double x, double y, double scale) {

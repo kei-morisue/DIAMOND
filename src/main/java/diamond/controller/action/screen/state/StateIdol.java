@@ -7,7 +7,7 @@ package diamond.controller.action.screen.state;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
 
 /**
@@ -18,26 +18,26 @@ public final class StateIdol extends AbstractScreenState {
 
     @Override
     protected <T extends F<T>> AbstractScreenState leftCtrl(Ver<T> v,
-            Seg<T> s) {
+            D1<T> s) {
         // TODO 自動生成されたメソッド・スタブ
         return this;
     }
 
     @Override
     protected <T extends F<T>> AbstractScreenState rightCtrl(Ver<T> v,
-            Seg<T> s) {
+            D1<T> s) {
         // TODO 自動生成されたメソッド・スタブ
         return this;
     }
 
     @Override
-    protected <T extends F<T>> AbstractScreenState left(Ver<T> v, Seg<T> s) {
+    protected <T extends F<T>> AbstractScreenState left(Ver<T> v, D1<T> s) {
         // TODO 自動生成されたメソッド・スタブ
         return this;
     }
 
     @Override
-    protected <T extends F<T>> AbstractScreenState right(Ver<T> v, Seg<T> s) {
+    protected <T extends F<T>> AbstractScreenState right(Ver<T> v, D1<T> s) {
         // TODO 自動生成されたメソッド・スタブ
         return this;
     }

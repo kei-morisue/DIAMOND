@@ -30,6 +30,10 @@ public class StepBuilder {
         face.add(new Seg<T>(a, c));
         faces.add(face);
         HashSet<Link<T>> links = new HashSet<>();
+        links.add(new Link<T>(face, null, a, b));
+        links.add(new Link<T>(face, null, b, c));
+        links.add(new Link<T>(face, null, c, d));
+        links.add(new Link<T>(face, null, d, a));
 
         return new Step<T>(faces, links);
     }

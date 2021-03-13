@@ -50,8 +50,7 @@ public class Rational extends F<Rational> {
     @Override
     public F<Rational> add(F<Rational> f) {
         Rational g = (Rational) f;
-        Rational r = new Rational(n * g.d + g.n + d, d * g.d);
-        r.reduce();
+        Rational r = new Rational(n * g.d + g.n * d, d * g.d);
         return r;
     }
 
@@ -108,7 +107,7 @@ public class Rational extends F<Rational> {
 
     @Override
     public double d() {
-        return n / d;
+        return (double) n / d;
     }
 
     @Override

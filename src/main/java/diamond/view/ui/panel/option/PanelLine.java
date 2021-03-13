@@ -12,8 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import diamond.controller.Context;
-import diamond.model.cyborg.style.StyleSegment;
+import diamond.model.cyborg.graphics.SegDrawer;
 import diamond.model.math.fuzzy.Util;
 import diamond.view.resource.string.Labels;
 
@@ -23,11 +22,9 @@ import diamond.view.resource.string.Labels;
  */
 public class PanelLine extends JPanel {
     private JTextField textField = new JTextField();
-    private StyleSegment styleSegment;
 
-    public PanelLine(Context context) {
+    public PanelLine() {
         super();
-        styleSegment = context.getDiagram().getStyleSegment();
         buildTextField();
         setLayout(new FlowLayout());
         add(new JLabel(Labels.get("clipping_scale")));
@@ -36,7 +33,7 @@ public class PanelLine extends JPanel {
     }
 
     private void buildTextField() {
-        textField.setText(String.valueOf(100.0 * styleSegment.getClip()));
+        textField.setText(String.valueOf(SegDrawer.CUT));
         textField.setColumns(4);
         textField.addActionListener(new Action());
         textField.setHorizontalAlignment(JTextField.RIGHT);
@@ -45,9 +42,9 @@ public class PanelLine extends JPanel {
     private class Action implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            double input = Double.parseDouble(textField.getText());
-            double set = Util.hairCut(input, .0, 100.0);
-            styleSegment.setClip(set * 0.01);
+            int input = Integer.parseInt(textField.getText());
+            int set = Util.hairCut(input, 0, 100);
+            SegDrawer.CUT = set;
             textField.setText(String.valueOf(set));
         }
     }

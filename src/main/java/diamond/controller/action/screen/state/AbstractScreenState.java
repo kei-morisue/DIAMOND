@@ -7,7 +7,7 @@ package diamond.controller.action.screen.state;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
 
 /**
@@ -19,7 +19,7 @@ public abstract class AbstractScreenState {
             boolean isLeft,
             boolean isCtrl,
             Ver<T> v,
-            Seg<T> s) {
+            D1<T> s) {
         if (isCtrl) {
             return (isLeft) ? leftCtrl(v, s) : rightCtrl(v, s);
         }
@@ -30,17 +30,17 @@ public abstract class AbstractScreenState {
 
     protected abstract <T extends F<T>> AbstractScreenState leftCtrl(
             Ver<T> v,
-            Seg<T> s);
+            D1<T> s);
 
     protected abstract <T extends F<T>> AbstractScreenState rightCtrl(
             Ver<T> v,
-            Seg<T> s);
+            D1<T> s);
 
     protected abstract <T extends F<T>> AbstractScreenState left(
             Ver<T> v,
-            Seg<T> s);
+            D1<T> s);
 
     protected abstract <T extends F<T>> AbstractScreenState right(
             Ver<T> v,
-            Seg<T> s);
+            D1<T> s);
 }
