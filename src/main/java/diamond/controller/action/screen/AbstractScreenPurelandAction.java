@@ -24,14 +24,17 @@ public abstract class AbstractScreenPurelandAction<T extends F<T>>
             Context<T> context,
             AbstractScreen<T> screen) {
         super(screen);
-        this.state = new StateIdle<T>(context, null);
+        this.state = new StateIdle<T>(context);
+        screen.addKeyListener(state);
     }
 
     @Override
     public void onAction(MouseEvent e) {
         boolean isCtrl = Util.isControlKeyPressed(e);
         boolean isLeft = Util.isLeftClick(e);
+        screen.removeKeyListener(state);
         state = state.next(isLeft, isCtrl);
+        screen.addKeyListener(state);
     }
 
     @Override

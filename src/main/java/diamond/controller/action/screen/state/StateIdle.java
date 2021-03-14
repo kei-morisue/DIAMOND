@@ -17,11 +17,15 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
-
+    @Deprecated
     public StateIdle(
             Context<T> context,
             AbstractScreenState<T> prevState) {
         super(context, prevState);
+    }
+
+    public StateIdle(Context<T> context) {
+        super(context, null);
     }
 
     @Override
@@ -36,7 +40,7 @@ public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(D1<T> t) {
-        return this;//TODO
+        return this;//TODO to Axiom 6 & 7
     }
 
     @Override

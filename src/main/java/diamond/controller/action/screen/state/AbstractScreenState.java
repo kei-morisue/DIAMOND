@@ -5,8 +5,11 @@
 package diamond.controller.action.screen.state;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import diamond.controller.Context;
+import diamond.controller.action.screen.Util;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
@@ -17,11 +20,12 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public abstract class AbstractScreenState<T extends F<T>>
-        implements StateCtrl<T> {
+        implements StateCtrl<T>, KeyListener {
     protected AbstractScreenState<T> prevState;
     protected Context<T> context;
     protected Ver<T> pointedV;
     protected D1<T> pointedS;
+    protected boolean isCtrl;
 
     protected AbstractScreenState(
             Context<T> context,
@@ -56,6 +60,21 @@ public abstract class AbstractScreenState<T extends F<T>>
 
     protected AbstractScreenState<T> onRight() {
         return prevState;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //        isCtrl = !Util.isCtrl(e);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        isCtrl = Util.isCtrl(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        isCtrl = false;
     }
 
     @Override

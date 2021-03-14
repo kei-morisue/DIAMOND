@@ -81,6 +81,7 @@ public abstract class AbstractScreenAction<T extends F<T>>
 
     @Override
     public final void mouseEntered(MouseEvent e) {
+        screen.requestFocus();
     }
 
     public abstract void onAction(MouseEvent e);

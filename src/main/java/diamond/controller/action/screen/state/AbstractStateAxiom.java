@@ -23,7 +23,7 @@ public abstract class AbstractStateAxiom<T extends F<T>>
 
     public AbstractScreenState<T> execute(boolean isRidge) {
         cut();
-        return new StateIdle<T>(context, null);
+        return new StateIdle<T>(context);
     }
 
     @Override

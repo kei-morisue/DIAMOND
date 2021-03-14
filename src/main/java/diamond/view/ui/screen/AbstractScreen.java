@@ -35,7 +35,7 @@ public abstract class AbstractScreen<T extends F<T>> extends JPanel
         addComponentListener(this);
         this.context = context;
         context.addObserver(this);
-
+        setFocusable(true);
     }
 
     public Point2D.Double getLogicalPoint(Point2D mousePoint) {

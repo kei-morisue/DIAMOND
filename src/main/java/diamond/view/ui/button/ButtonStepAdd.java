@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import diamond.controller.Context;
+import diamond.controller.action.screen.state.StateIdle;
+import diamond.model.math.field.Real;
 import diamond.view.resource.IconBuilder;
 import diamond.view.resource.string.Labels;
 
@@ -57,5 +59,7 @@ public class ButtonStepAdd extends JButton {
             setText(Labels.get("no_image"));
             break;
         }
+        StateIdle<Real> l = new StateIdle<Real>(context);
+        addKeyListener(l);
     }
 }

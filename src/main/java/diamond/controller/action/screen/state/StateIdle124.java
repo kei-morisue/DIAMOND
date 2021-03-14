@@ -7,6 +7,7 @@ package diamond.controller.action.screen.state;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
@@ -29,7 +30,7 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(Ver<T> t) {
-        return new StateAxiom2<T>(context, this, v0, t);
+        return new StateAxiom1<T>(context, this, v0, t);
     }
 
     @Override
@@ -39,7 +40,7 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> left(Ver<T> t) {
-        return new StateAxiom1<T>(context, this, v0, t);
+        return new StateAxiom2<T>(context, this, v0, t);
     }
 
     @Override
@@ -55,6 +56,11 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
         }
         if (pointedV != null) {
             pointedV.drawPointed(screen, g2d);
+            if (isCtrl) {
+                Axioms.axiom1(v0, pointedV).drawPointed(screen, g2d);
+            } else {
+                Axioms.axiom2(v0, pointedV).drawPointed(screen, g2d);
+            }
         }
 
     }
