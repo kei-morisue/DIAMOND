@@ -9,18 +9,19 @@ import java.awt.Graphics2D;
 import java.util.Observable;
 
 import diamond.controller.Context;
-import diamond.controller.action.screen.ScreenModelAction;
+import diamond.controller.action.screen.ScreenCpAction;
+import diamond.model.math.field.F;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public final class ScreenCp extends AbstractScreen {
+public final class ScreenCp<T extends F<T>> extends AbstractScreen<T> {
 
-    public ScreenCp(Context context) {
+    public ScreenCp(Context<T> context) {
         super(context);
-        ScreenModelAction screenAction = new ScreenModelAction(context, this);
+        ScreenCpAction<T> screenAction = new ScreenCpAction<T>(context, this);
         addMouseListener(screenAction);
         addMouseMotionListener(screenAction);
         addMouseWheelListener(screenAction);

@@ -37,8 +37,8 @@ public class Ver<T extends F<T>> implements Serializable, Metric {
                 y.sub(v0.y));
     }
 
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        VerDrawer.draw(screen, g2d, this);
+    public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
+        VerDrawer.drawPointed(screen, g2d, this);
     }
 
     @Deprecated

@@ -53,6 +53,8 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);
 
+    public abstract void draw(ScreenModel<T> screen, Graphics2D g2d);
+
     @Deprecated
     public Ver<T> getP() {
         return p;

@@ -76,7 +76,7 @@ public final class Step<T extends F<T>> {
         faces = step.faces;
         baseFace = step.baseFace;
         links = step.links;
-        transform = step.transform;
+        transform = step.transform;//TODO
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {

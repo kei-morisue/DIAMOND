@@ -16,12 +16,16 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public final class VerDrawer {
-    public static <T extends F<T>> void draw(
+    static public final Color POINTED = Color.GREEN;
+    static public final Color DEFAULT = Color.BLACK;
+    static public final double SIZE = 10.0;
+
+    public static <T extends F<T>> void drawPointed(
             ScreenModel<T> screen,
             Graphics2D g2d,
             Ver<T> ver) {
-        g2d.setColor(Color.green);//TODO
-        double size = 10 / screen.getScale();//TODO
+        g2d.setColor(POINTED);
+        double size = SIZE / screen.getScale();
         g2d.fill(ShapeBuilder.build(ver, size));
     }
 }

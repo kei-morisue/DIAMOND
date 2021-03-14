@@ -9,21 +9,21 @@ import java.awt.Graphics2D;
 import java.util.Observable;
 
 import diamond.controller.Context;
-import diamond.controller.action.screen.ScreenModelAction;
+import diamond.model.math.field.F;
 import diamond.view.ui.screen.style.Skin;
 
 /**
  * @author Kei Morisue
  *
  */
-public final class ScreenPage extends AbstractScreen {
+public final class ScreenPage<T extends F<T>> extends AbstractScreen<T> {
 
-    public ScreenPage(Context context) {
+    public ScreenPage(Context<T> context) {
         super(context);
-        ScreenModelAction screenAction = new ScreenModelAction(context, this);
-        addMouseListener(screenAction);
-        addMouseMotionListener(screenAction);
-        addMouseWheelListener(screenAction);
+        //        ScreenModelAction screenAction = new ScreenModelAction(context, this);
+        //        addMouseListener(screenAction);
+        //        addMouseMotionListener(screenAction);
+        //        addMouseWheelListener(screenAction);
     }
 
     @Override

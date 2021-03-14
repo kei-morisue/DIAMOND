@@ -11,6 +11,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.LinkDrawer;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
 
 /**
@@ -32,7 +33,12 @@ public class Link<T extends F<T>> extends D1<T>
         this.g = g;
     }
 
+    @Override
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
+        LinkDrawer.draw(screen, g2d, p, q);
+    }
+
+    public void draw(ScreenCp<T> screen, Graphics2D g2d) {
         LinkDrawer.draw(screen, g2d, p, q);
     }
 

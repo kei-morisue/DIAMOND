@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
 
 /**
@@ -31,6 +32,17 @@ public final class LinkDrawer {
             Ver<T> q) {
         g2d.setColor(BASE);
         g2d.setStroke(strokeModel(screen.getScale()));
+        g2d.draw(
+                ShapeBuilder.build(p, q));
+    }
+
+    public static <T extends F<T>> void draw(
+            ScreenCp<T> screen,
+            Graphics2D g2d,
+            Ver<T> p,
+            Ver<T> q) {
+        g2d.setColor(BASE);
+        g2d.setStroke(strokeCp(screen.getScale()));
         g2d.draw(
                 ShapeBuilder.build(p, q));
     }

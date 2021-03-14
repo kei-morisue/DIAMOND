@@ -11,6 +11,7 @@ import java.util.HashSet;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
 
 /**
@@ -23,6 +24,16 @@ public final class StepDrawer {
             Graphics2D g2d,
             ArrayList<Face<T>> faces,
             Face<T> baseFace,
+            HashSet<Link<T>> links) {
+        for (Face<T> face : faces) {
+            face.draw(screen, g2d);
+        }
+    }
+
+    public static <T extends F<T>> void draw(
+            ScreenCp<T> screen,
+            Graphics2D g2d,
+            ArrayList<Face<T>> faces,
             HashSet<Link<T>> links) {
         for (Face<T> face : faces) {
             face.draw(screen, g2d);

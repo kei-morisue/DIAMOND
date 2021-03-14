@@ -6,11 +6,13 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.SegDrawer;
 import diamond.model.math.field.F;
+import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
 
 /**
@@ -41,7 +43,19 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
     }
 
     //TBD
+    @Override
     public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
         SegDrawer.drawPointed(screen, g2d, p, q);
+    }
+
+    public void draw(ScreenCp<T> screen, LinkedList<Ver<T>> vers,
+            Graphics2D g2d) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    @Override
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
+        // TODO 自動生成されたメソッド・スタブs
     }
 }
