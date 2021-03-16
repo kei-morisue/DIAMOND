@@ -9,11 +9,25 @@ package diamond.model.math.field;
  *
  */
 public class Rational extends F<Rational> {
+    public static final Rational ONE = new Rational(1, 1);
+    public static final Rational ZERO = new Rational(0, 1);
+    private static final int denom = 1;
     private int n = 1;
     private int d = 1;
 
     @Deprecated
     public Rational() {
+    }
+
+    public Rational(Rational r) {
+        n = r.n;
+        d = r.d;
+    }
+
+    public Rational(double a) {
+        n = (int) (a * denom);
+        d = denom;
+        reduce();
     }
 
     public Rational(int n, int d) {
@@ -32,7 +46,7 @@ public class Rational extends F<Rational> {
     }
 
     public static int gcd(int a, int b) {
-        int r = 0;
+        int r;
         while (b > 0) {
             r = a % b;
             a = b;
@@ -42,9 +56,33 @@ public class Rational extends F<Rational> {
     }
 
     private void reduce() {
-        int r = (n < 0) ? -gcd(-n, d) : gcd(n, d);
+        int r = (n < 0) ? gcd(-n, d) : gcd(n, d);
         n = n / r;
         d = d / r;
+    }
+
+    public boolean isZ() {
+        return d == 1;
+    }
+
+    public boolean isNEven() {
+        return n % 2 == 0;
+    }
+
+    public boolean isDEven() {
+        return d % 2 == 0;
+    }
+
+    public boolean isSquared() {
+        return isNSquared() && isDSquared();
+    }
+
+    public boolean isDSquared() {
+        return Quad.isSquared(d);
+    }
+
+    public boolean isNSquared() {
+        return Quad.isSquared(n);
     }
 
     @Override
@@ -118,6 +156,17 @@ public class Rational extends F<Rational> {
     @Override
     public F<Rational> div(int i) {
         return new Rational(n, d * i);
+    }
+
+    @Override
+    public F<Rational> sqrt() {
+        if (isSquared()) {
+            return new Rational(
+                    Quad.sqrt(n),
+                    Quad.sqrt(d));
+        }
+        return new Rational((int) Math.sqrt(d()), 1);
+
     }
 
 }

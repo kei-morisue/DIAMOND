@@ -11,7 +11,13 @@ package diamond.model.math.field;
 public class Silver extends F<Silver> {
     private Rational a = new Rational(1, 1);
     private Rational b = new Rational(0, 1);
-    private static Rational TWO = new Rational(2, 1);
+    private static final Rational TWO = (Rational) Rational.ONE.mul(2);
+    public static final Silver ONE = new Silver(
+            Rational.ONE,
+            Rational.ZERO);
+    public static final Silver ZERO = new Silver(
+            Rational.ZERO,
+            Rational.ZERO);
 
     @Deprecated
     public Silver() {
@@ -94,6 +100,27 @@ public class Silver extends F<Silver> {
     @Override
     public F<Silver> div(int i) {
         return new Silver((Rational) a.div(i), (Rational) b.div(i));
+    }
+
+    @Override
+    public F<Silver> sqrt() {
+        if (b.isZero()) {
+            if (((Rational) a.mul(2)).isSquared()) {
+                return new Silver(
+                        Rational.ZERO,
+                        new Rational((Rational) a.sqrt().div(2)));
+
+            }
+            if (((Rational) a.div(2)).isSquared()) {
+                return new Silver(
+                        Rational.ZERO,
+                        new Rational((Rational) a.sqrt()));
+
+            }
+        } //TODO: double root decomposition
+        return new Silver(
+                new Rational(Math.sqrt(d())),
+                Rational.ZERO);
     }
 
 }

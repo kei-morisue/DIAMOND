@@ -26,6 +26,8 @@ public abstract class F<T> {
 
     public abstract F<T> invImpl();
 
+    public abstract F<T> sqrt();
+
     public abstract boolean isZero();
 
     public F<T> inv() {

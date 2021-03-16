@@ -16,7 +16,6 @@ import diamond.controller.file.LoaderXml;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.Rational;
-import diamond.model.math.field.Real;
 import diamond.model.math.field.Silver;
 
 /**
@@ -33,7 +32,7 @@ public class XmlTest {
             new Rational(7, 2));
 
     @Test
-    public void VerTest() {
+    public void verTest() {
         String path = "silver.dmd";
         LoaderXml<ArrayList<Ver<Silver>>> in = new LoaderXml<ArrayList<Ver<Silver>>>();
         Ver<Silver> v = new Ver<Silver>(x, y);
@@ -47,12 +46,12 @@ public class XmlTest {
     }
 
     @Test
-    public void ContextTest() {
-        Diagram<Real> dgm0 = new Diagram<Real>(new Real(Config.size));
-        LoaderXml<Diagram<Real>> in = new LoaderXml<Diagram<Real>>();
+    public void diagramTest() {
+        Diagram<Silver> dgm0 = new Diagram<Silver>(Silver.ONE.mul(Config.SIZE));
+        LoaderXml<Diagram<Silver>> in = new LoaderXml<Diagram<Silver>>();
         String path = "dgm.dmd";
         out.export(dgm0, path);
-        Diagram<Real> dgm1 = in.load(path);
+        Diagram<Silver> dgm1 = in.load(path);
         assertFalse(dgm0.toString() == dgm1.toString());
     }
 

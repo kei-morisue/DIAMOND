@@ -36,7 +36,7 @@ public abstract class AbstractStateAxiom<T extends F<T>>
         if (isleft) {
             return execute(false);
         }
-        return this;
+        return prevState;
     }
 
     @Override

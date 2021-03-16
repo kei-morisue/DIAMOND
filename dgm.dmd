@@ -6,50 +6,69 @@
     <object class="diamond.model.cyborg.diagram.step.Step" id="Step0">
      <void property="baseFace">
       <object class="diamond.model.cyborg.geom.d2.Face" id="Face0">
-       <void property="vers">
+       <void property="creases">
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver0">
-          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-           <string>x</string>
-           <void method="set">
-            <object idref="Ver0"/>
-            <object class="diamond.model.math.field.Real" id="Real0">
-             <void property="a">
-              <double>200.0</double>
+         <object class="diamond.model.cyborg.geom.d1.Seg">
+          <void property="p">
+           <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver0">
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>x</string>
+             <void method="set">
+              <object idref="Ver0"/>
+              <object class="diamond.model.math.field.Silver" id="Silver0">
+               <void property="a">
+                <void property="n">
+                 <int>200</int>
+                </void>
+               </void>
+              </object>
              </void>
-            </object>
-           </void>
+            </void>
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>y</string>
+             <void method="set">
+              <object idref="Ver0"/>
+              <object idref="Silver0"/>
+             </void>
+            </void>
+           </object>
           </void>
-          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-           <string>y</string>
-           <void method="set">
-            <object idref="Ver0"/>
-            <object idref="Real0"/>
-           </void>
+          <void property="q">
+           <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver1">
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>x</string>
+             <void method="set">
+              <object idref="Ver1"/>
+              <object class="diamond.model.math.field.Silver" id="Silver1">
+               <void property="a">
+                <void property="n">
+                 <int>-200</int>
+                </void>
+               </void>
+              </object>
+             </void>
+            </void>
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>y</string>
+             <void method="set">
+              <object idref="Ver1"/>
+              <object class="diamond.model.math.field.Silver" id="Silver2">
+               <void property="a">
+                <void property="n">
+                 <int>-200</int>
+                </void>
+               </void>
+              </object>
+             </void>
+            </void>
+           </object>
           </void>
          </object>
         </void>
+       </void>
+       <void property="vers">
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver1">
-          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-           <string>x</string>
-           <void method="set">
-            <object idref="Ver1"/>
-            <object idref="Real0"/>
-           </void>
-          </void>
-          <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-           <string>y</string>
-           <void method="set">
-            <object idref="Ver1"/>
-            <object class="diamond.model.math.field.Real">
-             <void property="a">
-              <double>-200.0</double>
-             </void>
-            </object>
-           </void>
-          </void>
-         </object>
+         <object idref="Ver0"/>
         </void>
         <void method="add">
          <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver2">
@@ -57,20 +76,18 @@
            <string>x</string>
            <void method="set">
             <object idref="Ver2"/>
-            <object class="diamond.model.math.field.Real">
-             <void property="a">
-              <double>-200.0</double>
-             </void>
-            </object>
+            <object idref="Silver0"/>
            </void>
           </void>
           <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
            <string>y</string>
            <void method="set">
             <object idref="Ver2"/>
-            <object class="diamond.model.math.field.Real">
+            <object class="diamond.model.math.field.Silver" id="Silver3">
              <void property="a">
-              <double>-200.0</double>
+              <void property="n">
+               <int>-200</int>
+              </void>
              </void>
             </object>
            </void>
@@ -78,14 +95,19 @@
          </object>
         </void>
         <void method="add">
+         <object idref="Ver1"/>
+        </void>
+        <void method="add">
          <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver3">
           <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
            <string>x</string>
            <void method="set">
             <object idref="Ver3"/>
-            <object class="diamond.model.math.field.Real">
+            <object class="diamond.model.math.field.Silver" id="Silver4">
              <void property="a">
-              <double>-200.0</double>
+              <void property="n">
+               <int>-200</int>
+              </void>
              </void>
             </object>
            </void>
@@ -94,7 +116,7 @@
            <string>y</string>
            <void method="set">
             <object idref="Ver3"/>
-            <object idref="Real0"/>
+            <object idref="Silver0"/>
            </void>
           </void>
          </object>
@@ -105,6 +127,60 @@
      <void property="faces">
       <void method="add">
        <object idref="Face0"/>
+      </void>
+     </void>
+     <void property="links">
+      <void method="add">
+       <object class="diamond.model.cyborg.geom.d1.Link">
+        <void property="f">
+         <object idref="Face0"/>
+        </void>
+        <void property="p">
+         <object idref="Ver2"/>
+        </void>
+        <void property="q">
+         <object idref="Ver1"/>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="diamond.model.cyborg.geom.d1.Link">
+        <void property="f">
+         <object idref="Face0"/>
+        </void>
+        <void property="p">
+         <object idref="Ver1"/>
+        </void>
+        <void property="q">
+         <object idref="Ver3"/>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="diamond.model.cyborg.geom.d1.Link">
+        <void property="f">
+         <object idref="Face0"/>
+        </void>
+        <void property="p">
+         <object idref="Ver0"/>
+        </void>
+        <void property="q">
+         <object idref="Ver2"/>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="diamond.model.cyborg.geom.d1.Link">
+        <void property="f">
+         <object idref="Face0"/>
+        </void>
+        <void property="p">
+         <object idref="Ver3"/>
+        </void>
+        <void property="q">
+         <object idref="Ver0"/>
+        </void>
+       </object>
       </void>
      </void>
     </object>

@@ -32,6 +32,16 @@ public class Util {
         return prod * prod / n.norm().d();
     }
 
+    public static <T extends F<T>> F<T> footSquare(
+            Ver<T> v0,
+            Ver<T> v1,
+            Ver<T> v) {
+        Dir<T> d = v1.dir(v0);
+        Dir<T> n = d.n();
+        F<T> prod = v.dir(v0).prod(n);
+        return prod.mul(prod).div(n.norm());
+    }
+
     public static <T extends F<T>> Ver<T> foot(
             Ver<T> v0,
             Ver<T> v1,

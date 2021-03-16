@@ -10,6 +10,8 @@ package diamond.model.math.field;
  */
 public class Real extends F<Real> {
     private double a = 1;
+    public static final Real ONE = new Real(1.0);
+    public static final Real ZERO = new Real(0);
 
     @Deprecated
     public Real() {
@@ -72,5 +74,10 @@ public class Real extends F<Real> {
     @Override
     public F<Real> div(int i) {
         return new Real(a / i);
+    }
+
+    @Override
+    public F<Real> sqrt() {
+        return new Real(Math.sqrt(a));
     }
 }
