@@ -6,6 +6,7 @@ package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 
@@ -26,10 +27,9 @@ public class Axioms {
                 d.n().ver(w0));
     }
 
-    public static <T extends F<T>> Seg<T> axiom4(Ver<T> v0, Ver<T> v1,
-            Ver<T> v) {
-        Dir<T> n = v1.dir(v0).n();
-        Dir<T> d0 = v0.dir(v);
+    public static <T extends F<T>> Seg<T> axiom4(D1<T> s, Ver<T> v) {
+        Dir<T> n = s.dir().n();
+        Dir<T> d0 = s.dir0(v);
         F<T> prod = d0.prod(n);
         if (prod.isZero()) {
             return null;

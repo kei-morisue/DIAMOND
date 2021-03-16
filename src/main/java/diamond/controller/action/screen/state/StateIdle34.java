@@ -31,7 +31,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(Ver<T> v) {
-        Seg<T> axiom4 = Axioms.axiom4(s.getP(), s.getQ(), v);
+        Seg<T> axiom4 = Axioms.axiom4(s, v);
         if (axiom4 == null) {
             return this;
         }
@@ -45,7 +45,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> left(Ver<T> v) {
-        Seg<T> axiom4 = Axioms.axiom4(s.getP(), s.getQ(), v);
+        Seg<T> axiom4 = Axioms.axiom4(s, v);
         if (axiom4 == null) {
             return this;
         }
@@ -65,7 +65,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
         }
         if (pointedV != null) {
             pointedV.drawPointed(screen, g2d);
-            Seg<T> axiom4 = Axioms.axiom4(s.getP(), s.getQ(), pointedV);
+            Seg<T> axiom4 = Axioms.axiom4(s, pointedV);
             if (axiom4 == null) {
                 return;
             }

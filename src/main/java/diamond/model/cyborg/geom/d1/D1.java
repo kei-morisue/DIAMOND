@@ -51,6 +51,18 @@ public abstract class D1<T extends F<T>> implements Metric {
         return Util.footSquare(p, q, x, y);
     };
 
+    public Dir<T> dir() {
+        return q.dir(p);
+    }
+
+    public Dir<T> dir0(Ver<T> v) {
+        return p.dir(v);
+    }
+
+    public Dir<T> dir1(Ver<T> v) {
+        return q.dir(v);
+    }
+
     public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);
 
     public abstract void draw(ScreenModel<T> screen, Graphics2D g2d);
