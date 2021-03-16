@@ -80,4 +80,9 @@ public class Real extends F<Real> {
     public F<Real> sqrt() {
         return new Real(Math.sqrt(a));
     }
+
+    @Override
+    public boolean isNeg() {
+        return a < 0.0;
+    }
 }

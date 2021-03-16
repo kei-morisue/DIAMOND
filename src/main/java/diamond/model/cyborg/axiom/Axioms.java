@@ -27,6 +27,29 @@ public class Axioms {
                 d.n().ver(w0));
     }
 
+    public static <T extends F<T>> Seg<T> axiom3(D1<T> s0, D1<T> s1) {
+        Ver<T> w = null;
+        Ver<T> node = s0.node(s1);
+        if (node != null) {
+            w = node;
+            Dir<T> u0 = s0.dir(w).u();
+            Dir<T> u1 = s1.dir(w).u();
+            return new Seg<T>(w, ((Dir<T>) u0.add(u1)).mul(100).ver(w));
+        }
+
+        Dir<T> d0 = s0.dir();
+        Dir<T> n = d0.n();
+        Dir<T> d1 = s1.dir();
+
+        if (n.prod(d1).isZero()) {
+            Ver<T> v0 = s0.ver0(s1);
+            Ver<T> v1 = s1.ver0(s0);
+            w = v1.dir(v0).div(2).ver(v0);
+            return new Seg<T>(((Dir<T>) d1.neg()).ver(w), d1.ver(w));
+        }
+        return null;//TODO
+    }
+
     public static <T extends F<T>> Seg<T> axiom4(D1<T> s, Ver<T> v) {
         Dir<T> n = s.dir().n();
         Dir<T> d0 = s.dir0(v);

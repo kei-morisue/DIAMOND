@@ -28,6 +28,15 @@ public abstract class F<T> {
 
     public abstract F<T> sqrt();
 
+    public F<T> abs() {
+        if (isNeg()) {
+            return neg();
+        }
+        return this;
+    };
+
+    public abstract boolean isNeg();
+
     public abstract boolean isZero();
 
     public F<T> inv() {

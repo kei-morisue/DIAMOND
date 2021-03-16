@@ -39,4 +39,15 @@ public class SilverTest {
                 new Rational(1, 3)).toString());
     }
 
+    public void test1() {
+        assertFalse(!new Silver(
+                new Rational(2, 1),
+                new Rational(3, 1)).isNeg());
+        assertFalse(new Silver(
+                new Rational(-9, 1),
+                new Rational(2, 1)).isNeg());
+        assertFalse(new Silver(
+                new Rational(-1, 1),
+                new Rational(-1, 1)).isNeg());
+    }
 }

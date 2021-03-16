@@ -123,4 +123,20 @@ public class Silver extends F<Silver> {
                 Rational.ZERO);
     }
 
+    @Override
+    public boolean isNeg() {
+        boolean neg = b.mul(b).mul(2).sub(a).isNeg();
+        if (b.isNeg()) {
+            if (a.isNeg()) {
+                return true;
+            }
+            return neg;
+        } else {
+            if (!a.isNeg()) {
+                return false;
+            }
+            return !neg;
+        }
+    }
+
 }

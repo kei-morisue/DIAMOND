@@ -32,6 +32,10 @@ public class Dir<T extends F<T>> extends M<T> implements Serializable {
         return new Dir<T>(y.neg(), x);
     }
 
+    public Dir<T> u() {
+        return (Dir<T>) this.scale(norm().sqrt().inv());
+    }
+
     @Override
     public M<T> add(M<T> m) {
         Dir<T> n = (Dir<T>) m;

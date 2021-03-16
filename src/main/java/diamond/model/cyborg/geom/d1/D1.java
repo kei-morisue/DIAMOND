@@ -36,7 +36,7 @@ public abstract class D1<T extends F<T>> implements Metric {
         return dir.div(2).ver(p);
     }
 
-    private F<T> lengthSquared() {
+    protected F<T> lengthSquared() {
         return q.dir(p).norm();
     }
 
@@ -61,6 +61,44 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     public Dir<T> dir1(Ver<T> v) {
         return q.dir(v);
+    }
+
+    public Ver<T> node(D1<T> d0) {
+        if (d0.p == p) {
+            return p;
+        }
+        if (d0.p == q) {
+            return q;
+        }
+        if (d0.q == p) {
+            return p;
+        }
+        if (d0.q == q) {
+            return q;
+        }
+        return null;
+    }
+
+    public Dir<T> dir(Ver<T> v) {
+        if (v == p) {
+            return dir1(v);
+        }
+        if (v == q) {
+            return dir0(v);
+        }
+        return null;
+    }
+
+    public Ver<T> ver0(D1<T> d) {
+        F<T> np = p.dir(d.p).norm();
+        F<T> nq = p.dir(d.q).norm();
+        return (np.sub(nq).isNeg()) ? d.p : d.q;
+    }
+
+    public Ver<T> ver1(D1<T> d) {
+        F<T> np = q.dir(d.p).norm();
+        F<T> nq = q.dir(d.q).norm();
+        return (np.sub(nq).isNeg()) ? d.p : d.q;
     }
 
     public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);

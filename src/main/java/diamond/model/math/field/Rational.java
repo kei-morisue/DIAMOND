@@ -169,4 +169,9 @@ public class Rational extends F<Rational> {
 
     }
 
+    @Override
+    public boolean isNeg() {
+        return n < 0;
+    }
+
 }

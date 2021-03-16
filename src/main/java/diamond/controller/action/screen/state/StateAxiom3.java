@@ -7,6 +7,7 @@ package diamond.controller.action.screen.state;
 import java.awt.Graphics2D;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
@@ -33,7 +34,7 @@ public final class StateAxiom3<T extends F<T>> extends AbstractStateAxiom<T> {
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
         s0.drawPointed(screen, g2d);
         s1.drawPointed(screen, g2d);
-
+        Axioms.axiom3(s0, s1).drawPointed(screen, g2d);
     }
 
     @Override
