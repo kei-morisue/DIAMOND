@@ -16,10 +16,16 @@ import diamond.model.math.field.F;
  */
 public class Axioms {
     public static <T extends F<T>> Seg<T> axiom1(Ver<T> v0, Ver<T> v1) {
+        if (v0 == v1) {
+            return null;
+        }
         return new Seg<T>(v0, v1);
     }
 
     public static <T extends F<T>> Seg<T> axiom2(Ver<T> v0, Ver<T> v1) {
+        if (v0 == v1) {
+            return null;
+        }
         Dir<T> d = v1.dir(v0).div(2);
         Ver<T> w0 = d.ver(v0);
         return new Seg<T>(
@@ -27,7 +33,11 @@ public class Axioms {
                 d.n().ver(w0));
     }
 
+    //TODO refactor!!!
     public static <T extends F<T>> Seg<T> axiom3(D1<T> s0, D1<T> s1) {
+        if (s0 == s1) {
+            return null;
+        }
         Ver<T> w = null;
         Ver<T> node = s0.node(s1);
         if (node != null) {
@@ -42,17 +52,26 @@ public class Axioms {
         Dir<T> d1 = s1.dir();
 
         if (n.prod(d1).isZero()) {
-            Ver<T> v0 = s0.ver0(s1);
-            Ver<T> v1 = s1.ver0(s0);
+            Ver<T> v0 = s0.getP();
+            Ver<T> v1 = s1.getP();
             w = v1.dir(v0).div(2).ver(v0);
             return new Seg<T>(((Dir<T>) d1.neg()).ver(w), d1.ver(w));
         }
-        return null;//TODO
+        F<T> beta = s1.dir(s0).prod(n).div(d1.prod(n));
+        Dir<T> u0 = d0.u();
+        Dir<T> u1 = d1.u();
+        if (beta.isNeg()) {
+            u1 = (Dir<T>) u1.neg();
+        }
+        w = ((Dir<T>) d1.scale(beta)).ver(s1.getP());
+        return new Seg<T>(
+                ((Dir<T>) u1.add(u0)).mul(100).ver(w),
+                ((Dir<T>) u1.sub(u0)).mul(100).ver(w));
     }
 
     public static <T extends F<T>> Seg<T> axiom4(D1<T> s, Ver<T> v) {
         Dir<T> n = s.dir().n();
-        Dir<T> d0 = s.dir0(v);
+        Dir<T> d0 = s.dir(v);
         F<T> prod = d0.prod(n);
         if (prod.isZero()) {
             return null;

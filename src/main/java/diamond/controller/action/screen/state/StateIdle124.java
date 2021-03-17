@@ -20,9 +20,6 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
     private Ver<T> v0;
-    private Seg<T> axiom1;
-    private Seg<T> axiom2;
-    private Seg<T> axiom4;
 
     public StateIdle124(
             Context<T> context,
@@ -34,24 +31,34 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(Ver<T> t) {
-        return new StateAxiom1<T>(context, this, v0, t);
+        Seg<T> axiom1 = Axioms.axiom1(v0, pointedV);
+        if (axiom1 == null) {
+            return this;
+        }
+        return new StateAxiom1<T>(context, this, v0, t, axiom1);
     }
 
     @Override
-    public AbstractScreenState<T> leftCtrl(D1<T> t) {
+    public AbstractScreenState<T> leftCtrl(D1<T> s) {
+        Seg<T> axiom4 = Axioms.axiom4(s, v0);
         if (axiom4 == null) {
             return this;
         }
-        return new StateAxiom4<T>(context, this, v0, t, axiom4);
+        return new StateAxiom4<T>(context, this, v0, s, axiom4);
     }
 
     @Override
     public AbstractScreenState<T> left(Ver<T> t) {
-        return new StateAxiom2<T>(context, this, v0, t);
+        Seg<T> axiom2 = Axioms.axiom2(v0, t);
+        if (axiom2 == null) {
+            return this;
+        }
+        return new StateAxiom2<T>(context, this, v0, t, axiom2);
     }
 
     @Override
     public AbstractScreenState<T> left(D1<T> t) {
+        Seg<T> axiom4 = Axioms.axiom4(t, v0);
         if (axiom4 == null) {
             return this;
         }
@@ -63,7 +70,7 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
         v0.drawPointed(screen, g2d);
         if (pointedS != null) {
             pointedS.drawPointed(screen, g2d);
-            axiom4 = Axioms.axiom4(pointedS, v0);
+            Seg<T> axiom4 = Axioms.axiom4(pointedS, v0);
             if (axiom4 != null) {
                 axiom4.drawPointed(screen, g2d);
             }
@@ -71,10 +78,10 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
         if (pointedV != null) {
             pointedV.drawPointed(screen, g2d);
             if (isCtrl) {
-                axiom1 = Axioms.axiom1(v0, pointedV);
+                Seg<T> axiom1 = Axioms.axiom1(v0, pointedV);
                 axiom1.drawPointed(screen, g2d);
             } else {
-                axiom2 = Axioms.axiom2(v0, pointedV);
+                Seg<T> axiom2 = Axioms.axiom2(v0, pointedV);
                 axiom2.drawPointed(screen, g2d);
             }
         }

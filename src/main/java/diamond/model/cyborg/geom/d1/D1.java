@@ -55,12 +55,8 @@ public abstract class D1<T extends F<T>> implements Metric {
         return q.dir(p);
     }
 
-    public Dir<T> dir0(Ver<T> v) {
-        return p.dir(v);
-    }
-
-    public Dir<T> dir1(Ver<T> v) {
-        return q.dir(v);
+    public Dir<T> dir(D1<T> d) {
+        return p.dir(d.p);
     }
 
     public Ver<T> node(D1<T> d0) {
@@ -81,12 +77,12 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     public Dir<T> dir(Ver<T> v) {
         if (v == p) {
-            return dir1(v);
+            return q.dir(p);
         }
         if (v == q) {
-            return dir0(v);
+            return p.dir(q);
         }
-        return null;
+        return p.dir(v);
     }
 
     public Ver<T> ver0(D1<T> d) {
