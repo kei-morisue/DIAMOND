@@ -4,8 +4,6 @@
  */
 package diamond.model.math.field;
 
-import diamond.view.resource.string.Labels;
-
 /**
  * @author Kei Morisue
  *
@@ -41,7 +39,7 @@ public abstract class F<T> {
 
     public F<T> inv() {
         if (isZero()) {
-            System.out.println(Labels.get("div0"));
+            new Exception("div0!");
             return this;
         }
         return invImpl();

@@ -79,10 +79,14 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
             pointedV.drawPointed(screen, g2d);
             if (isCtrl) {
                 Seg<T> axiom1 = Axioms.axiom1(v0, pointedV);
-                axiom1.drawPointed(screen, g2d);
+                if (axiom1 != null) {
+                    axiom1.drawPointed(screen, g2d);
+                }
             } else {
                 Seg<T> axiom2 = Axioms.axiom2(v0, pointedV);
-                axiom2.drawPointed(screen, g2d);
+                if (axiom2 != null) {
+                    axiom2.drawPointed(screen, g2d);
+                }
             }
         }
 

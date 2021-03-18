@@ -54,8 +54,8 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
 
     }
 
+    @Deprecated
     @Override
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        // TODO 自動生成されたメソッド・スタブs
     }
 }
