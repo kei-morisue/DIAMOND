@@ -12,6 +12,7 @@ public class Real extends F<Real> {
     private double a = 1;
     public static final Real ONE = new Real(1.0);
     public static final Real ZERO = new Real(0);
+    private static final double EPS = 1e-8;
 
     @Deprecated
     public Real() {
@@ -48,7 +49,7 @@ public class Real extends F<Real> {
 
     @Override
     public boolean isZero() {
-        return a == 0;
+        return Math.abs(a) < EPS;
     }
 
     @Deprecated

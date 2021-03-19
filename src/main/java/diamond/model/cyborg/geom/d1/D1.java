@@ -20,6 +20,7 @@ import diamond.view.ui.screen.ScreenModel;
 public abstract class D1<T extends F<T>> implements Metric {
     protected Ver<T> p;
     protected Ver<T> q;
+    protected Nodes<T> nodes;
     private static final double EPS = 100;
 
     @Deprecated
@@ -29,6 +30,7 @@ public abstract class D1<T extends F<T>> implements Metric {
     protected D1(Ver<T> p, Ver<T> q) {
         this.p = p;
         this.q = q;
+        this.nodes = new Nodes<T>(p, q);
     }
 
     public Ver<T> c() {
@@ -36,8 +38,31 @@ public abstract class D1<T extends F<T>> implements Metric {
         return dir.div(2).ver(p);
     }
 
+    public void add(Ver<T> v) {
+        F<T> d = dir().norm().sqrt();
+        F<T> dp = p.dir(v).norm().sqrt();
+        F<T> dq = q.dir(v).norm().sqrt();
+        if (dp.add(dq).sub(d).isZero()) {
+            nodes.add(v);
+        }
+    }
+
+    public Ver<T> find(Ver<T> v) {
+        if (p == v) {
+            return p;
+        }
+        if (q == v) {
+            return q;
+        }
+        return nodes.find(v);
+    }
+
     protected F<T> lengthSquared() {
         return q.dir(p).norm();
+    }
+
+    public Ver<T> findNode(double x, double y, double scale) {
+        return nodes.findNode(x, y, scale);
     }
 
     @Override
@@ -85,18 +110,6 @@ public abstract class D1<T extends F<T>> implements Metric {
         return p.dir(v);
     }
 
-    public Ver<T> ver0(D1<T> d) {
-        F<T> np = p.dir(d.p).norm();
-        F<T> nq = p.dir(d.q).norm();
-        return (np.sub(nq).isNeg()) ? d.p : d.q;
-    }
-
-    public Ver<T> ver1(D1<T> d) {
-        F<T> np = q.dir(d.p).norm();
-        F<T> nq = q.dir(d.q).norm();
-        return (np.sub(nq).isNeg()) ? d.p : d.q;
-    }
-
     public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);
 
     public abstract void draw(ScreenModel<T> screen, Graphics2D g2d);
@@ -119,5 +132,15 @@ public abstract class D1<T extends F<T>> implements Metric {
     @Deprecated
     public void setQ(Ver<T> q) {
         this.q = q;
+    }
+
+    @Deprecated
+    public Nodes<T> getNodes() {
+        return nodes;
+    }
+
+    @Deprecated
+    public void setNodes(Nodes<T> nodes) {
+        this.nodes = nodes;
     }
 }

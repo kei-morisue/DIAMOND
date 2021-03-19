@@ -28,6 +28,9 @@ public final class StepDrawer {
         for (Face<T> face : faces) {
             face.draw(screen, g2d);
         }
+        for (Link<T> link : links) {
+            link.draw(screen, g2d);
+        }
     }
 
     public static <T extends F<T>> void draw(

@@ -41,6 +41,14 @@ public class Ver<T extends F<T>> implements Serializable, Metric {
         VerDrawer.drawPointed(screen, g2d, this);
     }
 
+    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
+        VerDrawer.draw(screen, g2d, this);
+    }
+
+    public boolean equals(Ver<T> v0) {
+        return dir(v0).x.isZero() && dir(v0).y.isZero();
+    }
+
     @Deprecated
     public F<T> getX() {
         return x;

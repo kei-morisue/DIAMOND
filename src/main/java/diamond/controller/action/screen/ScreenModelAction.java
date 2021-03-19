@@ -38,11 +38,17 @@ public final class ScreenModelAction<T extends F<T>>
         }
         D1<T> s = step.findLink(x, y, scale);
         if (s == null) {
-            s = step.findSeg(x, y, scale);
-
+            s = step.findSeg(x, y, scale);//TODO find seg & link
+        }
+        if (s != null) {
+            Ver<T> node = s.findNode(x, y, scale);
+            if (node != null) {
+                s = null;
+                v = node;
+            }
         }
         state.setPointedS(s);
-        state.setPointedV(null);
+        state.setPointedV(v);
     }
 
     @Override

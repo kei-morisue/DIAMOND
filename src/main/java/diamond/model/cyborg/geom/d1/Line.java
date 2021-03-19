@@ -14,7 +14,6 @@ import diamond.model.math.field.F;
  */
 public class Line<T extends F<T>> extends Seg<T> {
     private Dir<T> u;
-    private T d;
 
     @Deprecated
     public Line() {
@@ -24,5 +23,10 @@ public class Line<T extends F<T>> extends Seg<T> {
         super(p, q);
         u = dir().u();
     }
+
+    //    public Ver<T> xsection(D1<T> s) {
+    //        // TODO 自動生成されたメソッド・スタブ
+    //
+    //    }
 
 }

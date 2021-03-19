@@ -55,7 +55,7 @@ public abstract class AbstractScreenAction<T extends F<T>>
     }
 
     protected void translate(MouseEvent e) {
-        if (!e.isControlDown()) {
+        if (e.isControlDown()) {
             return;
         }
         Point2D p0 = latestClickedPoint;

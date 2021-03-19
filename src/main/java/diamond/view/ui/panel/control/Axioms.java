@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 
 import diamond.controller.Context;
-import diamond.controller.action.paint.PaintLazy;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.panel.Util;
 
@@ -26,12 +25,6 @@ public class Axioms extends AbstractButtonPanel {
 
     private void addInputLinePanel() {
         setLayout(new GridLayout(2, 3));
-        add(buildButton("axiom1", new PaintLazy()));
-        add(buildButton("axiom2", new PaintLazy()));//TODO
-        add(buildButton("axiom3", new PaintLazy()));//TODO
-        add(buildButton("axiom4", new PaintLazy()));//TODO
-        add(buildButton("symmetric", new PaintLazy()));//TODO
-        add(buildButton("mirror", new PaintLazy()));
         Util.setBorder(this, Labels.get("input_pattern"));
     }
 }

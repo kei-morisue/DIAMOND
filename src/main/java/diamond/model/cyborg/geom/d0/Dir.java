@@ -53,6 +53,11 @@ public class Dir<T extends F<T>> extends M<T> implements Serializable {
         return x.mul(n.x).add(y.mul(n.y));
     }
 
+    public F<T> outer(M<T> m) {
+        Dir<T> n = (Dir<T>) m;
+        return x.mul(n.y).sub(y.mul(n.x));
+    }
+
     @Override
     public M<T> scale(F<T> f) {
         return new Dir<T>(x.mul(f), y.mul(f));

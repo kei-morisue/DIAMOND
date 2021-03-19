@@ -23,9 +23,9 @@ public class StepBuilder {
         Ver<T> b = new Ver<T>(size, size.neg());
         Ver<T> c = new Ver<T>(size.neg(), size.neg());
         Ver<T> d = new Ver<T>(size.neg(), size);
-        //        F<T> zero = size.neg().add(size);
-        //        Ver<T> m = new Ver<T>(zero, size);
-        //        Ver<T> n = new Ver<T>(zero, size.neg());
+        F<T> zero = size.neg().add(size);
+        Ver<T> m = new Ver<T>(size, zero);
+        Ver<T> n = new Ver<T>(size.neg(), zero);
 
         ArrayList<Face<T>> faces = new ArrayList<>();
 
@@ -35,9 +35,13 @@ public class StepBuilder {
 
         faces.add(face);
         HashSet<Link<T>> links = new HashSet<>();
-        links.add(new Link<T>(face, null, a, b));
+        Link<T> ab = new Link<T>(face, null, a, b);
+        Link<T> cd = new Link<T>(face, null, c, d);
+        ab.add(m);
+        cd.add(n);
+        links.add(ab);
         links.add(new Link<T>(face, null, b, c));
-        links.add(new Link<T>(face, null, c, d));
+        links.add(cd);
         links.add(new Link<T>(face, null, d, a));
 
         return new Step<T>(faces, links);

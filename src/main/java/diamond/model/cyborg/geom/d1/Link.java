@@ -6,6 +6,7 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
+import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d2.Face;
@@ -35,6 +36,10 @@ public class Link<T extends F<T>> extends D1<T>
 
     @Override
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
+        LinkedList<Ver<T>> vers = nodes.getNodes();//TODO
+        for (Ver<T> v : vers) {
+            v.draw(screen, g2d);
+        }
         LinkDrawer.draw(screen, g2d, p, q);
     }
 

@@ -30,15 +30,10 @@ public final class FaceDrawer {
             Graphics2D g2d,
             LinkedList<Ver<T>> vers,
             HashSet<Seg<T>> creases) {
-        Ver<T> wer = vers.getLast();
         g2d.setColor(Color.white);//TODO
         g2d.fill(ShapeBuilder.build(vers));
         for (Seg<T> crease : creases) {
             crease.draw(screen, vers, g2d);
-        }
-        for (Ver<T> ver : vers) {
-            new Link<T>(null, null, wer, ver).draw(screen, g2d);
-            wer = ver;
         }
     }
 
