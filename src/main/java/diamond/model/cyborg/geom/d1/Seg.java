@@ -39,10 +39,7 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
                 cutQ = true;
             }
         }
-        LinkedList<Ver<T>> ns = nodes.getNodes();//TODO
-        for (Ver<T> v : ns) {
-            v.drawPointed(screen, g2d);
-        }
+        nodes.draw(screen, g2d);
         SegDrawer.draw(screen, g2d, p, q, c(), cutP, cutQ);
     }
 
