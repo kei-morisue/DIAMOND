@@ -10,7 +10,7 @@ import diamond.controller.Context;
 import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -31,25 +31,17 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(Ver<T> v) {
-        Seg<T> axiom4 = Axioms.axiom4(s, v);
-        if (axiom4 == null) {
-            return this;
-        }
-        return new StateAxiom4<T>(context, this, v, s, axiom4);
+        return left(v);
     }
 
     @Override
     public AbstractScreenState<T> leftCtrl(D1<T> s0) {
-        Seg<T> axiom3 = Axioms.axiom3(s, s0);
-        if (axiom3 == null) {
-            return this;
-        }
-        return new StateAxiom3<T>(context, this, s, s0, axiom3);
+        return left(s0);
     }
 
     @Override
     public AbstractScreenState<T> left(Ver<T> v) {
-        Seg<T> axiom4 = Axioms.axiom4(s, v);
+        Line<T> axiom4 = Axioms.axiom4(s, v);
         if (axiom4 == null) {
             return this;
         }
@@ -58,7 +50,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> left(D1<T> s0) {
-        Seg<T> axiom3 = Axioms.axiom3(s, s0);
+        Line<T> axiom3 = Axioms.axiom3(s, s0);
         if (axiom3 == null) {
             return this;
         }
@@ -70,19 +62,19 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
         s.drawPointed(screen, g2d);
         if (pointedS != null) {
             pointedS.drawPointed(screen, g2d);
-            Seg<T> axiom3 = Axioms.axiom3(s, pointedS);
+            Line<T> axiom3 = Axioms.axiom3(s, pointedS);
             if (axiom3 == null) {
                 return;
             }
-            axiom3.drawPointed(screen, g2d);
+            axiom3.draw(screen, g2d);
         }
         if (pointedV != null) {
             pointedV.drawPointed(screen, g2d);
-            Seg<T> axiom4 = Axioms.axiom4(s, pointedV);
+            Line<T> axiom4 = Axioms.axiom4(s, pointedV);
             if (axiom4 == null) {
                 return;
             }
-            axiom4.drawPointed(screen, g2d);
+            axiom4.draw(screen, g2d);
         }
     }
 

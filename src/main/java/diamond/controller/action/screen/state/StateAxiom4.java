@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -20,14 +20,14 @@ import diamond.view.ui.screen.ScreenModel;
 public final class StateAxiom4<T extends F<T>> extends AbstractStateAxiom<T> {
     private Ver<T> v;
     private D1<T> s;
-    private Seg<T> axiom4;
+    private Line<T> axiom4;
 
     public StateAxiom4(
             Context<T> context,
             AbstractScreenState<T> prevState,
             Ver<T> v,
             D1<T> s,
-            Seg<T> axiom) {
+            Line<T> axiom) {
         super(context, prevState);
         this.v = v;
         this.s = s;
@@ -38,7 +38,7 @@ public final class StateAxiom4<T extends F<T>> extends AbstractStateAxiom<T> {
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
         v.drawPointed(screen, g2d);
         s.drawPointed(screen, g2d);
-        axiom4.drawPointed(screen, g2d);
+        axiom4.draw(screen, g2d);
     }
 
     @Override

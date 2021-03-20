@@ -38,6 +38,15 @@ public class Nodes<T extends F<T>> {
         nodes.sort(c);
     }
 
+    public Ver<T> xPoint(Line<T> l) {
+        for (Ver<T> node : nodes) {
+            if (l.isOn(node)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
     public Ver<T> find(Ver<T> v) {
         for (Ver<T> node : nodes) {
             if (node == v) {

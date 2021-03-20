@@ -67,8 +67,8 @@ public class Axioms {
         }
         w = ((Dir<T>) d1.scale(beta)).ver(s1.getP());
         return new Line<T>(
-                ((Dir<T>) u1.add(u0)).mul(100).ver(w),
-                ((Dir<T>) u1.sub(u0)).mul(100).ver(w));
+                ((Dir<T>) u1.add(u0)).ver(w),
+                ((Dir<T>) u1.sub(u0)).ver(w));
     }
 
     public static <T extends F<T>> Line<T> axiom4(D1<T> s, Ver<T> v) {

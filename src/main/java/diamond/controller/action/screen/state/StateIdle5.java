@@ -64,7 +64,7 @@ public final class StateIdle5<T extends F<T>> extends AbstractScreenState<T> {
             pointedS.drawPointed(screen, g2d);
             Line<T> axiom = Axioms.axiom5(v0, v, pointedS);
             if (axiom != null) {
-                axiom.drawPointed(screen, g2d);
+                axiom.draw(screen, g2d);
             }
         }
     }

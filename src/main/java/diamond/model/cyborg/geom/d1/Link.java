@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d0.mirror.AbstractMirror;
+import diamond.model.cyborg.geom.d0.mirror.MirrorPlain;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.LinkDrawer;
 import diamond.model.math.field.F;
@@ -23,6 +25,8 @@ public class Link<T extends F<T>> extends D1<T>
         implements Serializable {
     private Face<T> f;
     private Face<T> g;
+    private MirrorPlain<T> mirrorPlain;
+    private AbstractMirror<T> mirror;
 
     @Deprecated
     public Link() {
@@ -32,6 +36,7 @@ public class Link<T extends F<T>> extends D1<T>
         super(p, q);
         this.f = f;
         this.g = g;
+        this.mirrorPlain = new MirrorPlain<T>(p, q);
     }
 
     @Override
@@ -90,6 +95,16 @@ public class Link<T extends F<T>> extends D1<T>
     @Deprecated
     public void setG(Face<T> g) {
         this.g = g;
+    }
+
+    @Deprecated
+    public MirrorPlain<T> getMirrorPlain() {
+        return mirrorPlain;
+    }
+
+    @Deprecated
+    public void setMirrorPlain(MirrorPlain<T> mirrorPlain) {
+        this.mirrorPlain = mirrorPlain;
     }
 
 }

@@ -55,7 +55,6 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
     public void draw(ScreenCp<T> screen, LinkedList<Ver<T>> vers,
             Graphics2D g2d) {
         // TODO 自動生成されたメソッド・スタブ
-
     }
 
     @Deprecated
