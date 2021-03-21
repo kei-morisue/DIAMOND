@@ -83,6 +83,7 @@ public class Axioms {
         return new Line<T>(((Dir<T>) n.neg()).ver(w), n.ver(w));
     }
 
+    //TODO root1
     public static <T extends F<T>> Line<T> axiom5(
             Ver<T> v0,
             Ver<T> v,

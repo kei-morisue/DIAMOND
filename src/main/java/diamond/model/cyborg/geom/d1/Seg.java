@@ -40,6 +40,7 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
         SegDrawer.draw(screen, g2d, p, q, c(), cutP, cutQ);
     }
 
+    //TODO toomuch workload???
     public Ver<T> xPoint(Seg<T> s0) {
         Ver<T> v = findVer(s0);
         if (v != null) {
