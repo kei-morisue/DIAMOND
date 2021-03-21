@@ -8,9 +8,11 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.graphics.FaceDrawer;
@@ -38,6 +40,10 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         }
     }
 
+    public void add(Line<T> l, Set<Link<T>> links) {
+        add(l.clip(links));
+    }
+
     public Ver<T> findVer(double x, double y, double scale) {
         for (Ver<T> ver : vers) {
             if (ver.isNear(x, y, scale)) {
@@ -56,6 +62,7 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         return null;
     }
 
+    //TODO
     public Link<T> link(Face<T> f) {
         Ver<T> p = null;
         Ver<T> q = null;
@@ -76,11 +83,19 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         return new Link<T>(this, f, p, q);
     }
 
-    @SafeVarargs
-    public final void add(Seg<T>... segs) {
-        for (Seg<T> seg : segs) {
-            creases.add(seg);
+    public final void add(Seg<T> seg) {
+        HashSet<Ver<T>> vs = new HashSet<Ver<T>>();
+        for (Seg<T> s0 : creases) {
+            Ver<T> x = s0.xPoint(seg);
+            if (x != null) {
+                vs.add(x);
+                s0.addNode(x);
+            }
         }
+        for (Ver<T> v : vs) {
+            seg.addNode(v);
+        }
+        creases.add(seg);
     }
 
     @SafeVarargs

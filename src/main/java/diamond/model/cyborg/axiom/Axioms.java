@@ -41,7 +41,7 @@ public class Axioms {
             return null;
         }
         Ver<T> w = null;
-        Ver<T> node = s0.node(s1);
+        Ver<T> node = s0.findVer(s1);
         if (node != null) {
             w = node;
             Dir<T> u0 = s0.dir(w).u();
@@ -90,8 +90,8 @@ public class Axioms {
         if (v0 == v) {
             return null;
         }
-        if (v0 == s.getP() || v0 == s.getQ()) {
-            return axiom3(s, new Seg<T>(v0, v));
+        if (s.find(v0) != null) {
+            return axiom3(s, new Seg<T>(v0, v, false, false));
         }
         Dir<T> d1 = s.dir();
         Dir<T> d = s.dir(v0);

@@ -10,6 +10,7 @@ import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -38,13 +39,26 @@ public abstract class D1<T extends F<T>> implements Metric {
         return dir.div(2).ver(p);
     }
 
-    public void add(Ver<T> v) {
-        F<T> d = dir().norm().sqrt();
-        F<T> dp = p.dir(v).norm().sqrt();
-        F<T> dq = q.dir(v).norm().sqrt();
-        if (dp.add(dq).sub(d).isZero()) {
+    public void addNode(Ver<T> v) {
+        F<T> dp = p.dir(v).norm();
+        if (dp.isZero()) {
+            return;
+        }
+        F<T> dq = q.dir(v).norm();
+        if (dq.isZero()) {
+            return;
+        }
+        //        if (dir(v).prod(dir()).isZero()) {
+        //            return;
+        //        }
+        F<T> d = dir().norm();
+        if (dp.sub(d).isNeg() && dq.sub(d).isNeg()) {
             nodes.add(v);
         }
+    }
+
+    public Ver<T> findNode(D1<T> s) {
+        return nodes.find(s.nodes);
     }
 
     public Ver<T> find(Ver<T> v) {
@@ -60,6 +74,8 @@ public abstract class D1<T extends F<T>> implements Metric {
     protected F<T> lengthSquared() {
         return q.dir(p).norm();
     }
+
+    public abstract void cut(Face<T> face, int i);
 
     public Ver<T> findNode(double x, double y, double scale) {
         return nodes.findNode(x, y, scale);
@@ -84,7 +100,7 @@ public abstract class D1<T extends F<T>> implements Metric {
         return p.dir(d.p);
     }
 
-    public Ver<T> node(D1<T> d0) {
+    public Ver<T> findVer(D1<T> d0) {
         if (d0.p == p) {
             return p;
         }
@@ -96,6 +112,10 @@ public abstract class D1<T extends F<T>> implements Metric {
         }
         if (d0.q == q) {
             return q;
+        }
+        Ver<T> node = nodes.find(d0.nodes);
+        if (node != null) {
+            return node;
         }
         return null;
     }

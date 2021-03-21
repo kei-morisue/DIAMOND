@@ -103,4 +103,10 @@ public class Link<T extends F<T>> extends D1<T>
         this.mirrorPlain = mirrorPlain;
     }
 
+    @Override
+    public void cut(Face<T> face, int i) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
 }

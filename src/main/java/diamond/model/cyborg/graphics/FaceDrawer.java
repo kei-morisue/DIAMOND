@@ -33,7 +33,7 @@ public final class FaceDrawer {
         g2d.setColor(Color.white);//TODO
         g2d.fill(ShapeBuilder.build(vers));
         for (Seg<T> crease : creases) {
-            crease.draw(screen, vers, g2d);
+            crease.draw(screen, g2d);
         }
     }
 

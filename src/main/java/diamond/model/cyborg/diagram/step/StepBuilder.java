@@ -7,6 +7,7 @@ package diamond.model.cyborg.diagram.step;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
@@ -30,19 +31,16 @@ public class StepBuilder {
         ArrayList<Face<T>> faces = new ArrayList<>();
 
         Face<T> face = new Face<T>(a, b, c, d);
-        face.add(new Seg<T>(a, c));
-        //        face.add(new Seg<T>(m, n));
+        face.add(new Seg<T>(a, c, true, true));
 
         faces.add(face);
         HashSet<Link<T>> links = new HashSet<>();
-        Link<T> ab = new Link<T>(face, null, a, b);
-        Link<T> cd = new Link<T>(face, null, c, d);
-        ab.add(m);
-        cd.add(n);
-        links.add(ab);
+        links.add(new Link<T>(face, null, a, b));
         links.add(new Link<T>(face, null, b, c));
-        links.add(cd);
+        links.add(new Link<T>(face, null, c, d));
         links.add(new Link<T>(face, null, d, a));
+
+        face.add(Axioms.axiom2(a, b), links);
 
         return new Step<T>(faces, links);
     }

@@ -5,6 +5,7 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
+import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
@@ -44,7 +45,24 @@ public class Line<T extends F<T>> {
         SegDrawer.drawPointed(screen, g2d, pFar, qFar);
     }
 
-    public Ver<T> xsection(D1<T> s) {
+    public Seg<T> clip(Set<Link<T>> links) {
+        Ver<T> p = null;
+        Ver<T> q = null;
+        for (Link<T> link : links) {
+            Ver<T> x = xPoint(link);
+            if (x != null) {
+                link.addNode(x);
+                if (p == null) {
+                    p = x;
+                } else if (q == null) {
+                    q = x;
+                }
+            }
+        }
+        return new Seg<T>(p, q, true, true);
+    }
+
+    private Ver<T> xPoint(D1<T> s) {
         if (isOn(s.p)) {
             return s.p;
         }
@@ -56,10 +74,14 @@ public class Line<T extends F<T>> {
             return x;
         }
         Dir<T> d0 = s.dir();
-        F<T> a = s.p.dir(p).prod(n).div(d0.prod(n));
-        F<T> b = p.dir(s.q).prod(n).div(d0.prod(n));
+        F<T> den = d0.prod(n);
+        if (den.isZero()) {
+            return null;
+        }
+        F<T> a = s.p.dir(p).prod(n).div(den);
+        F<T> b = p.dir(s.q).prod(n).div(den);
         if (a.isNeg() && b.isNeg()) {
-            return ((Dir<T>) d0.scale(a.neg())).ver(p);
+            return ((Dir<T>) d0.scale(a)).ver(s.q);
         }
         return null;
     }

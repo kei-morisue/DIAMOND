@@ -28,8 +28,13 @@ public class Nodes<T extends F<T>> {
         c = new NodeComparator<T>(p, q);
     }
 
-    public void add(Ver<T> v) {
-        nodes.add(v);
+    public void add(Ver<T> v0) {
+        for (Ver<T> v : nodes) {
+            if (v.dir(v0).norm().isZero()) {
+                return;
+            }
+        }
+        nodes.add(v0);
         nodes.sort(c);
     }
 
@@ -42,6 +47,16 @@ public class Nodes<T extends F<T>> {
         for (Ver<T> node : nodes) {
             if (l.isOn(node)) {
                 return node;
+            }
+        }
+        return null;
+    }
+
+    public Ver<T> find(Nodes<T> nodes) {
+        for (Ver<T> node : nodes.nodes) {
+            Ver<T> found = find(node);
+            if (found != null) {
+                return found;
             }
         }
         return null;
@@ -65,13 +80,18 @@ public class Nodes<T extends F<T>> {
         return null;
     }
 
-    public Nodes<T> cut0(Ver<T> p, Ver<T> q) {
-        Nodes<T> sub = new Nodes<T>(p, q);
-        for (Ver<T> node : nodes) {
-            if (node == q) {
-                return sub;
-            }
-            add(node);
+    public Nodes<T> cut(Ver<T> p, int i) {
+        Nodes<T> sub = new Nodes<T>(p, nodes.get(i));
+        for (int j = 0; j < i; ++j) {
+            add(nodes.get(j));
+        }
+        return sub;
+    }
+
+    public Nodes<T> cut(int i, Ver<T> q) {
+        Nodes<T> sub = new Nodes<T>(nodes.get(i), q);
+        for (int j = i; j < nodes.size(); ++j) {
+            add(nodes.get(j));
         }
         return sub;
     }
