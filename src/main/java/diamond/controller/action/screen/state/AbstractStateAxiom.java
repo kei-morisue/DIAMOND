@@ -7,6 +7,7 @@ package diamond.controller.action.screen.state;
 import diamond.controller.Context;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 
 /**
@@ -57,6 +58,10 @@ public abstract class AbstractStateAxiom<T extends F<T>>
     @Override
     final public AbstractScreenState<T> left(D1<T> t) {
         return null;
+    }
+
+    protected void put(Line<T> axiom) {
+        cut();
     }
 
     protected abstract void cut();

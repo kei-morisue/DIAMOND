@@ -6,9 +6,9 @@ package diamond.model.cyborg.diagram.step;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
@@ -24,24 +24,21 @@ import diamond.view.ui.screen.TransformScreen;
 public final class Step<T extends F<T>> {
     protected ArrayList<Face<T>> faces = new ArrayList<>();
     protected Face<T> baseFace;
-    protected HashSet<Link<T>> links = new HashSet<>();
     protected TransformScreen transform = new TransformScreen();
 
     @Deprecated
     public Step() {
     }
 
-    public Step(
-            ArrayList<Face<T>> faces,
-            HashSet<Link<T>> links) {
+    public Step(ArrayList<Face<T>> faces) {
         this.faces = faces;
         baseFace = faces.get(0);
-        this.links = links;
     }
 
-    public Link<T> findLink(double x, double y, double scale) {
-        for (Link<T> link : links) {
-            if (link.isNear(x, y, scale)) {
+    public D1<T> findLink(double x, double y, double scale) {
+        for (Face<T> face : faces) {
+            Link<T> link = face.findLink(x, y, scale);
+            if (link != null) {
                 return link;
             }
         }
@@ -75,12 +72,11 @@ public final class Step<T extends F<T>> {
     public Step(Step<T> step) {
         faces = step.faces;
         baseFace = step.baseFace;
-        links = step.links;
         transform = step.transform;//TODO
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        StepDrawer.draw(screen, g2d, faces, baseFace, links);
+        StepDrawer.draw(screen, g2d, faces, baseFace);
     }
 
     @Deprecated
@@ -101,16 +97,6 @@ public final class Step<T extends F<T>> {
     @Deprecated
     public void setBaseFace(Face<T> baseFace) {
         this.baseFace = baseFace;
-    }
-
-    @Deprecated
-    public HashSet<Link<T>> getLinks() {
-        return links;
-    }
-
-    @Deprecated
-    public void setLinks(HashSet<Link<T>> links) {
-        this.links = links;
     }
 
     @Deprecated

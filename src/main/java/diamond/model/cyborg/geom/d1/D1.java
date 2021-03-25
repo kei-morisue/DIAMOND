@@ -48,9 +48,6 @@ public abstract class D1<T extends F<T>> implements Metric {
         if (dq.isZero()) {
             return;
         }
-        //        if (dir(v).prod(dir()).isZero()) {
-        //            return;
-        //        }
         F<T> d = dir().norm();
         if (dp.sub(d).isNeg() && dq.sub(d).isNeg()) {
             nodes.add(v);
@@ -79,6 +76,10 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     public Ver<T> findNode(double x, double y, double scale) {
         return nodes.findNode(x, y, scale);
+    }
+
+    public Ver<T> findVer(double x, double y, double scale) {
+        return (p.isNear(x, y, scale)) ? p : null;
     }
 
     @Override

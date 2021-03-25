@@ -27,12 +27,11 @@ public class Cp<T extends F<T>> {
     }
 
     public Cp(ArrayList<Face<T>> faces,
-            Face<T> baseFace,
-            HashSet<Link<T>> links) {
+            Face<T> baseFace) {
         //TODO
     }
 
     public void draw(ScreenCp<T> screen, Graphics2D g2d) {
-        StepDrawer.draw(screen, g2d, faces, links);
+        StepDrawer.draw(screen, g2d, faces);
     }
 }

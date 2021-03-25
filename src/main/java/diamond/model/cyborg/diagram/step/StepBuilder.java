@@ -30,19 +30,19 @@ public class StepBuilder {
 
         ArrayList<Face<T>> faces = new ArrayList<>();
 
-        Face<T> face = new Face<T>(a, b, c, d);
+        Face<T> face = new Face<T>();
         face.add(new Seg<T>(a, c, true, true));
-
         faces.add(face);
+
         HashSet<Link<T>> links = new HashSet<>();
-        links.add(new Link<T>(face, null, a, b));
-        links.add(new Link<T>(face, null, b, c));
-        links.add(new Link<T>(face, null, c, d));
-        links.add(new Link<T>(face, null, d, a));
+        links.add(new Link<T>(face, a, b));
+        links.add(new Link<T>(face, b, c));
+        links.add(new Link<T>(face, c, d));
+        links.add(new Link<T>(face, d, a));
 
         face.add(Axioms.axiom2(a, b), links);
 
-        return new Step<T>(faces, links);
+        return new Step<T>(faces);
     }
 
 }

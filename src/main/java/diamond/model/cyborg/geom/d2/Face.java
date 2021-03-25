@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.Metric;
@@ -25,19 +26,19 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public class Face<T extends F<T>> implements Serializable, Metric {
-    private LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
+    private LinkedList<Link<T>> edges = new LinkedList<Link<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
-    private static final double EPS = 10;
+    //    private static final double EPS = 10;
 
-    @Deprecated
     public Face() {
     }
 
-    @SafeVarargs
-    public Face(Ver<T>... vers) {
-        for (Ver<T> ver : vers) {
-            this.vers.add(ver);
-        }
+    public void add(Link<T> edge) {
+        edges.add(edge);
+    }
+
+    public Face(List<Link<T>> edges) {
+        edges.addAll(edges);
     }
 
     public void add(Line<T> l, Set<Link<T>> links) {
@@ -45,9 +46,19 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public Ver<T> findVer(double x, double y, double scale) {
-        for (Ver<T> ver : vers) {
-            if (ver.isNear(x, y, scale)) {
+        for (Link<T> edge : edges) {
+            Ver<T> ver = edge.findVer(x, y, scale);
+            if (ver != null) {
                 return ver;
+            }
+        }
+        return null;
+    }
+
+    public Link<T> findLink(double x, double y, double scale) {
+        for (Link<T> edge : edges) {
+            if (edge.isNear(x, y, scale)) {
+                return edge;
             }
         }
         return null;
@@ -60,27 +71,6 @@ public class Face<T extends F<T>> implements Serializable, Metric {
             }
         }
         return null;
-    }
-
-    //TODO
-    public Link<T> link(Face<T> f) {
-        Ver<T> p = null;
-        Ver<T> q = null;
-        for (Ver<T> ver : vers) {
-            for (Ver<T> wer : f.vers) {
-                if (ver == wer) {
-                    if (p == null) {
-                        p = ver;
-                    } else {
-                        q = ver;
-                    }
-                }
-            }
-        }
-        if (p == null || q == null) {
-            return null;
-        }
-        return new Link<T>(this, f, p, q);
     }
 
     public final void add(Seg<T> seg) {
@@ -106,21 +96,11 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, vers, creases);
+        FaceDrawer.draw(screen, g2d, edges, creases);
     }
 
     public void draw(ScreenCp<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, vers, creases);
-    }
-
-    @Deprecated
-    public LinkedList<Ver<T>> getVers() {
-        return vers;
-    }
-
-    @Deprecated
-    public void setVers(LinkedList<Ver<T>> vers) {
-        this.vers = vers;
+        FaceDrawer.draw(screen, g2d, edges, creases);
     }
 
     @Deprecated
@@ -133,25 +113,26 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         this.creases = creases;
     }
 
-    private Ver<T> c() {
-        F<T> x = null;
-        F<T> y = null;
-        for (Ver<T> ver : vers) {
-            x = (x == null) ? ver.x : x.add(ver.x);
-            y = (y == null) ? ver.y : y.add(ver.y);
-        }
-        int n = vers.size();
-        return new Ver<T>(x.div(n), y.div(n));
-    }
-
     @Override
     public double distSquare(double x, double y) {
-        return c().distSquare(x, y);
+        //        TODO
+        return 0;
     }
 
     @Override
     public boolean isNear(double x, double y, double scale) {
-        return c().isNear(x, y, scale / EPS);
+        //        TODO
+        return false;
+    }
+
+    @Deprecated
+    public LinkedList<Link<T>> getEdges() {
+        return edges;
+    }
+
+    @Deprecated
+    public void setEdges(LinkedList<Link<T>> edges) {
+        this.edges = edges;
     }
 
 }
