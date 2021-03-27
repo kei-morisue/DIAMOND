@@ -21,7 +21,6 @@ public final class StateAxiom5<T extends F<T>> extends AbstractStateAxiom<T> {
     private Ver<T> v0;
     private Ver<T> v;
     private D1<T> s;
-    private Line<T> axiom;
 
     public StateAxiom5(
             Context<T> context,
@@ -30,11 +29,10 @@ public final class StateAxiom5<T extends F<T>> extends AbstractStateAxiom<T> {
             Ver<T> v,
             D1<T> s,
             Line<T> axiom) {
-        super(context, prevState);
+        super(context, prevState, axiom);
         this.v0 = v0;
         this.v = v;
         this.s = s;
-        this.axiom = axiom;
 
     }
 

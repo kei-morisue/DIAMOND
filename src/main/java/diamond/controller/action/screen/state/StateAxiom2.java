@@ -19,7 +19,6 @@ import diamond.view.ui.screen.ScreenModel;
 public final class StateAxiom2<T extends F<T>> extends AbstractStateAxiom<T> {
     private Ver<T> v0;
     private Ver<T> v1;
-    private Line<T> axiom;
 
     public StateAxiom2(
             Context<T> context,
@@ -27,10 +26,9 @@ public final class StateAxiom2<T extends F<T>> extends AbstractStateAxiom<T> {
             Ver<T> v0,
             Ver<T> v1,
             Line<T> axiom) {
-        super(context, stateIdol124);
+        super(context, stateIdol124, axiom);
         this.v0 = v0;
         this.v1 = v1;
-        this.axiom = axiom;
     }
 
     @Override

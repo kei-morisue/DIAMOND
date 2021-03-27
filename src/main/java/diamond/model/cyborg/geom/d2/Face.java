@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Ver;
@@ -41,8 +40,8 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         edges.addAll(edges);
     }
 
-    public void add(Line<T> l, Set<Link<T>> links) {
-        add(l.clip(links));
+    public void add(Line<T> axiom) {
+        add(axiom.clip(edges));
     }
 
     public Ver<T> findVer(double x, double y, double scale) {

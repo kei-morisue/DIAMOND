@@ -16,13 +16,18 @@ import diamond.model.math.field.F;
  */
 public abstract class AbstractStateAxiom<T extends F<T>>
         extends AbstractScreenState<T> {
+    protected Line<T> axiom;
+
     protected AbstractStateAxiom(
             Context<T> context,
-            AbstractScreenState<T> prevState) {
+            AbstractScreenState<T> prevState,
+            Line<T> axiom) {
         super(context, prevState);
+        this.axiom = axiom;
     }
 
-    public AbstractScreenState<T> execute(boolean isRidge) {
+    public AbstractScreenState<T> execute(boolean isLeft) {
+        context.getStep().add(axiom);
         cut();
         return new StateIdle<T>(context);
     }

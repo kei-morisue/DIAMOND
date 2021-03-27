@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
@@ -33,6 +34,12 @@ public final class Step<T extends F<T>> {
     public Step(ArrayList<Face<T>> faces) {
         this.faces = faces;
         baseFace = faces.get(0);
+    }
+
+    public void add(Line<T> axiom) {
+        for (Face<T> face : faces) {
+            face.add(axiom);
+        }
     }
 
     public D1<T> findLink(double x, double y, double scale) {

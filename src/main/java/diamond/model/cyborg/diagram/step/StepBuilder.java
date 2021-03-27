@@ -40,9 +40,9 @@ public class StepBuilder {
         links.add(new Link<T>(face, c, d));
         links.add(new Link<T>(face, d, a));
 
-        face.add(Axioms.axiom2(a, b), links);
-
-        return new Step<T>(faces);
+        Step<T> step = new Step<T>(faces);
+        step.add(Axioms.axiom2(a, b));
+        return step;
     }
 
 }

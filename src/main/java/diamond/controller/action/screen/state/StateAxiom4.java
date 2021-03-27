@@ -20,7 +20,6 @@ import diamond.view.ui.screen.ScreenModel;
 public final class StateAxiom4<T extends F<T>> extends AbstractStateAxiom<T> {
     private Ver<T> v;
     private D1<T> s;
-    private Line<T> axiom4;
 
     public StateAxiom4(
             Context<T> context,
@@ -28,17 +27,16 @@ public final class StateAxiom4<T extends F<T>> extends AbstractStateAxiom<T> {
             Ver<T> v,
             D1<T> s,
             Line<T> axiom) {
-        super(context, prevState);
+        super(context, prevState, axiom);
         this.v = v;
         this.s = s;
-        this.axiom4 = axiom;
     }
 
     @Override
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
         v.drawPointed(screen, g2d);
         s.drawPointed(screen, g2d);
-        axiom4.draw(screen, g2d);
+        axiom.draw(screen, g2d);
     }
 
     @Override

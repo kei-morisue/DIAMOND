@@ -63,7 +63,7 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
                 b.isNeg() &&
                 c.isNeg() &&
                 d.isNeg()) {
-            return ((Dir<T>) d0.scale(a)).ver(s0.q);
+            return ((Dir<T>) d0.scale(a.neg())).ver(s0.p);
         }
         return null;
 
