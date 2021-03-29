@@ -19,6 +19,9 @@ import diamond.view.ui.panel.Util;
 public class ExporterXml {
 
     public boolean export(Object diagram, String filePath) {
+        if (filePath == null) {
+            return false;
+        }
         try {
             FileOutputStream out = new FileOutputStream(filePath);
             BufferedOutputStream buffer = new BufferedOutputStream(out);

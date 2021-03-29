@@ -59,7 +59,10 @@ public class Line<T extends F<T>> {
                 }
             }
         }
-        return new Seg<T>(p, q, true, true);
+        if (p == null || q == null) {
+            return null;
+        }
+        return new Seg<T>(p, q);
     }
 
     private Ver<T> xPoint(D1<T> s0) {
@@ -78,7 +81,7 @@ public class Line<T extends F<T>> {
         F<T> a = s0.p.dir(p).prod(n).div(den0);
         F<T> b = p.dir(s0.q).prod(n).div(den0);
         if (a.isNeg() && b.isNeg()) {
-            return ((Dir<T>) d0.scale(a.neg())).ver(s0.p);
+            return ((Dir<T>) d0.scale(b)).ver(s0.q);
         }
         return null;
     }

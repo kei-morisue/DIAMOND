@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Line;
@@ -27,21 +28,72 @@ import diamond.view.ui.screen.ScreenModel;
 public class Face<T extends F<T>> implements Serializable, Metric {
     private LinkedList<Link<T>> edges = new LinkedList<Link<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
-    //    private static final double EPS = 10;
 
+    //    private static final double EPS = 10;
+    @Deprecated
     public Face() {
     }
 
-    public void add(Link<T> edge) {
-        edges.add(edge);
-    }
-
     public Face(List<Link<T>> edges) {
-        edges.addAll(edges);
+        for (Link<T> edge : edges) {
+            this.add(edge);
+        }
     }
 
-    public void add(Line<T> axiom) {
-        add(axiom.clip(edges));
+    //TODO ORLY???
+    public void add(Link<T> e) {
+        if (edges.isEmpty()) {
+            edges.add(e);
+            return;
+        }
+        for (Link<T> edge : edges) {
+            if (edge.isConnected(e)) {
+                edges.add(edges.indexOf(edge), e);
+                return;
+            }
+        }
+    }
+
+    public void remove(Link<T> edge) {
+        edges.remove(edge);
+    }
+
+    public Seg<T> add(Line<T> axiom) {
+        Seg<T> clip = axiom.clip(edges);
+        if (clip == null) {
+            return null;
+        }
+        for (Seg<T> crease : creases) {
+            if (crease.isdubbed(clip)) {
+                return null;
+            }
+        }
+        add(clip);
+        return clip;
+    }
+
+    public void cut(Seg<T> seg, Step<T> step) {
+        Link<T> lp = null;
+        Link<T> lq = null;
+        Ver<T> p = seg.getP();//TODO
+        Ver<T> q = seg.getQ();//TODO
+
+        for (Link<T> edge : edges) {
+            if (lp == null && edge.isNode(p)) {
+                lp = edge;
+            }
+            if (lq == null && edge.isNode(q)) {
+                lq = edge;
+            }
+        }
+        if (lp != null) {
+            Face<T> g = step.find(lp, this);
+            lp.cut(p, this, g);
+        }
+        if (lq != null) {
+            Face<T> g = step.find(lq, this);
+            lq.cut(q, this, g);
+        }
     }
 
     public Ver<T> findVer(double x, double y, double scale) {
@@ -54,7 +106,7 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         return null;
     }
 
-    public Link<T> findLink(double x, double y, double scale) {
+    public Link<T> findEdge(double x, double y, double scale) {
         for (Link<T> edge : edges) {
             if (edge.isNear(x, y, scale)) {
                 return edge;
@@ -63,7 +115,16 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         return null;
     }
 
-    public Seg<T> findSeg(double x, double y, double scale) {
+    public boolean isEdge(Link<T> edge) {
+        for (Link<T> e : edges) {
+            if (e == edge) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Seg<T> findCrease(double x, double y, double scale) {
         for (Seg<T> crease : creases) {
             if (crease.isNear(x, y, scale)) {
                 return crease;
@@ -73,6 +134,11 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public final void add(Seg<T> seg) {
+        putNodes(seg);
+        creases.add(seg);
+    }
+
+    private void putNodes(Seg<T> seg) {
         HashSet<Ver<T>> vs = new HashSet<Ver<T>>();
         for (Seg<T> s0 : creases) {
             Ver<T> x = s0.xPoint(seg);
@@ -84,14 +150,10 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         for (Ver<T> v : vs) {
             seg.addNode(v);
         }
-        creases.add(seg);
     }
 
-    @SafeVarargs
-    public final void remove(Seg<T>... segs) {
-        for (Seg<T> seg : segs) {
-            creases.remove(seg);
-        }
+    public final void remove(Seg<T> seg) {
+        creases.remove(seg);
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {

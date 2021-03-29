@@ -36,9 +36,9 @@ public final class ScreenModelAction<T extends F<T>>
             state.setPointedV(v);
             return;
         }
-        D1<T> s = step.findLink(x, y, scale);
+        D1<T> s = step.findEdge(x, y, scale);
         if (s == null) {
-            s = step.findSeg(x, y, scale);//TODO find seg & link
+            s = step.findCrease(x, y, scale);//TODO find seg & link
         }
         if (s != null) {
             Ver<T> node = s.findNode(x, y, scale);

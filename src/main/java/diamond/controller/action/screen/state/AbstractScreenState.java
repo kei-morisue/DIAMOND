@@ -49,7 +49,7 @@ public abstract class AbstractScreenState<T extends F<T>>
         }
     };
 
-    private AbstractScreenState<T> on(
+    protected AbstractScreenState<T> on(
             boolean isLeft) {
         if (isLeft) {
             return onLeft();

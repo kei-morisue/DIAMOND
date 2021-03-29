@@ -5,7 +5,6 @@
 package diamond.model.cyborg.diagram.step;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
@@ -24,21 +23,16 @@ public class StepBuilder {
         Ver<T> b = new Ver<T>(size, size.neg());
         Ver<T> c = new Ver<T>(size.neg(), size.neg());
         Ver<T> d = new Ver<T>(size.neg(), size);
-        F<T> zero = size.neg().add(size);
-        Ver<T> m = new Ver<T>(size, zero);
-        Ver<T> n = new Ver<T>(size.neg(), zero);
+        ArrayList<Link<T>> edges = new ArrayList<>();
+        edges.add(new Link<T>(a, b));
+        edges.add(new Link<T>(b, c));
+        edges.add(new Link<T>(c, d));
+        edges.add(new Link<T>(d, a));
+        Face<T> face = new Face<T>(edges);
+        face.add(new Seg<T>(a, c));
 
         ArrayList<Face<T>> faces = new ArrayList<>();
-
-        Face<T> face = new Face<T>();
-        face.add(new Seg<T>(a, c, true, true));
         faces.add(face);
-
-        HashSet<Link<T>> links = new HashSet<>();
-        links.add(new Link<T>(face, a, b));
-        links.add(new Link<T>(face, b, c));
-        links.add(new Link<T>(face, c, d));
-        links.add(new Link<T>(face, d, a));
 
         Step<T> step = new Step<T>(faces);
         step.add(Axioms.axiom2(a, b));

@@ -5,12 +5,12 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -34,6 +34,11 @@ public abstract class D1<T extends F<T>> implements Metric {
         this.nodes = new Nodes<T>(p, q);
     }
 
+    protected D1(Ver<T> p, Ver<T> q, List<Ver<T>> nodes) {
+        this(p, q);
+        this.nodes.add(nodes);
+    }
+
     public Ver<T> c() {
         Dir<T> dir = q.dir(p);
         return dir.div(2).ver(p);
@@ -54,10 +59,6 @@ public abstract class D1<T extends F<T>> implements Metric {
         }
     }
 
-    public Ver<T> findNode(D1<T> s) {
-        return nodes.find(s.nodes);
-    }
-
     public Ver<T> find(Ver<T> v) {
         if (p == v) {
             return p;
@@ -72,14 +73,20 @@ public abstract class D1<T extends F<T>> implements Metric {
         return q.dir(p).norm();
     }
 
-    public abstract void cut(Face<T> face, int i);
-
     public Ver<T> findNode(double x, double y, double scale) {
         return nodes.findNode(x, y, scale);
     }
 
     public Ver<T> findVer(double x, double y, double scale) {
-        return (p.isNear(x, y, scale)) ? p : null;
+        return (p.isNear(x, y, scale)) ? p : (q.isNear(x, y, scale)) ? q : null;
+    }
+
+    public boolean isConnected(D1<T> s) {
+        return s.p == p || s.q == q || s.p == q || s.q == p;
+    }
+
+    public boolean isdubbed(D1<T> s) {
+        return s.p == p && s.q == q || s.p == q && s.q == p;
     }
 
     @Override

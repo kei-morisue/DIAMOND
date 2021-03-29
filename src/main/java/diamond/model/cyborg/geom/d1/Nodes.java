@@ -6,6 +6,7 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 import java.util.LinkedList;
+import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.F;
@@ -38,6 +39,14 @@ public class Nodes<T extends F<T>> {
         nodes.sort(c);
     }
 
+    public void add(List<Ver<T>> vers) {
+        if (nodes.size() != 0) {
+            return;
+        }
+        nodes.addAll(vers);
+        nodes.sort(c);
+    }
+
     public void remove(Ver<T> v) {
         nodes.remove(v);
         nodes.sort(c);
@@ -62,6 +71,16 @@ public class Nodes<T extends F<T>> {
         return null;
     }
 
+    public List<Ver<T>> cut(Ver<T> v, List<Ver<T>> s0) {
+        if (find(v) == null) {
+            return null;
+        }
+        int i = nodes.indexOf(v);
+        s0.addAll(s0.subList(0, Math.max(i - 1, 0)));
+        int size = nodes.size() - 1;
+        return nodes.subList(Math.min(i + 1, size), size);
+    }
+
     public Ver<T> find(Ver<T> v) {
         for (Ver<T> node : nodes) {
             if (node == v) {
@@ -78,22 +97,6 @@ public class Nodes<T extends F<T>> {
             }
         }
         return null;
-    }
-
-    public Nodes<T> cut(Ver<T> p, int i) {
-        Nodes<T> sub = new Nodes<T>(p, nodes.get(i));
-        for (int j = 0; j < i; ++j) {
-            add(nodes.get(j));
-        }
-        return sub;
-    }
-
-    public Nodes<T> cut(int i, Ver<T> q) {
-        Nodes<T> sub = new Nodes<T>(nodes.get(i), q);
-        for (int j = i; j < nodes.size(); ++j) {
-            add(nodes.get(j));
-        }
-        return sub;
     }
 
     public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {

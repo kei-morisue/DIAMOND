@@ -23,27 +23,62 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public class Link<T extends F<T>> extends D1<T>
         implements Serializable {
-    private Face<T> f;
     private MirrorPlain<T> mirrorPlain;
-    //    private AbstractMirror<T> mirror;
+    //    private AbstractMirror<T> mirror = null;
 
     @Deprecated
     public Link() {
     }
 
-    public Link(Face<T> f, Ver<T> p, Ver<T> q) {
+    public Link(Ver<T> p, Ver<T> q) {
         super(p, q);
-        this.f = f;
-        f.add(this);
         this.mirrorPlain = new MirrorPlain<T>(p, q);
+    }
+
+    public Link(Face<T> f, D1<T> s) {
+        this(s.p, s.q);
+    }
+
+    public Link(Ver<T> p, Ver<T> q, List<Ver<T>> nodes) {
+        super(p, q, nodes);
     }
 
     public static <S extends F<S>> List<Ver<S>> vers(List<Link<S>> links) {
         LinkedList<Ver<S>> vers = new LinkedList<Ver<S>>();
         for (Link<S> link : links) {
-            vers.add(link.p);
+            if (vers.indexOf(link.p) == -1) {
+                vers.add(link.p);
+
+            } else {
+                vers.add(link.q);
+            }
         }
         return vers;
+    }
+
+    public boolean isNode(Ver<T> v) {
+        return nodes.find(v) != null;
+    }
+
+    //TODO
+    public void cut(Ver<T> r, Face<T> f, Face<T> g) {
+        LinkedList<Ver<T>> np = new LinkedList<Ver<T>>();
+        List<Ver<T>> nq = nodes.cut(r, np);
+        if (nq == null) {
+            return;
+        }
+        Link<T> lp = new Link<T>(p, r, np);
+        Link<T> lq = new Link<T>(r, q, nq);
+        if (f != null) {
+            f.remove(this);
+            f.add(lp);
+            f.add(lq);
+        }
+        if (g != null) {
+            g.remove(this);
+            g.add(lp);
+            g.add(lq);
+        }
     }
 
     @Override
@@ -65,36 +100,6 @@ public class Link<T extends F<T>> extends D1<T>
     }
 
     @Deprecated
-    public Ver<T> getP() {
-        return p;
-    }
-
-    @Deprecated
-    public void setP(Ver<T> p) {
-        this.p = p;
-    }
-
-    @Deprecated
-    public Ver<T> getQ() {
-        return q;
-    }
-
-    @Deprecated
-    public void setQ(Ver<T> q) {
-        this.q = q;
-    }
-
-    @Deprecated
-    public Face<T> getF() {
-        return f;
-    }
-
-    @Deprecated
-    public void setF(Face<T> f) {
-        this.f = f;
-    }
-
-    @Deprecated
     public MirrorPlain<T> getMirrorPlain() {
         return mirrorPlain;
     }
@@ -102,12 +107,6 @@ public class Link<T extends F<T>> extends D1<T>
     @Deprecated
     public void setMirrorPlain(MirrorPlain<T> mirrorPlain) {
         this.mirrorPlain = mirrorPlain;
-    }
-
-    @Override
-    public void cut(Face<T> face, int i) {
-        // TODO 自動生成されたメソッド・スタブ
-
     }
 
 }

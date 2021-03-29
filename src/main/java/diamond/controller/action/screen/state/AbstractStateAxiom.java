@@ -5,6 +5,7 @@
 package diamond.controller.action.screen.state;
 
 import diamond.controller.Context;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Line;
@@ -26,47 +27,54 @@ public abstract class AbstractStateAxiom<T extends F<T>>
         this.axiom = axiom;
     }
 
-    public AbstractScreenState<T> execute(boolean isLeft) {
-        context.getStep().add(axiom);
-        cut();
+    public AbstractScreenState<T> execute(boolean isCtrl) {
+        Step<T> step = context.getStep();
+        if (isCtrl) {
+            step.cut(axiom);
+        } else {
+            step.add(axiom);
+        }
         return new StateIdle<T>(context);
     }
 
     @Override
-    protected AbstractScreenState<T> onLeft() {
-        return execute(true);
-    }
-
-    @Override
-    protected AbstractScreenState<T> onCtrl(boolean isleft) {
-        if (isleft) {
-            return execute(false);
+    protected AbstractScreenState<T> onCtrl(boolean isLeft) {
+        if (isLeft) {
+            return execute(true);
         }
         return prevState;
     }
 
     @Override
+    protected AbstractScreenState<T> on(boolean isLeft) {
+        if (isLeft) {
+            return execute(false);
+        }
+        return prevState;
+    }
+
+    @Deprecated
+    @Override
     final public AbstractScreenState<T> leftCtrl(Ver<T> t) {
         return null;
     }
 
+    @Deprecated
     @Override
     final public AbstractScreenState<T> leftCtrl(D1<T> t) {
         return null;
     }
 
+    @Deprecated
     @Override
     final public AbstractScreenState<T> left(Ver<T> t) {
         return null;
     }
 
+    @Deprecated
     @Override
     final public AbstractScreenState<T> left(D1<T> t) {
         return null;
-    }
-
-    protected void put(Line<T> axiom) {
-        cut();
     }
 
     protected abstract void cut();

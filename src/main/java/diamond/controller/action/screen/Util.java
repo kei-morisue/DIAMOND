@@ -20,11 +20,11 @@ public class Util {
     }
 
     public static boolean isLeftClick(MouseEvent e) {
-        return (e.getModifiers() == InputEvent.BUTTON1_MASK);
+        return e.getButton() == MouseEvent.BUTTON1;
     }
 
     public static boolean isRightClick(MouseEvent e) {
-        return (e.getModifiers() == InputEvent.BUTTON3_MASK);
+        return e.getButton() == MouseEvent.BUTTON3;
     }
 
     public static boolean isCtrl(KeyEvent e) {

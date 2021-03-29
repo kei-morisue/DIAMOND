@@ -30,17 +30,11 @@ public class SegDrawer {
             Graphics2D g2d,
             Ver<T> p,
             Ver<T> q,
-            Ver<T> c,
-            boolean cutP,
-            boolean cutQ) {
+            Ver<T> c) {
         g2d.setColor(BASE);
         g2d.setStroke(strokeModel(screen.getScale()));
-        if (cutP) {
-            p = p.dir(c).mul(CUT).div(100).ver(c);
-        }
-        if (cutQ) {
-            q = q.dir(c).mul(CUT).div(100).ver(c);
-        }
+        p = p.dir(c).mul(CUT).div(100).ver(c);
+        q = q.dir(c).mul(CUT).div(100).ver(c);
         g2d.draw(ShapeBuilder.build(p, q));
     }
 

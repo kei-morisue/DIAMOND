@@ -4,8 +4,8 @@
  */
 package diamond.model.cyborg.geom.d2;
 
-import java.util.HashSet;
-
+import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 
@@ -13,15 +13,18 @@ import diamond.model.math.field.F;
  * @author Kei Morisue
  *
  */
-public final class Cutter {
+public class Cutter {
     @Deprecated
     private Cutter() {
     }
 
-    public static <T extends F<T>> void put(
-            HashSet<Seg<T>> creases,
+    public static <T extends F<T>> void cut(
+            Step<T> step,
+            Face<T> face,
             Seg<T> s) {
-        // TODO 自動生成されたメソッド・スタブ
 
+        Face<T> f0 = new Face<T>();
+        Face<T> f1 = new Face<T>();
+        new Link<T>(f0, s);
     }
 }

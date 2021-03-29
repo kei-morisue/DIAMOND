@@ -7,6 +7,7 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
@@ -21,23 +22,36 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public class Seg<T extends F<T>> extends D1<T> implements Serializable {
-    private boolean cutP = true;
-    private boolean cutQ = true;
 
     @Deprecated
     public Seg() {
     }
 
-    public Seg(Ver<T> p, Ver<T> q, boolean cutP, boolean cutQ) {
+    public Seg(Ver<T> p, Ver<T> q) {
         super(p, q);
-        this.cutP = cutP;
-        this.cutQ = cutQ;
+    }
+
+    public Seg(Ver<T> p, Ver<T> q, List<Ver<T>> nodes) {
+        super(p, q, nodes);
+    }
+
+    public void cut(Ver<T> r, Face<T> f) {
+        LinkedList<Ver<T>> np = null;
+        List<Ver<T>> nq = nodes.cut(r, np);
+        if (nq == null) {
+            return;
+        }
+        f.remove(this);
+        Seg<T> sp = new Seg<T>(p, r, np);
+        f.add(sp);
+        Seg<T> sq = new Seg<T>(r, q, nq);
+        f.add(sq);
     }
 
     @Override
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
         nodes.draw(screen, g2d);
-        SegDrawer.draw(screen, g2d, p, q, c(), cutP, cutQ);
+        SegDrawer.draw(screen, g2d, p, q, c());
     }
 
     //TODO toomuch workload???
@@ -63,7 +77,7 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
                 b.isNeg() &&
                 c.isNeg() &&
                 d.isNeg()) {
-            return ((Dir<T>) d0.scale(a.neg())).ver(s0.p);
+            return ((Dir<T>) d0.scale(b)).ver(s0.q);
         }
         return null;
 
@@ -80,8 +94,4 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
         // TODO 自動生成されたメソッド・スタブ
     }
 
-    @Override
-    public void cut(Face<T> face, int i) {
-        // TODO 自動生成されたメソッド・スタブ
-    }
 }

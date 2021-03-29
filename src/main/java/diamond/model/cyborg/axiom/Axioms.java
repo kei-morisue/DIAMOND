@@ -92,7 +92,7 @@ public class Axioms {
             return null;
         }
         if (s.find(v0) != null) {
-            return axiom3(s, new Seg<T>(v0, v, false, false));
+            return axiom3(s, new Seg<T>(v0, v));
         }
         Dir<T> d1 = s.dir();
         Dir<T> d = s.dir(v0);

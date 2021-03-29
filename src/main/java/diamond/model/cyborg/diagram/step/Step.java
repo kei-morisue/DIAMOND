@@ -42,9 +42,26 @@ public final class Step<T extends F<T>> {
         }
     }
 
-    public D1<T> findLink(double x, double y, double scale) {
+    public void cut(Line<T> axiom) {
         for (Face<T> face : faces) {
-            Link<T> link = face.findLink(x, y, scale);
+            Seg<T> seg = face.add(axiom);
+            face.cut(seg, this);
+        }
+    }
+
+    //TODO toomuch workload???
+    public Face<T> find(Link<T> edge, Face<T> f) {
+        for (Face<T> face : faces) {
+            if (face.isEdge(edge) && face != f) {
+                return face;
+            }
+        }
+        return null;
+    }
+
+    public D1<T> findEdge(double x, double y, double scale) {
+        for (Face<T> face : faces) {
+            Link<T> link = face.findEdge(x, y, scale);
             if (link != null) {
                 return link;
             }
@@ -52,9 +69,9 @@ public final class Step<T extends F<T>> {
         return null;
     }
 
-    public Seg<T> findSeg(double x, double y, double scale) {
+    public Seg<T> findCrease(double x, double y, double scale) {
         for (Face<T> face : faces) {
-            Seg<T> seg = face.findSeg(x, y, scale);
+            Seg<T> seg = face.findCrease(x, y, scale);
             if (seg != null) {
                 return seg;
             }
