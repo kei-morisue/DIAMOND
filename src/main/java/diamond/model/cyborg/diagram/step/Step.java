@@ -13,7 +13,8 @@ import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.StepDrawer;
+import diamond.model.cyborg.graphics.draw.StepDrawer;
+import diamond.model.cyborg.graphics.find.StepFinder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 import diamond.view.ui.screen.TransformScreen;
@@ -34,6 +35,12 @@ public final class Step<T extends F<T>> {
     public Step(ArrayList<Face<T>> faces) {
         this.faces = faces;
         baseFace = faces.get(0);
+    }
+
+    public Step(Step<T> step) {
+        faces = step.faces;
+        baseFace = step.baseFace;
+        transform = step.transform;//TODO
     }
 
     public void add(Line<T> axiom) {
@@ -60,43 +67,19 @@ public final class Step<T extends F<T>> {
     }
 
     public D1<T> findEdge(double x, double y, double scale) {
-        for (Face<T> face : faces) {
-            Link<T> link = face.findEdge(x, y, scale);
-            if (link != null) {
-                return link;
-            }
-        }
-        return null;
+        return StepFinder.findEdge(faces, x, y, scale);
     }
 
     public Seg<T> findCrease(double x, double y, double scale) {
-        for (Face<T> face : faces) {
-            Seg<T> seg = face.findCrease(x, y, scale);
-            if (seg != null) {
-                return seg;
-            }
-        }
-        return null;
+        return StepFinder.findCrease(faces, x, y, scale);
     }
 
     public Ver<T> findVer(double x, double y, double scale) {
-        for (Face<T> face : faces) {
-            Ver<T> ver = face.findVer(x, y, scale);
-            if (ver != null) {
-                return ver;
-            }
-        }
-        return null;
+        return StepFinder.findVer(faces, x, y, scale);
     }
 
     public Face<T> findFace(double x, double y, double scale) {
-        return baseFace;//TODO
-    }
-
-    public Step(Step<T> step) {
-        faces = step.faces;
-        baseFace = step.baseFace;
-        transform = step.transform;//TODO
+        return StepFinder.findFace(faces, x, y, scale);
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {

@@ -8,9 +8,10 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import diamond.model.cyborg.Util;
-import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.graphics.find.D1Finder;
+import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -74,11 +75,11 @@ public abstract class D1<T extends F<T>> implements Metric {
     }
 
     public Ver<T> findNode(double x, double y, double scale) {
-        return nodes.findNode(x, y, scale);
+        return D1Finder.findNode(nodes, x, y, scale);
     }
 
     public Ver<T> findVer(double x, double y, double scale) {
-        return (p.isNear(x, y, scale)) ? p : (q.isNear(x, y, scale)) ? q : null;
+        return D1Finder.findVer(p, q, x, y, scale);
     }
 
     public boolean isConnected(D1<T> s) {

@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.StepDrawer;
+import diamond.model.cyborg.graphics.draw.StepDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenCp;
 

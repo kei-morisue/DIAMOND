@@ -11,12 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import diamond.model.cyborg.diagram.step.Step;
-import diamond.model.cyborg.geom.Metric;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
-import diamond.model.cyborg.graphics.FaceDrawer;
+import diamond.model.cyborg.graphics.draw.FaceDrawer;
+import diamond.model.cyborg.graphics.find.FaceFinder;
+import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
@@ -96,25 +97,6 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         }
     }
 
-    public Ver<T> findVer(double x, double y, double scale) {
-        for (Link<T> edge : edges) {
-            Ver<T> ver = edge.findVer(x, y, scale);
-            if (ver != null) {
-                return ver;
-            }
-        }
-        return null;
-    }
-
-    public Link<T> findEdge(double x, double y, double scale) {
-        for (Link<T> edge : edges) {
-            if (edge.isNear(x, y, scale)) {
-                return edge;
-            }
-        }
-        return null;
-    }
-
     public boolean isEdge(Link<T> edge) {
         for (Link<T> e : edges) {
             if (e == edge) {
@@ -124,13 +106,16 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         return false;
     }
 
+    public Link<T> findEdge(double x, double y, double scale) {
+        return FaceFinder.findEdge(edges, x, y, scale);
+    }
+
+    public Ver<T> findVer(double x, double y, double scale) {
+        return FaceFinder.findVer(edges, x, y, scale);
+    }
+
     public Seg<T> findCrease(double x, double y, double scale) {
-        for (Seg<T> crease : creases) {
-            if (crease.isNear(x, y, scale)) {
-                return crease;
-            }
-        }
-        return null;
+        return FaceFinder.findCrease(creases, x, y, scale);
     }
 
     public final void add(Seg<T> seg) {

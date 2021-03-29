@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import diamond.model.cyborg.Util;
-import diamond.model.cyborg.geom.Metric;
-import diamond.model.cyborg.graphics.VerDrawer;
+import diamond.model.cyborg.graphics.draw.VerDrawer;
+import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 

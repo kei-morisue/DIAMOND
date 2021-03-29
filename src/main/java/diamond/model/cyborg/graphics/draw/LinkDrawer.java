@@ -2,7 +2,7 @@
  * DEFOX - Diagram Editor for Origami Creators
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg.graphics;
+package diamond.model.cyborg.graphics.draw;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

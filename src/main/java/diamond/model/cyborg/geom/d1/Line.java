@@ -9,7 +9,7 @@ import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.graphics.SegDrawer;
+import diamond.model.cyborg.graphics.draw.SegDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 

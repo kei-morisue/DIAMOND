@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.graphics.find.NodesFinder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -76,9 +77,9 @@ public class Nodes<T extends F<T>> {
             return null;
         }
         int i = nodes.indexOf(v);
-        s0.addAll(s0.subList(0, Math.max(i - 1, 0)));
-        int size = nodes.size() - 1;
-        return nodes.subList(Math.min(i + 1, size), size);
+        s0.addAll(nodes.subList(0, i));
+        int size = nodes.size();
+        return nodes.subList(Math.min(i + 1, size - 1), size);
     }
 
     public Ver<T> find(Ver<T> v) {
@@ -91,12 +92,7 @@ public class Nodes<T extends F<T>> {
     }
 
     public Ver<T> findNode(double x, double y, double scale) {
-        for (Ver<T> node : nodes) {
-            if (node.isNear(x, y, scale)) {
-                return node;
-            }
-        }
-        return null;
+        return NodesFinder.findNode(nodes, x, y, scale);
     }
 
     public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {

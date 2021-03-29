@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import diamond.model.cyborg.graphics.SegDrawer;
+import diamond.model.cyborg.graphics.draw.SegDrawer;
 import diamond.model.math.fuzzy.Util;
 import diamond.view.resource.string.Labels;
 

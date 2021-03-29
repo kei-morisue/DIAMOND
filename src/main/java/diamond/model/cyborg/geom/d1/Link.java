@@ -12,7 +12,7 @@ import java.util.List;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d0.mirror.MirrorPlain;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.LinkDrawer;
+import diamond.model.cyborg.graphics.draw.LinkDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenCp;
 import diamond.view.ui.screen.ScreenModel;
