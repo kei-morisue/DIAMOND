@@ -26,7 +26,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Face<T extends F<T>> implements Serializable, Metric {
+public class Face<T extends F<T>> implements Serializable, Metric<T> {
     private LinkedList<Link<T>> edges = new LinkedList<Link<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
     private LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
@@ -124,6 +124,7 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         creases.remove(seg);
     }
 
+    @Override
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,

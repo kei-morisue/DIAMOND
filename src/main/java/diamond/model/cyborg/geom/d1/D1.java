@@ -4,21 +4,18 @@
  */
 package diamond.model.cyborg.geom.d1;
 
-import java.awt.Graphics2D;
-
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.find.D1Finder;
 import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class D1<T extends F<T>> implements Metric {
+public abstract class D1<T extends F<T>> implements Metric<T> {
     protected Ver<T> p;
     protected Ver<T> q;
     protected Nodes<T> nodes = new Nodes<T>();
@@ -138,11 +135,6 @@ public abstract class D1<T extends F<T>> implements Metric {
         }
         return p.dir(v);
     }
-
-    public abstract <S extends AbstractScreen<T>> void draw(
-            S screen,
-            Graphics2D g2d,
-            boolean isPointed);
 
     @Deprecated
     public Ver<T> getP() {

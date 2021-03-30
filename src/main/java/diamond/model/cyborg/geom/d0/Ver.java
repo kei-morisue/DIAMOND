@@ -5,7 +5,6 @@
 package diamond.model.cyborg.geom.d0;
 
 import java.awt.Graphics2D;
-import java.io.Serializable;
 
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.graphics.draw.VerDrawer;
@@ -17,7 +16,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Ver<T extends F<T>> implements Serializable, Metric {
+public class Ver<T extends F<T>> implements Metric<T> {
     public F<T> x;
     public F<T> y;
     private static final double EPS = 250;
@@ -37,6 +36,7 @@ public class Ver<T extends F<T>> implements Serializable, Metric {
                 y.sub(v0.y));
     }
 
+    @Override
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
