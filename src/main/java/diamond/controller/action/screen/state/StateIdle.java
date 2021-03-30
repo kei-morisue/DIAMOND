@@ -55,11 +55,11 @@ public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
     @Override
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
         if (pointedV != null) {
-            pointedV.drawPointed(screen, g2d);
+            pointedV.draw(screen, g2d, true);
             return;
         }
         if (pointedS != null) {
-            pointedS.drawPointed(screen, g2d);
+            pointedS.draw(screen, g2d, true);
         }
     }
 

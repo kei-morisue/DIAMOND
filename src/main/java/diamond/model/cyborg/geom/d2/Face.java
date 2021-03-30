@@ -20,8 +20,7 @@ import diamond.model.cyborg.graphics.draw.FaceDrawer;
 import diamond.model.cyborg.graphics.find.FaceFinder;
 import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenCp;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -125,17 +124,12 @@ public class Face<T extends F<T>> implements Serializable, Metric {
         creases.remove(seg);
     }
 
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, edges, creases, vers);
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            boolean isPointed) {
+        FaceDrawer.draw(screen, g2d, edges, creases, vers, isPointed);
     }
-
-    public void draw(ScreenCp<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, edges, creases, vers);
-    }
-
-    //    public <S extends AbstractScreen<T>> void draw(S screen, Graphics2D g2d) {
-    //        FaceDrawer.draw(screen, g2d, edges, creases, vers);
-    //    }
 
     @Deprecated
     public HashSet<Seg<T>> getCreases() {

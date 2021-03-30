@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -17,25 +17,17 @@ import diamond.view.ui.screen.ScreenModel;
  */
 public final class VerDrawer {
     static public final Color POINTED = Color.GREEN;
-    static public final Color DEFAULT = Color.BLACK;
+    static public final Color BASE = Color.BLACK;
     static public final double SIZE = 7.0;
     static public final double SIZE_POINTED = 10.0;
 
-    public static <T extends F<T>> void drawPointed(
-            ScreenModel<T> screen,
+    public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
+            S screen,
             Graphics2D g2d,
-            Ver<T> ver) {
-        g2d.setColor(POINTED);
-        double size = SIZE_POINTED / screen.getScale();
-        g2d.fill(ShapeBuilder.build(ver, size));
-    }
-
-    public static <T extends F<T>> void draw(
-            ScreenModel<T> screen,
-            Graphics2D g2d,
-            Ver<T> ver) {
-        g2d.setColor(DEFAULT);
-        double size = SIZE / screen.getScale();
+            Ver<T> ver,
+            boolean isPointed) {
+        g2d.setColor((isPointed) ? POINTED : BASE);
+        double size = ((isPointed) ? SIZE_POINTED : SIZE) / screen.getScale();
         g2d.fill(ShapeBuilder.build(ver, size));
     }
 

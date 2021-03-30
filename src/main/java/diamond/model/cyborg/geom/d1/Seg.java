@@ -5,7 +5,6 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
-import java.util.LinkedList;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Dir;
@@ -13,8 +12,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.draw.SegDrawer;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenCp;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -43,9 +41,12 @@ public class Seg<T extends F<T>> extends D1<T> {
     }
 
     @Override
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        nodes.draw(screen, g2d);
-        SegDrawer.draw(screen, g2d, p, q, c());
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            boolean isPointed) {
+        nodes.draw(screen, g2d, isPointed);
+        SegDrawer.draw(screen, g2d, p, q, c(), isPointed);
     }
 
     public Ver<T> xPoint(Seg<T> s0) {
@@ -88,17 +89,6 @@ public class Seg<T extends F<T>> extends D1<T> {
                 add(x);
             }
         }
-    }
-
-    //TBD
-    @Override
-    public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
-        SegDrawer.drawPointed(screen, g2d, p, q);
-    }
-
-    public void draw(ScreenCp<T> screen, LinkedList<Ver<T>> vers,
-            Graphics2D g2d) {
-        // TODO 自動生成されたメソッド・スタブ
     }
 
 }

@@ -12,7 +12,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.find.D1Finder;
 import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -139,9 +139,10 @@ public abstract class D1<T extends F<T>> implements Metric {
         return p.dir(v);
     }
 
-    public abstract void drawPointed(ScreenModel<T> screen, Graphics2D g2d);
-
-    public abstract void draw(ScreenModel<T> screen, Graphics2D g2d);
+    public abstract <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            boolean isPointed);
 
     @Deprecated
     public Ver<T> getP() {

@@ -63,25 +63,25 @@ public final class StateIdle124<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
-        v0.drawPointed(screen, g2d);
+        v0.draw(screen, g2d, true);
         if (pointedS != null) {
-            pointedS.drawPointed(screen, g2d);
+            pointedS.draw(screen, g2d, true);
             Line<T> axiom4 = Axioms.axiom4(pointedS, v0);
             if (axiom4 != null) {
-                axiom4.draw(screen, g2d);
+                axiom4.draw(screen, g2d, true);
             }
         }
         if (pointedV != null) {
-            pointedV.drawPointed(screen, g2d);
+            pointedV.draw(screen, g2d, true);
             if (isCtrl) {
                 Line<T> axiom1 = Axioms.axiom1(v0, pointedV);
                 if (axiom1 != null) {
-                    axiom1.draw(screen, g2d);
+                    axiom1.draw(screen, g2d, true);
                 }
             } else {
                 Line<T> axiom2 = Axioms.axiom2(v0, pointedV);
                 if (axiom2 != null) {
-                    axiom2.draw(screen, g2d);
+                    axiom2.draw(screen, g2d, true);
                 }
             }
         }

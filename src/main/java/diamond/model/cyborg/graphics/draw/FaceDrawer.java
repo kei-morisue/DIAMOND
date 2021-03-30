@@ -13,8 +13,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenCp;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -25,55 +24,21 @@ public final class FaceDrawer {
     //    private static Color back = Color.WHITE;
     //    private static final Color POINTED = Color.GREEN;
 
-    public static <T extends F<T>> void draw(
-            ScreenModel<T> screen,
+    public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
+            S screen,
             Graphics2D g2d,
             LinkedList<Link<T>> edges,
             HashSet<Seg<T>> creases,
-            LinkedList<Ver<T>> vers) {
+            LinkedList<Ver<T>> vers,
+            boolean isPointed) {
         g2d.setColor(Color.white);//TODO
         g2d.fill(ShapeBuilder.build(vers));
         for (Link<T> edge : edges) {
-            edge.draw(screen, g2d);
+            edge.draw(screen, g2d, isPointed);
         }
         for (Seg<T> crease : creases) {
-            crease.draw(screen, g2d);
+            crease.draw(screen, g2d, isPointed);
         }
     }
 
-    //    public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
-    //            S screen,
-    //            Graphics2D g2d,
-    //            LinkedList<Link<T>> edges,
-    //            HashSet<Seg<T>> creases,
-    //            LinkedList<Ver<T>> vers) {
-    //        g2d.setColor(Color.white);//TODO
-    //        g2d.fill(ShapeBuilder.build(vers));
-    //        for (Link<T> edge : edges) {
-    //            edge.draw(screen, g2d);
-    //        }
-    //        for (Seg<T> crease : creases) {
-    //            crease.draw(screen, g2d);
-    //        }
-    //    }
-
-    public static <T extends F<T>> void draw(
-            ScreenCp<T> screen,
-            Graphics2D g2d,
-            LinkedList<Link<T>> edges,
-            HashSet<Seg<T>> creases,
-            LinkedList<Ver<T>> vers) {
-        //        // TODO 自動生成されたメソッド・スタブ
-        //        Ver<T> wer = vers.getLast();
-        //        g2d.setColor(front);//TODO
-        //        g2d.fill(ShapeBuilder.build(vers));
-        //        for (Seg<T> crease : creases) {
-        //            crease.draw(screen, vers, g2d);
-        //        }
-        //        for (Ver<T> ver : vers) {
-        //            new Link<T>(null, null, wer, ver).draw(screen, g2d);
-        //            wer = ver;
-        //        }
-
-    }
 }

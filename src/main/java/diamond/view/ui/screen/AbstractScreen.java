@@ -12,8 +12,6 @@ import java.awt.event.ComponentListener;
 import java.awt.geom.Point2D;
 import java.util.Observer;
 
-import javax.swing.JPanel;
-
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.math.field.F;
@@ -22,7 +20,7 @@ import diamond.model.math.field.F;
  * @author Kei Morisue
  *
  */
-public abstract class AbstractScreen<T extends F<T>> extends JPanel
+public abstract class AbstractScreen<T extends F<T>> extends CyborgScreen
         implements ComponentListener, Observer {
     protected TransformScreen transform = new TransformScreen();
     protected Context<T> context;

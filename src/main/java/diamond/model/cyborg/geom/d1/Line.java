@@ -9,9 +9,9 @@ import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.graphics.draw.SegDrawer;
+import diamond.model.cyborg.graphics.draw.LineDrawer;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -39,10 +39,6 @@ public class Line<T extends F<T>> {
 
     public boolean isOn(Ver<T> v) {
         return p.dir(v).prod(n).isZero();
-    }
-
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        SegDrawer.drawPointed(screen, g2d, pFar, qFar);
     }
 
     public Seg<T> clip(List<Link<T>> links) {
@@ -84,6 +80,13 @@ public class Line<T extends F<T>> {
             return ((Dir<T>) d0.scale(b)).ver(s0.q);
         }
         return null;
+    }
+
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            boolean isPointed) {
+        LineDrawer.draw(screen, g2d, pFar, qFar, isPointed);
     }
 
 }

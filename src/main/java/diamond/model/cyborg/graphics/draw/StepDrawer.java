@@ -9,30 +9,21 @@ import java.util.ArrayList;
 
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenCp;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
  *
  */
 public final class StepDrawer {
-    public static <T extends F<T>> void draw(
-            ScreenModel<T> screen,
+    public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
+            S screen,
             Graphics2D g2d,
             ArrayList<Face<T>> faces,
             Face<T> baseFace) {
         for (Face<T> face : faces) {
-            face.draw(screen, g2d);
+            face.draw(screen, g2d, false);
         }
     }
 
-    public static <T extends F<T>> void draw(
-            ScreenCp<T> screen,
-            Graphics2D g2d,
-            ArrayList<Face<T>> faces) {
-        for (Face<T> face : faces) {
-            face.draw(screen, g2d);
-        }
-    }
 }

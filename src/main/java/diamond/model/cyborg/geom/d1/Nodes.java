@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.find.NodesFinder;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
@@ -88,15 +88,12 @@ public class Nodes<T extends F<T>> {
         return NodesFinder.findNode(nodes, x, y, scale);
     }
 
-    public void drawPointed(ScreenModel<T> screen, Graphics2D g2d) {
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            boolean isPointed) {
         for (Ver<T> node : nodes) {
-            node.drawPointed(screen, g2d);
-        }
-    };
-
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        for (Ver<T> node : nodes) {
-            node.draw(screen, g2d);
+            node.draw(screen, g2d, isPointed);
         }
     };
 
