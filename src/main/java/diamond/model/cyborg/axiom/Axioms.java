@@ -36,6 +36,7 @@ public class Axioms {
     }
 
     //TODO refactor!!!
+    //TODO give another solution!!!
     public static <T extends F<T>> Line<T> axiom3(D1<T> s0, D1<T> s1) {
         if (s0 == s1) {
             return null;
@@ -83,7 +84,7 @@ public class Axioms {
         return new Line<T>(((Dir<T>) n.neg()).ver(w), n.ver(w));
     }
 
-    //TODO root1
+    //TODO root1 to be returned
     public static <T extends F<T>> Line<T> axiom5(
             Ver<T> v0,
             Ver<T> v,
@@ -91,7 +92,7 @@ public class Axioms {
         if (v0 == v) {
             return null;
         }
-        if (s.find(v0) != null) {
+        if (s.has(v0)) {
             return axiom3(s, new Seg<T>(v0, v));
         }
         Dir<T> d1 = s.dir();
@@ -100,9 +101,13 @@ public class Axioms {
         F<T> a = d1.norm();
         F<T> b = d1.prod(d);
         F<T> c = d.norm().sub(dir0.norm());
-        F<T> alpha = Quad.root0(a, b, c);
+        F<T> root0 = Quad.root0(a, b, c);
+        //        F<T> root1 = Quad.root1(root0, a, c);
+        if (root0 == null) {
+            return null;
+        }
         return new Line<T>(v0,
-                ((Dir<T>) dir0.add(d.add(d1.scale(alpha)))).div(2).ver(v0));
+                ((Dir<T>) dir0.add(d.add(d1.scale(root0)))).div(2).ver(v0));
     }
 
 }

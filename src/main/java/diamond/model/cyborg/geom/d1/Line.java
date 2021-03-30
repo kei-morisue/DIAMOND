@@ -51,7 +51,7 @@ public class Line<T extends F<T>> {
         for (Link<T> link : links) {
             Ver<T> x = xPoint(link);
             if (x != null) {
-                link.addNode(x);
+                link.add(x);
                 if (p == null) {
                     p = x;
                 } else if (q == null) {
@@ -69,7 +69,7 @@ public class Line<T extends F<T>> {
         if (isOn(s0.p)) {
             return s0.p;
         }
-        Ver<T> x = s0.nodes.xPoint(this);
+        Ver<T> x = s0.nodes.xNode(this);
         if (x != null) {
             return x;
         }

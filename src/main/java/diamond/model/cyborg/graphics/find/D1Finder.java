@@ -25,6 +25,6 @@ public class D1Finder {
             Ver<T> p,
             Ver<T> q,
             double x, double y, double scale) {
-        return (p.isNear(x, y, scale)) ? p : (q.isNear(x, y, scale)) ? q : null;
+        return Finder.find(x, y, scale, p, q);
     }
 }

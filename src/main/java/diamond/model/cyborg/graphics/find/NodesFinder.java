@@ -19,11 +19,6 @@ public class NodesFinder {
             double x,
             double y,
             double scale) {
-        for (Ver<T> node : nodes) {
-            if (node.isNear(x, y, scale)) {
-                return node;
-            }
-        }
-        return null;
+        return Finder.find(nodes, x, y, scale);
     }
 }

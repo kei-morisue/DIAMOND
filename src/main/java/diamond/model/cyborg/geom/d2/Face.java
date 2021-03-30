@@ -14,6 +14,7 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Loop;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.graphics.draw.FaceDrawer;
 import diamond.model.cyborg.graphics.find.FaceFinder;
@@ -29,6 +30,7 @@ import diamond.view.ui.screen.ScreenModel;
 public class Face<T extends F<T>> implements Serializable, Metric {
     private LinkedList<Link<T>> edges = new LinkedList<Link<T>>();
     private HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
+    private LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
 
     //    private static final double EPS = 10;
     @Deprecated
@@ -36,23 +38,16 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public Face(List<Link<T>> edges) {
-        for (Link<T> edge : edges) {
-            this.add(edge);
-        }
+        this.edges.addAll(edges);
+        order();
     }
 
-    //TODO ORLY???
+    private void order() {
+        vers = Loop.order(this.edges);
+    }
+
     public void add(Link<T> e) {
-        if (edges.isEmpty()) {
-            edges.add(e);
-            return;
-        }
-        for (Link<T> edge : edges) {
-            if (edge.isConnected(e)) {
-                edges.add(edges.indexOf(edge), e);
-                return;
-            }
-        }
+        edges.add(e);
     }
 
     public void remove(Link<T> edge) {
@@ -95,6 +90,9 @@ public class Face<T extends F<T>> implements Serializable, Metric {
             Face<T> g = step.find(lq, this);
             lq.cut(q, this, g);
         }
+        add(new Link<T>(seg));//TODO
+        add(new Link<T>(seg));//TODO
+        order();
     }
 
     public boolean isEdge(Link<T> edge) {
@@ -119,22 +117,8 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public final void add(Seg<T> seg) {
-        putNodes(seg);
+        seg.putNodes(creases);
         creases.add(seg);
-    }
-
-    private void putNodes(Seg<T> seg) {
-        HashSet<Ver<T>> vs = new HashSet<Ver<T>>();
-        for (Seg<T> s0 : creases) {
-            Ver<T> x = s0.xPoint(seg);
-            if (x != null) {
-                vs.add(x);
-                s0.addNode(x);
-            }
-        }
-        for (Ver<T> v : vs) {
-            seg.addNode(v);
-        }
     }
 
     public final void remove(Seg<T> seg) {
@@ -142,12 +126,16 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, edges, creases);
+        FaceDrawer.draw(screen, g2d, edges, creases, vers);
     }
 
     public void draw(ScreenCp<T> screen, Graphics2D g2d) {
-        FaceDrawer.draw(screen, g2d, edges, creases);
+        FaceDrawer.draw(screen, g2d, edges, creases, vers);
     }
+
+    //    public <S extends AbstractScreen<T>> void draw(S screen, Graphics2D g2d) {
+    //        FaceDrawer.draw(screen, g2d, edges, creases, vers);
+    //    }
 
     @Deprecated
     public HashSet<Seg<T>> getCreases() {
@@ -179,6 +167,11 @@ public class Face<T extends F<T>> implements Serializable, Metric {
     @Deprecated
     public void setEdges(LinkedList<Link<T>> edges) {
         this.edges = edges;
+        order();
+    }
+
+    public LinkedList<Ver<T>> getVers() {
+        return vers;
     }
 
 }

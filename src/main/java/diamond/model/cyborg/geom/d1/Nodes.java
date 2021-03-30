@@ -6,7 +6,6 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 import java.util.LinkedList;
-import java.util.List;
 
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.find.NodesFinder;
@@ -20,14 +19,8 @@ import diamond.view.ui.screen.ScreenModel;
 public class Nodes<T extends F<T>> {
 
     private LinkedList<Ver<T>> nodes = new LinkedList<Ver<T>>();
-    private NodeComparator<T> c;
 
-    @Deprecated
     public Nodes() {
-    }
-
-    public Nodes(Ver<T> p, Ver<T> q) {
-        c = new NodeComparator<T>(p, q);
     }
 
     public void add(Ver<T> v0) {
@@ -37,23 +30,13 @@ public class Nodes<T extends F<T>> {
             }
         }
         nodes.add(v0);
-        nodes.sort(c);
-    }
-
-    public void add(List<Ver<T>> vers) {
-        if (nodes.size() != 0) {
-            return;
-        }
-        nodes.addAll(vers);
-        nodes.sort(c);
     }
 
     public void remove(Ver<T> v) {
         nodes.remove(v);
-        nodes.sort(c);
     }
 
-    public Ver<T> xPoint(Line<T> l) {
+    public Ver<T> xNode(Line<T> l) {
         for (Ver<T> node : nodes) {
             if (l.isOn(node)) {
                 return node;
@@ -64,31 +47,41 @@ public class Nodes<T extends F<T>> {
 
     public Ver<T> find(Nodes<T> nodes) {
         for (Ver<T> node : nodes.nodes) {
-            Ver<T> found = find(node);
-            if (found != null) {
-                return found;
+            if (isNode(node)) {
+                return node;
             }
         }
         return null;
     }
 
-    public List<Ver<T>> cut(Ver<T> v, List<Ver<T>> s0) {
-        if (find(v) == null) {
-            return null;
+    public void cut(
+            Ver<T> r,
+            Ver<T> p,
+            Ver<T> q,
+            D1<T> sp,
+            D1<T> sq) {
+        if (!isNode(r)) {
+            return;
         }
-        int i = nodes.indexOf(v);
-        s0.addAll(nodes.subList(0, i));
+        nodes.sort(new NodeComparator<T>(p, q));
+        int i = nodes.indexOf(r);
+        Nodes<T> nq = new Nodes<T>();
+        Nodes<T> np = nq;
+        np.nodes.addAll(nodes.subList(0, i));
+        sp.add(np);
         int size = nodes.size();
-        return nodes.subList(Math.min(i + 1, size - 1), size);
+        new Nodes<T>();
+        nq.nodes.addAll(nodes.subList(Math.min(i + 1, size - 1), size));
+        sq.add(nq);
     }
 
-    public Ver<T> find(Ver<T> v) {
+    public boolean isNode(Ver<T> v) {
         for (Ver<T> node : nodes) {
             if (node == v) {
-                return v;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public Ver<T> findNode(double x, double y, double scale) {
@@ -115,16 +108,6 @@ public class Nodes<T extends F<T>> {
     @Deprecated
     public void setNodes(LinkedList<Ver<T>> nodes) {
         this.nodes = nodes;
-    }
-
-    @Deprecated
-    public NodeComparator<T> getC() {
-        return c;
-    }
-
-    @Deprecated
-    public void setC(NodeComparator<T> c) {
-        this.c = c;
     }
 
 }

@@ -5,9 +5,8 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
-import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
@@ -21,7 +20,7 @@ import diamond.view.ui.screen.ScreenModel;
  * @author Kei Morisue
  *
  */
-public class Seg<T extends F<T>> extends D1<T> implements Serializable {
+public class Seg<T extends F<T>> extends D1<T> {
 
     @Deprecated
     public Seg() {
@@ -31,20 +30,15 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
         super(p, q);
     }
 
-    public Seg(Ver<T> p, Ver<T> q, List<Ver<T>> nodes) {
-        super(p, q, nodes);
-    }
-
     public void cut(Ver<T> r, Face<T> f) {
-        LinkedList<Ver<T>> np = null;
-        List<Ver<T>> nq = nodes.cut(r, np);
-        if (nq == null) {
+        if (!nodes.isNode(r)) {
             return;
         }
+        Seg<T> sp = new Seg<T>(p, r);
+        Seg<T> sq = new Seg<T>(r, q);
+        nodes.cut(r, p, q, sp, sq);
         f.remove(this);
-        Seg<T> sp = new Seg<T>(p, r, np);
         f.add(sp);
-        Seg<T> sq = new Seg<T>(r, q, nq);
         f.add(sq);
     }
 
@@ -54,12 +48,16 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
         SegDrawer.draw(screen, g2d, p, q, c());
     }
 
-    //TODO toomuch workload???
     public Ver<T> xPoint(Seg<T> s0) {
         Ver<T> v = findVer(s0);
         if (v != null) {
             return v;
         }
+        return buildVer(s0);
+    }
+
+    //TODO toomuch workload???
+    private Ver<T> buildVer(Seg<T> s0) {
         Dir<T> d0 = s0.dir();
         Dir<T> d1 = dir();
         Dir<T> n = d1.n();
@@ -80,7 +78,16 @@ public class Seg<T extends F<T>> extends D1<T> implements Serializable {
             return ((Dir<T>) d0.scale(b)).ver(s0.q);
         }
         return null;
+    }
 
+    public void putNodes(Set<Seg<T>> segs) {
+        for (Seg<T> s0 : segs) {
+            Ver<T> x = s0.xPoint(this);
+            if (x != null) {
+                s0.add(x);
+                add(x);
+            }
+        }
     }
 
     //TBD

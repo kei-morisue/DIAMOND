@@ -20,12 +20,7 @@ public class FaceFinder {
     public static <T extends F<T>> Link<T> findEdge(
             List<Link<T>> edges,
             double x, double y, double scale) {
-        for (Link<T> edge : edges) {
-            if (edge.isNear(x, y, scale)) {
-                return edge;
-            }
-        }
-        return null;
+        return Finder.find(edges, x, y, scale);
     }
 
     public static <T extends F<T>> Ver<T> findVer(
@@ -47,11 +42,6 @@ public class FaceFinder {
             double x,
             double y,
             double scale) {
-        for (Seg<T> crease : creases) {
-            if (crease.isNear(x, y, scale)) {
-                return crease;
-            }
-        }
-        return null;
+        return Finder.find(creases, x, y, scale);
     }
 }

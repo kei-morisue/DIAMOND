@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
@@ -28,9 +29,10 @@ public final class FaceDrawer {
             ScreenModel<T> screen,
             Graphics2D g2d,
             LinkedList<Link<T>> edges,
-            HashSet<Seg<T>> creases) {
+            HashSet<Seg<T>> creases,
+            LinkedList<Ver<T>> vers) {
         g2d.setColor(Color.white);//TODO
-        g2d.fill(ShapeBuilder.build(Link.vers(edges)));
+        g2d.fill(ShapeBuilder.build(vers));
         for (Link<T> edge : edges) {
             edge.draw(screen, g2d);
         }
@@ -39,11 +41,28 @@ public final class FaceDrawer {
         }
     }
 
+    //    public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
+    //            S screen,
+    //            Graphics2D g2d,
+    //            LinkedList<Link<T>> edges,
+    //            HashSet<Seg<T>> creases,
+    //            LinkedList<Ver<T>> vers) {
+    //        g2d.setColor(Color.white);//TODO
+    //        g2d.fill(ShapeBuilder.build(vers));
+    //        for (Link<T> edge : edges) {
+    //            edge.draw(screen, g2d);
+    //        }
+    //        for (Seg<T> crease : creases) {
+    //            crease.draw(screen, g2d);
+    //        }
+    //    }
+
     public static <T extends F<T>> void draw(
             ScreenCp<T> screen,
             Graphics2D g2d,
             LinkedList<Link<T>> edges,
-            HashSet<Seg<T>> creases) {
+            HashSet<Seg<T>> creases,
+            LinkedList<Ver<T>> vers) {
         //        // TODO 自動生成されたメソッド・スタブ
         //        Ver<T> wer = vers.getLast();
         //        g2d.setColor(front);//TODO

@@ -5,7 +5,6 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
-import java.util.List;
 
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
@@ -22,7 +21,7 @@ import diamond.view.ui.screen.ScreenModel;
 public abstract class D1<T extends F<T>> implements Metric {
     protected Ver<T> p;
     protected Ver<T> q;
-    protected Nodes<T> nodes;
+    protected Nodes<T> nodes = new Nodes<T>();
     private static final double EPS = 100;
 
     @Deprecated
@@ -32,12 +31,10 @@ public abstract class D1<T extends F<T>> implements Metric {
     protected D1(Ver<T> p, Ver<T> q) {
         this.p = p;
         this.q = q;
-        this.nodes = new Nodes<T>(p, q);
     }
 
-    protected D1(Ver<T> p, Ver<T> q, List<Ver<T>> nodes) {
-        this(p, q);
-        this.nodes.add(nodes);
+    public void add(Nodes<T> nodes) {
+        this.nodes = nodes;
     }
 
     public Ver<T> c() {
@@ -45,7 +42,7 @@ public abstract class D1<T extends F<T>> implements Metric {
         return dir.div(2).ver(p);
     }
 
-    public void addNode(Ver<T> v) {
+    public void add(Ver<T> v) {
         F<T> dp = p.dir(v).norm();
         if (dp.isZero()) {
             return;
@@ -60,14 +57,21 @@ public abstract class D1<T extends F<T>> implements Metric {
         }
     }
 
-    public Ver<T> find(Ver<T> v) {
+    public boolean isNode(Ver<T> v) {
+        return nodes.isNode(v);
+    }
+
+    public boolean has(Ver<T> v) {
         if (p == v) {
-            return p;
+            return true;
         }
         if (q == v) {
-            return q;
+            return true;
         }
-        return nodes.find(v);
+        if (isNode(v)) {
+            return true;
+        }
+        return false;
     }
 
     protected F<T> lengthSquared() {
@@ -80,10 +84,6 @@ public abstract class D1<T extends F<T>> implements Metric {
 
     public Ver<T> findVer(double x, double y, double scale) {
         return D1Finder.findVer(p, q, x, y, scale);
-    }
-
-    public boolean isConnected(D1<T> s) {
-        return s.p == p || s.q == q || s.p == q || s.q == p;
     }
 
     public boolean isdubbed(D1<T> s) {
