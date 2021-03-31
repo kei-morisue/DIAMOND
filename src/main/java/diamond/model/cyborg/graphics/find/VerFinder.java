@@ -5,10 +5,11 @@
 package diamond.model.cyborg.graphics.find;
 
 import java.util.List;
+import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
@@ -17,42 +18,18 @@ import diamond.model.math.field.F;
  * @author Kei Morisue
  *
  */
-public class StepFinder {
-    public static <T extends F<T>> D1<T> findEdge(
-            List<Face<T>> faces,
-            double x,
-            double y,
-            double scale) {
-        for (Face<T> face : faces) {
-            Link<T> link = face.findEdge(x, y, scale);
-            if (link != null) {
-                return link;
-            }
-        }
-        return null;
+public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
+    public VerFinder() {
     }
 
-    public static <T extends F<T>> Seg<T> findCrease(
+    public Ver<T> find(
             List<Face<T>> faces,
+            Face<T> base,
             double x,
             double y,
             double scale) {
         for (Face<T> face : faces) {
-            Seg<T> seg = face.findCrease(x, y, scale);
-            if (seg != null) {
-                return seg;
-            }
-        }
-        return null;
-    }
-
-    public static <T extends F<T>> Ver<T> findVer(
-            List<Face<T>> faces,
-            double x,
-            double y,
-            double scale) {
-        for (Face<T> face : faces) {
-            Ver<T> ver = face.findVer(x, y, scale);
+            Ver<T> ver = face.find(this, x, y, scale);
             if (ver != null) {
                 return ver;
             }
@@ -60,12 +37,40 @@ public class StepFinder {
         return null;
     }
 
-    public static <T extends F<T>> Face<T> findFace(
-            List<Face<T>> faces,
+    public Ver<T> find(
+            Ver<T> p,
+            Ver<T> q,
             double x,
             double y,
             double scale) {
-        return faces.get(0);//TODO
+        if (find(p, x, y, scale)) {
+            return p;
+        }
+        if (find(q, x, y, scale)) {
+            return q;
+        }
+        return null;
+    }
+
+    @Override
+    public Ver<T> find(
+            List<Link<T>> edges,
+            Set<Seg<T>> creases,
+            List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale) {
+        return find(vers, x, y, scale);
+    }
+
+    @Deprecated
+    @Override
+    public Ver<T> find(
+            Nodes<T> nodes,
+            double x,
+            double y,
+            double scale) {
+        return null;
     }
 
 }

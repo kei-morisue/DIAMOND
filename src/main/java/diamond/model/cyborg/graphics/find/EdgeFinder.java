@@ -4,7 +4,6 @@
  */
 package diamond.model.cyborg.graphics.find;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -13,54 +12,50 @@ import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class Finder<T extends F<T>, S extends Graphic<T>> {
+public class EdgeFinder<T extends F<T>> extends Finder<T, Link<T>> {
+    public EdgeFinder() {
+    }
 
-    public abstract S find(
+    @Override
+    public Link<T> find(
             List<Face<T>> faces,
             Face<T> base,
             double x,
             double y,
-            double scale);
-
-    public abstract S find(
-            List<Link<T>> edges,
-            Set<Seg<T>> creases,
-            List<Ver<T>> vers,
-            double x,
-            double y,
-            double scale);
-
-    public abstract S find(
-            Nodes<T> nodes,
-            double x,
-            double y,
-            double scale);
-
-    public static <T extends F<T>, U extends Graphic<T>> U find(
-            Collection<U> candidates,
-            double x,
-            double y,
             double scale) {
-        for (U candidate : candidates) {
-            if (candidate.isNear(x, y, scale)) {
-                return candidate;
+        for (Face<T> face : faces) {
+            Link<T> link = face.find(this, x, y, scale);
+            if (link != null) {
+                return link;
             }
         }
         return null;
     }
 
-    public static <T extends F<T>, S extends Graphic<T>> boolean find(
-            S candidate,
+    public Link<T> find(
+            List<Link<T>> edges,
+            Set<Seg<T>> creases,
+            List<Ver<T>> vers,
             double x,
             double y,
             double scale) {
-        return candidate.isNear(x, y, scale);
+        return find(edges, x, y, scale);
     }
+
+    @Deprecated
+    @Override
+    public Link<T> find(
+            Nodes<T> nodes,
+            double x,
+            double y,
+            double scale) {
+        return null;
+    }
+
 }

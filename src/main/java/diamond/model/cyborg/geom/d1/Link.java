@@ -58,6 +58,8 @@ public class Link<T extends F<T>> extends D1<T> {
             S screen,
             Graphics2D g2d,
             boolean isPointed) {
+        p.draw(screen, g2d, isPointed);
+        q.draw(screen, g2d, isPointed);
         nodes.draw(screen, g2d, isPointed);
         LinkDrawer.draw(screen, g2d, p, q, isPointed);
     }

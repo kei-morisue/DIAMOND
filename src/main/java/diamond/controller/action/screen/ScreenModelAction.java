@@ -10,6 +10,10 @@ import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.graphics.find.CreaseFinder;
+import diamond.model.cyborg.graphics.find.EdgeFinder;
+import diamond.model.cyborg.graphics.find.NodeFinder;
+import diamond.model.cyborg.graphics.find.VerFinder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -30,18 +34,18 @@ public final class ScreenModelAction<T extends F<T>>
     protected void set(double x, double y) {
         double scale = screen.getScale();
         Step<T> step = state.getContext().getStep();
-        Ver<T> v = step.findVer(x, y, scale);
+        Ver<T> v = step.find(new VerFinder<T>(), x, y, scale);
         if (v != null) {
             state.setPointedS(null);
             state.setPointedV(v);
             return;
         }
-        D1<T> s = step.findEdge(x, y, scale);
+        D1<T> s = step.find(new EdgeFinder<T>(), x, y, scale);
         if (s == null) {
-            s = step.findCrease(x, y, scale);//TODO find seg & link
+            s = step.find(new CreaseFinder<T>(), x, y, scale);
         }
         if (s != null) {
-            Ver<T> node = s.findNode(x, y, scale);
+            Ver<T> node = s.find(new NodeFinder<T>(), x, y, scale);
             if (node != null) {
                 s = null;
                 v = node;

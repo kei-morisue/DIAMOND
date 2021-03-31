@@ -7,14 +7,13 @@ package diamond.model.cyborg.diagram.step;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.StepDrawer;
-import diamond.model.cyborg.graphics.find.StepFinder;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 import diamond.view.ui.screen.TransformScreen;
@@ -66,20 +65,12 @@ public final class Step<T extends F<T>> {
         return null;
     }
 
-    public D1<T> findEdge(double x, double y, double scale) {
-        return StepFinder.findEdge(faces, x, y, scale);
-    }
-
-    public Seg<T> findCrease(double x, double y, double scale) {
-        return StepFinder.findCrease(faces, x, y, scale);
-    }
-
-    public Ver<T> findVer(double x, double y, double scale) {
-        return StepFinder.findVer(faces, x, y, scale);
-    }
-
-    public Face<T> findFace(double x, double y, double scale) {
-        return StepFinder.findFace(faces, x, y, scale);
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(faces, baseFace, x, y, scale);
     }
 
     public void draw(ScreenModel<T> screen, Graphics2D g2d) {

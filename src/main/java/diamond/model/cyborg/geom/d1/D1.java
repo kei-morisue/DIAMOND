@@ -7,15 +7,16 @@ package diamond.model.cyborg.geom.d1;
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.graphics.find.D1Finder;
-import diamond.model.cyborg.graphics.find.Metric;
+import diamond.model.cyborg.graphics.Graphic;
+import diamond.model.cyborg.graphics.find.NodeFinder;
+import diamond.model.cyborg.graphics.find.VerFinder;
 import diamond.model.math.field.F;
 
 /**
  * @author Kei Morisue
  *
  */
-public abstract class D1<T extends F<T>> implements Metric<T> {
+public abstract class D1<T extends F<T>> implements Graphic<T> {
     protected Ver<T> p;
     protected Ver<T> q;
     protected Nodes<T> nodes = new Nodes<T>();
@@ -75,12 +76,20 @@ public abstract class D1<T extends F<T>> implements Metric<T> {
         return q.dir(p).norm();
     }
 
-    public Ver<T> findNode(double x, double y, double scale) {
-        return D1Finder.findNode(nodes, x, y, scale);
+    public Ver<T> find(
+            NodeFinder<T> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(nodes, x, y, scale);
     }
 
-    public Ver<T> findVer(double x, double y, double scale) {
-        return D1Finder.findVer(p, q, x, y, scale);
+    public Ver<T> find(
+            VerFinder<T> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(p, q, x, y, scale);
     }
 
     public boolean isdubbed(D1<T> s) {

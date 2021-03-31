@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.graphics.find.NodesFinder;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -84,8 +84,12 @@ public class Nodes<T extends F<T>> {
         return false;
     }
 
-    public Ver<T> findNode(double x, double y, double scale) {
-        return NodesFinder.findNode(nodes, x, y, scale);
+    public Ver<T> find(
+            Finder<T, Ver<T>> finder,
+            double x,
+            double y,
+            double scale) {
+        return Finder.find(nodes, x, y, scale);
     }
 
     public <S extends AbstractScreen<T>> void draw(

@@ -7,8 +7,8 @@ package diamond.model.cyborg.geom.d0;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.Util;
+import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.VerDrawer;
-import diamond.model.cyborg.graphics.find.Metric;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -16,7 +16,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Ver<T extends F<T>> implements Metric<T> {
+public class Ver<T extends F<T>> implements Graphic<T> {
     public F<T> x;
     public F<T> y;
     private static final double EPS = 250;

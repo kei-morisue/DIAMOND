@@ -2,7 +2,7 @@
  * DEFOX - Diagram Editor for Origami Creators
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg.graphics.find;
+package diamond.model.cyborg.graphics;
 
 import java.awt.Graphics2D;
 
@@ -13,7 +13,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public interface Metric<T extends F<T>> {
+public interface Graphic<T extends F<T>> {
     public boolean isNear(double x, double y, double scale);
 
     public double distSquare(double x, double y);
