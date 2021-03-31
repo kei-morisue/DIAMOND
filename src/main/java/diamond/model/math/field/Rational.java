@@ -11,9 +11,9 @@ package diamond.model.math.field;
 public class Rational extends F<Rational> {
     public static final Rational ONE = new Rational(1, 1);
     public static final Rational ZERO = new Rational(0, 1);
-    private static final int denom = 1;
-    private int n = 1;
-    private int d = 1;
+    private static final long denom = 1;
+    private long n = 1;
+    private long d = 1;
 
     @Deprecated
     public Rational() {
@@ -25,12 +25,12 @@ public class Rational extends F<Rational> {
     }
 
     public Rational(double a) {
-        n = (int) (a * denom);
+        n = (long) (a * denom);
         d = denom;
         reduce();
     }
 
-    public Rational(int n, int d) {
+    public Rational(long n, long d) {
         if (d == 0) {
             return;
         }
@@ -45,8 +45,8 @@ public class Rational extends F<Rational> {
         reduce();
     }
 
-    public static int gcd(int a, int b) {
-        int r;
+    public static long gcd(long a, long b) {
+        long r;
         while (b > 0) {
             r = a % b;
             a = b;
@@ -56,7 +56,7 @@ public class Rational extends F<Rational> {
     }
 
     private void reduce() {
-        int r = (n < 0) ? gcd(-n, d) : gcd(n, d);
+        long r = (n < 0) ? gcd(-n, d) : gcd(n, d);
         n = n / r;
         d = d / r;
     }
@@ -115,7 +115,7 @@ public class Rational extends F<Rational> {
         if (isZero()) {
             return "0";
         }
-        return Integer.toString(n) + "/" + Integer.toString(d);
+        return Long.toString(n) + "/" + Long.toString(d);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class Rational extends F<Rational> {
     }
 
     @Deprecated
-    public int getN() {
+    public long getN() {
         return n;
     }
 
@@ -134,7 +134,7 @@ public class Rational extends F<Rational> {
     }
 
     @Deprecated
-    public int getD() {
+    public long getD() {
         return d;
     }
 

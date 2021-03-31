@@ -37,8 +37,8 @@ public class Line<T extends F<T>> implements Graphic<T> {
         d = q.dir(p);
         n = d.n();
         Ver<T> c = d.div(2).ver(p);
-        pFar = p.dir(c).mul(100).ver(c);
-        qFar = q.dir(c).mul(100).ver(c);
+        pFar = p.dir(c).mul(5).ver(c);
+        qFar = q.dir(c).mul(5).ver(c);
     }
 
     public boolean isOn(Ver<T> v) {

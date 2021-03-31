@@ -40,12 +40,12 @@ public class Quad {
         return y.div(x.add(y).sqrt().add(sqrtx));
     }
 
-    public static boolean isSquared(int i) {
-        int s = sqrt(i);
+    public static boolean isSquared(long i) {
+        long s = sqrt(i);
         return s * s == i;
     }
 
-    public static int sqrt(int i) {
+    public static int sqrt(long i) {
         return (int) Math.floor(Math.sqrt(i));
     }
 }

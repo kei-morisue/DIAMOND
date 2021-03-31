@@ -7,45 +7,14 @@
      <string>x</string>
      <void method="set">
       <object idref="Ver0"/>
-      <object class="diamond.model.math.field.Silver" id="Silver0">
-       <void property="a">
-        <void property="d">
-         <int>2</int>
-        </void>
-       </void>
-       <void property="b">
-        <void property="d">
-         <int>2</int>
-        </void>
-        <void property="n">
-         <int>5</int>
-        </void>
-       </void>
-      </object>
+      <object class="diamond.model.math.field.Silver"/>
      </void>
     </void>
     <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Ver0"/>
-      <object class="diamond.model.math.field.Silver" id="Silver1">
-       <void property="a">
-        <void property="d">
-         <int>4</int>
-        </void>
-        <void property="n">
-         <int>3</int>
-        </void>
-       </void>
-       <void property="b">
-        <void property="d">
-         <int>2</int>
-        </void>
-        <void property="n">
-         <int>7</int>
-        </void>
-       </void>
-      </object>
+      <object class="diamond.model.math.field.Silver"/>
      </void>
     </void>
    </object>

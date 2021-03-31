@@ -14,7 +14,6 @@ import diamond.Config;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.math.field.F;
-import diamond.model.math.field.Real;
 import diamond.view.resource.IconBuilder;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.menu.MainBar;
@@ -26,12 +25,14 @@ import diamond.view.ui.panel.main.PanelCp;
  *
  */
 public class MainFrame extends JFrame {
-    private F one = Real.ONE;//Hack Here to Change the field
-    private Diagram diagram = new Diagram(one.mul(Config.SIZE));
-    private Context context = new Context(diagram);
-    private MainBar menubar = new MainBar(context);
+    private Diagram diagram;
+    private Context context;
+    private MainBar menubar;
 
-    public MainFrame() {
+    public MainFrame(F one) {
+        diagram = new Diagram(one.mul(Config.SIZE));
+        context = new Context(diagram);
+        menubar = new MainBar(context);
         buildComponents(getContentPane());
         setVisual();
     }

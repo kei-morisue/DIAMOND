@@ -29,13 +29,16 @@ public class StepBuilder {
         edges.add(new Link<T>(c, d));
         edges.add(new Link<T>(d, a));
         Face<T> face = new Face<T>(edges);
-        face.add(new Seg<T>(a, c));
+        Seg<T> crease0 = new Seg<T>(a, c);
+        face.add(crease0);
 
         ArrayList<Face<T>> faces = new ArrayList<>();
         faces.add(face);
 
         Step<T> step = new Step<T>(faces);
-        step.add(Axioms.axiom2(a, b));
+        Seg<T> crease1 = face.add(Axioms.axiom2(a, b));
+        face.add(Axioms.axiom5(a, d, crease1));
+
         return step;
     }
 

@@ -51,7 +51,7 @@ public class Silver extends F<Silver> {
 
     @Override
     public F<Silver> invImpl() {
-        F<Rational> d = TWO.mul(b).mul(b).sub(a.mul(a));
+        F<Rational> d = a.mul(a).sub(b.mul(b).mul(TWO));
         return new Silver(
                 (Rational) a.div(d),
                 (Rational) b.neg().div(d));
@@ -103,21 +103,8 @@ public class Silver extends F<Silver> {
     }
 
     @Override
+    // TODO
     public F<Silver> sqrt() {
-        if (b.isZero()) {
-            if (((Rational) a.mul(2)).isSquared()) {
-                return new Silver(
-                        Rational.ZERO,
-                        new Rational((Rational) a.sqrt().div(2)));
-
-            }
-            if (((Rational) a.div(2)).isSquared()) {
-                return new Silver(
-                        Rational.ZERO,
-                        new Rational((Rational) a.sqrt()));
-
-            }
-        } //TODO: double root decomposition
         return new Silver(
                 new Rational(Math.sqrt(d())),
                 Rational.ZERO);
