@@ -54,12 +54,13 @@ public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
+        float scale = (float) screen.getScale();
         if (pointedV != null) {
-            pointedV.draw(screen, g2d, true);
+            pointedV.draw(screen, g2d, scale, true);
             return;
         }
         if (pointedS != null) {
-            pointedS.draw(screen, g2d, true);
+            pointedS.draw(screen, g2d, scale, true);
         }
     }
 

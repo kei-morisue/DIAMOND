@@ -22,11 +22,12 @@ public class LineDrawer {
     public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             Ver<T> p,
             Ver<T> q,
             boolean isPointed) {
         g2d.setColor((isPointed) ? POINTED : BASE);
-        g2d.setStroke(screen.getLineStroke((float) screen.getScale()));
+        g2d.setStroke(screen.getLineStroke(scale));
         g2d.draw(ShapeBuilder.build(p, q));
     }
 }

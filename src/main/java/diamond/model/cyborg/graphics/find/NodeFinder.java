@@ -53,4 +53,13 @@ public class NodeFinder<T extends F<T>> extends Finder<T, Ver<T>> {
         return null;
     }
 
+    @Override
+    public Ver<T> find(
+            List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale) {
+        return findFrom(vers, x, y, scale);
+    }
+
 }

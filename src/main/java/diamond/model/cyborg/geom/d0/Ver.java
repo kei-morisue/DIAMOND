@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.VerDrawer;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -40,8 +41,19 @@ public class Ver<T extends F<T>> implements Graphic<T> {
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
-        VerDrawer.draw(screen, g2d, this, isPointed);
+        VerDrawer.draw(screen, g2d, scale, this, isPointed);
+    }
+
+    @Deprecated
+    @Override
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
+            double x,
+            double y,
+            double scale) {
+        return null;
     }
 
     public boolean equals(Ver<T> v0) {

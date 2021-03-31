@@ -7,9 +7,12 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 import java.util.List;
 
+import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.LineDrawer;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -17,12 +20,13 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Line<T extends F<T>> {
+public class Line<T extends F<T>> implements Graphic<T> {
     private Ver<T> p;
     private Dir<T> d;
     private Dir<T> n;
     private Ver<T> pFar;
     private Ver<T> qFar;
+    private final static int EPS = 1000;
 
     @Deprecated
     public Line() {
@@ -82,11 +86,30 @@ public class Line<T extends F<T>> {
         return null;
     }
 
+    @Override
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
-        LineDrawer.draw(screen, g2d, pFar, qFar, isPointed);
+        LineDrawer.draw(screen, g2d, scale, pFar, qFar, isPointed);
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        return distSquare(x, y) < EPS / scale / scale;
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        return Util.footSquare(pFar, qFar, x, y);
+    }
+
+    @Override
+    public <S extends Graphic<T>> S find(Finder<T, S> finder, double x,
+            double y, double scale) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
     }
 
 }

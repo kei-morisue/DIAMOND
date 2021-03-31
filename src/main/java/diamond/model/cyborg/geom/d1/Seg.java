@@ -44,9 +44,9 @@ public class Seg<T extends F<T>> extends D1<T> {
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
-        nodes.draw(screen, g2d, isPointed);
-        SegDrawer.draw(screen, g2d, p, q, c(), isPointed);
+        SegDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
     }
 
     public Ver<T> xPoint(Seg<T> s0) {

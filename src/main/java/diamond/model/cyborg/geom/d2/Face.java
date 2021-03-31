@@ -103,6 +103,7 @@ public class Face<T extends F<T>> implements Serializable, Graphic<T> {
         return false;
     }
 
+    @Override
     public <S extends Graphic<T>> S find(
             Finder<T, S> finder,
             double x,
@@ -124,8 +125,9 @@ public class Face<T extends F<T>> implements Serializable, Graphic<T> {
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
-        FaceDrawer.draw(screen, g2d, edges, creases, vers, isPointed);
+        FaceDrawer.draw(screen, g2d, scale, edges, creases, vers, isPointed);
     }
 
     @Deprecated

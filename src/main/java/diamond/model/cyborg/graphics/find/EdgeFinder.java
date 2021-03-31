@@ -45,13 +45,23 @@ public class EdgeFinder<T extends F<T>> extends Finder<T, Link<T>> {
             double x,
             double y,
             double scale) {
-        return find(edges, x, y, scale);
+        return findFrom(edges, x, y, scale);
     }
 
     @Deprecated
     @Override
     public Link<T> find(
             Nodes<T> nodes,
+            double x,
+            double y,
+            double scale) {
+        return null;
+    }
+
+    @Deprecated
+    @Override
+    public Link<T> find(
+            List<Ver<T>> vers,
             double x,
             double y,
             double scale) {

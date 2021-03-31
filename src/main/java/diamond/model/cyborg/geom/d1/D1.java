@@ -8,8 +8,7 @@ import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.Graphic;
-import diamond.model.cyborg.graphics.find.NodeFinder;
-import diamond.model.cyborg.graphics.find.VerFinder;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 
 /**
@@ -76,20 +75,12 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
         return q.dir(p).norm();
     }
 
-    public Ver<T> find(
-            NodeFinder<T> finder,
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
             double x,
             double y,
             double scale) {
         return finder.find(nodes, x, y, scale);
-    }
-
-    public Ver<T> find(
-            VerFinder<T> finder,
-            double x,
-            double y,
-            double scale) {
-        return finder.find(p, q, x, y, scale);
     }
 
     public boolean isdubbed(D1<T> s) {

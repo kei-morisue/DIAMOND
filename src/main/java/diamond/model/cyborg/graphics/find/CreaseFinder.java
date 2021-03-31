@@ -45,13 +45,23 @@ public class CreaseFinder<T extends F<T>> extends Finder<T, Seg<T>> {
             double x,
             double y,
             double scale) {
-        return find(creases, x, y, scale);
+        return findFrom(creases, x, y, scale);
     }
 
     @Deprecated
     @Override
     public Seg<T> find(
             Nodes<T> nodes,
+            double x,
+            double y,
+            double scale) {
+        return null;
+    }
+
+    @Deprecated
+    @Override
+    public Seg<T> find(
+            List<Ver<T>> vers,
             double x,
             double y,
             double scale) {

@@ -13,12 +13,8 @@ import diamond.model.math.field.F;
  *
  */
 public class Util {
-    public static double norm(double... ds) {
-        double n = 0;
-        for (double d : ds) {
-            n = n + d * d;
-        }
-        return n;
+    public static double norm(double d0, double d1) {
+        return d0 * d0 + d1 * d1;
     }
 
     public static <T extends F<T>> double footSquare(

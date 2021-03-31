@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  * @author Kei Morisue
  *
  */
-public class CyborgScreen extends JPanel {
+public abstract class CyborgScreen extends JPanel {
     final protected static int CAP = BasicStroke.CAP_BUTT;
     final protected static int JOIN = BasicStroke.JOIN_ROUND;
 

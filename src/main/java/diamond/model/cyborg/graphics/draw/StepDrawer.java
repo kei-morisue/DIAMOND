@@ -19,10 +19,11 @@ public final class StepDrawer {
     public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             ArrayList<Face<T>> faces,
             Face<T> baseFace) {
         for (Face<T> face : faces) {
-            face.draw(screen, g2d, false);
+            face.draw(screen, g2d, scale, false);
         }
     }
 

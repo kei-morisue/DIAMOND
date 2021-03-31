@@ -27,6 +27,7 @@ public final class FaceDrawer {
     public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             LinkedList<Link<T>> edges,
             HashSet<Seg<T>> creases,
             LinkedList<Ver<T>> vers,
@@ -34,10 +35,10 @@ public final class FaceDrawer {
         g2d.setColor(Color.white);//TODO
         g2d.fill(ShapeBuilder.build(vers));
         for (Link<T> edge : edges) {
-            edge.draw(screen, g2d, isPointed);
+            edge.draw(screen, g2d, scale, isPointed);
         }
         for (Seg<T> crease : creases) {
-            crease.draw(screen, g2d, isPointed);
+            crease.draw(screen, g2d, scale, isPointed);
         }
     }
 

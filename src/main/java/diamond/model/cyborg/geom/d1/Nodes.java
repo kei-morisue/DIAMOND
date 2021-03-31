@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
@@ -16,7 +17,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Nodes<T extends F<T>> {
+public class Nodes<T extends F<T>> implements Graphic<T> {
 
     private LinkedList<Ver<T>> nodes = new LinkedList<Ver<T>>();
 
@@ -84,22 +85,25 @@ public class Nodes<T extends F<T>> {
         return false;
     }
 
-    public Ver<T> find(
-            Finder<T, Ver<T>> finder,
-            double x,
-            double y,
-            double scale) {
-        return Finder.find(nodes, x, y, scale);
-    }
-
+    @Override
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
         for (Ver<T> node : nodes) {
-            node.draw(screen, g2d, isPointed);
+            node.draw(screen, g2d, scale, isPointed);
         }
-    };
+    }
+
+    @Override
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(nodes, x, y, scale);
+    }
 
     @Deprecated
     public LinkedList<Ver<T>> getNodes() {
@@ -109,6 +113,18 @@ public class Nodes<T extends F<T>> {
     @Deprecated
     public void setNodes(LinkedList<Ver<T>> nodes) {
         this.nodes = nodes;
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        // TODO 自動生成されたメソッド・スタブ
+        return false;
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        // TODO 自動生成されたメソッド・スタブ
+        return 0;
     }
 
 }

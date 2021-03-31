@@ -43,10 +43,10 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
             double x,
             double y,
             double scale) {
-        if (find(p, x, y, scale)) {
+        if (findFrom(p, x, y, scale) != null) {
             return p;
         }
-        if (find(q, x, y, scale)) {
+        if (findFrom(q, x, y, scale) != null) {
             return q;
         }
         return null;
@@ -60,7 +60,7 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
             double x,
             double y,
             double scale) {
-        return find(vers, x, y, scale);
+        return findFrom(vers, x, y, scale);
     }
 
     @Deprecated
@@ -71,6 +71,15 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
             double y,
             double scale) {
         return null;
+    }
+
+    @Override
+    public Ver<T> find(
+            List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale) {
+        return findFrom(vers, x, y, scale);
     }
 
 }

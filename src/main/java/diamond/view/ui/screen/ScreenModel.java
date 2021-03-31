@@ -36,7 +36,7 @@ public final class ScreenModel<T extends F<T>> extends AbstractScreen<T> {
 
     @Override
     protected void drawStep(Graphics2D g2d) {
-        getStep().draw(this, g2d);
+        getStep().draw(this, g2d, (float) getScale(), false);
         screenAction.draw(g2d);
         repaint();
     }

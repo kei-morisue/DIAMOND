@@ -57,11 +57,9 @@ public class Link<T extends F<T>> extends D1<T> {
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             boolean isPointed) {
-        p.draw(screen, g2d, isPointed);
-        q.draw(screen, g2d, isPointed);
-        nodes.draw(screen, g2d, isPointed);
-        LinkDrawer.draw(screen, g2d, p, q, isPointed);
+        LinkDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
     }
 
     @Deprecated

@@ -15,14 +15,14 @@ import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.StepDrawer;
 import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.ScreenModel;
+import diamond.view.ui.screen.AbstractScreen;
 import diamond.view.ui.screen.TransformScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public final class Step<T extends F<T>> {
+public final class Step<T extends F<T>> implements Graphic<T> {
     protected ArrayList<Face<T>> faces = new ArrayList<>();
     protected Face<T> baseFace;
     protected TransformScreen transform = new TransformScreen();
@@ -65,6 +65,7 @@ public final class Step<T extends F<T>> {
         return null;
     }
 
+    @Override
     public <S extends Graphic<T>> S find(
             Finder<T, S> finder,
             double x,
@@ -73,8 +74,13 @@ public final class Step<T extends F<T>> {
         return finder.find(faces, baseFace, x, y, scale);
     }
 
-    public void draw(ScreenModel<T> screen, Graphics2D g2d) {
-        StepDrawer.draw(screen, g2d, faces, baseFace);
+    @Override
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            float scale,
+            boolean isPointed) {
+        StepDrawer.draw(screen, g2d, scale, faces, baseFace);
     }
 
     @Deprecated
@@ -105,6 +111,18 @@ public final class Step<T extends F<T>> {
     @Deprecated
     public void setTransform(TransformScreen transform) {
         this.transform = transform;
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        // TODO 自動生成されたメソッド・スタブ
+        return false;
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        // TODO 自動生成されたメソッド・スタブ
+        return 0;
     }
 
 }

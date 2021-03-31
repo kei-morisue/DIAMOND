@@ -24,10 +24,11 @@ public final class VerDrawer {
     public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
+            float scale,
             Ver<T> ver,
             boolean isPointed) {
         g2d.setColor((isPointed) ? POINTED : BASE);
-        double size = ((isPointed) ? SIZE_POINTED : SIZE) / screen.getScale();
+        double size = ((isPointed) ? SIZE_POINTED : SIZE) / scale;
         g2d.fill(ShapeBuilder.build(ver, size));
     }
 

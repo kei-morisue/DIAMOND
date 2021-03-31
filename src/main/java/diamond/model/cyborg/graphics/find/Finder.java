@@ -43,12 +43,18 @@ public abstract class Finder<T extends F<T>, S extends Graphic<T>> {
             double y,
             double scale);
 
-    public static <T extends F<T>, U extends Graphic<T>> U find(
-            Collection<U> candidates,
+    public abstract S find(
+            List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale);
+
+    public S findFrom(
+            Collection<S> candidates,
             double x,
             double y,
             double scale) {
-        for (U candidate : candidates) {
+        for (S candidate : candidates) {
             if (candidate.isNear(x, y, scale)) {
                 return candidate;
             }
@@ -56,11 +62,11 @@ public abstract class Finder<T extends F<T>, S extends Graphic<T>> {
         return null;
     }
 
-    public static <T extends F<T>, S extends Graphic<T>> boolean find(
+    public S findFrom(
             S candidate,
             double x,
             double y,
             double scale) {
-        return candidate.isNear(x, y, scale);
+        return (candidate.isNear(x, y, scale)) ? candidate : null;
     }
 }

@@ -38,10 +38,11 @@ public final class StateAxiom5<T extends F<T>> extends AbstractStateAxiom<T> {
 
     @Override
     public void drawModel(ScreenModel<T> screen, Graphics2D g2d) {
-        v0.draw(screen, g2d, true);
-        v.draw(screen, g2d, true);
-        s.draw(screen, g2d, true);
-        axiom.draw(screen, g2d, false);
+        float scale = (float) screen.getScale();
+        v0.draw(screen, g2d, scale, true);
+        v.draw(screen, g2d, scale, true);
+        s.draw(screen, g2d, scale, true);
+        axiom.draw(screen, g2d, scale, false);
     }
 
     @Override
