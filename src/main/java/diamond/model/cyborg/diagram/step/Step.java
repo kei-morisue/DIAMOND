@@ -6,6 +6,7 @@ package diamond.model.cyborg.diagram.step;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
@@ -49,10 +50,17 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     }
 
     public void cut(Line<T> axiom) {
+        HashSet<Face<T>> fs = new HashSet<Face<T>>();
         for (Face<T> face : faces) {
             Seg<T> seg = face.add(axiom);
-            face.cut(seg, this);
+            if (seg != null) {
+                fs.addAll(face.cut(seg, this));
+            } else {
+                fs.add(face);
+            }
         }
+        faces.clear();
+        faces.addAll(fs);
     }
 
     //TODO toomuch workload???

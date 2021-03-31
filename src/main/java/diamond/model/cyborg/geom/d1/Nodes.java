@@ -55,23 +55,21 @@ public class Nodes<T extends F<T>> implements Graphic<T> {
         return null;
     }
 
+    //TODO refavtor
     public void cut(
             Ver<T> r,
-            Ver<T> p,
-            Ver<T> q,
             D1<T> sp,
             D1<T> sq) {
         if (!isNode(r)) {
             return;
         }
-        nodes.sort(new NodeComparator<T>(p, q));
+        nodes.sort(new NodeComparator<T>(sp.p, sq.q));
         int i = nodes.indexOf(r);
-        Nodes<T> nq = new Nodes<T>();
-        Nodes<T> np = nq;
+        Nodes<T> np = new Nodes<T>();
         np.nodes.addAll(nodes.subList(0, i));
         sp.add(np);
         int size = nodes.size();
-        new Nodes<T>();
+        Nodes<T> nq = new Nodes<T>();
         nq.nodes.addAll(nodes.subList(Math.min(i + 1, size - 1), size));
         sq.add(nq);
     }

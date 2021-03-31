@@ -5,11 +5,11 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
+import java.util.LinkedList;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.draw.SegDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
@@ -28,25 +28,21 @@ public class Seg<T extends F<T>> extends D1<T> {
         super(p, q);
     }
 
-    public void cut(Ver<T> r, Face<T> f) {
+    public LinkedList<Seg<T>> cut(Ver<T> r) {
+        LinkedList<Seg<T>> segs = new LinkedList<Seg<T>>();
         if (!nodes.isNode(r)) {
-            return;
+            return segs;
         }
         Seg<T> sp = new Seg<T>(p, r);
         Seg<T> sq = new Seg<T>(r, q);
-        nodes.cut(r, p, q, sp, sq);
-        f.remove(this);
-        f.add(sp);
-        f.add(sq);
+        nodes.cut(r, sp, sq);
+        segs.add(sp);
+        segs.add(sq);
+        return segs;
     }
 
-    @Override
-    public <S extends AbstractScreen<T>> void draw(
-            S screen,
-            Graphics2D g2d,
-            float scale,
-            boolean isPointed) {
-        SegDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
+    public boolean isLeft(D1<T> s) {
+        return dir(s.c()).prod(dir().n()).isNeg();
     }
 
     public Ver<T> xPoint(Seg<T> s0) {
@@ -91,4 +87,12 @@ public class Seg<T extends F<T>> extends D1<T> {
         }
     }
 
+    @Override
+    public <S extends AbstractScreen<T>> void draw(
+            S screen,
+            Graphics2D g2d,
+            float scale,
+            boolean isPointed) {
+        SegDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
+    }
 }

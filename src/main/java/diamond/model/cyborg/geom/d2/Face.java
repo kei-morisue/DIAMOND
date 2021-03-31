@@ -6,6 +6,7 @@ package diamond.model.cyborg.geom.d2;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,31 +68,81 @@ public class Face<T extends F<T>> implements Serializable, Graphic<T> {
         return clip;
     }
 
-    public void cut(Seg<T> seg, Step<T> step) {
-        Link<T> lp = null;
-        Link<T> lq = null;
-        Ver<T> p = seg.getP();//TODO
-        Ver<T> q = seg.getQ();//TODO
-
-        for (Link<T> edge : edges) {
-            if (lp == null && edge.isNode(p)) {
-                lp = edge;
-            }
-            if (lq == null && edge.isNode(q)) {
-                lq = edge;
-            }
-        }
+    //TODO must be refactored!!!
+    public HashSet<Face<T>> cut(Seg<T> seg, Step<T> step) {
+        Link<T> lp = Loop.findNode(edges, seg, true);
         if (lp != null) {
-            Face<T> g = step.find(lp, this);
-            lp.cut(p, this, g);
+            Face<T> g = lp.cut(seg.getP(), this, step);
+            if (g != null) {
+                g.order();
+            }
         }
+        Link<T> lq = Loop.findNode(edges, seg, false);
         if (lq != null) {
-            Face<T> g = step.find(lq, this);
-            lq.cut(q, this, g);
+            Face<T> g = lq.cut(seg.getQ(), this, step);
+            if (g != null) {
+                g.order();
+            }
         }
-        add(new Link<T>(seg));//TODO
-        add(new Link<T>(seg));//TODO
-        order();
+        Link<T> link = new Link<T>(seg);
+        ArrayList<Link<T>> e0 = new ArrayList<Link<T>>();
+        ArrayList<Link<T>> e1 = new ArrayList<Link<T>>();
+        e0.add(link);
+        e1.add(link);
+        for (Link<T> edge : edges) {
+            add(edge, e0, seg, e1);
+        }
+        HashSet<Face<T>> ret = new HashSet<Face<T>>();
+        Face<T> f0 = new Face<T>(e0);
+        Face<T> f1 = new Face<T>(e1);
+        ret.add(f0);
+        ret.add(f1);
+        f0.order();
+        f1.order();
+        for (Seg<T> crease : creases) {
+            if (crease == seg) {
+                continue;
+            }
+            Ver<T> x = crease.xPoint(seg);
+            if (x != null) {
+                LinkedList<Seg<T>> cut = crease.cut(x);
+                if (cut.size() > 0) {
+                    Seg<T> s0 = cut.get(0);
+                    add(s0, f0, seg, f1);
+                    Seg<T> s1 = cut.get(1);
+                    add(s1, f0, seg, f1);
+                } else {
+                    add(crease, f0, seg, f1);
+                }
+            } else {
+                add(crease, f0, seg, f1);
+            }
+        }
+        return ret;
+    }
+
+    private void add(
+            Link<T> edge,
+            ArrayList<Link<T>> e0,
+            Seg<T> seg,
+            ArrayList<Link<T>> e1) {
+        if (seg.isLeft(edge)) {
+            e0.add(edge);
+        } else {
+            e1.add(edge);
+        }
+    }
+
+    private void add(
+            Seg<T> crease,
+            Face<T> f0,
+            Seg<T> seg,
+            Face<T> f1) {
+        if (seg.isLeft(crease)) {
+            f0.add(crease);
+        } else {
+            f1.add(crease);
+        }
     }
 
     public boolean isEdge(Link<T> edge) {

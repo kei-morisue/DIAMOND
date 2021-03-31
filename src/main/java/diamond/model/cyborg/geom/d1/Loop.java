@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +45,19 @@ public class Loop {
         for (Link<T> l1 : links) {
             if (l1.p == v || l1.q == v) {
                 return l1;
+            }
+        }
+        return null;
+    }
+
+    public static <T extends F<T>> Link<T> findNode(
+            Collection<Link<T>> links,
+            Seg<T> seg,
+            boolean isP) {
+        Ver<T> v = (isP) ? seg.p : seg.q;
+        for (Link<T> l : links) {
+            if (l.isNode(v)) {
+                return l;
             }
         }
         return null;
