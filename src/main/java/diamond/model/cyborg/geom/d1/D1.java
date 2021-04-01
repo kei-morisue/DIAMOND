@@ -4,9 +4,11 @@
  */
 package diamond.model.cyborg.geom.d1;
 
+import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
@@ -34,6 +36,8 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
         this.nodes = nodes;
     }
 
+    public abstract void add(Face<T> face);
+
     public Ver<T> c() {
         Dir<T> dir = q.dir(p);
         return dir.div(2).ver(p);
@@ -58,6 +62,12 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
         return nodes.isNode(v);
     }
 
+    protected void cut(D1<T> sp, Ver<T> r, D1<T> sq) {
+        Pair<Nodes<T>> pair = nodes.cut(p, r, q);
+        sp.add(pair.p);
+        sq.add(pair.q);
+    }
+
     public boolean has(Ver<T> v) {
         if (p == v) {
             return true;
@@ -75,28 +85,9 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
         return q.dir(p).norm();
     }
 
-    public <S extends Graphic<T>> S find(
-            Finder<T, S> finder,
-            double x,
-            double y,
-            double scale) {
-        return finder.find(nodes, x, y, scale);
-    }
-
     public boolean isdubbed(D1<T> s) {
         return s.p == p && s.q == q || s.p == q && s.q == p;
     }
-
-    @Override
-    public boolean isNear(double x, double y, double scale) {
-        return distSquare(x, y) < EPS / scale / scale &&
-                c().distSquare(x, y) < lengthSquared().div(4).d();
-    }
-
-    @Override
-    public double distSquare(double x, double y) {
-        return Util.footSquare(p, q, x, y);
-    };
 
     public Dir<T> dir() {
         return q.dir(p);
@@ -119,11 +110,16 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
         if (d0.q == q) {
             return q;
         }
-        Ver<T> node = nodes.find(d0.nodes);
+        Ver<T> node = findNode(d0);
         if (node != null) {
             return node;
         }
         return null;
+    }
+
+    public Ver<T> findNode(D1<T> d0) {
+        Ver<T> node = nodes.find(d0.nodes);
+        return node;
     }
 
     public Dir<T> dir(Ver<T> v) {
@@ -134,6 +130,26 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
             return p.dir(q);
         }
         return p.dir(v);
+    }
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        return distSquare(x, y) < EPS / scale / scale &&
+                c().distSquare(x, y) < lengthSquared().div(4).d();
+    }
+
+    @Override
+    public double distSquare(double x, double y) {
+        return Util.footSquare(p, q, x, y);
+    };
+
+    @Override
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(nodes, x, y, scale);
     }
 
     @Deprecated

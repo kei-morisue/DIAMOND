@@ -7,6 +7,7 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
 
+import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.find.Finder;
@@ -55,23 +56,21 @@ public class Nodes<T extends F<T>> implements Graphic<T> {
         return null;
     }
 
-    //TODO refavtor
-    public void cut(
+    public Pair<Nodes<T>> cut(
+            Ver<T> p,
             Ver<T> r,
-            D1<T> sp,
-            D1<T> sq) {
+            Ver<T> q) {
         if (!isNode(r)) {
-            return;
+            return null;
         }
-        nodes.sort(new NodeComparator<T>(sp.p, sq.q));
+        nodes.sort(new NodeComparator<T>(p, q));
         int i = nodes.indexOf(r);
         Nodes<T> np = new Nodes<T>();
         np.nodes.addAll(nodes.subList(0, i));
-        sp.add(np);
         int size = nodes.size();
         Nodes<T> nq = new Nodes<T>();
         nq.nodes.addAll(nodes.subList(Math.min(i + 1, size - 1), size));
-        sq.add(nq);
+        return new Pair<Nodes<T>>(np, nq);
     }
 
     public boolean isNode(Ver<T> v) {

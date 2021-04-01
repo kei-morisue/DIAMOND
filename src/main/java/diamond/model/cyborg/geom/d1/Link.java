@@ -6,7 +6,7 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 
-import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d0.mirror.MirrorPlain;
 import diamond.model.cyborg.geom.d2.Face;
@@ -36,23 +36,19 @@ public class Link<T extends F<T>> extends D1<T> {
         this.nodes = seg.nodes;
     }
 
-    public Face<T> cut(Ver<T> r, Face<T> f, Step<T> step) {
+    @Override
+    public void add(Face<T> face) {
+        face.add(this);
+    }
+
+    public Pair<Link<T>> cut(Ver<T> r) {
         if (!isNode(r)) {
             return null;
         }
         Link<T> lp = new Link<T>(p, r);
         Link<T> lq = new Link<T>(r, q);
-        nodes.cut(r, lp, lq);
-        f.remove(this);
-        f.add(lp);
-        f.add(lq);
-        Face<T> g = step.find(this, f);
-        if (g != null) {
-            g.remove(this);
-            g.add(lp);
-            g.add(lq);
-        }
-        return g;
+        cut(lp, r, lq);
+        return new Pair<Link<T>>(lp, lq);
     }
 
     @Override

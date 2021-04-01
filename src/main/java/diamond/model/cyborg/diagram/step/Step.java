@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import diamond.model.cyborg.Pair;
+import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Link;
 import diamond.model.cyborg.geom.d1.Seg;
@@ -54,23 +56,43 @@ public final class Step<T extends F<T>> implements Graphic<T> {
         for (Face<T> face : faces) {
             Seg<T> seg = face.add(axiom);
             if (seg != null) {
-                fs.addAll(face.cut(seg, this));
+                face.cut(seg, this).add(fs);
             } else {
                 fs.add(face);
             }
         }
         faces.clear();
-        faces.addAll(fs);
+        faces.addAll(fs);//TODO order faces
+    }
+
+    public void marge(D1<T> t) {
+        Link<T> edge = null;
+        try {
+            edge = (Link<T>) t;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+            return;
+        }
+        Pair<Face<T>> fg = findPair(edge);
+        Face<T> h = fg.p.marge(fg.q, edge);
+        faces.remove(fg.p);
+        faces.remove(fg.q);
+        faces.add(h);
     }
 
     //TODO toomuch workload???
-    public Face<T> find(Link<T> edge, Face<T> f) {
+    public Pair<Face<T>> findPair(Link<T> edge) {
+        Face<T> f = null;
         for (Face<T> face : faces) {
-            if (face.isEdge(edge) && face != f) {
-                return face;
+            if (face.isEdge(edge)) {
+                if (f == null) {
+                    f = face;
+                } else {
+                    return new Pair<Face<T>>(f, face);
+                }
             }
         }
-        return null;
+        return new Pair<Face<T>>(f, null);
     }
 
     @Override

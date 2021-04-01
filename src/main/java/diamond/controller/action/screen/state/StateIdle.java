@@ -40,7 +40,8 @@ public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
 
     @Override
     public AbstractScreenState<T> leftCtrl(D1<T> t) {
-        return this;//TODO to Axiom 6 & 7
+        context.getStep().marge(t);
+        return this;
     }
 
     @Override

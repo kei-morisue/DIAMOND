@@ -23,12 +23,10 @@ public class StepBuilder {
         Ver<T> b = new Ver<T>(size, size.neg());
         Ver<T> c = new Ver<T>(size.neg(), size.neg());
         Ver<T> d = new Ver<T>(size.neg(), size);
-        ArrayList<Link<T>> edges = new ArrayList<>();
-        edges.add(new Link<T>(a, b));
-        edges.add(new Link<T>(b, c));
-        edges.add(new Link<T>(c, d));
-        edges.add(new Link<T>(d, a));
-        Face<T> face = new Face<T>(edges);
+        Face<T> face = new Face<T>(new Link<T>(a, b));
+        face.add(new Link<T>(b, c));
+        face.add(new Link<T>(c, d));
+        face.add(new Link<T>(d, a));
         Seg<T> crease0 = new Seg<T>(a, c);
         face.add(crease0);
 

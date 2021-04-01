@@ -10,7 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import diamond.model.cyborg.Pair;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
 /**
@@ -39,6 +42,15 @@ public class Loop {
         return vers;
     }
 
+    public static <T extends F<T>> Pair<Link<T>> cut(
+            Collection<Link<T>> edges,
+            Seg<T> seg,
+            Step<T> step) {
+        Link<T> lp = cut(edges, seg.p, seg, step);
+        Link<T> lq = cut(edges, seg.q, seg, step);
+        return new Pair<Link<T>>(lp, lq);
+    }
+
     private static <T extends F<T>> Link<T> find(
             Set<Link<T>> links,
             Ver<T> v) {
@@ -50,16 +62,48 @@ public class Loop {
         return null;
     }
 
-    public static <T extends F<T>> Link<T> findNode(
+    private static <T extends F<T>> Link<T> findNode(
             Collection<Link<T>> links,
-            Seg<T> seg,
-            boolean isP) {
-        Ver<T> v = (isP) ? seg.p : seg.q;
+            Ver<T> v) {
         for (Link<T> l : links) {
             if (l.isNode(v)) {
                 return l;
             }
         }
         return null;
+    }
+
+    private static <T extends F<T>> Link<T> cut(
+            Collection<Link<T>> edges,
+            Ver<T> p,
+            Seg<T> seg,
+            Step<T> step) {
+        Link<T> lp = findNode(edges, p);
+        if (lp != null) {
+            cut(seg, step, p, lp);
+        }
+        return lp;
+    }
+
+    private static <T extends F<T>> void cut(
+            Seg<T> seg,
+            Step<T> step,
+            Ver<T> p,
+            Link<T> lp) {
+        Pair<Link<T>> pair = lp.cut(p);
+        Pair<Face<T>> fg = step.findPair(lp);
+        add(pair, fg.p, lp);
+        add(pair, fg.q, lp);
+
+    }
+
+    private static <T extends F<T>> void add(
+            Pair<Link<T>> pair,
+            Face<T> f,
+            Link<T> beRemoved) {
+        if (f != null) {
+            f.add(pair);
+            f.remove(beRemoved);
+        }
     }
 }
