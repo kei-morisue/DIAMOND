@@ -10,7 +10,6 @@ import java.util.Set;
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.draw.SegDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
@@ -29,14 +28,9 @@ public class Seg<T extends F<T>> extends D1<T> {
         super(p, q);
     }
 
-    public Seg(Link<T> link) {
+    public Seg(Edge<T> link) {
         this(link.p, link.q);
         nodes = link.nodes;
-    }
-
-    @Override
-    public void add(Face<T> face) {
-        face.add(this);
     }
 
     public Pair<Seg<T>> cut(Ver<T> r) {

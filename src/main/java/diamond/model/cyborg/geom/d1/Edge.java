@@ -9,8 +9,7 @@ import java.awt.Graphics2D;
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d0.mirror.MirrorPlain;
-import diamond.model.cyborg.geom.d2.Face;
-import diamond.model.cyborg.graphics.draw.LinkDrawer;
+import diamond.model.cyborg.graphics.draw.EdgeDrawer;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -18,37 +17,32 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Link<T extends F<T>> extends D1<T> {
+public class Edge<T extends F<T>> extends D1<T> {
     private MirrorPlain<T> mirrorPlain;
     //    private AbstractMirror<T> mirror = null;
 
     @Deprecated
-    public Link() {
+    public Edge() {
     }
 
-    public Link(Ver<T> p, Ver<T> q) {
+    public Edge(Ver<T> p, Ver<T> q) {
         super(p, q);
         this.mirrorPlain = new MirrorPlain<T>(p, q);
     }
 
-    public Link(Seg<T> seg) {
+    public Edge(Seg<T> seg) {
         this(seg.p, seg.q);
         this.nodes = seg.nodes;
     }
 
-    @Override
-    public void add(Face<T> face) {
-        face.add(this);
-    }
-
-    public Pair<Link<T>> cut(Ver<T> r) {
+    public Pair<Edge<T>> cut(Ver<T> r) {
         if (!isNode(r)) {
             return null;
         }
-        Link<T> lp = new Link<T>(p, r);
-        Link<T> lq = new Link<T>(r, q);
+        Edge<T> lp = new Edge<T>(p, r);
+        Edge<T> lq = new Edge<T>(r, q);
         cut(lp, r, lq);
-        return new Pair<Link<T>>(lp, lq);
+        return new Pair<Edge<T>>(lp, lq);
     }
 
     @Override
@@ -57,7 +51,7 @@ public class Link<T extends F<T>> extends D1<T> {
             Graphics2D g2d,
             float scale,
             boolean isPointed) {
-        LinkDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
+        EdgeDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
     }
 
     @Deprecated

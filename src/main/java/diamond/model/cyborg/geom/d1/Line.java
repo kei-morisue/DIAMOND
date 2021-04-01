@@ -5,7 +5,6 @@
 package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
-import java.util.List;
 
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
@@ -45,27 +44,7 @@ public class Line<T extends F<T>> implements Graphic<T> {
         return p.dir(v).prod(n).isZero();
     }
 
-    public Seg<T> clip(List<Link<T>> links) {
-        Ver<T> p = null;
-        Ver<T> q = null;
-        for (Link<T> link : links) {
-            Ver<T> x = xPoint(link);
-            if (x != null) {
-                link.add(x);
-                if (p == null) {
-                    p = x;
-                } else if (q == null) {
-                    q = x;
-                }
-            }
-        }
-        if (p == null || q == null) {
-            return null;
-        }
-        return new Seg<T>(p, q);
-    }
-
-    private Ver<T> xPoint(D1<T> s0) {
+    public Ver<T> xPoint(D1<T> s0) {
         if (isOn(s0.p)) {
             return s0.p;
         }

@@ -4,11 +4,14 @@
  */
 package diamond.model.cyborg.graphics.find;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Edge;
+import diamond.model.cyborg.geom.d1.LoopedEdge;
 import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
@@ -52,17 +55,6 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
         return null;
     }
 
-    @Override
-    public Ver<T> find(
-            List<Link<T>> edges,
-            Set<Seg<T>> creases,
-            List<Ver<T>> vers,
-            double x,
-            double y,
-            double scale) {
-        return findFrom(vers, x, y, scale);
-    }
-
     @Deprecated
     @Override
     public Ver<T> find(
@@ -76,6 +68,36 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
     @Override
     public Ver<T> find(
             List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale) {
+        return findFrom(vers, x, y, scale);
+    }
+
+    @Override
+    public Ver<T> find(
+            LoopedEdge<T> loop,
+            Set<Seg<T>> creases,
+            double x,
+            double y,
+            double scale) {
+        Ver<T> v = loop.find(this, x, y, scale);
+        if (v != null) {
+            return v;
+        }
+        for (Seg<T> seg : creases) {
+            v = seg.find(this, x, y, scale);
+            if (v != null) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Ver<T> find(
+            HashSet<Edge<T>> edges,
+            LinkedList<Ver<T>> vers,
             double x,
             double y,
             double scale) {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
@@ -23,10 +23,10 @@ public class StepBuilder {
         Ver<T> b = new Ver<T>(size, size.neg());
         Ver<T> c = new Ver<T>(size.neg(), size.neg());
         Ver<T> d = new Ver<T>(size.neg(), size);
-        Face<T> face = new Face<T>(new Link<T>(a, b));
-        face.add(new Link<T>(b, c));
-        face.add(new Link<T>(c, d));
-        face.add(new Link<T>(d, a));
+        Face<T> face = new Face<T>(new Edge<T>(a, b));
+        face.add(new Edge<T>(b, c));
+        face.add(new Edge<T>(c, d));
+        face.add(new Edge<T>(d, a));
         Seg<T> crease0 = new Seg<T>(a, c);
         face.add(crease0);
 

@@ -5,11 +5,14 @@
 package diamond.model.cyborg.graphics.find;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Edge;
+import diamond.model.cyborg.geom.d1.LoopedEdge;
 import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
@@ -30,9 +33,15 @@ public abstract class Finder<T extends F<T>, S extends Graphic<T>> {
             double scale);
 
     public abstract S find(
-            List<Link<T>> edges,
+            LoopedEdge<T> loop,
             Set<Seg<T>> creases,
-            List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale);
+
+    public abstract S find(
+            HashSet<Edge<T>> edges,
+            LinkedList<Ver<T>> vers,
             double x,
             double y,
             double scale);
@@ -69,4 +78,5 @@ public abstract class Finder<T extends F<T>, S extends Graphic<T>> {
             double scale) {
         return (candidate.isNear(x, y, scale)) ? candidate : null;
     }
+
 }

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d1.D1;
 import diamond.model.cyborg.geom.d1.Line;
-import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphic;
@@ -66,14 +66,14 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     }
 
     public void marge(D1<T> t) {
-        Link<T> edge = null;
+        Edge<T> edge = null;
         try {
-            edge = (Link<T>) t;
+            edge = (Edge<T>) t;
         } catch (ClassCastException e) {
             e.printStackTrace();
             return;
         }
-        Pair<Face<T>> fg = findPair(edge);
+        Pair<Face<T>> fg = findFaces(edge);
         Face<T> h = fg.p.marge(fg.q, edge);
         faces.remove(fg.p);
         faces.remove(fg.q);
@@ -81,7 +81,7 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     }
 
     //TODO toomuch workload???
-    public Pair<Face<T>> findPair(Link<T> edge) {
+    public Pair<Face<T>> findFaces(Edge<T> edge) {
         Face<T> f = null;
         for (Face<T> face : faces) {
             if (face.isEdge(edge)) {

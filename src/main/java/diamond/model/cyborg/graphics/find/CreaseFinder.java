@@ -4,11 +4,14 @@
  */
 package diamond.model.cyborg.graphics.find;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Link;
+import diamond.model.cyborg.geom.d1.Edge;
+import diamond.model.cyborg.geom.d1.LoopedEdge;
 import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d2.Face;
@@ -38,16 +41,6 @@ public class CreaseFinder<T extends F<T>> extends Finder<T, Seg<T>> {
         return null;
     }
 
-    public Seg<T> find(
-            List<Link<T>> edges,
-            Set<Seg<T>> creases,
-            List<Ver<T>> vers,
-            double x,
-            double y,
-            double scale) {
-        return findFrom(creases, x, y, scale);
-    }
-
     @Deprecated
     @Override
     public Seg<T> find(
@@ -62,6 +55,27 @@ public class CreaseFinder<T extends F<T>> extends Finder<T, Seg<T>> {
     @Override
     public Seg<T> find(
             List<Ver<T>> vers,
+            double x,
+            double y,
+            double scale) {
+        return null;
+    }
+
+    @Override
+    public Seg<T> find(
+            LoopedEdge<T> loop,
+            Set<Seg<T>> creases,
+            double x,
+            double y,
+            double scale) {
+        return findFrom(creases, x, y, scale);
+    }
+
+    @Deprecated
+    @Override
+    public Seg<T> find(
+            HashSet<Edge<T>> edges,
+            LinkedList<Ver<T>> vers,
             double x,
             double y,
             double scale) {

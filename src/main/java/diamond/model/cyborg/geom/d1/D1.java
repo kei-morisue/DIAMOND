@@ -8,7 +8,6 @@ import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
@@ -35,8 +34,6 @@ public abstract class D1<T extends F<T>> implements Graphic<T> {
     public void add(Nodes<T> nodes) {
         this.nodes = nodes;
     }
-
-    public abstract void add(Face<T> face);
 
     public Ver<T> c() {
         Dir<T> dir = q.dir(p);
