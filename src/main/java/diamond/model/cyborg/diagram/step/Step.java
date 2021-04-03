@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import diamond.model.cyborg.Pair;
-import diamond.model.cyborg.geom.d1.D1;
-import diamond.model.cyborg.geom.d1.Line;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.StepDrawer;
@@ -54,7 +53,7 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     public void cut(Line<T> axiom) {
         HashSet<Face<T>> fs = new HashSet<Face<T>>();
         for (Face<T> face : faces) {
-            Seg<T> seg = face.add(axiom);
+            Crease<T> seg = face.add(axiom);
             if (seg != null) {
                 face.cut(seg, this).add(fs);
             } else {
@@ -65,19 +64,20 @@ public final class Step<T extends F<T>> implements Graphic<T> {
         faces.addAll(fs);//TODO order faces
     }
 
-    public void marge(D1<T> t) {
-        Edge<T> edge = null;
-        try {
-            edge = (Edge<T>) t;
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-            return;
+    public void cut(Crease<T> crease) {
+        Face<T> face = findFace(crease);
+        if (face != null) {
+            face.cut(crease, this).add(faces);//TODO order faces
+            faces.remove(face);
         }
+    }
+
+    public void marge(Edge<T> edge) {
         Pair<Face<T>> fg = findFaces(edge);
         Face<T> h = fg.p.marge(fg.q, edge);
         faces.remove(fg.p);
         faces.remove(fg.q);
-        faces.add(h);
+        faces.add(h);//TODO order faces
     }
 
     //TODO toomuch workload???
@@ -93,6 +93,15 @@ public final class Step<T extends F<T>> implements Graphic<T> {
             }
         }
         return new Pair<Face<T>>(f, null);
+    }
+
+    private Face<T> findFace(Crease<T> crease) {
+        for (Face<T> face : faces) {
+            if (face.is(crease)) {
+                return face;
+            }
+        }
+        return null;
     }
 
     @Override

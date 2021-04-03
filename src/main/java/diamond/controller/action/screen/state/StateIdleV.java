@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -33,7 +33,7 @@ public final class StateIdleV<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> leftCtrl(D1<T> t) {
+    public AbstractScreenState<T> leftCtrl(Seg<T> t) {
         return this;
     }
 
@@ -43,7 +43,7 @@ public final class StateIdleV<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> left(D1<T> t) {
+    public AbstractScreenState<T> left(Seg<T> t) {
         return this;
     }
 

@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.util.HashSet;
 
 import diamond.model.cyborg.geom.d1.LoopedEdge;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.AbstractScreen;
 
@@ -26,10 +26,10 @@ public final class FaceDrawer {
             Graphics2D g2d,
             float scale,
             LoopedEdge<T> loop,
-            HashSet<Seg<T>> creases,
+            HashSet<Crease<T>> creases,
             boolean isPointed) {
         loop.draw(screen, g2d, scale, isPointed);
-        for (Seg<T> crease : creases) {
+        for (Crease<T> crease : creases) {
             crease.draw(screen, g2d, scale, isPointed);
         }
     }

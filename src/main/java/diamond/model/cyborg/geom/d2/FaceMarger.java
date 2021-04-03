@@ -4,6 +4,8 @@
  */
 package diamond.model.cyborg.geom.d2;
 
+import diamond.model.cyborg.geom.d1.Crease;
+import diamond.model.cyborg.geom.d1.CreaseMarger;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.math.field.F;
 
@@ -13,20 +15,19 @@ import diamond.model.math.field.F;
  */
 public class FaceMarger {
 
-    public static <T extends F<T>> Face<T> marge(Face<T> f0, Edge<T> edge) {
-        Face<T> f = new Face();
-        //        f.add(loop);
-        //        f.add(f0.loop);
-        //        f.remove(edge);
-        //        f.remove(edge);
-        //        f.order();
-        //        for (Seg<T> crease : creases) {
-        //            f.add(crease);
-        //        }
-        //        for (Seg<T> crease : f0.creases) {
-        //            f.add(crease);
-        //        }
-        //        f.add(new Seg<T>(edge));
+    public static <T extends F<T>> Face<T> marge(
+            Face<T> f0,
+            Face<T> f1,
+            Edge<T> edge) {
+        Face<T> f = new Face<T>();
+        f.add(f0.loop);
+        f.add(f1.loop);
+        f.remove(edge);
+        CreaseMarger.marge(
+                f0.creases,
+                f1.creases,
+                f);
+        f.add(new Crease<T>(edge));
         return f;
     }
 }

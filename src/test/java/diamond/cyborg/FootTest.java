@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import diamond.model.cyborg.Util;
+import diamond.model.cyborg.geom.Util;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.math.field.Rational;
 

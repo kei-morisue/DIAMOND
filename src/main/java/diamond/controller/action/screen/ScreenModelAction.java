@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.graphics.find.CreaseFinder;
 import diamond.model.cyborg.graphics.find.EdgeFinder;
 import diamond.model.cyborg.graphics.find.NodeFinder;
@@ -40,7 +40,7 @@ public final class ScreenModelAction<T extends F<T>>
             state.setPointedV(v);
             return;
         }
-        D1<T> s = step.find(new EdgeFinder<T>(), x, y, scale);
+        Seg<T> s = step.find(new EdgeFinder<T>(), x, y, scale);
         if (s == null) {
             s = step.find(new CreaseFinder<T>(), x, y, scale);
         }

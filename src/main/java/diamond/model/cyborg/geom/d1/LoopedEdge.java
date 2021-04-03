@@ -23,12 +23,11 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class LoopedEdge<T extends F<T>> implements Graphic<T> {
+public final class LoopedEdge<T extends F<T>> implements Graphic<T> {
     protected HashSet<Edge<T>> edges = new HashSet<Edge<T>>();
     protected LinkedList<Ver<T>> vers = new LinkedList<Ver<T>>();
     protected boolean isClosed = false;
 
-    @Deprecated
     public LoopedEdge() {
     }
 
@@ -39,19 +38,22 @@ public class LoopedEdge<T extends F<T>> implements Graphic<T> {
         }
     }
 
-    public LoopedEdge(Collection<Edge<T>> edges) {
-        this.edges.addAll(edges);
-    }
-
     public void add(Edge<T> edge) {
         this.edges.add(edge);
+        isClosed = false;
+    }
+
+    public void add(LoopedEdge<T> loop) {
+        this.edges.addAll(loop.edges);
+        isClosed = false;
     }
 
     public void remove(Edge<T> edge) {
         this.edges.remove(edge);
+        isClosed = false;
     }
 
-    public Seg<T> clip(Line<T> axiom) {
+    public Crease<T> clip(Line<T> axiom) {
         Ver<T> p = null;
         Ver<T> q = null;
         for (Edge<T> link : edges) {
@@ -68,16 +70,16 @@ public class LoopedEdge<T extends F<T>> implements Graphic<T> {
         if (p == null || q == null) {
             return null;
         }
-        return new Seg<T>(p, q);
+        return new Crease<T>(p, q);
     }
 
-    public void cut(Seg<T> seg, Step<T> step) {
+    public void cut(Crease<T> seg, Step<T> step) {
         cut(seg.p, step);
         cut(seg.q, step);
     }
 
     public void add(
-            Seg<T> seg,
+            Crease<T> seg,
             Pair<Face<T>> pq) {
         for (Edge<T> edge : edges) {
             if (seg.isLeft(edge)) {

@@ -8,7 +8,7 @@
       <object class="diamond.model.cyborg.geom.d2.Face" id="Face0">
        <void property="creases">
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d1.Seg" id="Seg0">
+         <object class="diamond.model.cyborg.geom.d1.Crease" id="Crease0">
           <void id="Nodes0" property="nodes">
            <void property="nodes">
             <void method="add">
@@ -70,7 +70,7 @@
          </object>
         </void>
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d1.Seg">
+         <object class="diamond.model.cyborg.geom.d1.Crease">
           <void property="p">
            <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver3">
             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
@@ -95,7 +95,7 @@
          </object>
         </void>
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d1.Seg" id="Seg1">
+         <object class="diamond.model.cyborg.geom.d1.Crease" id="Crease1">
           <void id="Nodes1" property="nodes">
            <void property="nodes">
             <void method="add">

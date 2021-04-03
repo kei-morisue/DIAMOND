@@ -11,7 +11,7 @@ import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.math.field.F;
 
 /**
@@ -22,8 +22,8 @@ public class FaceCutter {
 
     public static <T extends F<T>> Pair<Face<T>> cut(
             LoopedEdge<T> loop,
-            Collection<Seg<T>> creases,
-            Seg<T> seg,
+            Collection<Crease<T>> creases,
+            Crease<T> seg,
             Step<T> step) {
         loop.cut(seg, step);
         Pair<Face<T>> fg = cut(loop, seg);
@@ -33,7 +33,7 @@ public class FaceCutter {
 
     private static <T extends F<T>> Pair<Face<T>> cut(
             LoopedEdge<T> loop,
-            Seg<T> seg) {
+            Crease<T> seg) {
         Edge<T> link = new Edge<T>(seg);
         Pair<Face<T>> fg = new Pair<Face<T>>(
                 new Face<T>(link),
@@ -43,14 +43,14 @@ public class FaceCutter {
     }
 
     private static <T extends F<T>> void add(
-            Collection<Seg<T>> creases,
-            Seg<T> seg,
+            Collection<Crease<T>> creases,
+            Crease<T> seg,
             Pair<Face<T>> fg) {
         creases.remove(seg);
-        for (Seg<T> crease : creases) {
+        for (Crease<T> crease : creases) {
             Ver<T> x = crease.findNode(seg);
             if (x != null) {
-                Pair<Seg<T>> pair = crease.cut(x);
+                Pair<Crease<T>> pair = crease.cut(x);
                 add(pair.p, seg, fg);
                 add(pair.q, seg, fg);
             } else {
@@ -60,8 +60,8 @@ public class FaceCutter {
     }
 
     private static <S extends F<S>> void add(
-            Seg<S> s,
-            Seg<S> seg,
+            Crease<S> s,
+            Crease<S> seg,
             Pair<Face<S>> pq) {
         if (seg.isLeft(s)) {
             pq.p.add(s);

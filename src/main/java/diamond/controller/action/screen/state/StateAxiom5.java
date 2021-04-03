@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
@@ -20,14 +20,14 @@ import diamond.view.ui.screen.ScreenModel;
 public final class StateAxiom5<T extends F<T>> extends AbstractStateAxiom<T> {
     private Ver<T> v0;
     private Ver<T> v;
-    private D1<T> s;
+    private Seg<T> s;
 
     public StateAxiom5(
             Context<T> context,
             StateIdle5<T> prevState,
             Ver<T> v0,
             Ver<T> v,
-            D1<T> s,
+            Seg<T> s,
             Line<T> axiom) {
         super(context, prevState, axiom);
         this.v0 = v0;

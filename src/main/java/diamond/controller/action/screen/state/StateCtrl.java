@@ -5,7 +5,7 @@
 package diamond.controller.action.screen.state;
 
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 
 /**
@@ -16,6 +16,6 @@ public interface StateCtrl<T extends F<T>>
         extends StateClick<T> {
     public AbstractScreenState<T> leftCtrl(Ver<T> v);
 
-    public AbstractScreenState<T> leftCtrl(D1<T> s);
+    public AbstractScreenState<T> leftCtrl(Seg<T> s);
 
 }

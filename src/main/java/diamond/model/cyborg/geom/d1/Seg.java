@@ -4,97 +4,184 @@
  */
 package diamond.model.cyborg.geom.d1;
 
-import java.awt.Graphics2D;
-import java.util.Set;
-
 import diamond.model.cyborg.Pair;
+import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.geom.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.graphics.draw.SegDrawer;
+import diamond.model.cyborg.graphics.Graphic;
+import diamond.model.cyborg.graphics.find.Finder;
 import diamond.model.math.field.F;
-import diamond.view.ui.screen.AbstractScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Seg<T extends F<T>> extends D1<T> {
+public abstract class Seg<T extends F<T>> implements Graphic<T> {
+    protected Ver<T> p;
+    protected Ver<T> q;
+    protected Nodes<T> nodes = new Nodes<T>();
+    private static final double EPS = 100;
 
     @Deprecated
-    public Seg() {
+    protected Seg() {
     }
 
-    public Seg(Ver<T> p, Ver<T> q) {
-        super(p, q);
+    protected Seg(Ver<T> p, Ver<T> q) {
+        this.p = p;
+        this.q = q;
     }
 
-    public Seg(Edge<T> link) {
-        this(link.p, link.q);
-        nodes = link.nodes;
+    public void add(Nodes<T> nodes) {
+        this.nodes = nodes;
     }
 
-    public Pair<Seg<T>> cut(Ver<T> r) {
-        if (!isNode(r)) {
-            return null;
+    public Ver<T> c() {
+        Dir<T> dir = q.dir(p);
+        return dir.div(2).ver(p);
+    }
+
+    public void add(Ver<T> v) {
+        F<T> dp = p.dir(v).norm();
+        if (dp.isZero()) {
+            return;
         }
-        Seg<T> sp = new Seg<T>(p, r);
-        Seg<T> sq = new Seg<T>(r, q);
-        cut(sp, r, sq);
-        return new Pair<Seg<T>>(sp, sq);
-    }
-
-    public boolean isLeft(D1<T> s) {
-        return dir(s.c()).prod(dir().n()).isNeg();
-    }
-
-    public Ver<T> xPoint(Seg<T> s0) {
-        Ver<T> v = findVer(s0);
-        if (v != null) {
-            return v;
+        F<T> dq = q.dir(v).norm();
+        if (dq.isZero()) {
+            return;
         }
-        return buildVer(s0);
+        F<T> d = dir().norm();
+        if (dp.sub(d).isNeg() && dq.sub(d).isNeg()) {
+            nodes.add(v);
+        }
     }
 
-    //TODO toomuch workload???
-    private Ver<T> buildVer(Seg<T> s0) {
-        Dir<T> d0 = s0.dir();
-        Dir<T> d1 = dir();
-        Dir<T> n = d1.n();
-        F<T> den0 = n.prod(d0);
-        if (den0.isZero()) {
-            return null;
+    public boolean isNode(Ver<T> v) {
+        return nodes.isNode(v);
+    }
+
+    protected void cut(Seg<T> sp, Ver<T> r, Seg<T> sq) {
+        Pair<Nodes<T>> pair = nodes.cut(p, r, q);
+        sp.add(pair.p);
+        sq.add(pair.q);
+    }
+
+    public boolean has(Ver<T> v) {
+        if (p == v) {
+            return true;
         }
-        F<T> a = s0.dir(p).prod(n).div(den0);
-        F<T> b = dir(s0.q).prod(n).div(den0);
-        Dir<T> n0 = d0.n();
-        F<T> den1 = n0.prod(d1);
-        F<T> c = dir(s0.p).prod(n0).div(den1);
-        F<T> d = s0.dir(q).prod(n0).div(den1);
-        if (a.isNeg() &&
-                b.isNeg() &&
-                c.isNeg() &&
-                d.isNeg()) {
-            return ((Dir<T>) d0.scale(b)).ver(s0.q);
+        if (q == v) {
+            return true;
+        }
+        if (isNode(v)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isdubbed(Seg<T> s) {
+        return s.p == p && s.q == q || s.p == q && s.q == p;
+    }
+
+    public Dir<T> dir() {
+        return q.dir(p);
+    }
+
+    public Dir<T> dir(Seg<T> d) {
+        return p.dir(d.p);
+    }
+
+    //TODO refactor
+    public Ver<T> findVer(Seg<T> d0) {
+        if (d0.p == p) {
+            return p;
+        }
+        if (d0.p == q) {
+            return q;
+        }
+        if (d0.q == p) {
+            return p;
+        }
+        if (d0.q == q) {
+            return q;
+        }
+        Ver<T> node = findNode(d0);
+        if (node != null) {
+            return node;
         }
         return null;
     }
 
-    public void putNodes(Set<Seg<T>> segs) {
-        for (Seg<T> s0 : segs) {
-            Ver<T> x = s0.xPoint(this);
-            if (x != null) {
-                s0.add(x);
-                add(x);
-            }
+    public Ver<T> findNode(Seg<T> d0) {
+        Ver<T> node = nodes.find(d0.nodes);
+        return node;
+    }
+
+    public Dir<T> dir(Ver<T> v) {
+        if (v == p) {
+            return q.dir(p);
         }
+        if (v == q) {
+            return p.dir(q);
+        }
+        return p.dir(v);
+    }
+
+    public abstract void flip(Step<T> step);
+
+    @Override
+    public boolean isNear(double x, double y, double scale) {
+        return distSquare(x, y) < EPS / scale / scale &&
+                c().distSquare(x, y) < q.dir(p).norm().div(4).d();
     }
 
     @Override
-    public <S extends AbstractScreen<T>> void draw(
-            S screen,
-            Graphics2D g2d,
-            float scale,
-            boolean isPointed) {
-        SegDrawer.draw(screen, g2d, scale, p, q, nodes, isPointed);
+    public double distSquare(double x, double y) {
+        return Util.footSquare(p, q, x, y);
+    };
+
+    @Override
+    public <S extends Graphic<T>> S find(
+            Finder<T, S> finder,
+            double x,
+            double y,
+            double scale) {
+        return finder.find(nodes, x, y, scale);
     }
+
+    @Deprecated
+    public Ver<T> getP() {
+        return p;
+    }
+
+    @Deprecated
+    public void setP(Ver<T> p) {
+        this.p = p;
+    }
+
+    @Deprecated
+    public Ver<T> getQ() {
+        return q;
+    }
+
+    @Deprecated
+    public void setQ(Ver<T> q) {
+        this.q = q;
+    }
+
+    @Deprecated
+    public Nodes<T> getNodes() {
+        return nodes;
+    }
+
+    @Deprecated
+    public void setNodes(Nodes<T> nodes) {
+        this.nodes = nodes;
+    }
+
+    @Override
+    public String toString() {
+        return p.toString() + "\n" + q.toString();
+    }
+
 }

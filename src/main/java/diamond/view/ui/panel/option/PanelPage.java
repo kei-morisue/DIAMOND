@@ -15,8 +15,6 @@ import javax.swing.JTextField;
 
 import diamond.controller.Context;
 import diamond.controller.action.ChooseColor;
-import diamond.model.Getter;
-import diamond.model.Setter;
 import diamond.model.cyborg.style.StylePage;
 import diamond.view.resource.string.Labels;
 

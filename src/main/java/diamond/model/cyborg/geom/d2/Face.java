@@ -5,14 +5,15 @@
 package diamond.model.cyborg.geom.d2;
 
 import java.awt.Graphics2D;
+import java.util.Collection;
 import java.util.HashSet;
 
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.diagram.step.Step;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
-import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.FaceDrawer;
 import diamond.model.cyborg.graphics.find.Finder;
@@ -24,21 +25,25 @@ import diamond.view.ui.screen.AbstractScreen;
  *
  */
 public final class Face<T extends F<T>> implements Graphic<T> {
-    protected LoopedEdge<T> loop;
-    protected HashSet<Seg<T>> creases = new HashSet<Seg<T>>();
+    protected LoopedEdge<T> loop = new LoopedEdge<T>();
+    protected HashSet<Crease<T>> creases = new HashSet<Crease<T>>();
 
     //    private static final double EPS = 10;
-    @Deprecated
     public Face() {
     }
 
     public Face(Edge<T> edge) {
-        loop = new LoopedEdge<T>(edge);
+        loop.add(edge);
     }
 
-    public final void add(Seg<T> seg) {
+    public final void add(Crease<T> seg) {
         seg.putNodes(creases);
         creases.add(seg);
+    }
+
+    public final void add(
+            Collection<Crease<T>> creases) {
+        this.creases.addAll(creases);
     }
 
     public void add(Edge<T> e) {
@@ -50,7 +55,11 @@ public final class Face<T extends F<T>> implements Graphic<T> {
         loop.add(pq.q);
     }
 
-    public final void remove(Seg<T> seg) {
+    public void add(LoopedEdge<T> loop) {
+        this.loop.add(loop);
+    }
+
+    public final void remove(Crease<T> seg) {
         creases.remove(seg);
     }
 
@@ -58,18 +67,18 @@ public final class Face<T extends F<T>> implements Graphic<T> {
         loop.remove(edge);
     }
 
-    public Seg<T> add(Line<T> axiom) {
-        Seg<T> clip = clip(axiom);
+    public Crease<T> add(Line<T> axiom) {
+        Crease<T> clip = clip(axiom);
         add(clip);
         return clip;
     }
 
-    private Seg<T> clip(Line<T> axiom) {
-        Seg<T> clip = loop.clip(axiom);
+    private Crease<T> clip(Line<T> axiom) {
+        Crease<T> clip = loop.clip(axiom);
         if (clip == null) {
             return null;
         }
-        for (Seg<T> crease : creases) {
+        for (Crease<T> crease : creases) {
             if (crease.isdubbed(clip)) {
                 return null;
             }
@@ -81,12 +90,16 @@ public final class Face<T extends F<T>> implements Graphic<T> {
         return loop.isEdge(edge);
     }
 
-    public Pair<Face<T>> cut(Seg<T> seg, Step<T> step) {
+    public boolean is(Crease<T> crease) {
+        return creases.contains(crease);
+    }
+
+    public Pair<Face<T>> cut(Crease<T> seg, Step<T> step) {
         return FaceCutter.cut(loop, creases, seg, step);
     }
 
     public Face<T> marge(Face<T> face, Edge<T> edge) {
-        return FaceMarger.marge(face, edge);
+        return FaceMarger.marge(this, face, edge);
     }
 
     @Override
@@ -130,12 +143,12 @@ public final class Face<T extends F<T>> implements Graphic<T> {
     }
 
     @Deprecated
-    public HashSet<Seg<T>> getCreases() {
+    public HashSet<Crease<T>> getCreases() {
         return creases;
     }
 
     @Deprecated
-    public void setCreases(HashSet<Seg<T>> creases) {
+    public void setCreases(HashSet<Crease<T>> creases) {
         this.creases = creases;
     }
 

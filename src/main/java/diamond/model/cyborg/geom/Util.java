@@ -2,7 +2,7 @@
  * DEFOX - Diagram Editor for Origami Creators
  * Copyright (C) 2018-2021 Kei Morisue
  */
-package diamond.model.cyborg;
+package diamond.model.cyborg.geom;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;

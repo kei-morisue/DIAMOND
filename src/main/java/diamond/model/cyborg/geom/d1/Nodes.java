@@ -18,7 +18,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Nodes<T extends F<T>> implements Graphic<T> {
+public final class Nodes<T extends F<T>> implements Graphic<T> {
 
     private LinkedList<Ver<T>> nodes = new LinkedList<Ver<T>>();
 

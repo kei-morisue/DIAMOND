@@ -13,7 +13,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
 import diamond.model.cyborg.geom.d1.Nodes;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
@@ -77,7 +77,7 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
     @Override
     public Ver<T> find(
             LoopedEdge<T> loop,
-            Set<Seg<T>> creases,
+            Set<Crease<T>> creases,
             double x,
             double y,
             double scale) {
@@ -85,7 +85,7 @@ public class VerFinder<T extends F<T>> extends Finder<T, Ver<T>> {
         if (v != null) {
             return v;
         }
-        for (Seg<T> seg : creases) {
+        for (Crease<T> seg : creases) {
             v = seg.find(this, x, y, scale);
             if (v != null) {
                 return v;

@@ -7,6 +7,7 @@ package diamond.model.cyborg.geom.d1;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.Pair;
+import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d0.mirror.MirrorPlain;
 import diamond.model.cyborg.graphics.draw.EdgeDrawer;
@@ -17,7 +18,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Edge<T extends F<T>> extends D1<T> {
+public final class Edge<T extends F<T>> extends Seg<T> {
     private MirrorPlain<T> mirrorPlain;
     //    private AbstractMirror<T> mirror = null;
 
@@ -30,7 +31,7 @@ public class Edge<T extends F<T>> extends D1<T> {
         this.mirrorPlain = new MirrorPlain<T>(p, q);
     }
 
-    public Edge(Seg<T> seg) {
+    public Edge(Crease<T> seg) {
         this(seg.p, seg.q);
         this.nodes = seg.nodes;
     }
@@ -62,6 +63,11 @@ public class Edge<T extends F<T>> extends D1<T> {
     @Deprecated
     public void setMirrorPlain(MirrorPlain<T> mirrorPlain) {
         this.mirrorPlain = mirrorPlain;
+    }
+
+    @Override
+    public void flip(Step<T> step) {
+        step.marge(this);
     }
 
 }

@@ -6,7 +6,7 @@ package diamond.model.cyborg.geom.d0;
 
 import java.awt.Graphics2D;
 
-import diamond.model.cyborg.Util;
+import diamond.model.cyborg.geom.Util;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.VerDrawer;
 import diamond.model.cyborg.graphics.find.Finder;
@@ -96,7 +96,7 @@ public class Ver<T extends F<T>> implements Graphic<T> {
 
     @Override
     public String toString() {
-        return x.toString() + ", " + y.toString();
+        return "(" + x.toString() + ", " + y.toString() + " )";
     }
 
 }

@@ -6,7 +6,7 @@ package diamond.model.cyborg.geom.d1;
 
 import java.awt.Graphics2D;
 
-import diamond.model.cyborg.Util;
+import diamond.model.cyborg.geom.Util;
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.graphics.Graphic;
@@ -19,7 +19,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public class Line<T extends F<T>> implements Graphic<T> {
+public final class Line<T extends F<T>> implements Graphic<T> {
     private Ver<T> p;
     private Dir<T> d;
     private Dir<T> n;
@@ -44,7 +44,7 @@ public class Line<T extends F<T>> implements Graphic<T> {
         return p.dir(v).prod(n).isZero();
     }
 
-    public Ver<T> xPoint(D1<T> s0) {
+    public Ver<T> xPoint(Seg<T> s0) {
         if (isOn(s0.p)) {
             return s0.p;
         }

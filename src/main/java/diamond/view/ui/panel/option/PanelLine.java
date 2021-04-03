@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import diamond.model.cyborg.graphics.draw.SegDrawer;
-import diamond.model.math.fuzzy.Util;
 import diamond.view.resource.string.Labels;
 
 /**
@@ -43,7 +42,7 @@ public class PanelLine extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             int input = Integer.parseInt(textField.getText());
-            int set = Util.hairCut(input, 0, 100);
+            int set = Math.max(0, Math.min(input, 100));
             SegDrawer.CUT = set;
             textField.setText(String.valueOf(set));
         }

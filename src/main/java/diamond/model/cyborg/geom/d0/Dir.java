@@ -4,8 +4,6 @@
  */
 package diamond.model.cyborg.geom.d0;
 
-import java.io.Serializable;
-
 import diamond.model.math.field.F;
 import diamond.model.math.metric.M;
 
@@ -13,7 +11,7 @@ import diamond.model.math.metric.M;
  * @author Kei Morisue
  *
  */
-public class Dir<T extends F<T>> extends M<T> implements Serializable {
+public class Dir<T extends F<T>> extends M<T> {
     public final F<T> x;
     public final F<T> y;
 

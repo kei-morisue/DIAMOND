@@ -6,9 +6,9 @@ package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
-import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Line;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.math.field.F;
 import diamond.model.math.field.Quad;
 
@@ -37,7 +37,7 @@ public class Axioms {
 
     //TODO refactor!!!
     //TODO give another solution!!!
-    public static <T extends F<T>> Line<T> axiom3(D1<T> s0, D1<T> s1) {
+    public static <T extends F<T>> Line<T> axiom3(Seg<T> s0, Seg<T> s1) {
         if (s0 == s1) {
             return null;
         }
@@ -72,7 +72,7 @@ public class Axioms {
                 ((Dir<T>) u1.sub(u0)).ver(w));
     }
 
-    public static <T extends F<T>> Line<T> axiom4(D1<T> s, Ver<T> v) {
+    public static <T extends F<T>> Line<T> axiom4(Seg<T> s, Ver<T> v) {
         Dir<T> n = s.dir().n();
         Dir<T> d0 = s.dir(v);
         F<T> prod = d0.prod(n);
@@ -88,12 +88,12 @@ public class Axioms {
     public static <T extends F<T>> Line<T> axiom5(
             Ver<T> v0,
             Ver<T> v,
-            D1<T> s) {
+            Seg<T> s) {
         if (v0 == v) {
             return null;
         }
         if (s.has(v0)) {
-            return axiom3(s, new Seg<T>(v0, v));
+            return axiom3(s, new Crease<T>(v0, v));
         }
         Dir<T> d1 = s.dir();
         Dir<T> d = s.dir(v0);

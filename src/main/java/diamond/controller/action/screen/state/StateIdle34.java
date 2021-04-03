@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.Context;
 import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
@@ -19,12 +19,12 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
-    private D1<T> s;
+    private Seg<T> s;
 
     public StateIdle34(
             Context<T> context,
             StateIdle<T> stateIdol,
-            D1<T> t) {
+            Seg<T> t) {
         super(context, stateIdol);
         s = t;
     }
@@ -35,7 +35,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> leftCtrl(D1<T> s0) {
+    public AbstractScreenState<T> leftCtrl(Seg<T> s0) {
         return left(s0);
     }
 
@@ -49,7 +49,7 @@ public final class StateIdle34<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> left(D1<T> s0) {
+    public AbstractScreenState<T> left(Seg<T> s0) {
         Line<T> axiom3 = Axioms.axiom3(s, s0);
         if (axiom3 == null) {
             return this;

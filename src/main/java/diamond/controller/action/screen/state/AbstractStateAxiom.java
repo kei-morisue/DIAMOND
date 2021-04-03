@@ -7,7 +7,7 @@ package diamond.controller.action.screen.state;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.math.field.F;
 
@@ -61,7 +61,7 @@ public abstract class AbstractStateAxiom<T extends F<T>>
 
     @Deprecated
     @Override
-    final public AbstractScreenState<T> leftCtrl(D1<T> t) {
+    final public AbstractScreenState<T> leftCtrl(Seg<T> t) {
         return null;
     }
 
@@ -73,7 +73,7 @@ public abstract class AbstractStateAxiom<T extends F<T>>
 
     @Deprecated
     @Override
-    final public AbstractScreenState<T> left(D1<T> t) {
+    final public AbstractScreenState<T> left(Seg<T> t) {
         return null;
     }
 

@@ -13,7 +13,7 @@ import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
 import diamond.model.cyborg.geom.d1.Nodes;
-import diamond.model.cyborg.geom.d1.Seg;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
@@ -64,7 +64,7 @@ public class EdgeFinder<T extends F<T>> extends Finder<T, Edge<T>> {
     @Override
     public Edge<T> find(
             LoopedEdge<T> loop,
-            Set<Seg<T>> creases,
+            Set<Crease<T>> creases,
             double x,
             double y,
             double scale) {

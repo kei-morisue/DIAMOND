@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 import diamond.controller.Context;
 import diamond.controller.action.screen.Util;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.D1;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 import diamond.view.ui.screen.ScreenModel;
 
@@ -24,7 +24,7 @@ public abstract class AbstractScreenState<T extends F<T>>
     protected AbstractScreenState<T> prevState;
     protected Context<T> context;
     protected Ver<T> pointedV;
-    protected D1<T> pointedS;
+    protected Seg<T> pointedS;
     protected boolean isCtrl;
 
     protected AbstractScreenState(
@@ -83,7 +83,7 @@ public abstract class AbstractScreenState<T extends F<T>>
     }
 
     @Override
-    final public AbstractScreenState<T> right(D1<T> s) {
+    final public AbstractScreenState<T> right(Seg<T> s) {
         return null;
     }
 
@@ -116,7 +116,7 @@ public abstract class AbstractScreenState<T extends F<T>>
         this.pointedV = pointedV;
     }
 
-    public void setPointedS(D1<T> pointedS) {
+    public void setPointedS(Seg<T> pointedS) {
         this.pointedS = pointedS;
     }
 
