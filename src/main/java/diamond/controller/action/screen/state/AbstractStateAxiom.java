@@ -7,8 +7,8 @@ package diamond.controller.action.screen.state;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.cyborg.geom.d1.Line;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 
 /**
@@ -38,43 +38,18 @@ public abstract class AbstractStateAxiom<T extends F<T>>
     }
 
     @Override
-    protected AbstractScreenState<T> onCtrl(boolean isLeft) {
-        if (isLeft) {
-            return execute(true);
-        }
-        return prevState;
+    protected AbstractScreenState<T> onLeft() {
+        return execute(isCtrl);
     }
 
-    @Override
-    protected AbstractScreenState<T> on(boolean isLeft) {
-        if (isLeft) {
-            return execute(false);
-        }
-        return prevState;
-    }
-
-    @Deprecated
-    @Override
-    final public AbstractScreenState<T> leftCtrl(Ver<T> t) {
-        return null;
-    }
-
-    @Deprecated
-    @Override
-    final public AbstractScreenState<T> leftCtrl(Seg<T> t) {
-        return null;
-    }
-
-    @Deprecated
     @Override
     final public AbstractScreenState<T> left(Ver<T> t) {
-        return null;
+        return execute(isCtrl);
     }
 
-    @Deprecated
     @Override
     final public AbstractScreenState<T> left(Seg<T> t) {
-        return null;
+        return execute(isCtrl);
     }
 
     protected abstract void cut();

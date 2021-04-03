@@ -6,7 +6,6 @@ package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
@@ -37,7 +36,10 @@ public class Axioms {
 
     //TODO refactor!!!
     //TODO give another solution!!!
-    public static <T extends F<T>> Line<T> axiom3(Seg<T> s0, Seg<T> s1) {
+    public static <T extends F<T>> Line<T> axiom3(
+            Seg<T> s0,
+            Seg<T> s1,
+            boolean alt) {
         if (s0 == s1) {
             return null;
         }
@@ -84,30 +86,28 @@ public class Axioms {
         return new Line<T>(n.neg().ver(w), n.ver(w));
     }
 
-    //TODO root1 to be returned
     public static <T extends F<T>> Line<T> axiom5(
             Ver<T> v0,
             Ver<T> v,
-            Seg<T> s) {
+            Seg<T> s,
+            boolean alt) {
         if (v0 == v) {
             return null;
         }
-        if (s.has(v0)) {
-            return axiom3(s, new Crease<T>(v0, v));
-        }
-        Dir<T> d1 = s.dir();
-        Dir<T> d = s.dir(v0);
-        Dir<T> dir0 = v.dir(v0);
-        T a = d1.norm();
-        T b = d1.prod(d);
-        T c = d.norm().sub(dir0.norm());
+        Dir<T> d0 = s.dir();
+        Dir<T> d1 = s.dir(v0);
+        Dir<T> d2 = v.dir(v0);
+        T a = d0.norm();
+        T b = d0.prod(d1).mul(2);
+        T c = d1.norm().sub(d2.norm());
         T root0 = Quad.root0(a, b, c);
-        //        F<T> root1 = Quad.root1(root0, a, c);
         if (root0 == null) {
             return null;
         }
-        return new Line<T>(v0,
-                dir0.add(d.add(d1.scale(root0))).div(2).ver(v0));
+        T root1 = Quad.root1(root0, a, c);
+        T alpha = (alt) ? root0 : root1;
+        Dir<T> d3 = d1.add(d0.scale(alpha));
+        return new Line<T>(v0, d3.add(d2).ver(v0));
     }
 
 }

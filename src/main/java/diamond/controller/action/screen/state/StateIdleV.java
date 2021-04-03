@@ -28,16 +28,6 @@ public final class StateIdleV<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> leftCtrl(Ver<T> t) {
-        return new StateIdle5<T>(context, this, v0, t);
-    }
-
-    @Override
-    public AbstractScreenState<T> leftCtrl(Seg<T> t) {
-        return this;
-    }
-
-    @Override
     public AbstractScreenState<T> left(Ver<T> t) {
         return new StateIdle5<T>(context, this, v0, t);
     }

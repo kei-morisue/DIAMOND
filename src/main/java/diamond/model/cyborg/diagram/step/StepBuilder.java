@@ -36,7 +36,7 @@ public class StepBuilder {
 
         Step<T> step = new Step<T>(faces);
         Crease<T> crease1 = face.add(Axioms.axiom2(a, b));
-        face.add(Axioms.axiom5(a, d, crease1));
+        face.add(Axioms.axiom5(a, d, crease1, true));
 
         return step;
     }

@@ -34,22 +34,19 @@ public final class StateIdle<T extends F<T>> extends AbstractScreenState<T> {
     }
 
     @Override
-    public AbstractScreenState<T> leftCtrl(Ver<T> v) {
-        return new StateIdleV<T>(context, this, v);
-    }
+    public AbstractScreenState<T> left(Ver<T> v) {
+        if (isCtrl) {
+            return new StateIdleV<T>(context, this, v);
 
-    @Override
-    public AbstractScreenState<T> leftCtrl(Seg<T> t) {
-        t.flip(context.getStep());
-        return this;
-    }
-
-    @Override
-    public AbstractScreenState<T> left(Ver<T> t) {
-        return new StateIdle124<T>(context, this, t);
+        }
+        return new StateIdle124<T>(context, this, v);
     }
 
     public AbstractScreenState<T> left(Seg<T> t) {
+        if (isCtrl) {
+            t.flip(context.getStep());
+            return this;
+        }
         return new StateIdle34<T>(context, this, t);
     }
 

@@ -23,9 +23,9 @@ public class QuadTest {
     @Test
     public void test0() {
         Real root0 = Quad.root0(a, b, c);
-        assertEquals(root0.d(), (-1 - Math.sqrt(5)) / 2, 1e-10);
+        assertEquals(root0.d(), (1 + Math.sqrt(5)) / 2, 1e-10);
         Real root1 = Quad.root1(root0, a, c);
-        assertEquals(root1.d(), (-1 + Math.sqrt(5)) / 2, 1e-10);
+        assertEquals(root1.d(), (1 - Math.sqrt(5)) / 2, 1e-10);
     }
 
 }

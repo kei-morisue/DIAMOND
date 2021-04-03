@@ -20,7 +20,7 @@ import diamond.view.ui.screen.ScreenModel;
  *
  */
 public abstract class AbstractScreenState<T extends F<T>>
-        implements StateCtrl<T>, KeyListener {
+        implements StateClick<T>, KeyListener {
     protected AbstractScreenState<T> prevState;
     protected Context<T> context;
     protected Ver<T> pointedV;
@@ -40,23 +40,13 @@ public abstract class AbstractScreenState<T extends F<T>>
     }
 
     public AbstractScreenState<T> next(
-            boolean isLeft,
-            boolean isCtrl) {
-        if (isCtrl) {
-            return onCtrl(isLeft);
-        } else {
-            return on(isLeft);
-        }
-    };
-
-    protected AbstractScreenState<T> on(
             boolean isLeft) {
         if (isLeft) {
             return onLeft();
         } else {
             return onRight();
         }
-    }
+    };
 
     protected AbstractScreenState<T> onRight() {
         return prevState;
@@ -96,16 +86,6 @@ public abstract class AbstractScreenState<T extends F<T>>
         }
         return this;
 
-    }
-
-    protected AbstractScreenState<T> onCtrl(boolean isLeft) {
-        if (pointedV != null) {
-            return leftCtrl(pointedV);
-        }
-        if (pointedS != null) {
-            return leftCtrl(pointedS);
-        }
-        return this;
     }
 
     public abstract void drawModel(

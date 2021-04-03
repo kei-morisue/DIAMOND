@@ -30,10 +30,9 @@ public abstract class AbstractScreenPurelandAction<T extends F<T>>
 
     @Override
     public void onAction(MouseEvent e) {
-        boolean isCtrl = Util.isControlKeyPressed(e);
         boolean isLeft = Util.isLeftClick(e);
         screen.removeKeyListener(state);
-        state = state.next(isLeft, isCtrl);
+        state = state.next(isLeft);
         screen.addKeyListener(state);
     }
 
