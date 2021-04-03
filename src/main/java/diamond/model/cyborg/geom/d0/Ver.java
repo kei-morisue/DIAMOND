@@ -18,15 +18,15 @@ import diamond.view.ui.screen.AbstractScreen;
  *
  */
 public class Ver<T extends F<T>> implements Graphic<T> {
-    public F<T> x;
-    public F<T> y;
+    public T x;
+    public T y;
     private static final double EPS = 250;
 
     @Deprecated
     public Ver() {
     }
 
-    public Ver(F<T> x, F<T> y) {
+    public Ver(T x, T y) {
         this.x = x;
         this.y = y;
     }
@@ -61,22 +61,22 @@ public class Ver<T extends F<T>> implements Graphic<T> {
     }
 
     @Deprecated
-    public F<T> getX() {
+    public T getX() {
         return x;
     }
 
     @Deprecated
-    public void setX(F<T> x) {
+    public void setX(T x) {
         this.x = x;
     }
 
     @Deprecated
-    public F<T> getY() {
+    public T getY() {
         return y;
     }
 
     @Deprecated
-    public void setY(F<T> y) {
+    public void setY(T y) {
         this.y = y;
     }
 

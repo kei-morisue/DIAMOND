@@ -8,6 +8,6 @@ package diamond.model.math.field;
  * @author Kei Morisue
  *
  */
-public interface Quadric<T> {
-    public abstract F<T> sqrt();
+public interface Quadric<T extends F<T>> {
+    public abstract T sqrt();
 }

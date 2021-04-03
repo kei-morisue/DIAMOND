@@ -4,28 +4,24 @@
  */
 package diamond.model.math.metric;
 
-import diamond.model.math.field.F;
-
 /**
  * @author Kei Morisue
  *
  */
-public abstract class M<T extends F<T>> {
+public abstract class M<T extends M<T, ?>, F> {
 
-    public abstract M<T> add(M<T> m);
+    public abstract T add(T m);
 
-    public abstract M<T> neg();
+    public abstract T neg();
 
-    public abstract F<T> prod(M<T> m);
+    public abstract F prod(T m);
 
-    public abstract M<T> scale(F<T> f);
+    public abstract T scale(F f);
 
-    public M<T> sub(M<T> m) {
+    public T sub(T m) {
         return add(m.neg());
     };
 
-    public F<T> norm() {
-        return prod(this);
-    };
+    public abstract F norm();
 
 }

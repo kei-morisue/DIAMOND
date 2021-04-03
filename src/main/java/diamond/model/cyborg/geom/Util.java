@@ -28,13 +28,13 @@ public class Util {
         return prod * prod / n.norm().d();
     }
 
-    public static <T extends F<T>> F<T> footSquare(
+    public static <T extends F<T>> T footSquare(
             Ver<T> v0,
             Ver<T> v1,
             Ver<T> v) {
         Dir<T> d = v1.dir(v0);
         Dir<T> n = d.n();
-        F<T> prod = v.dir(v0).prod(n);
+        T prod = v.dir(v0).prod(n);
         return prod.mul(prod).div(n.norm());
     }
 
@@ -44,7 +44,7 @@ public class Util {
             Ver<T> v) {
         Dir<T> d = v1.dir(v0);
         Dir<T> n = d.n();
-        Dir<T> k = (Dir<T>) n.scale(n.prod(v0.dir(v))).scale(n.norm().inv());
+        Dir<T> k = n.scale(n.prod(v0.dir(v))).scale(n.norm().inv());
         return k.ver(v);
     }
 

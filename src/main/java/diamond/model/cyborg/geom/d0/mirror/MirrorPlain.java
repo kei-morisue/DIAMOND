@@ -25,12 +25,12 @@ public class MirrorPlain<T extends F<T>> extends AbstractMirror<T> {
     // B := v0 - A.v0
     public MirrorPlain(Ver<T> v0, Ver<T> v1) {
         Dir<T> d = v1.dir(v0);
-        F<T> c = d.x;
-        F<T> s = d.y;
+        T c = d.x;
+        T s = d.y;
         cos = c.mul(c).sub(s.mul(s)).div(d.norm());
         sin = c.mul(s).mul(-2).div(d.norm());
         isFlip = true;
-        b = ((Dir<T>) applyA(v0).neg()).ver(v0);
+        b = applyA(v0).neg().ver(v0);
     }
 
 }

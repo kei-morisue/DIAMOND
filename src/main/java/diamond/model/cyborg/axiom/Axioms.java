@@ -6,9 +6,9 @@ package diamond.model.cyborg.axiom;
 
 import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
-import diamond.model.cyborg.geom.d1.Seg;
-import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d1.Crease;
+import diamond.model.cyborg.geom.d1.Line;
+import diamond.model.cyborg.geom.d1.Seg;
 import diamond.model.math.field.F;
 import diamond.model.math.field.Quad;
 
@@ -31,7 +31,7 @@ public class Axioms {
         Dir<T> d = v1.dir(v0).div(2);
         Ver<T> w0 = d.ver(v0);
         return new Line<T>(
-                ((Dir<T>) d.n().neg()).ver(w0),
+                d.n().neg().ver(w0),
                 d.n().ver(w0));
     }
 
@@ -47,7 +47,7 @@ public class Axioms {
             w = node;
             Dir<T> u0 = s0.dir(w).u();
             Dir<T> u1 = s1.dir(w).u();
-            return new Line<T>(w, ((Dir<T>) u0.add(u1)).mul(100).ver(w));
+            return new Line<T>(w, u0.add(u1).mul(100).ver(w));
         }
 
         Dir<T> d0 = s0.dir();
@@ -58,18 +58,18 @@ public class Axioms {
             Ver<T> v0 = s0.getP();
             Ver<T> v1 = s1.getP();
             w = v1.dir(v0).div(2).ver(v0);
-            return new Line<T>(((Dir<T>) d1.neg()).ver(w), d1.ver(w));
+            return new Line<T>(d1.neg().ver(w), d1.ver(w));
         }
-        F<T> beta = s1.dir(s0).prod(n).div(d1.prod(n));
+        T beta = s1.dir(s0).prod(n).div(d1.prod(n));
         Dir<T> u0 = d0.u();
         Dir<T> u1 = d1.u();
         if (beta.isNeg()) {
             u1 = (Dir<T>) u1.neg();
         }
-        w = ((Dir<T>) d1.scale(beta)).ver(s1.getP());
+        w = d1.scale(beta).ver(s1.getP());
         return new Line<T>(
-                ((Dir<T>) u1.add(u0)).ver(w),
-                ((Dir<T>) u1.sub(u0)).ver(w));
+                u1.add(u0).ver(w),
+                u1.sub(u0).ver(w));
     }
 
     public static <T extends F<T>> Line<T> axiom4(Seg<T> s, Ver<T> v) {
@@ -79,9 +79,9 @@ public class Axioms {
         if (prod.isZero()) {
             return null;
         }
-        F<T> alpha = prod.div(n.norm());
-        Ver<T> w = ((Dir<T>) n.scale(alpha)).ver(v);
-        return new Line<T>(((Dir<T>) n.neg()).ver(w), n.ver(w));
+        T alpha = prod.div(n.norm());
+        Ver<T> w = n.scale(alpha).ver(v);
+        return new Line<T>(n.neg().ver(w), n.ver(w));
     }
 
     //TODO root1 to be returned
@@ -98,16 +98,16 @@ public class Axioms {
         Dir<T> d1 = s.dir();
         Dir<T> d = s.dir(v0);
         Dir<T> dir0 = v.dir(v0);
-        F<T> a = d1.norm();
-        F<T> b = d1.prod(d);
-        F<T> c = d.norm().sub(dir0.norm());
-        F<T> root0 = Quad.root0(a, b, c);
+        T a = d1.norm();
+        T b = d1.prod(d);
+        T c = d.norm().sub(dir0.norm());
+        T root0 = Quad.root0(a, b, c);
         //        F<T> root1 = Quad.root1(root0, a, c);
         if (root0 == null) {
             return null;
         }
         return new Line<T>(v0,
-                ((Dir<T>) dir0.add(d.add(d1.scale(root0)))).div(2).ver(v0));
+                dir0.add(d.add(d1.scale(root0))).div(2).ver(v0));
     }
 
 }

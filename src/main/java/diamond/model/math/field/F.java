@@ -8,46 +8,50 @@ package diamond.model.math.field;
  * @author Kei Morisue
  *
  */
-public abstract class F<T> implements Quadric<T> {
+public abstract class F<T extends F<T>> implements Quadric<T> {
     protected F() {
     }
 
-    public abstract F<T> add(F<T> f);
+    public abstract T zero();
 
-    public abstract F<T> neg();
+    public abstract T one();
 
-    public abstract F<T> mul(F<T> f);
+    public abstract T add(T f);
 
-    public abstract F<T> mul(int i);
+    public abstract T neg();
 
-    public abstract F<T> div(int i);
+    public abstract T mul(T f);
 
-    public abstract F<T> invImpl();
+    public abstract T mul(int i);
 
-    public F<T> abs() {
+    public abstract T div(int i);
+
+    public abstract T invImpl();
+
+    public T abs() {
         if (isNeg()) {
             return neg();
         }
-        return this;
+        return add(zero());
     };
 
     public abstract boolean isNeg();
 
     public abstract boolean isZero();
 
-    public F<T> inv() {
+    public T inv() {
         if (isZero()) {
             new Exception("div0!");
-            return this;
+            return zero();
         }
         return invImpl();
     };
 
-    public F<T> sub(F<T> f) {
+    public T sub(T f) {
         return add(f.neg());
     };
 
-    public F<T> div(F<T> f) {
+    public T div(T f) {
         return mul(f.inv());
     }
 

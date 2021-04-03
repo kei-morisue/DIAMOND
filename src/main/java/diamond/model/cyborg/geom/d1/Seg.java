@@ -42,15 +42,15 @@ public abstract class Seg<T extends F<T>> implements Graphic<T> {
     }
 
     public void add(Ver<T> v) {
-        F<T> dp = p.dir(v).norm();
+        T dp = p.dir(v).norm();
         if (dp.isZero()) {
             return;
         }
-        F<T> dq = q.dir(v).norm();
+        T dq = q.dir(v).norm();
         if (dq.isZero()) {
             return;
         }
-        F<T> d = dir().norm();
+        T d = dir().norm();
         if (dp.sub(d).isNeg() && dq.sub(d).isNeg()) {
             nodes.add(v);
         }

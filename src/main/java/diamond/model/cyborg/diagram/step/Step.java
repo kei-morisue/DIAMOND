@@ -74,6 +74,9 @@ public final class Step<T extends F<T>> implements Graphic<T> {
 
     public void marge(Edge<T> edge) {
         Pair<Face<T>> fg = findFaces(edge);
+        if (fg.q == null) {
+            return;
+        }
         Face<T> h = fg.p.marge(fg.q, edge);
         faces.remove(fg.p);
         faces.remove(fg.q);

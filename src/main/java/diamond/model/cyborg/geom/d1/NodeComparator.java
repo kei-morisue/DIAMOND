@@ -28,12 +28,12 @@ public class NodeComparator<T extends F<T>> implements Comparator<Ver<T>> {
 
     @Override
     public int compare(Ver<T> v1, Ver<T> v2) {
-        F<T> n1 = p.dir(v1).norm();
-        F<T> n2 = p.dir(v2).norm();
-        F<T> m1 = q.dir(v1).norm();
-        F<T> m2 = q.dir(v2).norm();
-        F<T> dp = n1.sub(n2);
-        F<T> dq = m2.sub(m1);
+        T n1 = p.dir(v1).norm();
+        T n2 = p.dir(v2).norm();
+        T m1 = q.dir(v1).norm();
+        T m2 = q.dir(v2).norm();
+        T dp = n1.sub(n2);
+        T dq = m2.sub(m1);
 
         if (dp.isNeg() && dq.isNeg()) {
             return -1;

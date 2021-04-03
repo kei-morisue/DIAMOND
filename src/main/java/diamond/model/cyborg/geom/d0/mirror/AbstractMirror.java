@@ -15,8 +15,8 @@ import diamond.model.math.field.F;
 public abstract class AbstractMirror<T extends F<T>> implements Mirror<T> {
     protected Ver<T> b;
     protected boolean isFlip = true;
-    protected F<T> cos;
-    protected F<T> sin;
+    protected T cos;
+    protected T sin;
 
     // M^((1-f)/2).R(t).v0 + B : Affine Transform
     protected AbstractMirror() {
@@ -28,14 +28,14 @@ public abstract class AbstractMirror<T extends F<T>> implements Mirror<T> {
     }
 
     protected Dir<T> applyA(Ver<T> v) {
-        F<T> x = v.x;
-        F<T> y = v.y;
+        T x = v.x;
+        T y = v.y;
         return new Dir<T>(
                 x.mul(cos).sub(y.mul(sin)),
                 flip(x.mul(sin).add(y.mul(cos))));
     }
 
-    protected F<T> flip(F<T> x) {
+    protected T flip(T x) {
         return (isFlip) ? x.neg() : x;
     }
 

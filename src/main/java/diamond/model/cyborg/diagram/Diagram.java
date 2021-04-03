@@ -26,7 +26,7 @@ public class Diagram<T extends F<T>> extends Observable {
     public Diagram() {
     }
 
-    public Diagram(F<T> size) {
+    public Diagram(T size) {
         steps.add(new StepBuilder().step0(size));
     }
 

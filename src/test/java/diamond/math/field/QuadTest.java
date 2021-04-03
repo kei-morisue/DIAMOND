@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import diamond.model.math.field.F;
 import diamond.model.math.field.Quad;
 import diamond.model.math.field.Real;
 
@@ -23,9 +22,9 @@ public class QuadTest {
 
     @Test
     public void test0() {
-        F<Real> root0 = Quad.root0(a, b, c);
+        Real root0 = Quad.root0(a, b, c);
         assertEquals(root0.d(), (-1 - Math.sqrt(5)) / 2, 1e-10);
-        F<Real> root1 = Quad.root1(root0, a, c);
+        Real root1 = Quad.root1(root0, a, c);
         assertEquals(root1.d(), (-1 + Math.sqrt(5)) / 2, 1e-10);
     }
 

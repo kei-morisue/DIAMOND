@@ -189,7 +189,13 @@ public final class LoopedEdge<T extends F<T>> implements Graphic<T> {
                 return;
             }
         }
-        LoopedEdgeDrawer.draw(screen, g2d, scale, edges, vers, isPointed);
+        LoopedEdgeDrawer.draw(
+                screen,
+                g2d,
+                scale,
+                edges,
+                vers,
+                isPointed);
     }
 
     @Override

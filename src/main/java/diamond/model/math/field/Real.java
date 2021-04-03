@@ -10,9 +10,9 @@ package diamond.model.math.field;
  */
 public class Real extends F<Real> {
     private double a = 1;
-    public static final Real ONE = new Real(1.0);
-    public static final Real ZERO = new Real(0);
     private static final double EPS = 1e-8;
+    public static Real ZERO = new Real(0);
+    public static Real ONE = new Real(1);
 
     @Deprecated
     public Real() {
@@ -23,22 +23,22 @@ public class Real extends F<Real> {
     }
 
     @Override
-    public F<Real> add(F<Real> f) {
+    public Real add(Real f) {
         return new Real(a + ((Real) (f)).a);
     }
 
     @Override
-    public F<Real> neg() {
+    public Real neg() {
         return new Real(-a);
     }
 
     @Override
-    public F<Real> mul(F<Real> f) {
+    public Real mul(Real f) {
         return new Real(a * ((Real) (f)).a);
     }
 
     @Override
-    public F<Real> invImpl() {
+    public Real invImpl() {
         return new Real(1.0 / a);
     }
 
@@ -68,22 +68,32 @@ public class Real extends F<Real> {
     }
 
     @Override
-    public F<Real> mul(int i) {
+    public Real mul(int i) {
         return new Real(a * i);
     }
 
     @Override
-    public F<Real> div(int i) {
+    public Real div(int i) {
         return new Real(a / i);
     }
 
     @Override
-    public F<Real> sqrt() {
+    public Real sqrt() {
         return new Real(Math.sqrt(a));
     }
 
     @Override
     public boolean isNeg() {
         return a < 0.0;
+    }
+
+    @Override
+    public Real zero() {
+        return ZERO;
+    }
+
+    @Override
+    public Real one() {
+        return ONE;
     }
 }

@@ -11,13 +11,10 @@ package diamond.model.math.field;
 public class Silver extends F<Silver> {
     private Rational a = new Rational(1, 1);
     private Rational b = new Rational(0, 1);
-    private static final Rational TWO = (Rational) Rational.ONE.mul(2);
-    public static final Silver ONE = new Silver(
-            Rational.ONE,
-            Rational.ZERO);
-    public static final Silver ZERO = new Silver(
-            Rational.ZERO,
-            Rational.ZERO);
+    public static final Silver ZERO = new Silver(Rational.ZERO, Rational.ZERO);
+    public static final Silver ONE = new Silver(Rational.ONE, Rational.ZERO);
+    private static final Rational TWO = new Rational(2);
+    private static final double SQRT2 = Math.sqrt(2);
 
     @Deprecated
     public Silver() {
@@ -29,32 +26,28 @@ public class Silver extends F<Silver> {
     }
 
     @Override
-    public F<Silver> add(F<Silver> f) {
+    public Silver add(Silver f) {
         Silver g = (Silver) f;
-        return new Silver(
-                (Rational) (a.add(g.a)),
-                (Rational) (b.add(g.b)));
+        return new Silver(a.add(g.a), b.add(g.b));
     }
 
     @Override
-    public F<Silver> neg() {
+    public Silver neg() {
         return new Silver(a.neg(), b.neg());
     }
 
     @Override
-    public F<Silver> mul(F<Silver> f) {
+    public Silver mul(Silver f) {
         Silver g = (Silver) f;
         return new Silver(
-                (Rational) (a.mul(g.a).add(TWO.mul(b.mul(g.b)))),
-                (Rational) (a.mul(g.b).add(b.mul(g.a))));
+                a.mul(g.a).add(TWO.mul(b.mul(g.b))),
+                a.mul(g.b).add(b.mul(g.a)));
     }
 
     @Override
-    public F<Silver> invImpl() {
-        F<Rational> d = a.mul(a).sub(b.mul(b).mul(TWO));
-        return new Silver(
-                (Rational) a.div(d),
-                (Rational) b.neg().div(d));
+    public Silver invImpl() {
+        Rational d = a.mul(a).sub(b.mul(b).mul(TWO));
+        return new Silver(a.div(d), b.neg().div(d));
     }
 
     @Override
@@ -89,33 +82,33 @@ public class Silver extends F<Silver> {
 
     @Override
     public double d() {
-        return a.d() + b.d() * Math.sqrt(2);
+        return a.d() + b.d() * SQRT2;
     }
 
     @Override
-    public F<Silver> mul(int i) {
-        return new Silver((Rational) a.mul(i), (Rational) b.mul(i));
+    public Silver mul(int i) {
+        return new Silver(a.mul(i), b.mul(i));
     }
 
     @Override
-    public F<Silver> div(int i) {
-        return new Silver((Rational) a.div(i), (Rational) b.div(i));
+    public Silver div(int i) {
+        return new Silver(a.div(i), b.div(i));
     }
 
     @Override
     // TODO
-    public F<Silver> sqrt() {
+    public Silver sqrt() {
         if (isZero()) {
-            return ZERO;
+            return zero();
         }
         if (b.isZero()) {
             if (a.isSquared()) {
-                return new Silver((Rational) a.sqrt(), Rational.ZERO);
+                return new Silver(a.sqrt(), Rational.ZERO);
             }
         }
         return new Silver(
-                new Rational(Math.sqrt(d())),
-                Rational.ZERO);
+                new Rational(1),
+                new Rational(0));
     }
 
     @Override
@@ -132,6 +125,16 @@ public class Silver extends F<Silver> {
             }
             return !neg;
         }
+    }
+
+    @Override
+    public Silver zero() {
+        return ZERO;
+    }
+
+    @Override
+    public Silver one() {
+        return ONE;
     }
 
 }

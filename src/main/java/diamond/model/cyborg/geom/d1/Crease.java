@@ -61,21 +61,21 @@ public final class Crease<T extends F<T>> extends Seg<T> {
         Dir<T> d0 = s0.dir();
         Dir<T> d1 = dir();
         Dir<T> n = d1.n();
-        F<T> den0 = n.prod(d0);
+        T den0 = n.prod(d0);
         if (den0.isZero()) {
             return null;
         }
-        F<T> a = s0.dir(p).prod(n).div(den0);
-        F<T> b = dir(s0.q).prod(n).div(den0);
+        T a = s0.dir(p).prod(n).div(den0);
+        T b = dir(s0.q).prod(n).div(den0);
         Dir<T> n0 = d0.n();
-        F<T> den1 = n0.prod(d1);
-        F<T> c = dir(s0.p).prod(n0).div(den1);
-        F<T> d = s0.dir(q).prod(n0).div(den1);
+        T den1 = n0.prod(d1);
+        T c = dir(s0.p).prod(n0).div(den1);
+        T d = s0.dir(q).prod(n0).div(den1);
         if (a.isNeg() &&
                 b.isNeg() &&
                 c.isNeg() &&
                 d.isNeg()) {
-            return ((Dir<T>) d0.scale(b)).ver(s0.q);
+            return d0.scale(b).ver(s0.q);
         }
         return null;
     }

@@ -18,7 +18,7 @@ import diamond.model.math.field.F;
  *
  */
 public class StepBuilder {
-    public <T extends F<T>> Step<T> step0(F<T> size) {
+    public <T extends F<T>> Step<T> step0(T size) {
         Ver<T> a = new Ver<T>(size, size);
         Ver<T> b = new Ver<T>(size, size.neg());
         Ver<T> c = new Ver<T>(size.neg(), size.neg());

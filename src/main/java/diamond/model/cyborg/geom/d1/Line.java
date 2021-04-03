@@ -53,14 +53,14 @@ public final class Line<T extends F<T>> implements Graphic<T> {
             return x;
         }
         Dir<T> d0 = s0.dir();
-        F<T> den0 = d0.prod(n);
+        T den0 = d0.prod(n);
         if (den0.isZero()) {
             return null;
         }
-        F<T> a = s0.p.dir(p).prod(n).div(den0);
-        F<T> b = p.dir(s0.q).prod(n).div(den0);
+        T a = s0.p.dir(p).prod(n).div(den0);
+        T b = p.dir(s0.q).prod(n).div(den0);
         if (a.isNeg() && b.isNeg()) {
-            return ((Dir<T>) d0.scale(b)).ver(s0.q);
+            return d0.scale(b).ver(s0.q);
         }
         return null;
     }
