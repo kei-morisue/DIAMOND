@@ -74,15 +74,7 @@ public class Rational extends F<Rational> {
     }
 
     public boolean isSquared() {
-        return isNSquared() && isDSquared();
-    }
-
-    public boolean isDSquared() {
-        return Quad.isSquared(d);
-    }
-
-    public boolean isNSquared() {
-        return Quad.isSquared(n);
+        return Quad.isSquared(d) && Quad.isSquared(n);
     }
 
     @Override

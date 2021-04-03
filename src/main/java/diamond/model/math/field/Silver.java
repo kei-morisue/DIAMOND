@@ -105,6 +105,14 @@ public class Silver extends F<Silver> {
     @Override
     // TODO
     public F<Silver> sqrt() {
+        if (isZero()) {
+            return ZERO;
+        }
+        if (b.isZero()) {
+            if (a.isSquared()) {
+                return new Silver((Rational) a.sqrt(), Rational.ZERO);
+            }
+        }
         return new Silver(
                 new Rational(Math.sqrt(d())),
                 Rational.ZERO);

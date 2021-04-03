@@ -8,7 +8,7 @@ package diamond.model.math.field;
  * @author Kei Morisue
  *
  */
-public abstract class F<T> {
+public abstract class F<T> implements Quadric<T> {
     protected F() {
     }
 
@@ -23,8 +23,6 @@ public abstract class F<T> {
     public abstract F<T> div(int i);
 
     public abstract F<T> invImpl();
-
-    public abstract F<T> sqrt();
 
     public F<T> abs() {
         if (isNeg()) {
