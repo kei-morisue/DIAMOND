@@ -9,7 +9,7 @@ package diamond.model.math.field;
  *
  */
 public class Rational extends F<Rational> {
-    private static final long denom = 1;
+    private static final long denom = 10000;
     private long n = 1;
     private long d = 1;
     public static final Rational ZERO = new Rational(0);

@@ -102,12 +102,16 @@ public class Silver extends F<Silver> {
             return zero();
         }
         if (b.isZero()) {
-            if (a.isSquared()) {
-                return new Silver(a.sqrt(), Rational.ZERO);
+            Rational a2 = a.div(2);
+            if (a2.isSquared()) {
+                return new Silver(Rational.ZERO, a2.sqrt());
             }
-        }
+            return new Silver(a.sqrt(), Rational.ZERO);
+        } //TODO b <>0
         return new Silver(
-                new Rational(1),
+                new Rational(
+                        (long) (Math.sqrt(d()) * 10000),
+                        10000),
                 new Rational(0));
     }
 

@@ -4,8 +4,6 @@
  */
 package diamond.math.field;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import diamond.model.math.field.Real;
@@ -21,9 +19,9 @@ public class RealTest {
 
     @Test
     public void test0() {
-        assertFalse(a.add(b).toString() == new Real(42.42).toString());
-        assertFalse(a.mul(b).toString() == new Real(17.64).toString());
-        assertFalse(a.div(c).toString() == new Real(10).toString());
+        assert (a.add(b).toString().equals(new Real(42.42).toString()));
+        assert (a.mul(b).toString().equals(new Real(17.64).toString()));
+        assert (a.div(c).toString().equals(new Real(10).toString()));
     }
 
 }

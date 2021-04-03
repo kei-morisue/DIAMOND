@@ -4,8 +4,6 @@
  */
 package diamond.math.field;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import diamond.model.math.field.Rational;
@@ -28,25 +26,25 @@ public class SilverTest {
 
     @Test
     public void test0() {
-        assertFalse(a.add(b).toString() == new Silver(
-                new Rational(2, 1),
-                new Rational(3, 1)).toString());
-        assertFalse(a.mul(b).toString() == new Silver(
-                new Rational(9, 1),
-                new Rational(2, 1)).toString());
-        assertFalse(a.div(c).toString() == new Silver(
-                new Rational(1, 3),
-                new Rational(1, 3)).toString());
+        assert (a.add(b).toString().equals(new Silver(
+                new Rational(2),
+                new Rational(3)).toString()));
+        assert (a.mul(b).toString().equals(new Silver(
+                new Rational(5),
+                new Rational(3)).toString()));
+        assert (a.div(c).toString().equals(new Silver(
+                new Rational(0),
+                new Rational(1, 2)).toString()));
     }
 
     public void test1() {
-        assertFalse(!new Silver(
+        assert (!new Silver(
                 new Rational(2, 1),
                 new Rational(3, 1)).isNeg());
-        assertFalse(new Silver(
+        assert (new Silver(
                 new Rational(-9, 1),
                 new Rational(2, 1)).isNeg());
-        assertFalse(new Silver(
+        assert (new Silver(
                 new Rational(-1, 1),
                 new Rational(-1, 1)).isNeg());
     }

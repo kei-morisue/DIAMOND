@@ -69,6 +69,9 @@ public final class Face<T extends F<T>> implements Graphic<T> {
 
     public Crease<T> add(Line<T> axiom) {
         Crease<T> clip = clip(axiom);
+        if (clip == null) {
+            return null;
+        }
         add(clip);
         return clip;
     }

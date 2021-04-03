@@ -37,14 +37,14 @@
              <string>x</string>
              <void method="set">
               <object idref="Ver1"/>
-              <object class="diamond.model.math.field.Silver" id="Silver0"/>
+              <object class="diamond.model.math.field.Silver"/>
              </void>
             </void>
             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
              <string>y</string>
              <void method="set">
               <object idref="Ver1"/>
-              <object idref="Silver0"/>
+              <object class="diamond.model.math.field.Silver"/>
              </void>
             </void>
            </object>
@@ -70,31 +70,6 @@
          </object>
         </void>
         <void method="add">
-         <object class="diamond.model.cyborg.geom.d1.Crease">
-          <void property="p">
-           <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver3">
-            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-             <string>x</string>
-             <void method="set">
-              <object idref="Ver3"/>
-              <object class="diamond.model.math.field.Silver"/>
-             </void>
-            </void>
-            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-             <string>y</string>
-             <void method="set">
-              <object idref="Ver3"/>
-              <object class="diamond.model.math.field.Silver"/>
-             </void>
-            </void>
-           </object>
-          </void>
-          <void property="q">
-           <object idref="Ver1"/>
-          </void>
-         </object>
-        </void>
-        <void method="add">
          <object class="diamond.model.cyborg.geom.d1.Crease" id="Crease1">
           <void id="Nodes1" property="nodes">
            <void property="nodes">
@@ -104,6 +79,24 @@
            </void>
           </void>
           <void property="p">
+           <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver3">
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>x</string>
+             <void method="set">
+              <object idref="Ver3"/>
+              <object class="diamond.model.math.field.Silver" id="Silver0"/>
+             </void>
+            </void>
+            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+             <string>y</string>
+             <void method="set">
+              <object idref="Ver3"/>
+              <object idref="Silver0"/>
+             </void>
+            </void>
+           </object>
+          </void>
+          <void property="q">
            <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver4">
             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
              <string>x</string>
@@ -121,131 +114,108 @@
             </void>
            </object>
           </void>
-          <void property="q">
-           <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver5">
-            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-             <string>x</string>
-             <void method="set">
-              <object idref="Ver5"/>
-              <object class="diamond.model.math.field.Silver"/>
-             </void>
-            </void>
-            <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-             <string>y</string>
-             <void method="set">
-              <object idref="Ver5"/>
-              <object class="diamond.model.math.field.Silver"/>
-             </void>
-            </void>
-           </object>
-          </void>
          </object>
         </void>
        </void>
-       <void property="loop">
-        <object class="diamond.model.cyborg.geom.d1.LoopedEdge" id="LoopedEdge0">
-         <void property="edges">
-          <void method="add">
-           <object class="diamond.model.cyborg.geom.d1.Edge">
-            <void property="mirrorPlain">
-             <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
-            </void>
-            <void property="p">
-             <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver6">
-              <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-               <string>x</string>
-               <void method="set">
-                <object idref="Ver6"/>
-                <object idref="Silver0"/>
-               </void>
-              </void>
-              <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-               <string>y</string>
-               <void method="set">
-                <object idref="Ver6"/>
-                <object class="diamond.model.math.field.Silver"/>
-               </void>
-              </void>
-             </object>
-            </void>
-            <void property="q">
-             <object idref="Ver2"/>
-            </void>
-           </object>
-          </void>
-          <void method="add">
-           <object class="diamond.model.cyborg.geom.d1.Edge" id="Edge0">
-            <void property="mirrorPlain">
-             <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
-            </void>
-            <void id="Nodes2" property="nodes">
-             <void property="nodes">
-              <void method="add">
-               <object idref="Ver4"/>
-              </void>
-              <void method="add">
-               <object idref="Ver3"/>
-              </void>
-             </void>
-            </void>
-            <void property="p">
-             <object idref="Ver2"/>
-            </void>
-            <void property="q">
-             <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver7">
-              <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-               <string>x</string>
-               <void method="set">
-                <object idref="Ver7"/>
-                <object class="diamond.model.math.field.Silver"/>
-               </void>
-              </void>
-              <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
-               <string>y</string>
-               <void method="set">
-                <object idref="Ver7"/>
-                <object idref="Silver0"/>
-               </void>
-              </void>
-             </object>
-            </void>
-           </object>
-          </void>
-          <void method="add">
-           <object class="diamond.model.cyborg.geom.d1.Edge" id="Edge1">
-            <void property="mirrorPlain">
-             <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
-            </void>
-            <void id="Nodes3" property="nodes">
-             <void property="nodes">
-              <void method="add">
+       <void id="LoopedEdge0" property="loop">
+        <void property="edges">
+         <void method="add">
+          <object class="diamond.model.cyborg.geom.d1.Edge">
+           <void property="mirrorPlain">
+            <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
+           </void>
+           <void property="p">
+            <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver5">
+             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+              <string>x</string>
+              <void method="set">
                <object idref="Ver5"/>
+               <object class="diamond.model.math.field.Silver"/>
               </void>
              </void>
-            </void>
-            <void property="p">
-             <object idref="Ver1"/>
-            </void>
-            <void property="q">
-             <object idref="Ver6"/>
-            </void>
-           </object>
-          </void>
-          <void method="add">
-           <object class="diamond.model.cyborg.geom.d1.Edge">
-            <void property="mirrorPlain">
-             <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
-            </void>
-            <void property="p">
-             <object idref="Ver7"/>
-            </void>
-            <void property="q">
-             <object idref="Ver1"/>
-            </void>
-           </object>
-          </void>
+             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+              <string>y</string>
+              <void method="set">
+               <object idref="Ver5"/>
+               <object idref="Silver0"/>
+              </void>
+             </void>
+            </object>
+           </void>
+           <void property="q">
+            <object idref="Ver3"/>
+           </void>
+          </object>
          </void>
-        </object>
+         <void method="add">
+          <object class="diamond.model.cyborg.geom.d1.Edge" id="Edge0">
+           <void property="mirrorPlain">
+            <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
+           </void>
+           <void id="Nodes2" property="nodes">
+            <void property="nodes">
+             <void method="add">
+              <object idref="Ver1"/>
+             </void>
+            </void>
+           </void>
+           <void property="p">
+            <object idref="Ver3"/>
+           </void>
+           <void property="q">
+            <object class="diamond.model.cyborg.geom.d0.Ver" id="Ver6">
+             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+              <string>x</string>
+              <void method="set">
+               <object idref="Ver6"/>
+               <object idref="Silver0"/>
+              </void>
+             </void>
+             <void class="diamond.model.cyborg.geom.d0.Ver" method="getField">
+              <string>y</string>
+              <void method="set">
+               <object idref="Ver6"/>
+               <object class="diamond.model.math.field.Silver"/>
+              </void>
+             </void>
+            </object>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="diamond.model.cyborg.geom.d1.Edge">
+           <void property="mirrorPlain">
+            <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
+           </void>
+           <void property="p">
+            <object idref="Ver6"/>
+           </void>
+           <void property="q">
+            <object idref="Ver4"/>
+           </void>
+          </object>
+         </void>
+         <void method="add">
+          <object class="diamond.model.cyborg.geom.d1.Edge" id="Edge1">
+           <void property="mirrorPlain">
+            <object class="diamond.model.cyborg.geom.d0.mirror.MirrorPlain"/>
+           </void>
+           <void id="Nodes3" property="nodes">
+            <void property="nodes">
+             <void method="add">
+              <object idref="Ver2"/>
+             </void>
+            </void>
+           </void>
+           <void property="p">
+            <object idref="Ver4"/>
+           </void>
+           <void property="q">
+            <object idref="Ver5"/>
+           </void>
+          </object>
+         </void>
+        </void>
        </void>
       </object>
      </void>

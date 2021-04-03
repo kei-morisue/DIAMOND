@@ -4,6 +4,8 @@
  */
 package diamond.model.math.field;
 
+import diamond.model.cyborg.Pair;
+
 /**
  * @author Kei Morisue
  *
@@ -49,5 +51,15 @@ public class Quad {
 
     public static long sqrt(long i) {
         return (long) Math.floor(Math.sqrt(i));
+    }
+
+    public static Pair<Long> pythagolian(long a) {
+        for (long b = 1; b * b * 2 < a + 2; b++) {
+            long cc = a - b * b;
+            if (isSquared(cc)) {
+                return new Pair<Long>(b, sqrt(cc));
+            }
+        }
+        return null;
     }
 }

@@ -4,8 +4,6 @@
  */
 package diamond.math.field;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import diamond.model.math.field.Rational;
@@ -21,32 +19,29 @@ public class RationalTest {
 
     @Test
     public void test0() {
-        assertFalse(a.add(b).toString() == new Rational(5, 6).toString());
-        assertFalse(a.mul(b).toString() == new Rational(1, 6).toString());
-        assertFalse(a.div(c).toString() == new Rational(3, 5).toString());
+        assert (a.add(b).toString().equals(new Rational(5, 6).toString()));
+        assert (a.mul(b).toString().equals(new Rational(1, 6).toString()));
+        assert (a.div(c).toString().equals(new Rational(3, 5).toString()));
     }
 
     @Test
     public void test1() {
-        assertFalse(
-                new Rational(1000, 0)
-                        .toString() == new Rational(-1, -1)
-                                .toString());
+        assert (new Rational(1000, 0)
+                .toString().equals(new Rational(-1, -1)
+                        .toString()));
     }
 
     @Test
     public void test2() {
-        assertFalse(
-                new Rational(1, -2)
-                        .toString() == new Rational(-1, 2)
-                                .toString());
+        assert (new Rational(1, -2)
+                .toString().equals(new Rational(-1, 2)
+                        .toString()));
     }
 
     @Test
     public void test3() {
-        assertFalse(
-                new Rational(2, 4)
-                        .toString() == new Rational(1, 2)
-                                .toString());
+        assert (new Rational(2, 4)
+                .toString().equals(new Rational(1, 2)
+                        .toString()));
     }
 }
