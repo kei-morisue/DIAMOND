@@ -91,8 +91,7 @@ public abstract class Seg<T extends F<T>> implements Graphic<T> {
         return p.dir(d.p);
     }
 
-    //TODO refactor
-    public Ver<T> findVer(Seg<T> d0) {
+    public Ver<T> findPQ(Seg<T> d0) {
         if (d0.p == p) {
             return p;
         }
@@ -104,10 +103,6 @@ public abstract class Seg<T extends F<T>> implements Graphic<T> {
         }
         if (d0.q == q) {
             return q;
-        }
-        Ver<T> node = findNode(d0);
-        if (node != null) {
-            return node;
         }
         return null;
     }

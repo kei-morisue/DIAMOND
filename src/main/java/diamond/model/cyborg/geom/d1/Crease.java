@@ -48,8 +48,8 @@ public final class Crease<T extends F<T>> extends Seg<T> {
         return dir(s.c()).prod(dir().n()).isNeg();
     }
 
-    public Ver<T> xPoint(Crease<T> s0) {
-        Ver<T> v = findVer(s0);
+    private Ver<T> xPoint(Crease<T> s0) {
+        Ver<T> v = findNode(s0);
         if (v != null) {
             return v;
         }

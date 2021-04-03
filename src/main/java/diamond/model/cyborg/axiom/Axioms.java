@@ -43,18 +43,22 @@ public class Axioms {
         if (s0 == s1) {
             return null;
         }
-        Ver<T> w = null;
-        Ver<T> node = s0.findVer(s1);
-        if (node != null) {
-            w = node;
-            Dir<T> u0 = s0.dir(w).u();
-            Dir<T> u1 = s1.dir(w).u();
-            return new Line<T>(w, u0.add(u1).mul(100).ver(w));
+        Ver<T> w = s0.findPQ(s1);
+        if (w != null) {
+            Dir<T> u0 = s0.dir(w).scale(s1.dir().norm().sqrt());
+            Dir<T> u1 = s1.dir(w).scale(s0.dir().norm().sqrt());
+            return new Line<T>(w, u0.add(u1).ver(w));
         }
-
+        w = s0.findNode(s1);
+        if (w != null) {
+            Dir<T> u0 = s0.dir(w).scale(s1.dir(w).norm().sqrt());
+            Dir<T> u1 = s1.dir(w).scale(s0.dir(w).norm().sqrt());
+            Dir<T> d = (alt) ? u0.add(u1) : u0.sub(u1);
+            return new Line<T>(w, d.ver(w));
+        }
         Dir<T> d0 = s0.dir();
-        Dir<T> n = d0.n();
         Dir<T> d1 = s1.dir();
+        Dir<T> n = d0.n();
 
         if (n.prod(d1).isZero()) {
             Ver<T> v0 = s0.getP();
@@ -66,7 +70,7 @@ public class Axioms {
         Dir<T> u0 = d0.u();
         Dir<T> u1 = d1.u();
         if (beta.isNeg()) {
-            u1 = (Dir<T>) u1.neg();
+            u1 = u1.neg();
         }
         w = d1.scale(beta).ver(s1.getP());
         return new Line<T>(
