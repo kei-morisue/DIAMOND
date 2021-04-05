@@ -51,9 +51,13 @@ public final class Crease<T extends F<T>> extends Seg<T> {
     private Ver<T> xPoint(Crease<T> s0) {
         Ver<T> v = findNode(s0);
         if (v != null) {
-            return v;
+            return null;
         }
-        return buildVer(s0);
+        v = buildVer(s0);
+        if (v != null) {
+            s0.add(nodes);
+        }
+        return v;
     }
 
     //TODO toomuch workload???

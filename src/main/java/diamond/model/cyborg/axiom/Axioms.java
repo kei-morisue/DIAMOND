@@ -44,9 +44,11 @@ public class Axioms {
             return null;
         }
         Ver<T> w = s0.findPQ(s1);
+        Dir<T> d0 = s0.dir();
+        Dir<T> d1 = s1.dir();
         if (w != null) {
-            Dir<T> u0 = s0.dir(w).scale(s1.dir().norm().sqrt());
-            Dir<T> u1 = s1.dir(w).scale(s0.dir().norm().sqrt());
+            Dir<T> u0 = s0.dir(w).scale(s1.dir(w).norm().sqrt());
+            Dir<T> u1 = s1.dir(w).scale(s0.dir(w).norm().sqrt());
             return new Line<T>(w, u0.add(u1).ver(w));
         }
         w = s0.findNode(s1);
@@ -56,26 +58,25 @@ public class Axioms {
             Dir<T> d = (alt) ? u0.add(u1) : u0.sub(u1);
             return new Line<T>(w, d.ver(w));
         }
-        Dir<T> d0 = s0.dir();
-        Dir<T> d1 = s1.dir();
-        Dir<T> n = d0.n();
-
-        if (n.prod(d1).isZero()) {
+        Dir<T> n0 = d0.n();
+        Dir<T> n1 = d1.n();
+        if (n0.prod(d1).isZero()) {
             Ver<T> v0 = s0.getP();
             Ver<T> v1 = s1.getP();
             w = v1.dir(v0).div(2).ver(v0);
             return new Line<T>(d1.neg().ver(w), d1.ver(w));
         }
-        T beta = s1.dir(s0).prod(n).div(d1.prod(n));
-        Dir<T> u0 = d0.u();
-        Dir<T> u1 = d1.u();
-        if (beta.isNeg()) {
-            u1 = u1.neg();
-        }
+        T beta = s0.dir(s1).prod(n0).div(d1.prod(n0));
+        T alpha = s1.dir(s0).prod(n1).div(d0.prod(n1));
         w = d1.scale(beta).ver(s1.getP());
-        return new Line<T>(
-                u1.add(u0).ver(w),
-                u1.sub(u0).ver(w));
+        Dir<T> u0 = s0.dir(w).scale(s1.dir(w).norm().sqrt());
+        Dir<T> u1 = s1.dir(w).scale(s0.dir(w).norm().sqrt());
+        if (beta.isNeg()) {
+            if (!alpha.isNeg()) {
+                u1 = u1.neg();
+            }
+        }
+        return new Line<T>(u1.add(u0).ver(w), u1.neg().sub(u0).ver(w));
     }
 
     public static <T extends F<T>> Line<T> axiom4(Seg<T> s, Ver<T> v) {
