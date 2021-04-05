@@ -25,13 +25,14 @@ public final class Nodes<T extends F<T>> implements Graphic<T> {
     public Nodes() {
     }
 
-    public void add(Ver<T> v0) {
+    public Ver<T> add(Ver<T> v0) {
         for (Ver<T> v : nodes) {
             if (v.dir(v0).norm().isZero()) {
-                return;
+                return v;
             }
         }
         nodes.add(v0);
+        return v0;
     }
 
     public void remove(Ver<T> v) {

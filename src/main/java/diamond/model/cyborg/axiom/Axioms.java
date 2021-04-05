@@ -35,7 +35,6 @@ public class Axioms {
     }
 
     //TODO refactor!!!
-    //TODO give another solution!!!
     public static <T extends F<T>> Line<T> axiom3(
             Seg<T> s0,
             Seg<T> s1,

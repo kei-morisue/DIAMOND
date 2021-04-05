@@ -55,7 +55,7 @@ public final class Crease<T extends F<T>> extends Seg<T> {
         }
         v = buildVer(s0);
         if (v != null) {
-            s0.add(nodes);
+            v = nodes.add(v);
         }
         return v;
     }
