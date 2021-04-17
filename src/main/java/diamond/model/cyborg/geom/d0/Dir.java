@@ -31,7 +31,11 @@ public class Dir<T extends F<T>> extends M<Dir<T>, T> {
     }
 
     public Dir<T> u() {
-        return this.scale(norm().sqrt().inv());
+        return this.scale(l().inv());
+    }
+
+    public T l() {
+        return norm().sqrt();
     }
 
     public Dir<T> mul(int i) {

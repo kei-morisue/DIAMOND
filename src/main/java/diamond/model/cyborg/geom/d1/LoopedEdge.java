@@ -53,7 +53,7 @@ public final class LoopedEdge<T extends F<T>> implements Graphic<T> {
         isClosed = false;
     }
 
-    public Crease<T> clip(Line<T> axiom) {
+    public MV<T> clip(Line<T> axiom) {
         Ver<T> p = null;
         Ver<T> q = null;
         for (Edge<T> link : edges) {
@@ -70,7 +70,7 @@ public final class LoopedEdge<T extends F<T>> implements Graphic<T> {
         if (p == null || q == null) {
             return null;
         }
-        return new Crease<T>(p, q);
+        return new MV<T>(p, q);
     }
 
     public void cut(Crease<T> seg, Step<T> step) {

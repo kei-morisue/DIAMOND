@@ -19,7 +19,7 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public final class Crease<T extends F<T>> extends Seg<T> {
+public class Crease<T extends F<T>> extends Seg<T> {
 
     @Deprecated
     public Crease() {

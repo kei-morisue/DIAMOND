@@ -83,17 +83,16 @@ public final class Nodes<T extends F<T>> implements Graphic<T> {
         return false;
     }
 
+    @Deprecated
     @Override
     public <S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
             float scale,
             boolean isPointed) {
-        for (Ver<T> node : nodes) {
-            node.draw(screen, g2d, scale, isPointed);
-        }
     }
 
+    @Deprecated
     @Override
     public <S extends Graphic<T>> S find(
             Finder<T, S> finder,

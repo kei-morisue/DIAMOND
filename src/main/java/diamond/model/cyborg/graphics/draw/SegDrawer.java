@@ -35,7 +35,14 @@ public class SegDrawer {
         p = p.dir(c).mul(CUT).div(100).ver(c);
         q = q.dir(c).mul(CUT).div(100).ver(c);
         g2d.draw(ShapeBuilder.build(p, q));
-        nodes.draw(screen, g2d, scale, isPointed);
+        NodesDrawer.draw(
+                screen,
+                g2d,
+                scale,
+                q.dir(p).l().div(q.dir(p).l()), //TODO
+                p,
+                nodes,
+                isPointed);
     }
 
 }

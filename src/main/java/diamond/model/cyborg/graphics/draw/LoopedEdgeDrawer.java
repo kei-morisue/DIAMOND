@@ -20,7 +20,7 @@ import diamond.view.ui.screen.AbstractScreen;
  */
 public final class LoopedEdgeDrawer {
     //    private static Color front = Color.GRAY;
-    //    private static Color back = Color.WHITE;
+    private static Color back = Color.WHITE;
     final private static Color BASE = Color.BLACK;
     final private static Color POINTED = Color.GREEN;
 
@@ -31,9 +31,9 @@ public final class LoopedEdgeDrawer {
             Collection<Edge<T>> edges,
             List<Ver<T>> vers,
             boolean isPointed) {
-        g2d.setColor((isPointed) ? POINTED : BASE);
-        g2d.setColor(Color.white);//TODO
+        g2d.setColor(back);//TODO
         g2d.fill(ShapeBuilder.build(vers));
+        g2d.setColor((isPointed) ? POINTED : BASE);
         for (Edge<T> edge : edges) {
             edge.draw(screen, g2d, scale, isPointed);
         }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import diamond.model.cyborg.axiom.Axioms;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.AbstractSeg;
 import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d2.Face;
@@ -35,8 +36,8 @@ public class StepBuilder {
         faces.add(face);
 
         Step<T> step = new Step<T>(faces);
-        Crease<T> crease1 = face.add(Axioms.axiom2(a, b));
-        face.add(Axioms.axiom5(a, d, crease1, true));
+        AbstractSeg<T> crease1 = face.add(Axioms.axiom2(a, b));
+        //        face.add(Axioms.axiom5(a, d, crease1, true));
 
         return step;
     }

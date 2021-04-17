@@ -6,13 +6,13 @@ package diamond.model.cyborg.diagram.step;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.Line;
 import diamond.model.cyborg.geom.d2.Face;
+import diamond.model.cyborg.graphics.Drawable;
 import diamond.model.cyborg.graphics.Graphic;
 import diamond.model.cyborg.graphics.draw.StepDrawer;
 import diamond.model.cyborg.graphics.find.Finder;
@@ -24,7 +24,7 @@ import diamond.view.ui.screen.TransformScreen;
  * @author Kei Morisue
  *
  */
-public final class Step<T extends F<T>> implements Graphic<T> {
+public final class Step<T extends F<T>> implements Drawable<T> {
     protected ArrayList<Face<T>> faces = new ArrayList<>();
     protected Face<T> baseFace;
     protected TransformScreen transform = new TransformScreen();
@@ -51,17 +51,17 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     }
 
     public void cut(Line<T> axiom) {
-        HashSet<Face<T>> fs = new HashSet<Face<T>>();
-        for (Face<T> face : faces) {
-            Crease<T> seg = face.add(axiom);
-            if (seg != null) {
-                face.cut(seg, this).add(fs);
-            } else {
-                fs.add(face);
-            }
-        }
-        faces.clear();
-        faces.addAll(fs);//TODO order faces
+        //        HashSet<Face<T>> fs = new HashSet<Face<T>>();
+        //        for (Face<T> face : faces) {
+        //            Crease<T> seg = face.add(axiom);
+        //            if (seg != null) {
+        //                face.cut(seg, this).add(fs);
+        //            } else {
+        //                fs.add(face);
+        //            }
+        //        }
+        //        faces.clear();
+        //        faces.addAll(fs);//TODO order faces
     }
 
     public void cut(Crease<T> crease) {
@@ -153,18 +153,6 @@ public final class Step<T extends F<T>> implements Graphic<T> {
     @Deprecated
     public void setTransform(TransformScreen transform) {
         this.transform = transform;
-    }
-
-    @Override
-    public boolean isNear(double x, double y, double scale) {
-        // TODO 自動生成されたメソッド・スタブ
-        return false;
-    }
-
-    @Override
-    public double distSquare(double x, double y) {
-        // TODO 自動生成されたメソッド・スタブ
-        return 0;
     }
 
 }

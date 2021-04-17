@@ -4,38 +4,60 @@
  */
 package diamond.model.cyborg.diagram.step;
 
+import java.awt.Graphics2D;
+import java.util.LinkedList;
+
+import diamond.model.cyborg.graphics.Drawable;
+import diamond.model.cyborg.graphics.Graphic;
+import diamond.model.cyborg.graphics.find.Finder;
+import diamond.model.math.field.F;
+import diamond.view.ui.screen.AbstractScreen;
+
 /**
  * @author Kei Morisue
  *
  */
-public class Folder {
-    //    private ArrayList<Face> faces;
-    //
-    //    public Folder(Step step) {
-    //        this.faces = step.getFaces();
-    //        fold(step);
-    //    }
-    //
-    //    public void fold(Step step) {
-    //        Face base = step.getBase();
-    //        base.setMirror(new MirrorLazy());
-    //        setMirror(base, step);
-    //    }
-    //
-    //    public void setMirror(Face base, Step step) {
-    //        AbstractMirror mirror = base.getMirror();
-    //        int i = faces.indexOf(base);
-    //        for (SegmentEdge edge : step.getEdges()) {
-    //            Face pair = edge.getPair(base);
-    //            if (pair == null) {
-    //                continue;
-    //            }
-    //            if (pair.getMirror() == null) {
-    //                int j = faces.indexOf(pair);
-    //                edge.setType((i - j) < 0 ^ base.isFlip());
-    //                pair.setMirror(new MirrorComposit(edge, mirror));
-    //                setMirror(pair, step);
-    //            }
-    //        }
-    //    }
+//TODO
+public class Folder<T extends F<T>> implements Drawable<T> {
+    private LinkedList<Axiom<T>> axioms;
+
+    public Folder() {
+    }
+
+    public void add(Axiom<T> axiom) {
+        axioms.add(axiom);
+    }
+
+    public void remove(Axiom<T> axiom) {
+        axioms.remove(axiom);
+    }
+
+    public void fold(Step<T> step) {
+        for (Axiom<T> axiom : axioms) {
+            axiom.fold(step);
+        }
+    }
+
+    @Override
+    public <S extends AbstractScreen<T>> void draw(S screen, Graphics2D g2d,
+            float scale, boolean isPointed) {
+        // TODO 自動生成されたメソッド・スタブ
+
+    }
+
+    @Override
+    public <S extends Graphic<T>> S find(Finder<T, S> finder, double x,
+            double y, double scale) {
+        return null;
+    }
+
+    @Deprecated
+    public LinkedList<Axiom<T>> getAxioms() {
+        return axioms;
+    }
+
+    @Deprecated
+    public void setAxioms(LinkedList<Axiom<T>> axioms) {
+        this.axioms = axioms;
+    }
 }

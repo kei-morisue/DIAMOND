@@ -30,7 +30,7 @@ public abstract class AbstractStateAxiom<T extends F<T>>
     public AbstractScreenState<T> execute(boolean isCtrl) {
         Step<T> step = context.getStep();
         if (isCtrl) {
-            step.cut(axiom);
+            //            step.cut(axiom);//TODO
         } else {
             step.add(axiom);
         }

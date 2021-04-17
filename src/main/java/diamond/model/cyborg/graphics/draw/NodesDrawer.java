@@ -7,6 +7,7 @@ package diamond.model.cyborg.graphics.draw;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import diamond.model.cyborg.geom.d0.Dir;
 import diamond.model.cyborg.geom.d0.Ver;
 import diamond.model.cyborg.geom.d1.Nodes;
 import diamond.model.math.field.F;
@@ -16,31 +17,28 @@ import diamond.view.ui.screen.AbstractScreen;
  * @author Kei Morisue
  *
  */
-public final class EdgeDrawer {
-    final private static Color BASE = Color.BLACK;
-    final private static Color POINTED = Color.GREEN;
+public final class NodesDrawer {
+    static public final Color POINTED = Color.GREEN;
+    static public final Color BASE = Color.BLACK;
+    static public final double SIZE = 7.0;
+    static public final double SIZE_POINTED = 10.0;
 
+    //TODO refactor
     public static <T extends F<T>, S extends AbstractScreen<T>> void draw(
             S screen,
             Graphics2D g2d,
-            Float scale,
+            float scale,
+            T k,
             Ver<T> p,
-            Ver<T> q,
             Nodes<T> nodes,
             boolean isPointed) {
         g2d.setColor((isPointed) ? POINTED : BASE);
-        g2d.setStroke(screen.getEdgeStroke(scale));
-        g2d.draw(ShapeBuilder.build(p, q));
-        p.draw(screen, g2d, scale, isPointed);
-        q.draw(screen, g2d, scale, isPointed);
-        NodesDrawer.draw(
-                screen,
-                g2d,
-                scale,
-                q.dir(p).l().div(q.dir(p).l()), //TODO
-                p,
-                nodes,
-                isPointed);
+        double size = ((isPointed) ? SIZE_POINTED : SIZE) / scale;
+        for (Ver<T> n : nodes.getNodes()) {
+            Dir<T> dn = n.dir(p);
+            Ver<T> ver = dn.scale(k).ver(p);
+            g2d.fill(ShapeBuilder.build(ver, size));
+        }
     }
 
 }

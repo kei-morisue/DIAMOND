@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
+import diamond.model.cyborg.geom.d1.MV;
 import diamond.model.cyborg.geom.d1.Nodes;
-import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d2.Face;
 import diamond.model.math.field.F;
 
@@ -58,6 +59,7 @@ public class NodeFinder<T extends F<T>> extends Finder<T, Ver<T>> {
     public Ver<T> find(
             LoopedEdge<T> loop,
             Set<Crease<T>> creases,
+            Set<MV<T>> mvs,
             double x,
             double y,
             double scale) {
