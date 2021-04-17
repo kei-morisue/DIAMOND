@@ -21,7 +21,7 @@ import diamond.view.ui.button.PaintActionButton;
  */
 public class TabAlterLineType extends AbstractTab {
     public TabAlterLineType(Context context, ButtonGroup buttonGroup) {
-        setLayout(new GridLayout(1, 4));
+        setLayout(new GridLayout(4, 1));
         PaintActionButton buttonFlip = new PaintActionButton(context,
                 new HalfEdgeFlipAction());
         PaintActionButton buttonSettle = new PaintActionButton(context,

@@ -29,7 +29,7 @@ import diamond.view.ui.button.PaintActionButton;
  */
 public class TabPaintSymbols extends AbstractTab {
     public TabPaintSymbols(Context context, ButtonGroup buttonGroup) {
-        setLayout(new GridLayout(3, 4));
+        setLayout(new GridLayout(6, 2));
         PaintActionButton valley = new PaintActionButton(context,
                 new SymbolHalfEdgePaintAction(ArrowValley.class));
         PaintActionButton mountain = new PaintActionButton(context,

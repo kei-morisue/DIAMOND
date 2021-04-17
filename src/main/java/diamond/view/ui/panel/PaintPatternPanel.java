@@ -4,6 +4,7 @@
  */
 package diamond.view.ui.panel;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
@@ -36,7 +37,7 @@ public class PaintPatternPanel extends JPanel {
     }
 
     private void addInputLinePanel() {
-        setLayout(new GridLayout(2, 3));
+        setLayout(new GridLayout(6, 1));
         JRadioButton button = buildButton("axiom1", new Axiom1Action());
         button.doClick();
         add(button);
@@ -52,6 +53,7 @@ public class PaintPatternPanel extends JPanel {
             PaintActionInterface paintAction) {
         PaintActionButton button = new PaintActionButton(context, paintAction);
         button.setIcons(IconBaseName);
+        button.setSize(new Dimension(200, 200));
         buttonGroup.add(button);
         return button;
     }

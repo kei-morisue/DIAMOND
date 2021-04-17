@@ -20,7 +20,7 @@ import diamond.view.ui.button.PaintActionButton;
  */
 public class TabManageFaces extends AbstractTab {
     public TabManageFaces(Context context, ButtonGroup buttonGroup) {
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(3, 1));
         PaintActionButton base = new PaintActionButton(context,
                 new FaceBaseAction());
         PaintActionButton hide = new PaintActionButton(context,
