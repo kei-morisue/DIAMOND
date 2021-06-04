@@ -10,7 +10,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import defox.Config;
+import diamond.Config;
 import diamond.controller.Context;
 import diamond.model.cyborg.diagram.Diagram;
 import diamond.model.math.field.F;

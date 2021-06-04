@@ -1,4 +1,4 @@
-package defox;
+package diamond;
 
 import diamond.model.math.field.Real;
 import diamond.view.ui.frame.MainFrame;
