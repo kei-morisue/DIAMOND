@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import diamond.Config;
+import defox.Config;
 import diamond.controller.file.ExporterXml;
 import diamond.controller.file.LoaderXml;
 import diamond.model.cyborg.diagram.Diagram;

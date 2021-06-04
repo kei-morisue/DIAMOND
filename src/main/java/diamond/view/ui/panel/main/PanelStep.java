@@ -13,7 +13,7 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import diamond.Config;
+import defox.Config;
 import diamond.controller.Context;
 import diamond.view.ui.button.ButtonStep;
 

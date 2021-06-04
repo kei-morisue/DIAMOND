@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond;
+package defox;
 
 import java.io.File;
 

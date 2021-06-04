@@ -7,7 +7,7 @@ package diamond.view.ui.frame;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import diamond.Config;
+import defox.Config;
 import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.panel.option.PanelFace;
