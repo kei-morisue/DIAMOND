@@ -47,7 +47,7 @@ public class PreviewScreen extends JPanel {
         JLabel label = new JLabel("Powered by "
                 + "DIAMOND "
                 + "(c) Kei Morisue "
-                + "2019", JLabel.CENTER);
+                + "2019 - 2021", JLabel.CENTER);
         FaceStyle faceStyle = context.getPalette().getFaceStyle();
         label.setBackground(faceStyle.getFront());
         label.setOpaque(true);
