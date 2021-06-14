@@ -31,7 +31,7 @@ public final class Edge<T extends F<T>> extends Seg<T> {
         this.mirrorPlain = new MirrorPlain<T>(p, q);
     }
 
-    public Edge(Crease<T> seg) {
+    public Edge(Seg<T> seg) {
         this(seg.p, seg.q);
         this.nodes = seg.nodes;
     }

@@ -33,15 +33,17 @@ public final class Step<T extends F<T>> implements Drawable<T> {
     public Step() {
     }
 
+    //TODO to be deleted
     public Step(ArrayList<Face<T>> faces) {
         this.faces = faces;
         baseFace = faces.get(0);
     }
 
+    //TODO to be folded
     public Step(Step<T> step) {
         faces = step.faces;
         baseFace = step.baseFace;
-        transform = step.transform;//TODO
+        transform = step.transform;
     }
 
     public void add(Line<T> axiom) {

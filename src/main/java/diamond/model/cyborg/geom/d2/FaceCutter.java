@@ -9,9 +9,9 @@ import java.util.Collection;
 import diamond.model.cyborg.Pair;
 import diamond.model.cyborg.diagram.step.Step;
 import diamond.model.cyborg.geom.d0.Ver;
+import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.cyborg.geom.d1.Edge;
 import diamond.model.cyborg.geom.d1.LoopedEdge;
-import diamond.model.cyborg.geom.d1.Crease;
 import diamond.model.math.field.F;
 
 /**
