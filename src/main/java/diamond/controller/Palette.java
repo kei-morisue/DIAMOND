@@ -29,6 +29,12 @@ public class Palette {
         cps.add(cp);
     }
 
+    public Palette(int i) {
+        Cp cp = CpBuilder.buildHex();
+        Folder.fold(cp);
+        cps.add(cp);
+    }
+
     public Palette(Palette palette) {
         this.cps = palette.getCps();
         this.faceStyle = palette.faceStyle;

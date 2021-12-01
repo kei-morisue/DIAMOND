@@ -38,6 +38,13 @@ public class Context {
         picker.clear();
     }
 
+    public Context() {
+    }
+
+    public Context(int i) {
+        this.palette = new Palette(i);
+    }
+
     public Cp getCp() {
         Vector<Cp> cps = palette.getCps();
         if (currentStep >= cps.size()) {
