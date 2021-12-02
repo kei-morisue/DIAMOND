@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
     }
 
     public MainFrame(int i) {
-        this.context = new Context();
+        this.context = new Context(i);
         buildFrame();
     }
 
