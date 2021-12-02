@@ -25,9 +25,9 @@ import diamond.view.ui.panel.West;
  */
 public class MainFrame extends JFrame {
     private Context context;
-    private JPanel east = new East(context);
-    private JPanel west = new West(context);
-    private JMenuBar menuBar = new MenuBar(context);
+    private JPanel east;
+    private JPanel west;
+    private JMenuBar menuBar;
 
     public MainFrame() {
         this.context = new Context();
@@ -40,6 +40,9 @@ public class MainFrame extends JFrame {
     }
 
     private void buildFrame() {
+        this.east = new East(context);
+        this.west = new West(context);
+        this.menuBar = new MenuBar(context);
         setTitle(Labels.get("main_frame_title"));
         IconBuilder.set(this, "diamond.gif");
         setJMenuBar(menuBar);
