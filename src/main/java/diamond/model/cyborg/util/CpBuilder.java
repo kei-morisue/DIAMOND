@@ -116,6 +116,50 @@ public class CpBuilder {
         return cp;
     }
 
+    public static Cp build15() {
+        Cp cp = new Cp();
+        double size = Config.PAPER_SIZE;
+        Vertex v0 = new Vertex(size, size);
+        double a = size * (2 - Math.sqrt(3));
+        Vertex v1 = new Vertex(a, size);
+        Vertex v2 = new Vertex(-size, size);
+        Vertex v3 = new Vertex(-size, -size);
+        Vertex v4 = new Vertex(-a, -size);
+        Vertex v5 = new Vertex(size, -size);
+
+        HalfEdge he0 = new HalfEdge(v0, v1, EdgeType.CUT);
+        HalfEdge he1 = new HalfEdge(v1, v2, EdgeType.CUT);
+        HalfEdge he2 = new HalfEdge(v2, v3, EdgeType.CUT);
+        HalfEdge he3 = new HalfEdge(v3, v4, EdgeType.CUT);
+        HalfEdge he4 = new HalfEdge(v4, v5, EdgeType.CUT);
+        HalfEdge he5 = new HalfEdge(v5, v0, EdgeType.CUT);
+
+        Face f0 = new Face();
+        cp.getFaces().add(f0);
+        f0.add(he0);
+        f0.add(he1);
+        f0.add(he2);
+        f0.add(he3);
+        f0.add(he4);
+        f0.add(he5);
+
+        he0.connectTo(he1);
+        he1.connectTo(he2);
+        he2.connectTo(he3);
+        he3.connectTo(he4);
+        he4.connectTo(he5);
+        he5.connectTo(he0);
+
+        he0.getPair().connectTo(he5.getPair());
+        he5.getPair().connectTo(he4.getPair());
+        he4.getPair().connectTo(he3.getPair());
+        he3.getPair().connectTo(he2.getPair());
+        he2.getPair().connectTo(he1.getPair());
+        he1.getPair().connectTo(he0.getPair());
+
+        return cp;
+    }
+
     private static void settleCp(Cp cp) {
         HashSet<HalfEdge> edges = cp.getUnsettlEdges();
         HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();

@@ -30,7 +30,18 @@ public class Palette {
     }
 
     public Palette(int i) {
-        Cp cp = CpBuilder.buildHex();
+        Cp cp = null;
+        switch (i) {
+        case 1:
+            cp = CpBuilder.buildHex();
+            break;
+        case 2:
+            cp = CpBuilder.build15();
+            break;
+        default:
+            cp = CpBuilder.buildSquare();
+        }
+
         Folder.fold(cp);
         cps.add(cp);
     }
