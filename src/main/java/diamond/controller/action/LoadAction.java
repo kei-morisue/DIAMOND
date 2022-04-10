@@ -30,6 +30,7 @@ public class LoadAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showOpenDialog(parentComponent)) {
             LoaderXML loader = new LoaderXML();
