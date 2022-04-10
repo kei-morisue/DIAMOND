@@ -161,29 +161,29 @@ public class CpBuilder {
     }
 
     private static void settleCp(Cp cp) {
-        HashSet<HalfEdge> edges = cp.getUnsettlEdges();
-        HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();
-        for (HalfEdge he : edges) {
-            if (he.getType() == EdgeType.CREASE) {
-                continue;
-            }
-            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
-                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
-                Symbol<HalfEdge> symbol = symbols.get(he);
-                if (symbol != null) {
-                    if (symbol.getClass() == ArrowFoldUnfold.class) {
-                        unfold(edges, symbols);
-                        return;
-                    }
-                }
-            }
-        }
-        for (HalfEdge he : edges) {
-            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
-                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
-                HalfEdgeModifier.settle(cp, he);
-            }
-        }
+        //        HashSet<HalfEdge> edges = cp.getUnsettlEdges();
+        //        HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();
+        //        for (HalfEdge he : edges) {
+        //            if (he.getType() == EdgeType.CREASE) {
+        //                continue;
+        //            }
+        //            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
+        //                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
+        //                Symbol<HalfEdge> symbol = symbols.get(he);
+        //                if (symbol != null) {
+        //                    if (symbol.getClass() == ArrowFoldUnfold.class) {
+        //                        unfold(edges, symbols);
+        //                        return;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        for (HalfEdge he : edges) {
+        //            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
+        //                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
+        //                HalfEdgeModifier.settle(cp, he);
+        //            }
+        //        }
     }
 
     private static void unfold(HashSet<HalfEdge> edges,

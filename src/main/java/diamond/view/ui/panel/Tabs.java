@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import diamond.controller.Context;
-import diamond.view.resource.string.Labels;
 
 /**
  * @author Kei Morisue
@@ -30,8 +29,8 @@ public class Tabs extends JTabbedPane {
         p.add(new PaintPatternPanel(context, buttons));
 
         addTab("lines / symbols", p);
-        addTab(Labels.get("tab_vertex"),
-                new TabManageVertices(context, buttons));
+        //        addTab(Labels.get("tab_vertex"),
+        //                new TabManageVertices(context, buttons));
 
     }
 }

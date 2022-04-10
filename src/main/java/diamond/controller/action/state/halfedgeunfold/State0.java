@@ -10,7 +10,8 @@ import diamond.controller.Context;
 import diamond.controller.action.state.HalfEdgePickingState;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.HalfEdge;
-import diamond.model.cyborg.util.HalfEdgeModifier;
+import diamond.model.cyborg.util.HalfEdgeAdder;
+import diamond.model.cyborg.util.HalfEdgeRemover;
 
 /**
  * @author Kei Morisue
@@ -36,16 +37,21 @@ public class State0 extends HalfEdgePickingState {
             return;
         }
         HalfEdge he = halfEdges.get(0);
-        if (he.getType() == EdgeType.CUT) {
+        EdgeType type = he.getType();
+        if (type == EdgeType.CUT) {
 
-        } else if (he.getType() == EdgeType.CREASE) {
+        } else if (type == EdgeType.CREASE) {
             he.unSettle();
-        } else if (EdgeType.isSettled(he.getType())) {
-            HalfEdgeModifier.unSettle(context.getCp(), he);
-            he.unfold();
-            context.fold();
+        } else if (EdgeType.isSettled(type)) {
+            //            HalfEdgeModifier.unSettle(context.getCp(), he);
+            //            he.unfold();
+            //            context.fold();
         } else {
-            he.unfold();
+            HalfEdgeRemover.remove(context.getCp(), he);
+            EdgeType inputType = context.getInputType();
+            context.setInputType(EdgeType.CREASE);
+            HalfEdgeAdder.add(context, he.getV0(), he.getV1());
+            context.setInputType(inputType);
         }
         context.initialize();
     }
