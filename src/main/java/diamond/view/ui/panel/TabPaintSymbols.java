@@ -14,6 +14,7 @@ import diamond.controller.action.SymbolHalfEdgePaintAction;
 import diamond.controller.action.SymbolHalfEdgeScaleAction;
 import diamond.controller.action.SymbolRepeatPaintAction;
 import diamond.controller.action.SymbolVertexPaintAction;
+import diamond.model.symbol.AuxSegment;
 import diamond.model.symbol.Landmark;
 import diamond.model.symbol.arrow.ArrowFlip;
 import diamond.model.symbol.arrow.ArrowFoldUnfold;
@@ -46,6 +47,8 @@ public class TabPaintSymbols extends AbstractTab {
                 new SymbolRepeatPaintAction());
         PaintActionButton landmark = new PaintActionButton(context,
                 new SymbolVertexPaintAction(Landmark.class));
+        PaintActionButton aux = new PaintActionButton(context,
+                new SymbolHalfEdgePaintAction(AuxSegment.class));
         PaintActionButton scale = new PaintActionButton(context,
                 new SymbolHalfEdgeScaleAction());
         PaintActionButton offset = new PaintActionButton(context,
@@ -59,6 +62,7 @@ public class TabPaintSymbols extends AbstractTab {
         addButton(buttonGroup, rotate, "rotate_arrow");
         addButton(buttonGroup, repeat, "repeat_arrow");
         addButton(buttonGroup, landmark, "landmark");
+        addButton(buttonGroup, aux, "aux_");
         addButton(buttonGroup, scale, "scale");
         addButton(buttonGroup, offset, "offset");
 
