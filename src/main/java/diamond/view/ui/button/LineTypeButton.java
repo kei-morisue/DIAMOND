@@ -38,9 +38,6 @@ public class LineTypeButton extends AbstractIconButton
         case CREASE:
             setIcons("crease");
             break;
-        case CUT:
-            setIcons("cut");
-            break;
         default:
             break;
         }

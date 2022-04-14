@@ -5,9 +5,7 @@
 package diamond.model.cyborg.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import diamond.Config;
 import diamond.controller.Context;
@@ -17,9 +15,6 @@ import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.cyborg.fold.Folder;
-import diamond.model.symbol.Symbol;
-import diamond.model.symbol.arrow.ArrowFlip;
-import diamond.model.symbol.arrow.ArrowFoldUnfold;
 import diamond.view.ui.screen.ScreenTransform;
 
 /**
@@ -61,14 +56,9 @@ public class CpBuilder {
 
     public static Cp buildNext(Context context, Cp cp0) {
         Cp cp1 = copyCp(cp0);
-        HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = cp0
-                .getSymbolsHalfEdge();
-        settleCp(cp1);
-        cp1.getSymbolsHalfEdge().clear();
+
         Folder.fold(cp1);
-        if (reverse(cp1, symbolsHalfEdge)) {
-            return cp1;
-        }
+
         return cp1;
     }
 
@@ -160,45 +150,6 @@ public class CpBuilder {
         return cp;
     }
 
-    private static void settleCp(Cp cp) {
-        //        HashSet<HalfEdge> edges = cp.getUnsettlEdges();
-        //        HashMap<HalfEdge, Symbol<HalfEdge>> symbols = cp.getSymbolsHalfEdge();
-        //        for (HalfEdge he : edges) {
-        //            if (he.getType() == EdgeType.CREASE) {
-        //                continue;
-        //            }
-        //            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
-        //                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
-        //                Symbol<HalfEdge> symbol = symbols.get(he);
-        //                if (symbol != null) {
-        //                    if (symbol.getClass() == ArrowFoldUnfold.class) {
-        //                        unfold(edges, symbols);
-        //                        return;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        for (HalfEdge he : edges) {
-        //            if (he.getType() == EdgeType.UNSETTLED_MOUNTAIN
-        //                    || he.getType() == EdgeType.UNSETTLED_VALLEY) {
-        //                HalfEdgeModifier.settle(cp, he);
-        //            }
-        //        }
-    }
-
-    private static void unfold(HashSet<HalfEdge> edges,
-            HashMap<HalfEdge, Symbol<HalfEdge>> symbols) {
-        for (HalfEdge he : edges) {
-            Symbol<HalfEdge> symbol = symbols.get(he);
-            if (symbol == null) {
-                continue;
-            }
-            if (symbol.getClass() == ArrowFoldUnfold.class) {
-                he.unfold();
-            }
-        }
-    }
-
     private static Cp copyCp(Cp cp0) {
         Cp cp1 = new Cp();
         cp1.setTransform(new ScreenTransform(cp0.getTransform()));
@@ -210,16 +161,7 @@ public class CpBuilder {
                 cp1.setBaseFace(f1);
             }
         }
-        HashMap<HalfEdge, Symbol<HalfEdge>> symbols0 = cp0.getSymbolsHalfEdge();
-        HashMap<HalfEdge, Symbol<HalfEdge>> symbols1 = cp1.getSymbolsHalfEdge();
-        for (HalfEdge he0 : symbols0.keySet()) {
-            Symbol<HalfEdge> symbol0 = symbols0.get(he0);
-            HalfEdge he1 = vMap.get(he0.getV0())
-                    .getConnection(vMap.get(he0.getV1()));
-            he1.disablePair();
-            symbol0.set(he1);
-            symbols1.put(he1, symbol0);
-        }
+
         return cp1;
     }
 
@@ -268,14 +210,4 @@ public class CpBuilder {
         }
     }
 
-    private static boolean reverse(Cp cp,
-            HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
-        for (Symbol<HalfEdge> symbol : symbolsHalfEdge.values()) {
-            if (symbol.getClass() == ArrowFlip.class) {
-                Collections.reverse(cp.getFaces());
-                return true;
-            }
-        }
-        return false;
-    }
 }

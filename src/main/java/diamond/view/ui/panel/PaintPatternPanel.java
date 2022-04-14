@@ -17,7 +17,6 @@ import diamond.controller.action.Axiom2Action;
 import diamond.controller.action.Axiom3Action;
 import diamond.controller.action.Axiom4Action;
 import diamond.controller.action.Axiom5Action;
-import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.controller.action.SymmetricAction;
 import diamond.view.resource.string.Labels;
@@ -47,7 +46,6 @@ public class PaintPatternPanel extends JPanel {
         add(buildButton("axiom4", new Axiom4Action()));
         add(buildButton("axiom5", new Axiom5Action()));
         add(buildButton("symmetric", new SymmetricAction()));
-        add(buildButton("mirror", new LazyPaintAction()));//TODO
         UiUtil.setBorder(this, Labels.get("input_pattern"));
     }
 

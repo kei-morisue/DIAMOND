@@ -20,6 +20,7 @@ public class HalfEdgeStyle {
     final public static Color CREASE = Color.LIGHT_GRAY;
     final public static Color UNSETTLED_VALLEY = Color.BLUE;
     final public static Color UNSETTLED_MOUNTAIN = Color.RED;
+    final public static Color AUX = Color.MAGENTA;
     final public static Color CUT = Color.black;
     final public static Color POINTED = Color.GREEN;
 
@@ -62,24 +63,10 @@ public class HalfEdgeStyle {
         }
     }
 
-    final public static BasicStroke STROKE_CUT = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_VALLEY = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     final public static BasicStroke STROKE_MOUNTAIN = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_PICKED = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_POINTED = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_GRID = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_CREASE = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
-    final public static BasicStroke STROKE_RADAR = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-    final public static BasicStroke STROKE_OFFSET = new BasicStroke(2.0f,
+    final public static BasicStroke STROKE_CREASE = new BasicStroke(0.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     final public static float DASH_VALLEY[] = { 10.0f, 3.0f };
@@ -93,10 +80,6 @@ public class HalfEdgeStyle {
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
             10.0f, DASH_MOUNTAIN, 0.0f);
     final public static BasicStroke STROKE_TEMPORARY = new BasicStroke(0.0f,
-            BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-
-    final static float dash[] = { 3.0f };
-    final public static BasicStroke STROKE_TMP_OUTLINE = new BasicStroke(3.0f,
             BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
     public static BasicStroke getCpStroke(EdgeType type) {
