@@ -30,6 +30,7 @@ public class CpSwitch extends JButton {
 
     public CpSwitch(int direction, Context context) {
         setBackground(Color.white);
+        setFocusable(false);
         this.direction = direction;
         this.context = context;
         switch (direction) {

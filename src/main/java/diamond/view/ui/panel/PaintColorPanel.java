@@ -5,6 +5,7 @@
 package diamond.view.ui.panel;
 
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -23,14 +24,21 @@ public class PaintColorPanel extends JPanel {
 
     public PaintColorPanel(Context context) {
         setLayout(new GridLayout(3, 1));
-        LineTypeButton button = new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
+        LineTypeButton valley = new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
                 context,
                 buttonGroup);
-        button.doClick();
-        add(button);
-        add(new LineTypeButton(EdgeType.UNSETTLED_MOUNTAIN, context,
-                buttonGroup));
-        add(new LineTypeButton(EdgeType.CREASE, context, buttonGroup));
+        valley.doClick();
+        add(valley);
+        valley.setMnemonic(KeyEvent.VK_V);
+        LineTypeButton mountain = new LineTypeButton(
+                EdgeType.UNSETTLED_MOUNTAIN, context,
+                buttonGroup);
+        mountain.setMnemonic(KeyEvent.VK_M);
+        add(mountain);
+        LineTypeButton crease = new LineTypeButton(EdgeType.CREASE, context,
+                buttonGroup);
+        crease.setMnemonic(KeyEvent.VK_C);
+        add(crease);
         UiUtil.setBorder(this, Labels.get("input_color"));
 
     }

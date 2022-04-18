@@ -21,6 +21,7 @@ public class CpInsert extends JButton {
     public CpInsert(Context context) {
         setBackground(Color.white);
         IconBuilder.set(this, "insert.png");
+        setFocusable(false);
         addActionListener(new ActionListener() {
 
             @Override

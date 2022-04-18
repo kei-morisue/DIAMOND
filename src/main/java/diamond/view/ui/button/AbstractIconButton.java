@@ -14,6 +14,7 @@ import diamond.view.resource.IconBuilder;
  */
 public class AbstractIconButton extends JRadioButton {
     public void setIcons(String iconBaseName) {
+        setFocusable(false);
         IconBuilder.set(this, iconBaseName + ".gif");
         IconBuilder.setSelected(this, iconBaseName + "_p.gif");
     }

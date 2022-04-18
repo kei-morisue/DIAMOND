@@ -26,6 +26,7 @@ public class CpDestroy extends JButton {
     public CpDestroy(Context context) {
         setBackground(Color.white);
         IconBuilder.set(this, "destroy.png");
+        setFocusable(false);
         addActionListener(new ActionListener() {
 
             @Override

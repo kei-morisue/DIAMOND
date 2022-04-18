@@ -28,6 +28,7 @@ public class PageSwitch extends JButton {
             PreviewScreen screen,
             Integer direction) {
         setBackground(Color.white);
+        setFocusable(false);
         this.screen = screen;
         this.direction = direction;
         switch (direction) {

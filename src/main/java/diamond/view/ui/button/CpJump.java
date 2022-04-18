@@ -30,6 +30,7 @@ public class CpJump extends JButton {
 
     public CpJump(int direction, Context context) {
         setBackground(Color.white);
+        setFocusable(false);
         this.direction = direction;
         this.context = context;
         switch (direction) {
