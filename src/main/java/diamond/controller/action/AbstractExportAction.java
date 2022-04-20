@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -19,14 +19,16 @@ import diamond.view.ui.screen.PreviewScreen;
  */
 public abstract class AbstractExportAction implements ActionListener {
     protected Component parent;
-    protected PreviewScreen screen;
+    protected AbstractPreviewScreen screen;
 
     @SuppressWarnings("unused")
     private AbstractExportAction() {
 
     }
 
-    protected AbstractExportAction(Component parent, PreviewScreen screen) {
+    protected AbstractExportAction(
+            Component parent,
+            AbstractPreviewScreen screen) {
         this.parent = parent;
         this.screen = screen;
     }

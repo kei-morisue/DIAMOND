@@ -4,8 +4,8 @@
  */
 package diamond.model.cyborg;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.util.Point2DUtil;
@@ -108,7 +108,11 @@ public class Vertex extends Point2D.Double implements Cyborg {
     }
 
     @Override
-    public java.awt.geom.Rectangle2D.Double clip() {
-        return new Rectangle2D.Double(x, y, 0, 0);
+    public java.awt.geom.Rectangle2D.Double clip(
+            AffineTransform transform) {
+        return Point2DUtil.clip(
+                this.getFoldedOffset(),
+                transform);
     }
+
 }

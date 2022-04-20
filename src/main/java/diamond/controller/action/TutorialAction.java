@@ -9,23 +9,23 @@ import java.awt.event.ActionListener;
 
 import diamond.controller.Context;
 import diamond.view.ui.frame.PreviewFrame;
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.TutorialScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class PreviewAction implements ActionListener {
+public class TutorialAction implements ActionListener {
     private Context context;
 
-    public PreviewAction(Context context) {
+    public TutorialAction(Context context) {
         this.context = context;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         context.saveTransform();
-        new PreviewFrame(context, new PreviewScreen(context));
+        new PreviewFrame(context, new TutorialScreen(context));
     }
 
 }

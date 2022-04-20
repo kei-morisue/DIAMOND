@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 
@@ -167,13 +168,9 @@ public class HalfEdge implements Cyborg {
     }
 
     @Override
-    public Double clip() {
-        java.awt.geom.Point2D.Double w0 = v0.getFoldedOffset();
-        java.awt.geom.Point2D.Double w1 = v1.getFoldedOffset();
-        double x = Math.min(w0.x, w1.x);
-        double y = Math.min(w0.y, w1.y);
-        double w = Math.abs(w0.x - w1.x);
-        double h = Math.abs(w0.y - w1.y);
-        return new Rectangle2D.Double(x, y, w, h);
+    public Double clip(AffineTransform transform) {
+        Rectangle2D.Double r = v0.clip(transform);
+        r.add(v1.clip(transform));
+        return r;
     }
 }

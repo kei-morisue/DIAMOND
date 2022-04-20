@@ -4,8 +4,11 @@
  */
 package diamond.view.ui.screen.draw;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
@@ -49,12 +52,45 @@ public class FoldedScreenDrawer {
         }
     }
 
+    public static void drawResult(Graphics2D g2d, Cp cp) {
+        double scale = G2DUtil.getScale(g2d);
+        for (Face face : cp.getFaces()) {
+            if (face.getProperty().isDisabled()) {
+                continue;
+            }
+            draw(g2d, face, scale);
+            for (HalfEdge he : face.getSortedEdges()) {
+                draw(g2d, he.getV0(), scale);
+
+            }
+            for (HalfEdge he : face.getUnsettledLines()) {
+                if (he.getType() == EdgeType.CREASE) {
+                    drawUnsettled(g2d, he, scale);
+                    draw(g2d, he.getV0(), scale);
+                    draw(g2d, he.getV1(), scale);
+                }
+            }
+
+        }
+
+    }
+
     public static void draw(Graphics2D g2d, Vertex v, double scale) {
         if (v.getProperty().isColored()) {
             double size = VertexStyle.getSize(v) / scale;
             g2d.setColor(VertexStyle.getColor(v));
             g2d.fill(VertexDrawer.buildVertex(v.getFoldedOffset(), size));
         }
+    }
+
+    public static void draw(
+            Graphics2D g2d,
+            Rectangle2D.Double rect) {
+        AffineTransform tmpTransform = g2d.getTransform();
+        g2d.setTransform(new AffineTransform());
+        g2d.setColor(Color.BLACK);
+        g2d.draw(rect);
+        g2d.setTransform(tmpTransform);
     }
 
     public static void draw(Graphics2D g2d, HalfEdge he, double scale) {

@@ -4,8 +4,10 @@
  */
 package diamond.model.cyborg.util;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 
 /**
  * @author Kei Morisue
@@ -91,5 +93,27 @@ public class Point2DUtil {
         } else {
             return p.distance(add(p0, scale(sub(p1, p0), t)));
         }
+    }
+
+    public static Point2D.Double apply(
+            Point2D.Double p,
+            AffineTransform transform) {
+        Point2D.Double q = new Point2D.Double(0, 0);
+        transform.transform(p, q);
+        return q;
+    }
+
+    public static Rectangle2D.Double clip(
+            Point2D.Double p,
+            AffineTransform transform) {
+        Double q = Point2DUtil.apply(
+                p,
+                transform);
+        double size = 50;
+        return new Rectangle2D.Double(
+                q.x - size / 2,
+                q.y - size / 2,
+                size,
+                size);
     }
 }

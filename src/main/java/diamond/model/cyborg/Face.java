@@ -56,10 +56,10 @@ public class Face implements Cyborg {
     }
 
     @Override
-    public Double clip() {
-        Rectangle2D.Double r = new Rectangle2D.Double();
+    public Double clip(AffineTransform transform) {
+        Rectangle2D.Double r = halfEdges.get(0).clip(transform);
         for (HalfEdge he : halfEdges) {
-            r.add(he.clip());
+            r.add(he.clip(transform));
         }
         return r;
     }

@@ -33,7 +33,7 @@ public class ScreenTransform extends AffineTransform {
         this.rotate = new AffineTransform(transform.rotate);
     }
 
-    public void concat() {
+    private void concat() {
         setToIdentity();
         concatenate(focus);
         concatenate(zoom);

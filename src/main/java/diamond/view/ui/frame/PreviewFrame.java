@@ -16,7 +16,7 @@ import diamond.controller.Context;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.button.PageSwitch;
 import diamond.view.ui.menu.MenuDiagramFile;
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -24,11 +24,13 @@ import diamond.view.ui.screen.PreviewScreen;
  */
 public class PreviewFrame extends JFrame {
     private Context context;
-    private PreviewScreen screen;
+    private AbstractPreviewScreen screen;
 
-    public PreviewFrame(Context context) {
+    public PreviewFrame(
+            Context context,
+            AbstractPreviewScreen screen) {
         this.context = context;
-        this.screen = new PreviewScreen(context);
+        this.screen = screen;
         setVisible(true);
         setTitle(Labels.get("preview_frame_title"));
         buildContents(getContentPane());

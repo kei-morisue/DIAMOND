@@ -4,13 +4,10 @@
  */
 package diamond.view.ui.screen;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import diamond.controller.Context;
 import diamond.model.cyborg.Cp;
@@ -23,27 +20,14 @@ import diamond.view.ui.screen.style.PageStyle;
  * @author Kei Morisue
  *
  */
-public class PreviewScreen extends JPanel {
-    private int pageNo = 0;
-    private Context context;
-    private JPanel page;
+public class PreviewScreen extends AbstractPreviewScreen {
 
     public PreviewScreen(Context context) {
-        this.context = context;
-        build();
+        super(context);
     }
 
-    private void build() {
-        setBackground(Color.white);
-        setBorder(new LineBorder(Color.black));
-        setLayout(new BorderLayout());
-        page = buildPage();
-        add(page, BorderLayout.CENTER);
-        add(buildNorthernLabel(), BorderLayout.NORTH);
-        add(buildSouthernLabel(pageNo + 1), BorderLayout.SOUTH);
-    }
-
-    private JLabel buildNorthernLabel() {
+    @Override
+    protected JLabel buildNorthernLabel(int pageNo) {
         JLabel label = new JLabel("Powered by "
                 + "DIAMOND "
                 + "(c) Kei Morisue "
@@ -54,7 +38,8 @@ public class PreviewScreen extends JPanel {
         return label;
     }
 
-    private JLabel buildSouthernLabel(int pageNo) {
+    @Override
+    protected JLabel buildSouthernLabel(int pageNo) {
         JLabel label = new JLabel(String.valueOf(pageNo), JLabel.CENTER);
         FaceStyle faceStyle = context.getPalette().getFaceStyle();
         label.setBackground(faceStyle.getFront());
@@ -62,7 +47,8 @@ public class PreviewScreen extends JPanel {
         return label;
     }
 
-    public JPanel buildPage() {
+    @Override
+    protected JPanel buildPage() {
         Vector<Cp> cps = context.getPalette().getCps();
         if (pageNo == 0) {
             return new PageTop(cps);
@@ -72,23 +58,7 @@ public class PreviewScreen extends JPanel {
         }
     }
 
-    public void nextPage(int pages) {
-        pageNo = Math.max(0, pageNo + pages);
-        pageNo = Math.min(pageNo, maxPageNo());
-        removeAll();
-        build();
-        validate();
-        repaint();
-    }
-
-    public void setToTop() {
-        pageNo = 0;
-        removeAll();
-        build();
-        validate();
-        repaint();
-    }
-
+    @Override
     public int maxPageNo() {
         int steps = context.getPalette().getCps().size();
         int n = PageStyle.DIAGRAM_ROW * PageStyle.DIAGRAM_COL;
@@ -98,4 +68,5 @@ public class PreviewScreen extends JPanel {
         int rest = steps - n + 1;
         return (rest / n) + ((rest % n == 0) ? 0 : 1);
     }
+
 }

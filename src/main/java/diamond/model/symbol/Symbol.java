@@ -5,6 +5,7 @@
 package diamond.model.symbol;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -25,10 +26,12 @@ public abstract class Symbol<T> {
 
     abstract public void setOffset(Point2D.Double p);
 
+    abstract public T getKey();
+
     abstract public void setScale(double scale);
 
     abstract public void setSelected(boolean isSelected);
 
-    abstract public Rectangle2D.Double clip();
+    abstract public Rectangle2D.Double clip(AffineTransform transform);
 
 }

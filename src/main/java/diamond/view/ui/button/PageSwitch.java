@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import diamond.view.resource.IconBuilder;
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -22,10 +22,10 @@ public class PageSwitch extends JButton {
     public static final int NEXT = 1;
 
     private int direction;
-    private PreviewScreen screen;
+    private AbstractPreviewScreen screen;
 
     public PageSwitch(
-            PreviewScreen screen,
+            AbstractPreviewScreen screen,
             Integer direction) {
         setBackground(Color.white);
         setFocusable(false);

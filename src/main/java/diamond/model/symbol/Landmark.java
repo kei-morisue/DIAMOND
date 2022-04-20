@@ -7,12 +7,15 @@ package diamond.model.symbol;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Vertex;
+import diamond.model.cyborg.util.Point2DUtil;
 import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
@@ -39,6 +42,11 @@ public class Landmark extends Symbol<Vertex> {
     @Override
     public void drawFolded(Graphics2D g2d) {
         drawAt(g2d, vertex.getFoldedOffset());
+    }
+
+    @Override
+    public Vertex getKey() {
+        return vertex;
     }
 
     private void drawAt(Graphics2D g2d, Point2D.Double v) {
@@ -82,8 +90,17 @@ public class Landmark extends Symbol<Vertex> {
     }
 
     @Override
-    public java.awt.geom.Rectangle2D.Double clip() {
-        return null;
+    public java.awt.geom.Rectangle2D.Double clip(
+            AffineTransform transform) {
+        Double q = Point2DUtil.apply(
+                vertex.getFoldedOffset(),
+                transform);
+        double size = 50;
+        return new Rectangle2D.Double(
+                q.x - size / 2,
+                q.y - size / 2,
+                size,
+                size);
     }
 
     @Deprecated

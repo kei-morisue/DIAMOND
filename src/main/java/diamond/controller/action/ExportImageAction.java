@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -20,7 +20,9 @@ import diamond.view.ui.screen.PreviewScreen;
  */
 public class ExportImageAction extends AbstractExportAction {
 
-    public ExportImageAction(Component parent, PreviewScreen screen) {
+    public ExportImageAction(
+            Component parent,
+            AbstractPreviewScreen screen) {
         super(parent, screen);
     }
 
@@ -48,7 +50,7 @@ public class ExportImageAction extends AbstractExportAction {
         int w = screen.getWidth();
         int h = screen.getHeight();
         BufferedImage image = new BufferedImage(w, h,
-                BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = image.createGraphics();
         screen.paintComponents(g2);
         g2.dispose();

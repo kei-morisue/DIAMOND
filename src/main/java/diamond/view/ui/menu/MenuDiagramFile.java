@@ -15,7 +15,7 @@ import diamond.controller.Context;
 import diamond.controller.action.ExportImageAction;
 import diamond.controller.action.ExportSvgAction;
 import diamond.view.resource.string.Labels;
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -24,9 +24,11 @@ import diamond.view.ui.screen.PreviewScreen;
 public class MenuDiagramFile extends JMenu {
 
     private Context context;
-    private PreviewScreen screen;
+    private AbstractPreviewScreen screen;
 
-    public MenuDiagramFile(Context context, PreviewScreen screen) {
+    public MenuDiagramFile(
+            Context context,
+            AbstractPreviewScreen screen) {
         super(Labels.get("preview_menu_file"));
         this.context = context;
         this.screen = screen;

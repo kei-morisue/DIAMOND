@@ -8,7 +8,7 @@ import java.awt.Component;
 
 import diamond.controller.Palette;
 import diamond.controller.file.ExporterSVG;
-import diamond.view.ui.screen.PreviewScreen;
+import diamond.view.ui.screen.AbstractPreviewScreen;
 
 /**
  * @author Kei Morisue
@@ -19,7 +19,7 @@ public class ExportSvgAction extends AbstractExportAction {
 
     public ExportSvgAction(
             Component parent,
-            PreviewScreen screen,
+            AbstractPreviewScreen screen,
             Palette palette) {
         super(parent, screen);
         this.palette = palette;

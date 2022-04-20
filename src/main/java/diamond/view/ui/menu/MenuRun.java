@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import diamond.controller.Context;
 import diamond.controller.action.PreviewAction;
+import diamond.controller.action.TutorialAction;
 import diamond.view.resource.string.Labels;
 
 /**
@@ -23,13 +24,25 @@ public class MenuRun extends JMenu {
     public MenuRun(Context context) {
         super(Labels.get("main_menu_run"));
         add(buildPreview(context));
+        add(buildTutorial(context));
+
     }
 
-    public JMenuItem buildPreview(Context context) {
+    private JMenuItem buildPreview(Context context) {
         JMenuItem item = new JMenuItem(Labels.get("main_menu_run_preview"));
         item.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         item.addActionListener(new PreviewAction(context));
         return item;
     }
+
+    private JMenuItem buildTutorial(Context context) {
+        JMenuItem item = new JMenuItem(Labels.get("main_menu_run_tutorial"));
+        item.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+        item.addActionListener(new TutorialAction(context));
+
+        return item;
+    }
+
 }

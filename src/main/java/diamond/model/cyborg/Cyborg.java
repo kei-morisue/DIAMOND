@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -11,5 +12,5 @@ import java.awt.geom.Rectangle2D;
  *
  */
 public interface Cyborg {
-    public Rectangle2D.Double clip();
+    public Rectangle2D.Double clip(AffineTransform transform);
 }

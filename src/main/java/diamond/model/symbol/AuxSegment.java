@@ -7,6 +7,7 @@ package diamond.model.symbol;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -38,6 +39,11 @@ public class AuxSegment extends Symbol<HalfEdge> {
                 g2d,
                 halfEdge.getV0().getFoldedOffset(),
                 halfEdge.getV1().getFoldedOffset());
+    }
+
+    @Override
+    public HalfEdge getKey() {
+        return halfEdge;
     }
 
     private void drawAt(
@@ -75,8 +81,9 @@ public class AuxSegment extends Symbol<HalfEdge> {
     }
 
     @Override
-    public java.awt.geom.Rectangle2D.Double clip() {
-        return null;
+    public java.awt.geom.Rectangle2D.Double clip(
+            AffineTransform transform) {
+        return halfEdge.clip(transform);
     }
 
     @Deprecated
