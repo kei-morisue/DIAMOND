@@ -4,14 +4,7 @@
  */
 package diamond.model.cyborg;
 
-import java.util.LinkedList;
-
-import org.junit.Test;
-
 import diamond.controller.action.Axiom1Action;
-import diamond.controller.action.HalfEdgeFlipAction;
-import diamond.controller.action.HalfEdgeSettleAction;
-import diamond.controller.action.HalfEdgeUnfoldAction;
 
 /**
  * @author Kei Morisue
@@ -34,32 +27,32 @@ public class HalfEdgeUnfoldTest extends AbstractPaintActionTest {
         TestUtil.click(.0, .0, context);
     }
 
-    @Test
-    public void Step0() {
-        line0();
-        context.setPaintAction(new HalfEdgeUnfoldAction());
-        select0();
-        Cp cp = context.getCp();
-        LinkedList<Face> faces = cp.getFaces();
-
-        TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
-
-        context.setPaintAction(new HalfEdgeUnfoldAction());
-        select0();
-        TestUtil.validate(cp, .0, .0, EdgeType.UNSETTLED_VALLEY);
-
-        context.setPaintAction(new HalfEdgeFlipAction());
-        select0();
-        TestUtil.validate(cp, .0, .0, EdgeType.UNSETTLED_MOUNTAIN);
-
-        context.setPaintAction(new HalfEdgeSettleAction());
-        select0();
-        TestUtil.validate(cp, .0, .0, EdgeType.MOUNTAIN);
-
-        context.setPaintAction(new HalfEdgeUnfoldAction());
-        select0();
-        TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
-
-    }
+    //    @Test
+    //    public void Step0() {
+    //        line0();
+    //        context.setPaintAction(new HalfEdgeUnfoldAction());
+    //        select0();
+    //        Cp cp = context.getCp();
+    //        LinkedList<Face> faces = cp.getFaces();
+    //
+    //        TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
+    //
+    //        context.setPaintAction(new HalfEdgeUnfoldAction());
+    //        select0();
+    //        TestUtil.validate(cp, .0, .0, EdgeType.UNSETTLED_VALLEY);
+    //
+    //        context.setPaintAction(new HalfEdgeFlipAction());
+    //        select0();
+    //        TestUtil.validate(cp, .0, .0, EdgeType.UNSETTLED_MOUNTAIN);
+    //
+    //        context.setPaintAction(new HalfEdgeSettleAction());
+    //        select0();
+    //        TestUtil.validate(cp, .0, .0, EdgeType.MOUNTAIN);
+    //
+    //        context.setPaintAction(new HalfEdgeUnfoldAction());
+    //        select0();
+    //        TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
+    //
+    //    }
 
 }

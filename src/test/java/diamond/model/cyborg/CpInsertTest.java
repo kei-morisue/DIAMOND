@@ -48,18 +48,18 @@ public class CpInsertTest extends AbstractPaintActionTest {
         TestUtil.click(.0, .0, context);
     }
 
-    @Test
-    public void Step0() {
-        line0();
-        context.insertCp();
-        Cp cp = context.getCp();
-        LinkedList<Face> faces = cp.getFaces();
-        TestUtil.validate(cp, 4);
-        TestUtil.validate(faces.get(0), 3, 0);
-        TestUtil.validate(faces.get(1), 3, 0);
-        TestUtil.validate(cp, -l, -l, 3, false);
-        TestUtil.validate(cp, l, l, 3, false);
-    }
+    //    @Test
+    //    public void Step0() {
+    //        line0();
+    //        context.insertCp();
+    //        Cp cp = context.getCp();
+    //        LinkedList<Face> faces = cp.getFaces();
+    //        TestUtil.validate(cp, 4);
+    //        TestUtil.validate(faces.get(0), 3, 0);
+    //        TestUtil.validate(faces.get(1), 3, 0);
+    //        TestUtil.validate(cp, -l, -l, 3, false);
+    //        TestUtil.validate(cp, l, l, 3, false);
+    //    }
 
     @Test
     public void Step1() {
@@ -87,16 +87,16 @@ public class CpInsertTest extends AbstractPaintActionTest {
         TestUtil.validate(cp, .0, .0, EdgeType.CREASE);
     }
 
-    @Test
-    public void Step3() {
-        line0();
-        select2();
-        context.insertCp();
-        Cp cp = context.getCp();
-        LinkedList<Face> faces = cp.getFaces();
-        TestUtil.validate(cp, 4);
-        TestUtil.validate(cp, 0.5 * l, 0.5 * l, EdgeType.CREASE);
-        TestUtil.validate(faces.get(0), 4, 2);
-    }
+    //    @Test
+    //    public void Step3() {
+    //        line0();
+    //        select2();
+    //        context.insertCp();
+    //        Cp cp = context.getCp();
+    //        LinkedList<Face> faces = cp.getFaces();
+    //        TestUtil.validate(cp, 4);
+    //        TestUtil.validate(cp, 0.5 * l, 0.5 * l, EdgeType.CREASE);
+    //        TestUtil.validate(faces.get(0), 4, 2);
+    //    }
 
 }
