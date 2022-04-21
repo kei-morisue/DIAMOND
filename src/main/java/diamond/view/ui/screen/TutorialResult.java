@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import diamond.model.cyborg.Cp;
-import diamond.model.cyborg.util.CpClipper;
 import diamond.view.ui.screen.draw.FoldedScreenDrawer;
 
 /**
@@ -22,12 +21,16 @@ public class TutorialResult extends AbstractStep {
         super(cp);
         this.cp0 = cp0;
         setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(255, 255, 255, 255));
     }
 
     @Override
     protected void draw(Graphics2D g2d) {
-        //        g2d.setTransform(cp.getTransform());
+        //      Rectangle2D.Double clip = CpClipper.clip(cp);
+        //      g2d.setTransform(ScreenFitter.fit(this, clip, cp));
+        g2d.setTransform(cp0.getTransform());
+        //              FoldedScreenDrawer.draw(g2d, clip);
+
         FoldedScreenDrawer.drawResult(g2d, cp);
-        FoldedScreenDrawer.draw(g2d, CpClipper.clip(cp0));
     }
 }

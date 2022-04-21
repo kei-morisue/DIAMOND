@@ -4,12 +4,15 @@
  */
 package diamond.view.ui.screen.draw;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
+import diamond.Config;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
 import diamond.model.cyborg.Face;
@@ -52,6 +55,27 @@ public class FoldedScreenDrawer {
         }
     }
 
+    public static void drawGrids(Graphics2D g2d) {
+        int n = 10;
+        int s = (int) Config.PAPER_SIZE;
+        int d = s / n << 1;
+        float dash[] = { 3.0f, 3.0f };
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.setStroke(new BasicStroke(
+                0.0f,
+                BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
+                10.0f, dash, 0.0f));
+        for (int i = 0; i < n; ++i) {
+            int k = -s + d * i;
+            g2d.draw(new Line2D.Double(
+                    -s, k, s, k));
+            g2d.draw(new Line2D.Double(
+                    k, -s, k, s));
+
+        }
+
+    }
+
     public static void drawResult(Graphics2D g2d, Cp cp) {
         double scale = G2DUtil.getScale(g2d);
         for (Face face : cp.getFaces()) {
@@ -88,7 +112,7 @@ public class FoldedScreenDrawer {
             Rectangle2D.Double rect) {
         AffineTransform tmpTransform = g2d.getTransform();
         g2d.setTransform(new AffineTransform());
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.MAGENTA);
         g2d.draw(rect);
         g2d.setTransform(tmpTransform);
     }

@@ -4,33 +4,20 @@
  */
 package diamond.model.cyborg.util;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.Face;
 import diamond.model.cyborg.HalfEdge;
 import diamond.model.cyborg.Vertex;
 import diamond.model.symbol.Symbol;
-import diamond.model.symbol.arrow.ArrowFlip;
 import diamond.view.ui.screen.ScreenTransform;
-import diamond.view.ui.screen.draw.G2DUtil;
 
 /**
  * @author Kei Morisue
  *
  */
 public class CpClipper {
-
-    public static double getScale(Graphics2D g2d, Cp cp) {
-        Double clip = clip(cp);
-        Dimension dimension = G2DUtil.getDimension(g2d);
-        double w = dimension.getWidth();
-        double h = dimension.getHeight();
-        return Math.min(w / clip.getWidth(), h / clip.getHeight());
-    }
 
     public static Rectangle2D.Double clip(Cp cp) {
         ScreenTransform transform = cp.getTransform();
@@ -44,6 +31,9 @@ public class CpClipper {
         }
         for (Symbol<Vertex> symbol : cp.getSymbolsVertex().values()) {
             r = clipVeSymbols(transform, r, symbol);
+        }
+        if (r == null) {
+            return clipAll(r, cp);
         }
         return r;
     }
@@ -59,9 +49,6 @@ public class CpClipper {
 
     private static Rectangle2D.Double clipHeSymbnols(ScreenTransform transform,
             Rectangle2D.Double r, Symbol<HalfEdge> symbol, Cp cp) {
-        if (symbol.getClass() == ArrowFlip.class) {
-            return clipAll(transform, r, cp);
-        }
         HalfEdge he = symbol.getKey();
         Face face = he.getFace();
         if (r == null) {
@@ -72,9 +59,12 @@ public class CpClipper {
         return r;
     }
 
-    public static Rectangle2D.Double clipAll(ScreenTransform transform,
-            Rectangle2D.Double r, Cp cp) {
+    public static Rectangle2D.Double clipAll(Rectangle2D.Double r, Cp cp) {
+        ScreenTransform transform = cp.getTransform();
         for (Face f : cp.getFaces()) {
+            if (r == null) {
+                r = f.clip(transform);
+            }
             r.add(f.clip(transform));
         }
         return r;

@@ -4,6 +4,9 @@
  */
 package diamond.model.symbol.arrow;
 
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D.Double;
+
 import diamond.model.symbol.arrow.head.Empty;
 import diamond.model.symbol.arrow.head.Flip;
 
@@ -26,5 +29,10 @@ public class ArrowFlip extends AbstractArrow {
     @Override
     protected void buildBody() {
         body = new diamond.model.symbol.arrow.body.Flip();
+    }
+
+    @Override
+    public Double clip(AffineTransform transform) {
+        return null;
     }
 }
