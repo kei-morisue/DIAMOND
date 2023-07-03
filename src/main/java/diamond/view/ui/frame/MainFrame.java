@@ -25,41 +25,46 @@ import diamond.view.ui.panel.West;
  *
  */
 public class MainFrame extends JFrame {
-    private Context context;
-    private JPanel east;
-    private JPanel west;
-    private JMenuBar menuBar;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -68078537368102009L;
+	private Context context;
+	private JPanel east;
+	private JPanel west;
+	private JMenuBar menuBar;
 
-    public MainFrame() {
-        this.context = new Context();
-        buildFrame();
-    }
+	public MainFrame() {
+		this.context = new Context();
+		buildFrame();
+	}
 
-    public MainFrame(String path) {
-        this();
-        context.setPalette(new LoaderDMD().load(path));
-    }
+	// For Debugging
+	@Deprecated
+	public MainFrame(String path) {
+		this();
+		context.setPalette(new LoaderDMD().load(path));
+	}
 
-    public MainFrame(int i) {
-        this.context = new Context(i);
-        buildFrame();
-    }
+	public MainFrame(int i) {
+		this.context = new Context(i);
+		buildFrame();
+	}
 
-    private void buildFrame() {
-        this.east = new East(context);
-        this.west = new West(context);
-        this.menuBar = new MenuBar(context);
-        setTitle(Labels.get("main_frame_title"));
-        IconBuilder.set(this, "diamond.gif");
-        setJMenuBar(menuBar);
-        Container panel = getContentPane();
-        panel.setLayout(new GridLayout(1, 2));
-        panel.add(west);
-        panel.add(east);
-        setVisible(true);
-        setSize(Config.MAIN_FRAME_WIDTH,
-                Config.MAIN_FRAME_HEIGHT);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+	private void buildFrame() {
+		this.east = new East(context);
+		this.west = new West(context);
+		this.menuBar = new MenuBar(context);
+		setTitle(Labels.get("main_frame_title"));
+		IconBuilder.set(this, "diamond.gif");
+		setJMenuBar(menuBar);
+		Container panel = getContentPane();
+		panel.setLayout(new GridLayout(1, 2));
+		panel.add(west);
+		panel.add(east);
+		setVisible(true);
+		setSize(Config.MAIN_FRAME_WIDTH, Config.MAIN_FRAME_HEIGHT);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 }
