@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,19 +25,13 @@ import diamond.model.cyborg.HalfEdge;
  * @author Kei Morisue
  *
  */
-public class LoaderXML implements Loader {
+public class LoaderDMD implements Loader {
 
     @Override
     public Palette load(String filepath) {
         Palette palette = new Palette();
         Vector<Cp> cps = palette.getCps();
-        try {
-            Stream<Path> files = Files.list(Paths.get(filepath));
-            files.forEach(p -> add(cps, p));
-            files.close();
-        } catch (IOException e) {
-            return null;
-        }
+        add(cps, filepath);
         cps.remove(0);
         connectEdges(cps);
 
@@ -65,16 +60,14 @@ public class LoaderXML implements Loader {
         }
     }
 
-    private void add(Vector<Cp> cps, Path path) {
+    private void add(Vector<Cp> cps, String path) {
         System.out.println("Loading: " + path);
         try {
-            XMLDecoder decoder = new XMLDecoder(
-                    new BufferedInputStream(
-                            new FileInputStream(path.toString())));
-            Object object = decoder.readObject();
-            cps.add((Cp) object);
-            decoder.close();
-        } catch (FileNotFoundException e) {
+        	ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
+			Vector<Cp> object = (Vector<Cp>) ois.readObject();
+            object.forEach(cp->cps.add(cp));
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 
 import diamond.controller.Context;
 import diamond.controller.Palette;
-import diamond.controller.file.LoaderXML;
+import diamond.controller.file.LoaderDMD;
 
 /**
  * @author Kei Morisue
@@ -30,10 +30,10 @@ public class LoadAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (JFileChooser.APPROVE_OPTION == chooser
                 .showOpenDialog(parentComponent)) {
-            LoaderXML loader = new LoaderXML();
+            LoaderDMD loader = new LoaderDMD();
             String path = chooser.getSelectedFile().getPath();
             Palette palette = loader.load(path);
             context.setPalette(palette);

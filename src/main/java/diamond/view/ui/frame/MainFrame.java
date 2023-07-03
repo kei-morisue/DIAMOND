@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import diamond.Config;
 import diamond.controller.Context;
-import diamond.controller.file.LoaderXML;
+import diamond.controller.file.LoaderDMD;
 import diamond.view.resource.IconBuilder;
 import diamond.view.resource.string.Labels;
 import diamond.view.ui.menu.MenuBar;
@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(String path) {
         this();
-        context.setPalette(new LoaderXML().load(path));
+        context.setPalette(new LoaderDMD().load(path));
     }
 
     public MainFrame(int i) {

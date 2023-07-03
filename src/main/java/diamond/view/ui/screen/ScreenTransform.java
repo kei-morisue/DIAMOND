@@ -5,12 +5,13 @@
 package diamond.view.ui.screen;
 
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
 /**
  * @author Kei Morisue
  *
  */
-public class ScreenTransform extends AffineTransform {
+public class ScreenTransform extends AffineTransform implements Serializable {
     private AffineTransform focus = AffineTransform
             .getTranslateInstance(0.0, 0.0);
     private AffineTransform zoom = AffineTransform.getScaleInstance(1.0, 1.0);

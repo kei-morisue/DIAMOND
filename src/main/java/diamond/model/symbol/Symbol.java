@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 import diamond.model.cyborg.Cp;
 
@@ -15,7 +16,7 @@ import diamond.model.cyborg.Cp;
  * @author Kei Morisue
  *
  */
-public abstract class Symbol<T> {
+public abstract class Symbol<T> implements Serializable {
     abstract public void drawCp(Graphics2D g2d);
 
     abstract public void drawFolded(Graphics2D g2d);

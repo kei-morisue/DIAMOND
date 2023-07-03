@@ -4,6 +4,7 @@
  */
 package diamond.model.cyborg;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ import diamond.view.ui.screen.ScreenTransform;
  * @author Kei Morisue
  *
  */
-public class Cp {
+public class Cp implements Serializable {
     private LinkedList<Face> faces = new LinkedList<Face>();
     private Face baseFace = null;
     private ScreenTransform transform = new ScreenTransform();

@@ -7,6 +7,7 @@ package diamond.model.cyborg;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import diamond.controller.HalfEdgeSortor;
  * @author Kei Morisue
  *
  */
-public class Face implements Cyborg {
+public class Face implements Cyborg, Serializable {
     private ArrayList<HalfEdge> halfEdges = new ArrayList<>();
     private HashSet<HalfEdge> unsettledLines = new HashSet<>();
 

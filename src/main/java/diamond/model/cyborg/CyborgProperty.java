@@ -4,13 +4,15 @@
  */
 package diamond.model.cyborg;
 
+import java.io.Serializable;
+
 import diamond.model.symbol.Symbol;
 
 /**
  * @author Kei Morisue
  *
  */
-public class CyborgProperty {
+public class CyborgProperty implements Serializable{
     public boolean isPointed = false;
     public boolean isPicked = false;
 

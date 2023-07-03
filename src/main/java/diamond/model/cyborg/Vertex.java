@@ -6,6 +6,7 @@ package diamond.model.cyborg;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.util.Point2DUtil;
@@ -14,7 +15,7 @@ import diamond.model.cyborg.util.Point2DUtil;
  * @author Kei Morisue
  *
  */
-public class Vertex extends Point2D.Double implements Cyborg {
+public class Vertex extends Point2D.Double implements Cyborg, Serializable {
     private LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
     private VertexProperty property = new VertexProperty();
     private Point2D.Double offset = new Point2D.Double();
