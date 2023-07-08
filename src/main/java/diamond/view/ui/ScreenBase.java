@@ -7,6 +7,7 @@ package diamond.view.ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -20,6 +21,8 @@ import diamond.view.util.ScreenTransform;
  */
 public class ScreenBase extends JPanel {
 	protected ScreenTransform transform;
+	BufferedImage bufferImage;
+	Graphics2D g2d;
 	private DrawerBase drawer;
 
 	public ScreenBase(DrawerBase drawer) {
@@ -33,9 +36,14 @@ public class ScreenBase extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
+		super.paintComponent(g);
+		bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		g2d = (Graphics2D) bufferImage.getGraphics();
+
 		drawBackGround(g2d, Color.lightGray);
 		drawer.draw(g2d);
+
+		g.drawImage(bufferImage, 0, 0, this);
 	}
 
 	protected void drawBackGround(Graphics2D g2d, Color color) {
