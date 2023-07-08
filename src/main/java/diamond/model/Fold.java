@@ -4,6 +4,7 @@
  */
 package diamond.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Kei Morisue
  *
  */
-public class Fold {
+public class Fold implements Serializable {
 	private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
@@ -112,11 +113,6 @@ public class Fold {
 		});
 		Collections.sort(faces);
 		faces.remove(faces.size() - 1);// remove the largest face ~ outer face
-	}
-
-	private HashMap<Tuple<Vertex>, Assign.Edge> buildVA() {
-		HashMap<Tuple<Vertex>, Assign.Edge> vaMap = new HashMap<Tuple<Vertex>, Assign.Edge>();
-		return vaMap;
 	}
 
 	public ArrayList<Vertex> getVertices() {

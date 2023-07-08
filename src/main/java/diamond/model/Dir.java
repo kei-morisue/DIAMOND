@@ -34,7 +34,7 @@ public class Dir {
 	}
 
 	public Dir unit() {
-		return mul(mg());
+		return div(mg());
 	}
 
 	public double angle() {

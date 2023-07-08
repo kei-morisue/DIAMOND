@@ -4,6 +4,7 @@
  */
 package diamond.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -11,7 +12,7 @@ import java.util.Comparator;
  * @author Kei Morisue
  *
  */
-public class Vertex {
+public class Vertex implements Serializable {
 	private XY v;
 	private XY f;
 	private XY d;

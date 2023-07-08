@@ -4,11 +4,13 @@
  */
 package diamond.model;
 
+import java.io.Serializable;
+
 /**
  * @author Kei Morisue
  *
  */
-public class Edge {
+public class Edge implements Serializable {
 	private Vertex v0;
 
 	private Vertex v1;

@@ -4,13 +4,14 @@
  */
 package diamond.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Face implements Comparable<Face> {
+public class Face implements Comparable<Face>, Serializable {
 	private ArrayList<Vertex> vertices;
 
 	private ArrayList<Edge> edges;
