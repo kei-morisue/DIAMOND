@@ -1,13 +1,14 @@
 package diamond;
 
-import diamond.view.ui.frame.MainFrame;
+import diamond.view.ui.MainFrame;
 
 public class DIAMOND {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		// new MainFrame();
-		new MainFrame("test.dmd");
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.screen2.zoom(1.0);
+		mainFrame.setSize(Config.MAIN_FRAME_WIDTH, Config.MAIN_FRAME_HEIGHT);
+		mainFrame.setLocation(900, 500);
 	}
 
 }
