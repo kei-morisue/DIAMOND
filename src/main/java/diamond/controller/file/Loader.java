@@ -4,6 +4,8 @@
  */
 package diamond.controller.file;
 
+import java.io.IOException;
+
 import diamond.controller.Palette;
 
 /**
@@ -11,5 +13,5 @@ import diamond.controller.Palette;
  *
  */
 public interface Loader {
-    public Palette load(String filepath);
+	public Palette load(String filepath) throws IOException, ClassNotFoundException;
 }
