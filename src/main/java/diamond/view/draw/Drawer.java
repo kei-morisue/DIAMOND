@@ -30,6 +30,14 @@ public class Drawer extends DrawerBase {
 		this.shapeProvider = shapeProvider;
 	}
 
+	public void setColorProvider(ColorProviderBase colorProvider) {
+		this.colorProvider = colorProvider;
+	}
+
+	public void setShapeProvider(ShapeProviderBase shapeProvider) {
+		this.shapeProvider = shapeProvider;
+	}
+
 	@Override
 	protected ArrayList<Vertex> getVertices() {
 		return fold.getVertices();

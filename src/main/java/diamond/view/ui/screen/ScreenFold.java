@@ -4,22 +4,18 @@
  */
 package diamond.view.ui.screen;
 
-import diamond.model.fold.Fold;
-import diamond.view.draw.Drawer;
 import diamond.view.draw.DrawerBase;
-import diamond.view.draw.color.ColorProviderFlat;
-import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
 public class ScreenFold extends ScreenBase {
-	private Drawer drawer;
+	private DrawerBase drawer;
 
-	public ScreenFold(Fold fold, ShapeProviderBase shapeProvider) {
+	public ScreenFold(DrawerBase drawer) {
 		super();
-		this.drawer = new Drawer(fold, new ColorProviderFlat(), shapeProvider);
+		this.drawer = drawer;
 	}
 
 	@Override

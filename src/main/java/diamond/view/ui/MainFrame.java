@@ -10,6 +10,10 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 
 import diamond.model.fold.Fold;
+import diamond.view.draw.Drawer;
+import diamond.view.draw.DrawerBase;
+import diamond.view.draw.color.ColorProviderFlat;
+import diamond.view.draw.color.ColorProviderFolded;
 import diamond.view.draw.shape.ShapeProviderFlat;
 import diamond.view.draw.shape.ShapeProviderFolded;
 import diamond.view.ui.screen.ScreenBase;
@@ -24,9 +28,15 @@ import diamond.view.util.Label;
 public class MainFrame extends JFrame {
 	// TODO STUB
 	private Fold fold = new Fold();
+	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
+	private ColorProviderFolded colorProvider2 = new ColorProviderFolded();
+	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
+	private ShapeProviderFolded shapeProvider2 = new ShapeProviderFolded();
+	private DrawerBase drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
+	private DrawerBase drawer2 = new Drawer(fold, colorProvider2, shapeProvider2);
 
-	private ScreenBase screen = new ScreenFold(fold, new ShapeProviderFlat());
-	private ScreenBase screen2 = new ScreenFold(fold, new ShapeProviderFolded());
+	private ScreenBase screen1 = new ScreenFold(drawer1);
+	private ScreenBase screen2 = new ScreenFold(drawer2);
 
 	public MainFrame() {
 		setVisible(true);
@@ -37,7 +47,8 @@ public class MainFrame extends JFrame {
 
 		Container panel = getContentPane();
 		panel.setLayout(new GridLayout(1, 2, 100, 0));
-		panel.add(screen);
+
+		panel.add(screen1);
 		panel.add(screen2);
 	}
 
