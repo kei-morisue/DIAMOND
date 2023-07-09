@@ -2,7 +2,7 @@
  * DIAMOND - Origami Diagram Editor
  * Copyright (C) 2018-2020 Kei Morisue
  */
-package diamond.view.ui;
+package diamond.view.ui.screen;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,14 +19,14 @@ import diamond.view.util.ScreenTransform;
  * @author Kei Morisue
  *
  */
-public class ScreenBase extends JPanel {
+public abstract class ScreenBase extends JPanel {
 	protected ScreenTransform transform;
 	BufferedImage bufferImage;
 	Graphics2D g2d;
-	private DrawerBase drawer;
 
-	public ScreenBase(DrawerBase drawer) {
-		this.drawer = drawer;
+	abstract protected DrawerBase getDrawer();
+
+	public ScreenBase() {
 		this.transform = new ScreenTransform(getWidth(), getHeight());
 		ScreenAction screenAction = new ScreenAction(this);
 		addMouseListener(screenAction);
@@ -41,7 +41,7 @@ public class ScreenBase extends JPanel {
 		g2d = (Graphics2D) bufferImage.getGraphics();
 
 		drawBackGround(g2d, Color.lightGray);
-		drawer.draw(g2d);
+		getDrawer().draw(g2d);
 
 		g.drawImage(bufferImage, 0, 0, this);
 	}

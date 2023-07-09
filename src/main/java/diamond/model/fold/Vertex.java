@@ -2,21 +2,27 @@
  * DEFOX - Origami Diagram Editor
  * Copyright (C) 2023 Kei Morisue
  */
-package diamond.model;
+package diamond.model.fold;
 
+import java.awt.Color;
+import java.awt.Shape;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import diamond.model.XY;
+import diamond.view.draw.color.ColorProviderBase;
+import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Vertex implements Serializable {
+public class Vertex implements Renderable, Serializable {
 	private XY v;
 	private XY f;
 	private XY d;
-	private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
+	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
 	private double kawasaki;
 
 	public Vertex(XY v) {
@@ -34,12 +40,8 @@ public class Vertex implements Serializable {
 
 	}
 
-	public ArrayList<Vertex> getVertices() {
-		return vertices;
-	}
-
-	public void setVertices(ArrayList<Vertex> vertices) {
-		this.vertices = vertices;
+	public ArrayList<Vertex> getAdj() {
+		return adj;
 	}
 
 	public double getKawasaki() {
@@ -68,5 +70,15 @@ public class Vertex implements Serializable {
 
 	public void setD(XY d) {
 		this.d = d;
+	}
+
+	@Override
+	public Shape getShape(ShapeProviderBase shapeProvider, double scale) {
+		return shapeProvider.getShape(this, scale);
+	}
+
+	@Override
+	public Color getColor(ColorProviderBase colorProvider) {
+		return colorProvider.getColor(this);
 	}
 }

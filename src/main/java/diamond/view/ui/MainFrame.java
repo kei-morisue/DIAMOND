@@ -9,9 +9,11 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-import diamond.model.Fold;
-import diamond.view.draw.DrawerFlat;
-import diamond.view.draw.DrawerFold;
+import diamond.model.fold.Fold;
+import diamond.view.draw.shape.ShapeProviderFlat;
+import diamond.view.draw.shape.ShapeProviderFolded;
+import diamond.view.ui.screen.ScreenBase;
+import diamond.view.ui.screen.ScreenFold;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
 
@@ -22,8 +24,9 @@ import diamond.view.util.Label;
 public class MainFrame extends JFrame {
 	// TODO STUB
 	private Fold fold = new Fold();
-	private ScreenBase screen = new ScreenBase(new DrawerFlat(fold));
-	public ScreenBase screen2 = new ScreenBase(new DrawerFold(fold));
+
+	private ScreenBase screen = new ScreenFold(fold, new ShapeProviderFlat());
+	private ScreenBase screen2 = new ScreenFold(fold, new ShapeProviderFolded());
 
 	public MainFrame() {
 		setVisible(true);

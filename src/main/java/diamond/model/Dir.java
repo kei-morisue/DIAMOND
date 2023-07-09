@@ -25,6 +25,14 @@ public class Dir {
 		return new Dir(x * s, y * s);
 	}
 
+	public Dir add(Dir d) {
+		return new Dir(x + d.x, y + d.y);
+	}
+
+	public Dir sub(Dir d) {
+		return new Dir(x - d.x, y - d.y);
+	}
+
 	public double dot(Dir d) {
 		return x * d.x + y * d.y;
 	}

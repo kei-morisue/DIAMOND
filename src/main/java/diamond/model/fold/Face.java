@@ -2,19 +2,26 @@
  * DEFOX - Origami Diagram Editor
  * Copyright (C) 2023 Kei Morisue
  */
-package diamond.model;
+package diamond.model.fold;
 
+import java.awt.Color;
+import java.awt.Shape;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import diamond.model.XY;
+import diamond.view.draw.color.ColorProviderBase;
+import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Face implements Comparable<Face>, Serializable {
+public class Face implements Renderable, Comparable<Face>, Serializable {
 	private ArrayList<Vertex> vertices;
 
-	private ArrayList<Edge> edges;
+	private ArrayList<Edge> edges = new ArrayList<Edge>();
+
 	private boolean flip;
 
 	public Face(ArrayList<Vertex> vertices) {
@@ -28,10 +35,6 @@ public class Face implements Comparable<Face>, Serializable {
 
 	public ArrayList<Edge> getEdges() {
 		return edges;
-	}
-
-	public void setEdges(ArrayList<Edge> edges) {
-		this.edges = edges;
 	}
 
 	public boolean isFlip() {
@@ -59,4 +62,13 @@ public class Face implements Comparable<Face>, Serializable {
 		return f.area2() - area2() < 0 ? -1 : 1;
 	}
 
+	@Override
+	public Shape getShape(ShapeProviderBase shapeProvider, double scale) {
+		return shapeProvider.getShape(this, scale);
+	}
+
+	@Override
+	public Color getColor(ColorProviderBase colorProvider) {
+		return colorProvider.getColor(this);
+	}
 }

@@ -12,7 +12,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
 import diamond.controller.mouse.MouseUtility;
-import diamond.view.ui.ScreenBase;
+import diamond.view.ui.screen.ScreenBase;
 
 /**
  * @author Kei Morisue
