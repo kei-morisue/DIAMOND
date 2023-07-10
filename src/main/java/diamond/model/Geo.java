@@ -6,16 +6,18 @@ package diamond.model;
 
 import java.util.List;
 
+import diamond.model.line.Line;
+
 /**
  * @author Kei Morisue
  *
  */
 public class Geo {
-	public static double minLength(List<XY> p, List<XY> q) {
+	public static double minLength(List<Line> lines) {
 		Double minSq = null;
-		for (int i = 0; i < p.size(); i++) {
-			XY v0 = p.get(i);
-			XY v1 = q.get(i);
+		for (Line line : lines) {
+			XY v0 = line.p;
+			XY v1 = line.q;
 			double lenSq = v0.distSq(v1);
 			if (minSq == null || minSq > lenSq) {
 				minSq = lenSq;

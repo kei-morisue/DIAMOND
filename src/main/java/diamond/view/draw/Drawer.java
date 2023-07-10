@@ -12,6 +12,7 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Fold;
 import diamond.model.fold.Vertex;
+import diamond.model.line.Line;
 import diamond.view.draw.color.ColorProviderBase;
 import diamond.view.draw.shape.ShapeProviderBase;
 
@@ -32,13 +33,13 @@ public class Drawer extends DrawerBase {
 	}
 
 	private double getMInLength(ShapeProviderBase shapeProvider) {
-		ArrayList<XY> p = new ArrayList<>();
-		ArrayList<XY> q = new ArrayList<>();
+		ArrayList<Line> lines = new ArrayList<>();
 		getEdges().forEach(e -> {
-			p.add(shapeProvider.getXY(e.getV0()));
-			q.add(shapeProvider.getXY(e.getV1()));
+			XY p = shapeProvider.getXY(e.getV0());
+			XY q = shapeProvider.getXY(e.getV1());
+			lines.add(new Line(p, q));
 		});
-		double minLength = Geo.minLength(p, q);
+		double minLength = Geo.minLength(lines);
 		return minLength;
 	}
 

@@ -47,7 +47,7 @@ public class Dir {
 
 	public double angle() {
 		double angle = Math.atan2(y, x);
-		return angle + angle < 0 ? 2 * Math.PI : 0;
+		return angle + (angle < 0 ? 2 * Math.PI : 0.0);
 	}
 
 	public double mg() {

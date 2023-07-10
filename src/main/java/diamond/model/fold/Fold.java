@@ -13,9 +13,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import com.sun.tools.javac.util.Pair;
+
 import diamond.model.Dir;
+import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
+import diamond.model.fold.Edge.Assign;
+import diamond.model.line.Line;
 
 /**
  * @author Kei Morisue
@@ -27,42 +32,51 @@ public class Fold implements Serializable {
 	private ArrayList<Face> faces = new ArrayList<Face>();
 
 	// TODO STUB
-	public Fold(ArrayList<XY> p, ArrayList<XY> q, ArrayList<Edge.Assign> a) {
-	}
-
-	public Fold() {
-		double size = 100.0;
-		Vertex v0 = new Vertex(new XY(size, size));
-		Vertex v1 = new Vertex(new XY(-size, size));
-		Vertex v2 = new Vertex(new XY(-size, -size));
-		Vertex v3 = new Vertex(new XY(size, -size));
-		Vertex v4 = new Vertex(new XY(0.0, 0.0));
-
-		vertices.add(v0);
-		vertices.add(v1);
-		vertices.add(v2);
-		vertices.add(v3);
-		vertices.add(v4);
-
-		Edge e0 = new Edge(v0, v1, Edge.Assign.B);
-		Edge e1 = new Edge(v1, v2, Edge.Assign.B);
-		Edge e2 = new Edge(v2, v3, Edge.Assign.B);
-		Edge e3 = new Edge(v3, v0, Edge.Assign.B);
-		Edge e4 = new Edge(v4, v0, Edge.Assign.M);
-		Edge e5 = new Edge(v4, v2, Edge.Assign.V);
-		Edge e6 = new Edge(v4, v1, Edge.Assign.F);
-		edges.add(e0);
-		edges.add(e1);
-		edges.add(e2);
-		edges.add(e3);
-		edges.add(e4);
-		edges.add(e5);
-		edges.add(e6);
+	public Fold(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
+		double eps = Geo.minLength(l) / 300;
+		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, eps);
+		this.vertices = Line.getV(compressedP);
+		HashMap<Tuple<Vertex>, ArrayList<Line>> es = Line.getEdges(this.vertices, l, compressedP);
+		es.forEach((k, v) -> {
+			Vertex v0 = k.fst;
+			Vertex v1 = k.snd;
+			Line line = v.get(0);
+			Assign assign = a.get(l.indexOf(line));
+			edges.add(new Edge(v0, v1, assign));
+		});
 		buildVV();
 		buildFV();
 		buildFolded(faces.get(1));
 		buildFEnEF();
 		return;
+	}
+
+	public static ArrayList<Line> testLines() {
+		double size = 100.0;
+		XY v0 = new XY(size, size);
+		XY v1 = new XY(-size, size);
+		XY v2 = new XY(-size, -size);
+		XY v3 = new XY(size, -size);
+
+		Line e0 = new Line(v0, v1);
+		Line e1 = new Line(v1, v2);
+		Line e2 = new Line(v2, v3);
+		Line e3 = new Line(v3, v0);
+		Line e4 = new Line(v2, v0);
+		Line e5 = new Line(v1, v3);
+		return new ArrayList<Line>(Arrays.asList(e0, e1, e2, e3, e4, e5));
+	}
+
+	public static ArrayList<Edge.Assign> testAssigns() {
+		Assign b = Edge.Assign.B;
+		Assign m = Edge.Assign.M;
+		// Assign v = Edge.Assign.V;
+		Assign f = Edge.Assign.F;
+		return new ArrayList<Edge.Assign>(Arrays.asList(b, b, b, b, m, f));
+	}
+
+	public Fold() {
+		this(testLines(), testAssigns());
 	}
 
 	private void buildVV() {

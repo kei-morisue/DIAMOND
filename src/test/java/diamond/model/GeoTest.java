@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import diamond.model.line.Line;
+
 /**
  * @author Kei Morisue
  *
@@ -17,8 +19,7 @@ import org.junit.Test;
 public class GeoTest {
 	private static XY a = new XY(-1.0, 0.0);
 	private static XY b = new XY(1.0, 0.0);
-	private static ArrayList<XY> p = new ArrayList<XY>();
-	private static ArrayList<XY> q = new ArrayList<XY>();
+	private static ArrayList<Line> lines = new ArrayList<Line>();
 
 	@Test
 	public void testIntersect0() {
@@ -66,11 +67,9 @@ public class GeoTest {
 	}
 
 	private double getEps(XY c, XY d) {
-		p.add(a);
-		p.add(c);
-		q.add(b);
-		q.add(d);
-		double eps = Geo.minLength(p, q);
+		lines.add(new Line(a, b));
+		lines.add(new Line(c, d));
+		double eps = Geo.minLength(lines);
 		return eps / 300;
 	}
 
