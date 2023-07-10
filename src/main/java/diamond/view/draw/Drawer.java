@@ -6,6 +6,8 @@ package diamond.view.draw;
 
 import java.util.ArrayList;
 
+import diamond.model.Geo;
+import diamond.model.XY;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Fold;
@@ -20,14 +22,24 @@ import diamond.view.draw.shape.ShapeProviderBase;
 public class Drawer extends DrawerBase {
 
 	private Fold fold;
-	private ColorProviderBase colorProvider;
-	private ShapeProviderBase shapeProvider;
+	private double EPS;
 
 	public Drawer(Fold fold, ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
-		super();
+		super(colorProvider, shapeProvider);
 		this.fold = fold;
-		this.colorProvider = colorProvider;
-		this.shapeProvider = shapeProvider;
+		double minLength = getMInLength(shapeProvider);
+		this.EPS = minLength / 3;
+	}
+
+	private double getMInLength(ShapeProviderBase shapeProvider) {
+		ArrayList<XY> p = new ArrayList<>();
+		ArrayList<XY> q = new ArrayList<>();
+		getEdges().forEach(e -> {
+			p.add(shapeProvider.getXY(e.getV0()));
+			q.add(shapeProvider.getXY(e.getV1()));
+		});
+		double minLength = Geo.minLength(p, q);
+		return minLength;
 	}
 
 	public void setColorProvider(ColorProviderBase colorProvider) {
@@ -53,13 +65,23 @@ public class Drawer extends DrawerBase {
 		return fold.getFaces();
 	}
 
-	@Override
-	protected ColorProviderBase getColorProvider() {
-		return colorProvider;
+	public Vertex pickVertex(XY v0, double scale) {
+		ArrayList<Vertex> vertices = getVertices();
+		vertices.forEach(vertex -> vertex.picked = false);
+		for (Vertex vertex : vertices) {
+			XY xy = shapeProvider.getXY(vertex);
+			if (Geo.close(xy, v0, EPS / scale)) {
+				vertex.picked = true;
+				return vertex;
+			}
+		}
+		return null;
 	}
 
-	@Override
-	protected ShapeProviderBase getShapeProvider() {
-		return shapeProvider;
+	public void clearPicked() {
+		getVertices().forEach(v -> v.picked = false);
+		getEdges().forEach(e -> e.picked = false);
+		getFaces().forEach(f -> f.picked = false);
 	}
+
 }

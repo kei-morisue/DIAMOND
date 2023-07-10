@@ -4,21 +4,17 @@
  */
 package diamond.model.fold;
 
-import java.awt.Color;
-import java.awt.Shape;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import diamond.model.XY;
-import diamond.view.draw.color.ColorProviderBase;
-import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Vertex implements Renderable, Serializable {
+public class Vertex extends Renderable implements Serializable {
 	private XY v;
 	private XY f;
 	private XY d;
@@ -72,13 +68,4 @@ public class Vertex implements Renderable, Serializable {
 		this.d = d;
 	}
 
-	@Override
-	public Shape getShape(ShapeProviderBase shapeProvider, double scale) {
-		return shapeProvider.getShape(this, scale);
-	}
-
-	@Override
-	public Color getColor(ColorProviderBase colorProvider) {
-		return colorProvider.getColor(this);
-	}
 }

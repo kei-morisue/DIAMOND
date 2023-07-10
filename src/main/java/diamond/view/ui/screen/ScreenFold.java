@@ -4,6 +4,12 @@
  */
 package diamond.view.ui.screen;
 
+import java.util.ArrayList;
+
+import diamond.controller.action.ScreenFoldAction;
+import diamond.model.XY;
+import diamond.model.fold.Vertex;
+import diamond.view.draw.Drawer;
 import diamond.view.draw.DrawerBase;
 
 /**
@@ -11,15 +17,40 @@ import diamond.view.draw.DrawerBase;
  *
  */
 public class ScreenFold extends ScreenBase {
-	private DrawerBase drawer;
 
-	public ScreenFold(DrawerBase drawer) {
+	private Drawer drawer;
+	private ArrayList<ScreenFold> linkedScreens = new ArrayList<>();
+
+	public ScreenFold(Drawer drawer) {
 		super();
 		this.drawer = drawer;
+		setFocusable(true);
+		ScreenFoldAction action = new ScreenFoldAction(this);
+		addMouseMotionListener(action);
+		addMouseListener(action);
+		addKeyListener(action);
+	}
+
+	public void link(ScreenFold linkedScreen) {
+		this.linkedScreens.add(linkedScreen);
+		linkedScreen.linkedScreens.add(this);
 	}
 
 	@Override
-	protected DrawerBase getDrawer() {
+	public DrawerBase getDrawer() {
 		return drawer;
 	}
+
+	public Vertex pickVertex(XY v, double scale) {
+		return drawer.pickVertex(v, scale);
+	}
+
+	public void clearPicked() {
+		drawer.clearPicked();
+	}
+
+	public ArrayList<ScreenFold> getLinkedScreens() {
+		return linkedScreens;
+	}
+
 }

@@ -5,7 +5,6 @@
 package diamond.view.draw;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
-import diamond.model.fold.Renderable;
 import diamond.model.fold.Vertex;
 import diamond.view.draw.color.ColorProviderBase;
 import diamond.view.draw.shape.ShapeProviderBase;
@@ -23,6 +21,13 @@ import diamond.view.draw.shape.ShapeProviderBase;
  *
  */
 public abstract class DrawerBase {
+	protected ColorProviderBase colorProvider;
+	protected ShapeProviderBase shapeProvider;
+
+	public DrawerBase(ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
+		this.colorProvider = colorProvider;
+		this.shapeProvider = shapeProvider;
+	}
 
 	abstract protected ArrayList<Vertex> getVertices();
 
@@ -30,15 +35,11 @@ public abstract class DrawerBase {
 
 	abstract protected ArrayList<Face> getFaces();
 
-	abstract protected ColorProviderBase getColorProvider();
-
-	abstract protected ShapeProviderBase getShapeProvider();
-
 	private void drawVertices(Graphics2D g2d, double scale) {
 		ArrayList<Vertex> vertices = getVertices();
 		vertices.forEach(vertex -> {
-			Shape s = getShape(vertex, scale);
-			g2d.setColor(getColor(vertex));
+			Shape s = shapeProvider.getShape(vertex, scale);
+			g2d.setColor(colorProvider.getColor(vertex));
 			g2d.fill(s);
 		});
 	}
@@ -48,8 +49,9 @@ public abstract class DrawerBase {
 		g2d.setStroke(stroke);
 		ArrayList<Edge> edges = getEdges();
 		edges.forEach(e -> {
-			Shape s = getShape(e, scale);
-			g2d.setColor(getColor(e));
+			Shape s = shapeProvider.getShape(e, scale);
+			g2d.setColor(colorProvider.getColor(e));
+
 			g2d.draw(s);
 
 		});
@@ -58,14 +60,10 @@ public abstract class DrawerBase {
 	private void drawFaces(Graphics2D g2d, double scale) {
 		ArrayList<Face> faces = getFaces();
 		faces.forEach(face -> {
-			drawFace(g2d, face, scale);
+			g2d.setColor(colorProvider.getColor(face));
+			Shape path = shapeProvider.getShape(face, scale);
+			g2d.fill(path);
 		});
-	}
-
-	private void drawFace(Graphics2D g2d, Face face, double scale) {
-		g2d.setColor(getColor(face));
-		Shape path = getShape(face, scale);
-		g2d.fill(path);
 	}
 
 	public void draw(Graphics2D g2d) {
@@ -84,14 +82,4 @@ public abstract class DrawerBase {
 		return Math.sqrt(scaleX * scaleY - shearX * shearY);
 	}
 
-	private Color getColor(Renderable r) {
-		ColorProviderBase colorProvider = getColorProvider();
-		return r.getColor(colorProvider);
-
-	}
-
-	private Shape getShape(Renderable r, double scale) {
-		ShapeProviderBase shapeProvider = getShapeProvider();
-		return r.getShape(shapeProvider, scale);
-	}
 }

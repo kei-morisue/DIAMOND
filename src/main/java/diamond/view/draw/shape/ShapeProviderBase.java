@@ -19,7 +19,7 @@ import diamond.model.fold.Vertex;
  *
  */
 public abstract class ShapeProviderBase {
-	abstract protected XY getXY(Vertex v);
+	abstract public XY getXY(Vertex v);
 
 	public Line2D.Double getShape(Edge e, double scale) {
 		XY v1 = getXY(e.getV0());
@@ -34,10 +34,11 @@ public abstract class ShapeProviderBase {
 
 	public Ellipse2D.Double getShape(Vertex vertex, double scale) {
 		XY xy = getXY(vertex);
-		double r = 10 / scale;
+		double radius = vertex.picked ? 15.0 : 10.0;
+		double size = radius / scale;
 		double x = xy.getX();
 		double y = xy.getY();
-		Ellipse2D.Double s = new Ellipse2D.Double(x - r / 2, y - r / 2, r, r);
+		Ellipse2D.Double s = new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
 		return s;
 	}
 

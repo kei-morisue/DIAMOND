@@ -14,7 +14,7 @@ import diamond.model.fold.Vertex;
 public class ShapeProviderFolded extends ShapeProviderBase {
 
 	@Override
-	protected XY getXY(Vertex v) {
+	public XY getXY(Vertex v) {
 		return v.getF();
 	}
 

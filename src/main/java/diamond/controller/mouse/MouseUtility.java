@@ -11,19 +11,22 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
+import diamond.model.XY;
+
 /**
  * @author Kei Morisue
  *
  */
 public class MouseUtility {
-	public static Point2D.Double getLogicalPoint(AffineTransform affine, Point mousePoint) {
+	public static XY getLogicalPoint(AffineTransform affine, Point mousePoint) {
 		Point2D.Double logicalPoint = new Point2D.Double();
 		try {
 			affine.inverseTransform(mousePoint, logicalPoint);
 		} catch (NoninvertibleTransformException e) {
 			e.printStackTrace();
 		}
-		return logicalPoint;
+
+		return new XY(logicalPoint.x, logicalPoint.y);
 	}
 
 	public static boolean isControlKeyPressed(MouseEvent e) {

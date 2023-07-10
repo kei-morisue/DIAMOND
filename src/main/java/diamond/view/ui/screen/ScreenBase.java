@@ -24,7 +24,11 @@ public abstract class ScreenBase extends JPanel {
 	BufferedImage bufferImage;
 	Graphics2D g2d;
 
-	abstract protected DrawerBase getDrawer();
+	public ScreenTransform getTransform() {
+		return transform;
+	}
+
+	abstract public DrawerBase getDrawer();
 
 	public ScreenBase() {
 		this.transform = new ScreenTransform(getWidth(), getHeight());

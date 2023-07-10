@@ -62,6 +62,10 @@ public class ScreenAction implements MouseListener, MouseMotionListener, MouseWh
 	}
 
 	@Override
+	public void mouseMoved(MouseEvent e) {
+	}
+
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		shift(e);
 		clicked = e.getPoint();
@@ -82,10 +86,6 @@ public class ScreenAction implements MouseListener, MouseMotionListener, MouseWh
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
 	}
 
 	@Override

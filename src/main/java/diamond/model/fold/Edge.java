@@ -4,18 +4,13 @@
  */
 package diamond.model.fold;
 
-import java.awt.Color;
-import java.awt.Shape;
 import java.io.Serializable;
-
-import diamond.view.draw.color.ColorProviderBase;
-import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
-public class Edge implements Renderable, Serializable {
+public class Edge extends Renderable implements Serializable {
 	public static enum Assign implements Serializable {
 		M, V, F, U, B
 	};
@@ -63,16 +58,6 @@ public class Edge implements Renderable, Serializable {
 
 	public Face getF1() {
 		return f1;
-	}
-
-	@Override
-	public Shape getShape(ShapeProviderBase shapeProvider, double scale) {
-		return shapeProvider.getShape(this, scale);
-	}
-
-	@Override
-	public Color getColor(ColorProviderBase colorProvider) {
-		return colorProvider.getColor(this);
 	}
 
 }

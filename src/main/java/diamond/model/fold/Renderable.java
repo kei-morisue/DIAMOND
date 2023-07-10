@@ -4,18 +4,13 @@
  */
 package diamond.model.fold;
 
-import java.awt.Color;
-import java.awt.Shape;
-
-import diamond.view.draw.color.ColorProviderBase;
-import diamond.view.draw.shape.ShapeProviderBase;
-
 /**
  * @author Kei Morisue
  *
  */
-public interface Renderable {
-	public Shape getShape(ShapeProviderBase shapeProvider, double scale);
+public abstract class Renderable {
 
-	public Color getColor(ColorProviderBase colorProvider);
+	public boolean picked = false;
+	public boolean selected = false;
+
 }
