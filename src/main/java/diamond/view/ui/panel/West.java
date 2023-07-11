@@ -18,17 +18,16 @@ import diamond.view.ui.screen.FoldedScreen;
  */
 public class West extends JPanel {
 
-    public West(Context context) {
-        setLayout(new BorderLayout());
-        add(east(context), BorderLayout.EAST);
-        add(new FoldedScreen(context), BorderLayout.CENTER);
-    }
+	public West(Context context) {
+		setLayout(new BorderLayout());
+		add(east(context), BorderLayout.EAST);
+		add(new FoldedScreen(context), BorderLayout.CENTER);
+	}
 
-    private JPanel east(Context context) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1));
-        panel.add(new Tabs(context));
-        panel.add(new PaintColorPanel(context));
-        return panel;
-    }
+	private JPanel east(Context context) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 1));
+		panel.add(new Tabs(context));
+		return panel;
+	}
 }
