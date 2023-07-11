@@ -18,9 +18,15 @@ import diamond.model.cyborg.Cp;
  */
 public class ExporterDMD {
 
-	public boolean export(Palette palette, String filePath) throws IOException {
+	public boolean export(Palette palette, String filePath) {
 		Vector<Cp> cps = palette.getCps();
-		exportXml(cps, filePath + ".dmd");
+		String ext = filePath.substring(1 + filePath.lastIndexOf(".")).equals("dmd") ? "" : ".dmd";
+		try {
+			exportXml(cps, filePath + ext);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 

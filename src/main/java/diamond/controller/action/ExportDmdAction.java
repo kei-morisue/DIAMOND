@@ -7,9 +7,9 @@ package diamond.controller.action;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import diamond.controller.Context;
 import diamond.controller.Palette;
@@ -31,18 +31,18 @@ public class ExportDmdAction implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("DIAMOND file(*.dmd)", "dmd");
+		chooser.setFileFilter(filter);
 		String path = null;
 		if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(parentComponent)) {
 			path = chooser.getSelectedFile().getPath();
 		}
-		ExporterDMD exporterXML = new ExporterDMD();
-		Palette palette = context.getPalette();
-		try {
+		if (path != null) {
+			ExporterDMD exporterXML = new ExporterDMD();
+			Palette palette = context.getPalette();
 			exporterXML.export(palette, path);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 
+		}
 	}
 
 }
