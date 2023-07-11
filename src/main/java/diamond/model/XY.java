@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author Kei Morisue
  *
  */
-public class XY implements Serializable, Comparable<XY> {
+public class XY implements Serializable {
 	private double x;
 	private double y;
 
@@ -45,9 +45,16 @@ public class XY implements Serializable, Comparable<XY> {
 		return y;
 	}
 
-	@Override
-	public int compareTo(XY v) {
-		return Geo.isZero(x - v.x) ? y - v.y > 0 ? 1 : -1 : x - v.x > 0 ? 1 : -1;
-	}
+	public class Comparator implements java.util.Comparator<XY> {
+		private double eps;
 
+		public Comparator(double eps) {
+			this.eps = eps;
+		}
+
+		@Override
+		public int compare(XY p1, XY p2) {
+			return Geo.isClose(p1.x, p2.x, eps) ? Double.compare(p1.y, p2.y) : Double.compare(p1.x, p2.x);
+		}
+	}
 }

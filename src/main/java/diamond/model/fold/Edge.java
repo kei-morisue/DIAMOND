@@ -40,6 +40,10 @@ public class Edge extends Renderable implements Serializable {
 		this.f1 = f1;
 	}
 
+	public void setA(Assign a) {
+		this.a = a;
+	}
+
 	public Vertex getV0() {
 		return v0;
 	}

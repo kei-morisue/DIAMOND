@@ -13,6 +13,8 @@ import diamond.model.line.Line;
  *
  */
 public class Geo {
+	public static final double EPS = 1.0e-16;
+
 	public static double minLength(List<Line> lines) {
 		Double minSq = null;
 		for (Line line : lines) {
@@ -29,10 +31,14 @@ public class Geo {
 	}
 
 	public static boolean isZero(double a) {
-		return Math.abs(a) < 1.0e-16;
+		return Math.abs(a) < EPS;
 	}
 
-	public static boolean close(XY a, XY b, double eps) {
+	public static boolean isClose(double a, double b, double eps) {
+		return Math.abs(a - b) < eps;
+	}
+
+	public static boolean isClose(XY a, XY b, double eps) {
 		double dx = a.getX() - b.getX();
 		double dy = a.getY() - b.getY();
 		return Math.abs(dx) < eps && Math.abs(dy) < eps;
@@ -48,7 +54,7 @@ public class Geo {
 	}
 
 	public static XY intersect(XY a, XY b, XY c, XY d, double eps) {
-		if (close(a, c, eps) || close(a, d, eps) || close(b, c, eps) || close(b, d, eps)) {
+		if (isClose(a, c, eps) || isClose(a, d, eps) || isClose(b, c, eps) || isClose(b, d, eps)) {
 			return null;
 		}
 		if (on(a, b, c, eps) || on(a, b, d, eps) || on(c, d, a, eps) || on(c, d, b, eps)) {
@@ -77,7 +83,7 @@ public class Geo {
 			return null;// intersects outside the segment
 		}
 		XY p = a.mid(b, s);
-		if (close(a, p, eps) || close(b, p, eps) || close(c, p, eps) || close(d, p, eps)) {
+		if (isClose(a, p, eps) || isClose(b, p, eps) || isClose(c, p, eps) || isClose(d, p, eps)) {
 			return null;
 		}
 		return p;

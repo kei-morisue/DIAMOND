@@ -45,10 +45,10 @@ public abstract class DrawerBase {
 	}
 
 	private void drawEdges(Graphics2D g2d, double scale) {
-		BasicStroke stroke = new BasicStroke((float) (5.0 / scale), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-		g2d.setStroke(stroke);
 		ArrayList<Edge> edges = getEdges();
 		edges.forEach(e -> {
+			BasicStroke stroke = shapeProvider.getStroke(e, scale);
+			g2d.setStroke(stroke);
 			Shape s = shapeProvider.getShape(e, scale);
 			g2d.setColor(colorProvider.getColor(e));
 

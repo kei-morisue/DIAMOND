@@ -17,7 +17,7 @@ import diamond.model.fold.Vertex;
 public class ColorProviderFolded implements ColorProviderBase {
 	@Override
 	public Color getColor(Vertex vertex) {
-		return vertex.picked ? Color.GREEN : Color.BLACK;
+		return (vertex.picked || vertex.selected) ? Color.GREEN : Color.BLACK;
 
 	}
 
@@ -38,7 +38,7 @@ public class ColorProviderFolded implements ColorProviderBase {
 		case F:
 			return (Color.LIGHT_GRAY);
 		default:
-			return (Color.WHITE);
+			return (Color.BLACK);
 		}
 	}
 

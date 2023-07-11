@@ -26,12 +26,8 @@ public class Line {
 	public XY q;
 
 	public Line(XY p, XY q) {
-		if (p.compareTo(q) < 0) {
-			this.p = p;
-			this.q = q;
-		}
-		this.p = q;
-		this.q = p;
+		this.p = p;
+		this.q = q;
 	}
 
 	public static ArrayList<ArrayList<Pair<XY, Line>>> getCompressedP(ArrayList<Line> lines, double eps) {
@@ -65,7 +61,7 @@ public class Line {
 			}
 			crossings.add(li);
 		}
-		p0.sort(new Comparator());
+		p0.sort(new Comparator(eps));
 		ArrayList<Pair<XY, Line>> curr = new ArrayList<Pair<XY, Line>>();
 		curr.add(p0.get(0));
 		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = new ArrayList<>();
@@ -73,7 +69,7 @@ public class Line {
 		for (Pair<XY, Line> point : p0) {
 			XY a = curr.get(0).fst;
 			XY b = point.fst;
-			if (Geo.close(a, b, eps)) {
+			if (Geo.isClose(a, b, eps)) {
 				curr.add(point);
 			} else {
 				curr = new ArrayList<Pair<XY, Line>>();
@@ -129,12 +125,18 @@ public class Line {
 	}
 
 	private static class Comparator implements java.util.Comparator<Pair<XY, Line>> {
+		private double eps;
+
+		public Comparator(double eps) {
+			super();
+			this.eps = eps;
+		}
 
 		@Override
 		public int compare(Pair<XY, Line> l1, Pair<XY, Line> l2) {
 			XY v1 = l1.fst;
 			XY v2 = l2.fst;
-			return v1.compareTo(v2);
+			return v1.new Comparator(eps).compare(v1, v2);
 		}
 	}
 
@@ -149,6 +151,7 @@ public class Line {
 		Dir dir;
 
 		public PointsOnLineComparator() {
+			super();
 			dir = p.dir(q);
 		}
 

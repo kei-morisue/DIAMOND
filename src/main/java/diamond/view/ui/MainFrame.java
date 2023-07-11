@@ -25,7 +25,8 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Fold fold = new Fold();
+	private Fold fold = new Fold("test.cp");
+//	private Fold fold = new Fold();
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
 	private ColorProviderFolded colorProvider2 = new ColorProviderFolded();
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();

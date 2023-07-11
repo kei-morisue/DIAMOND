@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import diamond.model.fold.Fold;
 import diamond.model.line.Line;
 
 /**
@@ -36,7 +37,7 @@ public class GeoTest {
 		XY d = new XY(1.0, 0.5);
 		double eps = getEps(c, d);
 		XY ix = Geo.intersect(a, b, c, d, eps);
-		assert (Geo.close(new XY(0.5, 0.0), ix, eps));
+		assert (Geo.isClose(new XY(0.5, 0.0), ix, eps));
 	}
 
 	@Test
@@ -61,7 +62,7 @@ public class GeoTest {
 			XY d = o.mid(r, -2);
 			double eps = getEps(c, d);
 			XY ix = Geo.intersect(a, b, c, d, eps);
-			assert (Geo.close(o, ix, eps));
+			assert (Geo.isClose(o, ix, eps));
 		}
 
 	}
@@ -70,7 +71,7 @@ public class GeoTest {
 		lines.add(new Line(a, b));
 		lines.add(new Line(c, d));
 		double eps = Geo.minLength(lines);
-		return eps / 300;
+		return eps / Fold.MAX_FRACTION;
 	}
 
 }

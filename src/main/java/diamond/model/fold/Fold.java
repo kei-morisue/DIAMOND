@@ -4,7 +4,12 @@
  */
 package diamond.model.fold;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,14 +32,20 @@ import diamond.model.line.Line;
  *
  */
 public class Fold implements Serializable {
+	public static final int MAX_FRACTION = 300;
 	private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
 
-	// TODO STUB
+	private double EPS;
+
 	public Fold(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
-		double eps = Geo.minLength(l) / 300;
-		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, eps);
+		build(l, a);
+	}
+
+	private void build(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
+		this.EPS = Geo.minLength(l) / MAX_FRACTION;
+		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, EPS);
 		this.vertices = Line.getV(compressedP);
 		HashMap<Tuple<Vertex>, ArrayList<Line>> es = Line.getEdges(this.vertices, l, compressedP);
 		es.forEach((k, v) -> {
@@ -46,37 +57,43 @@ public class Fold implements Serializable {
 		});
 		buildVV();
 		buildFV();
-		buildFolded(faces.get(1));
 		buildFEnEF();
+		edges.forEach(e -> {
+			if (e.getF1() == null) {
+				e.setA(Edge.Assign.B);
+			}
+		});
+		buildFolded(faces.get(1));
 		return;
 	}
 
-	public static ArrayList<Line> testLines() {
-		double size = 100.0;
-		XY v0 = new XY(size, size);
-		XY v1 = new XY(-size, size);
-		XY v2 = new XY(-size, -size);
-		XY v3 = new XY(size, -size);
+	public Fold(String path) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		ArrayList<Assign> assigns = new ArrayList<Assign>();
+		Assign[] as = { Assign.B, Assign.M, Assign.V, Assign.F };
+		try {
+			String str;
+			BufferedReader bfReader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(path), Charset.forName("UTF-8")));
 
-		Line e0 = new Line(v0, v1);
-		Line e1 = new Line(v1, v2);
-		Line e2 = new Line(v2, v3);
-		Line e3 = new Line(v3, v0);
-		Line e4 = new Line(v2, v0);
-		Line e5 = new Line(v1, v3);
-		return new ArrayList<Line>(Arrays.asList(e0, e1, e2, e3, e4, e5));
-	}
-
-	public static ArrayList<Edge.Assign> testAssigns() {
-		Assign b = Edge.Assign.B;
-		Assign m = Edge.Assign.M;
-		// Assign v = Edge.Assign.V;
-		Assign f = Edge.Assign.F;
-		return new ArrayList<Edge.Assign>(Arrays.asList(b, b, b, b, m, f));
-	}
-
-	public Fold() {
-		this(testLines(), testAssigns());
+			while ((str = bfReader.readLine()) != null) {
+				String[] split = str.split(" ");
+				if (split.length < 5) {
+					continue;
+				}
+				Assign a = as[Integer.parseInt(split[0]) - 1];
+				double x1 = Double.parseDouble(split[1]);
+				double y1 = Double.parseDouble(split[2]);
+				double x2 = Double.parseDouble(split[3]);
+				double y2 = Double.parseDouble(split[4]);
+				lines.add(new Line(new XY(x1, y1), new XY(x2, y2)));
+				assigns.add(a);
+			}
+			bfReader.close();
+		} catch (IOException ioex) {
+			ioex.printStackTrace();
+		}
+		build(lines, assigns);
 	}
 
 	private void buildVV() {
@@ -196,6 +213,13 @@ public class Fold implements Serializable {
 					queued.add(nextFace);
 				}
 				vi = vj;
+			}
+		}
+		for (int i = 0; i < vertices.size(); i++) {
+			Vertex vertex = vertices.get(i);
+			XY f = vertex.getF();
+			if (f == null) {
+				vertex.selected = true;
 			}
 		}
 

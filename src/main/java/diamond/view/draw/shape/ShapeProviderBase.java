@@ -4,6 +4,7 @@
  */
 package diamond.view.draw.shape;
 
+import java.awt.BasicStroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
@@ -21,6 +22,11 @@ import diamond.model.fold.Vertex;
 public abstract class ShapeProviderBase {
 	abstract public XY getXY(Vertex v);
 
+	public BasicStroke getStroke(Edge e, double scale) {
+		BasicStroke stroke = new BasicStroke((float) (5.0 / scale), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+		return stroke;
+	}
+
 	public Line2D.Double getShape(Edge e, double scale) {
 		XY v1 = getXY(e.getV0());
 		XY v2 = getXY(e.getV1());
@@ -34,12 +40,16 @@ public abstract class ShapeProviderBase {
 
 	public Ellipse2D.Double getShape(Vertex vertex, double scale) {
 		XY xy = getXY(vertex);
-		double radius = vertex.picked ? 15.0 : 10.0;
+		double radius = getRadius(vertex);
 		double size = radius / scale;
 		double x = xy.getX();
 		double y = xy.getY();
 		Ellipse2D.Double s = new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
 		return s;
+	}
+
+	public double getRadius(Vertex vertex) {
+		return vertex.picked ? 15.0 : 10.0;
 	}
 
 	public GeneralPath getShape(Face face, double scale) {

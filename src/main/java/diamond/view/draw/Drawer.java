@@ -12,7 +12,6 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Fold;
 import diamond.model.fold.Vertex;
-import diamond.model.line.Line;
 import diamond.view.draw.color.ColorProviderBase;
 import diamond.view.draw.shape.ShapeProviderBase;
 
@@ -23,24 +22,11 @@ import diamond.view.draw.shape.ShapeProviderBase;
 public class Drawer extends DrawerBase {
 
 	private Fold fold;
-	private double EPS;
+	private static final double EPS = 20.0;
 
 	public Drawer(Fold fold, ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
 		super(colorProvider, shapeProvider);
 		this.fold = fold;
-		double minLength = getMInLength(shapeProvider);
-		this.EPS = minLength / 3;
-	}
-
-	private double getMInLength(ShapeProviderBase shapeProvider) {
-		ArrayList<Line> lines = new ArrayList<>();
-		getEdges().forEach(e -> {
-			XY p = shapeProvider.getXY(e.getV0());
-			XY q = shapeProvider.getXY(e.getV1());
-			lines.add(new Line(p, q));
-		});
-		double minLength = Geo.minLength(lines);
-		return minLength;
 	}
 
 	public void setColorProvider(ColorProviderBase colorProvider) {
@@ -71,7 +57,7 @@ public class Drawer extends DrawerBase {
 		vertices.forEach(vertex -> vertex.picked = false);
 		for (Vertex vertex : vertices) {
 			XY xy = shapeProvider.getXY(vertex);
-			if (Geo.close(xy, v0, EPS / scale)) {
+			if (Geo.isClose(xy, v0, EPS / scale)) {
 				vertex.picked = true;
 				return vertex;
 			}
