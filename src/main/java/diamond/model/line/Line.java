@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import com.sun.tools.javac.util.Pair;
 
@@ -87,7 +88,7 @@ public class Line {
 
 	}
 
-	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEdges(ArrayList<Vertex> vs, ArrayList<Line> lines,
+	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEdges(List<Vertex> vs, List<Line> lines,
 			ArrayList<ArrayList<Pair<XY, Line>>> compressedP) {
 		ArrayList<HashSet<Vertex>> lP = new ArrayList<>();
 		lines.forEach(l -> lP.add(new HashSet<>()));
@@ -140,7 +141,7 @@ public class Line {
 		}
 	}
 
-	private static Tuple<Vertex> makeKey(Vertex v1, Vertex v2, ArrayList<Vertex> vs) {
+	private static Tuple<Vertex> makeKey(Vertex v1, Vertex v2, List<Vertex> vs) {
 		int i1 = vs.indexOf(v1);
 		int i2 = vs.indexOf(v2);
 		return i1 < i2 ? new Tuple<Vertex>(v1, v2) : new Tuple<Vertex>(v2, v1);

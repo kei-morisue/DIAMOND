@@ -16,10 +16,7 @@ import diamond.model.XY;
  */
 public class Vertex extends Renderable implements Serializable {
 	private XY v;
-	private XY f;
-	private XY d;
 	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
-	private double kawasaki;
 
 	public Vertex(XY v) {
 		this.v = v;
@@ -40,32 +37,8 @@ public class Vertex extends Renderable implements Serializable {
 		return adj;
 	}
 
-	public double getKawasaki() {
-		return kawasaki;
-	}
-
-	public void setKawasaki(double kawasaki) {
-		this.kawasaki = kawasaki;
-	}
-
-	public XY getD() {
-		return d;
-	}
-
 	public XY getV() {
 		return v;
-	}
-
-	public XY getF() {
-		return f;
-	}
-
-	public void setF(XY f) {
-		this.f = f;
-	}
-
-	public void setD(XY d) {
-		this.d = d;
 	}
 
 }

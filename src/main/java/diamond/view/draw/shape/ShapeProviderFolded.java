@@ -5,10 +5,12 @@
 package diamond.view.draw.shape;
 
 import java.awt.BasicStroke;
+import java.util.List;
 
 import diamond.model.XY;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Edge.Assign;
+import diamond.model.fold.Fold;
 import diamond.model.fold.Vertex;
 
 /**
@@ -16,10 +18,18 @@ import diamond.model.fold.Vertex;
  *
  */
 public class ShapeProviderFolded extends ShapeProviderBase {
+	private List<XY> vfs;
+	private List<Vertex> vs;
+
+	public ShapeProviderFolded(Fold fold) {
+		super();
+		this.vfs = fold.getVfs();
+		this.vs = fold.getVertices();
+	}
 
 	@Override
 	public XY getXY(Vertex v) {
-		return v.getF();
+		return vfs.get(vs.indexOf(v));
 	}
 
 	@Override

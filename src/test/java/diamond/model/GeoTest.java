@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import diamond.model.fold.Fold;
 import diamond.model.line.Line;
 
 /**
@@ -71,7 +70,7 @@ public class GeoTest {
 		lines.add(new Line(a, b));
 		lines.add(new Line(c, d));
 		double eps = Geo.minLength(lines);
-		return eps / Fold.MAX_FRACTION;
+		return eps / 300;
 	}
 
 }

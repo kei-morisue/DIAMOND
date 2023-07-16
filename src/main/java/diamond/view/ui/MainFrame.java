@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
 	private ColorProviderFolded colorProvider2 = new ColorProviderFolded();
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
-	private ShapeProviderFolded shapeProvider2 = new ShapeProviderFolded();
+	private ShapeProviderFolded shapeProvider2 = new ShapeProviderFolded(fold);
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
 	private Drawer drawer2 = new Drawer(fold, colorProvider2, shapeProvider2);
 
