@@ -28,6 +28,7 @@ import diamond.model.line.Line;
  */
 public class Fold extends Flat {
 	private List<XY> vfs = new ArrayList<XY>();
+	private List<Boolean> flips = new ArrayList<Boolean>();
 
 	public Fold(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
 		super(l, a);
@@ -69,11 +70,19 @@ public class Fold extends Flat {
 		vertices.forEach(v -> {
 			vfs.add(null);
 		});
+		faces.forEach(faces -> {
+			flips.add(null);
+		});
 	}
 
 	private void setF(Vertex v, XY vf) {
 		int i = vertices.indexOf(v);
 		vfs.set(i, vf);
+	}
+
+	private void setFlip(Face f, boolean isflip) {
+		int i = faces.indexOf(f);
+		flips.set(i, isflip);
 	}
 
 	private XY getF(Vertex v) {
@@ -100,7 +109,7 @@ public class Fold extends Flat {
 			Vertex v0 = queueV0.poll();
 			Vertex v1 = queueV1.poll();
 			Boolean flip = queueFlip.poll();
-			face.setFlip(!flip);
+			setFlip(face, !flip);
 			ArrayList<Vertex> vs = face.getVertices();
 			Dir x = v0.getV().dir(v1.getV()).unit();
 			Dir y = x.perp();
@@ -133,6 +142,10 @@ public class Fold extends Flat {
 
 	public List<XY> getVfs() {
 		return vfs;
+	}
+
+	public List<Boolean> getFlips() {
+		return flips;
 	}
 
 	@Override

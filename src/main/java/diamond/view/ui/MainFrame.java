@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 	private Fold fold = new Fold("test.cp");
 //	private Fold fold = new Fold();
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
-	private ColorProviderFolded colorProvider2 = new ColorProviderFolded();
+	private ColorProviderFolded colorProvider2 = new ColorProviderFolded(fold);
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
 	private ShapeProviderFolded shapeProvider2 = new ShapeProviderFolded(fold);
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);

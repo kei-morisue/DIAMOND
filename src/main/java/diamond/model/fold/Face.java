@@ -18,8 +18,6 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 
-	private boolean flip;
-
 	public Face(ArrayList<Vertex> vertices) {
 		super();
 		this.vertices = vertices;
@@ -31,14 +29,6 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 
 	public ArrayList<Edge> getEdges() {
 		return edges;
-	}
-
-	public boolean isFlip() {
-		return flip;
-	}
-
-	public void setFlip(boolean flip) {
-		this.flip = flip;
 	}
 
 	public double area2() {

@@ -5,9 +5,11 @@
 package diamond.view.draw.color;
 
 import java.awt.Color;
+import java.util.List;
 
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
+import diamond.model.fold.Fold;
 import diamond.model.fold.Vertex;
 
 /**
@@ -15,6 +17,15 @@ import diamond.model.fold.Vertex;
  *
  */
 public class ColorProviderFolded implements ColorProviderBase {
+	private List<Face> faces;
+	private List<Boolean> flips;
+
+	public ColorProviderFolded(Fold fold) {
+		super();
+		this.faces = fold.getFaces();
+		this.flips = fold.getFlips();
+	}
+
 	@Override
 	public Color getColor(Vertex vertex) {
 		return (vertex.picked || vertex.selected) ? Color.GREEN : Color.BLACK;
@@ -23,7 +34,8 @@ public class ColorProviderFolded implements ColorProviderBase {
 
 	@Override
 	public Color getColor(Face face) {
-		return face.isFlip() ? Color.DARK_GRAY : Color.WHITE;
+		Boolean isFlip = flips.get(faces.indexOf(face));
+		return isFlip ? Color.DARK_GRAY : Color.WHITE;
 
 	}
 
