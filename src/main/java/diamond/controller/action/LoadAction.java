@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import diamond.controller.Context;
 import diamond.controller.Palette;
@@ -31,6 +32,8 @@ public class LoadAction implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("DIAMOND file(*.dmd)", "dmd");
+		chooser.setFileFilter(filter);
 		if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(parentComponent)) {
 			LoaderDMD loader = new LoaderDMD();
 			String path = chooser.getSelectedFile().getPath();
