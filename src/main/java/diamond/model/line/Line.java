@@ -88,7 +88,7 @@ public class Line {
 
 	}
 
-	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEdges(List<Vertex> vs, List<Line> lines,
+	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEL(List<Vertex> vs, List<Line> lines,
 			ArrayList<ArrayList<Pair<XY, Line>>> compressedP) {
 		ArrayList<HashSet<Vertex>> lP = new ArrayList<>();
 		lines.forEach(l -> lP.add(new HashSet<>()));

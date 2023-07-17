@@ -36,7 +36,6 @@ public class Fold extends Flat {
 	}
 
 	public Fold(String path) {
-		super();
 		ArrayList<Line> lines = new ArrayList<Line>();
 		ArrayList<Assign> assigns = new ArrayList<Assign>();
 		Assign[] as = { Assign.B, Assign.M, Assign.V, Assign.F };
@@ -85,7 +84,7 @@ public class Fold extends Flat {
 		flips.set(i, isflip);
 	}
 
-	private XY getF(Vertex v) {
+	public XY getF(Vertex v) {
 		int i = vertices.indexOf(v);
 		return vfs.get(i);
 	}

@@ -9,12 +9,12 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+import diamond.model.fold.Cell;
 import diamond.model.fold.Fold;
 import diamond.view.draw.Drawer;
+import diamond.view.draw.color.ColorProviderCell;
 import diamond.view.draw.color.ColorProviderFlat;
-import diamond.view.draw.color.ColorProviderFolded;
 import diamond.view.draw.shape.ShapeProviderFlat;
-import diamond.view.draw.shape.ShapeProviderFolded;
 import diamond.view.ui.screen.ScreenFold;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
@@ -25,14 +25,13 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Fold fold = new Fold("test.cp");
-//	private Fold fold = new Fold();
+	private Fold fold = new Fold("test0.cp");
+	private Cell cell = new Cell(fold);
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
-	private ColorProviderFolded colorProvider2 = new ColorProviderFolded(fold);
+	private ColorProviderCell colorProvider2 = new ColorProviderCell();
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
-	private ShapeProviderFolded shapeProvider2 = new ShapeProviderFolded(fold);
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
-	private Drawer drawer2 = new Drawer(fold, colorProvider2, shapeProvider2);
+	private Drawer drawer2 = new Drawer(cell, colorProvider2, shapeProvider1);
 
 	private ScreenFold screen1 = new ScreenFold(drawer1);
 	private ScreenFold screen2 = new ScreenFold(drawer2);

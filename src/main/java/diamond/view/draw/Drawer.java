@@ -10,7 +10,7 @@ import diamond.model.Geo;
 import diamond.model.XY;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
-import diamond.model.fold.Fold;
+import diamond.model.fold.Flat;
 import diamond.model.fold.Vertex;
 import diamond.view.draw.color.ColorProviderBase;
 import diamond.view.draw.shape.ShapeProviderBase;
@@ -21,12 +21,12 @@ import diamond.view.draw.shape.ShapeProviderBase;
  */
 public class Drawer extends DrawerBase {
 
-	private Fold fold;
+	private Flat flat;
 	private static final double EPS = 20.0;
 
-	public Drawer(Fold fold, ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
+	public Drawer(Flat fold, ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
 		super(colorProvider, shapeProvider);
-		this.fold = fold;
+		this.flat = fold;
 	}
 
 	public void setColorProvider(ColorProviderBase colorProvider) {
@@ -39,17 +39,17 @@ public class Drawer extends DrawerBase {
 
 	@Override
 	protected ArrayList<Vertex> getVertices() {
-		return fold.getVertices();
+		return flat.getVertices();
 	}
 
 	@Override
 	protected ArrayList<Edge> getEdges() {
-		return fold.getEdges();
+		return flat.getEdges();
 	}
 
 	@Override
 	protected ArrayList<Face> getFaces() {
-		return fold.getFaces();
+		return flat.getFaces();
 	}
 
 	public Vertex pickVertex(XY v0, double scale) {

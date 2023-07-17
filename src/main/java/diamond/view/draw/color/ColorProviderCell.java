@@ -14,32 +14,21 @@ import diamond.model.fold.Vertex;
  * @author Kei Morisue
  *
  */
-public class ColorProviderFlat implements ColorProviderBase {
+public class ColorProviderCell implements ColorProviderBase {
+
 	@Override
 	public Color getColor(Vertex vertex) {
-		return vertex.picked ? Color.GREEN : Color.BLACK;
-
+		return vertex.picked ? Color.GREEN : Color.WHITE;
 	}
 
 	@Override
 	public Color getColor(Face face) {
-		return face.picked ? Color.GREEN : Color.DARK_GRAY;
-
+		return face.picked ? Color.GREEN : Color.GRAY;
 	}
 
 	@Override
 	public Color getColor(Edge edge) {
-		Edge.Assign assign = edge.getA();
-		switch (assign) {
-		case M:
-			return (Color.RED);
-		case V:
-			return (Color.BLUE);
-		case F:
-			return (Color.LIGHT_GRAY);
-		default:
-			return (Color.WHITE);
-		}
+		return Color.BLACK;
 	}
 
 }

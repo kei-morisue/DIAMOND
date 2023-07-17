@@ -37,12 +37,12 @@ public abstract class Flat implements Serializable {
 		build(l, a);
 	}
 
-	protected void build(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
+	protected HashMap<Tuple<Vertex>, ArrayList<Line>> build(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
 		this.EPS = Geo.minLength(l) / getMaxFraction();
 		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, EPS);
 		this.vertices = Line.getV(compressedP);
-		HashMap<Tuple<Vertex>, ArrayList<Line>> es = Line.getEdges(this.vertices, l, compressedP);
-		es.forEach((k, v) -> {
+		HashMap<Tuple<Vertex>, ArrayList<Line>> el = Line.getEL(this.vertices, l, compressedP);
+		el.forEach((k, v) -> {
 			Vertex v0 = k.fst;
 			Vertex v1 = k.snd;
 			Line line = v.get(0);
@@ -57,7 +57,7 @@ public abstract class Flat implements Serializable {
 				e.setA(Edge.Assign.B);
 			}
 		});
-		return;
+		return el;
 	}
 
 	private void buildVV() {
