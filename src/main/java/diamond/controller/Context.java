@@ -11,6 +11,7 @@ import diamond.controller.action.LazyPaintAction;
 import diamond.controller.action.PaintActionInterface;
 import diamond.model.cyborg.Cp;
 import diamond.model.cyborg.EdgeType;
+import diamond.model.cyborg.fold.FaceOrderEstimator;
 import diamond.model.cyborg.fold.Folder;
 import diamond.model.cyborg.util.CpBuilder;
 import diamond.view.ui.panel.East;
@@ -23,141 +24,151 @@ import diamond.view.ui.screen.ScreenTransform;
  *
  */
 public class Context {
-    private Palette palette = new Palette();
-    private int currentStep = 0;
-    private PaintActionInterface paintAction = new LazyPaintAction();
-    private EdgeType inputType = EdgeType.UNSETTLED_VALLEY;
-    private Point2D.Double mousePoint = new Point2D.Double();
-    private CyborgPicker picker = new CyborgPicker();
-    private CyborgPointer pointer = new CyborgPointer();
+	private Palette palette = new Palette();
+	private int currentStep = 0;
+	private PaintActionInterface paintAction = new LazyPaintAction();
+	private EdgeType inputType = EdgeType.UNSETTLED_VALLEY;
+	private Point2D.Double mousePoint = new Point2D.Double();
+	private CyborgPicker picker = new CyborgPicker();
+	private CyborgPointer pointer = new CyborgPointer();
 
-    private FoldedScreen foldedScreen;
-    private East east;
+	private FoldedScreen foldedScreen;
+	private East east;
 
-    public void initialize() {
-        picker.clear();
-    }
+	public void initialize() {
+		picker.clear();
+	}
 
-    public Context() {
-    }
+	public Context() {
+	}
 
-    public Context(int i) {
-        this.palette = new Palette(i);
-    }
+	public Context(int i) {
+		this.palette = new Palette(i);
+	}
 
-    public Cp getCp() {
-        Vector<Cp> cps = palette.getCps();
-        if (currentStep >= cps.size()) {
-            return cps.lastElement();
-        }
-        return cps.get(currentStep);
-    }
+	public Cp getCp() {
+		Vector<Cp> cps = palette.getCps();
+		if (currentStep >= cps.size()) {
+			return cps.lastElement();
+		}
+		return cps.get(currentStep);
+	}
 
-    public void fold() {
-        Folder.fold(getCp());
-    }
+	public Cp getPrevCp() {
+		Vector<Cp> cps = palette.getCps();
+		return cps.get(currentStep - 1);
+	}
 
-    public void insertCp() {
-        saveTransform();
-        Vector<Cp> cps = palette.getCps();
-        cps.add(currentStep + 1, CpBuilder.buildNext(this, getCp()));
-        currentStep += 1;
-    }
+	public void fold() {
+		Cp cp = getCp();
+		Folder.fold(cp);
+		if (currentStep != 0) {
+			Cp cp0 = getPrevCp();
+			FaceOrderEstimator.infer(cp0, cp);
+		}
+	}
 
-    public void removeCp(Cp cp) {
-        Vector<Cp> cps = palette.getCps();
-        int index = cps.indexOf(cp);
-        if (index == cps.size() - 1) {
-            currentStep -= 1;
-        }
-        if (index != -1) {
-            cps.remove(cp);
-        }
-    }
+	public void insertCp() {
+		saveTransform();
+		Vector<Cp> cps = palette.getCps();
+		cps.add(currentStep + 1, CpBuilder.buildNext(this, getCp()));
+		currentStep += 1;
+	}
 
-    public void repaint() {
-        getPaintScreen().repaint();
-        foldedScreen.repaint();
-    }
+	public void removeCp(Cp cp) {
+		Vector<Cp> cps = palette.getCps();
+		int index = cps.indexOf(cp);
+		if (index == cps.size() - 1) {
+			currentStep -= 1;
+		}
+		if (index != -1) {
+			cps.remove(cp);
+		}
+	}
 
-    public Palette getPalette() {
-        return this.palette;
-    }
+	public void repaint() {
+		getPaintScreen().repaint();
+		foldedScreen.repaint();
+	}
 
-    @Deprecated
-    public void setPalette(Palette palette) {
-        this.palette = palette;
-    }
+	public Palette getPalette() {
+		return this.palette;
+	}
 
-    public AbstractScreen getPaintScreen() {
-        return east.getPaintScreen();
-    }
+	@Deprecated
+	public void setPalette(Palette palette) {
+		this.palette = palette;
+	}
 
-    public void setPaintScreen(String screenName) {
-        east.setPaintScreen(screenName);
-    }
+	public AbstractScreen getPaintScreen() {
+		return east.getPaintScreen();
+	}
 
-    public void setEast(East east) {
-        this.east = east;
-    }
+	public void setPaintScreen(String screenName) {
+		east.setPaintScreen(screenName);
+	}
 
-    public FoldedScreen getFoldedScreen() {
-        return this.foldedScreen;
-    }
+	public void setEast(East east) {
+		this.east = east;
+	}
 
-    public void setFoldedScreen(FoldedScreen foldedScreen) {
-        this.foldedScreen = foldedScreen;
-    }
+	public FoldedScreen getFoldedScreen() {
+		return this.foldedScreen;
+	}
 
-    public PaintActionInterface getPaintAction() {
-        return paintAction;
-    }
+	public void setFoldedScreen(FoldedScreen foldedScreen) {
+		this.foldedScreen = foldedScreen;
+	}
 
-    public void setPaintAction(PaintActionInterface paintAction) {
-        this.paintAction = paintAction;
-    }
+	public PaintActionInterface getPaintAction() {
+		return paintAction;
+	}
 
-    public EdgeType getInputType() {
-        return inputType;
-    }
+	public void setPaintAction(PaintActionInterface paintAction) {
+		this.paintAction = paintAction;
+	}
 
-    public void setInputType(EdgeType inputType) {
-        this.inputType = inputType;
-    }
+	public EdgeType getInputType() {
+		return inputType;
+	}
 
-    public Point2D.Double getMousePoint() {
-        return mousePoint;
-    }
+	public void setInputType(EdgeType inputType) {
+		this.inputType = inputType;
+	}
 
-    public void setMousePoint(Point2D.Double mousePoint) {
-        this.mousePoint = mousePoint;
-    }
+	public Point2D.Double getMousePoint() {
+		return mousePoint;
+	}
 
-    public CyborgPicker getPicker() {
-        return picker;
-    }
+	public void setMousePoint(Point2D.Double mousePoint) {
+		this.mousePoint = mousePoint;
+	}
 
-    public CyborgPointer getPointer() {
-        return pointer;
-    }
+	public CyborgPicker getPicker() {
+		return picker;
+	}
 
-    public void setPointer(CyborgPointer pointer) {
-        this.pointer = pointer;
-    }
+	public CyborgPointer getPointer() {
+		return pointer;
+	}
 
-    public int getCurrentStep() {
-        return currentStep;
-    }
+	public void setPointer(CyborgPointer pointer) {
+		this.pointer = pointer;
+	}
 
-    public void setCurrentStep(int currentStep) {
-        saveTransform();
-        this.currentStep = currentStep;
-        Cp cp = getCp();
-        foldedScreen.setTransform(cp.getTransform());
-    }
+	public int getCurrentStep() {
+		return currentStep;
+	}
 
-    public void saveTransform() {
-        Cp cp = getCp();
-        cp.setTransform(new ScreenTransform(foldedScreen.getTransform()));
-    }
+	public void setCurrentStep(int currentStep) {
+		saveTransform();
+		this.currentStep = currentStep;
+		Cp cp = getCp();
+		foldedScreen.setTransform(cp.getTransform());
+	}
+
+	public void saveTransform() {
+		Cp cp = getCp();
+		cp.setTransform(new ScreenTransform(foldedScreen.getTransform()));
+	}
 }
