@@ -4,58 +4,51 @@
  */
 package diamond.controller.action.state.vertexoffsetauto;
 
-import java.util.Stack;
+import java.awt.geom.Point2D;
+import java.util.HashSet;
 
 import diamond.controller.Context;
-import diamond.controller.action.state.VertexPickingState;
+import diamond.controller.action.state.AbstractState;
 import diamond.model.cyborg.Vertex;
-import diamond.model.cyborg.util.VertexOffsetter;
+import diamond.model.cyborg.util.OffsetUtil;
 
 /**
  * @author Kei Morisue
  *
  */
-public class State0 extends VertexPickingState {
+public class State0 extends AbstractState {
 
-    @Override
-    protected void setNextClass() {
-        nextStateClass = State0.class;
-    }
+	@Override
+	protected void setNextClass() {
+		nextStateClass = State1.class;
+	}
 
-    @Override
-    protected void setPrevClass() {
-        prevStateClass = State0.class;
-    }
+	@Override
+	protected void setPrevClass() {
+		prevStateClass = State1.class;
+	}
 
-    @Override
-    protected void undo(Context context) {
-        Vertex vertex = context.getPointer().getVertex();
-        if (vertex == null) {
-            context.initialize();
-            return;
-        }
-        VertexOffsetter.reset(context.getCp(), vertex);
-        context.initialize();
-    }
+	@Override
+	protected void undo(Context context) {
+		HashSet<Vertex> vertices = context.getCp().getVertices();
+		vertices.forEach(v -> v.setOffset(new Point2D.Double()));
+		aftermath(context);
+	}
 
-    @Override
-    protected void aftermath(Context context) {
-        Vertex vertex = getVertex(context);
-        if (vertex == null) {
-            context.initialize();
-            return;
-        }
-        VertexOffsetter.offset(context.getCp(), vertex);
-        context.initialize();
-    }
+	@Override
+	protected void aftermath(Context context) {
+		context.setPaintScreen("paint");
+		context.initialize();
+	}
 
-    private Vertex getVertex(Context context) {
-        Stack<Vertex> vertices = context.getPicker().getVertices();
-        if (vertices.size() != 1) {
-            return null;
-        }
-        Vertex vertex = vertices.get(0);
-        return vertex;
-    }
+	@Override
+	protected boolean act(Context context) {
+		return true;
+	}
+
+	@Override
+	public void setPointer(Context context) {
+		OffsetUtil.offset(context);
+	}
 
 }
