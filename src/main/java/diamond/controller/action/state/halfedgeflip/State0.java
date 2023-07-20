@@ -17,29 +17,31 @@ import diamond.model.cyborg.HalfEdge;
  */
 public class State0 extends HalfEdgePickingState {
 
-    @Override
-    protected void setNextClass() {
-        nextStateClass = State0.class;
-    }
+	@Override
+	protected void setNextClass() {
+		nextStateClass = State0.class;
+	}
 
-    @Override
-    protected void setPrevClass() {
-        nextStateClass = State0.class;
-    }
+	@Override
+	protected void setPrevClass() {
+		nextStateClass = State0.class;
+	}
 
-    @Override
-    protected void aftermath(Context context) {
-        Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
-        if (halfEdges.size() != 1) {
-            context.initialize();
-            return;
-        }
-        HalfEdge he = halfEdges.get(0);
-        if (he.getType() != EdgeType.CUT) {
-            he.flip();
-        }
-        context.fold();
-        context.initialize();
-    }
+	@Override
+	protected void aftermath(Context context) {
+		Stack<HalfEdge> halfEdges = context.getPicker().getHalfEdges();
+		if (halfEdges.size() != 1) {
+			context.initialize();
+			return;
+		}
+		HalfEdge he = halfEdges.get(0);
+		if (he.getType() != EdgeType.CUT) {
+			he.flip();
+		}
+		if (he.getType() == EdgeType.MOUNTAIN || he.getType() == EdgeType.VALLEY) {
+			context.fold();
+		}
+		context.initialize();
+	}
 
 }

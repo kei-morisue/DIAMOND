@@ -66,6 +66,7 @@ public class Context {
 			Cp cp0 = getPrevCp();
 			FaceOrderEstimator.infer(cp0, cp);
 		}
+		Folder.fold(cp);
 	}
 
 	public void insertCp() {

@@ -39,9 +39,10 @@ public class FaceOrderEstimator {
 			}
 			faceMap.put(face, null);
 		});
-		boolean flip = faceMap.get(cp.getBaseFace()).isFaceFront();
+		Face baseFace = cp.getBaseFace();
+		Face baseFace0 = faceMap.get(baseFace);
+		boolean flip = baseFace0 == null ? false : baseFace0.isFaceFront();
 		faces.sort(new OrderInferrer(faces0, faceMap, flip));
-		FaceOrderEstimator.reOrder(cp);
 	}
 
 	private static class OrderInferrer implements Comparator<Face> {
