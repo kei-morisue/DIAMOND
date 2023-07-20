@@ -41,6 +41,7 @@ public class FaceOrderEstimator {
 		});
 		boolean flip = faceMap.get(cp.getBaseFace()).isFaceFront();
 		faces.sort(new OrderInferrer(faces0, faceMap, flip));
+		FaceOrderEstimator.reOrder(cp);
 	}
 
 	private static class OrderInferrer implements Comparator<Face> {
