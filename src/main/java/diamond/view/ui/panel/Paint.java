@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import diamond.controller.action.Palette;
-import diamond.view.ui.screen.ScreenPaint;
+import diamond.view.ui.screen.PaintScreen;
 import diamond.view.util.Icon;
 
 /**
@@ -19,11 +19,11 @@ import diamond.view.util.Icon;
  */
 public class Paint extends JPanel {
 	private Palette palette;
-	private ScreenPaint screen2;
+	private PaintScreen screen2;
 
 	public Paint(Palette palette) {
 		this.palette = palette;
-		this.screen2 = new ScreenPaint(palette);
+		this.screen2 = new PaintScreen(palette);
 		setLayout(new BorderLayout());
 		add(screen2, BorderLayout.CENTER);
 

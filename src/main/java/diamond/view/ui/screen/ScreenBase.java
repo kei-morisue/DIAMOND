@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import diamond.controller.action.ScreenAction;
+import diamond.controller.action.screen.ScreenAction;
 import diamond.view.util.ScreenTransform;
 
 /**

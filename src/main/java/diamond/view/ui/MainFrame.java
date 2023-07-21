@@ -17,7 +17,7 @@ import diamond.view.draw.color.ColorProviderFlat;
 import diamond.view.draw.shape.ShapeProviderFlat;
 import diamond.view.ui.menu.File;
 import diamond.view.ui.panel.Paint;
-import diamond.view.ui.screen.ScreenFold;
+import diamond.view.ui.screen.ModelScreen;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
 
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
 
-	private ScreenFold screen1 = new ScreenFold(drawer1);
+	private ModelScreen screen1 = new ModelScreen(drawer1);
 
 	private Paint paint = new Paint(palette);
 

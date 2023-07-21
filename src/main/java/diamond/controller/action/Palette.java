@@ -4,7 +4,9 @@
  */
 package diamond.controller.action;
 
-import diamond.controller.action.paint.PaintActionBase;
+import java.util.LinkedList;
+
+import diamond.model.fold.Cp;
 
 /**
  * @author Kei Morisue
@@ -12,5 +14,7 @@ import diamond.controller.action.paint.PaintActionBase;
  */
 public class Palette {
 
-	private PaintActionBase paintActionBase;
+	private LinkedList<Cp> cps;
+	private int currentCp;
+
 }

@@ -6,32 +6,43 @@ package diamond.controller.action.paint;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.action.Palette;
+import diamond.controller.action.paint.state.PaintStateBase;
+import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public interface PaintActionBase {
-	public abstract void doAction(Palette pallete);
+public abstract class PaintActionBase {
+	private PaintStateBase state;
 
-	public abstract void undo(Palette pallete);
+	public PaintActionBase() {
+		setInitialState();
+	}
 
-	public abstract void destroy(Palette pallete);
+	protected abstract void setInitialState();
 
-	public abstract void recover(Palette pallete);
+	protected final void setActionState(PaintStateBase state) {
+		this.state = state;
+	}
 
-	public abstract PaintActionBase onLeftClick(Palette pallete);
+	protected final PaintStateBase getState() {
+		return state;
+	}
 
-	public abstract PaintActionBase onRightClick(Palette pallete);
+	public PaintActionBase onLeftClick(PaintScreen screen) {
+		state = state.doAction(screen);
+		return null;
+	}
 
-	public abstract void onMove(Palette pallete);
+	public PaintActionBase onRightClick(PaintScreen screen) {
+		state = state.undoAction(screen);
+		return this;
+	}
 
-	public abstract void onPress(Palette pallete);
+	public void onMove(PaintScreen screen) {
+		state.onMove(screen);
+	}
 
-	public abstract void onDrag(Palette pallete);
-
-	public abstract void onRelease(Palette pallete);
-
-	public abstract void onDraw(Graphics2D g2d, Palette pallete);
+	public abstract void onDraw(Graphics2D g2d, PaintScreen screen);
 }
