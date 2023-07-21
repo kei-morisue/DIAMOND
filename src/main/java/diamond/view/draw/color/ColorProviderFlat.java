@@ -17,13 +17,13 @@ import diamond.model.fold.Vertex;
 public class ColorProviderFlat implements ColorProviderBase {
 	@Override
 	public Color getColor(Vertex vertex) {
-		return vertex.picked ? Color.GREEN : Color.BLACK;
+		return vertex.isPicked ? Color.GREEN : Color.BLACK;
 
 	}
 
 	@Override
 	public Color getColor(Face face) {
-		return face.picked ? Color.GREEN : Color.DARK_GRAY;
+		return face.isPicked ? Color.GREEN : Color.DARK_GRAY;
 
 	}
 

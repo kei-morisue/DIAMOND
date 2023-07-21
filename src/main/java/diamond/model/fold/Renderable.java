@@ -10,7 +10,7 @@ package diamond.model.fold;
  */
 public abstract class Renderable {
 
-	public boolean picked = false;
-	public boolean selected = false;
+	public boolean isPicked = false;
+	public boolean isPointed = false;
 
 }

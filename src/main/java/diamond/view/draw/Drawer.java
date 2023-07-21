@@ -54,11 +54,11 @@ public class Drawer extends DrawerBase {
 
 	public Vertex pickVertex(XY v0, double scale) {
 		ArrayList<Vertex> vertices = getVertices();
-		vertices.forEach(vertex -> vertex.picked = false);
+		vertices.forEach(vertex -> vertex.isPicked = false);
 		for (Vertex vertex : vertices) {
 			XY xy = shapeProvider.getXY(vertex);
 			if (Geo.isClose(xy, v0, EPS / scale)) {
-				vertex.picked = true;
+				vertex.isPicked = true;
 				return vertex;
 			}
 		}
@@ -66,9 +66,9 @@ public class Drawer extends DrawerBase {
 	}
 
 	public void clearPicked() {
-		getVertices().forEach(v -> v.picked = false);
-		getEdges().forEach(e -> e.picked = false);
-		getFaces().forEach(f -> f.picked = false);
+		getVertices().forEach(v -> v.isPicked = false);
+		getEdges().forEach(e -> e.isPicked = false);
+		getFaces().forEach(f -> f.isPicked = false);
 	}
 
 }

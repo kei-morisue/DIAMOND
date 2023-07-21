@@ -18,12 +18,12 @@ public class ColorProviderCell implements ColorProviderBase {
 
 	@Override
 	public Color getColor(Vertex vertex) {
-		return vertex.picked ? Color.GREEN : Color.WHITE;
+		return vertex.isPicked ? Color.GREEN : Color.WHITE;
 	}
 
 	@Override
 	public Color getColor(Face face) {
-		return face.picked ? Color.GREEN : Color.GRAY;
+		return face.isPicked ? Color.GREEN : Color.GRAY;
 	}
 
 	@Override

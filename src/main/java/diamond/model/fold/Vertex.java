@@ -15,7 +15,10 @@ import diamond.model.XY;
  *
  */
 public class Vertex extends Renderable implements Serializable {
-	private XY v;
+	public XY v;
+	public XY f;
+	public XY d;
+
 	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
 
 	public Vertex(XY v) {
@@ -35,10 +38,6 @@ public class Vertex extends Renderable implements Serializable {
 
 	public ArrayList<Vertex> getAdj() {
 		return adj;
-	}
-
-	public XY getV() {
-		return v;
 	}
 
 }

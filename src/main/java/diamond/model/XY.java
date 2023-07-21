@@ -4,20 +4,17 @@
  */
 package diamond.model;
 
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 /**
  * @author Kei Morisue
  *
  */
-public class XY implements Serializable {
-	private double x;
-	private double y;
+public class XY extends Point2D.Double implements Serializable {
 
 	public XY(double x, double y) {
-		super();
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 
 	public Dir dir(XY v) {
@@ -37,14 +34,6 @@ public class XY implements Serializable {
 		return mid(v, 0.5);
 	}
 
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
 	public class Comparator implements java.util.Comparator<XY> {
 		private double eps;
 
@@ -54,7 +43,7 @@ public class XY implements Serializable {
 
 		@Override
 		public int compare(XY p1, XY p2) {
-			return Geo.isClose(p1.x, p2.x, eps) ? Double.compare(p1.y, p2.y) : Double.compare(p1.x, p2.x);
+			return Geo.isClose(p1.x, p2.x, eps) ? (int) (p1.y - p2.y) : (int) (p1.x - p2.x);
 		}
 	}
 }

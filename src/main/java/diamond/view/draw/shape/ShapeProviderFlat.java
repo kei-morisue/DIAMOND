@@ -15,7 +15,7 @@ public class ShapeProviderFlat extends ShapeProviderBase {
 
 	@Override
 	public XY getXY(Vertex v) {
-		return v.getV();
+		return v.v;
 	}
 
 }

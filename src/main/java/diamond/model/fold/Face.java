@@ -33,9 +33,9 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 
 	public double area2() {
 		double area = 0.0;
-		XY xy0 = vertices.get(vertices.size() - 1).getV();
+		XY xy0 = vertices.get(vertices.size() - 1).v;
 		for (Vertex p1 : vertices) {
-			XY xy1 = p1.getV();
+			XY xy1 = p1.v;
 			area += (xy0.getX() + xy1.getX()) * (xy1.getY() - xy0.getY());
 			xy0 = xy1;
 		}

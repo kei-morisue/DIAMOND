@@ -49,7 +49,7 @@ public abstract class ShapeProviderBase {
 	}
 
 	public double getRadius(Vertex vertex) {
-		return vertex.picked ? 15.0 : 10.0;
+		return vertex.isPicked ? 15.0 : 10.0;
 	}
 
 	public GeneralPath getShape(Face face, double scale) {
