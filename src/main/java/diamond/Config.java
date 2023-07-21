@@ -11,6 +11,7 @@ import java.io.File;
  *
  */
 public class Config {
+
 	final public static String INI_FILE_PATH = System.getProperty("user.home") + File.separator + "defox.ini";
 	final public static int MAIN_FRAME_HEIGHT = 500;
 	final public static int MAIN_FRAME_WIDTH = 1000;

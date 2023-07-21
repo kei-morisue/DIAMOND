@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import diamond.controller.action.ScreenAction;
-import diamond.view.draw.DrawerBase;
 import diamond.view.util.ScreenTransform;
 
 /**
@@ -28,7 +27,7 @@ public abstract class ScreenBase extends JPanel {
 		return transform;
 	}
 
-	abstract public DrawerBase getDrawer();
+	abstract public void drawComponents(Graphics2D g2d);
 
 	public ScreenBase() {
 		this.transform = new ScreenTransform(getWidth(), getHeight());
@@ -45,7 +44,7 @@ public abstract class ScreenBase extends JPanel {
 		g2d = (Graphics2D) bufferImage.getGraphics();
 
 		drawBackGround(g2d, Color.lightGray);
-		getDrawer().draw(g2d);
+		drawComponents(g2d);
 
 		g.drawImage(bufferImage, 0, 0, this);
 	}

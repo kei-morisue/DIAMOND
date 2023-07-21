@@ -8,13 +8,14 @@ import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
-import diamond.model.fold.Cell;
 import diamond.model.fold.Fold;
 import diamond.view.draw.Drawer;
-import diamond.view.draw.color.ColorProviderCell;
 import diamond.view.draw.color.ColorProviderFlat;
 import diamond.view.draw.shape.ShapeProviderFlat;
+import diamond.view.ui.menu.File;
+import diamond.view.ui.panel.Paint;
 import diamond.view.ui.screen.ScreenFold;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
@@ -25,30 +26,40 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
+	private Palette palette = new Palette();
 	private Fold fold = new Fold("test0.cp");
-	private Cell cell = new Cell(fold);
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
-	private ColorProviderCell colorProvider2 = new ColorProviderCell();
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
-	private Drawer drawer2 = new Drawer(cell, colorProvider2, shapeProvider1);
 
 	private ScreenFold screen1 = new ScreenFold(drawer1);
-	private ScreenFold screen2 = new ScreenFold(drawer2);
+
+	private Paint paint = new Paint(palette);
 
 	public MainFrame() {
 		setVisible(true);
-		Icon.set(this, "./src/main/resources/icon/defox.png");
+		Icon.set(this, "defox.png");
 		setTitle(Label.get("main_frame_title"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 
-		Container panel = getContentPane();
-		panel.setLayout(new GridLayout(1, 2, 100, 0));
+		buildMenu();
 
-		screen2.link(screen1);
+		buildPanel();
+	}
+
+	private void buildPanel() {
+		Container panel = getContentPane();
+		panel.setLayout(new GridLayout(1, 2));
+
+		panel.add(paint);
 		panel.add(screen1);
-		panel.add(screen2);
+	}
+
+	private void buildMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(new File(palette));
+		setJMenuBar(menuBar);
 	}
 
 }
