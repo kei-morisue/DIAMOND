@@ -4,6 +4,8 @@
  */
 package diamond.controller.action.paint.state;
 
+import java.awt.Graphics2D;
+
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -11,21 +13,21 @@ import diamond.view.ui.screen.PaintScreen;
  *
  */
 public abstract class PaintStateBase {
-	protected Class<? extends PaintStateBase> nextStateClass;
-	protected Class<? extends PaintStateBase> prevStateClass;
+	protected PaintStateBase nextState;
+	protected PaintStateBase prevState;
 
 	public PaintStateBase() {
 		initialize();
 	}
 
 	protected void initialize() {
-		setNextClass();
-		setPrevClass();
+		setNextState();
+		setPrevState();
 	};
 
-	abstract protected void setNextClass();
+	abstract protected void setNextState();
 
-	abstract protected void setPrevClass();
+	abstract protected void setPrevState();
 
 	protected abstract void undo(PaintScreen screen);
 
@@ -35,34 +37,19 @@ public abstract class PaintStateBase {
 
 	abstract public void onMove(PaintScreen screen);
 
+	public abstract void onDraw(Graphics2D g2d, PaintScreen screen);
+
 	public final PaintStateBase doAction(PaintScreen screen) {
 		if (!act(screen)) {
 			return this;
 		}
 		aftermath(screen);
-		PaintStateBase nextState = getNextState();
 		return nextState;
 	}
 
 	public final PaintStateBase undoAction(PaintScreen screen) {
 		undo(screen);
-		PaintStateBase prevState = getPreviousState();
 		return prevState;
 	}
 
-	private final PaintStateBase getNextState() {
-		return createInstance(this.nextStateClass);
-	}
-
-	private final PaintStateBase getPreviousState() {
-		return createInstance(this.prevStateClass);
-	}
-
-	private final PaintStateBase createInstance(Class<? extends PaintStateBase> c) {
-		try {
-			return c.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			return this;
-		}
-	}
 }

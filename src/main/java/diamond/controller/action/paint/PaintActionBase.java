@@ -31,12 +31,12 @@ public abstract class PaintActionBase {
 	}
 
 	public PaintActionBase onLeftClick(PaintScreen screen) {
-		state = state.doAction(screen);
+		this.state = state.doAction(screen);
 		return null;
 	}
 
 	public PaintActionBase onRightClick(PaintScreen screen) {
-		state = state.undoAction(screen);
+		this.state = state.undoAction(screen);
 		return this;
 	}
 
@@ -44,5 +44,7 @@ public abstract class PaintActionBase {
 		state.onMove(screen);
 	}
 
-	public abstract void onDraw(Graphics2D g2d, PaintScreen screen);
+	public void onDraw(Graphics2D g2d, PaintScreen screen) {
+		state.onDraw(g2d, screen);
+	};
 }
