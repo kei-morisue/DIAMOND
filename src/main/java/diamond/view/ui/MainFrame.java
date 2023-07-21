@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import diamond.controller.action.Palette;
 import diamond.model.fold.Cp;
 import diamond.view.draw.Drawer;
 import diamond.view.draw.color.ColorProviderFlat;
@@ -27,7 +28,7 @@ import diamond.view.util.Label;
 public class MainFrame extends JFrame {
 	// TODO STUB
 	private Palette palette = new Palette();
-	private Cp fold = new Cp("test0.cp");
+	private Cp fold = new Cp(200.0);
 	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);

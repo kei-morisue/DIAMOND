@@ -17,6 +17,9 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 	private ArrayList<Vertex> vertices;
 
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
+	private ArrayList<Crease> creases = new ArrayList<Crease>();
+
+	public boolean isFlip = false;
 
 	public Face(ArrayList<Vertex> vertices) {
 		super();
@@ -31,11 +34,15 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 		return edges;
 	}
 
+	public ArrayList<Crease> getCreases() {
+		return creases;
+	}
+
 	public double area2() {
 		double area = 0.0;
-		XY xy0 = vertices.get(vertices.size() - 1).v;
+		XY xy0 = vertices.get(vertices.size() - 1).p;
 		for (Vertex p1 : vertices) {
-			XY xy1 = p1.v;
+			XY xy1 = p1.p;
 			area += (xy0.getX() + xy1.getX()) * (xy1.getY() - xy0.getY());
 			xy0 = xy1;
 		}

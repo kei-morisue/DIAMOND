@@ -9,7 +9,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import diamond.view.ui.Palette;
+import diamond.controller.action.Palette;
 import diamond.view.ui.screen.ScreenPaint;
 import diamond.view.util.Icon;
 

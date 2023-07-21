@@ -49,19 +49,18 @@ public abstract class Flat implements Serializable {
 			Assign assign = a.get(l.indexOf(line));
 			edges.add(new Edge(v0, v1, assign));
 		});
-		buildVV();
-		buildFV();
-		buildFEnEF();
-		edges.forEach(e -> {
-			if (e.getF1() == null) {
-				e.setA(Edge.Assign.B);
-			}
-		});
+		build();
 		return el;
 	}
 
+	public void build() {
+		buildVV();
+		buildFV();
+		buildFEnEF();
+	}
+
 	private void buildVV() {
-		HashMap<Vertex, ArrayList<Vertex>> adjVmap = FoldBuilder.getAdj(vertices, edges);
+		HashMap<Vertex, ArrayList<Vertex>> adjVmap = CpBuilder.getAdj(vertices, edges);
 		vertices.forEach(v -> {
 			ArrayList<Vertex> adjVs = adjVmap.get(v);
 			adjVs.sort(v.new AngleComparator());
@@ -110,14 +109,15 @@ public abstract class Flat implements Serializable {
 	}
 
 	private void buildFEnEF() {
-		HashMap<Tuple<Vertex>, Edge> ve = FoldBuilder.getVE(edges);
+		HashMap<Tuple<Vertex>, Edge> ve = CpBuilder.getVE(edges);
 		faces.forEach(f -> {
 			ArrayList<Vertex> vs = f.getVertices();
+			ArrayList<Edge> faceEdges = f.getEdges();
 			for (int i = 0; i < vs.size(); i++) {
 				Vertex v1 = vs.get(i);
 				Vertex v2 = vs.get((i + 1) % vs.size());
 				Edge edge = ve.get(new Tuple<Vertex>(v1, v2));
-				f.getEdges().add(edge);// Face to Edge
+				faceEdges.add(edge);// Face to Edge
 				if (edge.getF0() == null) {
 					edge.setF0(f);// Edge to Face #0
 				} else {
@@ -125,6 +125,11 @@ public abstract class Flat implements Serializable {
 				}
 			}
 		});
+		edges.forEach(edge -> {
+			if (edge.getF1() == null) {
+				edge.setF1(edge.getF0());
+			}
+		});// boundary has f0 as f1
 
 	}
 

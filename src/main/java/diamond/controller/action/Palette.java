@@ -2,7 +2,9 @@
  * DEFOX - Origami Diagram Editor
  * Copyright (C) 2023 Kei Morisue
  */
-package diamond.view.ui;
+package diamond.controller.action;
+
+import diamond.controller.action.paint.PaintActionBase;
 
 /**
  * @author Kei Morisue
@@ -10,4 +12,5 @@ package diamond.view.ui;
  */
 public class Palette {
 
+	private PaintActionBase paintActionBase;
 }

@@ -158,7 +158,7 @@ public class Line {
 
 		@Override
 		public int compare(Vertex pk, Vertex qk) {
-			return dir.dot(qk.v.dir(pk.v)) > 0 ? 1 : -1;
+			return dir.dot(qk.p.dir(pk.p)) > 0 ? 1 : -1;
 		}
 	}
 }

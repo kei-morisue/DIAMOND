@@ -31,12 +31,10 @@ public class ColorProviderFlat implements ColorProviderBase {
 	public Color getColor(Edge edge) {
 		Edge.Assign assign = edge.getA();
 		switch (assign) {
-		case M:
+		case MOUNTAIN:
 			return (Color.RED);
-		case V:
+		case VALLEY:
 			return (Color.BLUE);
-		case F:
-			return (Color.LIGHT_GRAY);
 		default:
 			return (Color.WHITE);
 		}

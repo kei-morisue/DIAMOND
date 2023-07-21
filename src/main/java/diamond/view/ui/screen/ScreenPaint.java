@@ -6,7 +6,7 @@ package diamond.view.ui.screen;
 
 import java.awt.Graphics2D;
 
-import diamond.view.ui.Palette;
+import diamond.controller.action.Palette;
 
 /**
  * @author Kei Morisue

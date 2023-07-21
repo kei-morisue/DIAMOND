@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 
-import diamond.view.ui.Palette;
+import diamond.controller.action.Palette;
 
 /**
  * @author Kei Morisue

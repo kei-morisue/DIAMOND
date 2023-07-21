@@ -12,9 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import diamond.controller.action.Palette;
 import diamond.controller.action.io.ExportAction;
 import diamond.controller.action.io.LoadAction;
-import diamond.view.ui.Palette;
 import diamond.view.util.Label;
 
 /**
