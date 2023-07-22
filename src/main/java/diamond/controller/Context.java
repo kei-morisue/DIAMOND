@@ -76,6 +76,13 @@ public class Context {
 		currentStep += 1;
 	}
 
+	public void insertUnfoldedCp() {
+		saveTransform();
+		Vector<Cp> cps = palette.getCps();
+		cps.add(currentStep + 1, CpBuilder.buildUnfoldedNext(this, getCp()));
+		currentStep += 1;
+	}
+
 	public void removeCp(Cp cp) {
 		Vector<Cp> cps = palette.getCps();
 		int index = cps.indexOf(cp);

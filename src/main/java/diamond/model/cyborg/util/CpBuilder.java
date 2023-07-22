@@ -63,6 +63,21 @@ public class CpBuilder {
 		return cp1;
 	}
 
+	public static Cp buildUnfoldedNext(Context context, Cp cp0) {
+		Cp cp1 = copyCp(cp0);
+		cp1.getFaces().forEach(face -> {
+			face.getUnsettledLines().forEach(he -> {
+				EdgeType type = he.getType();
+				if (type == EdgeType.UNSETTLED_MOUNTAIN || type == EdgeType.UNSETTLED_VALLEY) {
+					he.setType(EdgeType.CREASE);
+				}
+			});
+		});
+		Folder.fold(cp1);
+
+		return cp1;
+	}
+
 	public static Cp buildHex() {
 		Cp cp = new Cp();
 		double size = Config.PAPER_SIZE;

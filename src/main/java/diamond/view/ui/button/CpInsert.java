@@ -18,16 +18,20 @@ import diamond.view.resource.IconBuilder;
  *
  */
 public class CpInsert extends JButton {
-    public CpInsert(Context context) {
-        setBackground(Color.white);
-        IconBuilder.set(this, "insert.png");
-        setFocusable(false);
-        addActionListener(new ActionListener() {
+	public CpInsert(Context context) {
+		setBackground(Color.white);
+		IconBuilder.set(this, "insert.png");
+		setFocusable(false);
+		addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                context.insertCp();
-            }
-        });
-    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
+					context.insertUnfoldedCp();
+					return;
+				}
+				context.insertCp();
+			}
+		});
+	}
 }
