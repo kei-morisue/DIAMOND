@@ -29,7 +29,7 @@ public class MouseUtility {
 		return new XY(logicalPoint.x, logicalPoint.y);
 	}
 
-	public static boolean isControlKeyPressed(MouseEvent e) {
+	public static boolean isCtrlDown(MouseEvent e) {
 		return ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK);
 	}
 

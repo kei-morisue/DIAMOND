@@ -31,6 +31,11 @@ public class CpBuilder {
 		Edge e1 = new Edge(v1, v2, Assign.BOUND);
 		Edge e2 = new Edge(v2, v3, Assign.BOUND);
 		Edge e3 = new Edge(v3, v0, Assign.BOUND);
+
+		// TODO stub
+		Edge e4 = new Edge(v2, v0, Assign.MOUNTAIN);
+		cp.getEdges().add(e4);
+
 		cp.getEdges().addAll(Arrays.asList(e0, e1, e2, e3));
 		cp.build();
 	}

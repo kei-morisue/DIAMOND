@@ -54,7 +54,7 @@ public class ScreenAction implements MouseListener, MouseMotionListener, MouseWh
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (MouseUtility.isControlKeyPressed(e)) {
+		if (MouseUtility.isCtrlDown(e)) {
 			rotate(e);
 		} else {
 			zoom(e);

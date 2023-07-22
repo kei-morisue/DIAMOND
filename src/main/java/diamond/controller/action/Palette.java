@@ -7,6 +7,7 @@ package diamond.controller.action;
 import java.util.LinkedList;
 
 import diamond.model.fold.Cp;
+import diamond.model.fold.Vertex;
 
 /**
  * @author Kei Morisue
@@ -16,5 +17,10 @@ public class Palette {
 
 	private LinkedList<Cp> cps;
 	private int currentCp;
+	public Vertex pointedVertex;
+
+	public Cp getCp() {
+		return cps.get(currentCp);
+	}
 
 }

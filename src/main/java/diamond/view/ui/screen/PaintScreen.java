@@ -5,10 +5,10 @@
 package diamond.view.ui.screen;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 
 import diamond.controller.action.Palette;
-import diamond.controller.action.paint.PaintActionBase;
+import diamond.controller.action.paint.PaintAction;
+import diamond.controller.action.paint.state.LazyState;
 import diamond.controller.action.screen.PaintScreenAction;
 
 /**
@@ -18,11 +18,12 @@ import diamond.controller.action.screen.PaintScreenAction;
 public class PaintScreen extends ScreenBase {
 	private Palette palette;
 	private ModelScreen modelScreen;
-	public Point2D.Double mousePoint = new Point2D.Double();
-	private PaintActionBase paintAction;
 
-	public PaintScreen(Palette context) {
-		this.palette = context;
+	private PaintAction paintAction = new PaintAction(new LazyState());
+
+	public PaintScreen(Palette palette, ModelScreen modelScreen) {
+		this.palette = palette;
+		this.modelScreen = modelScreen;
 		PaintScreenAction paintScreenAction = new PaintScreenAction(this);
 		addMouseMotionListener(paintScreenAction);
 		addMouseListener(paintScreenAction);
@@ -31,10 +32,11 @@ public class PaintScreen extends ScreenBase {
 	@Override
 	public void drawComponents(Graphics2D g2d) {
 		// TODO 自動生成されたメソッド・スタブ
+		paintAction.onDraw(g2d, this);
 		modelScreen.repaint();
 	}
 
-	public PaintActionBase getPaintAction() {
+	public PaintAction getPaintAction() {
 		return paintAction;
 	}
 

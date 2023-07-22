@@ -21,11 +21,6 @@ public class XY extends Point2D.Double implements Serializable {
 		return new Dir(v.x - x, v.y - y);
 	}
 
-	public double distSq(XY v0) {
-		return dir(v0).mgSq();
-
-	}
-
 	public XY mid(XY v, double t) {
 		return dir(v).mul(t).ver(this);
 	}

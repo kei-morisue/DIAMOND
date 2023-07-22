@@ -20,7 +20,7 @@ public class Geo {
 		for (Line line : lines) {
 			XY v0 = line.p;
 			XY v1 = line.q;
-			double lenSq = v0.distSq(v1);
+			double lenSq = v0.distanceSq(v1);
 			if (minSq == null || minSq > lenSq) {
 				minSq = lenSq;
 				continue;

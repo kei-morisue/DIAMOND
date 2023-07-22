@@ -29,6 +29,11 @@ public class Vertex extends Renderable implements Serializable {
 		this.p = v.p;
 	}
 
+	@Override
+	public XY centroid() {
+		return p;
+	}
+
 	public class AngleComparator implements Comparator<Vertex> {
 
 		@Override

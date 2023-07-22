@@ -33,9 +33,9 @@ public class MainFrame extends JFrame {
 	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
 	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
 
-	private ModelScreen screen1 = new ModelScreen(drawer1);
+	private ModelScreen modelScreen = new ModelScreen(drawer1);
 
-	private Paint paint = new Paint(palette);
+	private Paint paint = new Paint(palette, modelScreen);
 
 	public MainFrame() {
 		setVisible(true);
@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 		panel.setLayout(new GridLayout(1, 2));
 
 		panel.add(paint);
-		panel.add(screen1);
+		panel.add(modelScreen);
 	}
 
 	private void buildMenu() {

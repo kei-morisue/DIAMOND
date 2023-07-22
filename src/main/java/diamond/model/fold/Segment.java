@@ -6,6 +6,8 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 
+import diamond.model.XY;
+
 /**
  * @author Kei Morisue
  *
@@ -19,6 +21,11 @@ public abstract class Segment extends Renderable implements Serializable {
 		super();
 		this.v0 = v0;
 		this.v1 = v1;
+	}
+
+	@Override
+	public XY centroid() {
+		return v0.p.mid(v1.p);
 	}
 
 	public Vertex getV0() {

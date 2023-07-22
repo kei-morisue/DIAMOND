@@ -8,9 +8,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import diamond.controller.action.paint.PaintAction;
 import diamond.controller.mouse.MouseUtility;
 import diamond.view.ui.screen.PaintScreen;
-import diamond.view.util.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -27,21 +27,23 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 	public void mouseDragged(MouseEvent e) {
 	}
 
+	private PaintAction getPaintAction() {
+		return screen.getPaintAction();
+	}
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		ScreenTransform transform = screen.getTransform();
-		screen.mousePoint = MouseUtility.getLogicalPoint(transform, e.getPoint());
-		screen.getPaintAction().onMove(screen);
+		getPaintAction().onMove(screen, e);
 		e.getComponent().repaint();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (MouseUtility.isLeftClick(e)) {
-			screen.getPaintAction().onLeftClick(screen);
+			getPaintAction().onLeftClick(screen, e);
 		}
+		getPaintAction().onRightClick(screen, e);
 		if (MouseUtility.isRightClick(e)) {
-			screen.getPaintAction().onRightClick(screen);
 		}
 		e.getComponent().repaint();
 		return;
@@ -66,6 +68,7 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
 
 	}
 

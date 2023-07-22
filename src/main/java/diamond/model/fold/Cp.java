@@ -20,16 +20,18 @@ public class Cp extends Flat {
 
 	public void clearFolded() {
 		vertices.forEach(v -> {
-			v.f = v.p;
+			v.f = null;
 		});
 		faces.forEach(faces -> {
-			faces.isFlip = false;
+			faces.isFlip = null;
 		});
 	}
 
 	private void buildFolded(Face baseFace) {
 		clearFolded();
-		// TODO
+		boolean prevFace = true;
+		Edge borderEdge = baseFace.getEdges().get(0);
+
 	}
 
 	@Override
