@@ -6,6 +6,8 @@ package diamond.model.cyborg;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
 import diamond.model.cyborg.util.Point2DUtil;
@@ -15,104 +17,108 @@ import diamond.model.cyborg.util.Point2DUtil;
  *
  */
 public class Vertex extends Point2D.Double implements Cyborg {
-    private LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
-    private VertexProperty property = new VertexProperty();
-    private Point2D.Double offset = new Point2D.Double();
-    private Point2D.Double folded = new Point2D.Double();
 
-    public Vertex() {
-    }
+	private static final long serialVersionUID = 7036686925980273039L;
+	private transient LinkedList<HalfEdge> halfEdges = new LinkedList<HalfEdge>();
+	private VertexProperty property = new VertexProperty();
+	private Point2D.Double offset = new Point2D.Double();
+	private Point2D.Double folded = new Point2D.Double();
 
-    public Vertex(double x, double y) {
-        super(x, y);
-    }
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		halfEdges = new LinkedList<HalfEdge>();
+	}
 
-    public Vertex(Point2D.Double p) {
-        super(p.x, p.y);
-    }
+	public Vertex() {
+	}
 
-    public Vertex(Vertex vertex) {
-        super(vertex.x, vertex.y);
-        this.offset = vertex.offset;
-    }
+	public Vertex(double x, double y) {
+		super(x, y);
+	}
 
-    public Point2D.Double getFoldedOffset() {
-        return Point2DUtil.add(folded, offset);
-    }
+	public Vertex(Point2D.Double p) {
+		super(p.x, p.y);
+	}
 
-    public void add(HalfEdge he) {
-        double angle = he.dir();
-        for (int i = 0; i < halfEdges.size(); i++) {
-            double tmpAngle = halfEdges.get(i).dir();
-            if (tmpAngle > angle) {
-                halfEdges.add(i, he);
-                return;
-            }
-        }
-        halfEdges.add(he);
-        return;
-    }
+	public Vertex(Vertex vertex) {
+		super(vertex.x, vertex.y);
+		this.offset = vertex.offset;
+	}
 
-    public void remove(HalfEdge he) {
-        halfEdges.remove(he);
-    }
+	public Point2D.Double getFoldedOffset() {
+		return Point2DUtil.add(folded, offset);
+	}
 
-    public HalfEdge getConnection(Vertex v) {
-        for (HalfEdge he : halfEdges) {
-            if (v == he.getV1()) {
-                return he;
-            }
-        }
-        return null;
-    }
+	public void add(HalfEdge he) {
+		double angle = he.dir();
+		for (int i = 0; i < halfEdges.size(); i++) {
+			double tmpAngle = halfEdges.get(i).dir();
+			if (tmpAngle > angle) {
+				halfEdges.add(i, he);
+				return;
+			}
+		}
+		halfEdges.add(he);
+		return;
+	}
 
-    public boolean isVertex() {
-        for (HalfEdge he : halfEdges) {
-            if (EdgeType.isSettled(he.getType())) {
-                return true;
-            }
-        }
-        return false;
-    }
+	public void remove(HalfEdge he) {
+		halfEdges.remove(he);
+	}
 
-    public LinkedList<HalfEdge> getHalfEdges() {
-        return halfEdges;
-    }
+	public HalfEdge getConnection(Vertex v) {
+		for (HalfEdge he : halfEdges) {
+			if (v == he.getV1()) {
+				return he;
+			}
+		}
+		return null;
+	}
 
-    public VertexProperty getProperty() {
-        return property;
-    }
+	public boolean isVertex() {
+		for (HalfEdge he : halfEdges) {
+			if (EdgeType.isSettled(he.getType())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    @Deprecated
-    public void setProperty(VertexProperty property) {
-        this.property = property;
-    }
+	public LinkedList<HalfEdge> getHalfEdges() {
+		return halfEdges;
+	}
 
-    @Deprecated
-    public Point2D.Double getOffset() {
-        return offset;
-    }
+	public VertexProperty getProperty() {
+		return property;
+	}
 
-    public void setOffset(Point2D.Double offset) {
-        this.offset = offset;
-    }
+	@Deprecated
+	public void setProperty(VertexProperty property) {
+		this.property = property;
+	}
 
-    @Deprecated
-    public Point2D.Double getFolded() {
-        return folded;
-    }
+	@Deprecated
+	public Point2D.Double getOffset() {
+		return offset;
+	}
 
-    @Deprecated
-    public void setFolded(Point2D.Double folded) {
-        this.folded = folded;
-    }
+	public void setOffset(Point2D.Double offset) {
+		this.offset = offset;
+	}
 
-    @Override
-    public java.awt.geom.Rectangle2D.Double clip(
-            AffineTransform transform) {
-        return Point2DUtil.clip(
-                this.getFoldedOffset(),
-                transform);
-    }
+	@Deprecated
+	public Point2D.Double getFolded() {
+		return folded;
+	}
+
+	@Deprecated
+	public void setFolded(Point2D.Double folded) {
+		this.folded = folded;
+	}
+
+	@Override
+	public java.awt.geom.Rectangle2D.Double clip(AffineTransform transform) {
+		return Point2DUtil.clip(this.getFoldedOffset(), transform);
+	}
 
 }

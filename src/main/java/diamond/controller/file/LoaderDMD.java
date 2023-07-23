@@ -7,10 +7,13 @@ package diamond.controller.file;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.HashSet;
 import java.util.Vector;
 
 import diamond.controller.Palette;
 import diamond.model.cyborg.Cp;
+import diamond.model.cyborg.HalfEdge;
+import diamond.model.cyborg.Vertex;
 
 /**
  * @author Kei Morisue
@@ -24,7 +27,14 @@ public class LoaderDMD implements Loader {
 		Vector<Cp> cps = palette.getCps();
 		add(cps, filepath);
 		cps.remove(0);
-
+		cps.forEach(cp -> {
+			HashSet<HalfEdge> halfEdges = cp.getHalfEdges();
+			HashSet<Vertex> vertices = cp.getVertices();
+			halfEdges.forEach(he -> {
+				Vertex v0 = he.getV0();
+				v0.add(he);
+			});
+		});
 		return palette;
 	}
 
