@@ -30,20 +30,20 @@ public class Tabs extends JPanel implements KeyListener {
 	public Tabs(Context context) {
 		panel.setFocusable(true);
 		panel.addKeyListener(this);
-		panel.setLayout(card);
+		panel.setLayout(new GridLayout(2, 1));
 
 		setLayout(new BorderLayout());
-		add(label, BorderLayout.SOUTH);
+		// add(label, BorderLayout.SOUTH);
 
 		JPanel subPanel1 = new JPanel();
 		JPanel subPanel2 = new JPanel();
 		subPanel1.setLayout(new GridLayout(3, 1));
-		subPanel2.setLayout(new GridLayout(2, 1));
+		subPanel2.setLayout(new GridLayout(1, 1));
 
-		subPanel1.add(new PaintPatternPanel(context, buttons));
-		subPanel1.add(new TabAlterLineType(context, buttons));
 		subPanel1.add(new PaintColorPanel(context));
-		subPanel2.add(new TabManageFaces(context, buttons));
+		subPanel1.add(new TabAlterLineType(context, buttons));
+		subPanel1.add(new PaintPatternPanel(context, buttons));
+		// subPanel2.add(new TabManageFaces(context, buttons));
 		subPanel2.add(new TabPaintSymbols(context, buttons));
 
 		panel.add(subPanel1);
@@ -58,14 +58,14 @@ public class Tabs extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.isControlDown()) {
-			return;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S
-				|| e.getKeyCode() == KeyEvent.VK_D) {
-			this.card.next(panel);
-			return;
-		}
+//		if (e.isControlDown()) {
+//			return;
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S
+//				|| e.getKeyCode() == KeyEvent.VK_D) {
+//			this.card.next(panel);
+//			return;
+//		}
 	}
 
 	@Override

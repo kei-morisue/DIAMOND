@@ -27,34 +27,33 @@ import diamond.view.ui.button.PaintActionButton;
  *
  */
 public class PaintPatternPanel extends JPanel {
-    private ButtonGroup buttonGroup;
-    private Context context;
+	private ButtonGroup buttonGroup;
+	private Context context;
 
-    public PaintPatternPanel(Context context, ButtonGroup buttonGroup) {
-        this.context = context;
-        this.buttonGroup = buttonGroup;
-        addInputLinePanel();
-    }
+	public PaintPatternPanel(Context context, ButtonGroup buttonGroup) {
+		this.context = context;
+		this.buttonGroup = buttonGroup;
+		addInputLinePanel();
+	}
 
-    private void addInputLinePanel() {
-        setLayout(new GridLayout(6, 1));
-        JRadioButton button = buildButton("axiom1", new Axiom1Action());
-        button.doClick();
-        add(button);
-        add(buildButton("axiom2", new Axiom2Action()));
-        add(buildButton("axiom3", new Axiom3Action()));
-        add(buildButton("axiom4", new Axiom4Action()));
-        add(buildButton("axiom5", new Axiom5Action()));
-        add(buildButton("symmetric", new SymmetricAction()));
-        UiUtil.setBorder(this, Labels.get("input_pattern"));
-    }
+	private void addInputLinePanel() {
+		setLayout(new GridLayout(2, 3));
+		JRadioButton button = buildButton("axiom1", new Axiom1Action());
+		button.doClick();
+		add(button);
+		add(buildButton("axiom2", new Axiom2Action()));
+		add(buildButton("axiom3", new Axiom3Action()));
+		add(buildButton("axiom4", new Axiom4Action()));
+		add(buildButton("axiom5", new Axiom5Action()));
+		add(buildButton("symmetric", new SymmetricAction()));
+		UiUtil.setBorder(this, Labels.get("input_pattern"));
+	}
 
-    private JRadioButton buildButton(String IconBaseName,
-            PaintActionInterface paintAction) {
-        PaintActionButton button = new PaintActionButton(context, paintAction);
-        button.setIcons(IconBaseName);
-        button.setSize(new Dimension(200, 200));
-        buttonGroup.add(button);
-        return button;
-    }
+	private JRadioButton buildButton(String IconBaseName, PaintActionInterface paintAction) {
+		PaintActionButton button = new PaintActionButton(context, paintAction);
+		button.setIcons(IconBaseName);
+		button.setSize(new Dimension(200, 200));
+		buttonGroup.add(button);
+		return button;
+	}
 }

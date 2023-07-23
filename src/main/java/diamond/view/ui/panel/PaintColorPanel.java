@@ -20,26 +20,21 @@ import diamond.view.ui.button.LineTypeButton;
  *
  */
 public class PaintColorPanel extends JPanel {
-    private ButtonGroup buttonGroup = new ButtonGroup();
+	private ButtonGroup buttonGroup = new ButtonGroup();
 
-    public PaintColorPanel(Context context) {
-        setLayout(new GridLayout(3, 1));
-        LineTypeButton valley = new LineTypeButton(EdgeType.UNSETTLED_VALLEY,
-                context,
-                buttonGroup);
-        valley.doClick();
-        add(valley);
-        valley.setMnemonic(KeyEvent.VK_V);
-        LineTypeButton mountain = new LineTypeButton(
-                EdgeType.UNSETTLED_MOUNTAIN, context,
-                buttonGroup);
-        mountain.setMnemonic(KeyEvent.VK_M);
-        add(mountain);
-        LineTypeButton crease = new LineTypeButton(EdgeType.CREASE, context,
-                buttonGroup);
-        crease.setMnemonic(KeyEvent.VK_C);
-        add(crease);
-        UiUtil.setBorder(this, Labels.get("input_color"));
+	public PaintColorPanel(Context context) {
+		setLayout(new GridLayout(1, 3));
+		LineTypeButton valley = new LineTypeButton(EdgeType.UNSETTLED_VALLEY, context, buttonGroup);
+		valley.doClick();
+		add(valley);
+		valley.setMnemonic(KeyEvent.VK_V);
+		LineTypeButton mountain = new LineTypeButton(EdgeType.UNSETTLED_MOUNTAIN, context, buttonGroup);
+		mountain.setMnemonic(KeyEvent.VK_M);
+		add(mountain);
+		LineTypeButton crease = new LineTypeButton(EdgeType.CREASE, context, buttonGroup);
+		crease.setMnemonic(KeyEvent.VK_C);
+		add(crease);
+		UiUtil.setBorder(this, Labels.get("input_color"));
 
-    }
+	}
 }
