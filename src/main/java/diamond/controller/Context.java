@@ -61,7 +61,7 @@ public class Context {
 
 	public void fold() {
 		Cp cp = getCp();
-		Folder.fold(cp);
+		cp.buildBaseFace();
 		if (currentStep != 0) {
 			Cp cp0 = getPrevCp();
 			FaceOrderEstimator.infer(cp0, cp);
@@ -80,6 +80,13 @@ public class Context {
 		saveTransform();
 		Vector<Cp> cps = palette.getCps();
 		cps.add(currentStep + 1, CpBuilder.buildUnfoldedNext(this, getCp()));
+		currentStep += 1;
+	}
+
+	public void insertFoldedCp() {
+		saveTransform();
+		Vector<Cp> cps = palette.getCps();
+		cps.add(currentStep + 1, CpBuilder.buildFoldedNext(this, getCp()));
 		currentStep += 1;
 	}
 

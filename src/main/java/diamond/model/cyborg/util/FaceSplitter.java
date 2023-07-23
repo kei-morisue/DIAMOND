@@ -16,51 +16,50 @@ import diamond.model.cyborg.Vertex;
  *
  */
 public class FaceSplitter {
-    public static void split(Cp cp, Face face, HalfEdge splitter, HalfEdge h0,
-            HalfEdge h1) {
-        face.remove(splitter);
-        splitter.settle();
-        Face f0 = new Face(face);
-        Face f1 = new Face(face);
-        Vertex v0 = splitter.getV0();
-        Vertex v1 = splitter.getV1();
-        open(f0, splitter, h0);
-        open(f1, splitter.getPair(), h1);
-        close(f0, v0, splitter);
-        close(f1, v1, splitter.getPair());
-        distribute(f0, f1, face);
-        cp.add(f0);
-        cp.add(f1);
-        cp.remove(face);
-    }
+	public static void split(Cp cp, Face face, HalfEdge splitter, HalfEdge h0, HalfEdge h1) {
+		face.remove(splitter);
+		splitter.settle();
+		Face f0 = new Face(face);
+		Face f1 = new Face(face);
+		Vertex v0 = splitter.getV0();
+		Vertex v1 = splitter.getV1();
+		open(f0, splitter, h0);
+		open(f1, splitter.getPair(), h1);
+		close(f0, v0, splitter);
+		close(f1, v1, splitter.getPair());
+		distribute(f0, f1, face);
+		cp.add(f0);
+		cp.add(f1);
+		cp.remove(face);
+	}
 
-    private static void distribute(Face f0, Face f1, Face face) {
-        HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
-        for (HalfEdge he : unsettledLines) {
-            if (he.getProperty().isDisabled()) {
-                continue;
-            }
-            if (FaceUtil.onFace(f0, he)) {
-                f0.add(he);
-            } else {
-                f1.add(he);
-            }
-        }
-    }
+	private static void distribute(Face f0, Face f1, Face face) {
+		HashSet<HalfEdge> unsettledLines = face.getUnsettledLines();
+		for (HalfEdge he : unsettledLines) {
+			if (he.getProperty().isDisabled()) {
+				continue;
+			}
+			if (FaceUtil.onFace(f0, he)) {
+				f0.add(he);
+			} else {
+				f1.add(he);
+			}
+		}
+	}
 
-    private static void open(Face face, HalfEdge splitter, HalfEdge h0) {
-        face.add(h0);
-        splitter.connectTo(h0);
-    }
+	private static void open(Face face, HalfEdge splitter, HalfEdge h0) {
+		face.add(h0);
+		splitter.connectTo(h0);
+	}
 
-    private static void close(Face face, Vertex endV, HalfEdge splitter) {
-        HalfEdge h = face.getSortedEdges().get(0);
-        do {
-            h = h.getNext();
-            face.add(h);
-        } while (h.getV1() != endV);
-        face.add(splitter);
-        h.connectTo(splitter);
-    }
+	private static void close(Face face, Vertex endV, HalfEdge splitter) {
+		HalfEdge h = face.getHalfEdges().get(0);
+		do {
+			h = h.getNext();
+			face.add(h);
+		} while (h.getV1() != endV);
+		face.add(splitter);
+		h.connectTo(splitter);
+	}
 
 }

@@ -30,6 +30,10 @@ public class CpInsert extends JButton {
 					context.insertUnfoldedCp();
 					return;
 				}
+				if ((e.getModifiers() & ActionEvent.SHIFT_MASK) == ActionEvent.SHIFT_MASK) {
+					context.insertFoldedCp();
+					return;
+				}
 				context.insertCp();
 			}
 		});

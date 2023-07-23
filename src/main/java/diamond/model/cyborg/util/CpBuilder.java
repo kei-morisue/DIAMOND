@@ -5,8 +5,10 @@
 package diamond.model.cyborg.util;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import diamond.Config;
 import diamond.controller.Context;
@@ -76,6 +78,48 @@ public class CpBuilder {
 		Folder.fold(cp1);
 
 		return cp1;
+	}
+
+	public static Cp buildFoldedNext(Context context, Cp cp0) {
+		Cp cp1 = copyCp(cp0);
+		ArrayDeque<HalfEdge> queue = new ArrayDeque<HalfEdge>();
+		cp1.getFaces().forEach(face -> {
+			face.getUnsettledLines().forEach(he -> {
+				EdgeType type = he.getType();
+				if (type == EdgeType.UNSETTLED_MOUNTAIN || type == EdgeType.UNSETTLED_VALLEY) {
+					queue.add(he);
+				}
+			});
+
+		});
+		settle(queue, cp1);
+		Folder.fold(cp1);
+
+		return cp1;
+	}
+
+	private static void settle(ArrayDeque<HalfEdge> queue, Cp cp) {
+		HalfEdge failed = null;
+		HashSet<HalfEdge> settled = new HashSet<HalfEdge>();
+		while (queue.size() > 0 && (queue.peek() != failed)) {
+			HalfEdge he = queue.poll();
+			if (settled.contains(he.getPair())) {
+				continue;
+			}
+			boolean is_settled = HalfEdgeModifier.settle(cp, he);
+			if (!is_settled) {
+				queue.add(he);
+				if (failed == null) {
+					failed = he;
+				}
+
+				continue;
+			}
+			failed = null;
+			settled.add(he);
+			System.out.println(he);
+			System.out.println(queue.size());
+		}
 	}
 
 	public static Cp buildHex() {

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import diamond.controller.Palette;
 import diamond.model.cyborg.Cp;
 
@@ -25,6 +27,7 @@ public class ExporterDMD {
 			exportXml(cps, filePath + ext);
 		} catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getClass().getName());
 			return false;
 		}
 		return true;
