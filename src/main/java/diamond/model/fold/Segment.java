@@ -6,6 +6,7 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 
+import diamond.model.Dir;
 import diamond.model.XY;
 
 /**
@@ -13,7 +14,9 @@ import diamond.model.XY;
  *
  */
 public abstract class Segment extends Renderable implements Serializable {
-
+	public static final int NONE = 0;
+	public static final int MOUNTAIN = 1;
+	public static final int VALLEY = -1;
 	protected Vertex v0;
 	protected Vertex v1;
 
@@ -26,6 +29,14 @@ public abstract class Segment extends Renderable implements Serializable {
 	@Override
 	public XY centroid() {
 		return v0.p.mid(v1.p);
+	}
+
+	public Dir dir() {
+		return v0.p.dir(v1.p);
+	}
+
+	public Dir dirF() {
+		return v0.f.dir(v1.f);
 	}
 
 	public Vertex getV0() {

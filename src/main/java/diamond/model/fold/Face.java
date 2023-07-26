@@ -19,7 +19,8 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 	private ArrayList<Crease> creases = new ArrayList<Crease>();
 
-	public Boolean isFlip = null;
+	public boolean isFlip;
+	transient public boolean isFolded;
 
 	public Face(ArrayList<Vertex> vertices) {
 		super();

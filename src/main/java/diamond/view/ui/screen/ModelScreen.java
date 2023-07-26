@@ -5,12 +5,9 @@
 package diamond.view.ui.screen;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 import diamond.controller.action.screen.ScreenAction;
-import diamond.model.XY;
-import diamond.model.fold.Vertex;
-import diamond.view.draw.Drawer;
+import diamond.view.draw.ModelDrawer;
 
 /**
  * @author Kei Morisue
@@ -18,12 +15,12 @@ import diamond.view.draw.Drawer;
  */
 public class ModelScreen extends ScreenBase {
 
-	private Drawer drawer;
-	private ArrayList<ModelScreen> linkedScreens = new ArrayList<>();
+	private PaintScreen paintScreen;
 
-	public ModelScreen(Drawer drawer) {
+	private ModelDrawer drawer = new ModelDrawer();
+
+	public ModelScreen() {
 		super();
-		this.drawer = drawer;
 		setFocusable(true);
 		ScreenAction action = new ScreenAction(this);
 		addMouseMotionListener(action);
@@ -32,24 +29,11 @@ public class ModelScreen extends ScreenBase {
 
 	@Override
 	public void drawComponents(Graphics2D g2d) {
-		drawer.draw(g2d);
+		drawer.draw(g2d, paintScreen.getPalette().getCp());
 	}
 
-	public void link(ModelScreen linkedScreen) {
-		this.linkedScreens.add(linkedScreen);
-		linkedScreen.linkedScreens.add(this);
-	}
+	public void link(PaintScreen paintScreen) {
+		this.paintScreen = paintScreen;
 
-	public Vertex pickVertex(XY v, double scale) {
-		return drawer.pickVertex(v, scale);
 	}
-
-	public void clearPicked() {
-		drawer.clearPicked();
-	}
-
-	public ArrayList<ModelScreen> getLinkedScreens() {
-		return linkedScreens;
-	}
-
 }

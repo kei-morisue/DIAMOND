@@ -11,12 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import diamond.controller.action.Palette;
-import diamond.model.fold.Cp;
-import diamond.view.draw.Drawer;
-import diamond.view.draw.color.ColorProviderFlat;
-import diamond.view.draw.shape.ShapeProviderFlat;
 import diamond.view.ui.menu.File;
-import diamond.view.ui.panel.Paint;
+import diamond.view.ui.panel.PaintPanel;
 import diamond.view.ui.screen.ModelScreen;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
@@ -27,15 +23,11 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Palette palette = new Palette();
-	private Cp fold = new Cp(200.0);
-	private ColorProviderFlat colorProvider1 = new ColorProviderFlat();
-	private ShapeProviderFlat shapeProvider1 = new ShapeProviderFlat();
-	private Drawer drawer1 = new Drawer(fold, colorProvider1, shapeProvider1);
+	private Palette palette = new Palette(200.0);
 
-	private ModelScreen modelScreen = new ModelScreen(drawer1);
+	private ModelScreen modelScreen = new ModelScreen();
 
-	private Paint paint = new Paint(palette, modelScreen);
+	private PaintPanel paint = new PaintPanel(palette, modelScreen);
 
 	public MainFrame() {
 		setVisible(true);

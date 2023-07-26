@@ -16,7 +16,6 @@ import com.sun.tools.javac.util.Pair;
 import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
-import diamond.model.fold.Edge.Assign;
 import diamond.model.line.Line;
 
 /**
@@ -33,11 +32,11 @@ public abstract class Flat implements Serializable {
 	public Flat() {
 	}
 
-	public Flat(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
+	public Flat(ArrayList<Line> l, ArrayList<Integer> a) {
 		build(l, a);
 	}
 
-	protected HashMap<Tuple<Vertex>, ArrayList<Line>> build(ArrayList<Line> l, ArrayList<Edge.Assign> a) {
+	protected HashMap<Tuple<Vertex>, ArrayList<Line>> build(ArrayList<Line> l, ArrayList<Integer> a) {
 		this.EPS = Geo.minLength(l) / getMaxFraction();
 		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, EPS);
 		this.vertices = Line.getV(compressedP);
@@ -46,7 +45,7 @@ public abstract class Flat implements Serializable {
 			Vertex v0 = k.fst;
 			Vertex v1 = k.snd;
 			Line line = v.get(0);
-			Assign assign = a.get(l.indexOf(line));
+			int assign = a.get(l.indexOf(line));
 			edges.add(new Edge(v0, v1, assign));
 		});
 		build();

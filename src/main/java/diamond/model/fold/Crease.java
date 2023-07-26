@@ -11,14 +11,11 @@ import java.io.Serializable;
  *
  */
 public class Crease extends Segment implements Serializable {
-	public static enum Assign implements Serializable {
-		NONE, MOUNTAIN, VALLEY
-	};
 
-	private Assign a;
+	private int a;
 	private Face face;
 
-	public Crease(Vertex v0, Vertex v1, Assign a) {
+	public Crease(Vertex v0, Vertex v1, int a) {
 		super(v0, v1);
 		this.a = a;
 	}
@@ -32,7 +29,7 @@ public class Crease extends Segment implements Serializable {
 		this.face = face;
 	}
 
-	public Assign getA() {
+	public int getA() {
 		return a;
 	}
 

@@ -5,72 +5,144 @@
 package diamond.view.draw;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+import diamond.model.XY;
+import diamond.model.fold.Cp;
+import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Vertex;
-import diamond.view.draw.color.ColorProviderBase;
-import diamond.view.draw.shape.ShapeProviderBase;
 
 /**
  * @author Kei Morisue
  *
  */
 public abstract class DrawerBase {
-	protected ColorProviderBase colorProvider;
-	protected ShapeProviderBase shapeProvider;
 
-	public DrawerBase(ColorProviderBase colorProvider, ShapeProviderBase shapeProvider) {
-		this.colorProvider = colorProvider;
-		this.shapeProvider = shapeProvider;
+	abstract protected Color getColor(Face face);
+
+	abstract protected Color getColor(Vertex vertex);
+
+	abstract protected Color getColor(Edge edge);
+
+	abstract protected Color getColor(Crease crese);
+
+	protected abstract BasicStroke getStroke(Edge edge, double scale);
+
+	protected abstract BasicStroke getStroke(Crease crease, double scale);
+
+	protected abstract double getRadius(Vertex vertex);
+
+	protected abstract XY getXY(Vertex vertex);
+
+	protected abstract XY[] getXY(Edge e);
+
+	protected abstract XY[] getXY(Crease e);
+
+	protected abstract ArrayList<XY> getXY(Face face);
+
+	private void drawVertex(Graphics2D g2d, Vertex vertex, double scale) {
+		Shape s = getShape(vertex, scale);
+		g2d.setColor(getColor(vertex));
+		g2d.fill(s);
 	}
 
-	abstract protected ArrayList<Vertex> getVertices();
-
-	abstract protected ArrayList<Edge> getEdges();
-
-	abstract protected ArrayList<Face> getFaces();
-
-	private void drawVertices(Graphics2D g2d, double scale) {
-		ArrayList<Vertex> vertices = getVertices();
-		vertices.forEach(vertex -> {
-			Shape s = shapeProvider.getShape(vertex, scale);
-			g2d.setColor(colorProvider.getColor(vertex));
-			g2d.fill(s);
-		});
+	private void drawEdge(Graphics2D g2d, Edge edge, double scale) {
+		BasicStroke stroke = getStroke(edge, scale);
+		Shape s = getShape(edge, scale);
+		g2d.setStroke(stroke);
+		g2d.setColor(getColor(edge));
+		g2d.draw(s);
+		drawVertex(g2d, edge.getV0(), scale);
+		drawVertex(g2d, edge.getV1(), scale);
 	}
 
-	private void drawEdges(Graphics2D g2d, double scale) {
-		ArrayList<Edge> edges = getEdges();
-		edges.forEach(e -> {
-			BasicStroke stroke = shapeProvider.getStroke(e, scale);
-			g2d.setStroke(stroke);
-			Shape s = shapeProvider.getShape(e, scale);
-			g2d.setColor(colorProvider.getColor(e));
-
-			g2d.draw(s);
-
-		});
+	private void drawCrease(Graphics2D g2d, Crease crease, double scale) {
+		BasicStroke stroke = getStroke(crease, scale);
+		Shape s = getShape(crease, scale);
+		g2d.setStroke(stroke);
+		g2d.setColor(getColor(crease));
+		g2d.draw(s);
+		drawVertex(g2d, crease.getV0(), scale);
+		drawVertex(g2d, crease.getV1(), scale);
 	}
 
-	private void drawFaces(Graphics2D g2d, double scale) {
-		ArrayList<Face> faces = getFaces();
-		faces.forEach(face -> {
-			g2d.setColor(colorProvider.getColor(face));
-			Shape path = shapeProvider.getShape(face, scale);
-			g2d.fill(path);
-		});
+	private void drawFace(Graphics2D g2d, Face face, double scale) {
+		g2d.setColor(getColor(face));
+		Shape path = getShape(face, scale);
+		g2d.fill(path);
 	}
 
-	public void draw(Graphics2D g2d) {
+	public void draw(Graphics2D g2d, Cp cp) {
 		double scale = getScale(g2d);
-		drawFaces(g2d, scale);
-		drawEdges(g2d, scale);
-		drawVertices(g2d, scale);
+		cp.getFaces().forEach(face -> {
+			drawFace(g2d, face, scale);
+			face.getEdges().forEach(edge -> {
+				drawEdge(g2d, edge, scale);
+			});
+			face.getCreases().forEach(crease -> {
+				drawCrease(g2d, crease, scale);
+			});
+
+		});
+	}
+
+	protected Shape getShape(Vertex vertex, double scale) {
+		XY xy = getXY(vertex);
+		double radius = getRadius(vertex);
+		double size = radius / scale;
+		double x = xy.getX();
+		double y = xy.getY();
+		Ellipse2D.Double s = new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
+		return s;
+	}
+
+	protected Shape getShape(Edge e, double scale) {
+		XY[] xys = getXY(e);
+		XY v1 = xys[0];
+		XY v2 = xys[1];
+		double x1 = v1.getX();
+		double y1 = v1.getY();
+		double x2 = v2.getX();
+		double y2 = v2.getY();
+		Line2D.Double s = new Line2D.Double(x1, y1, x2, y2);
+		return s;
+	}
+
+	protected Shape getShape(Crease e, double scale) {
+		XY[] xys = getXY(e);
+		XY v1 = xys[0];
+		XY v2 = xys[1];
+		double x1 = v1.getX();
+		double y1 = v1.getY();
+		double x2 = v2.getX();
+		double y2 = v2.getY();
+		Line2D.Double s = new Line2D.Double(x1, y1, x2, y2);
+		return s;
+	}
+
+	protected Shape getShape(Face face, double scale) {
+		GeneralPath path = null;
+		ArrayList<XY> vertices = getXY(face);
+		for (XY xy : vertices) {
+			if (path == null) {
+				path = new GeneralPath();
+				path.moveTo(xy.getX(), xy.getY());
+			} else {
+				path.lineTo(xy.getX(), xy.getY());
+			}
+
+		}
+		path.closePath();
+		return path;
 	}
 
 	private double getScale(Graphics2D g2d) {

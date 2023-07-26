@@ -11,7 +11,6 @@ import java.util.List;
 
 import diamond.model.Tuple;
 import diamond.model.XY;
-import diamond.model.fold.Edge.Assign;
 
 /**
  * @author Kei Morisue
@@ -19,25 +18,35 @@ import diamond.model.fold.Edge.Assign;
  */
 public class CpBuilder {
 
+	// TODO stub
 	public static void buildSquare(Cp cp, double scale) {
 		ArrayList<Vertex> vertices = cp.getVertices();
 		Vertex v0 = new Vertex(new XY(scale, scale));
 		Vertex v1 = new Vertex(new XY(scale, -scale));
 		Vertex v2 = new Vertex(new XY(-scale, -scale));
 		Vertex v3 = new Vertex(new XY(-scale, scale));
-		vertices.addAll(Arrays.asList(v0, v1, v2, v3));
+		Vertex m = new Vertex(new XY(0, 0));
+		Vertex m1 = new Vertex(new XY(0, scale));
+		Vertex m2 = new Vertex(new XY(0, -scale));
+		vertices.addAll(Arrays.asList(v0, v1, v2, v3, m, m1, m2));
 
-		Edge e0 = new Edge(v0, v1, Assign.BOUND);
-		Edge e1 = new Edge(v1, v2, Assign.BOUND);
-		Edge e2 = new Edge(v2, v3, Assign.BOUND);
-		Edge e3 = new Edge(v3, v0, Assign.BOUND);
+		Edge e0 = new Edge(v0, v1, Edge.NONE);
+		Edge e1 = new Edge(v1, m2, Edge.NONE);
+		Edge e2 = new Edge(m2, v2, Edge.NONE);
+		Edge e3 = new Edge(v2, v3, Edge.NONE);
+		Edge e4 = new Edge(v3, m1, Edge.NONE);
+		Edge e5 = new Edge(m1, v0, Edge.NONE);
 
-		// TODO stub
-		Edge e4 = new Edge(v2, v0, Assign.MOUNTAIN);
-		cp.getEdges().add(e4);
+		Edge e6 = new Edge(m, v0, Edge.MOUNTAIN);
+		Edge e7 = new Edge(m, v1, Edge.MOUNTAIN);
+		Edge e8 = new Edge(m, v2, Edge.MOUNTAIN);
+		Edge e9 = new Edge(m, v3, Edge.MOUNTAIN);
+		Edge e10 = new Edge(m, m1, Edge.VALLEY);
+		Edge e11 = new Edge(m, m2, Edge.VALLEY);
 
-		cp.getEdges().addAll(Arrays.asList(e0, e1, e2, e3));
+		cp.getEdges().addAll(Arrays.asList(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
 		cp.build();
+
 	}
 
 	public static HashMap<Vertex, ArrayList<Vertex>> getAdj(List<Vertex> vertices, List<Edge> edges) {

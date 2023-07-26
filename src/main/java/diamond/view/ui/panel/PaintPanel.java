@@ -18,12 +18,10 @@ import diamond.view.util.Icon;
  * @author Kei Morisue
  *
  */
-public class Paint extends JPanel {
-	private Palette palette;
+public class PaintPanel extends JPanel {
 	private PaintScreen screen2;
 
-	public Paint(Palette palette, ModelScreen modelScreen) {
-		this.palette = palette;
+	public PaintPanel(Palette palette, ModelScreen modelScreen) {
 		this.screen2 = new PaintScreen(palette, modelScreen);
 		setLayout(new BorderLayout());
 		add(screen2, BorderLayout.CENTER);

@@ -15,9 +15,14 @@ import diamond.model.fold.Vertex;
  */
 public class Palette {
 
-	private LinkedList<Cp> cps;
+	private LinkedList<Cp> cps = new LinkedList<Cp>();
 	private int currentCp;
 	public Vertex pointedVertex;
+
+	public Palette(double size) {
+		Cp cp = new Cp(size);
+		cps.add(cp);
+	}
 
 	public Cp getCp() {
 		return cps.get(currentCp);

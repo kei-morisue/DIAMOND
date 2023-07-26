@@ -11,15 +11,11 @@ import java.io.Serializable;
  *
  */
 public class Edge extends Segment implements Serializable {
-	public static enum Assign implements Serializable {
-		MOUNTAIN, VALLEY, BOUND
-	};
-
-	private Assign a;
+	private int a;
 	private Face f0;
 	private Face f1;
 
-	public Edge(Vertex v0, Vertex v1, Assign a) {
+	public Edge(Vertex v0, Vertex v1, int a) {
 		super(v0, v1);
 		this.a = a;
 	}
@@ -48,7 +44,7 @@ public class Edge extends Segment implements Serializable {
 		this.f1 = f1;
 	}
 
-	public Assign getA() {
+	public int getA() {
 		return a;
 	}
 
