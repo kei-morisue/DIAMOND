@@ -38,4 +38,8 @@ public class PaintAction {
 	public void onDraw(Graphics2D g2d, PaintScreen screen) {
 		state.onDraw(g2d, screen);
 	};
+
+	public void onRefresh(PaintScreen screen) {
+		state.onRefresh(screen);
+	};
 }

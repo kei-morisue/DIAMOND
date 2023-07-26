@@ -51,13 +51,10 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
@@ -68,7 +65,6 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 

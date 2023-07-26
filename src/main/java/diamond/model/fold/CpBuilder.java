@@ -6,8 +6,8 @@ package diamond.model.fold;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import diamond.model.Tuple;
 import diamond.model.XY;
@@ -20,7 +20,7 @@ public class CpBuilder {
 
 	// TODO stub
 	public static void buildSquare(Cp cp, double scale) {
-		ArrayList<Vertex> vertices = cp.getVertices();
+		ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 		Vertex v0 = new Vertex(new XY(scale, scale));
 		Vertex v1 = new Vertex(new XY(scale, -scale));
 		Vertex v2 = new Vertex(new XY(-scale, -scale));
@@ -44,12 +44,13 @@ public class CpBuilder {
 		Edge e10 = new Edge(m, m1, Edge.VALLEY);
 		Edge e11 = new Edge(m, m2, Edge.VALLEY);
 
-		cp.getEdges().addAll(Arrays.asList(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
-		cp.build();
+		ArrayList<Edge> edges = new ArrayList<Edge>();
+		edges.addAll(Arrays.asList(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
+		cp.build(vertices, edges);
 
 	}
 
-	public static HashMap<Vertex, ArrayList<Vertex>> getAdj(List<Vertex> vertices, List<Edge> edges) {
+	public static HashMap<Vertex, ArrayList<Vertex>> getAdj(Collection<Vertex> vertices, Collection<Edge> edges) {
 		HashMap<Vertex, ArrayList<Vertex>> adjVmap = new HashMap<Vertex, ArrayList<Vertex>>();
 		vertices.forEach(v -> {
 			adjVmap.put(v, new ArrayList<Vertex>());
@@ -63,7 +64,7 @@ public class CpBuilder {
 		return adjVmap;
 	}
 
-	public static HashMap<Tuple<Vertex>, Edge> getVE(List<Edge> edges) {
+	public static HashMap<Tuple<Vertex>, Edge> getVE(Collection<Edge> edges) {
 		HashMap<Tuple<Vertex>, Edge> vaMap = new HashMap<Tuple<Vertex>, Edge>();
 		edges.forEach(e -> {
 			Vertex v0 = e.getV0();
@@ -75,7 +76,7 @@ public class CpBuilder {
 		return vaMap;
 	}
 
-	public static HashMap<Tuple<Vertex>, Face> getVF(List<Face> faces) {
+	public static HashMap<Tuple<Vertex>, Face> getVF(Collection<Face> faces) {
 		HashMap<Tuple<Vertex>, Face> vfMap = new HashMap<Tuple<Vertex>, Face>();
 		faces.forEach(f -> {
 			ArrayList<Vertex> vs = f.getVertices();

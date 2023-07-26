@@ -44,6 +44,10 @@ public class PaintScreen extends ScreenBase {
 		return paintAction;
 	}
 
+	public void setPaintAction(PaintAction paintAction) {
+		this.paintAction = paintAction;
+	}
+
 	public Palette getPalette() {
 		return palette;
 	}

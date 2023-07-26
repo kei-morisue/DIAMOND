@@ -18,18 +18,23 @@ public class Cp extends Flat {
 		super();
 		CpBuilder.buildSquare(this, scale);
 		this.baseFace = getFaces().get(0);
+		fold();
+	}
+
+	public void fold() {
 		clearFolded();
 		Edge borderEdge = baseFace.getEdges().get(0);
 		buildFolded(baseFace, true, borderEdge);
 	}
 
 	public void clearFolded() {
-		vertices.forEach(v -> {
-			v.f = v.p;
-		});
 		faces.forEach(face -> {
 			face.isFlip = false;
 			face.isFolded = false;
+			face.getVertices().forEach(v -> {
+				v.f = v.p;
+			});
+
 		});
 	}
 
@@ -45,8 +50,7 @@ public class Cp extends Flat {
 		Dir xf = foldedEdge.dirF();
 		Dir y = x.perp();
 		Dir yf = xf.perp();
-		face.getEdges().forEach(edge -> {
-			Vertex vertex = edge.getV0();
+		face.getVertices().forEach(vertex -> {
 			Dir d = v0.dir(vertex.p);
 			double cx = x.dot(d) / x.mgSq();
 			double cy = y.dot(d) / x.mgSq();

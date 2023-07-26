@@ -6,17 +6,13 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import com.sun.tools.javac.util.Pair;
-
-import diamond.model.Geo;
 import diamond.model.Tuple;
-import diamond.model.XY;
-import diamond.model.line.Line;
 
 /**
  * @author Kei Morisue
@@ -25,40 +21,18 @@ import diamond.model.line.Line;
 public abstract class Flat implements Serializable {
 	private double EPS;
 
-	protected ArrayList<Vertex> vertices = new ArrayList<Vertex>();
-	protected ArrayList<Edge> edges = new ArrayList<Edge>();
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 
 	public Flat() {
 	}
 
-	public Flat(ArrayList<Line> l, ArrayList<Integer> a) {
-		build(l, a);
+	public void build(Collection<Vertex> vertices, Collection<Edge> edges) {
+		buildVV(vertices, edges);
+		buildFV(vertices);
+		buildFEnEF(edges);
 	}
 
-	protected HashMap<Tuple<Vertex>, ArrayList<Line>> build(ArrayList<Line> l, ArrayList<Integer> a) {
-		this.EPS = Geo.minLength(l) / getMaxFraction();
-		ArrayList<ArrayList<Pair<XY, Line>>> compressedP = Line.getCompressedP(l, EPS);
-		this.vertices = Line.getV(compressedP);
-		HashMap<Tuple<Vertex>, ArrayList<Line>> el = Line.getEL(this.vertices, l, compressedP);
-		el.forEach((k, v) -> {
-			Vertex v0 = k.fst;
-			Vertex v1 = k.snd;
-			Line line = v.get(0);
-			int assign = a.get(l.indexOf(line));
-			edges.add(new Edge(v0, v1, assign));
-		});
-		build();
-		return el;
-	}
-
-	public void build() {
-		buildVV();
-		buildFV();
-		buildFEnEF();
-	}
-
-	private void buildVV() {
+	private void buildVV(Collection<Vertex> vertices, Collection<Edge> edges) {
 		HashMap<Vertex, ArrayList<Vertex>> adjVmap = CpBuilder.getAdj(vertices, edges);
 		vertices.forEach(v -> {
 			ArrayList<Vertex> adjVs = adjVmap.get(v);
@@ -78,7 +52,7 @@ public abstract class Flat implements Serializable {
 		return null;
 	}
 
-	private void buildFV() {
+	private void buildFV(Collection<Vertex> vertices) {
 		HashSet<Tuple<Vertex>> seen = new HashSet<Tuple<Vertex>>();
 		vertices.forEach(v1 -> {
 			ArrayList<Vertex> adj1 = v1.getAdj();
@@ -107,7 +81,7 @@ public abstract class Flat implements Serializable {
 		faces.remove(faces.size() - 1);// remove the largest face ~ outer face
 	}
 
-	private void buildFEnEF() {
+	private void buildFEnEF(Collection<Edge> edges) {
 		HashMap<Tuple<Vertex>, Edge> ve = CpBuilder.getVE(edges);
 		faces.forEach(f -> {
 			ArrayList<Vertex> vs = f.getVertices();
@@ -136,14 +110,6 @@ public abstract class Flat implements Serializable {
 
 	public final double getEPS() {
 		return EPS;
-	}
-
-	public final ArrayList<Vertex> getVertices() {
-		return vertices;
-	}
-
-	public final ArrayList<Edge> getEdges() {
-		return edges;
 	}
 
 	public final ArrayList<Face> getFaces() {

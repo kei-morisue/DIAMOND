@@ -45,8 +45,14 @@ public abstract class PaintStateBase {
 
 	protected abstract void drawState(Graphics2D g2d, PaintScreen screen);
 
+	protected abstract void refresh(PaintScreen screen);
+
 	public void onDraw(Graphics2D g2d, PaintScreen screen) {
 		drawState(g2d, screen);
+	}
+
+	public void onRefresh(PaintScreen screen) {
+		refresh(screen);
 	}
 
 	public void onMove(PaintScreen screen, MouseEvent e) {

@@ -52,4 +52,9 @@ public class LazyState extends PaintStateBase {
 	protected void drawState(Graphics2D g2d, PaintScreen screen) {
 	}
 
+	@Override
+	protected void refresh(PaintScreen screen) {
+
+	}
+
 }
