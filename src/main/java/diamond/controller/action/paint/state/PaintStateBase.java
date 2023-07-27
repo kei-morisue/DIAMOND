@@ -17,45 +17,50 @@ import diamond.view.util.ScreenTransform;
  *
  */
 public abstract class PaintStateBase {
-	protected PaintStateBase nextState;
-	protected PaintStateBase prevState;
 
-	public PaintStateBase() {
-		initialize();
-	}
+	abstract protected PaintStateBase getNextState();
 
-	protected void initialize() {
-		setNextState();
-		setPrevState();
-	};
+	abstract protected PaintStateBase getPrevState();
 
-	abstract protected void setNextState();
+	protected abstract boolean undo(
+			PaintScreen screen,
+			XY p);
 
-	abstract protected void setPrevState();
+	protected abstract boolean act(
+			PaintScreen screen);
 
-	protected abstract boolean undo(PaintScreen screen, XY p);
+	protected abstract boolean actCtrl(
+			PaintScreen screen);
 
-	protected abstract boolean act(PaintScreen screen);
+	protected abstract void find(
+			PaintScreen screen,
+			XY p);
 
-	protected abstract boolean actCtrl(PaintScreen screen);
+	protected abstract void findCtrl(
+			PaintScreen screen,
+			XY p);
 
-	protected abstract void find(PaintScreen screen, XY p);
+	protected abstract void drawState(
+			Graphics2D g2d,
+			PaintScreen screen);
 
-	protected abstract void findCtrl(PaintScreen screen, XY p);
+	protected abstract void refresh(
+			PaintScreen screen);
 
-	protected abstract void drawState(Graphics2D g2d, PaintScreen screen);
-
-	protected abstract void refresh(PaintScreen screen);
-
-	public void onDraw(Graphics2D g2d, PaintScreen screen) {
+	public void onDraw(
+			Graphics2D g2d,
+			PaintScreen screen) {
 		drawState(g2d, screen);
 	}
 
-	public void onRefresh(PaintScreen screen) {
+	public void onRefresh(
+			PaintScreen screen) {
 		refresh(screen);
 	}
 
-	public void onMove(PaintScreen screen, MouseEvent e) {
+	public void onMove(
+			PaintScreen screen,
+			MouseEvent e) {
 		XY logicalPoint = getLogicalPoint(screen, e);
 
 		if (MouseUtility.isCtrlDown(e)) {
@@ -65,13 +70,17 @@ public abstract class PaintStateBase {
 		}
 	}
 
-	private XY getLogicalPoint(PaintScreen screen, MouseEvent e) {
+	private XY getLogicalPoint(
+			PaintScreen screen,
+			MouseEvent e) {
 		ScreenTransform transform = screen.getTransform();
 		XY logicalPoint = MouseUtility.getLogicalPoint(transform, e.getPoint());
 		return logicalPoint;
 	}
 
-	public final PaintStateBase doAction(PaintScreen screen, MouseEvent e) {
+	public final PaintStateBase doAction(
+			PaintScreen screen,
+			MouseEvent e) {
 		if (MouseUtility.isCtrlDown(e)) {
 			if (!actCtrl(screen)) {
 				return this;
@@ -80,14 +89,16 @@ public abstract class PaintStateBase {
 		if (!act(screen)) {
 			return this;
 		}
-		return nextState;
+		return getNextState();
 	}
 
-	public final PaintStateBase undoAction(PaintScreen screen, MouseEvent e) {
+	public final PaintStateBase undoAction(
+			PaintScreen screen,
+			MouseEvent e) {
 		if (!undo(screen, getLogicalPoint(screen, e))) {
 			return this;
 		}
-		return prevState;
+		return getPrevState();
 	}
 
 }

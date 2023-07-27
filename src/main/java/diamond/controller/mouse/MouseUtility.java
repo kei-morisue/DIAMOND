@@ -18,7 +18,9 @@ import diamond.model.XY;
  *
  */
 public class MouseUtility {
-	public static XY getLogicalPoint(AffineTransform affine, Point mousePoint) {
+	public static XY getLogicalPoint(
+			AffineTransform affine,
+			Point mousePoint) {
 		Point2D.Double logicalPoint = new Point2D.Double();
 		try {
 			affine.inverseTransform(mousePoint, logicalPoint);
@@ -29,16 +31,20 @@ public class MouseUtility {
 		return new XY(logicalPoint.x, logicalPoint.y);
 	}
 
-	public static boolean isCtrlDown(MouseEvent e) {
-		return ((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK);
+	public static boolean isCtrlDown(
+			MouseEvent e) {
+		return ((e.getModifiersEx()
+				& InputEvent.CTRL_DOWN_MASK) == InputEvent.CTRL_DOWN_MASK);
 	}
 
-	public static boolean isLeftClick(MouseEvent e) {
-		return (e.getModifiersEx() == InputEvent.BUTTON1_DOWN_MASK);
+	public static boolean isLeftClick(
+			MouseEvent e) {
+		return (e.getButton() == MouseEvent.BUTTON1);
 	}
 
-	public static boolean isRightClick(MouseEvent e) {
-		return (e.getModifiersEx() == InputEvent.BUTTON3_DOWN_MASK);
+	public static boolean isRightClick(
+			MouseEvent e) {
+		return (e.getButton() == MouseEvent.BUTTON3);
 	}
 
 	private MouseUtility() {

@@ -21,65 +21,81 @@ import diamond.model.fold.Vertex;
 public class ModelDrawer extends DrawerBase {
 
 	@Override
-	protected XY getXY(Vertex v) {
-		return v.f;
+	protected XY getXY(
+			Vertex v) {
+		return v.d;
 	}
 
 	@Override
-	protected XY[] getXY(Edge edge) {
-		XY[] res = { edge.getV0().f, edge.getV1().f };
+	protected XY[] getXY(
+			Edge edge) {
+		XY[] res = { getXY(edge.getV0()), getXY(edge.getV1()) };
 		return res;
 	}
 
 	@Override
-	protected XY[] getXY(Crease crease) {
-		XY[] res = { crease.getV0().f, crease.getV1().f };
+	protected XY[] getXY(
+			Crease crease) {
+		XY[] res = { getXY(crease.getV0()), getXY(crease.getV1()) };
 		return res;
 	}
 
 	@Override
-	protected ArrayList<XY> getXY(Face face) {
+	protected ArrayList<XY> getXY(
+			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
 		face.getVertices().forEach(v -> {
-			res.add(v.f);
+			res.add(getXY(v));
 		});
 		return res;
 	}
 
 	@Override
-	public double getRadius(Vertex vertex) {
+	public double getRadius(
+			Vertex vertex) {
 		return vertex.isPicked ? 15.0 : 0.0;
 	}
 
 	@Override
-	protected Color getColor(Face face) {
-		return face.isPicked ? Color.GREEN : face.isFlip ? Color.GRAY : Color.WHITE;
+	protected Color getColor(
+			Face face) {
+		return face.isPicked ? Color.GREEN
+				: face.isFlip ? Color.GRAY : Color.WHITE;
 	}
 
 	@Override
-	protected Color getColor(Vertex vertex) {
+	protected Color getColor(
+			Vertex vertex) {
 		return vertex.isPicked ? Color.GREEN : Color.WHITE;
 	}
 
 	@Override
-	protected Color getColor(Edge edge) {
+	protected Color getColor(
+			Edge edge) {
 		return Color.BLACK;
 	}
 
 	@Override
-	protected Color getColor(Crease crese) {
+	protected Color getColor(
+			Crease crese) {
 		return Color.BLACK;
 	}
 
 	@Override
-	protected BasicStroke getStroke(Edge edge, double scale) {
-		BasicStroke stroke = new BasicStroke((float) (3.0 / scale), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+	protected BasicStroke getStroke(
+			Edge edge,
+			double scale) {
+		BasicStroke stroke = new BasicStroke((float) (3.0 / scale),
+				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		return stroke;
 	}
 
 	@Override
-	protected BasicStroke getStroke(Crease crease, double scale) {
-		BasicStroke stroke = new BasicStroke((float) (1.0 / scale), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+	protected BasicStroke getStroke(
+			Crease crease,
+			double scale) {
+		BasicStroke stroke = new BasicStroke((float) (1.0 / scale),
+				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		return stroke;
 	}
 

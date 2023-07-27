@@ -42,6 +42,21 @@ public abstract class Flat implements Serializable {
 		buildFC(creases);
 	}
 
+	public HashSet<Vertex> getVertices() {
+		HashSet<Vertex> vertices = new HashSet<Vertex>();
+		faces.forEach(face -> {
+			face.getVertices().forEach(vertex -> {
+				vertices.add(vertex);
+			});
+			face.getCreases().forEach(crease -> {
+				vertices.add(crease.getV0());
+				vertices.add(crease.getV1());
+			});
+		});
+		return vertices;
+
+	}
+
 	private HashSet<Vertex> buildVertices(
 			Collection<Edge> edges) {
 		HashSet<Vertex> vertices = new HashSet<Vertex>();

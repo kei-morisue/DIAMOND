@@ -24,7 +24,8 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(
+			MouseEvent e) {
 	}
 
 	private PaintAction getPaintAction() {
@@ -32,39 +33,47 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(
+			MouseEvent e) {
 		getPaintAction().onMove(screen, e);
 		e.getComponent().repaint();
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(
+			MouseEvent e) {
 		if (MouseUtility.isLeftClick(e)) {
 			getPaintAction().onLeftClick(screen, e);
+			e.getComponent().repaint();
+			return;
 		}
-		getPaintAction().onRightClick(screen, e);
 		if (MouseUtility.isRightClick(e)) {
+			getPaintAction().onRightClick(screen, e);
+			e.getComponent().repaint();
+			return;
 		}
-		e.getComponent().repaint();
-		return;
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(
+			MouseEvent e) {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(
+			MouseEvent e) {
 
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(
+			MouseEvent e) {
 		screen.grabFocus();
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mouseExited(
+			MouseEvent e) {
 
 	}
 

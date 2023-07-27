@@ -17,15 +17,27 @@ public class XY extends Point2D.Double implements Serializable {
 		super(x, y);
 	}
 
-	public Dir dir(XY v) {
+	public Dir dir(
+			XY v) {
 		return new Dir(v.x - x, v.y - y);
 	}
 
-	public XY mid(XY v, double t) {
+	public XY mid(
+			XY v,
+			double t) {
 		return dir(v).mul(t).ver(this);
 	}
 
-	public XY mid(XY v) {
+	public XY apply(
+			double a,
+			double b,
+			double c,
+			double d) {
+		return new XY(a * x + b * y, c * x + d * y);
+	}
+
+	public XY mid(
+			XY v) {
 		return mid(v, 0.5);
 	}
 
@@ -37,8 +49,11 @@ public class XY extends Point2D.Double implements Serializable {
 		}
 
 		@Override
-		public int compare(XY p1, XY p2) {
-			return Geo.isClose(p1.x, p2.x, eps) ? (int) (p1.y - p2.y) : (int) (p1.x - p2.x);
+		public int compare(
+				XY p1,
+				XY p2) {
+			return Geo.isClose(p1.x, p2.x, eps) ? (int) (p1.y - p2.y)
+					: (int) (p1.x - p2.x);
 		}
 	}
 }

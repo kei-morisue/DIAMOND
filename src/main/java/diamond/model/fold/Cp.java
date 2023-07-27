@@ -57,13 +57,13 @@ public class Cp extends Flat {
 		Dir y = x.perp();
 		Dir yf = xf.perp();
 		face.getVertices().forEach(vertex -> {
-			setF(vertex, prevFaceFlip, v0f, v0, x, xf, y, yf);
+			vertex.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
 		});
 		face.getCreases().forEach(crease -> {
 			Vertex w0 = crease.getV0();
 			Vertex w1 = crease.getV1();
-			setF(w0, prevFaceFlip, v0f, v0, x, xf, y, yf);
-			setF(w1, prevFaceFlip, v0f, v0, x, xf, y, yf);
+			w0.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
+			w1.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
 		});
 
 		face.getEdges().forEach(edge -> {
@@ -93,7 +93,7 @@ public class Cp extends Flat {
 		boolean flip = fi.isFlip;
 		for (Edge edge : fi.getEdges()) {
 			Face fj = edge.getPair(fi);
-			boolean isValley = !edge.isValley();
+			boolean isValley = edge.isValley();
 			if (fj == null) {
 				continue;
 			}
@@ -105,22 +105,6 @@ public class Cp extends Flat {
 			}
 		}
 		return false;
-	}
-
-	private void setF(
-			Vertex vertex,
-			boolean prevFaceFlip,
-			XY v0f,
-			XY v0,
-			Dir x,
-			Dir xf,
-			Dir y,
-			Dir yf) {
-		Dir d = v0.dir(vertex.p);
-		double cx = x.dot(d) / x.mgSq();
-		double cy = y.dot(d) / x.mgSq();
-		cy *= (prevFaceFlip) ? 1 : -1;
-		vertex.f = xf.mul(cx).add(yf.mul(cy)).ver(v0f);
 	}
 
 	@Override
