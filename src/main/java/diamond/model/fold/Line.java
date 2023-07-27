@@ -171,7 +171,7 @@ public class Line {
 		public int compare(
 				Vertex pk,
 				Vertex qk) {
-			return dir.dot(qk.p.dir(pk.p)) > 0 ? 1 : -1;
+			return dir.dot(qk.dir(pk)) > 0 ? 1 : -1;
 		}
 	}
 }

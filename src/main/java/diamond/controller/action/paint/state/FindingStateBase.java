@@ -31,7 +31,7 @@ public abstract class FindingStateBase extends PaintStateBase {
 		Set<Vertex> vertices = cp.getVertices();
 		for (Vertex v : vertices) {
 			double scale = screen.getScale();
-			if (v.p.distanceSq(p) < 100 / scale / scale) {
+			if (v.distanceSq(p) < 100 / scale / scale) {
 				vertex = v;
 				v.setPicked(true);
 				return;

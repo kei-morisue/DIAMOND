@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 
 import diamond.model.XY;
 import diamond.model.fold.Cp;
@@ -47,17 +46,7 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	protected XY getXY(
 			Vertex v) {
-		return v.p;
-	}
-
-	@Override
-	protected ArrayList<XY> getXY(
-			Face face) {
-		ArrayList<XY> res = new ArrayList<XY>();
-		face.getVertices().forEach(v -> {
-			res.add(v.p);
-		});
-		return res;
+		return v;
 	}
 
 	@Override

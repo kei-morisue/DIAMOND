@@ -52,7 +52,7 @@ public abstract class Segment implements Serializable, Renderable {
 		List<Line> lines = new ArrayList<Line>();
 		Map<Line, Segment> lsMap = new HashMap<Line, Segment>();
 		segs.forEach(e -> {
-			Line line = new Line(e.v0.p, e.v1.p);
+			Line line = new Line(e.v0, e.v1);
 			lines.add(line);
 			lsMap.put(line, e);
 		});
@@ -86,7 +86,7 @@ public abstract class Segment implements Serializable, Renderable {
 			Dir dir0) {
 		Dir n = dir().perp();
 		double den = n.dot(dir0);
-		Dir dv = p0.dir(v0.p);
+		Dir dv = p0.dir(v0);
 		if (den == 0) {
 			return dir0.mul(dv.mg() / dir0.mg()).ver(p0);
 		} else {
@@ -96,15 +96,15 @@ public abstract class Segment implements Serializable, Renderable {
 
 	public double distanceSq(
 			XY p) {
-		Dir x0 = v0.p.dir(p);
+		Dir x0 = v0.dir(p);
 		Dir d = dir();
 		double dot = x0.dot(d);
 		if (dot <= 0) {
-			return v0.p.distanceSq(p);
+			return v0.distanceSq(p);
 		}
 		double mgSq = d.mgSq();
 		if (dot >= mgSq) {
-			return v1.p.distanceSq(p);
+			return v1.distanceSq(p);
 		}
 		double cross = x0.cross(d);
 		return cross * cross / mgSq;
@@ -113,7 +113,7 @@ public abstract class Segment implements Serializable, Renderable {
 
 	@Override
 	public XY centroid() {
-		return v0.p.mid(v1.p);
+		return v0.mid(v1);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public abstract class Segment implements Serializable, Renderable {
 	}
 
 	public Dir dir() {
-		return v0.p.dir(v1.p);
+		return v0.dir(v1);
 	}
 
 	public Dir dirF() {

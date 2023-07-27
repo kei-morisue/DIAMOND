@@ -65,7 +65,7 @@ public class State1 extends FindingStateBase {
 			PaintScreen screen,
 			XY p) {
 		super.findCtrl(screen, p);
-		XY p0 = v0.p;
+		XY p0 = v0;
 		double angle = Math.round(p0.dir(p).angle() / DELTA) * DELTA;
 		Dir dir0 = new Dir(angle);
 		double s = dir0.dot(p0.dir(p));
@@ -117,11 +117,11 @@ public class State1 extends FindingStateBase {
 		g2d.setColor(Color.MAGENTA);
 		g2d.setStroke(new BasicStroke(3.0f));
 		if (extended != null) {
-			Shape s = new Line2D.Double(v0.p.x, v0.p.y, extended.x, extended.y);
+			Shape s = new Line2D.Double(v0.x, v0.y, extended.x, extended.y);
 			g2d.draw(s);
 			return;
 		}
-		Shape s = new Line2D.Double(v0.p.x, v0.p.y, point.x, point.y);
+		Shape s = new Line2D.Double(v0.x, v0.y, point.x, point.y);
 		g2d.draw(s);
 	}
 

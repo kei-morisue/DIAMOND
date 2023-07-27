@@ -43,16 +43,16 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 	public boolean isInside(
 			XY p) {
 		Double a0 = 0.0;
-		XY p0 = vertices.get(vertices.size() - 1).p;
+		XY p0 = vertices.get(vertices.size() - 1);
 		for (Vertex v : vertices) {
-			double a = p0.dir(p).cross(p0.dir(v.p));
+			double a = p0.dir(p).cross(p0.dir(v));
 			if (a0 == 0.0) {
 				a0 = a;
 			}
 			if (a0 * a <= 0) {
 				return false;
 			}
-			p0 = v.p;
+			p0 = v;
 		}
 		return true;
 	}
@@ -62,8 +62,8 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 		double x = 0.0;
 		double y = 0.0;
 		for (Vertex v : vertices) {
-			x += v.p.x;
-			y += v.p.y;
+			x += v.x;
+			y += v.y;
 		}
 		int n = vertices.size();
 		return new XY(x / n, y / n);
@@ -71,9 +71,9 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 
 	public double area2() {
 		double area = 0.0;
-		XY xy0 = vertices.get(vertices.size() - 1).p;
+		XY xy0 = vertices.get(vertices.size() - 1);
 		for (Vertex p1 : vertices) {
-			XY xy1 = p1.p;
+			XY xy1 = p1;
 			area += (xy0.getX() + xy1.getX()) * (xy1.getY() - xy0.getY());
 			xy0 = xy1;
 		}

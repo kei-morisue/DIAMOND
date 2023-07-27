@@ -6,7 +6,6 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import diamond.model.Dir;
 import diamond.model.XY;
@@ -15,8 +14,7 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public class Vertex implements Serializable, Renderable {
-	public XY p;
+public class Vertex extends XY implements Serializable, Renderable {
 	public XY f;
 	public XY d;
 	transient private boolean isPicked;
@@ -24,16 +22,16 @@ public class Vertex implements Serializable, Renderable {
 	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
 
 	public Vertex(XY v) {
-		this.p = v;
+		super(v.x, v.y);
 	}
 
 	public Vertex(Vertex v) {
-		this.p = v.p;
+		super(v.x, v.y);
 	}
 
 	@Override
 	public XY centroid() {
-		return p;
+		return this;
 	}
 
 	public void setD(
@@ -41,7 +39,7 @@ public class Vertex implements Serializable, Renderable {
 			double d01,
 			double d10,
 			double d11) {
-		d = p.dir(p.apply(d00, d01, d10, d11)).ver(f);
+		d = dir(apply(d00, d01, d10, d11)).ver(f);
 	}
 
 	public void initD() {
@@ -56,7 +54,7 @@ public class Vertex implements Serializable, Renderable {
 			Dir xf,
 			Dir y,
 			Dir yf) {
-		Dir d = v0.dir(p);
+		Dir d = v0.dir(this);
 		double cx = x.dot(d) / x.mgSq();
 		double cy = y.dot(d) / x.mgSq();
 		cy *= (prevFaceFlip) ? 1 : -1;
@@ -64,14 +62,14 @@ public class Vertex implements Serializable, Renderable {
 		initD();
 	}
 
-	public class AngleComparator implements Comparator<Vertex> {
+	public class AngleComparator implements java.util.Comparator<Vertex> {
 
 		@Override
 		public int compare(
 				Vertex v1,
 				Vertex v2) {
-			double angle1 = p.dir(v1.p).angle();
-			double angle2 = p.dir(v2.p).angle();
+			double angle1 = dir(v1).angle();
+			double angle2 = dir(v2).angle();
 			return angle1 - angle2 < 0 ? -1 : 1;
 		}
 

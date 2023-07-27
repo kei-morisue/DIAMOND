@@ -60,7 +60,17 @@ public class Cp extends Flat {
 
 	protected void fold() {
 		clearFolded();
-		this.baseFace = getFaces().get(0);
+		if (baseFace != null) {
+			XY c = baseFace.centroid();
+			for (Face face : getFaces()) {
+				if (face.isInside(c)) {
+					this.baseFace = face;
+					break;
+				}
+			}
+		} else {
+			this.baseFace = getFaces().get(0);
+		}
 		Edge borderEdge = baseFace.getEdges().get(0);
 		buildFolded(baseFace, true, borderEdge);
 		implyFaceOrder();
@@ -75,7 +85,7 @@ public class Cp extends Flat {
 			face.isFlip = false;
 			face.isFolded = false;
 			face.getVertices().forEach(v -> {
-				v.f = v.p;
+				v.f = v;
 			});
 
 		});
@@ -91,7 +101,7 @@ public class Cp extends Flat {
 		face.isFlip = !prevFaceFlip;
 		face.isFolded = true;
 		XY v0f = foldedEdge.getV0().f;
-		XY v0 = foldedEdge.getV0().p;
+		XY v0 = foldedEdge.getV0();
 		Dir x = foldedEdge.dir();
 		Dir xf = foldedEdge.dirF();
 		Dir y = x.perp();
