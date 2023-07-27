@@ -4,6 +4,7 @@
  */
 package diamond.model.fold;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -24,12 +25,6 @@ public class Cp extends Flat {
 	public Cp(double scale) {
 		super();
 		CpBuilder.buildSquare(this, scale);
-		this.baseFace = getFaces().get(0);
-		fold();
-		implyFaceOrder();
-		buildVertices();
-		buildEdges();
-		buildCreases();
 	}
 
 	private void buildVertices() {
@@ -60,10 +55,25 @@ public class Cp extends Flat {
 		});
 	}
 
-	public void fold() {
+	public void fold(
+			Collection<Edge> edges,
+			Collection<Crease> creases) {
+		build(edges, creases);
+		fold();
+	}
+
+	protected void fold() {
 		clearFolded();
+		this.baseFace = getFaces().get(0);
 		Edge borderEdge = baseFace.getEdges().get(0);
 		buildFolded(baseFace, true, borderEdge);
+		implyFaceOrder();
+		vertices.clear();
+		buildVertices();
+		edges.clear();
+		buildEdges();
+		creases.clear();
+		buildCreases();
 	}
 
 	public void clearFolded() {

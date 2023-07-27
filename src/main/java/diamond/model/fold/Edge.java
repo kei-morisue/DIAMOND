@@ -22,6 +22,13 @@ public class Edge extends Segment implements Serializable {
 		super(edge.v0, edge.v1, edge.a);
 	}
 
+	@Override
+	public boolean add(
+			Cp cp) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
 	public Face getPair(
 			Face face) {
 		if (face == f0) {
@@ -42,10 +49,6 @@ public class Edge extends Segment implements Serializable {
 	public void setF1(
 			Face f1) {
 		this.f1 = f1;
-	}
-
-	public int getA() {
-		return a;
 	}
 
 	public Face getF0() {

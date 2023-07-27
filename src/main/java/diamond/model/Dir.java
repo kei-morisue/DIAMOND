@@ -17,27 +17,38 @@ public class Dir {
 		this.y = y;
 	}
 
-	public XY ver(XY v0) {
+	public Dir(double theta) {
+		this.x = Math.cos(theta);
+		this.y = Math.sin(theta);
+	}
+
+	public XY ver(
+			XY v0) {
 		return new XY(v0.getX() + x, v0.getY() + y);
 	}
 
-	public Dir mul(double s) {
+	public Dir mul(
+			double s) {
 		return new Dir(x * s, y * s);
 	}
 
-	public Dir add(Dir d) {
+	public Dir add(
+			Dir d) {
 		return new Dir(x + d.x, y + d.y);
 	}
 
-	public Dir sub(Dir d) {
+	public Dir sub(
+			Dir d) {
 		return new Dir(x - d.x, y - d.y);
 	}
 
-	public double dot(Dir d) {
+	public double dot(
+			Dir d) {
 		return x * d.x + y * d.y;
 	}
 
-	public double cross(Dir d) {
+	public double cross(
+			Dir d) {
 		return x * d.y - y * d.x;
 	}
 
@@ -58,7 +69,8 @@ public class Dir {
 		return dot(this);
 	}
 
-	public Dir div(double d) {
+	public Dir div(
+			double d) {
 		return mul(1.0 / d);
 	}
 

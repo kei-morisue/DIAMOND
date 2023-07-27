@@ -31,7 +31,7 @@ public abstract class Flat implements Serializable {
 		build(edges, creases);
 	}
 
-	public void build(
+	protected void build(
 			Collection<Edge> edges,
 			Collection<Crease> creases) {
 		HashSet<Vertex> vertices = buildVertices(edges);

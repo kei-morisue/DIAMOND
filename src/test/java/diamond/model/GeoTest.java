@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import diamond.model.line.Line;
+import diamond.model.fold.Line;
 
 /**
  * @author Kei Morisue

@@ -52,7 +52,7 @@ public class CpBuilder {
 		Crease c1 = new Crease(m, n2, Edge.NONE);
 		creases.addAll(Arrays.asList(c0, c1));
 
-		cp.build(edges, creases);
+		cp.fold(edges, creases);
 
 	}
 

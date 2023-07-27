@@ -16,6 +16,7 @@ import diamond.model.fold.Cp;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
+import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
 
 /**
@@ -50,20 +51,6 @@ public class CpDrawer extends DrawerBase {
 	}
 
 	@Override
-	protected XY[] getXY(
-			Edge edge) {
-		XY[] res = { edge.getV0().p, edge.getV1().p };
-		return res;
-	}
-
-	@Override
-	protected XY[] getXY(
-			Crease crease) {
-		XY[] res = { crease.getV0().p, crease.getV1().p };
-		return res;
-	}
-
-	@Override
 	protected ArrayList<XY> getXY(
 			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
@@ -87,12 +74,6 @@ public class CpDrawer extends DrawerBase {
 
 	@Override
 	protected Color getColor(
-			Vertex vertex) {
-		return vertex.isPicked ? Color.GREEN : Color.BLACK;
-	}
-
-	@Override
-	protected Color getColor(
 			Edge edge) {
 		if (edge.isPicked) {
 			return Color.GREEN;
@@ -110,15 +91,6 @@ public class CpDrawer extends DrawerBase {
 	}
 
 	@Override
-	protected Color getColor(
-			Crease crease) {
-		if (crease.isPicked) {
-			return Color.GREEN;
-		}
-		return Color.LIGHT_GRAY;
-	}
-
-	@Override
 	protected BasicStroke getStroke(
 			Edge edge,
 			double scale) {
@@ -131,9 +103,19 @@ public class CpDrawer extends DrawerBase {
 	protected BasicStroke getStroke(
 			Crease crease,
 			double scale) {
-		BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
-				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+		if (crease.getA() == Segment.NONE) {
+			BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
+					BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+			return stroke;
+
+		}
+		BasicStroke stroke = new BasicStroke((float) (2.0 / scale),
+				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER,
+				2,
+				new float[] { (float) (10.0 / scale), (float) (10.0f / scale) },
+				0.0f);
 		return stroke;
+
 	}
 
 }

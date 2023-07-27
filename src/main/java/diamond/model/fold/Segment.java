@@ -32,6 +32,22 @@ public abstract class Segment extends Renderable implements Serializable {
 		return a == VALLEY;
 	}
 
+	public abstract boolean add(
+			Cp cp);
+
+	public XY foot(
+			XY p0,
+			Dir dir0) {
+		Dir n = dir().perp();
+		double den = n.dot(dir0);
+		Dir dv = p0.dir(v0.p);
+		if (den == 0) {
+			return dir0.mul(dv.mg() / dir0.mg()).ver(p0);
+		} else {
+			return dir0.mul(dv.dot(n) / den).ver(p0);
+		}
+	}
+
 	public double distanceSq(
 			XY p) {
 		Dir x0 = v0.p.dir(p);
@@ -68,6 +84,10 @@ public abstract class Segment extends Renderable implements Serializable {
 
 	public Vertex getV1() {
 		return v1;
+	}
+
+	public int getA() {
+		return a;
 	}
 
 	public Vertex getPair(

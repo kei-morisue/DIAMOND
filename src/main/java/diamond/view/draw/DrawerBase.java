@@ -19,6 +19,7 @@ import diamond.model.fold.Cp;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
+import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
 
 /**
@@ -30,14 +31,30 @@ public abstract class DrawerBase {
 	abstract protected Color getColor(
 			Face face);
 
-	abstract protected Color getColor(
-			Vertex vertex);
+	protected Color getColor(
+			Vertex vertex) {
+		return vertex.isPicked ? Color.GREEN : Color.BLACK;
+	};
 
 	abstract protected Color getColor(
 			Edge edge);
 
-	abstract protected Color getColor(
-			Crease crease);
+	protected Color getColor(
+			Crease crease) {
+		if (crease.isPicked) {
+			return Color.GREEN;
+		}
+		switch (crease.getA()) {
+		case Segment.MOUNTAIN:
+			return Color.RED;
+		case Segment.VALLEY:
+			return Color.BLUE;
+		case Segment.NONE:
+			return Color.BLACK;
+		default:
+			return null;
+		}
+	};
 
 	protected abstract BasicStroke getStroke(
 			Edge edge,
@@ -53,14 +70,26 @@ public abstract class DrawerBase {
 	protected abstract XY getXY(
 			Vertex vertex);
 
-	protected abstract XY[] getXY(
-			Edge e);
+	protected XY[] getXY(
+			Edge edge) {
+		XY[] res = { getXY(edge.getV0()), getXY(edge.getV1()) };
+		return res;
+	}
 
-	protected abstract XY[] getXY(
-			Crease e);
+	protected XY[] getXY(
+			Crease crease) {
+		XY[] res = { getXY(crease.getV0()), getXY(crease.getV1()) };
+		return res;
+	}
 
-	protected abstract ArrayList<XY> getXY(
-			Face face);
+	protected ArrayList<XY> getXY(
+			Face face) {
+		ArrayList<XY> res = new ArrayList<XY>();
+		face.getVertices().forEach(v -> {
+			res.add(getXY(v));
+		});
+		return res;
+	}
 
 	private void drawVertex(
 			Graphics2D g2d,

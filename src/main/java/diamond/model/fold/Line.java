@@ -2,7 +2,7 @@
  * DEFOX - Origami Diagram Editor
  * Copyright (C) 2023 Kei Morisue
  */
-package diamond.model.line;
+package diamond.model.fold;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,6 @@ import diamond.model.Dir;
 import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
-import diamond.model.fold.Vertex;
 
 /**
  * @author Kei Morisue

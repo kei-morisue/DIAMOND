@@ -4,9 +4,9 @@
  */
 package diamond.model;
 
-import java.util.List;
+import java.util.Collection;
 
-import diamond.model.line.Line;
+import diamond.model.fold.Line;
 
 /**
  * @author Kei Morisue
@@ -15,7 +15,8 @@ import diamond.model.line.Line;
 public class Geo {
 	public static final double EPS = 1.0e-16;
 
-	public static double minLength(List<Line> lines) {
+	public static double minLength(
+			Collection<Line> lines) {
 		Double minSq = null;
 		for (Line line : lines) {
 			XY v0 = line.p;
@@ -30,21 +31,32 @@ public class Geo {
 
 	}
 
-	public static boolean isZero(double a) {
+	public static boolean isZero(
+			double a) {
 		return Math.abs(a) < EPS;
 	}
 
-	public static boolean isClose(double a, double b, double eps) {
+	public static boolean isClose(
+			double a,
+			double b,
+			double eps) {
 		return Math.abs(a - b) < eps;
 	}
 
-	public static boolean isClose(XY a, XY b, double eps) {
+	public static boolean isClose(
+			XY a,
+			XY b,
+			double eps) {
 		double dx = a.getX() - b.getX();
 		double dy = a.getY() - b.getY();
 		return Math.abs(dx) < eps && Math.abs(dy) < eps;
 	}
 
-	public static boolean on(XY a, XY b, XY c, double eps) {
+	public static boolean on(
+			XY a,
+			XY b,
+			XY c,
+			double eps) {
 		Dir v = a.dir(b);
 		if (a.dir(c).dot(v) > 0 == b.dir(c).dot(v) > 0) {
 			return false;// c is outside the segment (a, b)
@@ -53,11 +65,18 @@ public class Geo {
 		return Math.abs(dot) <= eps;
 	}
 
-	public static XY intersect(XY a, XY b, XY c, XY d, double eps) {
-		if (isClose(a, c, eps) || isClose(a, d, eps) || isClose(b, c, eps) || isClose(b, d, eps)) {
+	public static XY intersect(
+			XY a,
+			XY b,
+			XY c,
+			XY d,
+			double eps) {
+		if (isClose(a, c, eps) || isClose(a, d, eps) || isClose(b, c, eps)
+				|| isClose(b, d, eps)) {
 			return null;
 		}
-		if (on(a, b, c, eps) || on(a, b, d, eps) || on(c, d, a, eps) || on(c, d, b, eps)) {
+		if (on(a, b, c, eps) || on(a, b, d, eps) || on(c, d, a, eps)
+				|| on(c, d, b, eps)) {
 			return null;
 		}
 
@@ -83,7 +102,8 @@ public class Geo {
 			return null;// intersects outside the segment
 		}
 		XY p = a.mid(b, s);
-		if (isClose(a, p, eps) || isClose(b, p, eps) || isClose(c, p, eps) || isClose(d, p, eps)) {
+		if (isClose(a, p, eps) || isClose(b, p, eps) || isClose(c, p, eps)
+				|| isClose(d, p, eps)) {
 			return null;
 		}
 		return p;
