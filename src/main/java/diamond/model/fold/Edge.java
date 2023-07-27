@@ -11,21 +11,19 @@ import java.io.Serializable;
  *
  */
 public class Edge extends Segment implements Serializable {
-	private int a;
 	private Face f0;
 	private Face f1;
 
 	public Edge(Vertex v0, Vertex v1, int a) {
-		super(v0, v1);
-		this.a = a;
+		super(v0, v1, a);
 	}
 
 	public Edge(Edge edge) {
-		super(edge.v0, edge.v1);
-		this.a = edge.a;
+		super(edge.v0, edge.v1, edge.a);
 	}
 
-	public Face getPair(Face face) {
+	public Face getPair(
+			Face face) {
 		if (face == f0) {
 			return f1;
 		}
@@ -36,11 +34,13 @@ public class Edge extends Segment implements Serializable {
 
 	}
 
-	public void setF0(Face f0) {
+	public void setF0(
+			Face f0) {
 		this.f0 = f0;
 	}
 
-	public void setF1(Face f1) {
+	public void setF1(
+			Face f1) {
 		this.f1 = f1;
 	}
 

@@ -39,6 +39,23 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 		return creases;
 	}
 
+	public boolean isInside(
+			XY p) {
+		Double a0 = 0.0;
+		XY p0 = vertices.get(vertices.size() - 1).p;
+		for (Vertex v : vertices) {
+			double a = p0.dir(p).cross(p0.dir(v.p));
+			if (a0 == 0.0) {
+				a0 = a;
+			}
+			if (a0 * a <= 0) {
+				return false;
+			}
+			p0 = v.p;
+		}
+		return true;
+	}
+
 	@Override
 	public XY centroid() {
 		double x = 0.0;
@@ -64,7 +81,8 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 	}
 
 	@Override
-	public int compareTo(Face f) {
+	public int compareTo(
+			Face f) {
 		return f.area2() - area2() < 0 ? -1 : 1;
 	}
 

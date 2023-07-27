@@ -19,11 +19,17 @@ public abstract class Segment extends Renderable implements Serializable {
 	public static final int VALLEY = -1;
 	protected Vertex v0;
 	protected Vertex v1;
+	protected int a;
 
-	public Segment(Vertex v0, Vertex v1) {
+	public Segment(Vertex v0, Vertex v1, int a) {
 		super();
 		this.v0 = v0;
 		this.v1 = v1;
+		this.a = a;
+	}
+
+	public boolean isValley() {
+		return a == VALLEY;
 	}
 
 	@Override
@@ -47,7 +53,8 @@ public abstract class Segment extends Renderable implements Serializable {
 		return v1;
 	}
 
-	public Vertex getPair(Vertex v) {
+	public Vertex getPair(
+			Vertex v) {
 		if (v == v0) {
 			return v1;
 		}

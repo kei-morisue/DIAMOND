@@ -12,25 +12,19 @@ import java.io.Serializable;
  */
 public class Crease extends Segment implements Serializable {
 
-	private int a;
 	private Face face;
 
 	public Crease(Vertex v0, Vertex v1, int a) {
-		super(v0, v1);
-		this.a = a;
+		super(v0, v1, a);
 	}
 
 	public Crease(Crease crease) {
-		super(crease.v0, crease.v1);
-		this.a = crease.a;
+		super(crease.v0, crease.v1, crease.a);
 	}
 
-	public void setFace(Face face) {
+	public void setFace(
+			Face face) {
 		this.face = face;
-	}
-
-	public int getA() {
-		return a;
 	}
 
 	public Face getFace() {

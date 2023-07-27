@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import diamond.model.Tuple;
+import diamond.model.XY;
 
 /**
  * @author Kei Morisue
@@ -26,22 +27,77 @@ public abstract class Flat implements Serializable {
 	public Flat() {
 	}
 
-	public void build(Collection<Vertex> vertices, Collection<Edge> edges) {
-		buildVV(vertices, edges);
-		buildFV(vertices);
-		buildFEnEF(edges);
+	public Flat(Collection<Edge> edges,
+			Collection<Crease> creases) {
+		build(edges, creases);
 	}
 
-	private void buildVV(Collection<Vertex> vertices, Collection<Edge> edges) {
-		HashMap<Vertex, ArrayList<Vertex>> adjVmap = CpBuilder.getAdj(vertices, edges);
+	public void build(
+			Collection<Edge> edges,
+			Collection<Crease> creases) {
+		HashSet<Vertex> vertices = buildVertices(edges);
+		buildVV(vertices, edges);
+		buildFaces(vertices);
+		buildFEnEF(edges);
+		buildFC(creases);
+	}
+
+	private HashSet<Vertex> buildVertices(
+			Collection<Edge> edges) {
+		HashSet<Vertex> vertices = new HashSet<Vertex>();
+		edges.forEach(edge -> {
+			vertices.add(edge.getV0());
+			vertices.add(edge.getV1());
+		});
+		return vertices;
+	}
+
+	private void buildFC(
+			Collection<Crease> creases) {
+		creases.forEach(crease -> {
+			XY c = crease.centroid();
+			for (Face face : faces) {
+				if (face.isInside(c)) {
+					face.getCreases().add(crease);
+					return;
+				}
+			}
+		});
+
+	}
+
+	private void buildVV(
+			Collection<Vertex> vertices,
+			Collection<Edge> edges) {
+		HashMap<Vertex, ArrayList<Vertex>> adjVmap = getAdjMap(vertices, edges);
 		vertices.forEach(v -> {
+			v.getAdj().clear();
 			ArrayList<Vertex> adjVs = adjVmap.get(v);
 			adjVs.sort(v.new AngleComparator());
 			adjVs.forEach(a -> v.getAdj().add(a));
 		});
 	}
 
-	private <E> E getPrev(List<E> array, E e0) {
+	private HashMap<Vertex, ArrayList<Vertex>> getAdjMap(
+			Collection<Vertex> vertices,
+			Collection<Edge> edges) {
+		HashMap<Vertex, ArrayList<Vertex>> adjVmap
+				= new HashMap<Vertex, ArrayList<Vertex>>();
+		vertices.forEach(v -> {
+			adjVmap.put(v, new ArrayList<Vertex>());
+		});
+		edges.forEach(e -> {
+			Vertex v0 = e.getV0();
+			Vertex v1 = e.getV1();
+			adjVmap.get(v0).add(v1);
+			adjVmap.get(v1).add(v0);
+		});
+		return adjVmap;
+	}
+
+	private <E> E getPrev(
+			List<E> array,
+			E e0) {
 		for (int i = 0; i < array.size(); i++) {
 			E e1 = array.get(i);
 			if (e0 == e1) {
@@ -52,7 +108,9 @@ public abstract class Flat implements Serializable {
 		return null;
 	}
 
-	private void buildFV(Collection<Vertex> vertices) {
+	private void buildFaces(
+			Collection<Vertex> vertices) {
+		faces.clear();
 		HashSet<Tuple<Vertex>> seen = new HashSet<Tuple<Vertex>>();
 		vertices.forEach(v1 -> {
 			ArrayList<Vertex> adj1 = v1.getAdj();
@@ -81,11 +139,13 @@ public abstract class Flat implements Serializable {
 		faces.remove(faces.size() - 1);// remove the largest face ~ outer face
 	}
 
-	private void buildFEnEF(Collection<Edge> edges) {
-		HashMap<Tuple<Vertex>, Edge> ve = CpBuilder.getVE(edges);
+	private void buildFEnEF(
+			Collection<Edge> edges) {
+		HashMap<Tuple<Vertex>, Edge> ve = getVE(edges);
 		faces.forEach(f -> {
 			ArrayList<Vertex> vs = f.getVertices();
 			ArrayList<Edge> faceEdges = f.getEdges();
+			faceEdges.clear();
 			for (int i = 0; i < vs.size(); i++) {
 				Vertex v1 = vs.get(i);
 				Vertex v2 = vs.get((i + 1) % vs.size());
@@ -104,6 +164,19 @@ public abstract class Flat implements Serializable {
 			}
 		});// boundary has f0 as f1
 
+	}
+
+	private HashMap<Tuple<Vertex>, Edge> getVE(
+			Collection<Edge> edges) {
+		HashMap<Tuple<Vertex>, Edge> vaMap = new HashMap<Tuple<Vertex>, Edge>();
+		edges.forEach(e -> {
+			Vertex v0 = e.getV0();
+			Vertex v1 = e.getV1();
+			vaMap.put(new Tuple<Vertex>(v0, v1), e);
+			vaMap.put(new Tuple<Vertex>(v1, v0), e);
+		});
+
+		return vaMap;
 	}
 
 	protected abstract int getMaxFraction();

@@ -4,6 +4,8 @@
  */
 package diamond.model.fold;
 
+import java.util.Collections;
+
 import diamond.model.Dir;
 import diamond.model.XY;
 
@@ -19,6 +21,7 @@ public class Cp extends Flat {
 		CpBuilder.buildSquare(this, scale);
 		this.baseFace = getFaces().get(0);
 		fold();
+		implyFaceOrder();
 	}
 
 	public void fold() {
@@ -38,7 +41,10 @@ public class Cp extends Flat {
 		});
 	}
 
-	private void buildFolded(Face face, boolean prevFaceFlip, Edge foldedEdge) {
+	private void buildFolded(
+			Face face,
+			boolean prevFaceFlip,
+			Edge foldedEdge) {
 		if (face.isFolded || face == null) {
 			return;
 		}
@@ -51,16 +57,70 @@ public class Cp extends Flat {
 		Dir y = x.perp();
 		Dir yf = xf.perp();
 		face.getVertices().forEach(vertex -> {
-			Dir d = v0.dir(vertex.p);
-			double cx = x.dot(d) / x.mgSq();
-			double cy = y.dot(d) / x.mgSq();
-			cy *= (prevFaceFlip) ? 1 : -1;
-			vertex.f = xf.mul(cx).add(yf.mul(cy)).ver(v0f);
+			setF(vertex, prevFaceFlip, v0f, v0, x, xf, y, yf);
 		});
+		face.getCreases().forEach(crease -> {
+			Vertex w0 = crease.getV0();
+			Vertex w1 = crease.getV1();
+			setF(w0, prevFaceFlip, v0f, v0, x, xf, y, yf);
+			setF(w1, prevFaceFlip, v0f, v0, x, xf, y, yf);
+		});
+
 		face.getEdges().forEach(edge -> {
 			buildFolded(edge.getPair(face), !prevFaceFlip, edge);
 		});
 
+	}
+
+	public void implyFaceOrder() {
+		boolean retry = false;
+		for (int i = 0; i < faces.size(); i++) {
+			if (swapFaceOrder(faces.get(i))) {
+				retry = true;
+				break;
+			}
+		}
+		if (retry) {
+			implyFaceOrder();
+		}
+		return;
+	}
+
+	public boolean swapFaceOrder(
+			Face face) {
+		int i = faces.indexOf(face);
+		Face fi = faces.get(i);
+		boolean flip = fi.isFlip;
+		for (Edge edge : fi.getEdges()) {
+			Face fj = edge.getPair(fi);
+			boolean isValley = !edge.isValley();
+			if (fj == null) {
+				continue;
+			}
+			int j = faces.indexOf(fj);
+			if (!(flip ^ isValley) && i < j
+					|| flip ^ isValley && j < i) {
+				Collections.swap(faces, i, j);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void setF(
+			Vertex vertex,
+			boolean prevFaceFlip,
+			XY v0f,
+			XY v0,
+			Dir x,
+			Dir xf,
+			Dir y,
+			Dir yf) {
+		Dir d = v0.dir(vertex.p);
+		double cx = x.dot(d) / x.mgSq();
+		double cy = y.dot(d) / x.mgSq();
+		cy *= (prevFaceFlip) ? 1 : -1;
+		vertex.f = xf.mul(cx).add(yf.mul(cy)).ver(v0f);
 	}
 
 	@Override
