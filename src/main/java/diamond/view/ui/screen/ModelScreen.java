@@ -25,14 +25,17 @@ public class ModelScreen extends ScreenBase {
 		ScreenAction action = new ScreenAction(this);
 		addMouseMotionListener(action);
 		addMouseListener(action);
+		addMouseWheelListener(action);
 	}
 
 	@Override
-	public void drawComponents(Graphics2D g2d) {
+	public void drawComponents(
+			Graphics2D g2d) {
 		drawer.draw(g2d, paintScreen.getPalette().getCp());
 	}
 
-	public void link(PaintScreen paintScreen) {
+	public void link(
+			PaintScreen paintScreen) {
 		this.paintScreen = paintScreen;
 
 	}

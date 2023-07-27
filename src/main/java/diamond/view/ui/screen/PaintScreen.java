@@ -33,6 +33,7 @@ public class PaintScreen extends ScreenBase {
 		PaintScreenAction paintScreenAction = new PaintScreenAction(this);
 		addMouseMotionListener(paintScreenAction);
 		addMouseListener(paintScreenAction);
+		addMouseWheelListener(paintScreenAction);
 	}
 
 	@Override

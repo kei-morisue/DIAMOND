@@ -5,8 +5,7 @@
 package diamond.controller.action.screen;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
 
 import diamond.controller.action.paint.PaintAction;
 import diamond.controller.mouse.MouseUtility;
@@ -16,16 +15,12 @@ import diamond.view.ui.screen.PaintScreen;
  * @author Kei Morisue
  *
  */
-public class PaintScreenAction implements MouseMotionListener, MouseListener {
+public class PaintScreenAction extends ScreenAction {
 	protected PaintScreen screen;
 
 	public PaintScreenAction(PaintScreen screen) {
+		super(screen);
 		this.screen = screen;
-	}
-
-	@Override
-	public void mouseDragged(
-			MouseEvent e) {
 	}
 
 	private PaintAction getPaintAction() {
@@ -37,6 +32,12 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 			MouseEvent e) {
 		getPaintAction().onMove(screen, e);
 		e.getComponent().repaint();
+	}
+
+	@Override
+	public void mouseWheelMoved(
+			MouseWheelEvent e) {
+		zoom(e);
 	}
 
 	@Override
@@ -52,29 +53,6 @@ public class PaintScreenAction implements MouseMotionListener, MouseListener {
 			e.getComponent().repaint();
 			return;
 		}
-	}
-
-	@Override
-	public void mousePressed(
-			MouseEvent e) {
-	}
-
-	@Override
-	public void mouseReleased(
-			MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(
-			MouseEvent e) {
-		screen.grabFocus();
-	}
-
-	@Override
-	public void mouseExited(
-			MouseEvent e) {
-
 	}
 
 }

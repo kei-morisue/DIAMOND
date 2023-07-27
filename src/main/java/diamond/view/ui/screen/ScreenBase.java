@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import diamond.controller.action.screen.ScreenAction;
 import diamond.view.util.ScreenTransform;
 
 /**
@@ -36,10 +35,6 @@ public abstract class ScreenBase extends JPanel {
 
 	public ScreenBase() {
 		this.transform = new ScreenTransform(getWidth(), getHeight());
-		ScreenAction screenAction = new ScreenAction(this);
-		addMouseListener(screenAction);
-		addMouseMotionListener(screenAction);
-		addMouseWheelListener(screenAction);
 	}
 
 	@Override
