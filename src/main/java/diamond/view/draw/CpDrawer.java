@@ -29,10 +29,10 @@ public class CpDrawer extends DrawerBase {
 			Graphics2D g2d,
 			Cp cp) {
 		super.draw(g2d, cp);
-		draeBaseFace(g2d, cp);
+		drawBaseFaceSymbol(g2d, cp);
 	}
 
-	private void draeBaseFace(
+	private void drawBaseFaceSymbol(
 			Graphics2D g2d,
 			Cp cp) {
 		Face baseFace = cp.getBaseFace();
@@ -63,19 +63,19 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	public double getRadius(
 			Vertex vertex) {
-		return vertex.isPicked ? 15.0 : 0.0;
+		return vertex.isPicked() ? 15.0 : 0.0;
 	}
 
 	@Override
 	protected Color getColor(
 			Face face) {
-		return face.isPicked ? Color.GREEN : Color.WHITE;
+		return face.isPicked() ? Color.GREEN : Color.WHITE;
 	}
 
 	@Override
 	protected Color getColor(
 			Edge edge) {
-		if (edge.isPicked) {
+		if (edge.isPicked()) {
 			return Color.GREEN;
 		}
 		switch (edge.getA()) {
@@ -88,6 +88,15 @@ public class CpDrawer extends DrawerBase {
 		default:
 			return null;
 		}
+	}
+
+	@Override
+	protected Color getColor(
+			Crease crease) {
+		if (crease.isPicked() || crease.getA() != Segment.NONE) {
+			return super.getColor(crease);
+		}
+		return Color.LIGHT_GRAY;
 	}
 
 	@Override

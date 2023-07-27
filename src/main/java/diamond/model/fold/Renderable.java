@@ -10,11 +10,13 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public abstract class Renderable {
-
-	public boolean isPicked = false;
-	public boolean isPointed = false;
+public interface Renderable {
 
 	abstract public XY centroid();
+
+	abstract public boolean isPicked();
+
+	abstract public void setPicked(
+			boolean picked);
 
 }

@@ -49,7 +49,7 @@ public class State1 extends FindingStateBase {
 	protected boolean undo(
 			PaintScreen screen,
 			XY p) {
-		v0.isPicked = false;
+		v0.setPicked(false);
 		return true;
 	}
 

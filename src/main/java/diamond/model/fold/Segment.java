@@ -24,13 +24,15 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public abstract class Segment extends Renderable implements Serializable {
+public abstract class Segment implements Serializable, Renderable {
 	public static final int NONE = 0;
 	public static final int MOUNTAIN = 1;
 	public static final int VALLEY = -1;
 	protected Vertex v0;
 	protected Vertex v1;
 	protected int a;
+
+	transient protected boolean isPicked = false;
 
 	public Segment(Vertex v0, Vertex v1, int a) {
 		super();
@@ -112,6 +114,17 @@ public abstract class Segment extends Renderable implements Serializable {
 	@Override
 	public XY centroid() {
 		return v0.p.mid(v1.p);
+	}
+
+	@Override
+	public boolean isPicked() {
+		return isPicked;
+	}
+
+	@Override
+	public void setPicked(
+			boolean picked) {
+		this.isPicked = picked;
 	}
 
 	public Dir dir() {

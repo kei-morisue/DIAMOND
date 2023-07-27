@@ -15,10 +15,11 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public class Vertex extends Renderable implements Serializable {
+public class Vertex implements Serializable, Renderable {
 	public XY p;
 	public XY f;
 	public XY d;
+	transient private boolean isPicked;
 
 	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
 
@@ -78,6 +79,17 @@ public class Vertex extends Renderable implements Serializable {
 
 	public ArrayList<Vertex> getAdj() {
 		return adj;
+	}
+
+	@Override
+	public boolean isPicked() {
+		return isPicked;
+	}
+
+	@Override
+	public void setPicked(
+			boolean picked) {
+		isPicked = picked;
 	}
 
 }

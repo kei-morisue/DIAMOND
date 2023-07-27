@@ -35,20 +35,20 @@ public class ModelDrawer extends DrawerBase {
 	@Override
 	public double getRadius(
 			Vertex vertex) {
-		return vertex.isPicked ? 15.0 : 0.0;
+		return vertex.isPicked() ? 15.0 : 0.0;
 	}
 
 	@Override
 	protected Color getColor(
 			Face face) {
-		return face.isPicked ? Color.GREEN
+		return face.isPicked() ? Color.GREEN
 				: face.isFlip ? Color.GRAY : Color.WHITE;
 	}
 
 	@Override
 	protected Color getColor(
 			Edge edge) {
-		return edge.isPicked ? Color.GREEN
+		return edge.isPicked() ? Color.GREEN
 				: Color.BLACK;
 	}
 

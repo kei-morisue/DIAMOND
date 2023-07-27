@@ -13,7 +13,7 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public class Face extends Renderable implements Comparable<Face>, Serializable {
+public class Face implements Comparable<Face>, Serializable, Renderable {
 	private ArrayList<Vertex> vertices;
 
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
@@ -21,6 +21,7 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 
 	public boolean isFlip;
 	transient public boolean isFolded;
+	transient private boolean isPicked;
 
 	public Face(ArrayList<Vertex> vertices) {
 		super();
@@ -84,6 +85,18 @@ public class Face extends Renderable implements Comparable<Face>, Serializable {
 	public int compareTo(
 			Face f) {
 		return f.area2() - area2() < 0 ? -1 : 1;
+	}
+
+	@Override
+	public boolean isPicked() {
+		return isPicked;
+	}
+
+	@Override
+	public void setPicked(
+			boolean picked) {
+		isPicked = picked;
+
 	}
 
 }

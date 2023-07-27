@@ -33,7 +33,7 @@ public abstract class FindingStateBase extends PaintStateBase {
 			double scale = screen.getScale();
 			if (v.p.distanceSq(p) < 100 / scale / scale) {
 				vertex = v;
-				v.isPicked = true;
+				v.setPicked(true);
 				return;
 			}
 		}
@@ -51,7 +51,7 @@ public abstract class FindingStateBase extends PaintStateBase {
 		for (Segment seg : segs) {
 			if (seg.distanceSq(p) < 500 / scale / scale) {
 				this.segment = seg;
-				seg.isPicked = true;
+				seg.setPicked(true);
 				return;
 			}
 		}
@@ -60,10 +60,10 @@ public abstract class FindingStateBase extends PaintStateBase {
 
 	protected void clearPicked() {
 		if (vertex != null) {
-			vertex.isPicked = false;
+			vertex.setPicked(false);
 		}
 		if (segment != null) {
-			segment.isPicked = false;
+			segment.setPicked(false);
 		}
 		vertex = null;
 		segment = null;
