@@ -27,7 +27,12 @@ public abstract class ScreenBase extends JPanel {
 		return transform;
 	}
 
-	abstract public void drawComponents(Graphics2D g2d);
+	public double getScale() {
+		return transform.getScale();
+	}
+
+	abstract public void drawComponents(
+			Graphics2D g2d);
 
 	public ScreenBase() {
 		this.transform = new ScreenTransform(getWidth(), getHeight());
@@ -38,9 +43,11 @@ public abstract class ScreenBase extends JPanel {
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {
+	public void paintComponent(
+			Graphics g) {
 		super.paintComponent(g);
-		bufferImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		bufferImage = new BufferedImage(getWidth(), getHeight(),
+				BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) bufferImage.getGraphics();
 
 		drawBackGround(g2d, Color.lightGray);
@@ -49,7 +56,9 @@ public abstract class ScreenBase extends JPanel {
 		g.drawImage(bufferImage, 0, 0, this);
 	}
 
-	protected void drawBackGround(Graphics2D g2d, Color color) {
+	protected void drawBackGround(
+			Graphics2D g2d,
+			Color color) {
 		g2d.setColor(color);
 		int width = getWidth();
 		int height = getHeight();
@@ -58,17 +67,21 @@ public abstract class ScreenBase extends JPanel {
 		g2d.setTransform(transform);
 	}
 
-	public void zoom(double zoom) {
+	public void zoom(
+			double zoom) {
 		transform.zoom(zoom);
 		repaint();
 	}
 
-	public void shift(double dx, double dy) {
+	public void shift(
+			double dx,
+			double dy) {
 		transform.shift(dx, dy);
 		repaint();
 	}
 
-	public void rotate(double theta) {
+	public void rotate(
+			double theta) {
 		transform.rotate(theta);
 		repaint();
 	}

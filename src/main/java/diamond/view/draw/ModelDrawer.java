@@ -72,13 +72,15 @@ public class ModelDrawer extends DrawerBase {
 	@Override
 	protected Color getColor(
 			Edge edge) {
-		return Color.BLACK;
+		return edge.isPicked ? Color.GREEN
+				: Color.BLACK;
 	}
 
 	@Override
 	protected Color getColor(
-			Crease crese) {
-		return Color.BLACK;
+			Crease crease) {
+		return crease.isPicked ? Color.GREEN
+				: Color.BLACK;
 	}
 
 	@Override

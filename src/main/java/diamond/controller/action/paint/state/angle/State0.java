@@ -4,13 +4,15 @@
  */
 package diamond.controller.action.paint.state.angle;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
+import java.util.HashSet;
 
 import diamond.controller.action.paint.state.PaintStateBase;
 import diamond.model.XY;
+import diamond.model.fold.Cp;
+import diamond.model.fold.Crease;
+import diamond.model.fold.Edge;
+import diamond.model.fold.Vertex;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -19,7 +21,9 @@ import diamond.view.ui.screen.PaintScreen;
  */
 public class State0 extends PaintStateBase {
 
-	private Point2D.Double PointerLocation = new Point2D.Double(0.0, 0.0);
+	private Vertex vertex;
+	private Edge edge;
+	private Crease crease;
 
 	@Override
 	protected boolean act(
@@ -31,22 +35,51 @@ public class State0 extends PaintStateBase {
 	@Override
 	protected boolean actCtrl(
 			PaintScreen screen) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return act(screen);
 	}
 
 	@Override
 	protected void find(
 			PaintScreen screen,
 			XY p) {
-		PointerLocation = p;
+		refresh(screen);
+		Cp cp = screen.getCp();
+		HashSet<Vertex> vertices = cp.getVertices();
+		for (Vertex v : vertices) {
+			double scale = screen.getScale();
+			if (v.p.distanceSq(p) < 100 / scale / scale) {
+				vertex = v;
+				v.isPicked = true;
+				return;
+			}
+		}
+		vertex = null;
 	}
 
 	@Override
 	protected void findCtrl(
 			PaintScreen screen,
 			XY p) {
-		// TODO 自動生成されたメソッド・スタブ
+		refresh(screen);
+		Cp cp = screen.getCp();
+		HashSet<Edge> edges = cp.getEdges();
+		HashSet<Crease> creases = cp.getCreases();
+		double scale = screen.getScale();
+		for (Edge edge : edges) {
+			if (edge.distanceSq(p) < 500 / scale / scale) {
+				this.edge = edge;
+				edge.isPicked = true;
+				return;
+			}
+		}
+		for (Crease crease : creases) {
+			if (crease.distanceSq(p) < 500 / scale / scale) {
+				this.crease = crease;
+				crease.isPicked = true;
+				return;
+			}
+		}
+		vertex = null;
 
 	}
 
@@ -54,20 +87,23 @@ public class State0 extends PaintStateBase {
 	protected void drawState(
 			Graphics2D g2d,
 			PaintScreen screen) {
-		// TODO STUB
-		double scale = screen.getTransform().getScale();
-		double size = 10.0;
-		double x = PointerLocation.x;
-		double y = PointerLocation.y;
-		g2d.setColor(Color.GREEN);
-		g2d.fill(new Ellipse2D.Double(x, y, size / scale, size / scale));
-
 	}
 
 	@Override
 	protected void refresh(
 			PaintScreen screen) {
-		PointerLocation = new Point2D.Double(0.0, 0.0);
+		if (vertex != null) {
+			vertex.isPicked = false;
+		}
+		if (edge != null) {
+			edge.isPicked = false;
+		}
+		if (crease != null) {
+			crease.isPicked = false;
+		}
+		vertex = null;
+		edge = null;
+		crease = null;
 	}
 
 	@Override
@@ -78,7 +114,6 @@ public class State0 extends PaintStateBase {
 
 	@Override
 	protected PaintStateBase getPrevState() {
-		// TODO 自動生成されたメソッド・スタブ
 		return this;
 	}
 

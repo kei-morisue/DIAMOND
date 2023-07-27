@@ -27,35 +27,54 @@ import diamond.model.fold.Vertex;
  */
 public abstract class DrawerBase {
 
-	abstract protected Color getColor(Face face);
+	abstract protected Color getColor(
+			Face face);
 
-	abstract protected Color getColor(Vertex vertex);
+	abstract protected Color getColor(
+			Vertex vertex);
 
-	abstract protected Color getColor(Edge edge);
+	abstract protected Color getColor(
+			Edge edge);
 
-	abstract protected Color getColor(Crease crese);
+	abstract protected Color getColor(
+			Crease crease);
 
-	protected abstract BasicStroke getStroke(Edge edge, double scale);
+	protected abstract BasicStroke getStroke(
+			Edge edge,
+			double scale);
 
-	protected abstract BasicStroke getStroke(Crease crease, double scale);
+	protected abstract BasicStroke getStroke(
+			Crease crease,
+			double scale);
 
-	protected abstract double getRadius(Vertex vertex);
+	protected abstract double getRadius(
+			Vertex vertex);
 
-	protected abstract XY getXY(Vertex vertex);
+	protected abstract XY getXY(
+			Vertex vertex);
 
-	protected abstract XY[] getXY(Edge e);
+	protected abstract XY[] getXY(
+			Edge e);
 
-	protected abstract XY[] getXY(Crease e);
+	protected abstract XY[] getXY(
+			Crease e);
 
-	protected abstract ArrayList<XY> getXY(Face face);
+	protected abstract ArrayList<XY> getXY(
+			Face face);
 
-	private void drawVertex(Graphics2D g2d, Vertex vertex, double scale) {
+	private void drawVertex(
+			Graphics2D g2d,
+			Vertex vertex,
+			double scale) {
 		Shape s = getShape(vertex, scale);
 		g2d.setColor(getColor(vertex));
 		g2d.fill(s);
 	}
 
-	private void drawEdge(Graphics2D g2d, Edge edge, double scale) {
+	private void drawEdge(
+			Graphics2D g2d,
+			Edge edge,
+			double scale) {
 		BasicStroke stroke = getStroke(edge, scale);
 		Shape s = getShape(edge, scale);
 		g2d.setStroke(stroke);
@@ -65,7 +84,10 @@ public abstract class DrawerBase {
 		drawVertex(g2d, edge.getV1(), scale);
 	}
 
-	private void drawCrease(Graphics2D g2d, Crease crease, double scale) {
+	private void drawCrease(
+			Graphics2D g2d,
+			Crease crease,
+			double scale) {
 		BasicStroke stroke = getStroke(crease, scale);
 		Shape s = getShape(crease, scale);
 		g2d.setStroke(stroke);
@@ -75,13 +97,18 @@ public abstract class DrawerBase {
 		drawVertex(g2d, crease.getV1(), scale);
 	}
 
-	private void drawFace(Graphics2D g2d, Face face, double scale) {
+	private void drawFace(
+			Graphics2D g2d,
+			Face face,
+			double scale) {
 		g2d.setColor(getColor(face));
 		Shape path = getShape(face, scale);
 		g2d.fill(path);
 	}
 
-	public void draw(Graphics2D g2d, Cp cp) {
+	public void draw(
+			Graphics2D g2d,
+			Cp cp) {
 		double scale = getScale(g2d);
 		cp.getFaces().forEach(face -> {
 			drawFace(g2d, face, scale);
@@ -95,17 +122,22 @@ public abstract class DrawerBase {
 		});
 	}
 
-	protected Shape getShape(Vertex vertex, double scale) {
+	protected Shape getShape(
+			Vertex vertex,
+			double scale) {
 		XY xy = getXY(vertex);
 		double radius = getRadius(vertex);
 		double size = radius / scale;
 		double x = xy.getX();
 		double y = xy.getY();
-		Ellipse2D.Double s = new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
+		Ellipse2D.Double s
+				= new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
 		return s;
 	}
 
-	protected Shape getShape(Edge e, double scale) {
+	protected Shape getShape(
+			Edge e,
+			double scale) {
 		XY[] xys = getXY(e);
 		XY v1 = xys[0];
 		XY v2 = xys[1];
@@ -117,7 +149,9 @@ public abstract class DrawerBase {
 		return s;
 	}
 
-	protected Shape getShape(Crease e, double scale) {
+	protected Shape getShape(
+			Crease e,
+			double scale) {
 		XY[] xys = getXY(e);
 		XY v1 = xys[0];
 		XY v2 = xys[1];
@@ -129,7 +163,9 @@ public abstract class DrawerBase {
 		return s;
 	}
 
-	protected Shape getShape(Face face, double scale) {
+	protected Shape getShape(
+			Face face,
+			double scale) {
 		GeneralPath path = null;
 		ArrayList<XY> vertices = getXY(face);
 		for (XY xy : vertices) {
@@ -145,7 +181,8 @@ public abstract class DrawerBase {
 		return path;
 	}
 
-	private double getScale(Graphics2D g2d) {
+	protected double getScale(
+			Graphics2D g2d) {
 		AffineTransform transform = g2d.getTransform();
 		double scaleX = transform.getScaleX();
 		double scaleY = transform.getScaleY();

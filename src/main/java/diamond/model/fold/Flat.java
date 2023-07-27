@@ -20,7 +20,6 @@ import diamond.model.XY;
  *
  */
 public abstract class Flat implements Serializable {
-	private double EPS;
 
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 
@@ -40,21 +39,6 @@ public abstract class Flat implements Serializable {
 		buildFaces(vertices);
 		buildFEnEF(edges);
 		buildFC(creases);
-	}
-
-	public HashSet<Vertex> getVertices() {
-		HashSet<Vertex> vertices = new HashSet<Vertex>();
-		faces.forEach(face -> {
-			face.getVertices().forEach(vertex -> {
-				vertices.add(vertex);
-			});
-			face.getCreases().forEach(crease -> {
-				vertices.add(crease.getV0());
-				vertices.add(crease.getV1());
-			});
-		});
-		return vertices;
-
 	}
 
 	private HashSet<Vertex> buildVertices(
@@ -192,12 +176,6 @@ public abstract class Flat implements Serializable {
 		});
 
 		return vaMap;
-	}
-
-	protected abstract int getMaxFraction();
-
-	public final double getEPS() {
-		return EPS;
 	}
 
 	public final ArrayList<Face> getFaces() {

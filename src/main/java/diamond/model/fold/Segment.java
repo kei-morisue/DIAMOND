@@ -32,6 +32,23 @@ public abstract class Segment extends Renderable implements Serializable {
 		return a == VALLEY;
 	}
 
+	public double distanceSq(
+			XY p) {
+		Dir x0 = v0.p.dir(p);
+		Dir d = dir();
+		double dot = x0.dot(d);
+		if (dot <= 0) {
+			return v0.p.distanceSq(p);
+		}
+		double mgSq = d.mgSq();
+		if (dot >= mgSq) {
+			return v1.p.distanceSq(p);
+		}
+		double cross = x0.cross(d);
+		return cross * cross / mgSq;
+
+	}
+
 	@Override
 	public XY centroid() {
 		return v0.p.mid(v1.p);

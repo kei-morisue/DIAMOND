@@ -5,6 +5,7 @@
 package diamond.model.fold;
 
 import java.util.Collections;
+import java.util.HashSet;
 
 import diamond.model.Dir;
 import diamond.model.XY;
@@ -14,6 +15,10 @@ import diamond.model.XY;
  *
  */
 public class Cp extends Flat {
+	transient private HashSet<Vertex> vertices = new HashSet<Vertex>();
+	transient private HashSet<Edge> edges = new HashSet<Edge>();
+	transient private HashSet<Crease> creases = new HashSet<Crease>();
+
 	private Face baseFace;
 
 	public Cp(double scale) {
@@ -22,6 +27,37 @@ public class Cp extends Flat {
 		this.baseFace = getFaces().get(0);
 		fold();
 		implyFaceOrder();
+		buildVertices();
+		buildEdges();
+		buildCreases();
+	}
+
+	private void buildVertices() {
+		faces.forEach(face -> {
+			face.getVertices().forEach(vertex -> {
+				vertices.add(vertex);
+			});
+			face.getCreases().forEach(crease -> {
+				vertices.add(crease.getV0());
+				vertices.add(crease.getV1());
+			});
+		});
+	}
+
+	private void buildEdges() {
+		faces.forEach(face -> {
+			face.getEdges().forEach(edge -> {
+				edges.add(edge);
+			});
+		});
+	}
+
+	private void buildCreases() {
+		faces.forEach(face -> {
+			face.getCreases().forEach(crease -> {
+				creases.add(crease);
+			});
+		});
 	}
 
 	public void fold() {
@@ -107,9 +143,19 @@ public class Cp extends Flat {
 		return false;
 	}
 
-	@Override
-	protected int getMaxFraction() {
-		return 300;
+	public HashSet<Vertex> getVertices() {
+		return vertices;
 	}
 
+	public HashSet<Edge> getEdges() {
+		return edges;
+	}
+
+	public HashSet<Crease> getCreases() {
+		return creases;
+	}
+
+	public Face getBaseFace() {
+		return baseFace;
+	}
 }

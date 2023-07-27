@@ -6,9 +6,13 @@ package diamond.view.draw;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import diamond.model.XY;
+import diamond.model.fold.Cp;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
@@ -19,6 +23,25 @@ import diamond.model.fold.Vertex;
  *
  */
 public class CpDrawer extends DrawerBase {
+	@Override
+	public void draw(
+			Graphics2D g2d,
+			Cp cp) {
+		super.draw(g2d, cp);
+		draeBaseFace(g2d, cp);
+	}
+
+	private void draeBaseFace(
+			Graphics2D g2d,
+			Cp cp) {
+		Face baseFace = cp.getBaseFace();
+		XY c = baseFace.centroid();
+		g2d.setColor(Color.MAGENTA);
+		double scale = getScale(g2d);
+		double r = 10 / scale;
+		Shape point = new Ellipse2D.Double(c.x - r / 2, c.y - r / 2, r, r);
+		g2d.fill(point);
+	}
 
 	@Override
 	protected XY getXY(
@@ -71,6 +94,9 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	protected Color getColor(
 			Edge edge) {
+		if (edge.isPicked) {
+			return Color.GREEN;
+		}
 		switch (edge.getA()) {
 		case Edge.MOUNTAIN:
 			return Color.RED;
@@ -85,7 +111,10 @@ public class CpDrawer extends DrawerBase {
 
 	@Override
 	protected Color getColor(
-			Crease crese) {
+			Crease crease) {
+		if (crease.isPicked) {
+			return Color.GREEN;
+		}
 		return Color.LIGHT_GRAY;
 	}
 
