@@ -5,6 +5,7 @@
 package diamond.model.fold;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @author Kei Morisue
@@ -20,13 +21,6 @@ public class Edge extends Segment implements Serializable {
 
 	public Edge(Edge edge) {
 		super(edge.v0, edge.v1, edge.a);
-	}
-
-	@Override
-	public boolean add(
-			Cp cp) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
 	}
 
 	public Face getPair(
@@ -57,6 +51,15 @@ public class Edge extends Segment implements Serializable {
 
 	public Face getF1() {
 		return f1;
+	}
+
+	@Override
+	public void add(
+			Vertex v0,
+			Vertex v1,
+			Collection<Edge> edges,
+			Collection<Crease> creases) {
+		edges.add(new Edge(v0, v1, a));
 	}
 
 }

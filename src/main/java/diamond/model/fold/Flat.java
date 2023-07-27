@@ -58,6 +58,7 @@ public abstract class Flat implements Serializable {
 			for (Face face : faces) {
 				if (face.isInside(c)) {
 					face.getCreases().add(crease);
+					crease.setFace(face);
 					return;
 				}
 			}

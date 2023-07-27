@@ -52,14 +52,9 @@ public class State0 extends FindingStateBase {
 	protected boolean undo(
 			PaintScreen screen,
 			XY p) {
-		if (edge == null) {
-			if (crease == null) {
-				return false;
-			}
-			refresh(screen);
-			return true;
+		if (segment == null) {
+			return false;
 		}
-		// TODO
 		refresh(screen);
 		return true;
 	}

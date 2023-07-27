@@ -6,7 +6,7 @@ package diamond.controller.action.paint.state.distort;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.util.HashSet;
+import java.util.Set;
 
 import diamond.controller.action.paint.state.PaintStateBase;
 import diamond.model.XY;
@@ -47,7 +47,7 @@ public class State0 extends PaintStateBase {
 		double c = Math.cos(theta);
 
 		Cp cp = screen.getPalette().getCp();
-		HashSet<Vertex> vertices = cp.getVertices();
+		Set<Vertex> vertices = cp.getVertices();
 		vertices.forEach(vertex -> {
 			vertex.setD(k * c, -s * k, s * k, k * c);
 		});
@@ -79,7 +79,7 @@ public class State0 extends PaintStateBase {
 			PaintScreen screen,
 			XY p) {
 		Cp cp = screen.getPalette().getCp();
-		HashSet<Vertex> vertices = cp.getVertices();
+		Set<Vertex> vertices = cp.getVertices();
 		vertices.forEach(vertex -> {
 			vertex.initD();
 		});

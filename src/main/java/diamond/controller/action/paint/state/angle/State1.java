@@ -14,6 +14,7 @@ import diamond.controller.action.paint.state.FindingStateBase;
 import diamond.controller.action.paint.state.PaintStateBase;
 import diamond.model.Dir;
 import diamond.model.XY;
+import diamond.model.fold.Cp;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
@@ -70,7 +71,6 @@ public class State1 extends FindingStateBase {
 		double s = dir0.dot(p0.dir(p));
 		this.point = dir0.mul(s).ver(p0);
 		extended = null;
-		Segment segment = getSegment();
 		if (segment == null) {
 			return;
 		}
@@ -89,19 +89,15 @@ public class State1 extends FindingStateBase {
 	@Override
 	protected boolean act(
 			PaintScreen screen) {
-		if (edge == null) {
-			if (crease == null) {
-				Crease added
-						= new Crease(v0, new Vertex(point), Segment.VALLEY);
-				added.add(screen.getCp());
-				return true;
-			}
-			Crease added = new Crease(v0, new Vertex(extended), Segment.VALLEY);
-			added.add(screen.getCp());
+		Cp cp = screen.getCp();
+		if (segment == null) {
+			Crease added
+					= new Crease(v0, new Vertex(point), Segment.VALLEY);
+			added.add(cp);
 			return true;
 		}
 		Crease added = new Crease(v0, new Vertex(extended), Segment.VALLEY);
-		added.add(screen.getCp());
+		added.add(cp);
 		return true;
 	}
 
@@ -115,7 +111,6 @@ public class State1 extends FindingStateBase {
 	protected void drawState(
 			Graphics2D g2d,
 			PaintScreen screen) {
-		// TODO 自動生成されたメソッド・スタブ
 		if (point == null) {
 			return;
 		}

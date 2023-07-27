@@ -7,6 +7,7 @@ package diamond.model.fold;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 import diamond.model.Dir;
 import diamond.model.XY;
@@ -16,9 +17,8 @@ import diamond.model.XY;
  *
  */
 public class Cp extends Flat {
-	transient private HashSet<Vertex> vertices = new HashSet<Vertex>();
-	transient private HashSet<Edge> edges = new HashSet<Edge>();
-	transient private HashSet<Crease> creases = new HashSet<Crease>();
+	transient private Set<Vertex> vertices = new HashSet<Vertex>();
+	transient private Set<Segment> segments = new HashSet<Segment>();
 
 	private Face baseFace;
 
@@ -39,19 +39,15 @@ public class Cp extends Flat {
 		});
 	}
 
-	private void buildEdges() {
+	private void buildSegments() {
 		faces.forEach(face -> {
 			face.getEdges().forEach(edge -> {
-				edges.add(edge);
+				segments.add(edge);
 			});
-		});
-	}
-
-	private void buildCreases() {
-		faces.forEach(face -> {
 			face.getCreases().forEach(crease -> {
-				creases.add(crease);
+				segments.add(crease);
 			});
+
 		});
 	}
 
@@ -70,10 +66,8 @@ public class Cp extends Flat {
 		implyFaceOrder();
 		vertices.clear();
 		buildVertices();
-		edges.clear();
-		buildEdges();
-		creases.clear();
-		buildCreases();
+		segments.clear();
+		buildSegments();
 	}
 
 	public void clearFolded() {
@@ -153,16 +147,12 @@ public class Cp extends Flat {
 		return false;
 	}
 
-	public HashSet<Vertex> getVertices() {
+	public Set<Vertex> getVertices() {
 		return vertices;
 	}
 
-	public HashSet<Edge> getEdges() {
-		return edges;
-	}
-
-	public HashSet<Crease> getCreases() {
-		return creases;
+	public Set<Segment> getSegments() {
+		return segments;
 	}
 
 	public Face getBaseFace() {

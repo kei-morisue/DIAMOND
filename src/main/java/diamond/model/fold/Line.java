@@ -30,7 +30,9 @@ public class Line {
 		this.q = q;
 	}
 
-	public static ArrayList<ArrayList<Pair<XY, Line>>> getCompressedP(ArrayList<Line> lines, double eps) {
+	public static ArrayList<ArrayList<Pair<XY, Line>>> getCompressedP(
+			List<Line> lines,
+			double eps) {
 		ArrayList<Pair<XY, Line>> p0 = new ArrayList<Pair<XY, Line>>();
 		ArrayList<Line> crossings = new ArrayList<>();
 		for (Line li : lines) {
@@ -80,14 +82,17 @@ public class Line {
 		return compressedP;
 	}
 
-	public static ArrayList<Vertex> getV(ArrayList<ArrayList<Pair<XY, Line>>> compressedP) {
+	public static ArrayList<Vertex> getV(
+			ArrayList<ArrayList<Pair<XY, Line>>> compressedP) {
 		ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 		compressedP.forEach(ps -> vertices.add(new Vertex(ps.get(0).fst)));
 		return vertices;
 
 	}
 
-	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEL(List<Vertex> vs, List<Line> lines,
+	public static HashMap<Tuple<Vertex>, ArrayList<Line>> getEL(
+			List<Vertex> vs,
+			List<Line> lines,
 			ArrayList<ArrayList<Pair<XY, Line>>> compressedP) {
 		ArrayList<HashSet<Vertex>> lP = new ArrayList<>();
 		lines.forEach(l -> lP.add(new HashSet<>()));
@@ -124,7 +129,8 @@ public class Line {
 		return edges;
 	}
 
-	private static class Comparator implements java.util.Comparator<Pair<XY, Line>> {
+	private static class Comparator
+			implements java.util.Comparator<Pair<XY, Line>> {
 		private double eps;
 
 		public Comparator(double eps) {
@@ -133,20 +139,26 @@ public class Line {
 		}
 
 		@Override
-		public int compare(Pair<XY, Line> l1, Pair<XY, Line> l2) {
+		public int compare(
+				Pair<XY, Line> l1,
+				Pair<XY, Line> l2) {
 			XY v1 = l1.fst;
 			XY v2 = l2.fst;
 			return v1.new Comparator(eps).compare(v1, v2);
 		}
 	}
 
-	private static Tuple<Vertex> makeKey(Vertex v1, Vertex v2, List<Vertex> vs) {
+	private static Tuple<Vertex> makeKey(
+			Vertex v1,
+			Vertex v2,
+			List<Vertex> vs) {
 		int i1 = vs.indexOf(v1);
 		int i2 = vs.indexOf(v2);
 		return i1 < i2 ? new Tuple<Vertex>(v1, v2) : new Tuple<Vertex>(v2, v1);
 	}
 
-	private class PointsOnLineComparator implements java.util.Comparator<Vertex> {
+	private class PointsOnLineComparator
+			implements java.util.Comparator<Vertex> {
 
 		Dir dir;
 
@@ -156,7 +168,9 @@ public class Line {
 		}
 
 		@Override
-		public int compare(Vertex pk, Vertex qk) {
+		public int compare(
+				Vertex pk,
+				Vertex qk) {
 			return dir.dot(qk.p.dir(pk.p)) > 0 ? 1 : -1;
 		}
 	}

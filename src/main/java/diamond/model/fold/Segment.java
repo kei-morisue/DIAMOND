@@ -5,8 +5,19 @@
 package diamond.model.fold;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.sun.tools.javac.util.Pair;
 
 import diamond.model.Dir;
+import diamond.model.Geo;
+import diamond.model.Tuple;
 import diamond.model.XY;
 
 /**
@@ -32,8 +43,41 @@ public abstract class Segment extends Renderable implements Serializable {
 		return a == VALLEY;
 	}
 
-	public abstract boolean add(
-			Cp cp);
+	public boolean add(
+			Cp cp) {
+		Set<Segment> segs = cp.getSegments();
+		segs.add(this);
+		List<Line> lines = new ArrayList<Line>();
+		Map<Line, Segment> lsMap = new HashMap<Line, Segment>();
+		segs.forEach(e -> {
+			Line line = new Line(e.v0.p, e.v1.p);
+			lines.add(line);
+			lsMap.put(line, e);
+		});
+		double eps = Geo.minLength(lines) / 300;
+		ArrayList<ArrayList<Pair<XY, Line>>> compressedP
+				= Line.getCompressedP(lines, eps);
+		ArrayList<Vertex> vs = Line.getV(compressedP);
+		HashMap<Tuple<Vertex>, ArrayList<Line>> el
+				= Line.getEL(vs, lines, compressedP);
+		HashSet<Edge> edges = new HashSet<Edge>();
+		HashSet<Crease> creases = new HashSet<Crease>();
+		el.forEach((
+				vv,
+				ls) -> {
+			Line line = ls.get(0);
+			Segment seg = lsMap.get(line);
+			seg.add(vv.fst, vv.snd, edges, creases);
+		});
+		cp.fold(edges, creases);
+		return true;
+	};
+
+	public abstract void add(
+			Vertex v0,
+			Vertex v1,
+			Collection<Edge> edges,
+			Collection<Crease> creases);
 
 	public XY foot(
 			XY p0,
