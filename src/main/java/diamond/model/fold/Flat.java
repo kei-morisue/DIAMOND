@@ -45,8 +45,10 @@ public abstract class Flat implements Serializable {
 			Collection<Edge> edges) {
 		HashSet<Vertex> vertices = new HashSet<Vertex>();
 		edges.forEach(edge -> {
-			vertices.add(edge.getV0());
-			vertices.add(edge.getV1());
+			Vertex v0 = edge.getV0();
+			Vertex v1 = edge.getV1();
+			vertices.add(v0);
+			vertices.add(v1);
 		});
 		return vertices;
 	}

@@ -62,4 +62,9 @@ public class Edge extends Segment implements Serializable {
 		edges.add(new Edge(v0, v1, a));
 	}
 
+	@Override
+	public boolean isEdge() {
+		return true;
+	}
+
 }

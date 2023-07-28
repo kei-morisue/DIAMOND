@@ -89,7 +89,9 @@ public abstract class PaintStateBase {
 		if (!act(screen)) {
 			return this;
 		}
-		return getNextState();
+		PaintStateBase next = getNextState();
+		refresh(screen);
+		return next;
 	}
 
 	public final PaintStateBase undoAction(

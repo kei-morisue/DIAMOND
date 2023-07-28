@@ -57,13 +57,6 @@ public class State1 extends FindingStateBase {
 	protected void find(
 			PaintScreen screen,
 			XY p) {
-		this.findCtrl(screen, p);
-	}
-
-	@Override
-	protected void findCtrl(
-			PaintScreen screen,
-			XY p) {
 		super.findCtrl(screen, p);
 		XY p0 = v0;
 		double angle = Math.round(p0.dir(p).angle() / DELTA) * DELTA;
@@ -75,7 +68,19 @@ public class State1 extends FindingStateBase {
 			return;
 		}
 		extended = segment.foot(p0, dir0);
+	}
 
+	@Override
+	protected void findCtrl(
+			PaintScreen screen,
+			XY p) {
+		super.findCtrl(screen, p);
+		this.point = p;
+		extended = null;
+		if (segment == null) {
+			return;
+		}
+		extended = segment.foot(v0, v0.dir(p));
 	}
 
 	@Override
@@ -91,14 +96,15 @@ public class State1 extends FindingStateBase {
 			PaintScreen screen) {
 		Cp cp = screen.getCp();
 		if (segment == null) {
+			if (point == null) {
+				return false;
+			}
 			Crease added
 					= new Crease(v0, new Vertex(point), Segment.VALLEY);
-			added.add(cp);
-			return true;
+			return added.add(cp);
 		}
 		Crease added = new Crease(v0, new Vertex(extended), Segment.VALLEY);
-		added.add(cp);
-		return true;
+		return added.add(cp);
 	}
 
 	@Override

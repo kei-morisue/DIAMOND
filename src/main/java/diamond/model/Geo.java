@@ -15,12 +15,12 @@ import diamond.model.fold.Line;
 public class Geo {
 	public static final double EPS = 1.0e-16;
 
-	public static double minLength(
-			Collection<Line> lines) {
+	public static <T extends Line> double minLength(
+			Collection<T> lines) {
 		Double minSq = null;
-		for (Line line : lines) {
-			XY v0 = line.p;
-			XY v1 = line.q;
+		for (T line : lines) {
+			XY v0 = line.getV0();
+			XY v1 = line.getV1();
 			double lenSq = v0.distanceSq(v1);
 			if (minSq == null || minSq > lenSq) {
 				minSq = lenSq;

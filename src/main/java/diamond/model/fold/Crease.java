@@ -41,4 +41,9 @@ public class Crease extends Segment implements Serializable {
 		creases.add(new Crease(v0, v1, a));
 	}
 
+	@Override
+	public boolean isEdge() {
+		return false;
+	}
+
 }

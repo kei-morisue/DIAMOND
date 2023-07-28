@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import diamond.model.fold.Line;
+import diamond.model.fold.Vertex;
 
 /**
  * @author Kei Morisue
@@ -66,9 +67,11 @@ public class GeoTest {
 
 	}
 
-	private double getEps(XY c, XY d) {
-		lines.add(new Line(a, b));
-		lines.add(new Line(c, d));
+	private double getEps(
+			XY c,
+			XY d) {
+		lines.add(new Line(new Vertex(a), new Vertex(b)));
+		lines.add(new Line(new Vertex(c), new Vertex(d)));
 		double eps = Geo.minLength(lines);
 		return eps / 300;
 	}
