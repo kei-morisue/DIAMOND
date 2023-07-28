@@ -6,16 +6,15 @@ package diamond.controller.action.paint.state.angle;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.action.paint.state.FindingStateBase;
+import diamond.controller.action.paint.state.FindingState0Base;
 import diamond.controller.action.paint.state.PaintStateBase;
-import diamond.model.XY;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
  *
  */
-public class State0 extends FindingStateBase {
+public class State0 extends FindingState0Base {
 
 	@Override
 	protected boolean act(
@@ -41,29 +40,6 @@ public class State0 extends FindingStateBase {
 	@Override
 	protected PaintStateBase getNextState() {
 		return new State1(vertex);
-	}
-
-	@Override
-	protected PaintStateBase getPrevState() {
-		return this;
-	}
-
-	@Override
-	protected boolean undo(
-			PaintScreen screen,
-			XY p) {
-		if (segment == null) {
-			return false;
-		}
-		refresh(screen);
-		return true;
-	}
-
-	@Override
-	protected void refresh(
-			PaintScreen screen) {
-		clearPicked();
-
 	}
 
 }

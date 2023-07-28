@@ -25,7 +25,6 @@ import diamond.model.XY;
 public class Cp extends Flat {
 	transient private Set<Vertex> vertices = new HashSet<Vertex>();
 	transient private Set<Segment> segments = new HashSet<Segment>();
-
 	private Face baseFace;
 	public double eps;
 
@@ -177,7 +176,7 @@ public class Cp extends Flat {
 				break;
 			}
 		}
-		if (retry && stackcount < 1e+6) {
+		if (retry && stackcount < 100) {
 			implyFaceOrder(stackcount + 1);
 		}
 		return;
@@ -215,4 +214,5 @@ public class Cp extends Flat {
 	public Face getBaseFace() {
 		return baseFace;
 	}
+
 }

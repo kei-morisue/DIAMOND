@@ -33,7 +33,7 @@ public abstract class DrawerBase {
 
 	protected Color getColor(
 			Vertex vertex) {
-		return vertex.isPicked() ? Color.GREEN : Color.BLACK;
+		return vertex.isPicked() ? Color.GREEN : Color.GRAY;
 	};
 
 	abstract protected Color getColor(

@@ -44,6 +44,17 @@ public abstract class Segment extends Line implements Serializable, Renderable {
 		return true;
 	};
 
+	public boolean remove(
+			Cp cp) {
+		Set<Segment> segs = cp.getSegments();
+		if (segs.remove(this)) {
+			cp.rebuild(segs);
+			return true;
+		}
+		return false;
+
+	};
+
 	public abstract boolean isEdge();
 
 	public abstract void add(

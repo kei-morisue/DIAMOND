@@ -23,6 +23,11 @@ public abstract class Flat implements Serializable {
 
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 
+	transient protected HashMap<Tuple<Vertex>, Edge> veMap
+			= new HashMap<Tuple<Vertex>, Edge>();
+	transient protected HashMap<Tuple<Vertex>, Crease> vcMap
+			= new HashMap<Tuple<Vertex>, Crease>();
+
 	public Flat() {
 	}
 
@@ -37,8 +42,9 @@ public abstract class Flat implements Serializable {
 		HashSet<Vertex> vertices = buildVertices(edges);
 		buildVV(vertices, edges);
 		buildFaces(vertices);
+		buildVE(edges);
 		buildFEnEF(edges);
-		buildFC(creases);
+		buildFCnVC(creases);
 	}
 
 	private HashSet<Vertex> buildVertices(
@@ -53,10 +59,14 @@ public abstract class Flat implements Serializable {
 		return vertices;
 	}
 
-	private void buildFC(
+	private void buildFCnVC(
 			Collection<Crease> creases) {
 		creases.forEach(crease -> {
 			XY c = crease.centroid();
+			Vertex v0 = crease.getV0();
+			Vertex v1 = crease.getV1();
+			vcMap.put(new Tuple<Vertex>(v0, v1), crease);
+			vcMap.put(new Tuple<Vertex>(v1, v0), crease);
 			for (Face face : faces) {
 				if (face.isInside(c)) {
 					face.getCreases().add(crease);
@@ -143,7 +153,6 @@ public abstract class Flat implements Serializable {
 
 	private void buildFEnEF(
 			Collection<Edge> edges) {
-		HashMap<Tuple<Vertex>, Edge> ve = getVE(edges);
 		faces.forEach(f -> {
 			ArrayList<Vertex> vs = f.getVertices();
 			ArrayList<Edge> faceEdges = f.getEdges();
@@ -151,7 +160,7 @@ public abstract class Flat implements Serializable {
 			for (int i = 0; i < vs.size(); i++) {
 				Vertex v1 = vs.get(i);
 				Vertex v2 = vs.get((i + 1) % vs.size());
-				Edge edge = ve.get(new Tuple<Vertex>(v1, v2));
+				Edge edge = veMap.get(new Tuple<Vertex>(v1, v2));
 				faceEdges.add(edge);// Face to Edge
 				if (edge.getF0() == null) {
 					edge.setF0(f);// Edge to Face #0
@@ -168,17 +177,14 @@ public abstract class Flat implements Serializable {
 
 	}
 
-	private HashMap<Tuple<Vertex>, Edge> getVE(
+	private void buildVE(
 			Collection<Edge> edges) {
-		HashMap<Tuple<Vertex>, Edge> vaMap = new HashMap<Tuple<Vertex>, Edge>();
 		edges.forEach(e -> {
 			Vertex v0 = e.getV0();
 			Vertex v1 = e.getV1();
-			vaMap.put(new Tuple<Vertex>(v0, v1), e);
-			vaMap.put(new Tuple<Vertex>(v1, v0), e);
+			veMap.put(new Tuple<Vertex>(v0, v1), e);
+			veMap.put(new Tuple<Vertex>(v1, v0), e);
 		});
-
-		return vaMap;
 	}
 
 	public final ArrayList<Face> getFaces() {

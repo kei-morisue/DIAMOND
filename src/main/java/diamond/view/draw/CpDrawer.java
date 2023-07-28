@@ -52,7 +52,7 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	public double getRadius(
 			Vertex vertex) {
-		return vertex.isPicked() ? 15.0 : 0.0;
+		return vertex.isPicked() ? 15.0 : 5.0;
 	}
 
 	@Override
