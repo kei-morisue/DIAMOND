@@ -6,6 +6,7 @@ package diamond.view.draw;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Shape;
 
 import diamond.model.XY;
 import diamond.model.fold.Crease;
@@ -13,6 +14,7 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
+import diamond.view.draw.shape.SegmentShape;
 
 /**
  * @author Kei Morisue
@@ -20,14 +22,16 @@ import diamond.model.fold.Vertex;
  */
 public class ModelDrawer extends DrawerBase {
 
+	public static double CLIP = 0.9;
+
 	@Override
-	protected XY getXY(
+	public XY getXY(
 			Vertex v) {
 		return v.d;
 	}
 
 	@Override
-	protected XY[] getXY(
+	public XY[] getXY(
 			Crease crease) {
 		return super.getXY(crease);
 	}
@@ -36,6 +40,13 @@ public class ModelDrawer extends DrawerBase {
 	public double getRadius(
 			Vertex vertex) {
 		return vertex.isPicked() ? 15.0 : 0.0;
+	}
+
+	@Override
+	protected Shape getShape(
+			Crease crease,
+			double scale) {
+		return SegmentShape.getShape(crease, scale, CLIP, this);
 	}
 
 	@Override

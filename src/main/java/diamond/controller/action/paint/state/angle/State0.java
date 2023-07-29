@@ -6,14 +6,15 @@ package diamond.controller.action.paint.state.angle;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 
 import diamond.controller.action.paint.state.FindingState0Base;
 import diamond.controller.action.paint.state.PaintStateBase;
 import diamond.model.fold.Crease;
+import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.view.draw.CpDrawer;
+import diamond.view.draw.shape.FaceShape;
+import diamond.view.draw.shape.VertexShape;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -42,6 +43,8 @@ public class State0 extends FindingState0Base {
 			Graphics2D g2d,
 			PaintScreen screen) {
 		// STUB for debug
+		double scale = screen.getScale();
+		CpDrawer drawer = new CpDrawer();
 		if (vertex == null) {
 
 			if (segment == null) {
@@ -50,16 +53,26 @@ public class State0 extends FindingState0Base {
 			if (!segment.isEdge()) {
 				Crease crease = (Crease) segment;
 				Face face = crease.getFace();
-				g2d.setColor(Color.GREEN);
-				g2d.fill(new CpDrawer().getShape(face, screen.getScale()));
+				g2d.setColor(Color.MAGENTA);
+				g2d.fill(FaceShape.getShape(face, scale, 0.75, drawer));
+			} else {
+				Edge edge = (Edge) segment;
+				Face f0 = edge.getF0();
+				g2d.setColor(Color.MAGENTA);
+				g2d.fill(FaceShape.getShape(f0, scale, 0.75, drawer));
+				Face f1 = edge.getF1();
+				if (f1 != null) {
+					g2d.setColor(Color.MAGENTA);
+					g2d.fill(FaceShape.getShape(f1, scale, 0.75, drawer));
+				}
 			}
 			return;
 
 		}
-		g2d.setColor(Color.GREEN);
+		final double r = 10;
+		g2d.setColor(Color.MAGENTA);
 		vertex.getAdj().forEach(v -> {
-			Shape s = new Ellipse2D.Double(v.x, v.y, 10, 10);
-			g2d.draw(s);
+			g2d.draw(VertexShape.getShape(v, r, scale, drawer));
 		});
 	}
 

@@ -44,7 +44,7 @@ public class CpDrawer extends DrawerBase {
 	}
 
 	@Override
-	protected XY getXY(
+	public XY getXY(
 			Vertex v) {
 		return v;
 	}

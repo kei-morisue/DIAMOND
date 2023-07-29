@@ -9,9 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import diamond.model.XY;
@@ -21,6 +18,9 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
+import diamond.view.draw.shape.FaceShape;
+import diamond.view.draw.shape.SegmentShape;
+import diamond.view.draw.shape.VertexShape;
 
 /**
  * @author Kei Morisue
@@ -64,25 +64,25 @@ public abstract class DrawerBase {
 			Crease crease,
 			double scale);
 
-	protected abstract double getRadius(
+	public abstract double getRadius(
 			Vertex vertex);
 
-	protected abstract XY getXY(
+	public abstract XY getXY(
 			Vertex vertex);
 
-	protected XY[] getXY(
+	public XY[] getXY(
 			Edge edge) {
 		XY[] res = { getXY(edge.getV0()), getXY(edge.getV1()) };
 		return res;
 	}
 
-	protected XY[] getXY(
+	public XY[] getXY(
 			Crease crease) {
 		XY[] res = { getXY(crease.getV0()), getXY(crease.getV1()) };
 		return res;
 	}
 
-	protected ArrayList<XY> getXY(
+	public ArrayList<XY> getXY(
 			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
 		face.getVertices().forEach(v -> {
@@ -154,60 +154,29 @@ public abstract class DrawerBase {
 	protected Shape getShape(
 			Vertex vertex,
 			double scale) {
-		XY xy = getXY(vertex);
-		double radius = getRadius(vertex);
-		double size = radius / scale;
-		double x = xy.getX();
-		double y = xy.getY();
-		Ellipse2D.Double s
-				= new Ellipse2D.Double(x - size / 2, y - size / 2, size, size);
-		return s;
+		return VertexShape.getShape(
+				vertex,
+				getRadius(vertex),
+				scale,
+				this);
 	}
 
 	protected Shape getShape(
 			Edge e,
 			double scale) {
-		XY[] xys = getXY(e);
-		XY v1 = xys[0];
-		XY v2 = xys[1];
-		double x1 = v1.getX();
-		double y1 = v1.getY();
-		double x2 = v2.getX();
-		double y2 = v2.getY();
-		Line2D.Double s = new Line2D.Double(x1, y1, x2, y2);
-		return s;
+		return SegmentShape.getShape(e, scale, this);
 	}
 
 	protected Shape getShape(
-			Crease e,
+			Crease crease,
 			double scale) {
-		XY[] xys = getXY(e);
-		XY v1 = xys[0];
-		XY v2 = xys[1];
-		double x1 = v1.getX();
-		double y1 = v1.getY();
-		double x2 = v2.getX();
-		double y2 = v2.getY();
-		Line2D.Double s = new Line2D.Double(x1, y1, x2, y2);
-		return s;
+		return SegmentShape.getShape(crease, scale, this);
 	}
 
-	public Shape getShape(
+	private Shape getShape(
 			Face face,
 			double scale) {
-		GeneralPath path = null;
-		ArrayList<XY> vertices = getXY(face);
-		for (XY xy : vertices) {
-			if (path == null) {
-				path = new GeneralPath();
-				path.moveTo(xy.getX(), xy.getY());
-			} else {
-				path.lineTo(xy.getX(), xy.getY());
-			}
-
-		}
-		path.closePath();
-		return path;
+		return FaceShape.getShape(face, scale, this);
 	}
 
 	protected double getScale(
