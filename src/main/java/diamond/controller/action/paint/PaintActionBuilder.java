@@ -20,4 +20,9 @@ public class PaintActionBuilder {
 		return new PaintAction(
 				new diamond.controller.action.paint.state.distort.State0());
 	}
+
+	public static PaintAction flipAction() {
+		return new PaintAction(
+				new diamond.controller.action.paint.state.flip.State0());
+	}
 }

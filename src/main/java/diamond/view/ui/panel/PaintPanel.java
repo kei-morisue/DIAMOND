@@ -34,6 +34,7 @@ public class PaintPanel extends JPanel {
 		add(control, BorderLayout.WEST);
 
 		addpaintButton("axiom1.gif", PaintActionBuilder.angleAction());
+		addpaintButton("flip.gif", PaintActionBuilder.flipAction());
 		addpaintButton("offset.gif", PaintActionBuilder.distortionAction());
 	}
 

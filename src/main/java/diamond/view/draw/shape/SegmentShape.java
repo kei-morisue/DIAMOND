@@ -10,6 +10,7 @@ import java.awt.geom.Line2D;
 import diamond.model.XY;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
+import diamond.model.fold.Segment;
 import diamond.view.draw.DrawerBase;
 
 /**
@@ -42,7 +43,7 @@ public class SegmentShape {
 		XY[] xys = drawer.getXY(crease);
 		return getShape(
 				xys,
-				clip,
+				crease.getA() == Segment.NONE ? clip : 1.0,
 				crease.onEdge0,
 				crease.onEdge1);
 	}

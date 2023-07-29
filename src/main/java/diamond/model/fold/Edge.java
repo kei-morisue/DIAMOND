@@ -67,4 +67,9 @@ public class Edge extends Segment implements Serializable {
 		return true;
 	}
 
+	@Override
+	public Segment getFlip() {
+		return new Crease(v0, v1, a);
+	}
+
 }

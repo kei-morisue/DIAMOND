@@ -33,6 +33,12 @@ public abstract class Segment extends Line implements Serializable, Renderable {
 		return a == VALLEY;
 	}
 
+	public void flip() {
+		a = -a;
+	}
+
+	public abstract Segment getFlip();
+
 	public boolean add(
 			Cp cp) {
 		Set<Segment> segs = cp.getSegments();

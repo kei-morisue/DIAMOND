@@ -158,7 +158,7 @@ public class Cp extends Flat {
 		fold();
 	}
 
-	protected void fold() {
+	public void fold() {
 		clearFolded();
 		if (baseFace != null) {
 			XY c = baseFace.centroid();
@@ -168,6 +168,7 @@ public class Cp extends Flat {
 					break;
 				}
 			}
+			this.baseFace = getFaces().get(0);
 		} else {
 			this.baseFace = getFaces().get(0);
 		}
