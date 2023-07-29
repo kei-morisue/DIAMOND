@@ -192,7 +192,7 @@ public abstract class DrawerBase {
 		return s;
 	}
 
-	protected Shape getShape(
+	public Shape getShape(
 			Face face,
 			double scale) {
 		GeneralPath path = null;

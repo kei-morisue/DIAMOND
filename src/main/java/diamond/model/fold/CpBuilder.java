@@ -29,10 +29,12 @@ public class CpBuilder {
 		Vertex n1 = new Vertex(new XY(scale, 0));
 		Vertex n2 = new Vertex(new XY(-scale, 0));
 
-		Edge e0 = new Edge(v0, v1, Edge.NONE);
+		Edge e0 = new Edge(v0, n1, Edge.NONE);
+		Edge x0 = new Edge(n1, v1, Edge.NONE);
 		Edge e1 = new Edge(v1, m2, Edge.NONE);
 		Edge e2 = new Edge(m2, v2, Edge.NONE);
-		Edge e3 = new Edge(v2, v3, Edge.NONE);
+		Edge e3 = new Edge(v2, n2, Edge.NONE);
+		Edge x3 = new Edge(n2, v3, Edge.NONE);
 		Edge e4 = new Edge(v3, m1, Edge.NONE);
 		Edge e5 = new Edge(m1, v0, Edge.NONE);
 
@@ -45,7 +47,7 @@ public class CpBuilder {
 
 		ArrayList<Edge> edges = new ArrayList<Edge>();
 		edges.addAll(Arrays.asList(e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10,
-				e11));
+				e11, x0, x3));
 
 		ArrayList<Crease> creases = new ArrayList<Crease>();
 		Crease c0 = new Crease(m, n1, Edge.NONE);

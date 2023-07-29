@@ -44,7 +44,7 @@ public abstract class Flat implements Serializable {
 		buildFaces(vertices);
 		buildVE(edges);
 		buildFEnEF(edges);
-		buildFCnVC(creases);
+		buildFCnVC(vertices, creases);
 	}
 
 	private HashSet<Vertex> buildVertices(
@@ -60,7 +60,10 @@ public abstract class Flat implements Serializable {
 	}
 
 	private void buildFCnVC(
+			Collection<Vertex> vertices,
 			Collection<Crease> creases) {
+
+		setAdj(vertices, creases);
 		creases.forEach(crease -> {
 			XY c = crease.centroid();
 			Vertex v0 = crease.getV0();
@@ -81,30 +84,25 @@ public abstract class Flat implements Serializable {
 	private void buildVV(
 			Collection<Vertex> vertices,
 			Collection<Edge> edges) {
-		HashMap<Vertex, ArrayList<Vertex>> adjVmap = getAdjMap(vertices, edges);
 		vertices.forEach(v -> {
 			v.getAdj().clear();
-			ArrayList<Vertex> adjVs = adjVmap.get(v);
-			adjVs.sort(v.new AngleComparator());
-			adjVs.forEach(a -> v.getAdj().add(a));
 		});
+		setAdj(vertices, edges);
 	}
 
-	private HashMap<Vertex, ArrayList<Vertex>> getAdjMap(
+	private <T extends Segment> void setAdj(
 			Collection<Vertex> vertices,
-			Collection<Edge> edges) {
-		HashMap<Vertex, ArrayList<Vertex>> adjVmap
-				= new HashMap<Vertex, ArrayList<Vertex>>();
-		vertices.forEach(v -> {
-			adjVmap.put(v, new ArrayList<Vertex>());
-		});
+			Collection<T> edges) {
 		edges.forEach(e -> {
 			Vertex v0 = e.getV0();
 			Vertex v1 = e.getV1();
-			adjVmap.get(v0).add(v1);
-			adjVmap.get(v1).add(v0);
+			v0.getAdj().add(v1);
+			v1.getAdj().add(v0);
 		});
-		return adjVmap;
+		vertices.forEach(v -> {
+			ArrayList<Vertex> adj = v.getAdj();
+			adj.sort(v.new AngleComparator());
+		});
 	}
 
 	private <E> E getPrev(

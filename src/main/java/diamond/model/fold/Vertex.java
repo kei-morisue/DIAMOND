@@ -23,10 +23,14 @@ public class Vertex extends XY implements Serializable, Renderable {
 
 	public Vertex(XY v) {
 		super(v.x, v.y);
+		f = this;
+		d = f;
 	}
 
 	public Vertex(Vertex v) {
 		super(v.x, v.y);
+		f = this;
+		d = f;
 	}
 
 	@Override
@@ -43,6 +47,11 @@ public class Vertex extends XY implements Serializable, Renderable {
 	}
 
 	public void initD() {
+		d = f;
+	}
+
+	public void initF() {
+		f = this;
 		d = f;
 	}
 

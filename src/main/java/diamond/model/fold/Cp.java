@@ -34,8 +34,7 @@ public class Cp extends Flat {
 		this.eps = scale / 300;
 	}
 
-	public void rebuild(
-			Set<Segment> segments) {
+	public void rebuild() {
 		eps = Geo.minLength(segments) / 300;
 		ArrayList<ArrayList<Pair<XY, Segment>>> compressedP
 				= Line.getCompressedP(segments, eps);
@@ -51,6 +50,62 @@ public class Cp extends Flat {
 			seg.add(vv.fst, vv.snd, edges, creases);
 		});
 		fold(edges, creases);
+	}
+
+	public boolean trim() {
+		for (Vertex vertex : vertices) {
+			if (trim(vertex)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean trim(
+			Vertex v) {
+		ArrayList<Vertex> adj = v.getAdj();
+		if (adj.size() != 2) {
+			return false;
+		}
+		Vertex v0 = adj.get(0);
+		Vertex v1 = adj.get(1);
+		Tuple<Vertex> key0 = new Tuple<Vertex>(v, v0);
+		Tuple<Vertex> key1 = new Tuple<Vertex>(v, v1);
+		Edge e0 = veMap.get(key0);
+		Edge e1 = veMap.get(key1);
+		if (trim(v0, v1, e0, e1)) {
+			return true;
+		}
+		Crease c0 = vcMap.get(key0);
+		Crease c1 = vcMap.get(key1);
+		if (trim(v0, v1, c0, c1)) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean trim(
+			Vertex v0,
+			Vertex v1,
+			Segment e0,
+			Segment e1) {
+		if (e0 != null && e1 != null) {
+			int a0 = e0.getA();
+			if (a0 == e1.getA()) {
+				double angle0 = e0.dir().angle();
+				double angle1 = e1.dir().angle();
+				if (Math.abs(Math.sin(angle0 - angle1)) < 1e-10) {
+					segments.remove(e0);
+					segments.remove(e1);
+					segments.add(e0.isEdge() ? new Edge(v0, v1, a0)
+							: new Crease(v0, v1, a0));
+					rebuild();
+					return true;
+				}
+
+			}
+		}
+		return false;
 	}
 
 	private Segment getEdge(
@@ -130,7 +185,12 @@ public class Cp extends Flat {
 			face.isFlip = false;
 			face.isFolded = false;
 			face.getVertices().forEach(v -> {
-				v.f = v;
+				v.initF();
+				;
+			});
+			face.getCreases().forEach(crease -> {
+				crease.getV0().initF();
+				crease.getV1().initF();
 			});
 
 		});

@@ -7,6 +7,7 @@ package diamond.model.fold;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import diamond.model.Dir;
 import diamond.model.XY;
 
 /**
@@ -42,19 +43,19 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 
 	public boolean isInside(
 			XY p) {
-		Double a0 = 0.0;
+		Double angleSum = 0.0;
 		XY p0 = vertices.get(vertices.size() - 1);
+		Dir dir0 = p.dir(p0).unit();
 		for (Vertex v : vertices) {
-			double a = p0.dir(p).cross(p0.dir(v));
-			if (a0 == 0.0) {
-				a0 = a;
-			}
-			if (a0 * a <= 0) {
-				return false;
-			}
-			p0 = v;
+			Dir dir = p.dir(v).unit();
+			double dot = dir0.dot(dir);
+			double cross = dir0.cross(dir);
+			double delta = Math.acos(dot);
+			delta = cross < 0 ? -delta : delta;
+			angleSum += delta;
+			dir0 = dir;
 		}
-		return true;
+		return Math.abs(Math.abs(angleSum / (2 * Math.PI)) - 1) < 1e-10;
 	}
 
 	@Override
