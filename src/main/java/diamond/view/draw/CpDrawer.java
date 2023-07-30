@@ -8,7 +8,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 import diamond.model.XY;
 import diamond.model.fold.Cp;
@@ -39,7 +39,7 @@ public class CpDrawer extends DrawerBase {
 		g2d.setColor(Color.MAGENTA);
 		double scale = getScale(g2d);
 		double r = 10 / scale;
-		Shape point = new Ellipse2D.Double(c.x - r / 2, c.y - r / 2, r, r);
+		Shape point = new Rectangle2D.Double(c.x - r / 2, c.y - r / 2, r, r);
 		g2d.fill(point);
 	}
 
@@ -95,25 +95,6 @@ public class CpDrawer extends DrawerBase {
 		BasicStroke stroke = new BasicStroke((float) (1.0 / scale),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		return stroke;
-	}
-
-	@Override
-	protected BasicStroke getStroke(
-			Crease crease,
-			double scale) {
-		if (crease.getA() == Segment.NONE) {
-			BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
-					BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-			return stroke;
-
-		}
-		BasicStroke stroke = new BasicStroke((float) (2.0 / scale),
-				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER,
-				2,
-				new float[] { (float) (10.0 / scale), (float) (10.0f / scale) },
-				0.0f);
-		return stroke;
-
 	}
 
 }

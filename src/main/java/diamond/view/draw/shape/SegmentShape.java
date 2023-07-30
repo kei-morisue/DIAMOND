@@ -4,6 +4,7 @@
  */
 package diamond.view.draw.shape;
 
+import java.awt.BasicStroke;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 
@@ -18,6 +19,38 @@ import diamond.view.draw.DrawerBase;
  *
  */
 public class SegmentShape {
+	static final float[] DASH_V = { 10f, 3f };
+	static final float[] DASH_M = { 10f, 2f, 2f, 2f };
+
+	private static float[] scaledDashM(
+			float scale) {
+		return new float[] { DASH_M[0] / scale, DASH_M[1] / scale,
+				DASH_M[2] / scale, DASH_M[3] / scale };
+	}
+
+	private static float[] scaledDashV(
+			float scale) {
+		return new float[] { DASH_V[0] / scale, DASH_V[1] / scale };
+	}
+
+	public static BasicStroke getStroke(
+			Crease crease,
+			double scale) {
+		if (crease.getA() == Segment.NONE) {
+			BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
+					BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+			return stroke;
+
+		}
+		BasicStroke stroke = new BasicStroke((float) (2.0 / scale),
+				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER,
+				2,
+				crease.isValley() ? scaledDashV((float) scale)
+						: scaledDashM((float) scale),
+				0.0f);
+		return stroke;
+
+	}
 
 	public static Shape getShape(
 			Edge e,

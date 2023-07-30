@@ -12,7 +12,6 @@ import diamond.model.XY;
 import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
-import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
 import diamond.view.draw.shape.SegmentShape;
 
@@ -69,24 +68,6 @@ public class ModelDrawer extends DrawerBase {
 			double scale) {
 		BasicStroke stroke = new BasicStroke((float) (3.0 / scale),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-		return stroke;
-	}
-
-	@Override
-	protected BasicStroke getStroke(
-			Crease crease,
-			double scale) {
-		if (crease.getA() == Segment.NONE) {
-			BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
-					BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-			return stroke;
-
-		}
-		BasicStroke stroke = new BasicStroke((float) (2.0 / scale),
-				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER,
-				2,
-				new float[] { (float) (10.0 / scale), (float) (10.0f / scale) },
-				0.0f);
 		return stroke;
 	}
 

@@ -6,6 +6,7 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import diamond.model.Dir;
 import diamond.model.XY;
@@ -17,9 +18,13 @@ import diamond.model.XY;
 public class Vertex extends XY implements Serializable, Renderable {
 	public XY f;
 	public XY d;
+	transient private boolean isFlatFoldable;
 	transient private boolean isPicked;
 
 	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
+	private HashMap<Vertex, Edge> edgesMap = new HashMap<Vertex, Edge>();
+
+	private HashMap<Vertex, Crease> cresesMap = new HashMap<Vertex, Crease>();
 
 	public Vertex(XY v) {
 		super(v.x, v.y);
@@ -99,4 +104,11 @@ public class Vertex extends XY implements Serializable, Renderable {
 		isPicked = picked;
 	}
 
+	public HashMap<Vertex, Edge> getEdgesMap() {
+		return edgesMap;
+	}
+
+	public HashMap<Vertex, Crease> getCresesMap() {
+		return cresesMap;
+	}
 }

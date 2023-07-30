@@ -60,12 +60,14 @@ public abstract class DrawerBase {
 			Edge edge,
 			double scale);
 
-	protected abstract BasicStroke getStroke(
-			Crease crease,
-			double scale);
-
 	public abstract double getRadius(
 			Vertex vertex);
+
+	protected BasicStroke getStroke(
+			Crease crease,
+			double scale) {
+		return SegmentShape.getStroke(crease, scale);
+	};
 
 	public abstract XY getXY(
 			Vertex vertex);
