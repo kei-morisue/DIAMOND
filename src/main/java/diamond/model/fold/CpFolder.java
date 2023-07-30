@@ -17,6 +17,41 @@ import diamond.model.XY;
  *
  */
 public class CpFolder {
+	public static boolean isFoldable(
+			Vertex v,
+			List<Edge> edges) {
+		int nV = 0;
+		int nM = 0;
+		double angle = 0.0;
+		Vertex v0 = edges.get(edges.size() - 1).getPair(v);
+		Dir d0 = v.dir(v0);
+		for (Edge edge : edges) {
+			if (edge.isBoundary()) {
+				return true;
+			}
+
+			if (edge.isValley()) {
+				++nV;
+			} else {
+				++nM;
+			}
+			v0 = edge.getPair(v);
+			Dir d = v.dir(v0);
+			double delta = d.angle() - d0.angle();
+			int n = nV + nM;
+			angle += (n >> 1 << 1 == n) ? delta : -delta;
+			d0 = d;
+
+		}
+		if (nV == 0 && nM == 0) {
+			return true;
+		}
+		boolean isMaekawa = Math.abs(nM - nV) == 2;
+		boolean isKawasaki = Geo.isClose(Math.abs(angle % (Math.PI * 2)), 0.0,
+				Geo.RADIAN_EPS);
+		return isMaekawa && isKawasaki;
+	}
+
 	public static void buildFolded(
 			Face face,
 			boolean prevFaceFlip,

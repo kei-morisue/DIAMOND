@@ -80,14 +80,13 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 	public boolean swapWrongPair(
 			List<Face> faces) {
 		int i = faces.indexOf(this);
-		Face fi = faces.get(i);
-		boolean flip = fi.isFlip;
-		for (Edge edge : fi.edges) {
-			Face fj = edge.getPair(fi);
-			boolean isValley = edge.isValley();
-			if (fj == null) {
+		boolean flip = isFlip;
+		for (Edge edge : edges) {
+			Face fj = edge.getPair(this);
+			if (fj == this) {
 				continue;
 			}
+			boolean isValley = edge.isValley();
 			int j = faces.indexOf(fj);
 			if (!(flip ^ isValley) && i < j
 					|| flip ^ isValley && j < i) {

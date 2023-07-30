@@ -7,6 +7,7 @@ package diamond.view.ui.screen;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -60,6 +61,8 @@ public abstract class ScreenBase extends JPanel {
 		g2d.fillRect(0, 0, width, height);
 		transform.focus(getWidth(), getHeight());
 		g2d.setTransform(transform);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
 	public void zoom(

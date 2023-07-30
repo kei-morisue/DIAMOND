@@ -19,8 +19,8 @@ import diamond.view.draw.DrawerBase;
  *
  */
 public class SegmentShape {
-	static final float[] DASH_V = { 10f, 3f };
-	static final float[] DASH_M = { 10f, 2f, 2f, 2f };
+	static final float[] DASH_V = { 10f, 4f };
+	static final float[] DASH_M = { 10f, 4f, 4f, 4f };
 
 	private static float[] scaledDashM(
 			float scale) {

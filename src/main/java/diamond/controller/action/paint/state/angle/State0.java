@@ -4,6 +4,7 @@
  */
 package diamond.controller.action.paint.state.angle;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -69,8 +70,9 @@ public class State0 extends FindingState0Base {
 			return;
 
 		}
-		final double r = 10;
+		final double r = 20;
 		g2d.setColor(Color.MAGENTA);
+		g2d.setStroke(new BasicStroke((float) (2.0 / scale)));
 		vertex.forAdj(v -> {
 			g2d.draw(VertexShape.getShape(v, r, scale, drawer));
 		});

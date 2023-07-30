@@ -92,7 +92,7 @@ public class CpDrawer extends DrawerBase {
 		if (crease.isPicked() || crease.getA() != Segment.NONE) {
 			return super.getColor(crease);
 		}
-		return Color.LIGHT_GRAY;
+		return Color.BLACK;
 	}
 
 	@Override
