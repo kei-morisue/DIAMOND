@@ -20,6 +20,12 @@ public class CpFolder {
 	public static boolean isFoldable(
 			Vertex v,
 			List<Edge> edges) {
+		if (edges.size() == 0) {
+			return true;
+		}
+		if (edges.size() == 2) {
+			return edges.get(0).getA() == edges.get(1).getA();
+		}
 		int nV = 0;
 		int nM = 0;
 		double angle = 0.0;

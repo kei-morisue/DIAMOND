@@ -74,13 +74,13 @@ public class State1 extends FindingStateBase {
 	protected void findCtrl(
 			PaintScreen screen,
 			XY p) {
-		super.findCtrl(screen, p);
+		super.find(screen, p);
 		this.point = p;
 		extended = null;
-		if (segment == null) {
+		if (vertex == null) {
 			return;
 		}
-		extended = segment.foot(v0, v0.dir(p));
+		extended = vertex;
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class State1 extends FindingStateBase {
 	protected boolean act(
 			PaintScreen screen) {
 		Cp cp = screen.getCp();
-		if (segment == null) {
+		if (segment == null && vertex == null) {
 			if (point == null) {
 				return false;
 			}
