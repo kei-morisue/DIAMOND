@@ -23,7 +23,8 @@ public class PaintButton extends JRadioButton implements ActionListener {
 
 	private PaintAction paintAction;
 
-	public PaintButton(String iconName, PaintScreen paintScreen, PaintAction paintAction) {
+	public PaintButton(String iconName, PaintScreen paintScreen,
+			PaintAction paintAction) {
 		super();
 		this.paintScreen = paintScreen;
 		this.paintAction = paintAction;
@@ -33,7 +34,8 @@ public class PaintButton extends JRadioButton implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(
+			ActionEvent e) {
 		paintScreen.setPaintAction(this.paintAction);
 
 	}

@@ -7,6 +7,7 @@ package diamond.view.ui;
 import java.awt.Container;
 import java.awt.GridLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
@@ -27,7 +28,9 @@ public class MainFrame extends JFrame {
 
 	private ModelScreen modelScreen = new ModelScreen();
 
-	private PaintPanel paint = new PaintPanel(palette, modelScreen);
+	private ButtonGroup paintButtons = new ButtonGroup();
+	private PaintPanel paint
+			= new PaintPanel(palette, modelScreen, paintButtons);
 
 	public MainFrame() {
 		setVisible(true);

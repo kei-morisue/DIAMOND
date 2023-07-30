@@ -7,6 +7,7 @@ package diamond.view.ui.panel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -24,9 +25,12 @@ import diamond.view.ui.screen.PaintScreen;
 public class PaintPanel extends JPanel {
 	private PaintScreen paintScreen;
 	private JPanel control = new JPanel();
+	private ButtonGroup buttonGroup;
 
-	public PaintPanel(Palette palette, ModelScreen modelScreen) {
+	public PaintPanel(Palette palette, ModelScreen modelScreen,
+			ButtonGroup buttonGroup) {
 		this.paintScreen = new PaintScreen(palette, modelScreen);
+		this.buttonGroup = buttonGroup;
 		setLayout(new BorderLayout());
 		add(paintScreen, BorderLayout.CENTER);
 
@@ -41,9 +45,10 @@ public class PaintPanel extends JPanel {
 	private void addpaintButton(
 			String iconName,
 			PaintAction paintAction) {
-		JRadioButton button1 = new PaintButton(iconName, paintScreen,
+		JRadioButton button = new PaintButton(iconName, paintScreen,
 				paintAction);
-		control.add(button1);
+		control.add(button);
+		buttonGroup.add(button);
 	}
 
 }
