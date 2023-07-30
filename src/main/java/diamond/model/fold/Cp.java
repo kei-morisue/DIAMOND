@@ -60,18 +60,18 @@ public class Cp extends Flat {
 	};
 
 	private Segment getMainSegment(
-			Collection<Segment> segs) {
-		for (Segment seg : segs) {
+			Collection<Segment> overrappedSegs) {
+		for (Segment seg : overrappedSegs) {
 			if (seg.isEdge()) {
 				return seg;
 			}
 		}
-		for (Segment seg : segs) {
-			if (seg.getA() == Segment.NONE) {
+		for (Segment seg : overrappedSegs) {
+			if (seg.getA() != Segment.NONE) {
 				return seg;
 			}
 		}
-		return segs.iterator().next();
+		return overrappedSegs.iterator().next();
 	}
 
 	private void buildVertices() {
