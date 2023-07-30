@@ -39,7 +39,7 @@ public class State0 extends PaintStateBase {
 			PaintScreen screen,
 			XY p) {
 		PointerLocation = p;
-		double density = 1.0 / screen.getCp().getFaces().size();
+		double density = 1.0 / screen.getCp().size();
 		double theta = density * PointerLocation.x / screen.getWidth();
 		double k = 1 + density * PointerLocation.y / screen.getHeight();
 

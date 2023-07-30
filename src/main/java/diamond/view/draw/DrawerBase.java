@@ -141,7 +141,7 @@ public abstract class DrawerBase {
 			Graphics2D g2d,
 			Cp cp) {
 		double scale = getScale(g2d);
-		cp.getFaces().forEach(face -> {
+		cp.forFaces(face -> {
 			drawFace(g2d, face, scale);
 			face.forEdges(edge -> {
 				drawEdge(g2d, edge, scale);

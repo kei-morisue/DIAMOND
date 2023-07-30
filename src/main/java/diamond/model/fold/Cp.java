@@ -170,14 +170,14 @@ public class Cp extends Flat {
 	private Face buildBaseFace() {
 		if (baseFace != null) {
 			XY c = baseFace.centroid();
-			for (Face face : getFaces()) {
+			for (Face face : faces) {
 				if (face.isInside(c)) {
 					return face;
 				}
 			}
-			return getFaces().get(0);
+			return faces.get(0);
 		}
-		return getFaces().get(0);
+		return faces.get(0);
 	}
 
 	public void clearFolded() {

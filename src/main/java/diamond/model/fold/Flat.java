@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 import diamond.model.Tuple;
 import diamond.model.XY;
@@ -175,8 +176,13 @@ public abstract class Flat implements Serializable {
 		});
 	}
 
-	public final ArrayList<Face> getFaces() {
-		return faces;
+	public void forFaces(
+			Consumer<Face> action) {
+		faces.forEach(action);
 	}
 
+	public int size() {
+		return faces.size();
+
+	}
 }
