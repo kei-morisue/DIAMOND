@@ -5,7 +5,9 @@
 package diamond.view.draw.shape;
 
 import java.awt.Shape;
+import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import diamond.model.XY;
@@ -17,6 +19,27 @@ import diamond.view.draw.DrawerBase;
  *
  */
 public class FaceShape {
+
+	public static Shape getBaseFaceSymbol(
+			Face face,
+			double scale) {
+		XY c = face.centroid();
+		return getBaseFaceSymbol(c, scale);
+	}
+
+	public static Shape getBaseFaceSymbol(
+			XY c,
+			double scale) {
+		double r = 2 / scale;
+		Rectangle2D s1
+				= new Rectangle2D.Double(c.x - 3 * r, c.y - r, 6 * r, 2 * r);
+		Rectangle2D s2
+				= new Rectangle2D.Double(c.x - r, c.y - 3 * r, 2 * r, 6 * r);
+
+		Area area = new Area(s1);
+		area.add(new Area(s2));
+		return area;
+	}
 
 	public static Shape getShape(
 			Face face,

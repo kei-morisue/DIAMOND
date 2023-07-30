@@ -8,7 +8,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 
 import diamond.model.XY;
 import diamond.model.fold.Cp;
@@ -17,6 +16,7 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
+import diamond.view.draw.shape.FaceShape;
 
 /**
  * @author Kei Morisue
@@ -28,19 +28,16 @@ public class CpDrawer extends DrawerBase {
 			Graphics2D g2d,
 			Cp cp) {
 		super.draw(g2d, cp);
-		drawBaseFaceSymbol(g2d, cp);
+		drawBaseFaceSymbol(g2d, cp.getBaseFace(), getScale(g2d));
 	}
 
-	private void drawBaseFaceSymbol(
+	public void drawBaseFaceSymbol(
 			Graphics2D g2d,
-			Cp cp) {
-		Face baseFace = cp.getBaseFace();
-		XY c = baseFace.centroid();
+			Face baseFace,
+			double scale) {
 		g2d.setColor(Color.MAGENTA);
-		double scale = getScale(g2d);
-		double r = 10 / scale;
-		Shape point = new Rectangle2D.Double(c.x - r / 2, c.y - r / 2, r, r);
-		g2d.fill(point);
+		Shape s = FaceShape.getBaseFaceSymbol(baseFace, scale);
+		g2d.fill(s);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class CpDrawer extends DrawerBase {
 		if (crease.isPicked() || crease.getA() != Segment.NONE) {
 			return super.getColor(crease);
 		}
-		return Color.BLACK;
+		return Color.ORANGE;
 	}
 
 	@Override

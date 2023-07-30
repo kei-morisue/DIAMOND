@@ -37,7 +37,7 @@ public class SegmentShape {
 			Crease crease,
 			double scale) {
 		if (crease.getA() == Segment.NONE) {
-			BasicStroke stroke = new BasicStroke((float) (0.0 / scale),
+			BasicStroke stroke = new BasicStroke((float) (1.0 / scale),
 					BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 			return stroke;
 

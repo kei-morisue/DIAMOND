@@ -112,12 +112,16 @@ public class Cp extends Flat {
 		this.baseFace = buildBaseFace();
 		Edge borderEdge = baseFace.getBaseEdge();
 		CpFolder.buildFolded(baseFace, true, borderEdge);
-		CpFolder.implyFaceOrder(faces, 0);
+		implyFaceOrder();
 		vertices.clear();
 		buildVertices();
 		vertices.forEach(v -> v.setFoldable());
 		segments.clear();
 		buildSegments();
+	}
+
+	public void implyFaceOrder() {
+		CpFolder.implyFaceOrder(faces, 100);
 	}
 
 	private Face buildBaseFace() {
@@ -159,6 +163,11 @@ public class Cp extends Flat {
 			XY p,
 			double epsSq) {
 		return CpFinder.findSegment(segments, p, epsSq);
+	}
+
+	public Face findFace(
+			XY p) {
+		return CpFinder.findFace(faces, p);
 	}
 
 	public boolean add(
@@ -207,6 +216,12 @@ public class Cp extends Flat {
 
 	public Face getBaseFace() {
 		return baseFace;
+	}
+
+	public void setBaseFace(
+			Face baseFace) {
+		this.baseFace = baseFace;
+		fold();
 	}
 
 }

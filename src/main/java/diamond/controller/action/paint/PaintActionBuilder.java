@@ -25,4 +25,9 @@ public class PaintActionBuilder {
 		return new PaintAction(
 				new diamond.controller.action.paint.state.flip.State0());
 	}
+
+	public static PaintAction baseFaceAction() {
+		return new PaintAction(
+				new diamond.controller.action.paint.state.base.State0());
+	}
 }

@@ -38,4 +38,15 @@ public class CpFinder {
 		return null;
 	}
 
+	public static Face findFace(
+			Collection<Face> faces,
+			XY p) {
+		for (Face face : faces) {
+			if (face.isInside(p)) {
+				return face;
+			}
+		}
+		return null;
+	}
+
 }

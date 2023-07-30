@@ -115,8 +115,8 @@ public class CpFolder {
 				break;
 			}
 		}
-		if (retry && stackcount < 100) {
-			implyFaceOrder(faces, stackcount + 1);
+		if (retry && stackcount > 0) {
+			implyFaceOrder(faces, stackcount - 1);
 		}
 		return;
 	}

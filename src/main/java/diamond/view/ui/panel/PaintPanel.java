@@ -34,12 +34,13 @@ public class PaintPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(paintScreen, BorderLayout.CENTER);
 
-		control.setLayout(new GridLayout(3, 3));
+		control.setLayout(new GridLayout(6, 1));
 		add(control, BorderLayout.WEST);
 
 		addpaintButton("axiom1.gif", PaintActionBuilder.angleAction());
 		addpaintButton("flip.gif", PaintActionBuilder.flipAction());
 		addpaintButton("offset.gif", PaintActionBuilder.distortionAction());
+		addpaintButton("base_face.gif", PaintActionBuilder.baseFaceAction());
 	}
 
 	private void addpaintButton(
