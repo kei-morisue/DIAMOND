@@ -9,11 +9,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import com.sun.tools.javac.util.Pair;
 
-import diamond.model.Dir;
 import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
@@ -46,79 +44,32 @@ public class Cp extends Flat {
 		el.forEach((
 				vv,
 				lines) -> {
-			Segment seg = getEdge(lines);
+			Segment seg = getMainSegment(lines);
 			seg.add(vv.fst, vv.snd, edges, creases);
 		});
 		fold(edges, creases);
 	}
 
-	public boolean trim() {
-		for (Vertex vertex : vertices) {
-			if (trim(vertex)) {
-				return true;
-			}
+	private void trim() {
+		int i = size();
+		int itr = i * i;
+		while (CpFolder.trim(vertices, segments) || itr < 0) {
+			rebuild();
+			itr--;
 		}
-		return false;
-	}
+	};
 
-	public boolean trim(
-			Vertex v) {
-		ArrayList<Vertex> adj = v.getAdj();
-		if (adj.size() != 2) {
-			return false;
-		}
-		Vertex v0 = adj.get(0);
-		Vertex v1 = adj.get(1);
-		Edge e0 = v.getEdge(v0);
-		Edge e1 = v.getEdge(v1);
-		if (trim(v0, v1, e0, e1)) {
-			return true;
-		}
-		Crease c0 = v.getCrease(v0);
-		Crease c1 = v.getCrease(v1);
-		if (trim(v0, v1, c0, c1)) {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean trim(
-			Vertex v0,
-			Vertex v1,
-			Segment s0,
-			Segment s1) {
-		if (s0 != null && s1 != null) {
-			int a0 = s0.getA();
-			if (a0 == s1.getA()) {
-				double angle0 = s0.dir().angle();
-				double angle1 = s1.dir().angle();
-				if (Math.abs(Math.sin(angle0 - angle1)) < Geo.RADIAN_EPS) {
-					segments.remove(s0);
-					segments.remove(s1);
-					segments.add(s0.isEdge() ? new Edge(v0, v1, a0)
-							: new Crease(v0, v1, a0));
-					rebuild();
-					return true;
-				}
-
-			}
-		}
-		return false;
-	}
-
-	private Segment getEdge(
+	private Segment getMainSegment(
 			Collection<Segment> segs) {
 		for (Segment seg : segs) {
 			if (seg.isEdge()) {
 				return seg;
 			}
-
 		}
 		for (Segment seg : segs) {
 			if (seg.getA() == Segment.NONE) {
 				return seg;
 			}
-
 		}
 		return segs.iterator().next();
 	}
@@ -160,8 +111,8 @@ public class Cp extends Flat {
 		clearFolded();
 		this.baseFace = buildBaseFace();
 		Edge borderEdge = baseFace.getBaseEdge();
-		buildFolded(baseFace, true, borderEdge);
-		implyFaceOrder(0);
+		CpFolder.buildFolded(baseFace, true, borderEdge);
+		CpFolder.implyFaceOrder(faces, 0);
 		vertices.clear();
 		buildVertices();
 		segments.clear();
@@ -197,56 +148,16 @@ public class Cp extends Flat {
 		});
 	}
 
-	private void buildFolded(
-			Face face,
-			boolean prevFaceFlip,
-			Edge foldedEdge) {
-		if (face.isFolded) {
-			return;
-		}
-		face.isFlip = !prevFaceFlip;
-		face.isFolded = true;
-		XY v0f = foldedEdge.getV0().f;
-		XY v0 = foldedEdge.getV0();
-		Dir x = foldedEdge.dir();
-		Dir xf = foldedEdge.dirF();
-		Dir y = x.perp();
-		Dir yf = xf.perp();
-		face.forVertices(vertex -> {
-			vertex.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
-		});
-		face.forCreases(crease -> {
-			Vertex w0 = crease.getV0();
-			Vertex w1 = crease.getV1();
-			w0.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
-			w1.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
-		});
-
-		face.forEdges(edge -> {
-			buildFolded(edge.getPair(face), !prevFaceFlip, edge);
-		});
-
-	}
-
-	public void implyFaceOrder(
-			int stackcount) {
-		boolean retry = false;
-		for (int i = 0; i < faces.size(); i++) {
-			if (faces.get(i).swapWrongPair(faces)) {
-				retry = true;
-				break;
-			}
-		}
-		if (retry && stackcount < 100) {
-			implyFaceOrder(stackcount + 1);
-		}
-		return;
-	}
-
-	public Vertex find(
+	public Vertex findVertex(
 			XY p,
 			double epsSq) {
-		return Finder.find(vertices, p, epsSq);
+		return CpFinder.findVertex(vertices, p, epsSq);
+	}
+
+	public Segment findSegment(
+			XY p,
+			double epsSq) {
+		return CpFinder.findSegment(segments, p, epsSq);
 	}
 
 	public boolean add(
@@ -258,6 +169,7 @@ public class Cp extends Flat {
 		}
 		segments.add(segment);
 		rebuild();
+		trim();
 		return true;
 	};
 
@@ -269,24 +181,27 @@ public class Cp extends Flat {
 		}
 		if (segments.remove(segment)) {
 			rebuild();
-			int i = size();
-			int itr = i * i;
-			while (trim() || itr < 0) {
-				itr--;
-			}
+			trim();
 			return true;
 		}
 		return false;
 
-	};
-
-	public void forVertices(
-			Consumer<Vertex> action) {
-		vertices.forEach(action);
 	}
 
-	public Set<Segment> getSegments() {
-		return segments;
+	public void distort() {
+		vertices.forEach(vertex -> {
+			vertex.initD();
+		});
+	}
+
+	public void distort(
+			double k,
+			double theta) {
+		double s = Math.sin(theta);
+		double c = Math.cos(theta);
+		vertices.forEach(vertex -> {
+			vertex.setD(k * c, -s * k, s * k, k * c);
+		});
 	}
 
 	public Face getBaseFace() {

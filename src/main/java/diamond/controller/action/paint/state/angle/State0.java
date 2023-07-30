@@ -71,7 +71,7 @@ public class State0 extends FindingState0Base {
 		}
 		final double r = 10;
 		g2d.setColor(Color.MAGENTA);
-		vertex.getAdj().forEach(v -> {
+		vertex.forAdj(v -> {
 			g2d.draw(VertexShape.getShape(v, r, scale, drawer));
 		});
 	}

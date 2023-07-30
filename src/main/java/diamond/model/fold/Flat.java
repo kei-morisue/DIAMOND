@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.function.Consumer;
 
 import diamond.model.Tuple;
@@ -88,38 +87,20 @@ public abstract class Flat implements Serializable {
 	private void buildVV(
 			Collection<Vertex> vertices,
 			Collection<Edge> edges) {
-		vertices.forEach(v -> {
-			v.getAdj().clear();
-		});
 		setAdj(vertices, edges);
 	}
 
 	private <T extends Segment> void setAdj(
 			Collection<Vertex> vertices,
-			Collection<T> edges) {
-		edges.forEach(e -> {
+			Collection<T> segments) {
+		segments.forEach(e -> {
 			Vertex v0 = e.getV0();
 			Vertex v1 = e.getV1();
-			v0.getAdj().add(v1);
-			v1.getAdj().add(v0);
+			v0.addAdj(v1);
 		});
 		vertices.forEach(v -> {
-			ArrayList<Vertex> adj = v.getAdj();
-			adj.sort(v.new AngleComparator());
+			v.sortAdj();
 		});
-	}
-
-	private <E> E getPrev(
-			List<E> array,
-			E e0) {
-		for (int i = 0; i < array.size(); i++) {
-			E e1 = array.get(i);
-			if (e0 == e1) {
-				int index1 = i == 0 ? array.size() : i;
-				return array.get(index1 - 1);
-			}
-		}
-		return null;
 	}
 
 	private void buildFaces(
@@ -127,8 +108,7 @@ public abstract class Flat implements Serializable {
 		faces.clear();
 		HashSet<Tuple<Vertex>> seen = new HashSet<Tuple<Vertex>>();
 		vertices.forEach(v1 -> {
-			ArrayList<Vertex> adj1 = v1.getAdj();
-			adj1.forEach(v2 -> {
+			v1.forAdj(v2 -> {
 				Tuple<Vertex> pair0 = new Tuple<Vertex>(v1, v2);
 				if (!seen.contains(pair0)) {
 					seen.add(pair0);
@@ -138,9 +118,8 @@ public abstract class Flat implements Serializable {
 					while (pair1.snd != pair0.fst) {
 						Vertex snd = pair1.snd;
 						vs.add(snd);
-						ArrayList<Vertex> adj2 = snd.getAdj();
 						Vertex fst = pair1.fst;
-						pair1 = new Tuple<Vertex>(snd, getPrev(adj2, fst));
+						pair1 = new Tuple<Vertex>(snd, snd.getPrev(fst));
 						seen.add(pair1);
 					}
 					if (vs.size() > 2) {

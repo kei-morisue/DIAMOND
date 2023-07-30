@@ -4,8 +4,6 @@
  */
 package diamond.controller.action.paint.state;
 
-import java.util.Set;
-
 import diamond.model.XY;
 import diamond.model.fold.Cp;
 import diamond.model.fold.Segment;
@@ -30,7 +28,7 @@ public abstract class FindingStateBase extends PaintStateBase {
 		Cp cp = screen.getCp();
 		double scale = screen.getScale();
 		double epsSq = 100 / scale / scale;
-		Vertex found = cp.find(p, epsSq);
+		Vertex found = cp.findVertex(p, epsSq);
 		if (found != null) {
 			vertex = found;
 			found.setPicked(true);
@@ -45,14 +43,13 @@ public abstract class FindingStateBase extends PaintStateBase {
 			XY p) {
 		clearPicked();
 		Cp cp = screen.getCp();
-		Set<Segment> segs = cp.getSegments();
 		double scale = screen.getScale();
-		for (Segment seg : segs) {
-			if (seg.distanceSq(p) < 500 / scale / scale) {
-				this.segment = seg;
-				seg.setPicked(true);
-				return;
-			}
+		double epsSq = 500 / scale / scale;
+		Segment found = cp.findSegment(p, epsSq);
+		if (found != null) {
+			this.segment = found;
+			found.setPicked(true);
+			return;
 		}
 		segment = null;
 	}

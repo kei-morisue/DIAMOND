@@ -12,9 +12,9 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public class Finder {
+public class CpFinder {
 
-	public static Vertex find(
+	public static Vertex findVertex(
 			Collection<Vertex> vertices,
 			XY p,
 			double epsSq) {
@@ -25,4 +25,17 @@ public class Finder {
 		}
 		return null;
 	}
+
+	public static Segment findSegment(
+			Collection<Segment> segs,
+			XY p,
+			double epsSq) {
+		for (Segment seg : segs) {
+			if (seg.distanceSq(p) < epsSq) {
+				return seg;
+			}
+		}
+		return null;
+	}
+
 }

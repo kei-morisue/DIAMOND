@@ -63,17 +63,17 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 	}
 
 	public void forVertices(
-			Consumer<Vertex> action) {
+			Consumer<? super Vertex> action) {
 		vertices.forEach(action);
 	}
 
 	public void forCreases(
-			Consumer<Crease> action) {
+			Consumer<? super Crease> action) {
 		creases.forEach(action);
 	}
 
 	public void forEdges(
-			Consumer<Edge> action) {
+			Consumer<? super Edge> action) {
 		edges.forEach(action);
 	}
 

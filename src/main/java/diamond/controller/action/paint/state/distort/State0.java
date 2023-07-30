@@ -41,13 +41,8 @@ public class State0 extends PaintStateBase {
 		double theta = density * PointerLocation.x / screen.getWidth();
 		double k = 1 + density * PointerLocation.y / screen.getHeight();
 
-		double s = Math.sin(theta);
-		double c = Math.cos(theta);
-
 		Cp cp = screen.getPalette().getCp();
-		cp.forVertices(vertex -> {
-			vertex.setD(k * c, -s * k, s * k, k * c);
-		});
+		cp.distort(k, theta);
 	}
 
 	@Override
@@ -76,9 +71,7 @@ public class State0 extends PaintStateBase {
 			PaintScreen screen,
 			XY p) {
 		Cp cp = screen.getPalette().getCp();
-		cp.forVertices(vertex -> {
-			vertex.initD();
-		});
+		cp.distort();
 		screen.getModelScreen().repaint();
 		return true;
 	}

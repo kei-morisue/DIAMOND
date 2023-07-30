@@ -7,8 +7,9 @@ package diamond.model.fold;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
-import diamond.model.Dir;
+import diamond.model.Tuple;
 import diamond.model.XY;
 
 /**
@@ -62,18 +63,8 @@ public class Vertex extends XY implements Serializable, Renderable {
 	}
 
 	public void setF(
-			boolean prevFaceFlip,
-			XY v0f,
-			XY v0,
-			Dir x,
-			Dir xf,
-			Dir y,
-			Dir yf) {
-		Dir d = v0.dir(this);
-		double cx = x.dot(d) / x.mgSq();
-		double cy = y.dot(d) / x.mgSq();
-		cy *= (prevFaceFlip) ? 1 : -1;
-		this.f = xf.mul(cx).add(yf.mul(cy)).ver(v0f);
+			XY f) {
+		this.f = f;
 		initD();
 	}
 
@@ -94,8 +85,38 @@ public class Vertex extends XY implements Serializable, Renderable {
 
 	}
 
-	public ArrayList<Vertex> getAdj() {
-		return adj;
+	public void forAdj(
+			Consumer<? super Vertex> action) {
+		adj.forEach(action);
+	}
+
+	public Tuple<Vertex> getPair() {
+		if (adj.size() != 2) {
+			return null;
+		}
+		return new Tuple<Vertex>(adj.get(0), adj.get(1));
+	}
+
+	public void addAdj(
+			Vertex v) {
+		v.adj.add(this);
+		this.adj.add(v);
+	}
+
+	public void sortAdj() {
+		adj.sort(this.new AngleComparator());
+	}
+
+	public Vertex getPrev(
+			Vertex vertex) {
+		for (int i = 0; i < adj.size(); i++) {
+			Vertex vi = adj.get(i);
+			if (vertex == vi) {
+				int index1 = i == 0 ? adj.size() : i;
+				return adj.get(index1 - 1);
+			}
+		}
+		return null;
 	}
 
 	@Override
