@@ -33,9 +33,7 @@ public abstract class Segment extends Line implements Serializable, Renderable {
 		return a == VALLEY;
 	}
 
-	public void flip() {
-		a = -a;
-	}
+	public abstract void flip();
 
 	public abstract Segment getFlip();
 

@@ -77,8 +77,8 @@ public class SegmentShape {
 		return getShape(
 				xys,
 				crease.getA() == Segment.NONE ? clip : 1.0,
-				crease.onEdge0,
-				crease.onEdge1);
+				crease.getV0().isOnEdge(),
+				crease.getV1().isOnEdge());
 	}
 
 	private static Shape getShape(

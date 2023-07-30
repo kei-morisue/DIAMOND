@@ -21,10 +21,11 @@ public class Vertex extends XY implements Serializable, Renderable {
 	transient private boolean isFlatFoldable;
 	transient private boolean isPicked;
 
-	private ArrayList<Vertex> adj = new ArrayList<Vertex>();
-	private HashMap<Vertex, Edge> edgesMap = new HashMap<Vertex, Edge>();
+	transient private ArrayList<Vertex> adj = new ArrayList<Vertex>();
+	transient private HashMap<Vertex, Edge> edgesMap
+			= new HashMap<Vertex, Edge>();
 
-	private HashMap<Vertex, Crease> cresesMap = new HashMap<Vertex, Crease>();
+	private HashMap<Vertex, Crease> creasesMap = new HashMap<Vertex, Crease>();
 
 	public Vertex(XY v) {
 		super(v.x, v.y);
@@ -76,6 +77,10 @@ public class Vertex extends XY implements Serializable, Renderable {
 		initD();
 	}
 
+	public boolean isOnEdge() {
+		return edgesMap.size() > 0;
+	}
+
 	public class AngleComparator implements java.util.Comparator<Vertex> {
 
 		@Override
@@ -104,11 +109,31 @@ public class Vertex extends XY implements Serializable, Renderable {
 		isPicked = picked;
 	}
 
-	public HashMap<Vertex, Edge> getEdgesMap() {
-		return edgesMap;
+	public Edge getEdge(
+			Vertex v) {
+		return edgesMap.get(v);
 	}
 
-	public HashMap<Vertex, Crease> getCresesMap() {
-		return cresesMap;
+	public Crease getCrease(
+			Vertex v) {
+		return creasesMap.get(v);
+	}
+
+	public void putEdge(
+			Vertex vertex,
+			Edge edge) {
+		if (!adj.contains(vertex)) {
+			return;
+		}
+		edgesMap.put(vertex, edge);
+	}
+
+	public void putCrease(
+			Vertex vertex,
+			Crease crease) {
+		if (!adj.contains(vertex)) {
+			return;
+		}
+		creasesMap.put(vertex, crease);
 	}
 }

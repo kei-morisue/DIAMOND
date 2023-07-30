@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,11 +21,6 @@ import diamond.model.XY;
 public abstract class Flat implements Serializable {
 
 	protected ArrayList<Face> faces = new ArrayList<Face>();
-
-	transient protected HashMap<Tuple<Vertex>, Edge> veMap
-			= new HashMap<Tuple<Vertex>, Edge>();
-	transient protected HashMap<Tuple<Vertex>, Crease> vcMap
-			= new HashMap<Tuple<Vertex>, Crease>();
 
 	public Flat() {
 	}
@@ -68,8 +62,8 @@ public abstract class Flat implements Serializable {
 			XY c = crease.centroid();
 			Vertex v0 = crease.getV0();
 			Vertex v1 = crease.getV1();
-			vcMap.put(new Tuple<Vertex>(v0, v1), crease);
-			vcMap.put(new Tuple<Vertex>(v1, v0), crease);
+			v0.putCrease(v1, crease);
+			v1.putCrease(v0, crease);
 			for (Face face : faces) {
 				if (face.isInside(c)) {
 					face.getCreases().add(crease);
@@ -158,7 +152,7 @@ public abstract class Flat implements Serializable {
 			for (int i = 0; i < vs.size(); i++) {
 				Vertex v1 = vs.get(i);
 				Vertex v2 = vs.get((i + 1) % vs.size());
-				Edge edge = veMap.get(new Tuple<Vertex>(v1, v2));
+				Edge edge = v1.getEdge(v2);
 				faceEdges.add(edge);// Face to Edge
 				if (edge.getF0() == null) {
 					edge.setF0(f);// Edge to Face #0
@@ -180,8 +174,8 @@ public abstract class Flat implements Serializable {
 		edges.forEach(e -> {
 			Vertex v0 = e.getV0();
 			Vertex v1 = e.getV1();
-			veMap.put(new Tuple<Vertex>(v0, v1), e);
-			veMap.put(new Tuple<Vertex>(v1, v0), e);
+			v0.putEdge(v1, e);
+			v1.putEdge(v0, e);
 		});
 	}
 

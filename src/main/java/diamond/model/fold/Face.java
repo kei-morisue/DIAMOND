@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import diamond.model.Dir;
+import diamond.model.Geo;
 import diamond.model.XY;
 
 /**
@@ -55,7 +56,8 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 			angleSum += delta;
 			dir0 = dir;
 		}
-		return Math.abs(Math.abs(angleSum / (2 * Math.PI)) - 1) < 1e-10;
+		return Math
+				.abs(Math.abs(angleSum / (2 * Math.PI)) - 1) < Geo.RADIAN_EPS;
 	}
 
 	@Override

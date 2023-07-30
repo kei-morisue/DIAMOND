@@ -7,8 +7,6 @@ package diamond.model.fold;
 import java.io.Serializable;
 import java.util.Collection;
 
-import diamond.model.Geo;
-
 /**
  * @author Kei Morisue
  *
@@ -16,8 +14,6 @@ import diamond.model.Geo;
 public class Crease extends Segment implements Serializable {
 
 	private Face face;
-	public boolean onEdge0 = false;
-	public boolean onEdge1 = false;
 
 	public Crease(Vertex v0, Vertex v1, int a) {
 		super(v0, v1, a);
@@ -30,23 +26,15 @@ public class Crease extends Segment implements Serializable {
 	public void setFace(
 			Face face) {
 		this.face = face;
-		face.getEdges().forEach(edge -> {
-			Vertex a = edge.getV0();
-			Vertex b = edge.getV1();
-			double lenSq = edge.dir().mgSq();
-			if (Geo.on(a, b, v0, lenSq / 900)) {
-				onEdge0 = true;
-				return;
-			}
-			if (Geo.on(a, b, v1, lenSq / 900)) {
-				onEdge1 = true;
-				return;
-			}
-		});
 	}
 
 	public Face getFace() {
 		return face;
+	}
+
+	@Override
+	public void flip() {
+		a = ((a + 2) % 3) - 1;
 	}
 
 	@Override

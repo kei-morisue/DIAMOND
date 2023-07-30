@@ -35,6 +35,11 @@ public class Edge extends Segment implements Serializable {
 
 	}
 
+	@Override
+	public void flip() {
+		a = -a;
+	}
+
 	public void setF0(
 			Face f0) {
 		this.f0 = f0;

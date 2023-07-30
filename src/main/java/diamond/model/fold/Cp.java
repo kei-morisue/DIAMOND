@@ -69,15 +69,13 @@ public class Cp extends Flat {
 		}
 		Vertex v0 = adj.get(0);
 		Vertex v1 = adj.get(1);
-		Tuple<Vertex> key0 = new Tuple<Vertex>(v, v0);
-		Tuple<Vertex> key1 = new Tuple<Vertex>(v, v1);
-		Edge e0 = veMap.get(key0);
-		Edge e1 = veMap.get(key1);
+		Edge e0 = v.getEdge(v0);
+		Edge e1 = v.getEdge(v1);
 		if (trim(v0, v1, e0, e1)) {
 			return true;
 		}
-		Crease c0 = vcMap.get(key0);
-		Crease c1 = vcMap.get(key1);
+		Crease c0 = v.getCrease(v0);
+		Crease c1 = v.getCrease(v1);
 		if (trim(v0, v1, c0, c1)) {
 			return true;
 		}
@@ -87,17 +85,17 @@ public class Cp extends Flat {
 	private boolean trim(
 			Vertex v0,
 			Vertex v1,
-			Segment e0,
-			Segment e1) {
-		if (e0 != null && e1 != null) {
-			int a0 = e0.getA();
-			if (a0 == e1.getA()) {
-				double angle0 = e0.dir().angle();
-				double angle1 = e1.dir().angle();
-				if (Math.abs(Math.sin(angle0 - angle1)) < 1e-10) {
-					segments.remove(e0);
-					segments.remove(e1);
-					segments.add(e0.isEdge() ? new Edge(v0, v1, a0)
+			Segment s0,
+			Segment s1) {
+		if (s0 != null && s1 != null) {
+			int a0 = s0.getA();
+			if (a0 == s1.getA()) {
+				double angle0 = s0.dir().angle();
+				double angle1 = s1.dir().angle();
+				if (Math.abs(Math.sin(angle0 - angle1)) < Geo.RADIAN_EPS) {
+					segments.remove(s0);
+					segments.remove(s1);
+					segments.add(s0.isEdge() ? new Edge(v0, v1, a0)
 							: new Crease(v0, v1, a0));
 					rebuild();
 					return true;
@@ -160,18 +158,7 @@ public class Cp extends Flat {
 
 	public void fold() {
 		clearFolded();
-		if (baseFace != null) {
-			XY c = baseFace.centroid();
-			for (Face face : getFaces()) {
-				if (face.isInside(c)) {
-					this.baseFace = face;
-					break;
-				}
-			}
-			this.baseFace = getFaces().get(0);
-		} else {
-			this.baseFace = getFaces().get(0);
-		}
+		this.baseFace = buildBaseFace();
 		Edge borderEdge = baseFace.getEdges().get(0);
 		buildFolded(baseFace, true, borderEdge);
 		implyFaceOrder(0);
@@ -179,6 +166,19 @@ public class Cp extends Flat {
 		buildVertices();
 		segments.clear();
 		buildSegments();
+	}
+
+	private Face buildBaseFace() {
+		if (baseFace != null) {
+			XY c = baseFace.centroid();
+			for (Face face : getFaces()) {
+				if (face.isInside(c)) {
+					return face;
+				}
+			}
+			return getFaces().get(0);
+		}
+		return getFaces().get(0);
 	}
 
 	public void clearFolded() {

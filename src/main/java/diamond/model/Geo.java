@@ -14,6 +14,7 @@ import diamond.model.fold.Line;
  */
 public class Geo {
 	public static final double EPS = 1.0e-16;
+	public static final double RADIAN_EPS = 1.0e-6;
 
 	public static <T extends Line> double minLength(
 			Collection<T> lines) {
