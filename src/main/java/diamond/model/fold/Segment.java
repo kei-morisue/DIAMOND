@@ -6,9 +6,7 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
-import diamond.model.Geo;
 import diamond.model.XY;
 
 /**
@@ -36,35 +34,6 @@ public abstract class Segment extends Line implements Serializable, Renderable {
 	public abstract void flip();
 
 	public abstract Segment getFlip();
-
-	public boolean add(
-			Cp cp) {
-		Set<Segment> segs = cp.getSegments();
-		if (Geo.isClose(v0, v1, cp.eps)) {
-			return false;
-		}
-		segs.add(this);
-		cp.rebuild();
-		return true;
-	};
-
-	public boolean remove(
-			Cp cp) {
-		if (a == NONE && isEdge()) {
-			return false;
-		}
-		Set<Segment> segs = cp.getSegments();
-		if (segs.remove(this)) {
-			cp.rebuild();
-			int i = cp.getVertices().size();
-			while (cp.trim() || i < 0) {
-				i--;
-			}
-			return true;
-		}
-		return false;
-
-	};
 
 	public abstract boolean isEdge();
 

@@ -101,10 +101,10 @@ public class State1 extends FindingStateBase {
 			}
 			Crease added
 					= new Crease(v0, new Vertex(point), Segment.VALLEY);
-			return added.add(cp);
+			return cp.add(added);
 		}
 		Crease added = new Crease(v0, new Vertex(extended), Segment.VALLEY);
-		return added.add(cp);
+		return cp.add(added);
 	}
 
 	@Override

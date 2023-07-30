@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import com.sun.tools.javac.util.Pair;
 
@@ -242,8 +243,46 @@ public class Cp extends Flat {
 		return;
 	}
 
-	public Set<Vertex> getVertices() {
-		return vertices;
+	public Vertex find(
+			XY p,
+			double epsSq) {
+		return Finder.find(vertices, p, epsSq);
+	}
+
+	public boolean add(
+			Segment segment) {
+		Vertex v0 = segment.getV0();
+		Vertex v1 = segment.getV1();
+		if (Geo.isClose(v0, v1, eps)) {
+			return false;
+		}
+		segments.add(segment);
+		rebuild();
+		return true;
+	};
+
+	public boolean remove(
+			Segment segment) {
+		int a = segment.getA();
+		if (a == Segment.NONE && segment.isEdge()) {
+			return false;
+		}
+		if (segments.remove(segment)) {
+			rebuild();
+			int i = size();
+			int itr = i * i;
+			while (trim() || itr < 0) {
+				itr--;
+			}
+			return true;
+		}
+		return false;
+
+	};
+
+	public void forVertices(
+			Consumer<Vertex> action) {
+		vertices.forEach(action);
 	}
 
 	public Set<Segment> getSegments() {

@@ -28,14 +28,13 @@ public abstract class FindingStateBase extends PaintStateBase {
 			XY p) {
 		clearPicked();
 		Cp cp = screen.getCp();
-		Set<Vertex> vertices = cp.getVertices();
-		for (Vertex v : vertices) {
-			double scale = screen.getScale();
-			if (v.distanceSq(p) < 100 / scale / scale) {
-				vertex = v;
-				v.setPicked(true);
-				return;
-			}
+		double scale = screen.getScale();
+		double epsSq = 100 / scale / scale;
+		Vertex found = cp.find(p, epsSq);
+		if (found != null) {
+			vertex = found;
+			found.setPicked(true);
+			return;
 		}
 		vertex = null;
 	}

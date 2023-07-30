@@ -30,7 +30,7 @@ public abstract class FindingState0Base extends FindingStateBase {
 		if (segment == null) {
 			return false;
 		}
-		segment.remove(screen.getCp());
+		screen.getCp().remove(segment);
 		refresh(screen);
 		return true;
 	}

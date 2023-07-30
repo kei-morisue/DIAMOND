@@ -54,8 +54,8 @@ public class State0 extends FindingState0Base {
 		}
 		Cp cp = screen.getCp();
 		Segment flip = segment.getFlip();
-		segment.remove(cp);
-		return flip.add(cp);
+		cp.remove(segment);
+		return cp.add(flip);
 	}
 
 	@Override
