@@ -64,15 +64,24 @@ public abstract class Flat implements Serializable {
 			Vertex v1 = crease.getV1();
 			v0.putCrease(v1, crease);
 			v1.putCrease(v0, crease);
-			for (Face face : faces) {
-				if (face.isInside(c)) {
-					face.getCreases().add(crease);
-					crease.setFace(face);
-					return;
-				}
+			Face face = findFace(crease, c);
+			if (face != null) {
+				face.add(crease);
 			}
 		});
 
+	}
+
+	private Face findFace(
+			Crease crease,
+			XY c) {
+		for (Face face : faces) {
+			boolean inside = face.isInside(c);
+			if (inside) {
+				return face;
+			}
+		}
+		return null;
 	}
 
 	private void buildVV(
@@ -146,20 +155,7 @@ public abstract class Flat implements Serializable {
 	private void buildFEnEF(
 			Collection<Edge> edges) {
 		faces.forEach(f -> {
-			ArrayList<Vertex> vs = f.getVertices();
-			ArrayList<Edge> faceEdges = f.getEdges();
-			faceEdges.clear();
-			for (int i = 0; i < vs.size(); i++) {
-				Vertex v1 = vs.get(i);
-				Vertex v2 = vs.get((i + 1) % vs.size());
-				Edge edge = v1.getEdge(v2);
-				faceEdges.add(edge);// Face to Edge
-				if (edge.getF0() == null) {
-					edge.setF0(f);// Edge to Face #0
-				} else {
-					edge.setF1(f);// Edge to Face #1
-				}
-			}
+			f.setEdges();
 		});
 		edges.forEach(edge -> {
 			if (edge.getF1() == null) {

@@ -6,6 +6,9 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
 
 import diamond.model.Dir;
 import diamond.model.Geo;
@@ -30,16 +33,69 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 		this.vertices = vertices;
 	}
 
-	public ArrayList<Vertex> getVertices() {
-		return vertices;
+	public void setEdges() {
+		for (int i = 0; i < vertices.size(); i++) {
+			Vertex v1 = vertices.get(i);
+			Vertex v2 = vertices.get((i + 1) % vertices.size());
+			Edge edge = v1.getEdge(v2);
+			add(edge);
+		}
 	}
 
-	public ArrayList<Edge> getEdges() {
-		return edges;
+	private void add(
+			Edge edge) {
+		edges.add(edge);
+		if (edge.getF0() == null) {
+			edge.setF0(this);// Edge to Face #0
+		} else {
+			edge.setF1(this);// Edge to Face #1
+		}
 	}
 
-	public ArrayList<Crease> getCreases() {
-		return creases;
+	public void add(
+			Crease crease) {
+		creases.add(crease);
+		crease.setFace(this);
+	}
+
+	public Edge getBaseEdge() {
+		return edges.get(0);
+	}
+
+	public void forVertices(
+			Consumer<Vertex> action) {
+		vertices.forEach(action);
+	}
+
+	public void forCreases(
+			Consumer<Crease> action) {
+		creases.forEach(action);
+	}
+
+	public void forEdges(
+			Consumer<Edge> action) {
+		edges.forEach(action);
+	}
+
+	public boolean swapWrongPair(
+			List<Face> faces) {
+		int i = faces.indexOf(this);
+		Face fi = faces.get(i);
+		boolean flip = fi.isFlip;
+		for (Edge edge : fi.edges) {
+			Face fj = edge.getPair(fi);
+			boolean isValley = edge.isValley();
+			if (fj == null) {
+				continue;
+			}
+			int j = faces.indexOf(fj);
+			if (!(flip ^ isValley) && i < j
+					|| flip ^ isValley && j < i) {
+				Collections.swap(faces, i, j);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean isInside(
@@ -50,6 +106,8 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 		for (Vertex v : vertices) {
 			Dir dir = p.dir(v).unit();
 			double dot = dir0.dot(dir);
+			dot = dot > 1 ? 1 : dot;
+			dot = dot < -1 ? -1 : dot;
 			double cross = dir0.cross(dir);
 			double delta = Math.acos(dot);
 			delta = cross < 0 ? -delta : delta;

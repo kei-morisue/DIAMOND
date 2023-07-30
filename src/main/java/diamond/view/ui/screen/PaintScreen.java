@@ -50,6 +50,7 @@ public class PaintScreen extends ScreenBase {
 
 	public void setPaintAction(
 			PaintAction paintAction) {
+		this.paintAction.onRefresh(this);
 		this.paintAction = paintAction;
 		this.paintAction.onRefresh(this);
 	}

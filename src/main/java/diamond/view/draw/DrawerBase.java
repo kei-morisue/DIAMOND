@@ -87,7 +87,7 @@ public abstract class DrawerBase {
 	public ArrayList<XY> getXY(
 			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
-		face.getVertices().forEach(v -> {
+		face.forVertices(v -> {
 			res.add(getXY(v));
 		});
 		return res;
@@ -143,10 +143,10 @@ public abstract class DrawerBase {
 		double scale = getScale(g2d);
 		cp.getFaces().forEach(face -> {
 			drawFace(g2d, face, scale);
-			face.getEdges().forEach(edge -> {
+			face.forEdges(edge -> {
 				drawEdge(g2d, edge, scale);
 			});
-			face.getCreases().forEach(crease -> {
+			face.forCreases(crease -> {
 				drawCrease(g2d, crease, scale);
 			});
 

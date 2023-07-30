@@ -6,7 +6,6 @@ package diamond.model.fold;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -125,10 +124,10 @@ public class Cp extends Flat {
 
 	private void buildVertices() {
 		faces.forEach(face -> {
-			face.getVertices().forEach(vertex -> {
+			face.forVertices(vertex -> {
 				vertices.add(vertex);
 			});
-			face.getCreases().forEach(crease -> {
+			face.forCreases(crease -> {
 				Vertex v0 = crease.getV0();
 				Vertex v1 = crease.getV1();
 				vertices.add(v0);
@@ -139,10 +138,10 @@ public class Cp extends Flat {
 
 	private void buildSegments() {
 		faces.forEach(face -> {
-			face.getEdges().forEach(edge -> {
+			face.forEdges(edge -> {
 				segments.add(edge);
 			});
-			face.getCreases().forEach(crease -> {
+			face.forCreases(crease -> {
 				segments.add(crease);
 			});
 
@@ -159,7 +158,7 @@ public class Cp extends Flat {
 	public void fold() {
 		clearFolded();
 		this.baseFace = buildBaseFace();
-		Edge borderEdge = baseFace.getEdges().get(0);
+		Edge borderEdge = baseFace.getBaseEdge();
 		buildFolded(baseFace, true, borderEdge);
 		implyFaceOrder(0);
 		vertices.clear();
@@ -185,11 +184,11 @@ public class Cp extends Flat {
 		faces.forEach(face -> {
 			face.isFlip = false;
 			face.isFolded = false;
-			face.getVertices().forEach(v -> {
+			face.forVertices(v -> {
 				v.initF();
 				;
 			});
-			face.getCreases().forEach(crease -> {
+			face.forCreases(crease -> {
 				crease.getV0().initF();
 				crease.getV1().initF();
 			});
@@ -201,7 +200,7 @@ public class Cp extends Flat {
 			Face face,
 			boolean prevFaceFlip,
 			Edge foldedEdge) {
-		if (face.isFolded || face == null) {
+		if (face.isFolded) {
 			return;
 		}
 		face.isFlip = !prevFaceFlip;
@@ -212,17 +211,17 @@ public class Cp extends Flat {
 		Dir xf = foldedEdge.dirF();
 		Dir y = x.perp();
 		Dir yf = xf.perp();
-		face.getVertices().forEach(vertex -> {
+		face.forVertices(vertex -> {
 			vertex.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
 		});
-		face.getCreases().forEach(crease -> {
+		face.forCreases(crease -> {
 			Vertex w0 = crease.getV0();
 			Vertex w1 = crease.getV1();
 			w0.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
 			w1.setF(prevFaceFlip, v0f, v0, x, xf, y, yf);
 		});
 
-		face.getEdges().forEach(edge -> {
+		face.forEdges(edge -> {
 			buildFolded(edge.getPair(face), !prevFaceFlip, edge);
 		});
 
@@ -232,7 +231,7 @@ public class Cp extends Flat {
 			int stackcount) {
 		boolean retry = false;
 		for (int i = 0; i < faces.size(); i++) {
-			if (swapFaceOrder(faces.get(i))) {
+			if (faces.get(i).swapWrongPair(faces)) {
 				retry = true;
 				break;
 			}
@@ -241,27 +240,6 @@ public class Cp extends Flat {
 			implyFaceOrder(stackcount + 1);
 		}
 		return;
-	}
-
-	public boolean swapFaceOrder(
-			Face face) {
-		int i = faces.indexOf(face);
-		Face fi = faces.get(i);
-		boolean flip = fi.isFlip;
-		for (Edge edge : fi.getEdges()) {
-			Face fj = edge.getPair(fi);
-			boolean isValley = edge.isValley();
-			if (fj == null) {
-				continue;
-			}
-			int j = faces.indexOf(fj);
-			if (!(flip ^ isValley) && i < j
-					|| flip ^ isValley && j < i) {
-				Collections.swap(faces, i, j);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public Set<Vertex> getVertices() {
