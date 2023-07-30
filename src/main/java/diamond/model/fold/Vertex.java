@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+import diamond.model.Dir;
+import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
 
@@ -19,7 +21,7 @@ import diamond.model.XY;
 public class Vertex extends XY implements Serializable, Renderable {
 	public XY f;
 	public XY d;
-	transient private boolean isFlatFoldable;
+	transient private boolean isFoldable;
 	transient private boolean isPicked;
 
 	transient private ArrayList<Vertex> adj = new ArrayList<Vertex>();
@@ -38,6 +40,38 @@ public class Vertex extends XY implements Serializable, Renderable {
 		super(v.x, v.y);
 		f = this;
 		d = f;
+	}
+
+	public void setFoldable() {
+		int nV = 0;
+		int nM = 0;
+		double angle = 0.0;
+		Dir d0 = null;
+		// TODO add KAWASAKI condition
+		for (Vertex v : adj) {
+			Edge edge = edgesMap.get(v);
+			if (edge == null) {
+				continue;
+			}
+			if (edge.isBoundary()) {
+				this.isFoldable = true;
+				return;
+			}
+
+			if (edge.isValley()) {
+				++nV;
+			} else {
+				++nM;
+			}
+
+		}
+		boolean isMaekawa = Math.abs(nM - nV) == 2;
+		boolean isKawasaki = Geo.isClose(Math.abs(angle), 0.0, Geo.RADIAN_EPS);
+		this.isFoldable = isMaekawa && isKawasaki;
+	}
+
+	public boolean isFoldable() {
+		return isFoldable;
 	}
 
 	@Override

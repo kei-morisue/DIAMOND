@@ -52,7 +52,14 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	public double getRadius(
 			Vertex vertex) {
-		return vertex.isPicked() ? 15.0 : 5.0;
+		return (vertex.isPicked() || !vertex.isFoldable()) ? 15.0 : 5.0;
+	}
+
+	@Override
+	protected Color getColor(
+			Vertex vertex) {
+		return vertex.isPicked() ? Color.GREEN
+				: vertex.isFoldable() ? Color.BLACK : Color.MAGENTA;
 	}
 
 	@Override

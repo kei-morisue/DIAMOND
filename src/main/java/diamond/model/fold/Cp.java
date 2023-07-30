@@ -115,6 +115,7 @@ public class Cp extends Flat {
 		CpFolder.implyFaceOrder(faces, 0);
 		vertices.clear();
 		buildVertices();
+		vertices.forEach(v -> v.setFoldable());
 		segments.clear();
 		buildSegments();
 	}

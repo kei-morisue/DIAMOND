@@ -69,7 +69,6 @@ public abstract class Flat implements Serializable {
 				face.add(crease);
 			}
 		});
-
 	}
 
 	private Face findFace(
