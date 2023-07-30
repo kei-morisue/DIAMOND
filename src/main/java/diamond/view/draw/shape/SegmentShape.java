@@ -74,11 +74,14 @@ public class SegmentShape {
 			Double clip,
 			DrawerBase drawer) {
 		XY[] xys = drawer.getXY(crease);
+		boolean isNone = crease.getA() == Segment.NONE;
+		if (!isNone) {
+			return getShape(xys);
+		}
 		return getShape(
 				xys,
-				crease.getA() == Segment.NONE ? clip : 1.0,
-				crease.getV0().isOnEdge(),
-				crease.getV1().isOnEdge());
+				(crease.getV0().isOnEdge()) ? clip : 1.0,
+				(crease.getV1().isOnEdge()) ? clip : 1.0);
 	}
 
 	private static Shape getShape(
@@ -95,14 +98,13 @@ public class SegmentShape {
 
 	private static Shape getShape(
 			XY[] xys,
-			double clip,
-			boolean clip0,
-			boolean clip1) {
+			double clip0,
+			double clip1) {
 		XY w1 = xys[0];
 		XY w2 = xys[1];
 		XY w = w1.mid(w2);
-		XY v1 = clip0 ? w.mid(w1, clip) : w1;
-		XY v2 = clip1 ? w.mid(w2, clip) : w2;
+		XY v1 = w.mid(w1, clip0);
+		XY v2 = w.mid(w2, clip1);
 		double x1 = v1.getX();
 		double y1 = v1.getY();
 		double x2 = v2.getX();
