@@ -24,7 +24,9 @@ import diamond.model.cyborg.util.FaceUtil;
  */
 public class FaceOrderEstimator {
 
-	public static void infer(Cp cp0, Cp cp) {
+	public static void infer(
+			Cp cp0,
+			Cp cp) {
 		HashMap<Face, Face> faceMap = new HashMap<Face, Face>();
 		LinkedList<Face> faces = cp.getFaces();
 		LinkedList<Face> faces0 = cp0.getFaces();
@@ -49,7 +51,9 @@ public class FaceOrderEstimator {
 	private static class OrderInferrer implements Comparator<Face> {
 
 		@Override
-		public int compare(Face f0, Face f1) {
+		public int compare(
+				Face f0,
+				Face f1) {
 			Face g0 = faceMap.get(f0);
 			Face g1 = faceMap.get(f1);
 			if (g0 == null || g1 == null) {
@@ -64,7 +68,8 @@ public class FaceOrderEstimator {
 		private HashMap<Face, Face> faceMap;
 		boolean flip;
 
-		public OrderInferrer(LinkedList<Face> faces0, HashMap<Face, Face> faceMap, boolean flip) {
+		public OrderInferrer(LinkedList<Face> faces0,
+				HashMap<Face, Face> faceMap, boolean flip) {
 			super();
 			this.faces0 = faces0;
 			this.faceMap = faceMap;
@@ -73,17 +78,23 @@ public class FaceOrderEstimator {
 
 	}
 
-	static void reOrder(Cp cp) {
+	static void reOrder(
+			Cp cp) {
 		ArrayList<Face> copy = new ArrayList<Face>(cp.getFaces());
 		for (Face f0 : copy) {
-			for (HalfEdge h : f0.getSortedEdges()) {
+			for (HalfEdge h : f0.getHalfEdges()) {
 				Face f1 = h.getPair().getFace();
-				FaceOrderEstimator.swapFaces(cp.getFaces(), f1, f0, h.getType());
+				FaceOrderEstimator.swapFaces(cp.getFaces(), f1, f0,
+						h.getType());
 			}
 		}
 	}
 
-	static void swapFaces(List<Face> faces, Face f1, Face f0, EdgeType type) {
+	static void swapFaces(
+			List<Face> faces,
+			Face f1,
+			Face f0,
+			EdgeType type) {
 		boolean isFaceFront0 = f0.isFaceFront();
 		int i0 = faces.indexOf(f0);
 		int i1 = faces.indexOf(f1);

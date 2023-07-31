@@ -21,21 +21,23 @@ import diamond.model.math.Maekawa;
  *
  */
 public class Folder {
-	public static void fold(Cp cp) {
+	public static void fold(
+			Cp cp) {
 		for (Face face : cp.getFaces()) {
 			face.initialize();
 		}
 		Face face = cp.buildBaseFace();
 		fold(face, new AffineTransform());
 		face.setFaceFront(false);
-		for (HalfEdge he : face.getSortedEdges()) {
+		for (HalfEdge he : face.getHalfEdges()) {
 			setAffine(face.getTransform(), he, cp.getFaces());
 		}
 		validate(cp);
 		FaceOrderEstimator.reOrder(cp);
 	}
 
-	private static void validate(Cp cp) {
+	private static void validate(
+			Cp cp) {
 		for (Vertex v : cp.getVertices()) {
 			boolean maekawa = Maekawa.isValid(v);
 			boolean kawasaki = Kawasaki.isValid(v);
@@ -43,7 +45,10 @@ public class Folder {
 		}
 	}
 
-	public static void setAffine(AffineTransform accumulatedTransform, HalfEdge he, List<Face> faces) {
+	public static void setAffine(
+			AffineTransform accumulatedTransform,
+			HalfEdge he,
+			List<Face> faces) {
 		Face f1 = he.getPair().getFace();
 		if (f1 == null) {
 			return;
@@ -57,13 +62,15 @@ public class Folder {
 		f1.setFaceFront(!dir0);
 		fold(f1, createFlipTransform(he.getPair(), accumulatedTransform));
 
-		for (HalfEdge walkHe : f1.getSortedEdges()) {
+		for (HalfEdge walkHe : f1.getHalfEdges()) {
 			setAffine(f1.getTransform(), walkHe, faces);
 		}
 
 	}
 
-	public static AffineTransform createFlipTransform(HalfEdge he, AffineTransform accumulatedtransform) {
+	public static AffineTransform createFlipTransform(
+			HalfEdge he,
+			AffineTransform accumulatedtransform) {
 		Vertex v0 = he.getV0();
 		Vertex v1 = he.getV1();
 
@@ -89,9 +96,11 @@ public class Folder {
 
 	}
 
-	public static void fold(Face face, AffineTransform transform) {
+	public static void fold(
+			Face face,
+			AffineTransform transform) {
 		face.setTransform(transform);
-		for (HalfEdge he : face.getSortedEdges()) {
+		for (HalfEdge he : face.getHalfEdges()) {
 			fold(he, transform);
 		}
 		for (HalfEdge he : face.getUnsettledLines()) {
@@ -99,14 +108,18 @@ public class Folder {
 		}
 	}
 
-	public static void fold(HalfEdge he, AffineTransform transform) {
+	public static void fold(
+			HalfEdge he,
+			AffineTransform transform) {
 		Vertex v0 = he.getV0();
 		Vertex v1 = he.getV1();
 		fold(v0, transform);
 		fold(v1, transform);
 	}
 
-	public static void fold(Vertex v, AffineTransform transform) {
+	public static void fold(
+			Vertex v,
+			AffineTransform transform) {
 		transform.transform(v, v.getFolded());
 	}
 

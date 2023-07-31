@@ -15,7 +15,9 @@ import diamond.model.cyborg.Vertex;
  */
 public class HalfEdgeModifier {
 
-	public static boolean settle(Cp cp, HalfEdge he) {
+	public static boolean settle(
+			Cp cp,
+			HalfEdge he) {
 		Face face = he.getFace();
 		HalfEdge h0 = null;
 		HalfEdge h1 = null;
@@ -44,7 +46,9 @@ public class HalfEdgeModifier {
 		return true;
 	}
 
-	public static void unSettle(Cp cp, HalfEdge he) {
+	public static void unSettle(
+			Cp cp,
+			HalfEdge he) {
 		Face f0 = he.getFace();
 		HalfEdge hP = he.getPair();
 		Face f1 = hP.getFace();

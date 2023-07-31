@@ -18,15 +18,18 @@ import diamond.view.ui.screen.ScreenTransform;
  */
 public class Cp implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5147241010716022972L;
 	private LinkedList<Face> faces = new LinkedList<Face>();
 	private Face baseFace = null;
 	private ScreenTransform transform = new ScreenTransform();
-	private HashMap<Vertex, Symbol<Vertex>> symbolsVertex = new HashMap<Vertex, Symbol<Vertex>>();
-	private HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge = new HashMap<HalfEdge, Symbol<HalfEdge>>();
-	private HashMap<Face, Symbol<Face>> symbolsFace = new HashMap<Face, Symbol<Face>>();
+	private HashMap<Vertex, Symbol<Vertex>> symbolsVertex
+			= new HashMap<Vertex, Symbol<Vertex>>();
+	private HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge
+			= new HashMap<HalfEdge, Symbol<HalfEdge>>();
+	private HashMap<Face, Symbol<Face>> symbolsFace
+			= new HashMap<Face, Symbol<Face>>();
 
 	@Deprecated
 	public Face getBaseFace() {
@@ -40,7 +43,8 @@ public class Cp implements Serializable {
 		return baseFace;
 	}
 
-	public void setBaseFace(Face baseFace) {
+	public void setBaseFace(
+			Face baseFace) {
 		this.baseFace = baseFace;
 	}
 
@@ -53,15 +57,18 @@ public class Cp implements Serializable {
 	}
 
 	@Deprecated
-	public void setFaces(LinkedList<Face> faces) {
+	public void setFaces(
+			LinkedList<Face> faces) {
 		this.faces = faces;
 	}
 
-	public void add(Face f) {
+	public void add(
+			Face f) {
 		faces.add(f);
 	}
 
-	public void remove(Face f) {
+	public void remove(
+			Face f) {
 		faces.remove(f);
 	}
 
@@ -69,7 +76,7 @@ public class Cp implements Serializable {
 	public HashSet<Vertex> getVertices() {
 		HashSet<Vertex> vertices = new HashSet<Vertex>();
 		for (Face face : faces) {
-			for (HalfEdge he : face.getSortedEdges()) {
+			for (HalfEdge he : face.getHalfEdges()) {
 				vertices.add(he.getV0());
 			}
 			for (HalfEdge he : face.getUnsettledLines()) {
@@ -110,7 +117,8 @@ public class Cp implements Serializable {
 		return transform;
 	}
 
-	public void setTransform(ScreenTransform transform) {
+	public void setTransform(
+			ScreenTransform transform) {
 		this.transform = transform;
 	}
 
@@ -119,7 +127,8 @@ public class Cp implements Serializable {
 	}
 
 	@Deprecated
-	public void setSymbolsVertex(HashMap<Vertex, Symbol<Vertex>> symbolsVertex) {
+	public void setSymbolsVertex(
+			HashMap<Vertex, Symbol<Vertex>> symbolsVertex) {
 		this.symbolsVertex = symbolsVertex;
 	}
 
@@ -128,7 +137,8 @@ public class Cp implements Serializable {
 	}
 
 	@Deprecated
-	public void setSymbolsHalfEdge(HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
+	public void setSymbolsHalfEdge(
+			HashMap<HalfEdge, Symbol<HalfEdge>> symbolsHalfEdge) {
 		this.symbolsHalfEdge = symbolsHalfEdge;
 	}
 
@@ -137,7 +147,8 @@ public class Cp implements Serializable {
 	}
 
 	@Deprecated
-	public void setSymbolsFace(HashMap<Face, Symbol<Face>> symbolsFace) {
+	public void setSymbolsFace(
+			HashMap<Face, Symbol<Face>> symbolsFace) {
 		this.symbolsFace = symbolsFace;
 	}
 
