@@ -26,6 +26,11 @@ public class Cp extends Flat {
 	private Face baseFace;
 	public double eps;
 
+	public Cp(Cp cp) {
+		super();
+		rebuild(cp.segments);
+	}
+
 	public Cp(double scale) {
 		super();
 		CpBuilder.buildSquare(this, scale);
@@ -33,6 +38,11 @@ public class Cp extends Flat {
 	}
 
 	public void rebuild() {
+		rebuild(this.segments);
+	}
+
+	public void rebuild(
+			Collection<Segment> segments) {
 		eps = Geo.minLength(segments) / 300;
 		ArrayList<ArrayList<Pair<XY, Segment>>> compressedP
 				= Line.getCompressedP(segments, eps);

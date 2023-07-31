@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import diamond.controller.action.Palette;
 import diamond.view.ui.menu.File;
 import diamond.view.ui.panel.PaintPanel;
+import diamond.view.ui.panel.StepPanel;
 import diamond.view.ui.screen.ModelScreen;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
@@ -24,13 +25,15 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Palette palette = new Palette(200.0);
+	private Palette palette = new Palette(400.0);
 
 	private ModelScreen modelScreen = new ModelScreen();
 
 	private ButtonGroup paintButtons = new ButtonGroup();
-	private PaintPanel paint
+
+	private PaintPanel paintPanel
 			= new PaintPanel(palette, modelScreen, paintButtons);
+	private StepPanel stepPanel = new StepPanel(palette, modelScreen);
 
 	public MainFrame() {
 		setVisible(true);
@@ -48,8 +51,8 @@ public class MainFrame extends JFrame {
 		Container panel = getContentPane();
 		panel.setLayout(new GridLayout(1, 2));
 
-		panel.add(paint);
-		panel.add(modelScreen);
+		panel.add(stepPanel);
+		panel.add(paintPanel);
 	}
 
 	private void buildMenu() {

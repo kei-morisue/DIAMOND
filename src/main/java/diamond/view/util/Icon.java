@@ -7,6 +7,7 @@ package diamond.view.util;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 
@@ -16,12 +17,23 @@ import javax.swing.JRadioButton;
  */
 public class Icon {
 
-	public static void set(JFrame frame, String name) {
+	public static void set(
+			JFrame frame,
+			String name) {
 		ImageIcon icon = loadAsIcon(name);
 		frame.setIconImage(icon.getImage());
 	}
 
-	public static void set(JRadioButton button, String name) {
+	public static void set(
+			JButton button,
+			String name) {
+		ImageIcon icon = loadAsIcon(name);
+		button.setIcon(icon);
+	}
+
+	public static void set(
+			JRadioButton button,
+			String name) {
 		ImageIcon icon = loadAsIcon(name);
 		button.setIcon(icon);
 		String[] split = name.split("\\.");
@@ -29,11 +41,14 @@ public class Icon {
 		button.setSelectedIcon(icon);
 	}
 
-	private static ImageIcon loadAsIcon(String name) {
+	private static ImageIcon loadAsIcon(
+			String name) {
 		return loadAsIcon(name, Icon.class);
 	}
 
-	private static ImageIcon loadAsIcon(String name, Class<?> c) {
+	private static ImageIcon loadAsIcon(
+			String name,
+			Class<?> c) {
 		ClassLoader classLoader = c.getClassLoader();
 		URL url = classLoader.getResource("icon/" + name);
 		ImageIcon icon = new ImageIcon(url);

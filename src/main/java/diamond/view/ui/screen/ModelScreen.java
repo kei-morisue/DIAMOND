@@ -6,8 +6,10 @@ package diamond.view.ui.screen;
 
 import java.awt.Graphics2D;
 
+import diamond.controller.action.Palette;
 import diamond.controller.action.screen.ScreenAction;
 import diamond.view.draw.ModelDrawer;
+import diamond.view.draw.StringDrawer;
 
 /**
  * @author Kei Morisue
@@ -31,7 +33,9 @@ public class ModelScreen extends ScreenBase {
 	@Override
 	public void drawComponents(
 			Graphics2D g2d) {
-		drawer.draw(g2d, paintScreen.getPalette().getCp());
+		Palette palette = paintScreen.getPalette();
+		drawer.draw(g2d, palette.getCp());
+		StringDrawer.drawStepNo(g2d, palette.getStepNo(), 0, 0);
 	}
 
 	public void link(

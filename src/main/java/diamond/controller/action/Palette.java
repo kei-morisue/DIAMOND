@@ -24,8 +24,45 @@ public class Palette {
 		cps.add(cp);
 	}
 
+	public void insert() {
+		Cp cp = getCp();
+		cps.add(currentCp + 1, new Cp(cp));
+		++currentCp;
+	}
+
+	public void remove() {
+		Cp cp = getCp();
+		cps.remove(cp);
+		currentCp = currentCp >= cps.size() - 1 ? cps.size() - 1 : currentCp;
+	}
+
+	public int getStepNo() {
+		return currentCp + 1;
+
+	}
+
+	public int size() {
+		return cps.size();
+	}
+
 	public Cp getCp() {
 		return cps.get(currentCp);
+	}
+
+	public void next() {
+		currentCp = currentCp == cps.size() - 1 ? currentCp : currentCp + 1;
+	}
+
+	public void last() {
+		currentCp = cps.size() - 1;
+	}
+
+	public void prev() {
+		currentCp = currentCp == 0 ? currentCp : currentCp - 1;
+	}
+
+	public void first() {
+		currentCp = 0;
 	}
 
 }
