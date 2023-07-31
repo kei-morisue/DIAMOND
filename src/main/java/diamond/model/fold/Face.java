@@ -4,8 +4,10 @@
  */
 package diamond.model.fold;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -13,6 +15,8 @@ import java.util.function.Consumer;
 import diamond.model.Dir;
 import diamond.model.Geo;
 import diamond.model.XY;
+import diamond.model.fold.symbol.SymbolBase;
+import diamond.view.draw.DrawerBase;
 
 /**
  * @author Kei Morisue
@@ -140,6 +144,23 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 		return area;
 
 	}
+
+	public void accept(
+			DrawerBase drawer,
+			Graphics2D g2d,
+			double scale,
+			Collection<SymbolBase> symbols) {
+		drawer.draw(g2d, this, scale);
+		edges.forEach(edge -> {
+			edge.accept(drawer, g2d, scale);
+		});
+		creases.forEach(crease -> {
+			crease.accept(drawer, g2d, scale);
+		});
+		symbols.forEach(symbol -> {
+			symbol.accept(drawer, g2d, scale);
+		});
+	};
 
 	@Override
 	public int compareTo(

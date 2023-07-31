@@ -4,8 +4,11 @@
  */
 package diamond.model.fold;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.Collection;
+
+import diamond.view.draw.DrawerBase;
 
 /**
  * @author Kei Morisue
@@ -45,6 +48,15 @@ public class Crease extends Segment implements Serializable {
 			Collection<Crease> creases) {
 		creases.add(new Crease(v0, v1, a));
 	}
+
+	public void accept(
+			DrawerBase drawer,
+			Graphics2D g2d,
+			double scale) {
+		drawer.draw(g2d, this, scale);
+		v0.accept(drawer, g2d, scale);
+		v1.accept(drawer, g2d, scale);
+	};
 
 	@Override
 	public boolean isEdge() {

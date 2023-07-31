@@ -4,13 +4,17 @@
  */
 package diamond.model.fold;
 
+import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
 
 import diamond.model.Tuple;
 import diamond.model.XY;
+import diamond.view.draw.DrawerBase;
 
 /**
  * @author Kei Morisue
@@ -68,6 +72,13 @@ public class Vertex extends XY implements Serializable, Renderable {
 		d = dir(apply(d00, d01, d10, d11)).ver(f);
 	}
 
+	public void accept(
+			DrawerBase drawer,
+			Graphics2D g2d,
+			double scale) {
+		drawer.draw(g2d, this, scale);
+	}
+
 	public void initD() {
 		d = f;
 	}
@@ -85,6 +96,21 @@ public class Vertex extends XY implements Serializable, Renderable {
 
 	public boolean isOnEdge() {
 		return edgesMap.size() > 0;
+	}
+
+	public Face getTopFace(
+			List<Face> faces) {
+		int top = 0;
+		Collection<Edge> edges = edgesMap.values();
+		if (!isOnEdge()) {
+			return creasesMap.values().iterator().next().getFace();
+		}
+		for (Edge edge : edges) {
+			int i0 = faces.indexOf(edge.getF0());
+			int i1 = faces.indexOf(edge.getF1());
+			top = Math.max(top, Math.max(i0, i1));
+		}
+		return faces.get(top);
 	}
 
 	public class AngleComparator implements java.util.Comparator<Vertex> {

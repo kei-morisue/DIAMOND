@@ -9,7 +9,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import diamond.model.XY;
 import diamond.model.fold.Cp;
@@ -18,8 +21,11 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
+import diamond.model.fold.symbol.Circle;
+import diamond.model.fold.symbol.SymbolBase;
 import diamond.view.draw.shape.FaceShape;
 import diamond.view.draw.shape.SegmentShape;
+import diamond.view.draw.shape.SymbolShape;
 import diamond.view.draw.shape.VertexShape;
 
 /**
@@ -93,7 +99,7 @@ public abstract class DrawerBase {
 		return res;
 	}
 
-	private void drawVertex(
+	public void draw(
 			Graphics2D g2d,
 			Vertex vertex,
 			double scale) {
@@ -102,7 +108,7 @@ public abstract class DrawerBase {
 		g2d.fill(s);
 	}
 
-	private void drawEdge(
+	public void draw(
 			Graphics2D g2d,
 			Edge edge,
 			double scale) {
@@ -111,11 +117,9 @@ public abstract class DrawerBase {
 		g2d.setStroke(stroke);
 		g2d.setColor(getColor(edge));
 		g2d.draw(s);
-		drawVertex(g2d, edge.getV0(), scale);
-		drawVertex(g2d, edge.getV1(), scale);
 	}
 
-	private void drawCrease(
+	public void draw(
 			Graphics2D g2d,
 			Crease crease,
 			double scale) {
@@ -124,11 +128,9 @@ public abstract class DrawerBase {
 		g2d.setStroke(stroke);
 		g2d.setColor(getColor(crease));
 		g2d.draw(s);
-		drawVertex(g2d, crease.getV0(), scale);
-		drawVertex(g2d, crease.getV1(), scale);
 	}
 
-	private void drawFace(
+	public void draw(
 			Graphics2D g2d,
 			Face face,
 			double scale) {
@@ -141,16 +143,28 @@ public abstract class DrawerBase {
 			Graphics2D g2d,
 			Cp cp) {
 		double scale = getScale(g2d);
+		HashMap<Face, HashSet<SymbolBase>> symbolMap = cp.getSymbolMap();
 		cp.forFaces(face -> {
-			drawFace(g2d, face, scale);
-			face.forEdges(edge -> {
-				drawEdge(g2d, edge, scale);
-			});
-			face.forCreases(crease -> {
-				drawCrease(g2d, crease, scale);
-			});
-
+			HashSet<SymbolBase> symbols = symbolMap.get(face);
+			face.accept(this, g2d, scale, symbols);
 		});
+	}
+
+	public void draw(
+			Graphics2D g2d,
+			Circle circle,
+			double scale) {
+		g2d.setColor(Color.magenta);
+		g2d.setStroke(new BasicStroke((float) (2 / scale)));
+		Ellipse2D.Double s = getShape(circle, scale);
+		g2d.draw(s);
+
+	}
+
+	private Ellipse2D.Double getShape(
+			Circle circle,
+			double scale) {
+		return SymbolShape.getShape(circle, scale, this);
 	}
 
 	protected Shape getShape(

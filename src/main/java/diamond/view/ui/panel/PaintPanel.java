@@ -25,6 +25,7 @@ import diamond.view.ui.screen.PaintScreen;
 public class PaintPanel extends JPanel {
 	private PaintScreen paintScreen;
 	private JPanel control = new JPanel();
+	private JPanel control2 = new JPanel();
 	private ButtonGroup buttonGroup;
 
 	public PaintPanel(Palette palette, ModelScreen modelScreen,
@@ -37,18 +38,25 @@ public class PaintPanel extends JPanel {
 		control.setLayout(new GridLayout(6, 1));
 		add(control, BorderLayout.WEST);
 
-		addpaintButton("axiom1.gif", PaintActionBuilder.angleAction());
-		addpaintButton("flip.gif", PaintActionBuilder.flipAction());
-		addpaintButton("offset.gif", PaintActionBuilder.distortionAction());
-		addpaintButton("base_face.gif", PaintActionBuilder.baseFaceAction());
+		addpaintButton("axiom1.gif", PaintActionBuilder.angleAction(), control);
+		addpaintButton("flip.gif", PaintActionBuilder.flipAction(), control);
+		addpaintButton("offset.gif", PaintActionBuilder.distortionAction(),
+				control);
+		addpaintButton("base_face.gif", PaintActionBuilder.baseFaceAction(),
+				control);
+
+		add(control2, BorderLayout.SOUTH);
+		addpaintButton("landmark.gif", PaintActionBuilder.symbolAction(),
+				control2);
 	}
 
 	private void addpaintButton(
 			String iconName,
-			PaintAction paintAction) {
+			PaintAction paintAction,
+			JPanel panel) {
 		JRadioButton button = new PaintButton(iconName, paintScreen,
 				paintAction);
-		control.add(button);
+		panel.add(button);
 		buttonGroup.add(button);
 	}
 

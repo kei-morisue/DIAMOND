@@ -30,4 +30,9 @@ public class PaintActionBuilder {
 		return new PaintAction(
 				new diamond.controller.action.paint.state.base.State0());
 	}
+
+	public static PaintAction symbolAction() {
+		return new PaintAction(
+				new diamond.controller.action.paint.state.symbol.State0());
+	}
 }

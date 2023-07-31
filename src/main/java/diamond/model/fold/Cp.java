@@ -15,6 +15,7 @@ import com.sun.tools.javac.util.Pair;
 import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
+import diamond.model.fold.symbol.SymbolBase;
 
 /**
  * @author Kei Morisue
@@ -23,6 +24,7 @@ import diamond.model.XY;
 public class Cp extends Flat {
 	transient private Set<Vertex> vertices = new HashSet<Vertex>();
 	transient private Set<Segment> segments = new HashSet<Segment>();
+	private HashMap<Renderable, SymbolBase> symbols = new HashMap<>();
 	private Face baseFace;
 	public double eps;
 
@@ -232,6 +234,30 @@ public class Cp extends Flat {
 			Face baseFace) {
 		this.baseFace = baseFace;
 		fold();
+	}
+
+	public void put(
+			Renderable key,
+			SymbolBase symbol) {
+		if (symbols.containsKey(key)) {
+			symbols.remove(key);
+			return;
+		}
+		symbols.put(key, symbol);
+	}
+
+	public HashMap<Face, HashSet<SymbolBase>> getSymbolMap() {
+		HashMap<Face, HashSet<SymbolBase>> map = new HashMap<>();
+		faces.forEach(face -> {
+			map.put(face, new HashSet<SymbolBase>());
+		});
+		symbols.forEach((
+				key,
+				symbol) -> {
+			Face layer = symbol.getLayer(faces);
+			map.get(layer).add(symbol);
+		});
+		return map;
 	}
 
 }
