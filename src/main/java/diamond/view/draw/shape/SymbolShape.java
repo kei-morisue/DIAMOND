@@ -4,9 +4,13 @@
  */
 package diamond.view.draw.shape;
 
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 
+import diamond.model.Dir;
 import diamond.model.XY;
+import diamond.model.fold.symbol.ArrowMV;
 import diamond.model.fold.symbol.Circle;
 import diamond.view.draw.DrawerBase;
 
@@ -16,6 +20,8 @@ import diamond.view.draw.DrawerBase;
  */
 public class SymbolShape {
 	public static double RADIUS_CIRCLE = 30.0;
+	public static double SIZE_ARROW_HEAD = 60.0;
+	public static double CURTOSIS_ARROW_HEAD = Math.PI / 14;
 
 	public static Ellipse2D.Double getShape(
 			Circle circle,
@@ -26,6 +32,43 @@ public class SymbolShape {
 		Ellipse2D.Double s
 				= new Ellipse2D.Double(c.x - r / 2, c.y - r / 2, r, r);
 		return s;
+	}
+
+	public static Shape getBodyShape(
+			ArrowMV arrowMV,
+			double scale,
+			DrawerBase drawer) {
+		XY[] th = arrowMV.getTailHead(drawer, scale);
+		XY tail = th[0];
+		XY head = th[1];
+		XY c = arrowMV.getControlPoint(tail, head);
+		GeneralPath path = new GeneralPath();
+		path.moveTo(tail.x, tail.y);
+		path.curveTo(tail.x, tail.y, c.x, c.y, head.x, head.y);
+		return path;
+	}
+
+	public static Shape getHeadShape(
+			ArrowMV arrowMV,
+			double scale,
+			DrawerBase drawer) {
+		XY[] th = arrowMV.getTailHead(drawer, scale);
+		XY tail = th[0];
+		XY head = th[1];
+		XY c = arrowMV.getControlPoint(tail, head);
+		double theta = head.dir(c).angle();
+		Dir d0 = new Dir(CURTOSIS_ARROW_HEAD + theta)
+				.mul(SIZE_ARROW_HEAD / scale);
+		Dir d1 = new Dir(-CURTOSIS_ARROW_HEAD + theta)
+				.mul(SIZE_ARROW_HEAD / scale);
+		XY a = d0.ver(head);
+		XY b = d1.ver(head);
+		GeneralPath path = new GeneralPath();
+		path.moveTo(head.x, head.y);
+		path.lineTo(b.x, b.y);
+		path.lineTo(a.x, a.y);
+		path.closePath();
+		return path;
 	}
 
 }

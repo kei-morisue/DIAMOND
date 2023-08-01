@@ -45,6 +45,7 @@ public class Cp extends Flat {
 
 	public void rebuild(
 			Collection<Segment> segments) {
+		symbols.clear();
 		eps = Geo.minLength(segments) / 300;
 		ArrayList<ArrayList<Pair<XY, Segment>>> compressedP
 				= Line.getCompressedP(segments, eps);
@@ -239,11 +240,18 @@ public class Cp extends Flat {
 	public void put(
 			Renderable key,
 			SymbolBase symbol) {
-		if (symbols.containsKey(key)) {
-			symbols.remove(key);
+		SymbolBase found = symbols.get(key);
+		if (found != null) {
+			found.flip();
 			return;
 		}
 		symbols.put(key, symbol);
+	}
+
+	public SymbolBase removeSymbol(
+			Renderable key) {
+		SymbolBase removed = symbols.remove(key);
+		return removed;
 	}
 
 	public HashMap<Face, HashSet<SymbolBase>> getSymbolMap() {

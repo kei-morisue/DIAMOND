@@ -23,4 +23,6 @@ public abstract class SymbolBase {
 			DrawerBase drawer,
 			Graphics2D g2d,
 			double scale);
+
+	public abstract void flip();
 }

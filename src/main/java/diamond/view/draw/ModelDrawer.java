@@ -30,12 +30,6 @@ public class ModelDrawer extends DrawerBase {
 	}
 
 	@Override
-	public XY[] getXY(
-			Crease crease) {
-		return super.getXY(crease);
-	}
-
-	@Override
 	public double getRadius(
 			Vertex vertex) {
 		return vertex.isPicked() ? 15.0 : 0.0;
@@ -69,6 +63,12 @@ public class ModelDrawer extends DrawerBase {
 		BasicStroke stroke = new BasicStroke((float) (3.0 / scale),
 				BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		return stroke;
+	}
+
+	@Override
+	public double getArrowBodyScale(
+			double ScreenScale) {
+		return 1.0;
 	}
 
 }

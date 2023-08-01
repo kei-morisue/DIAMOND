@@ -45,7 +45,8 @@ public class PaintPanel extends JPanel {
 		addpaintButton("base_face.gif", PaintActionBuilder.baseFaceAction(),
 				control);
 
-		add(control2, BorderLayout.SOUTH);
+		add(control2, BorderLayout.EAST);
+		control2.setLayout(new GridLayout(6, 1));
 		addpaintButton("landmark.gif", PaintActionBuilder.symbolAction(),
 				control2);
 	}

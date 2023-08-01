@@ -23,10 +23,6 @@ public class Circle extends SymbolBase {
 		this.vertex = vertex;
 	}
 
-	public Vertex getVertex() {
-		return vertex;
-	}
-
 	@Override
 	public void accept(
 			DrawerBase drawer,
@@ -39,6 +35,15 @@ public class Circle extends SymbolBase {
 	public Face getLayer(
 			List<Face> faces) {
 		return vertex.getTopFace(faces);
+	}
+
+	public Vertex getVertex() {
+		return vertex;
+	}
+
+	@Override
+	public void flip() {
+
 	}
 
 }

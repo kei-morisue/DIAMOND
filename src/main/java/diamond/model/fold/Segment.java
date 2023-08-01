@@ -6,6 +6,7 @@ package diamond.model.fold;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import diamond.model.XY;
 
@@ -36,6 +37,9 @@ public abstract class Segment extends Line implements Serializable, Renderable {
 	public abstract Segment getFlip();
 
 	public abstract boolean isEdge();
+
+	public abstract Face getTopFace(
+			List<Face> faces);
 
 	public abstract void add(
 			Vertex v0,

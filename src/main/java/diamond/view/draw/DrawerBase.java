@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +20,7 @@ import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
+import diamond.model.fold.symbol.ArrowMV;
 import diamond.model.fold.symbol.Circle;
 import diamond.model.fold.symbol.SymbolBase;
 import diamond.view.draw.shape.FaceShape;
@@ -78,19 +78,19 @@ public abstract class DrawerBase {
 	public abstract XY getXY(
 			Vertex vertex);
 
-	public XY[] getXY(
+	public final XY[] getXY(
 			Edge edge) {
 		XY[] res = { getXY(edge.getV0()), getXY(edge.getV1()) };
 		return res;
 	}
 
-	public XY[] getXY(
+	public final XY[] getXY(
 			Crease crease) {
 		XY[] res = { getXY(crease.getV0()), getXY(crease.getV1()) };
 		return res;
 	}
 
-	public ArrayList<XY> getXY(
+	public final ArrayList<XY> getXY(
 			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
 		face.forVertices(v -> {
@@ -99,27 +99,31 @@ public abstract class DrawerBase {
 		return res;
 	}
 
-	public void draw(
+	public final void draw(
 			Graphics2D g2d,
 			Vertex vertex,
 			double scale) {
-		Shape s = getShape(vertex, scale);
+		Shape s = VertexShape.getShape(
+				vertex,
+				getRadius(vertex),
+				scale,
+				this);
 		g2d.setColor(getColor(vertex));
 		g2d.fill(s);
 	}
 
-	public void draw(
+	public final void draw(
 			Graphics2D g2d,
 			Edge edge,
 			double scale) {
 		BasicStroke stroke = getStroke(edge, scale);
-		Shape s = getShape(edge, scale);
+		Shape s = SegmentShape.getShape(edge, scale, this);
 		g2d.setStroke(stroke);
 		g2d.setColor(getColor(edge));
 		g2d.draw(s);
 	}
 
-	public void draw(
+	public final void draw(
 			Graphics2D g2d,
 			Crease crease,
 			double scale) {
@@ -130,12 +134,18 @@ public abstract class DrawerBase {
 		g2d.draw(s);
 	}
 
-	public void draw(
+	protected Shape getShape(
+			Crease crease,
+			double scale) {
+		return SegmentShape.getShape(crease, scale, this);
+	}
+
+	public final void draw(
 			Graphics2D g2d,
 			Face face,
 			double scale) {
 		g2d.setColor(getColor(face));
-		Shape path = getShape(face, scale);
+		Shape path = FaceShape.getShape(face, scale, this);
 		g2d.fill(path);
 	}
 
@@ -150,49 +160,41 @@ public abstract class DrawerBase {
 		});
 	}
 
-	public void draw(
+	public final void draw(
 			Graphics2D g2d,
 			Circle circle,
 			double scale) {
-		g2d.setColor(Color.magenta);
+		g2d.setColor(Color.MAGENTA);
 		g2d.setStroke(new BasicStroke((float) (2 / scale)));
-		Ellipse2D.Double s = getShape(circle, scale);
+		Shape s = SymbolShape.getShape(circle, scale, this);
 		g2d.draw(s);
 
 	}
 
-	private Ellipse2D.Double getShape(
-			Circle circle,
+	public abstract double getArrowBodyScale(
+			double screenScale);
+
+	public final void drawBody(
+			Graphics2D g2d,
+			ArrowMV arrowMV,
 			double scale) {
-		return SymbolShape.getShape(circle, scale, this);
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke((float) (3 / scale)));
+		Shape shape = SymbolShape.getBodyShape(arrowMV, scale, this);
+		g2d.draw(shape);
 	}
 
-	protected Shape getShape(
-			Vertex vertex,
-			double scale) {
-		return VertexShape.getShape(
-				vertex,
-				getRadius(vertex),
-				scale,
-				this);
-	}
-
-	protected Shape getShape(
-			Edge e,
-			double scale) {
-		return SegmentShape.getShape(e, scale, this);
-	}
-
-	protected Shape getShape(
-			Crease crease,
-			double scale) {
-		return SegmentShape.getShape(crease, scale, this);
-	}
-
-	private Shape getShape(
-			Face face,
-			double scale) {
-		return FaceShape.getShape(face, scale, this);
+	public final void drawHead(
+			Graphics2D g2d,
+			ArrowMV arrowMV,
+			double scale,
+			boolean isMountain) {
+		g2d.setStroke(new BasicStroke((float) (3 / scale)));
+		Shape shape = SymbolShape.getHeadShape(arrowMV, scale, this);
+		g2d.setColor(isMountain ? Color.WHITE : Color.BLACK);
+		g2d.fill(shape);
+		g2d.setColor(Color.BLACK);
+		g2d.draw(shape);
 	}
 
 	protected double getScale(

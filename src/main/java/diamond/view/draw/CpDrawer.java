@@ -101,4 +101,10 @@ public class CpDrawer extends DrawerBase {
 		return stroke;
 	}
 
+	@Override
+	public double getArrowBodyScale(
+			double screenScale) {
+		return 0.25 / screenScale;
+	}
+
 }

@@ -7,6 +7,7 @@ package diamond.model.fold;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import diamond.view.draw.DrawerBase;
 
@@ -91,6 +92,14 @@ public class Edge extends Segment implements Serializable {
 	@Override
 	public Segment getFlip() {
 		return new Crease(v0, v1, a);
+	}
+
+	@Override
+	public Face getTopFace(
+			List<Face> faces) {
+		int i0 = faces.indexOf(f0);
+		int i1 = faces.indexOf(f1);
+		return i1 > i0 ? f1 : f0;
 	}
 
 }
