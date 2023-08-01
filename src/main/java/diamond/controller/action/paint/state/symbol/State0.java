@@ -44,6 +44,7 @@ public class State0 extends FindingStateBase {
 			return false;
 		}
 		Cp cp = screen.getPalette().getCp();
+		// TODO put various types of symbol
 		cp.put(vertex, new Circle(vertex));
 		return true;
 	}
