@@ -64,9 +64,8 @@ public class Cp extends Flat {
 	}
 
 	private void trim() {
-		int i = size();
-		int itr = i * i;
-		while (CpFolder.trim(vertices, segments) || itr < 0) {
+		int itr = vertices.size();
+		while (CpFolder.trim(vertices, segments) && itr > 0) {
 			rebuild();
 			itr--;
 		}
