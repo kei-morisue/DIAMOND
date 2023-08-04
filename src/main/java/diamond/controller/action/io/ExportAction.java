@@ -10,18 +10,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 
-import diamond.controller.action.Palette;
+import diamond.model.fold.Diagram;
 
 /**
  * @author Kei Morisue
  *
  */
 public class ExportAction implements ActionListener {
-	Palette context;
+	Diagram context;
 	Component parentComponent;
 
-	public ExportAction(Palette context, Component parent) {
-		this.context = context;
+	public ExportAction(Diagram diagram, Component parent) {
+		this.context = diagram;
 		this.parentComponent = parent;
 	}
 

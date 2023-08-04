@@ -11,7 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import diamond.controller.action.Palette;
+import diamond.model.fold.Diagram;
 import diamond.view.ui.menu.File;
 import diamond.view.ui.panel.PaintPanel;
 import diamond.view.ui.panel.StepPanel;
@@ -25,15 +25,15 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Palette palette = new Palette(400.0);
+	private Diagram diagram = new Diagram(400.0);
 
 	private ModelScreen modelScreen = new ModelScreen();
 
 	private ButtonGroup paintButtons = new ButtonGroup();
 
 	private PaintPanel paintPanel
-			= new PaintPanel(palette, modelScreen, paintButtons);
-	private StepPanel stepPanel = new StepPanel(palette, modelScreen);
+			= new PaintPanel(diagram, modelScreen, paintButtons);
+	private StepPanel stepPanel = new StepPanel(diagram, modelScreen);
 
 	public MainFrame() {
 		setVisible(true);
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame {
 
 	private void buildMenu() {
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(new File(palette));
+		menuBar.add(new File(diagram));
 		setJMenuBar(menuBar);
 	}
 

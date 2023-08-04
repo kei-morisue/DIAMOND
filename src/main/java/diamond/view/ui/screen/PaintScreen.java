@@ -6,11 +6,11 @@ package diamond.view.ui.screen;
 
 import java.awt.Graphics2D;
 
-import diamond.controller.action.Palette;
 import diamond.controller.action.paint.PaintAction;
 import diamond.controller.action.paint.state.distort.State0;
 import diamond.controller.action.screen.PaintScreenAction;
 import diamond.model.fold.Cp;
+import diamond.model.fold.Diagram;
 import diamond.view.draw.CpDrawer;
 import diamond.view.draw.DrawerBase;
 
@@ -19,15 +19,15 @@ import diamond.view.draw.DrawerBase;
  *
  */
 public class PaintScreen extends ScreenBase {
-	private Palette palette;
+	private Diagram diagram;
 	private ModelScreen modelScreen;
 
 	private DrawerBase drawer = new CpDrawer();
 
 	private PaintAction paintAction = new PaintAction(new State0());
 
-	public PaintScreen(Palette palette, ModelScreen modelScreen) {
-		this.palette = palette;
+	public PaintScreen(Diagram diagram, ModelScreen modelScreen) {
+		this.diagram = diagram;
 		this.modelScreen = modelScreen;
 		modelScreen.link(this);
 		PaintScreenAction paintScreenAction = new PaintScreenAction(this);
@@ -39,7 +39,7 @@ public class PaintScreen extends ScreenBase {
 	@Override
 	public void drawComponents(
 			Graphics2D g2d) {
-		drawer.draw(g2d, palette.getCp());
+		drawer.draw(g2d, diagram.getCp());
 		paintAction.onDraw(g2d, this);
 		modelScreen.repaint();
 	}
@@ -60,10 +60,10 @@ public class PaintScreen extends ScreenBase {
 	}
 
 	public Cp getCp() {
-		return palette.getCp();
+		return diagram.getCp();
 	}
 
-	public Palette getPalette() {
-		return palette;
+	public Diagram getPalette() {
+		return diagram;
 	}
 }

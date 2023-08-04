@@ -10,7 +10,7 @@ import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import diamond.controller.action.Palette;
+import diamond.model.fold.Diagram;
 import diamond.view.button.IconButton;
 import diamond.view.ui.screen.ModelScreen;
 import diamond.view.util.Label;
@@ -23,7 +23,7 @@ public class StepPanel extends JPanel {
 	private JPanel stepControl = new JPanel();
 	private JPanel modelControl = new JPanel();
 
-	public StepPanel(Palette palette, ModelScreen modelScreen) {
+	public StepPanel(Diagram palette, ModelScreen modelScreen) {
 		setLayout(new BorderLayout());
 		add(modelScreen, BorderLayout.CENTER);
 		add(modelControl, BorderLayout.SOUTH);
@@ -35,25 +35,25 @@ public class StepPanel extends JPanel {
 	}
 
 	private void buildModelControl(
-			Palette palette,
+			Diagram diagram,
 			ModelScreen modelScreen) {
 		modelControl.setLayout(new GridLayout(1, 5));
 		modelControl.add(new IconButton("insert.png", e -> {
-			palette.insert();
+			diagram.insert();
 			modelScreen.repaint();
 		}));
 		modelControl.add(new IconButton("destroy.png", e -> {
 			if (JOptionPane.showConfirmDialog(null,
 					Label.get("destroy_cp")) == 0
-					&& palette.size() != 1) {
-				palette.remove();
+					&& diagram.size() != 1) {
+				diagram.remove();
 			}
 			modelScreen.repaint();
 		}));
 	}
 
 	private void buildStepControl(
-			Palette palette,
+			Diagram palette,
 			ModelScreen modelScreen) {
 		stepControl.setLayout(new GridLayout(1, 5));
 		stepControl.add(new IconButton("left.png", e -> {

@@ -12,9 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import diamond.controller.action.Palette;
 import diamond.controller.action.io.ExportAction;
 import diamond.controller.action.io.LoadAction;
+import diamond.model.fold.Diagram;
 import diamond.view.util.Label;
 
 /**
@@ -22,36 +22,43 @@ import diamond.view.util.Label;
  *
  */
 public class File extends JMenu {
-	public File(Palette context) {
+	public File(Diagram diagram) {
 		super(Label.get("main_menu_file"));
-		add(buildNew(context));
-		add(buildOpen(context));
-		add(buildSave(context));
+		add(buildNew(diagram));
+		add(buildOpen(diagram));
+		add(buildSave(diagram));
 	}
 
-	private JMenuItem buildNew(Palette context) {
+	private JMenuItem buildNew(
+			Diagram diagram) {
 		JMenuItem item = new JMenuItem(Label.get("main_menu_file_new"));
 		item.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(
+					ActionEvent e) {
 				// TODO
 			}
 		});
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		item.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		return item;
 	}
 
-	private JMenuItem buildOpen(Palette context) {
+	private JMenuItem buildOpen(
+			Diagram diagram) {
 		JMenuItem item = new JMenuItem(Label.get("main_menu_file_open"));
-		item.addActionListener(new LoadAction(context, this));
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		item.addActionListener(new LoadAction(diagram, this));
+		item.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		return item;
 	}
 
-	private JMenuItem buildSave(Palette context) {
+	private JMenuItem buildSave(
+			Diagram diagram) {
 		JMenuItem item = new JMenuItem(Label.get("main_menu_file_save"));
-		item.addActionListener(new ExportAction(context, this));
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		item.addActionListener(new ExportAction(diagram, this));
+		item.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		return item;
 	}
 }
