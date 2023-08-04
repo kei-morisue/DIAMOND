@@ -36,6 +36,7 @@ public class ModelScreen extends ScreenBase {
 		Palette palette = paintScreen.getPalette();
 		drawer.draw(g2d, palette.getCp());
 		StringDrawer.drawStepNo(g2d, palette.getStepNo(), 0, 0);
+		paintScreen.repaint();
 	}
 
 	public void link(
