@@ -77,4 +77,10 @@ public class State0 extends FindingFaceStateBase {
 		clearPicked();
 	}
 
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+		save(screen);
+	}
+
 }

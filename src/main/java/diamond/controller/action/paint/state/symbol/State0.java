@@ -38,7 +38,7 @@ public class State0 extends FindingStateBase {
 	protected boolean undo(
 			PaintScreen screen,
 			XY p) {
-		Cp cp = screen.getPalette().getCp();
+		Cp cp = screen.getCp();
 		if (vertex == null) {
 			if (segment == null) {
 				return true;
@@ -70,7 +70,7 @@ public class State0 extends FindingStateBase {
 		if (segment == null) {
 			return false;
 		}
-		Cp cp = screen.getPalette().getCp();
+		Cp cp = screen.getCp();
 		// TODO put various types of symbol
 		cp.put(segment, new ArrowMV(segment));
 		return true;
@@ -82,7 +82,7 @@ public class State0 extends FindingStateBase {
 		if (vertex == null) {
 			return false;
 		}
-		Cp cp = screen.getPalette().getCp();
+		Cp cp = screen.getCp();
 		// TODO put various types of symbol
 		cp.put(vertex, new Circle(vertex));
 		return true;
@@ -92,15 +92,17 @@ public class State0 extends FindingStateBase {
 	protected void drawState(
 			Graphics2D g2d,
 			PaintScreen screen) {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 	@Override
 	protected void refresh(
 			PaintScreen screen) {
-		// TODO 自動生成されたメソッド・スタブ
+	}
 
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+		save(screen);
 	}
 
 }

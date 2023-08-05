@@ -41,7 +41,7 @@ public class State0 extends PaintStateBase {
 		double theta = density * PointerLocation.x / screen.getWidth();
 		double k = 1 + density * PointerLocation.y / screen.getHeight();
 
-		Cp cp = screen.getPalette().getCp();
+		Cp cp = screen.getCp();
 		cp.distort(k, theta);
 	}
 
@@ -70,7 +70,7 @@ public class State0 extends PaintStateBase {
 	protected boolean undo(
 			PaintScreen screen,
 			XY p) {
-		Cp cp = screen.getPalette().getCp();
+		Cp cp = screen.getCp();
 		cp.distort();
 		screen.getModelScreen().repaint();
 		return true;
@@ -84,6 +84,12 @@ public class State0 extends PaintStateBase {
 	@Override
 	protected PaintStateBase getPrevState() {
 		return this;
+	}
+
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+		save(screen);
 	}
 
 }

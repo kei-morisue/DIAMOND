@@ -83,4 +83,9 @@ public class State0 extends FindingState0Base {
 		return new State1(vertex);
 	}
 
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+	}
+
 }

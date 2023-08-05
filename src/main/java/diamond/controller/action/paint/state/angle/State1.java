@@ -131,4 +131,10 @@ public class State1 extends FindingStateBase {
 		g2d.draw(s);
 	}
 
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+		save(screen);
+	}
+
 }

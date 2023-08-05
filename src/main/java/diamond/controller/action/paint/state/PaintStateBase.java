@@ -47,6 +47,9 @@ public abstract class PaintStateBase {
 	protected abstract void refresh(
 			PaintScreen screen);
 
+	protected abstract void onSave(
+			PaintScreen screen);
+
 	public void onDraw(
 			Graphics2D g2d,
 			PaintScreen screen) {
@@ -70,6 +73,11 @@ public abstract class PaintStateBase {
 		}
 	}
 
+	protected void save(
+			PaintScreen screen) {
+		screen.save();
+	}
+
 	private XY getLogicalPoint(
 			PaintScreen screen,
 			MouseEvent e) {
@@ -91,6 +99,7 @@ public abstract class PaintStateBase {
 		}
 		PaintStateBase next = getNextState();
 		refresh(screen);
+		onSave(screen);
 		return next;
 	}
 

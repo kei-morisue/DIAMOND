@@ -4,6 +4,7 @@
  */
 package diamond.model.fold;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,6 +38,27 @@ public class Cp extends Flat {
 		super();
 		CpBuilder.buildSquare(this, scale);
 		this.eps = scale / 300;
+	}
+
+	public void save(
+			CpSave save) {
+		try {
+			save.save(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void restore(
+			CpSave save) {
+		Cp restored = save.restore();
+		this.faces = restored.faces;
+		this.symbols = restored.symbols;
+		this.baseFace = restored.baseFace;
+		this.eps = restored.eps;
+		segments.clear();
+		buildSegments();
+		rebuild();
 	}
 
 	public void rebuild() {

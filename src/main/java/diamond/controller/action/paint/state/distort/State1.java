@@ -6,6 +6,7 @@ package diamond.controller.action.paint.state.distort;
 
 import diamond.controller.action.paint.state.LazyStatebase;
 import diamond.controller.action.paint.state.PaintStateBase;
+import diamond.view.ui.screen.PaintScreen;
 
 /**
  * @author Kei Morisue
@@ -21,6 +22,12 @@ public class State1 extends LazyStatebase {
 	@Override
 	protected PaintStateBase getPrevState() {
 		return new State0();
+	}
+
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+
 	}
 
 }

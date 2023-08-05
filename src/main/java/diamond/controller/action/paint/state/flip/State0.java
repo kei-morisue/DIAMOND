@@ -64,4 +64,10 @@ public class State0 extends FindingState0Base {
 			PaintScreen screen) {
 	}
 
+	@Override
+	protected void onSave(
+			PaintScreen screen) {
+		save(screen);
+	}
+
 }

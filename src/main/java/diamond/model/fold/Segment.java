@@ -4,7 +4,6 @@
  */
 package diamond.model.fold;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public abstract class Segment extends Line implements Serializable, Renderable {
+public abstract class Segment extends Line implements Renderable {
 	public static final int NONE = 0;
 	public static final int MOUNTAIN = 1;
 	public static final int VALLEY = -1;

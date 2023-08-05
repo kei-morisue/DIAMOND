@@ -4,6 +4,7 @@
  */
 package diamond.model.fold;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +23,7 @@ import diamond.model.XY;
  * @author Kei Morisue
  *
  */
-public class Line {
+public class Line implements Serializable {
 	protected Vertex v0;
 	protected Vertex v1;
 

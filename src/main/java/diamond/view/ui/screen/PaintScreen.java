@@ -10,6 +10,8 @@ import diamond.controller.action.paint.PaintAction;
 import diamond.controller.action.paint.state.distort.State0;
 import diamond.controller.action.screen.PaintScreenAction;
 import diamond.model.fold.Cp;
+import diamond.model.fold.CpHistory;
+import diamond.model.fold.CpSave;
 import diamond.model.fold.Diagram;
 import diamond.view.draw.CpDrawer;
 import diamond.view.draw.DrawerBase;
@@ -21,7 +23,7 @@ import diamond.view.draw.DrawerBase;
 public class PaintScreen extends ScreenBase {
 	private Diagram diagram;
 	private ModelScreen modelScreen;
-
+	private CpHistory history = new CpHistory();
 	private DrawerBase drawer = new CpDrawer();
 
 	private PaintAction paintAction = new PaintAction(new State0());
@@ -59,11 +61,37 @@ public class PaintScreen extends ScreenBase {
 		return modelScreen;
 	}
 
+	public void reset() {
+		history.reset();
+	}
+
+	private void restore(
+			CpSave save) {
+		diagram.getCp().restore(save);
+	}
+
+	public boolean undo() {
+		restore(history.undo());
+		paintAction.onRefresh(this);
+		return history.canUndo();
+	}
+
+	public void redo() {
+		restore(history.redo());
+		paintAction.onRefresh(this);
+	}
+
+	public void save() {
+		CpSave save = new CpSave();
+		getCp().save(save);
+		history.record(save);
+	}
+
 	public Cp getCp() {
 		return diagram.getCp();
 	}
 
-	public Diagram getPalette() {
-		return diagram;
+	public int getStepNo() {
+		return diagram.getStepNo();
 	}
 }

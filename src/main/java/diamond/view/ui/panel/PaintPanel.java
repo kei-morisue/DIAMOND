@@ -13,9 +13,7 @@ import javax.swing.JRadioButton;
 
 import diamond.controller.action.paint.PaintAction;
 import diamond.controller.action.paint.PaintActionBuilder;
-import diamond.model.fold.Diagram;
 import diamond.view.button.PaintButton;
-import diamond.view.ui.screen.ModelScreen;
 import diamond.view.ui.screen.PaintScreen;
 
 /**
@@ -28,9 +26,9 @@ public class PaintPanel extends JPanel {
 	private JPanel control2 = new JPanel();
 	private ButtonGroup buttonGroup;
 
-	public PaintPanel(Diagram diagram, ModelScreen modelScreen,
+	public PaintPanel(PaintScreen paintScreen,
 			ButtonGroup buttonGroup) {
-		this.paintScreen = new PaintScreen(diagram, modelScreen);
+		this.paintScreen = paintScreen;
 		this.buttonGroup = buttonGroup;
 		setLayout(new BorderLayout());
 		add(paintScreen, BorderLayout.CENTER);

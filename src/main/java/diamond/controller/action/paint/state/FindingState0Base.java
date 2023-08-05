@@ -32,6 +32,7 @@ public abstract class FindingState0Base extends FindingStateBase {
 		}
 		screen.getCp().remove(segment);
 		refresh(screen);
+		onSave(screen);
 		return true;
 	}
 }

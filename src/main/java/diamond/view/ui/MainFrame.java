@@ -12,10 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import diamond.model.fold.Diagram;
+import diamond.view.ui.menu.Edit;
 import diamond.view.ui.menu.File;
 import diamond.view.ui.panel.PaintPanel;
 import diamond.view.ui.panel.StepPanel;
 import diamond.view.ui.screen.ModelScreen;
+import diamond.view.ui.screen.PaintScreen;
 import diamond.view.util.Icon;
 import diamond.view.util.Label;
 
@@ -30,9 +32,9 @@ public class MainFrame extends JFrame {
 	private ModelScreen modelScreen = new ModelScreen();
 
 	private ButtonGroup paintButtons = new ButtonGroup();
-
+	private PaintScreen paintScreen = new PaintScreen(diagram, modelScreen);
 	private PaintPanel paintPanel
-			= new PaintPanel(diagram, modelScreen, paintButtons);
+			= new PaintPanel(paintScreen, paintButtons);
 	private StepPanel stepPanel = new StepPanel(diagram, modelScreen);
 
 	public MainFrame() {
@@ -58,6 +60,7 @@ public class MainFrame extends JFrame {
 	private void buildMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(new File(diagram));
+		menuBar.add(new Edit(paintScreen));
 		setJMenuBar(menuBar);
 	}
 
