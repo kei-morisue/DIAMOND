@@ -23,14 +23,16 @@ import diamond.view.draw.DrawerBase;
 public class PaintScreen extends ScreenBase {
 	private Diagram diagram;
 	private ModelScreen modelScreen;
-	private CpHistory history = new CpHistory();
+	private CpHistory history;
 	private DrawerBase drawer = new CpDrawer();
 
 	private PaintAction paintAction = new PaintAction(new State0());
 
-	public PaintScreen(Diagram diagram, ModelScreen modelScreen) {
+	public PaintScreen(Diagram diagram, ModelScreen modelScreen,
+			CpHistory history) {
 		this.diagram = diagram;
 		this.modelScreen = modelScreen;
+		this.history = history;
 		modelScreen.link(this);
 		PaintScreenAction paintScreenAction = new PaintScreenAction(this);
 		addMouseMotionListener(paintScreenAction);
@@ -76,9 +78,10 @@ public class PaintScreen extends ScreenBase {
 		return history.canUndo();
 	}
 
-	public void redo() {
+	public boolean redo() {
 		restore(history.redo());
 		paintAction.onRefresh(this);
+		return history.canRedo();
 	}
 
 	public void save() {

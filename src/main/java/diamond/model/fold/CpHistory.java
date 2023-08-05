@@ -4,6 +4,8 @@
  */
 package diamond.model.fold;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,7 +21,7 @@ import java.util.zip.InflaterInputStream;
  *
  */
 public class CpHistory {
-
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	byte[] current;
 	Deque<byte[]> future = new ArrayDeque<>();
 
@@ -28,6 +30,11 @@ public class CpHistory {
 	int undoTotal = 50; // Number of times you can undo up to how many times ago
 						// is increased automatically up to UNDO_TOTAL_MAX if
 						// enough ram is available
+
+	public void addPropertyChangeListener(
+			PropertyChangeListener propertyChangeListener) {
+		this.pcs.addPropertyChangeListener(propertyChangeListener);
+	}
 
 	public boolean canRedo() {
 		return !future.isEmpty();
@@ -54,6 +61,7 @@ public class CpHistory {
 		while (history.size() > undoTotal) {
 			history.removeLast();
 		}
+		this.pcs.firePropertyChange(null, null, null);
 	}
 
 	public CpSave redo() {
@@ -63,6 +71,7 @@ public class CpHistory {
 
 		history.addFirst(current);
 		current = future.removeFirst();
+		this.pcs.firePropertyChange(null, null, null);
 		return getCurrent();
 	}
 
@@ -70,6 +79,7 @@ public class CpHistory {
 		history.clear();
 		future.clear();
 		current = null;
+		this.pcs.firePropertyChange(null, null, null);
 	}
 
 	public CpSave undo() {
@@ -78,6 +88,7 @@ public class CpHistory {
 		}
 		future.addFirst(current);
 		current = history.removeFirst();
+		this.pcs.firePropertyChange(null, null, null);
 		return getCurrent();
 	}
 

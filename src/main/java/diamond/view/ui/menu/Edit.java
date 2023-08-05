@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import diamond.model.fold.CpHistory;
 import diamond.view.ui.screen.PaintScreen;
 import diamond.view.util.Label;
 
@@ -21,42 +22,54 @@ import diamond.view.util.Label;
  */
 public class Edit extends JMenu {
 	private PaintScreen paintScreen;
+	private CpHistory history;
+	private JMenuItem undo = new JMenuItem(Label.get("main_menu_edit_undo"));
+	private JMenuItem redo = new JMenuItem(Label.get("main_menu_edit_redo"));
 
-	public Edit(PaintScreen paintScreen) {
+	public Edit(PaintScreen paintScreen, CpHistory history) {
 		super(Label.get("main_menu_edit"));
 		this.paintScreen = paintScreen;
-		add(buildUndo());
-		add(buildRedo());
+		this.history = history;
+		buildUndo();
+		buildRedo();
+		add(undo);
+		add(redo);
+		history.addPropertyChangeListener(e -> setData());
 	}
 
-	private JMenuItem buildUndo() {
-		JMenuItem item = new JMenuItem(Label.get("main_menu_edit_undo"));
-		item.setAccelerator(
+	private void setData() {
+		undo.setEnabled(history.canUndo());
+		redo.setEnabled(history.canRedo());
+	}
+
+	private void buildUndo() {
+		undo.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
-		item.addActionListener(new UndoAction(item));
-		return item;
+		undo.addActionListener(new UndoRedoAction(false));
 	}
 
-	private JMenuItem buildRedo() {
-		JMenuItem item = new JMenuItem(Label.get("main_menu_edit_redo"));
-		item.setAccelerator(
+	private void buildRedo() {
+		redo.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
-		return item;
+		redo.addActionListener(new UndoRedoAction(true));
 	}
 
-	private class UndoAction implements ActionListener {
-		private JMenuItem item;
+	private class UndoRedoAction implements ActionListener {
+		private boolean isRedo;
 
-		public UndoAction(JMenuItem item) {
+		public UndoRedoAction(boolean isRedo) {
 			super();
-			this.item = item;
+			this.isRedo = isRedo;
 		}
 
 		@Override
 		public void actionPerformed(
 				ActionEvent e) {
-			boolean canUndo = paintScreen.undo();
-			item.setEnabled(canUndo);
+			if (isRedo) {
+				paintScreen.redo();
+			} else {
+				paintScreen.undo();
+			}
 		}
 
 	}
