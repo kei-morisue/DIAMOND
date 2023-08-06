@@ -37,6 +37,10 @@ public class ModelScreen extends ScreenBase {
 		paintScreen.repaint();
 	}
 
+	public void save() {
+		paintScreen.save();
+	}
+
 	public void link(
 			PaintScreen paintScreen) {
 		this.paintScreen = paintScreen;

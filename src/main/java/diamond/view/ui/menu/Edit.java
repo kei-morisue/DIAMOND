@@ -34,10 +34,10 @@ public class Edit extends JMenu {
 		buildRedo();
 		add(undo);
 		add(redo);
-		history.addPropertyChangeListener(e -> setData());
+		history.addPropertyChangeListener(e -> setEnabled());
 	}
 
-	private void setData() {
+	private void setEnabled() {
 		undo.setEnabled(history.canUndo());
 		redo.setEnabled(history.canRedo());
 	}

@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
 			= new PaintScreen(diagram, modelScreen, history);
 	private PaintPanel paintPanel
 			= new PaintPanel(paintScreen, paintButtons);
-	private StepPanel stepPanel = new StepPanel(diagram, modelScreen);
+	private StepPanel stepPanel = new StepPanel(diagram, modelScreen, history);
 
 	public MainFrame() {
 		setVisible(true);
@@ -51,6 +51,7 @@ public class MainFrame extends JFrame {
 		buildMenu();
 
 		buildPanel();
+		paintScreen.save();
 	}
 
 	private void buildPanel() {
