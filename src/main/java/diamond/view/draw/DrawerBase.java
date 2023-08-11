@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -90,7 +91,7 @@ public abstract class DrawerBase {
 		return res;
 	}
 
-	public final ArrayList<XY> getXY(
+	public ArrayList<XY> getXY(
 			Face face) {
 		ArrayList<XY> res = new ArrayList<XY>();
 		face.forVertices(v -> {
@@ -99,7 +100,7 @@ public abstract class DrawerBase {
 		return res;
 	}
 
-	public final void draw(
+	public void draw(
 			Graphics2D g2d,
 			Vertex vertex,
 			double scale) {
@@ -112,7 +113,7 @@ public abstract class DrawerBase {
 		g2d.fill(s);
 	}
 
-	public final void draw(
+	public void draw(
 			Graphics2D g2d,
 			Edge edge,
 			double scale) {
@@ -121,9 +122,11 @@ public abstract class DrawerBase {
 		g2d.setStroke(stroke);
 		g2d.setColor(getColor(edge));
 		g2d.draw(s);
+		edge.getV0().accept(this, g2d, scale);
+		edge.getV1().accept(this, g2d, scale);
 	}
 
-	public final void draw(
+	public void draw(
 			Graphics2D g2d,
 			Crease crease,
 			double scale) {
@@ -132,6 +135,8 @@ public abstract class DrawerBase {
 		g2d.setStroke(stroke);
 		g2d.setColor(getColor(crease));
 		g2d.draw(s);
+		crease.getV0().accept(this, g2d, scale);
+		crease.getV1().accept(this, g2d, scale);
 	}
 
 	protected Shape getShape(
@@ -140,13 +145,24 @@ public abstract class DrawerBase {
 		return SegmentShape.getShape(crease, scale, this);
 	}
 
-	public final void draw(
+	public void draw(
 			Graphics2D g2d,
 			Face face,
+			Collection<SymbolBase> symbols,
 			double scale) {
 		g2d.setColor(getColor(face));
 		Shape path = FaceShape.getShape(face, scale, this);
 		g2d.fill(path);
+		face.forEdges(edge -> {
+			edge.accept(this, g2d, scale);
+		});
+		face.forCreases(crease -> {
+			crease.accept(this, g2d, scale);
+		});
+		symbols.forEach(symbol -> {
+			symbol.accept(this, g2d, scale);
+		});
+
 	}
 
 	public void draw(

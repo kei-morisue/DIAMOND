@@ -56,9 +56,30 @@ public class Cp extends Flat {
 		this.symbols = restored.symbols;
 		this.baseFace = restored.baseFace;
 		this.eps = restored.eps;
+		vertices.clear();
+		buildVertices();
 		segments.clear();
 		buildSegments();
-		rebuild();
+		vertices.forEach(v -> v.initAdj());
+		faces.forEach(face -> {
+			face.forEdges(edge -> {
+				Vertex v0 = edge.getV0();
+				Vertex v1 = edge.getV1();
+				v0.addAdj(v1);
+
+				v0.putEdge(v1, edge);
+				v1.putEdge(v0, edge);
+			});
+			face.forCreases(crease -> {
+				Vertex v0 = crease.getV0();
+				Vertex v1 = crease.getV1();
+				v0.addAdj(v1);
+
+				v0.putCrease(v1, crease);
+				v1.putCrease(v0, crease);
+			});
+		});
+		vertices.forEach(v -> v.sortAdj());
 	}
 
 	public void rebuild() {

@@ -70,9 +70,9 @@ public final class ArrowMV extends SymbolBase {
 	@Override
 	public void flip() {
 		isBackward = !isBackward;
-		if (isBackward) {
+		if (!isBackward) {
 			isClockwise = !isClockwise;
-			if (isClockwise) {
+			if (!isClockwise) {
 				isMountain = !isMountain;
 			}
 		}

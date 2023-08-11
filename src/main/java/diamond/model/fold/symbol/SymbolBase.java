@@ -5,6 +5,7 @@
 package diamond.model.fold.symbol;
 
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.util.List;
 
 import diamond.model.fold.Face;
@@ -14,7 +15,7 @@ import diamond.view.draw.DrawerBase;
  * @author Kei Morisue
  *
  */
-public abstract class SymbolBase {
+public abstract class SymbolBase implements Serializable {
 
 	public abstract Face getLayer(
 			List<Face> faces);

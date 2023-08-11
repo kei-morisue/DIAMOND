@@ -29,8 +29,8 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 	private ArrayList<Crease> creases = new ArrayList<Crease>();
 
 	public boolean isFlip;
-	transient public boolean isFolded;
-	transient private boolean isPicked;
+	transient public boolean isFolded = false;
+	transient private boolean isPicked = false;
 
 	public Face(ArrayList<Vertex> vertices) {
 		super();
@@ -150,16 +150,7 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 			Graphics2D g2d,
 			double scale,
 			Collection<SymbolBase> symbols) {
-		drawer.draw(g2d, this, scale);
-		edges.forEach(edge -> {
-			edge.accept(drawer, g2d, scale);
-		});
-		creases.forEach(crease -> {
-			crease.accept(drawer, g2d, scale);
-		});
-		symbols.forEach(symbol -> {
-			symbol.accept(drawer, g2d, scale);
-		});
+		drawer.draw(g2d, this, symbols, scale);
 	};
 
 	@Override

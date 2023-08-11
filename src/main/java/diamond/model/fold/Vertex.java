@@ -23,14 +23,15 @@ import diamond.view.draw.DrawerBase;
 public class Vertex extends XY implements Serializable, Renderable {
 	public XY f;
 	public XY d;
-	transient private boolean isFoldable;
-	transient private boolean isPicked;
+	private boolean isFoldable = false;
+	transient private boolean isPicked = false;
 
 	transient private ArrayList<Vertex> adj = new ArrayList<Vertex>();
 	transient private HashMap<Vertex, Edge> edgesMap
 			= new HashMap<Vertex, Edge>();
 
-	private HashMap<Vertex, Crease> creasesMap = new HashMap<Vertex, Crease>();
+	transient private HashMap<Vertex, Crease> creasesMap
+			= new HashMap<Vertex, Crease>();
 
 	public Vertex(XY v) {
 		super(v.x, v.y);
@@ -92,6 +93,14 @@ public class Vertex extends XY implements Serializable, Renderable {
 			XY f) {
 		this.f = f;
 		initD();
+	}
+
+	public void initAdj() {
+		this.adj = new ArrayList<Vertex>();
+		edgesMap
+				= new HashMap<Vertex, Edge>();
+		creasesMap
+				= new HashMap<Vertex, Crease>();
 	}
 
 	public boolean isOnEdge() {

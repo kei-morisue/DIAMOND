@@ -4,10 +4,12 @@
  */
 package diamond.model.fold;
 
+import java.awt.Graphics2D;
 import java.util.Collection;
 import java.util.List;
 
 import diamond.model.XY;
+import diamond.view.draw.DrawerBase;
 
 /**
  * @author Kei Morisue
@@ -36,6 +38,11 @@ public abstract class Segment extends Line implements Renderable {
 	public abstract Segment getFlip();
 
 	public abstract boolean isEdge();
+
+	public abstract void accept(
+			DrawerBase drawer,
+			Graphics2D g2d,
+			double scale);
 
 	public abstract Face getTopFace(
 			List<Face> faces);

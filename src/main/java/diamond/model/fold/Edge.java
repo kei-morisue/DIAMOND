@@ -71,13 +71,12 @@ public class Edge extends Segment implements Serializable {
 		edges.add(new Edge(v0, v1, a));
 	}
 
+	@Override
 	public void accept(
 			DrawerBase drawer,
 			Graphics2D g2d,
 			double scale) {
 		drawer.draw(g2d, this, scale);
-		v0.accept(drawer, g2d, scale);
-		v1.accept(drawer, g2d, scale);
 	};
 
 	public boolean isBoundary() {
