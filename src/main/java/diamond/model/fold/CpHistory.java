@@ -6,15 +6,11 @@ package diamond.model.fold;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.zip.DeflaterOutputStream;
-import java.util.zip.InflaterInputStream;
+
+import diamond.model.fold.util.BytesUtil;
 
 /**
  * @author Kei Morisue
@@ -50,7 +46,7 @@ public class CpHistory {
 			history.addFirst(current);
 		updateUndoTotal();
 		try {
-			current = convertToBytes(s0);
+			current = BytesUtil.convertToBytes(s0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,36 +88,13 @@ public class CpHistory {
 		return getCurrent();
 	}
 
-	private Object convertFromBytes(
-			byte[] bytes)
-			throws IOException,
-			ClassNotFoundException {
-		try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-				InflaterInputStream decomp = new InflaterInputStream(bis);
-				ObjectInputStream in = new ObjectInputStream(decomp)) {
-			return in.readObject();
-		}
-	}
-
-	private byte[] convertToBytes(
-			Object object)
-			throws IOException {
-		try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				DeflaterOutputStream comp = new DeflaterOutputStream(bos);
-				ObjectOutputStream out = new ObjectOutputStream(comp)) {
-			out.writeObject(object);
-			out.close();
-			return bos.toByteArray();
-		}
-	}
-
 	private CpSave getCurrent() {
 		if (current == null) {
 			return new CpSave();
 		}
 
 		try {
-			return (CpSave) convertFromBytes(current);
+			return (CpSave) BytesUtil.convertFromBytes(current);
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return new CpSave();
