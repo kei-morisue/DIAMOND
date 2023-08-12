@@ -46,6 +46,11 @@ public class Face implements Comparable<Face>, Serializable, Renderable {
 		}
 	}
 
+	public void restore() {
+		edges.forEach(edge -> edge.restore());
+		creases.forEach(crease -> crease.restore());
+	}
+
 	private void add(
 			Edge edge) {
 		edges.add(edge);

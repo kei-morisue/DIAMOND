@@ -62,6 +62,12 @@ public class Edge extends Segment implements Serializable {
 		return f1;
 	}
 
+	public void restore() {
+		v0.addAdj(v1);
+		v0.put(v1, this);
+		v1.put(v0, this);
+	}
+
 	@Override
 	public void add(
 			Vertex v0,

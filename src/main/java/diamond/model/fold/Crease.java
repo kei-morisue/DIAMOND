@@ -36,6 +36,12 @@ public class Crease extends Segment implements Serializable {
 		return face;
 	}
 
+	public void restore() {
+		v0.addAdj(v1);
+		v0.put(v1, this);
+		v1.put(v0, this);
+	}
+
 	@Override
 	public void flip() {
 		a = ((a + 2) % 3) - 1;

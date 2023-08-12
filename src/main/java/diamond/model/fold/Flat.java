@@ -62,8 +62,8 @@ public abstract class Flat implements Serializable {
 			XY c = crease.centroid();
 			Vertex v0 = crease.getV0();
 			Vertex v1 = crease.getV1();
-			v0.putCrease(v1, crease);
-			v1.putCrease(v0, crease);
+			v0.put(v1, crease);
+			v1.put(v0, crease);
 			Face face = findFace(crease, c);
 			if (face != null) {
 				face.add(crease);
@@ -149,8 +149,8 @@ public abstract class Flat implements Serializable {
 		edges.forEach(e -> {
 			Vertex v0 = e.getV0();
 			Vertex v1 = e.getV1();
-			v0.putEdge(v1, e);
-			v1.putEdge(v0, e);
+			v0.put(v1, e);
+			v1.put(v0, e);
 		});
 	}
 

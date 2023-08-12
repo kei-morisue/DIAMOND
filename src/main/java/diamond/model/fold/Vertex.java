@@ -190,7 +190,7 @@ public class Vertex extends XY implements Serializable, Renderable {
 		return creasesMap.get(v);
 	}
 
-	public void putEdge(
+	public void put(
 			Vertex vertex,
 			Edge edge) {
 		if (!adj.contains(vertex)) {
@@ -199,7 +199,7 @@ public class Vertex extends XY implements Serializable, Renderable {
 		edgesMap.put(vertex, edge);
 	}
 
-	public void putCrease(
+	public void put(
 			Vertex vertex,
 			Crease crease) {
 		if (!adj.contains(vertex)) {

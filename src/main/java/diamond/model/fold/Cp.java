@@ -27,7 +27,7 @@ public class Cp extends Flat {
 	transient private Set<Segment> segments = new HashSet<Segment>();
 	private HashMap<Renderable, SymbolBase> symbols = new HashMap<>();
 	private Face baseFace;
-	public double eps;
+	private double eps;
 
 	public Cp(Cp cp) {
 		super();
@@ -58,28 +58,11 @@ public class Cp extends Flat {
 		this.eps = restored.eps;
 		vertices.clear();
 		buildVertices();
+		vertices.forEach(v -> v.initAdj());
+		faces.forEach(face -> face.restore());
+		vertices.forEach(v -> v.sortAdj());
 		segments.clear();
 		buildSegments();
-		vertices.forEach(v -> v.initAdj());
-		faces.forEach(face -> {
-			face.forEdges(edge -> {
-				Vertex v0 = edge.getV0();
-				Vertex v1 = edge.getV1();
-				v0.addAdj(v1);
-
-				v0.putEdge(v1, edge);
-				v1.putEdge(v0, edge);
-			});
-			face.forCreases(crease -> {
-				Vertex v0 = crease.getV0();
-				Vertex v1 = crease.getV1();
-				v0.addAdj(v1);
-
-				v0.putCrease(v1, crease);
-				v1.putCrease(v0, crease);
-			});
-		});
-		vertices.forEach(v -> v.sortAdj());
 	}
 
 	public void rebuild() {
