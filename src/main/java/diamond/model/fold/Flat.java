@@ -34,9 +34,8 @@ public abstract class Flat implements Serializable {
 			Collection<Edge> edges,
 			Collection<Crease> creases) {
 		HashSet<Vertex> vertices = buildVertices(edges);
-		buildVV(vertices, edges);
+		buildVVnVE(vertices, edges);
 		buildFaces(vertices);
-		buildVE(edges);
 		buildFEnEF(edges);
 		buildFCnVC(vertices, creases);
 	}
@@ -57,17 +56,16 @@ public abstract class Flat implements Serializable {
 			Collection<Vertex> vertices,
 			Collection<Crease> creases) {
 
-		setAdj(vertices, creases);
 		creases.forEach(crease -> {
+			Vertex.put(crease);
 			XY c = crease.centroid();
-			Vertex v0 = crease.getV0();
-			Vertex v1 = crease.getV1();
-			v0.put(v1, crease);
-			v1.put(v0, crease);
 			Face face = findFace(crease, c);
 			if (face != null) {
 				face.add(crease);
 			}
+		});
+		vertices.forEach(v -> {
+			v.sortAdj();
 		});
 	}
 
@@ -83,19 +81,11 @@ public abstract class Flat implements Serializable {
 		return null;
 	}
 
-	private void buildVV(
+	private void buildVVnVE(
 			Collection<Vertex> vertices,
 			Collection<Edge> edges) {
-		setAdj(vertices, edges);
-	}
-
-	private <T extends Segment> void setAdj(
-			Collection<Vertex> vertices,
-			Collection<T> segments) {
-		segments.forEach(e -> {
-			Vertex v0 = e.getV0();
-			Vertex v1 = e.getV1();
-			v0.addAdj(v1);
+		edges.forEach(edge -> {
+			Vertex.put(edge);
 		});
 		vertices.forEach(v -> {
 			v.sortAdj();
@@ -142,16 +132,6 @@ public abstract class Flat implements Serializable {
 			}
 		});// boundary has f0 as f1
 
-	}
-
-	private void buildVE(
-			Collection<Edge> edges) {
-		edges.forEach(e -> {
-			Vertex v0 = e.getV0();
-			Vertex v1 = e.getV1();
-			v0.put(v1, e);
-			v1.put(v0, e);
-		});
 	}
 
 	public void forFaces(

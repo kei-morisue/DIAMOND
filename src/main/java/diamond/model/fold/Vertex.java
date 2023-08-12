@@ -190,21 +190,23 @@ public class Vertex extends XY implements Serializable, Renderable {
 		return creasesMap.get(v);
 	}
 
-	public void put(
-			Vertex vertex,
+	public static void put(
 			Edge edge) {
-		if (!adj.contains(vertex)) {
-			return;
-		}
-		edgesMap.put(vertex, edge);
+		Vertex v0 = edge.getV0();
+		Vertex v1 = edge.getV1();
+		v0.adj.add(v1);
+		v1.adj.add(v0);
+		v0.edgesMap.put(v1, edge);
+		v1.edgesMap.put(v0, edge);
 	}
 
-	public void put(
-			Vertex vertex,
+	public static void put(
 			Crease crease) {
-		if (!adj.contains(vertex)) {
-			return;
-		}
-		creasesMap.put(vertex, crease);
+		Vertex v0 = crease.getV0();
+		Vertex v1 = crease.getV1();
+		v0.adj.add(v1);
+		v1.adj.add(v0);
+		v0.creasesMap.put(v1, crease);
+		v1.creasesMap.put(v0, crease);
 	}
 }
