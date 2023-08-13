@@ -147,12 +147,6 @@ public class Vertex extends XY implements Serializable, Renderable {
 		return new Tuple<Vertex>(adj.get(0), adj.get(1));
 	}
 
-	public void addAdj(
-			Vertex v) {
-		v.adj.add(this);
-		this.adj.add(v);
-	}
-
 	public void sortAdj() {
 		adj.sort(this.new AngleComparator());
 	}

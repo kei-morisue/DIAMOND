@@ -27,9 +27,14 @@ import diamond.view.ui.screen.PaintScreen;
 public class State1 extends FindingStateBase {
 
 	private Vertex v0;
-	public static double DELTA = Math.PI / 8;
+	public static int DELTA_NUM = 8;
 	private XY point;
 	private XY extended;
+
+	private static double delta() {
+		return Math.PI / DELTA_NUM;
+
+	}
 
 	public State1(Vertex v0) {
 		this.v0 = v0;
@@ -59,7 +64,7 @@ public class State1 extends FindingStateBase {
 			XY p) {
 		super.findCtrl(screen, p);
 		XY p0 = v0;
-		double angle = Math.round(p0.dir(p).angle() / DELTA) * DELTA;
+		double angle = Math.round(p0.dir(p).angle() / delta()) * delta();
 		Dir dir0 = new Dir(angle);
 		double s = dir0.dot(p0.dir(p));
 		this.point = dir0.mul(s).ver(p0);

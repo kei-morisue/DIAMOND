@@ -21,7 +21,11 @@ import diamond.view.draw.shape.SegmentShape;
  */
 public class ModelDrawer extends DrawerBase {
 
-	public static double CLIP = 0.9;
+	public static int CLIP = 90;
+
+	private static double clip() {
+		return CLIP / 100.0;
+	}
 
 	@Override
 	public XY getXY(
@@ -39,7 +43,7 @@ public class ModelDrawer extends DrawerBase {
 	protected Shape getShape(
 			Crease crease,
 			double scale) {
-		return SegmentShape.getShape(crease, scale, CLIP, this);
+		return SegmentShape.getShape(crease, scale, clip(), this);
 	}
 
 	@Override

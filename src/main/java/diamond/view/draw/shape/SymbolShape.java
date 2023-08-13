@@ -20,8 +20,8 @@ import diamond.view.draw.DrawerBase;
  */
 public class SymbolShape {
 	public static double RADIUS_CIRCLE = 30.0;
-	public static double SIZE_ARROW_HEAD = 60.0;
-	public static double CURTOSIS_ARROW_HEAD = Math.PI / 14;
+	public static int SIZE_ARROW_HEAD = 60;
+	public static int CURTOSIS_ARROW_HEAD = 14;
 
 	public static Ellipse2D.Double getShape(
 			Circle circle,
@@ -57,9 +57,9 @@ public class SymbolShape {
 		XY head = th[1];
 		XY c = arrowMV.getControlPoint(tail, head);
 		double theta = head.dir(c).angle();
-		Dir d0 = new Dir(CURTOSIS_ARROW_HEAD + theta)
+		Dir d0 = new Dir(Math.PI / CURTOSIS_ARROW_HEAD + theta)
 				.mul(SIZE_ARROW_HEAD / scale);
-		Dir d1 = new Dir(-CURTOSIS_ARROW_HEAD + theta)
+		Dir d1 = new Dir(-Math.PI / CURTOSIS_ARROW_HEAD + theta)
 				.mul(SIZE_ARROW_HEAD / scale);
 		XY a = d0.ver(head);
 		XY b = d1.ver(head);

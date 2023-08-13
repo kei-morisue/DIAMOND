@@ -18,7 +18,7 @@ import diamond.view.ui.screen.PaintScreen;
  *
  */
 public class State0 extends FindingFaceStateBase {
-	private XY point;
+	private XY point = new XY(0.0, 0.0);
 
 	@Override
 	protected PaintStateBase getNextState() {
