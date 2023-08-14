@@ -15,12 +15,14 @@ import diamond.model.fold.CpSave;
 import diamond.model.fold.Diagram;
 import diamond.view.draw.CpDrawer;
 import diamond.view.draw.DrawerBase;
+import diamond.view.util.ScreenTransform;
 
 /**
  * @author Kei Morisue
  *
  */
 public class PaintScreen extends ScreenBase {
+	private ScreenTransform transform;
 	private Diagram diagram;
 	private ModelScreen modelScreen;
 	private CpHistory history;
@@ -30,6 +32,7 @@ public class PaintScreen extends ScreenBase {
 
 	public PaintScreen(Diagram diagram, ModelScreen modelScreen,
 			CpHistory history) {
+		this.transform = new ScreenTransform(getWidth(), getHeight());
 		this.diagram = diagram;
 		this.modelScreen = modelScreen;
 		this.history = history;
@@ -96,5 +99,10 @@ public class PaintScreen extends ScreenBase {
 
 	public int getStepNo() {
 		return diagram.getStepNo();
+	}
+
+	@Override
+	public ScreenTransform getTransform() {
+		return transform;
 	}
 }

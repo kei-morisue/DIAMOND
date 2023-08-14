@@ -19,24 +19,17 @@ import diamond.view.util.ScreenTransform;
  *
  */
 public abstract class ScreenBase extends JPanel {
-	protected ScreenTransform transform;
 	BufferedImage bufferImage;
 	Graphics2D g2d;
 
-	public ScreenTransform getTransform() {
-		return transform;
-	}
+	public abstract ScreenTransform getTransform();
 
 	public double getScale() {
-		return transform.getScale();
+		return getTransform().getScale();
 	}
 
 	abstract public void drawComponents(
 			Graphics2D g2d);
-
-	public ScreenBase() {
-		this.transform = new ScreenTransform(getWidth(), getHeight());
-	}
 
 	@Override
 	public void paintComponent(
@@ -59,6 +52,7 @@ public abstract class ScreenBase extends JPanel {
 		int width = getWidth();
 		int height = getHeight();
 		g2d.fillRect(0, 0, width, height);
+		ScreenTransform transform = getTransform();
 		transform.focus(getWidth(), getHeight());
 		g2d.setTransform(transform);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -67,20 +61,20 @@ public abstract class ScreenBase extends JPanel {
 
 	public void zoom(
 			double zoom) {
-		transform.zoom(zoom);
+		getTransform().zoom(zoom);
 		repaint();
 	}
 
 	public void shift(
 			double dx,
 			double dy) {
-		transform.shift(dx, dy);
+		getTransform().shift(dx, dy);
 		repaint();
 	}
 
 	public void rotate(
 			double theta) {
-		transform.rotate(theta);
+		getTransform().rotate(theta);
 		repaint();
 	}
 }

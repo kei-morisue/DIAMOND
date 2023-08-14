@@ -17,6 +17,7 @@ import diamond.model.fold.Diagram;
 import diamond.view.ui.menu.Edit;
 import diamond.view.ui.menu.File;
 import diamond.view.ui.menu.Option;
+import diamond.view.ui.menu.Run;
 import diamond.view.ui.panel.PaintPanel;
 import diamond.view.ui.panel.StepPanel;
 import diamond.view.ui.screen.ModelScreen;
@@ -68,6 +69,7 @@ public class MainFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(new File(diagram));
 		menuBar.add(new Edit(paintScreen, history));
+		menuBar.add(new Run(paintScreen));
 		menuBar.add(new Option(paintScreen));
 		setJMenuBar(menuBar);
 	}

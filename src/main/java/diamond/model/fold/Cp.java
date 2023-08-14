@@ -17,6 +17,7 @@ import diamond.model.Geo;
 import diamond.model.Tuple;
 import diamond.model.XY;
 import diamond.model.fold.symbol.SymbolBase;
+import diamond.view.util.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -28,10 +29,12 @@ public class Cp extends Flat {
 	private HashMap<Renderable, SymbolBase> symbols = new HashMap<>();
 	private Face baseFace;
 	private double eps;
+	private ScreenTransform screenTransform = new ScreenTransform(0, 0);
 
 	public Cp(Cp cp) {
 		super();
 		rebuild(cp.segments);
+		this.screenTransform = new ScreenTransform(cp.screenTransform);
 	}
 
 	public Cp(double scale) {
@@ -56,6 +59,7 @@ public class Cp extends Flat {
 		this.symbols = restored.symbols;
 		this.baseFace = restored.baseFace;
 		this.eps = restored.eps;
+		this.screenTransform = restored.screenTransform;
 		vertices.clear();
 		buildVertices();
 		vertices.forEach(v -> v.initAdj());
@@ -260,6 +264,10 @@ public class Cp extends Flat {
 			Face baseFace) {
 		this.baseFace = baseFace;
 		fold();
+	}
+
+	public ScreenTransform getScreenTransform() {
+		return screenTransform;
 	}
 
 	public void put(

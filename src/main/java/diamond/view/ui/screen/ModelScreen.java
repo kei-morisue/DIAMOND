@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import diamond.controller.action.screen.ScreenAction;
 import diamond.view.draw.ModelDrawer;
 import diamond.view.draw.StringDrawer;
+import diamond.view.util.ScreenTransform;
 
 /**
  * @author Kei Morisue
@@ -45,5 +46,11 @@ public class ModelScreen extends ScreenBase {
 			PaintScreen paintScreen) {
 		this.paintScreen = paintScreen;
 
+	}
+
+	@Override
+	public ScreenTransform getTransform() {
+		ScreenTransform transform = paintScreen.getCp().getScreenTransform();
+		return transform;
 	}
 }
