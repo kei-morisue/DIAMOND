@@ -25,6 +25,7 @@ import diamond.model.fold.symbol.ArrowMV;
 import diamond.model.fold.symbol.Circle;
 import diamond.model.fold.symbol.SymbolBase;
 import diamond.view.draw.shape.FaceShape;
+import diamond.view.draw.shape.Konst;
 import diamond.view.draw.shape.SegmentShape;
 import diamond.view.draw.shape.SymbolShape;
 import diamond.view.draw.shape.VertexShape;
@@ -195,7 +196,9 @@ public abstract class DrawerBase {
 			ArrowMV arrowMV,
 			double scale) {
 		g2d.setColor(Color.BLACK);
-		g2d.setStroke(new BasicStroke((float) (3 / scale)));
+		g2d.setStroke(
+				new BasicStroke(
+						(float) (Konst.ARROW_WIDTH_PCT / 100.0 / scale)));
 		Shape shape = SymbolShape.getBodyShape(arrowMV, scale, this);
 		g2d.draw(shape);
 	}
@@ -205,8 +208,11 @@ public abstract class DrawerBase {
 			ArrowMV arrowMV,
 			double scale,
 			boolean isMountain) {
-		g2d.setStroke(new BasicStroke((float) (3 / scale)));
-		Shape shape = SymbolShape.getHeadShape(arrowMV, scale, this);
+		g2d.setStroke(
+				new BasicStroke(
+						(float) (Konst.ARROW_WIDTH_PCT / 100.0 / scale)));
+		Shape shape
+				= SymbolShape.getHeadShape(arrowMV, isMountain, scale, this);
 		g2d.setColor(isMountain ? Color.WHITE : Color.BLACK);
 		g2d.fill(shape);
 		g2d.setColor(Color.BLACK);

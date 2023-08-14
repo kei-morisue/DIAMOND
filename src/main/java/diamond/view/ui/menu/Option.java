@@ -13,6 +13,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import diamond.Config;
+import diamond.view.ui.panel.OptionFace;
 import diamond.view.ui.panel.OptionLine;
 import diamond.view.ui.screen.PaintScreen;
 import diamond.view.util.Label;
@@ -42,16 +44,18 @@ public class Option extends JMenu {
 	private class StyleDialog extends JDialog {
 		private JTabbedPane tabbedPane = new JTabbedPane();
 		private JPanel line = new OptionLine();
+		private JPanel face = new OptionFace();
 
 		public StyleDialog() {
 			super();
 			setTitle(Label.get("style_title"));
 			setModal(true);
-			setSize(500, 500);
+			setSize(Config.STYLE_DIALOG_WIDTH, Config.STYLE_DIALOG_HEIGHT);
 			setLocationRelativeTo(null);
 
 			getContentPane().add(tabbedPane);
 			tabbedPane.addTab(Label.get("style_line"), line);
+			tabbedPane.addTab(Label.get("style_face"), face);
 		}
 
 	}

@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import diamond.Config;
 import diamond.model.fold.CpHistory;
 import diamond.model.fold.Diagram;
 import diamond.view.ui.menu.Edit;
@@ -29,7 +30,7 @@ import diamond.view.util.Label;
  */
 public class MainFrame extends JFrame {
 	// TODO STUB
-	private Diagram diagram = new Diagram(400.0);
+	private Diagram diagram = new Diagram(Config.PAPER_SIZE);
 
 	private ModelScreen modelScreen = new ModelScreen();
 

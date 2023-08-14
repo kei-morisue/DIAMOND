@@ -13,6 +13,7 @@ import diamond.model.fold.Crease;
 import diamond.model.fold.Edge;
 import diamond.model.fold.Face;
 import diamond.model.fold.Vertex;
+import diamond.view.draw.shape.Konst;
 import diamond.view.draw.shape.SegmentShape;
 
 /**
@@ -21,10 +22,8 @@ import diamond.view.draw.shape.SegmentShape;
  */
 public class ModelDrawer extends DrawerBase {
 
-	public static int CLIP = 90;
-
 	private static double clip() {
-		return CLIP / 100.0;
+		return Konst.CLIP / 100.0;
 	}
 
 	@Override
@@ -50,7 +49,7 @@ public class ModelDrawer extends DrawerBase {
 	protected Color getColor(
 			Face face) {
 		return face.isPicked() ? Color.GREEN
-				: face.isFlip ? Color.GRAY : Color.WHITE;
+				: face.isFlip ? Konst.FACE_FRONT : Konst.FACE_BACK;
 	}
 
 	@Override

@@ -17,8 +17,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import diamond.controller.action.paint.state.angle.State1;
-import diamond.view.draw.ModelDrawer;
-import diamond.view.draw.shape.SymbolShape;
+import diamond.view.draw.shape.Konst;
 import diamond.view.util.Label;
 
 /**
@@ -28,18 +27,22 @@ import diamond.view.util.Label;
 public class OptionLine extends JPanel {
 
 	public OptionLine() {
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(6, 1));
 
 		try {
-			addSpin("clipping_scale", ModelDrawer.class, "CLIP", 100, 50,
+			addSpin("clipping_scale", Konst.class, "CLIP", 100, 50,
 					90, 5);
-			addSpin("curtosis_arrow", SymbolShape.class, "CURTOSIS_ARROW_HEAD",
-					14, 5,
+			addSpin("curtosis_arrow", Konst.class, "CURTOSIS_ARROW_HEAD",
+					20, 5,
 					14, 1);
-			addSpin("size_arrow", SymbolShape.class, "SIZE_ARROW_HEAD",
-					60, 10,
+			addSpin("arrow_size", Konst.class, "SIZE_ARROW_HEAD",
+					100, 10,
 					60, 5);
-			addSpin("input_angle", State1.class, "DELTA_NUM", 20, 2,
+			addSpin("arrow_body_width", Konst.class,
+					"ARROW_WIDTH_PCT",
+					600, 50,
+					300, 50);
+			addSpin("angle_grid", State1.class, "DELTA_NUM", 20, 2,
 					8, 1);
 		} catch (NoSuchFieldException | SecurityException
 				| IllegalArgumentException | IllegalAccessException e) {

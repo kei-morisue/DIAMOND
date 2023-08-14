@@ -17,6 +17,7 @@ import diamond.model.fold.Face;
 import diamond.model.fold.Segment;
 import diamond.model.fold.Vertex;
 import diamond.view.draw.shape.FaceShape;
+import diamond.view.draw.shape.Konst;
 
 /**
  * @author Kei Morisue
@@ -62,7 +63,7 @@ public class CpDrawer extends DrawerBase {
 	@Override
 	protected Color getColor(
 			Face face) {
-		return face.isPicked() ? Color.GREEN : Color.WHITE;
+		return face.isPicked() ? Color.GREEN : Konst.FACE_BACK;
 	}
 
 	@Override

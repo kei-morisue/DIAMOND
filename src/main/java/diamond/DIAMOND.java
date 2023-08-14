@@ -1,6 +1,5 @@
 package diamond;
 
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -13,9 +12,11 @@ public class DIAMOND {
 			String[] args) {
 		setDarkmode();
 		MainFrame mainFrame = new MainFrame();
-//		mainFrame.setSize(Config.MAIN_FRAME_WIDTH, Config.MAIN_FRAME_HEIGHT);
-//		mainFrame.setLocation(900, 500);
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		mainFrame.setSize(
+				Config.MAIN_FRAME_WIDTH,
+				Config.MAIN_FRAME_HEIGHT);
+		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 	}
 
