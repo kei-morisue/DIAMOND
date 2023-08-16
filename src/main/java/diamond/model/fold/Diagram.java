@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class Diagram {
 
 	private LinkedList<Cp> cps = new LinkedList<Cp>();
-	private int currentCp;
+	private int currentIdx;
 
 	public Diagram(double size) {
 		Cp cp = new Cp(size);
@@ -22,18 +22,18 @@ public class Diagram {
 
 	public void insert() {
 		Cp cp = getCp();
-		cps.add(currentCp + 1, new Cp(cp));
-		++currentCp;
+		cps.add(currentIdx + 1, new Cp(cp));
+		++currentIdx;
 	}
 
 	public void remove() {
 		Cp cp = getCp();
 		cps.remove(cp);
-		currentCp = currentCp >= cps.size() - 1 ? cps.size() - 1 : currentCp;
+		currentIdx = currentIdx >= cps.size() - 1 ? cps.size() - 1 : currentIdx;
 	}
 
 	public int getStepNo() {
-		return currentCp + 1;
+		return currentIdx + 1;
 
 	}
 
@@ -42,23 +42,28 @@ public class Diagram {
 	}
 
 	public Cp getCp() {
-		return cps.get(currentCp);
+		return cps.get(currentIdx);
+	}
+
+	public Cp getCp(
+			int j) {
+		return cps.get(j);
 	}
 
 	public void next() {
-		currentCp = currentCp == cps.size() - 1 ? currentCp : currentCp + 1;
+		currentIdx = currentIdx == cps.size() - 1 ? currentIdx : currentIdx + 1;
 	}
 
 	public void last() {
-		currentCp = cps.size() - 1;
+		currentIdx = cps.size() - 1;
 	}
 
 	public void prev() {
-		currentCp = currentCp == 0 ? currentCp : currentCp - 1;
+		currentIdx = currentIdx == 0 ? currentIdx : currentIdx - 1;
 	}
 
 	public void first() {
-		currentCp = 0;
+		currentIdx = 0;
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import diamond.controller.action.io.ExportAction;
+import diamond.controller.action.io.ExportDmdAction;
 import diamond.controller.action.io.LoadAction;
 import diamond.model.fold.Diagram;
 import diamond.view.util.Label;
@@ -56,7 +56,7 @@ public class File extends JMenu {
 	private JMenuItem buildSave(
 			Diagram diagram) {
 		JMenuItem item = new JMenuItem(Label.get("main_menu_file_save"));
-		item.addActionListener(new ExportAction(diagram, this));
+		item.addActionListener(new ExportDmdAction(diagram, item));
 		item.setAccelerator(
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		return item;

@@ -31,6 +31,9 @@ public class OptionFace extends JPanel {
 		JButton faceBack = new JButton(faceBackLabel);
 		faceFront.setBackground(Konst.FACE_FRONT);
 		faceBack.setBackground(Konst.FACE_BACK);
+
+		faceFront.setForeground(Color.BLACK);
+		faceBack.setForeground(Color.BLACK);
 		faceFront.addActionListener(new FaceColorAction(faceFront, true));
 		faceBack.addActionListener(new FaceColorAction(faceBack, false));
 		setLayout(new GridLayout(2, 1));

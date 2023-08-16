@@ -101,6 +101,10 @@ public class PaintScreen extends ScreenBase {
 		return diagram.getStepNo();
 	}
 
+	public Diagram getDiagram() {
+		return diagram;
+	}
+
 	@Override
 	public ScreenTransform getTransform() {
 		return transform;

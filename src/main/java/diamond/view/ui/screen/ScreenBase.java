@@ -39,10 +39,14 @@ public abstract class ScreenBase extends JPanel {
 				BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) bufferImage.getGraphics();
 
-		drawBackGround(g2d, Color.lightGray);
+		drawBackGround(g2d, getBG());
 		drawComponents(g2d);
 
 		g.drawImage(bufferImage, 0, 0, this);
+	}
+
+	protected Color getBG() {
+		return Color.lightGray;
 	}
 
 	protected void drawBackGround(

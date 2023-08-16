@@ -12,6 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import diamond.model.fold.Diagram;
+import diamond.view.ui.PreviewFrame;
+import diamond.view.ui.panel.Preview;
 import diamond.view.ui.screen.PaintScreen;
 import diamond.view.util.Label;
 
@@ -39,6 +42,13 @@ public class Run extends JMenu {
 			@Override
 			public void actionPerformed(
 					ActionEvent e) {
+				Diagram diagram = paintScreen.getDiagram();
+				Preview preview = new Preview(diagram);
+				PreviewFrame frame
+						= new PreviewFrame(
+								paintScreen,
+								preview);
+				frame.setVisible(true);
 			}
 		});
 		return item;

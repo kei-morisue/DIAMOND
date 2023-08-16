@@ -21,5 +21,9 @@ public class Konst {
 
 	public static Color FACE_FRONT = Color.GRAY;
 	public static Color FACE_BACK = Color.WHITE;
+	public static Color PREVIEW_BG = new Color(153, 204, 234);
+
+	public static int PREV_ROW = 2;
+	public static int PREV_COL = 2;
 
 }

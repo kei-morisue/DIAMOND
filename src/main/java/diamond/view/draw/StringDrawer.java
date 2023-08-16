@@ -32,7 +32,15 @@ public class StringDrawer {
 			int x,
 			int y) {
 		g2d.setFont(FONT_FOLDED_STEP);
-		g2d.setColor(COLOR);
+		draw(g2d, step, x, y);
+	}
+
+	public static void drawPreviewStepNo(
+			Graphics2D g2d,
+			int step,
+			int x,
+			int y) {
+		g2d.setFont(FONT_DIAGRAM_STEP);
 		draw(g2d, step, x, y);
 	}
 
@@ -41,6 +49,7 @@ public class StringDrawer {
 			int step,
 			int x,
 			int y) {
+		g2d.setColor(COLOR);
 		AffineTransform tmpTransform = g2d.getTransform();
 		g2d.setTransform(new AffineTransform());
 		g2d.drawString(String.valueOf(step), 10 + x,
