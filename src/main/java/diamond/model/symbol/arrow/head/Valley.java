@@ -18,37 +18,41 @@ import diamond.view.ui.screen.draw.G2DUtil;
  *
  */
 public class Valley extends AbstractArrowHead {
-    public static final double kurtosis = Math.PI / 7;
-    private final static double size = 30.0;
-    static private final Color COLOR_BODY = Color.black;
+	public static final double kurtosis = Math.PI / 5;
+	private final static double size = 30.0;
+	static private final Color COLOR_BODY = Color.black;
 
-    @Override
-    public void draw(Graphics2D g2d, Double tail, Double head,
-            AbstractArrowBody body, boolean isSelected) {
-        GeneralPath path = new GeneralPath();
-        AffineTransform affineTransform = new AffineTransform();
-        Double position = (isTail) ? tail : head;
-        affineTransform.translate(position.x, position.y);
-        if (isTail) {
-            affineTransform.rotate(body.getTailAngle(tail, head));
-        } else {
-            affineTransform.rotate(body.getHeadAngle(tail, head));
-        }
-        double scale = G2DUtil.getScale(g2d);
-        Double o = new Double(size / scale, 0);
-        Double p = new Double(-size / scale, size / scale * Math.sin(kurtosis));
-        Double q = new Double(-size / scale,
-                -size / scale * Math.sin(kurtosis));
+	@Override
+	public void draw(
+			Graphics2D g2d,
+			Double tail,
+			Double head,
+			AbstractArrowBody body,
+			boolean isSelected) {
+		GeneralPath path = new GeneralPath();
+		AffineTransform affineTransform = new AffineTransform();
+		Double position = (isTail) ? tail : head;
+		affineTransform.translate(position.x, position.y);
+		if (isTail) {
+			affineTransform.rotate(body.getTailAngle(tail, head));
+		} else {
+			affineTransform.rotate(body.getHeadAngle(tail, head));
+		}
+		double scale = G2DUtil.getScale(g2d);
+		Double o = new Double(size / scale, 0);
+		Double p = new Double(-size / scale, size / scale * Math.sin(kurtosis));
+		Double q = new Double(-size / scale,
+				-size / scale * Math.sin(kurtosis));
 
-        affineTransform.transform(o, o);
-        affineTransform.transform(p, p);
-        affineTransform.transform(q, q);
-        path.moveTo(o.x, o.y);
-        path.lineTo(p.x, p.y);
-        path.lineTo(q.x, q.y);
-        path.closePath();
-        g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_BODY);
-        g2d.fill(path);
-    }
+		affineTransform.transform(o, o);
+		affineTransform.transform(p, p);
+		affineTransform.transform(q, q);
+		path.moveTo(o.x, o.y);
+		path.lineTo(p.x, p.y);
+		path.lineTo(q.x, q.y);
+		path.closePath();
+		g2d.setColor(isSelected ? COLOR_SELECTED : COLOR_BODY);
+		g2d.fill(path);
+	}
 
 }
