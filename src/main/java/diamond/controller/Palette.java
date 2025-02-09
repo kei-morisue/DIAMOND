@@ -24,21 +24,13 @@ public class Palette {
 	private PageStyle pageStyle = new PageStyle();
 
 	public Palette() {
-		Cp cp = CpBuilder.buildSquare();
+		Cp cp = CpBuilder.buildPolygon(4);
 		Folder.fold(cp);
 		cps.add(cp);
 	}
 
-	public Palette(int i) {
-		Cp cp = null;
-		switch (i) {
-		case 6:
-			cp = CpBuilder.buildHex();
-			break;
-		default:
-			cp = CpBuilder.buildSquare();
-		}
-
+	public Palette(int n) {
+		Cp cp = CpBuilder.buildPolygon(n);
 		Folder.fold(cp);
 		cps.add(cp);
 	}
@@ -55,7 +47,8 @@ public class Palette {
 		return this.cps;
 	}
 
-	public void setCps(Vector<Cp> cps) {
+	public void setCps(
+			Vector<Cp> cps) {
 		this.cps = cps;
 	}
 
@@ -65,7 +58,8 @@ public class Palette {
 	}
 
 	@Deprecated
-	public void setFaceStyle(FaceStyle faceStyle) {
+	public void setFaceStyle(
+			FaceStyle faceStyle) {
 		this.faceStyle = faceStyle;
 	}
 
@@ -75,7 +69,8 @@ public class Palette {
 	}
 
 	@Deprecated
-	public void setHalfEdgeStyle(HalfEdgeStyle halfEdgeStyle) {
+	public void setHalfEdgeStyle(
+			HalfEdgeStyle halfEdgeStyle) {
 		this.halfEdgeStyle = halfEdgeStyle;
 	}
 
@@ -85,7 +80,8 @@ public class Palette {
 	}
 
 	@Deprecated
-	public void setPageStyle(PageStyle pageStyle) {
+	public void setPageStyle(
+			PageStyle pageStyle) {
 		this.pageStyle = pageStyle;
 	}
 }

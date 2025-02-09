@@ -30,15 +30,22 @@ public class MenuFile extends JMenu {
 		add(buildSave(context));
 	}
 
-	private JMenuItem buildNew(Context context) {
+	private JMenuItem buildNew(
+			Context context) {
 		JMenuItem menu = new JMenu(Labels.get("main_menu_file_new"));
-		JMenuItem item_square = new JMenuItem(Labels.get("main_menu_file_new_square"));
-		JMenuItem item_hex = new JMenuItem(Labels.get("main_menu_file_new_hex"));
+		JMenuItem item_square
+				= new JMenuItem(Labels.get("main_menu_file_new_square"));
+		JMenuItem item_hex
+				= new JMenuItem(Labels.get("main_menu_file_new_hex"));
+		JMenuItem item_pent
+				= new JMenuItem(Labels.get("main_menu_file_new_pent"));
 		menu.add(item_square);
 		menu.add(item_hex);
+		menu.add(item_pent);
 		item_square.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(
+					ActionEvent e) {
 				context.initialize();
 				context.setPalette(new Palette());
 				context.setCurrentStep(0);
@@ -48,28 +55,44 @@ public class MenuFile extends JMenu {
 
 		item_hex.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(
+					ActionEvent e) {
 				context.initialize();
 				context.setPalette(new Palette(6));
 				context.setCurrentStep(0);
 				context.repaint();
 			}
 		});
-		item_square.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		item_pent.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(
+					ActionEvent e) {
+				context.initialize();
+				context.setPalette(new Palette(5));
+				context.setCurrentStep(0);
+				context.repaint();
+			}
+		});
+		item_square.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		return menu;
 	}
 
-	private JMenuItem buildOpen(Context context) {
+	private JMenuItem buildOpen(
+			Context context) {
 		JMenuItem item = new JMenuItem(Labels.get("main_menu_file_open"));
 		item.addActionListener(new LoadAction(context, this));
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		item.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		return item;
 	}
 
-	private JMenuItem buildSave(Context context) {
+	private JMenuItem buildSave(
+			Context context) {
 		JMenuItem item = new JMenuItem(Labels.get("main_menu_file_save"));
 		item.addActionListener(new ExportDmdAction(context, this));
-		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		item.setAccelerator(
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		return item;
 	}
 }

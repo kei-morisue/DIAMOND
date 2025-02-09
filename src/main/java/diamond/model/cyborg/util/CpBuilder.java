@@ -25,39 +25,10 @@ import diamond.view.ui.screen.ScreenTransform;
  *
  */
 public class CpBuilder {
-	public static Cp buildSquare() {
-		Cp cp = new Cp();
-		double size = Config.PAPER_SIZE;
-		Vertex v0 = new Vertex(size, size);
-		Vertex v1 = new Vertex(-size, size);
-		Vertex v2 = new Vertex(-size, -size);
-		Vertex v3 = new Vertex(size, -size);
 
-		HalfEdge he0 = new HalfEdge(v0, v1, EdgeType.CUT);
-		HalfEdge he1 = new HalfEdge(v1, v2, EdgeType.CUT);
-		HalfEdge he2 = new HalfEdge(v2, v3, EdgeType.CUT);
-		HalfEdge he3 = new HalfEdge(v3, v0, EdgeType.CUT);
-
-		Face f0 = new Face();
-		cp.getFaces().add(f0);
-		f0.add(he0);
-		f0.add(he1);
-		f0.add(he2);
-		f0.add(he3);
-
-		he0.connectTo(he1);
-		he1.connectTo(he2);
-		he2.connectTo(he3);
-		he3.connectTo(he0);
-
-		he0.getPair().connectTo(he3.getPair());
-		he3.getPair().connectTo(he2.getPair());
-		he2.getPair().connectTo(he1.getPair());
-		he1.getPair().connectTo(he0.getPair());
-		return cp;
-	}
-
-	public static Cp buildNext(Context context, Cp cp0) {
+	public static Cp buildNext(
+			Context context,
+			Cp cp0) {
 		Cp cp1 = copyCp(cp0);
 
 		Folder.fold(cp1);
@@ -65,12 +36,15 @@ public class CpBuilder {
 		return cp1;
 	}
 
-	public static Cp buildUnfoldedNext(Context context, Cp cp0) {
+	public static Cp buildUnfoldedNext(
+			Context context,
+			Cp cp0) {
 		Cp cp1 = copyCp(cp0);
 		cp1.getFaces().forEach(face -> {
 			face.getUnsettledLines().forEach(he -> {
 				EdgeType type = he.getType();
-				if (type == EdgeType.UNSETTLED_MOUNTAIN || type == EdgeType.UNSETTLED_VALLEY) {
+				if (type == EdgeType.UNSETTLED_MOUNTAIN
+						|| type == EdgeType.UNSETTLED_VALLEY) {
 					he.setType(EdgeType.CREASE);
 				}
 			});
@@ -80,13 +54,16 @@ public class CpBuilder {
 		return cp1;
 	}
 
-	public static Cp buildFoldedNext(Context context, Cp cp0) {
+	public static Cp buildFoldedNext(
+			Context context,
+			Cp cp0) {
 		Cp cp1 = copyCp(cp0);
 		ArrayDeque<HalfEdge> queue = new ArrayDeque<HalfEdge>();
 		cp1.getFaces().forEach(face -> {
 			face.getUnsettledLines().forEach(he -> {
 				EdgeType type = he.getType();
-				if (type == EdgeType.UNSETTLED_MOUNTAIN || type == EdgeType.UNSETTLED_VALLEY) {
+				if (type == EdgeType.UNSETTLED_MOUNTAIN
+						|| type == EdgeType.UNSETTLED_VALLEY) {
 					queue.add(he);
 				}
 			});
@@ -98,7 +75,9 @@ public class CpBuilder {
 		return cp1;
 	}
 
-	private static void settle(ArrayDeque<HalfEdge> queue, Cp cp) {
+	private static void settle(
+			ArrayDeque<HalfEdge> queue,
+			Cp cp) {
 		HalfEdge failed = null;
 		HashSet<HalfEdge> settled = new HashSet<HalfEdge>();
 		while (queue.size() > 0 && (queue.peek() != failed)) {
@@ -122,46 +101,39 @@ public class CpBuilder {
 		}
 	}
 
-	public static Cp buildHex() {
+	public static Cp buildPolygon(
+			int n) {
 		Cp cp = new Cp();
 		double size = Config.PAPER_SIZE;
-		Vertex v0 = new Vertex(size, 0);
-		double r3 = Math.sqrt(3);
-		Vertex v1 = new Vertex(size / 2, size * r3 / 2);
-		Vertex v2 = new Vertex(-size / 2, size * r3 / 2);
-		Vertex v3 = new Vertex(-size, 0);
-		Vertex v4 = new Vertex(-size / 2, -size * r3 / 2);
-		Vertex v5 = new Vertex(size / 2, -size * r3 / 2);
+		ArrayList<Vertex> vs = new ArrayList<Vertex>();
 
-		HalfEdge he0 = new HalfEdge(v0, v1, EdgeType.CUT);
-		HalfEdge he1 = new HalfEdge(v1, v2, EdgeType.CUT);
-		HalfEdge he2 = new HalfEdge(v2, v3, EdgeType.CUT);
-		HalfEdge he3 = new HalfEdge(v3, v4, EdgeType.CUT);
-		HalfEdge he4 = new HalfEdge(v4, v5, EdgeType.CUT);
-		HalfEdge he5 = new HalfEdge(v5, v0, EdgeType.CUT);
+		double angle0 = -Math.PI / n;
+		for (int i = 0; i < n; i++) {
+			angle0 += Math.PI / n * 2;
+			vs.add(new Vertex(size * Math.cos(angle0),
+					size * Math.sin(angle0)));
+		}
+
+		Vertex v0 = vs.get(vs.size() - 1);
+		ArrayList<HalfEdge> hes = new ArrayList<HalfEdge>();
+		for (int i = 0; i < n; i++) {
+			Vertex v = vs.get(i);
+			HalfEdge he = new HalfEdge(v0, v, EdgeType.CUT);
+			hes.add(he);
+			v0 = v;
+		}
 
 		Face f0 = new Face();
 		cp.getFaces().add(f0);
-		f0.add(he0);
-		f0.add(he1);
-		f0.add(he2);
-		f0.add(he3);
-		f0.add(he4);
-		f0.add(he5);
 
-		he0.connectTo(he1);
-		he1.connectTo(he2);
-		he2.connectTo(he3);
-		he3.connectTo(he4);
-		he4.connectTo(he5);
-		he5.connectTo(he0);
-
-		he0.getPair().connectTo(he5.getPair());
-		he5.getPair().connectTo(he4.getPair());
-		he4.getPair().connectTo(he3.getPair());
-		he3.getPair().connectTo(he2.getPair());
-		he2.getPair().connectTo(he1.getPair());
-		he1.getPair().connectTo(he0.getPair());
+		HalfEdge he0 = hes.get(hes.size() - 1);
+		for (int i = 0; i < n; i++) {
+			HalfEdge he = hes.get(i);
+			f0.add(he);
+			he0.connectTo(he);
+			he.getPair().connectTo(he0.getPair());
+			he0 = he;
+		}
 
 		return cp;
 	}
@@ -210,7 +182,8 @@ public class CpBuilder {
 		return cp;
 	}
 
-	private static Cp copyCp(Cp cp0) {
+	private static Cp copyCp(
+			Cp cp0) {
 		Cp cp1 = new Cp();
 		cp1.setTransform(new ScreenTransform(cp0.getTransform()));
 		HashMap<Vertex, Vertex> vMap = new HashMap<Vertex, Vertex>();
@@ -225,7 +198,9 @@ public class CpBuilder {
 		return cp1;
 	}
 
-	private static Face buildFace(HashMap<Vertex, Vertex> vMap, Face f0) {
+	private static Face buildFace(
+			HashMap<Vertex, Vertex> vMap,
+			Face f0) {
 		Face f1 = new Face();
 		f1.getProperty().setDisabled(f0.getProperty().isDisabled());
 		for (HalfEdge he : f0.getUnsettledLines()) {
@@ -246,7 +221,9 @@ public class CpBuilder {
 		return f1;
 	}
 
-	private static HalfEdge buildHalfEdge(HashMap<Vertex, Vertex> vMap, HalfEdge he) {
+	private static HalfEdge buildHalfEdge(
+			HashMap<Vertex, Vertex> vMap,
+			HalfEdge he) {
 		Vertex v0 = buildVertex(vMap, he.getV0());
 		Vertex v1 = buildVertex(vMap, he.getV1());
 		HalfEdge he1;
@@ -258,7 +235,9 @@ public class CpBuilder {
 		return he1;
 	}
 
-	private static Vertex buildVertex(HashMap<Vertex, Vertex> vMap, Vertex v) {
+	private static Vertex buildVertex(
+			HashMap<Vertex, Vertex> vMap,
+			Vertex v) {
 		if (!vMap.containsKey(v)) {
 			Vertex v0 = new Vertex(v);
 			v0.setOffset(new Point2D.Double(0.0, 0.0));
