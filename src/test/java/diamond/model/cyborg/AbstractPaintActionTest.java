@@ -14,11 +14,11 @@ import diamond.view.ui.screen.FoldedScreen;
  *
  */
 public abstract class AbstractPaintActionTest {
-    protected Context context = new Context();
-    protected static final double l = Config.PAPER_SIZE;
+	protected Context context = new Context();
+	protected static final double l = Config.PAPER_SIZE / Math.sqrt(2);
 
-    protected AbstractPaintActionTest() {
-        new East(context);
-        new FoldedScreen(context);
-    }
+	protected AbstractPaintActionTest() {
+		new East(context);
+		new FoldedScreen(context);
+	}
 }
